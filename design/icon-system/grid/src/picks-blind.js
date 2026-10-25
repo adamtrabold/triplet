@@ -6,7 +6,7 @@
 //
 // Coordinates as picks7: the 12-unit box scaled by s (u = s / 12), y down, px for thicknesses (never scaled).
 'use strict';
-const { R, C, D, I, cut } = require('./engine.js');
+const { R, C, D, I, A, O, cut } = require('./engine.js');
 const { PROP, LINE } = require('./proportions.js');
 const T = v => Math.round(v * 3) / 3;            // the 1/3px lattice (Step 3)
 const Tup = v => Math.ceil(v * 3 - 1e-6) / 3;     // the first lattice line at or past v (spec gap 3)
@@ -109,4 +109,19 @@ function person2(slot = 24, rx = 7) {
   ];
 }
 
-module.exports = { bed, person, bed2, person2 };
+// g7bb THE PERSON BY ITS JOB (PROP.classByJob): the account button is a control, so the person is an OPEN mark: the same roots as
+// person2 (the head a circle half as wide as the shoulders, a cut between; the shoulders the top half of a 5/6 ellipse, PROP.person3),
+// each drawn as a stroke of the open line: the shoulders an arc whose free ends stand cut square on the baseline, the head a ring. rx: the shoulders' outer half width
+// (box units), set by the open fit (blind.js openFit); drawn in its own 24 box at its slot.
+function person3(slot = 24, rx = 6.6) {
+  const P = PROP.person3, L = PROP.line, k = 24 / slot, w = PROP.open.line * LINE * k, cutW = L.cut * LINE * k;
+  const Rh = P.head * rx, ry = P.shoulders * rx, total = ry + cutW + 2 * Rh, cx = 12;
+  const yb = T(12 + total / 2), hy = yb - ry - cutW - Rh;
+  return [
+    D(topHalf(cx, yb, rx, ry), { root: 'ELLIPSE', name: 'shoulders (a stroke, free ends)', cap: { cx, cy: yb, rx, ry } }),
+    cut(D(ellipse(cx, yb, rx - w, ry - w), { root: 'ELLIPSE', name: 'inside the shoulders stroke' })),
+    O(cx, hy, Rh - w / 2, w, { root: 'CIRCLE', name: 'head (a ring)' }),
+  ];
+}
+
+module.exports = { bed, person, bed2, person2, person3 };

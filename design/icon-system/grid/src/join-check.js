@@ -59,7 +59,18 @@ function check(d) {
       const pts = []; let L = 0, prev = null;
       for (const s of run) for (let k = 0; k <= 60; k++) { const t = k / 60, q = [bz(s.P, t, 0), bz(s.P, t, 1)]; if (prev) L += Math.hypot(q[0] - prev[0], q[1] - prev[1]); prev = q; pts.push({ L, k: kAt(s.P, t), q }); }
       // HUMP: a bend beside another peak on the same side, a near-flat valley between
-      const ext = []; for (let k = 1; k < pts.length - 1; k++) { const a = Math.abs(pts[k - 1].k), b = Math.abs(pts[k].k), c2 = Math.abs(pts[k + 1].k); if (b > a && b >= c2) ext.push({ k, t: 'max' }); if (b < a && b <= c2) ext.push({ k, t: 'min' }); }
+      // g7bb (turn 161, jitter check): a peak or a valley counts only once the bend has turned back from it by more than noise
+      // (0.02 + 3% of it). Read sample by sample, a hair of mismatch where two pieces meet (0.871 then 0.869, then rising into the
+      // next round) was a "peak" of 0.87 beside a "valley", a HUMP that came and went with a 0.01px nudge
+      const ext = []; { const A_ = k => Math.abs(pts[k].k), tolX = v => 0.02 + 0.03 * v; let dir = 0, cand = 0;
+        for (let k = 1; k < pts.length; k++) {
+          if (dir >= 0 && A_(k) >= A_(cand)) { if (dir === 0 && A_(k) > A_(cand) + tolX(A_(cand))) dir = 1; cand = k; continue; }
+          if (dir <= 0 && A_(k) <= A_(cand)) { if (dir === 0 && A_(k) < A_(cand) - tolX(A_(cand))) dir = -1; cand = k; continue; }
+          if (dir === 1 && A_(k) < A_(cand) - tolX(A_(cand))) { if (cand > 0) ext.push({ k: cand, t: 'max' }); dir = -1; cand = k; }
+          else if (dir === -1 && A_(k) > A_(cand) + tolX(A_(cand))) { if (cand > 0) ext.push({ k: cand, t: 'min' }); dir = 1; cand = k; }
+          else if (dir === 0) cand = k;
+        }
+        if (cand > 0 && cand < pts.length - 1) ext.push({ k: cand, t: dir === 1 ? 'max' : 'min' }); }
       for (let e = 1; e < ext.length - 1; e++) {
         if (ext[e].t !== 'min' || ext[e - 1].t !== 'max' || ext[e + 1].t !== 'max') continue;
         const A = pts[ext[e - 1].k], V = pts[ext[e].k], B = pts[ext[e + 1].k];

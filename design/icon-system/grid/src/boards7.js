@@ -619,7 +619,7 @@ const VESSEL_ROOT = { bowlRoot: 7 / 8, bowlWide: true, bowlSplit: 'even', cupRoo
 // on its plinth, a tree on its trunk) is not lifted: the eye measures its clearance, top and bottom. No lattice snap: the
 // position is the optical one, exactly (the 1/3px lattice could leave a drawing up to 1/6px off it).
 const opticalY = m => m.box.cy - 0.5 * Math.max(0, m.box.cy - m.cy);
-const shiftD = (d, dy) => { let k = 0; return d.replace(/[MLCZ]|-?\d*\.?\d+(?:e-?\d+)?/g, t => { if (/[MLCZ]/.test(t)) { k = 0; return t; } const v = (k++ % 2) ? +(+t + dy).toFixed(5) : +t; return `${v}`; }).replace(/([0-9])(-)/g, '$1 $2'); };
+const shiftD = (d, dy) => { let k = 0; return d.replace(/[MLCZ]|-?\d*\.?\d+(?:e-?\d+)?/g, t => { if (/[MLCZ]/.test(t)) { k = 0; return t; } const v = (k++ % 2) ? +(+t + dy).toFixed(7) : +t; return `${v}`; }).replace(/([0-9])(-)/g, '$1 $2'); };
 // g7aa (owner on v147: "also the interior counter shape of the coupe *still* does not look right. and there is
 // *still* not enough liquid in the cup how many times do i have to say it"): B's flat bowl, closed by its rim bar,
 // holds less drink than v134 (measured, src/liquid.js). Three ways to give it clearly more, one idea each:
@@ -706,10 +706,11 @@ const HSETS = [
     // g7az THE FIT AS A SOLVE (X.prop): if the passes stop short of the cut on both sides (a lattice step in the way: the cup at v237),
     // the largest size that fits, by halving
     if (X.prop) { const fits = s_ => { const b = measure(E.build(dr(s_), fast).d).box; return { ok: b.x1 - b.x0 <= kw + 1e-3 && b.y1 - b.y0 <= bh + 1e-3, touch: Math.abs(b.x1 - b.x0 - kw) < 5e-3 || Math.abs(b.y1 - b.y0 - bh) < 5e-3 }; };
-      const f0 = fits(s); if (!(f0.ok && f0.touch)) { let lo = f0.ok ? s : s * 0.9, hi = f0.ok ? s * 1.1 : s; for (let k = 0; k < 24; k++) { const m = (lo + hi) / 2; if (fits(m).ok) lo = m; else hi = m; } s = lo; } }
+      const f0 = fits(s); if (!(f0.ok && f0.touch)) { let lo = f0.ok ? s : s * 0.9, hi = f0.ok ? s * 1.1 : s; for (let k = 0; k < 24; k++) { const m = (lo + hi) / 2; if (fits(m).ok) lo = m; else hi = m; } s = lo; }
+      s = E.clearSteps(dr, s).s; }   // g7bb: the size clear of the lattice's steps by a margin (engine.js clearSteps), as construction.js
     const ox = (24 - s) / 2, oy = r3((24 - s) / 2), prims = dr(s), m = measure(E.build(E.xform(prims, 1, 0, 0, ox, oy), opts).d);
     const tx = r4(12 - (m.box.cx + m.cx) / 2), sym = (o.dome || typeof o.under === 'number') && id !== 'cafe' ? ox + tx + s / 2 : undefined;   // g7z: H3's symmetric glyphs mirrored after the law
-    const ty = X.optical ? oy + 12 - opticalY(m) : oy + r3(12 - (m.box.cy + m.cy) / 2), d = E.build(E.xform(prims, 1, 0, 0, ox + tx, ty), { ...opts, sym }).d;
+    const ty = X.optical ? (X.prop ? E.placeOffset : v => v)(oy + 12 - opticalY(m)) : oy + r3(12 - (m.box.cy + m.cy) / 2), d = E.build(E.xform(prims, 1, 0, 0, ox + tx, ty), { ...opts, sym }).d;   // g7bb: R3 under the 1/1000 placement law
     // g7aa: the silhouette (no band, no drink) placed exactly as the glyph is, for the liquid measure
     return withSil ? { d, sil: E.build(E.xform(dr(s, { band: false }), 1, 0, 0, ox + tx, ty), { ...opts, sym }).d } : d;
   };
@@ -718,7 +719,7 @@ const HSETS = [
   // g7ah: o.starTip, the tip-by-edge rule on the star too (its tips are acute tips like the tree's)
   ds.star = X.outline ? starOutline({ ease: ease || undefined, tightHoles: true, join: X.join, law: starTipLaw(o.starTip) }) : bal ? starAt({ ease: ease || undefined, tightHoles: true, join: X.join, ...(o.starTip ? { law: scaled(c => (c.convex && c.angle < 75) ? Math.min(LAWS7.joint(c), o.starTip * Math.min(c.lin, c.lout)) : LAWS7.joint(c), 24 / 20) } : {}) }) : UD.joint.star.d;
   ds.plus = ease ? E.build(plus(26.4, USC.plus, LINEW), { law: scaled(LAWS7.joint, 24 / 26.4), ease, join: X.join }).d : UD.joint.plus.d;
-  if (X.optical) for (const k of ['star', 'plus']) { const m_ = measure(ds[k]); ds[k] = shiftD(ds[k], 12 - opticalY(m_)); }   // g7aq: the marks too, in their own slots
+  if (X.optical) for (const k of ['star', 'plus']) { const m_ = measure(ds[k]); ds[k] = shiftD(ds[k], (X.prop ? E.placeOffset : v => v)(12 - opticalY(m_))); }   // g7aq: the marks too, in their own slots
   const coupes = X.join && X.join.fair ? [] : COUPES.map(([, , co]) => fitPlace('bar', co));   // g7ar: shown only for the first row
   const bar1 = o.bandSide === 'shift' && !(X.join && X.join.fair) ? fitPlace('bar', { bandH: 1 }) : null;   // g7z: the thinner band, for the coupe board
   const silBar = fitPlace('bar', {}, true).sil;   // g7aa: the coupe's silhouette, for the liquid measure

@@ -31,7 +31,7 @@ const HUMAN_V = { flare: 0.5, mass: 0.6, end: 0.3, tipShare: 0.0877 };
 // g7ba: the law from the one table (PROP.rounds; src/rounds-check.js proves it answers as HUMAN(HUMAN_V) and the star's law did)
 const LAW = fromTable(PROP.rounds.shaped), LINE_LAW = fromTable(PROP.rounds.line), FK = 11 / 12;
 const opticalY = m => m.box.cy - 0.5 * Math.max(0, m.box.cy - m.cy);
-const shiftD = (d, dy) => { let k = 0; return d.replace(/[MLCZ]|-?\d*\.?\d+(?:e-?\d+)?/g, t => { if (/[MLCZ]/.test(t)) { k = 0; return t; } const v = (k++ % 2) ? +(+t + dy).toFixed(5) : +t; return `${v}`; }).replace(/([0-9])(-)/g, '$1 $2'); };
+const shiftD = (d, dy) => { let k = 0; return d.replace(/[MLCZ]|-?\d*\.?\d+(?:e-?\d+)?/g, t => { if (/[MLCZ]/.test(t)) { k = 0; return t; } const v = (k++ % 2) ? +(+t + dy).toFixed(7) : +t; return `${v}`; }).replace(/([0-9])(-)/g, '$1 $2'); };
 const LINEW = 5 / 3, OUTLINE_HOLE = 2.5;
 const starHoleRc = (lw = W, holeLines = OUTLINE_HOLE) => (holeLines * lw / 2 + (lw / 2) / Math.sin(3 * Math.PI / 10)) / P7.STAR.ri;
 const starTipLaw = tip => scaled(LINE_LAW, 24 / 20);   // g7ba: the line marks' column of the table (tip share PROP.rounds.line.tipShare = O.starTip)
@@ -58,27 +58,35 @@ const primOut = (q, dx = 0, dy = 0) => { const o = { t: q.t, root: q.root || nul
   if (q.cap) o.cap = { ...q.cap, cx: q.cap.cx + dx, cy: q.cap.cy + dy };   // g7aw: a cap's root ellipse, placed
   if (q.ratio) o.ratio = q.ratio; if (q.t === 'E') { o.w = q.w; o.mirror = q.mirror; o.of = E.parts(q.of).map(p => p.d); o.clip = q.clip ? E.parts([q.clip])[0].d : null; } return o; };
 
-function shaped(id) {
+function shaped(id, J = {}) {
   const opts = { law: LAW, tightHoles: true, ease: EASE, join: JOIN10 }, fast = { ...opts, join: { ...JOIN10, fair: false } };
   const [cls0, apex] = CLASS[id], dr = (s, x = {}) => DRAW[id](s, { style: 'mono', ...O, ...x });
   // g7az: the class by the drawing's proportion at its fitted size (px parts don't scale, so at 12 a drawing reads squatter than shown)
   const fitTo = c => { const kw_ = KEY[c][0] * FK, bh_ = (KEY[c][1] + apex) * FK; let s_ = 12; for (let k = 0; k < 4; k++) { const b = measure(E.build(dr(s_), fast).d).box; s_ *= Math.min(kw_ / (b.x1 - b.x0), bh_ / (b.y1 - b.y0)); } return s_; };
-  const cb = classByProportion(id, () => dr(['WIDE', 'SQUARE', 'TALL'].includes(cls0) ? fitTo(cls0) : 12), fast, apex, cls0), cls = cb.cls, kw = KEY[cls][0] * FK, bh = (KEY[cls][1] + apex) * FK;
+  const cb = J.fit ? J.fit.classFrom : classByProportion(id, () => dr(['WIDE', 'SQUARE', 'TALL'].includes(cls0) ? fitTo(cls0) : 12), fast, apex, cls0), cls = cb.cls, kw = KEY[cls][0] * FK, bh = (KEY[cls][1] + apex) * FK;
   let s = 12; const sizes = [s];
+  if (J.fit) s = J.fit.s; else {
   for (let k = 0; k < 6; k++) { const b = measure(E.build(dr(s), k < 4 ? fast : opts).d).box; s *= Math.min(kw / (b.x1 - b.x0), bh / (b.y1 - b.y0)); sizes.push(s); }
   // g7az THE FIT AS A SOLVE: if the passes stop short of the cut on both sides (a lattice step in the way: the cup at v237), the
   // largest size that fits, by halving
   { const fits = s_ => { const b = measure(E.build(dr(s_), fast).d).box; return { ok: b.x1 - b.x0 <= kw + 1e-3 && b.y1 - b.y0 <= bh + 1e-3, touch: Math.abs(b.x1 - b.x0 - kw) < 5e-3 || Math.abs(b.y1 - b.y0 - bh) < 5e-3 }; };
     const f0 = fits(s); if (!(f0.ok && f0.touch)) { let lo = f0.ok ? s : s * 0.9, hi = f0.ok ? s * 1.1 : s; for (let k = 0; k < 24; k++) { const m = (lo + hi) / 2; if (fits(m).ok) lo = m; else hi = m; } s = lo; sizes.push(s); } }
-  // g7ba: the six are the approved builds, made before the placement law (engine.js placeOffset). LAW1000=1 rebuilds them under it,
-  // for the record (turn 159): they move 0.0001-0.02px and the tree's top tip gains a TAIL, so the six stay as approved; see engine.js.
-  const L3 = process.env.LAW1000 === '1' ? E.placeOffset : v => v;
+  // g7bb: the size clear of the lattice's steps by a margin (engine.js clearSteps; the cup stood on its saucer's step)
+  { const cs_ = E.clearSteps(dr, s); if (cs_.s !== s) { s = cs_.s; sizes.push(s); } }
+  }
+  // g7bb JITTER (src/jitter-check.js): J.ds nudges the solved size, J.dx / J.dy the placement, each by up to 0.02px
+  if (J.ds) s += J.ds;
+  // g7bb: the six come out of the engine as any new icon does, under the placement law (engine.js placeOffset), no longer frozen
+  // (turn 159's TAILs under it were the fair check's foot walk, fixed in fair-check.js; the cup's 0.2px jump was its size on a lattice
+  // step, fixed by clearSteps). LAW1000=0 (or J.law1000 false) builds without the law, for the record.
+  const lawOn = process.env.LAW1000 !== '0' && J.law1000 !== false, L3 = lawOn ? E.placeOffset : v => v;
   const ox = (24 - s) / 2, oy = r3((24 - s) / 2), prims0 = dr(s), m = measure(E.build(E.xform(prims0, 1, 0, 0, ox, oy), opts).d);
-  const tx = r4(12 - (m.box.cx + m.cx) / 2), sym = id !== 'cafe' ? ox + tx + s / 2 : undefined, ty = L3(oy + 12 - opticalY(m));
+  const tx = r4(12 - (m.box.cx + m.cx) / 2) + (J.dx || 0), sym = id !== 'cafe' ? ox + tx + s / 2 : undefined, ty = L3(oy + 12 - opticalY(m)) + (J.dy || 0);
   const prims = E.xform(prims0, 1, 0, 0, ox + tx, ty);
   const laws = [], cornerLog = [];
   const law = c => { const r = LAW(c); laws.push({ pt: c.pt, convex: c.convex, hole: !!c.hole, angle: c.angle, lin: c.lin, lout: c.lout, r, why: lawWhy(c) }); return r; };
   const d = E.build(prims, { ...opts, law, join: { ...JOIN10, cornerLog, flareLog: [], arcLog: [] }, sym }).d;
+  if (J.fit) return { id, s, tx, ty, d, corners: cornerLog };   // a jitter rebuild: the outline only
   const raw = E.build(prims, { ...opts, join: JOIN10 }).d;   // before the mirror, for the record
   const sharp = E.build(prims).d;                           // the union, before the corner law
   const mFin = measure(d);
@@ -88,25 +96,30 @@ function shaped(id) {
 // the corner pass runs several times per build (tip landing probes); keep each corner once, the last answer
 function dedupe(laws) { const out = []; for (const l of laws) { const k = l.pt.map(v => v.toFixed(3)).join(','); const i = out.findIndex(x => x.k === k); if (i >= 0) out[i] = { ...l, k }; else out.push({ ...l, k }); } return out; }
 
-function mark(id) {
+const jx = (prims, J) => J.dx || J.dy0 ? E.xform(prims, 1, 0, 0, J.dx || 0, J.dy0 || 0) : prims;   // a line mark nudged (jitter only)
+function mark(id, J = {}) {
   const laws = [], cornerLog = [];
   if (id === 'star') {
-    const rc = starHoleRc(W) * 24 / 20 / 9.6, prims = star(20, rc, W, 'root'), base = starTipLaw(O.starTip);
+    const rc = starHoleRc(W) * 24 / 20 / 9.6 * (1 + (J.ds || 0) / 14), prims = jx(star(20, rc, W, 'root'), J), base = starTipLaw(O.starTip);
     const law = c => { const r = base(c); laws.push({ pt: c.pt, convex: c.convex, hole: !!c.hole, angle: c.angle, lin: c.lin, lout: c.lout, r, why: c.hole ? 'counter corner' : c.convex ? 'tip (share of edge)' : 'wide inside (valley)' }); return r; };
-    const d0 = E.build(prims, { law, ease: EASE, tightHoles: true, join: { ...JOIN10, cornerLog, flareLog: [], arcLog: [] } }).d, m = measure(d0), dy = (process.env.LAW1000 === '1' ? E.placeOffset : v => v)(12 - opticalY(m));
+    const d0 = E.build(prims, { law, ease: EASE, tightHoles: true, join: { ...JOIN10, cornerLog, flareLog: [], arcLog: [] } }).d, m = measure(d0), dy = (process.env.LAW1000 !== '0' && J.law1000 !== false ? E.placeOffset : v => v)(12 - opticalY(m)) + (J.dy || 0);
+    if (J.fit) return { id, d: shiftD(d0, dy), corners: cornerLog };
     return { id, cls: 'OUTLINE', slot: 20, sc: rc, Rc: 9.6 * rc, ri: 9.6 * rc * P7.STAR.ri, centre: [12, 12 + 0.6 * rc], lw: W * 24 / 20, holeLines: OUTLINE_HOLE, dy, mPre: m, mFin: measure(shiftD(d0, dy)),
       prims: prims.map(q => primOut(q)), parts: E.parts(prims).map(p => p.d), sharp: E.build(prims).d, d0, d: shiftD(d0, dy), laws: dedupe(laws), corners: cornerLog };
   }
-  const sc = KEY.OPEN[0] / 14, prims = plus(26.4, sc, LINEW), base = scaled(LINE_LAW, 24 / 26.4);
+  const sc = KEY.OPEN[0] / 14 * (1 + (J.ds || 0) / 14), prims = jx(plus(26.4, sc, LINEW), J), base = scaled(LINE_LAW, 24 / 26.4);
   const law = c => { const r = base(c); laws.push({ pt: c.pt, convex: c.convex, hole: !!c.hole, angle: c.angle, lin: c.lin, lout: c.lout, r, why: c.convex ? 'cut end' : 'join' }); return r; };
-  const d0 = E.build(prims, { law, ease: EASE, join: { ...JOIN10, cornerLog, flareLog: [], arcLog: [] } }).d, m = measure(d0), dy = (process.env.LAW1000 === '1' ? E.placeOffset : v => v)(12 - opticalY(m));
+  const d0 = E.build(prims, { law, ease: EASE, join: { ...JOIN10, cornerLog, flareLog: [], arcLog: [] } }).d, m = measure(d0), dy = (process.env.LAW1000 !== '0' && J.law1000 !== false ? E.placeOffset : v => v)(12 - opticalY(m)) + (J.dy || 0);
+  if (J.fit) return { id, d: shiftD(d0, dy), corners: cornerLog };
   return { id, cls: 'OPEN', slot: 26.4, sc, L: 14 * sc, lw: LINEW * 24 / 26.4, dy, mPre: m, mFin: measure(shiftD(d0, dy)),
     prims: prims.map(q => primOut(q)), parts: E.parts(prims).map(p => p.d), sharp: E.build(prims).d, d0, d: shiftD(d0, dy), laws: dedupe(laws), corners: cornerLog };
 }
 
+module.exports = { shaped, mark, svgD, drawOf: id => s => DRAW[id](s, { style: 'mono', ...O }) };
+if (require.main === module) {
 const FILES = { cafe: 'cafe-r3.svg', bar: 'bar-r3.svg', museum: 'museum-r3.svg', nature: 'nature-r3.svg', star: 'star-r3.svg', plus: 'plus-r3.svg' };   // g7az: the proportions row (boards7 R3)
 const only = process.argv[2] ? process.argv[2].split(',') : Object.keys(FILES);
-const outF = path.join(__dirname, '../svg/g7/construction.json');
+const outF = process.env.CONS_OUT || path.join(__dirname, '../svg/g7/construction.json');
 const all = fs.existsSync(outF) ? JSON.parse(fs.readFileSync(outF, 'utf8')) : {};
 for (const id of only) {
   const t0 = Date.now(), g = id === 'star' || id === 'plus' ? mark(id) : shaped(id), shown = svgD(FILES[id]);
@@ -114,4 +127,5 @@ for (const id of only) {
   all[id] = g;
   console.log(id, g.same ? 'IDENTICAL to the row svg' : 'DIFFERS from the row svg', `${((Date.now() - t0) / 1000).toFixed(0)}s`, 'corners', g.corners.length);
   fs.writeFileSync(outF, JSON.stringify(all));
+}
 }

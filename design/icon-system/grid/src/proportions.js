@@ -147,6 +147,16 @@ const PROP = {
   // across. If one falls short, change a proportion from the series, never the size. (The star's own counter is 2 1/2 lines: its
   // shape, one counter. Two counters stacked at 2 1/2 lines need 14.5px of height, over the cut, so 2 1/2 can't be the floor.)
   outline: { square: 14.07, counterMin: 2 },
+  // THE CLASS BY ITS JOB (g7bb, owner 10-25: "when is an icon outlined vs not in this brand ... we need logic"). Asked in order:
+  //   1. does the user's tap fill it (a state that toggles on and off: star, visited)? OUTLINE when off, the same shape SOLID when on;
+  //   2. does it name what a place IS (a category: it sits in the badge ring, in the category's ink)? SHAPED, a solid mass;
+  //   3. otherwise it DOES something (a control or an action, on a bare button: add, close, sort, filters, locate, account): OPEN,
+  //      drawn in strokes of the open line, free ends cut square, a stroke may close on itself (a ring), nothing filled.
+  // The account person is a control: OPEN. The bed (hotel) is a category: SHAPED.
+  classByJob: ['toggles fill: outline (solid when on)', 'a category: shaped', 'a control or action: open'],
+  // OPEN MARKS: drawn in strokes of 10/9 line (1 2/3px on screen, set by darkness: the +'s), sized by their OUTSIDE: the larger extent
+  // spans the +'s arms on screen, 13.2px (12 units of its 24 box shown at 26.4px); the line marks' rounds; mirrored; optical centre.
+  open: { span: 13.2, line: 10 / 9 },
   // A WHOLE ELLIPSE (the bed's pillow failed TAIL at 1/2): an ellipse drawn whole is at least 2/3 as tall as it is wide; flatter is a
   // cap (a slab cut by an ellipse) or a rectangle the law rounds.
   ellipseWhole: { min: 2 / 3 },
@@ -167,6 +177,14 @@ const PROP = {
     // OUTLINE mark, sized by its outside to the outline cut; counters checked at 2 lines
     head: 1 / 2,        // the head (a circle) is 1/2 as wide as the shoulders
     shoulders: 1,       // the shoulders: the top half of a CIRCLE (4/5 left the shoulders' counter 2.6px at the outline cut)
+  },
+  person3: {
+    // OPEN mark (the account button is a control: PROP.classByJob), sized by its outside to the open span; the head ring's counter
+    // checked at 2 lines. Shoulders a half CIRCLE left the head's counter 2.77px (under 2 lines) at the span; 4/5 left the stroke's
+    // inside edge bending 0.38 where its free end's round starts from no bend (a JUMP, the limit 0.35); 5/6 keeps both (head counter
+    // 3.3px, the step 0.34). Open, the shoulders have no counter of their own to keep
+    head: 1 / 2,        // the head ring is 1/2 as wide as the shoulders
+    shoulders: 5 / 6,   // the shoulders: the top half of an ELLIPSE 5/6 as tall as wide, drawn as a stroke
   },
   // ---- rules of transition (engine.js), not proportions of shapes
   transition: {

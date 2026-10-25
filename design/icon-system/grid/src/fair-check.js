@@ -111,6 +111,13 @@ function check(d) {
         let j = i, steps = 0; while (steps < m / 2 && Math.sign(pts[(j + dir + m) % m].k) === sgn && A(j + dir) <= A(j) + 1e-6) { j += dir; steps++; }
         // DIP: the walk stopped while the line still bends hard, and it bends harder again just past: two crests in one round, a wobble
         if (A(j) > 0.4 * crest && crest - A(j) > 0.1 * crest) { let q = j, s2 = 0; while (s2 < 60 && Math.sign(pts[(q + dir + m) % m].k) === sgn && A(q + dir) >= A(q) - 1e-6) { q += dir; s2++; } if (A(q) > 0.6 * crest && A(q) - A(j) > 0.1 * crest && !faults.some(x => x.kind === "DIP" && Math.hypot(x.at[0] - pts[(j + m) % m].p[0], x.at[1] - pts[(j + m) % m].p[1]) < 0.05)) faults.push({ kind: "DIP", at: pts[(j + m) % m].p.map(v => +v.toFixed(2)), crests: [+crest.toFixed(2), +A(q).toFixed(2)], valley: +A(j).toFixed(2) }); }
+        // g7bb THE FOOT, SETTLED (jitter check, turn 161): the walk above runs on along an edge for as long as its bend keeps falling by
+        // any amount at all, so on an edge that bends gently the same way (the tree's tiers) a change of 1e-6 in that edge decided
+        // whether the round's base was read at its foot or 1px further out: the halfway share jumped 0.43 -> 0.76 (a TAIL) on outlines
+        // 0.0001px apart. The base is now read where the bend has SETTLED: past half the crest, the first point from which it falls by
+        // under 1% of the crest over the next 0.15 units. The foot (3% of the rise, below) then always lands in the round itself.
+        const settled = g => { let q = g, d = 0, lo = A(g); while (d < 0.15 && Math.sign(pts[(q + dir + m) % m].k) === sgn) { const dl = Math.abs(pts[(q + dir + m) % m].L - pts[(q + m) % m].L); d += dl < 1 ? dl : 0; q += dir; lo = Math.min(lo, A(q)); } return d >= 0.15 && A(g) - lo < 0.01 * crest; };
+        { let jb = i, st = 0; while (st < m / 2 && (jb - dir - j) * dir < 0 && !(A(jb) <= 0.5 * crest && settled(jb))) { jb += dir; st++; } j = jb; }
         const base = Math.sign(pts[(j + m) % m].k) === sgn ? A(j) : 0, H = crest - base; if (H < CREST_MIN * 0.5) { half.push(null); continue; }
         // the foot: where the curvature first rises 3% of the way from its base toward the crest (the faint run-up is the tail)
         let f = j; while (f !== i && A(f) - base < 0.03 * H) f -= dir;
@@ -118,6 +125,7 @@ function check(d) {
         const span = dir < 0 ? Lof(f, i) : Lof(i, f), toHalf = dir < 0 ? Lof(f, h) : Lof(h, f);
         half.push(span > 1e-6 ? { share: toHalf / span, span } : null);
       }
+      if (process.env.FCDBG) { const [qx, qy] = process.env.FCDBG.split(',').map(Number); if (Math.hypot(pts[i].p[0] - qx, pts[i].p[1] - qy) < 0.6) console.error('FCDBG crest', pts[i].p.map(v => v.toFixed(3)).join(','), crest.toFixed(3), JSON.stringify(half)); }
       for (const hh of half) if (hh && hh.share > TAIL_MAX && hh.span > 0.15) { faults.push({ kind: 'TAIL', at: pts[i].p.map(v => +v.toFixed(2)), crest: +(sgn * crest).toFixed(2), halfway: +hh.share.toFixed(2), span: +hh.span.toFixed(2) }); break; }
     }
   }

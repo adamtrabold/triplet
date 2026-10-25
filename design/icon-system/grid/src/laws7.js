@@ -64,7 +64,7 @@ const HUMAN = h => c => {
 // PROP.rounds.line), in px on screen. fromTable(PROP.rounds.shaped) answers exactly as HUMAN({ flare 0.5, mass 0.6, end 0.3,
 // tipShare 0.0877 }) (the shaped six); fromTable(PROP.rounds.line) exactly as the joint law with the tip share (the star; the +,
 // which has no tips, as the joint law). Checked corner by corner by src/rounds-check.js.
-const fromTable = t => c => {
+const fromTableHard = t => c => {   // the table as it was (g7ba), hard cutoffs: kept for rounds-check.js
   const sq = c.angle >= 75 && c.angle <= 105, e = Math.min(c.lin, c.lout), F = r => Math.min(r, t.fit * e);
   if (t.holeTight && c.hole) return F(c.angle <= 105 ? t.join : t.wideIn);
   if (t.flare && !c.convex && sq && e >= t.flareEdge) return Math.min(t.flare, t.flareFit * e);
@@ -72,4 +72,26 @@ const fromTable = t => c => {
   if (c.convex && c.angle < 75) return Math.min(F(t.tip), t.tipShare * e);
   return F(c.convex ? t.wideOut : c.angle <= 105 ? t.join : t.wideIn);
 };
-module.exports = { LAWS7, LAW_NAMES, fit, scaled, TRAP, JOIN, HUMAN, fromTable };
+// g7bb THE TABLE, BLENDED (director, turn 160: "where the outline jumps, the corner rounding switches method at a hard cutoff. Blend
+// across it instead"). Each cutoff of the table (square vs tip at 75 degrees, square vs wide at 105, a line end vs a mass corner at
+// endEdge, a flare vs a join at flareEdge) was a step: a corner 0.01 degree either side of 105 took 0.6 or 0.7px. Now each cutoff is
+// a short ramp (t.blend: 3 degrees, 1/4px), laid OUTSIDE the square band and past endEdge / below flareEdge, so every value inside
+// the bands is exactly the table's (the six rebuild byte for byte; rounds-check.js proves it away from the ramps) and the radius is
+// continuous in the corner's angle and edges. The ramp is a smoothstep (no corner in the radius either).
+const ss = x => x <= 0 ? 0 : x >= 1 ? 1 : x * x * (3 - 2 * x), mix = (a, b, w) => w <= 0 ? a : w >= 1 ? b : a + (b - a) * w;
+const fromTable = t => {
+  const BA = (t.blend && t.blend.angle) ?? 3, BE = (t.blend && t.blend.edge) ?? 0.25;
+  return c => {
+    const a = c.angle, e = Math.min(c.lin, c.lout), F = r => Math.min(r, t.fit * e);
+    const wWide = ss((a - 105) / BA), wTip = ss((75 - a) / BA);   // 0 inside the square band; 1 a full ramp beyond it
+    if (t.holeTight && c.hole) return F(mix(t.join, t.wideIn, wWide));
+    if (c.convex) {
+      const sqv = F(mix(t.end, t.mass, ss((e - t.endEdge) / BE)));
+      const tipv = Math.min(F(t.tip), t.tipShare * e), wide = F(t.wideOut);
+      return a < 75 ? mix(sqv, tipv, wTip) : mix(sqv, wide, wWide);
+    }
+    const joinv = F(t.join), flarev = t.flare ? mix(joinv, Math.min(t.flare, t.flareFit * e), ss((e - (t.flareEdge - BE)) / BE)) : joinv;
+    return a < 75 ? mix(flarev, joinv, wTip) : mix(flarev, F(t.wideIn), wWide);
+  };
+};
+module.exports = { LAWS7, LAW_NAMES, fit, scaled, TRAP, JOIN, HUMAN, fromTable, fromTableHard };
