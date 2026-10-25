@@ -189,6 +189,18 @@ const PROP = {
     head: 1 / 2,        // the head ring is 1/2 as wide as the shoulders
     shoulders: 5 / 6,   // the shoulders: the top half of an ELLIPSE 5/6 as tall as wide, drawn as a stroke
   },
+  // ---- g7bc BLIND TEST, ROUND 2 (src/picks-blind2.js): two icons drawn from the spec alone (design/icon-system/grid/blind-test-2.md)
+  bag: {
+    // SHAPED (a category). The body is the widest root (1): a rectangle, a MASS (it is the thing)
+    body: 4 / 5,        // the body is 4/5 as tall as it is wide
+    handle: 3 / 5,      // the handle, a LOOP a line thick, is 3/5 of the body's width outside; its counter a circle on its centre a
+                        // line less, running straight half a line (line.slot) into the body's top wall
+  },
+  heart: {
+    // OUTLINE (a tap fills it). A square turned 45 degrees and two circles on the midpoints of its upper sides
+    circle: 1,          // each circle is as wide as the square's side (so each runs into the square's lower sides tangent, and the
+                        // two meet at the square's top corner: the cleft). Sized by its outside to the outline cut (Square)
+  },
   // ---- rules of transition (engine.js), not proportions of shapes
   transition: {
     flareLean: 7 / 4,   // at a flare (a line into a gentle curve bending the other way) the round runs 1 3/4 as far along the
