@@ -906,4 +906,16 @@ function anatomy(q) {
 // count curve commands in a path (the "minimal bezier" figure on the boards)
 const countCurves = d => (d.match(/C/g) || []).length;
 
-module.exports = { R, C, P, B, O, A, S, D, I, E, erode, cut, pen, build, join, xform, countCurves, parts, anatomy, g2Handles, joinRound };
+// g7ba ENGINE LAW, PLACEMENT TO 1/1000 (director, turn 158: "Make the 1/1000 rounding engine law ... A blind designer must not need
+// to know it"): every POSITION is written to 1/1000 of a unit: the offsets the centring moves a glyph by (placeOffset, rounded) and a
+// solved measure that is itself a position (an outline mark's fitted radius: placeSize, floored so it stays inside its cut), as every
+// drawn position already is (picks7 f: 3 decimals). A shaped icon's solved SIZE is a scale, not a position: it is not rounded, because
+// picks7 writes the scaled positions at 1/1000 itself, and rounding the scale too moved the coupe's rim coordinates across a 1/1000 step
+// (a TAIL appeared; turn 159). At raw float precision a corner round could fall to the fallback (the person at rx 6.5350749..., the bed
+// at ty 7.9999967: KNEEs).
+// Applied to every new build (blind.js and what follows). The six stay as approved, built before it: rebuilt under it (construction.js
+// LAW1000=1) they move 0.0001-0.02px, and the tree's top tip gains a TAIL (with sizes rounded too, the coupe's rim does instead). So
+// rounding moves the engine's knife-edge cases, it doesn't remove them: the round solver changes branch on sub-1/1000 input changes.
+// That solver robustness is the real fix (open).
+const placeSize = v => Math.floor(v * 1000 + 1e-6) / 1000, placeOffset = v => Math.round(v * 1000) / 1000;
+module.exports = { R, C, P, B, O, A, S, D, I, E, erode, cut, pen, build, join, xform, countCurves, parts, anatomy, g2Handles, joinRound, placeSize, placeOffset };

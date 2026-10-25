@@ -1,5 +1,16 @@
 # Visual designer notes: icon system
 
+## Update (2026-10-25, canvas v242, turn 159)
+
+- **Director turn 158: 8**, ready for blind round 2 after two fixes. Person2 passes; the 2-line counter floor is accepted.
+- **Fix 1, done:** overhang is a slab's treatment (a slab on two or more posts); a mass on legs takes holds only (legs flush under its ends, flared on their open faces). bed2 rebuilt (foot square; `o.overhang` / `bed2o` keeps v241's foot). The six are unaffected.
+- **Fix 2, partly:** `engine.js placeOffset` / `placeSize`. Positions and offsets go to 1/1000 in every new build (`blind.js`).
+  - The six are frozen as approved: `construction.js` default = the old build, 6/6 identical; `LAW1000=1` rebuilds them under the law.
+  - Under the law they move at most 0.02px, but get a TAIL: the tree (offsets only) or the coupe (sizes too). The engine's round solver flips branch on sub-1/1000 changes.
+  - The robust fix belongs in the solver. **Open.** The director should rule whether round 2 can start on the current law.
+- **Canvas v242:** Between h 15180; row 2 y 15860 (title 15560). Splice: scratch `d11/splice2.py`.
+- **Next:** the director's call on fix 2; then blind round 2 (a bag and a pin or heart; judged by eye first).
+
 ## Update (2026-10-24, canvas v241, turn 157; eleventh icon designer)
 
 - **Where it stands:** the blind test (v240, director 7) found seven spec gaps. All seven are now rules in `src/proportions.js` and in the Construction spec (rules 1-20). The bed and the person were re-run by me under them (a check, not blind). A second blind round (fresh designer, two other icons: a shaped one with joins, an outline with one counter) is next; the spec is the deliverable.

@@ -73,8 +73,8 @@ function person(slot = 24) {
 //   mattress   a MASS (it is the thing), the widest root, 1/4 as tall as wide
 //   headboard  a post that HOLDS the mattress and runs on past it (up to its top, down to the floor): no overhang; the engine's
 //              flare round on both faces (above and under the mattress); its top a FREE end
-//   foot leg   a post that HOLDS the mattress at its foot: OVERHANG, the mattress passes it by 1/3 post, its underside past the leg
-//              drops a step and the leg flares a step into it, one curve (joins.js heldSlab, the museum's capital)
+//   foot leg   a post that HOLDS the mattress at its foot, flush under its end: the engine's flare on its open inside face. (v241
+//              gave it the museum's OVERHANG; turn 158: overhang is a slab's treatment, a slab on two or more posts; o.overhang keeps it)
 //   legs       reach the floor themselves: no BASE; they show at least one line (the lattice rule: the first lattice line past it)
 //   pillow     RESTS on the mattress and against the headboard: cut free on both faces, one cut; a soft part with a curved top is
 //              a CAP (ellipse on top, flat on the mattress, its end cut upright against the headboard), 1/3 of the mattress wide
@@ -83,10 +83,12 @@ function bed2(s = 12, o = {}) {
   const P = { ...PROP.bed2, ...(o.p || {}) }, L = PROP.line, J = PROP.joins, u = s / 12;
   const mw = 12 * u, post = L.post * LINE, cutW = L.cut * LINE, step = J.drop * LINE, over = J.over * post;
   const yT = T(P.rise * mw), yB = T(yT + P.mattress * mw), yF = Tup(yB + LINE);
-  const xR = mw - over;                                        // the foot leg's outside edge: the mattress passes it by the overhang
+  const xR = o.overhang ? mw - over : mw;                      // the foot leg's outside edge: flush under the mattress's end (holds only);
+                                                               // o.overhang: v241's foot (the capital), shown as tried
   const pw = P.pillow * mw, ph = P.pillowH * pw, px0 = post + cutW, yb = yT - cutW;
   return [
-    heldSlab({ x0: 0, x1: mw, yFar: yT, yNear: yB, left: null, right: { x: xR, w: post, over, open: true }, dp: step, fr: J.flare * LINE, k: J.k, meta: { root: 'RECT', name: 'mattress' } }),
+    o.overhang ? heldSlab({ x0: 0, x1: mw, yFar: yT, yNear: yB, left: null, right: { x: xR, w: post, over, open: true }, dp: step, fr: J.flare * LINE, k: J.k, meta: { root: 'RECT', name: 'mattress' } })
+      : R(0, yT, mw, yB - yT, { root: 'RECT', name: 'mattress' }),   // g7ba turn 159: a MASS on legs takes holds only (no overhang, no drop)
     R(0, 0, post, yF, { root: 'POST', name: 'headboard' }),
     R(xR - post, yB - 0.01, post, yF - yB + 0.01, { root: 'POST', name: 'foot leg' }),
     { ...CAP(px0, px0 + pw, yb, ph, { root: 'ellipse', ry: 1, over: capOver(PROP.cap.end) }, true), name: 'pillow' },

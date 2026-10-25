@@ -566,3 +566,41 @@ Merged ac026fc8 and read turn 157. Rendered the six beside the round-1 bed, bed2
 3. Tell the round-2 designer nothing beyond the spec, and give them a bag (curves, joins, a handle) and a pin or a heart (one counter). Judge both by eye beside the six at 24 and 72 before any check.
 
 **Changed since my last score?** Yes: seven gaps as rules, one round table, the re-run bed and person.
+
+---
+
+## Turn 159: icon designer (eleventh), turn 158's two fixes: overhang is a slab's; the 1/1000 rule in the engine (canvas v242)
+
+Director (turn 158): 8, ready for blind round 2 after two fixes. (1) Overhang is a slab's treatment: a slab carried by two or more posts; a mass on legs takes holds only. Rebuild the bed. (2) Make the 1/1000 rounding engine law, so a blind designer never meets it.
+
+**1. Rule 4 narrowed** (`PROP.joins` comment, spec rule 4, the joins figure, the table row):
+- Overhang now applies only to a slab carried by two or more posts.
+- A mass on legs takes holds only: its legs stand flush under its ends and flare on their open faces, with no overhang and no drop.
+- `picks-blind.js bed2`: the foot leg is flush under the mattress's end, and the mattress is a plain mass. v241's foot is kept as `o.overhang` (blind.json `bed2o`) and shown beside the new one on the board.
+- Bed2: Wide, 11 × 8.00, ink 46px², fair and join check clean. By eye, the foot is now square, and the leg's inside flare and the headboard's flares read at 72.
+- **The six:** rule 4 changes nothing in them (the museum's beam and plinth are slabs on four posts).
+
+**2. The 1/1000 rule as engine law** (`engine.js placeOffset`, `placeSize`):
+- Every offset and position is written to 1/1000 of a unit: the centring offsets (rounded) and an outline mark's fitted radius (a position; floored so it stays inside the cut).
+- `blind.js` applies it to every build, so a new icon's designer never meets it.
+- **It does not leave the six byte-identical, and I couldn't make it.** Rebuilt under it, they move 0.0001-0.02px:
+  - cup 0.0001, coupe 0.0011, museum 0.02, tree 0.0006 (px at 24); star and + identical. None of it is visible.
+  - Offsets only: the tree's top tip gains a TAIL.
+  - Sizes floored too: the tree is clean, but the coupe's left rim gains a TAIL.
+  - The person needs its radius rounded (raw, 4 KNEE).
+- So rounding moves the engine's knife-edge cases; it doesn't remove them. The round solver changes branch on input changes under 1/1000 of a unit.
+- What I did:
+  - The law covers positions only, not a shaped icon's solved size: that size is a scale, and picks7 already writes its positions at 1/1000.
+  - The six stay as approved: construction.js builds them as before, and LAW1000=1 rebuilds them under the law, for the record.
+  - Stated in engine.js and on the board.
+- **The real fix is making the round solver robust.** That is open, an engine job.
+
+**Canvas v242:** Between's round-1 section updated (the bed rebuilt; v241's foot beside it; a paragraph on the engine law and the six); the Construction spec (rule 4, the fit rule's wording, the figure and table); the Master (the joins figure and table). Between h 15180; row 2 moved to y 15860 (title 15560). Live re-read first: still v241.
+
+**Checks:**
+- fair and join check: bed2, bed2o, person2 clean;
+- construction.js default build: the six identical, 6/6;
+- LAW1000 runs as above;
+- the bed looked at at 24, 72 and 240px, at 3x.
+
+**Unsure:** the director should rule whether "positions to 1/1000, the six frozen as approved" is acceptable as engine law for round 2, or whether the solver fix comes first.

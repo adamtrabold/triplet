@@ -46,10 +46,11 @@ function shaped(id, draw, symmetric, o3 = false) {
   for (let k = 0; k < 6; k++) { const b = measure(E.build(dr(s), k < 4 ? fast : opts).d).box; s *= Math.min(kw / (b.x1 - b.x0), bh / (b.y1 - b.y0)); }
   { const fits = s_ => { const b = measure(E.build(dr(s_), fast).d).box; return { ok: b.x1 - b.x0 <= kw + 1e-3 && b.y1 - b.y0 <= bh + 1e-3, touch: Math.abs(b.x1 - b.x0 - kw) < 5e-3 || Math.abs(b.y1 - b.y0 - bh) < 5e-3 }; };
     const f0 = fits(s); if (!(f0.ok && f0.touch)) { let lo = f0.ok ? s : s * 0.9, hi = f0.ok ? s * 1.1 : s; for (let k = 0; k < 24; k++) { const m = (lo + hi) / 2; if (fits(m).ok) lo = m; else hi = m; } s = lo; } }
+  // g7ba engine law: the offset to 1/1000 (below); the size is a scale, the drawing writes positions at 1/1000
   const ox = (24 - s) / 2, oy = r3((24 - s) / 2), prims0 = dr(s), m = measure(E.build(E.xform(prims0, 1, 0, 0, ox, oy), opts).d);
   // g7ba (the re-run): the centring offset to 1/1000 of a unit, as every position is written (rule 16); at float noise (ty 7.9999967
   // for 8) the pillow cap's right shoulder fell to a KNEE that ty 8 doesn't have. Round-1 builds keep the raw offset.
-  const ty0 = oy + 12 - opticalY(m), ty = o3 ? Math.round(ty0 * 1000) / 1000 : ty0;
+  const ty = E.placeOffset(oy + 12 - opticalY(m));   // g7ba engine law (o3 kept in the signature, unused)
   const tx = r4(12 - (m.box.cx + m.cx) / 2), sym = symmetric ? ox + tx + s / 2 : undefined;
   const prims = E.xform(prims0, 1, 0, 0, ox + tx, ty);
   const laws = [];
@@ -65,7 +66,7 @@ const shiftD = (d, dy) => { let k = 0; return d.replace(/[MLCZ]|-?\d*\.?\d+(?:e-
 function outline(id, prims, slot, law0 = LAW, o3 = false) {
   const laws = [];
   const law = c => { const r = law0(c); laws.push({ pt: c.pt, convex: c.convex, hole: !!c.hole, angle: c.angle, lin: c.lin, lout: c.lout, r, why: lawWhy(c) }); return r; };
-  const d0 = E.build(prims, { law, ease: EASE, tightHoles: true, join: JOIN10, sym: 12 }).d, m = measure(d0), dy = o3 ? Math.round((12 - opticalY(m)) * 1000) / 1000 : 12 - opticalY(m), d = shiftD(d0, dy);
+  const d0 = E.build(prims, { law, ease: EASE, tightHoles: true, join: JOIN10, sym: 12 }).d, m = measure(d0), dy = E.placeOffset(12 - opticalY(m)), d = shiftD(d0, dy);
   const b = measure(d).box;
   return { id, cls: 'OUTLINE', slot, dy, mPre: m, mFin: measure(d), finished: [b.x1 - b.x0, b.y1 - b.y0], prims: prims.map(q => primOut(q, 0, dy)), parts: E.parts(E.xform(prims, 1, 0, 0, 0, dy)).map(p => p.d), sharp: E.build(E.xform(prims, 1, 0, 0, 0, dy)).d, d, laws: dedupe(laws).map(l => ({ ...l, pt: [l.pt[0], l.pt[1] + dy] })) };
 }
@@ -82,7 +83,7 @@ function outlineFit(id, draw, slot) {
   const tries = ['WIDE', 'SQUARE', 'TALL'].map(c => { const b = boxAt(fitTo(c)), a = (b.x1 - b.x0) / (b.y1 - b.y0); return { c, a, d: Math.abs(Math.log(a / (OUTLINE_CUT[c][0] / OUTLINE_CUT[c][1]))) }; });
   // the solved size to 1/1000 of a unit, down (inside the cut), as picks7 writes every position (f: 3 decimals); at full float
   // precision the counter's corner round fell to the engine's fallback (4 KNEE at rx 6.5350749976933, clean at 6.535)
-  const cls = tries.reduce((b, x) => x.d < b.d ? x : b).c, rx = Math.floor(fitTo(cls) * 1000) / 1000;
+  const cls = tries.reduce((b, x) => x.d < b.d ? x : b).c, rx = E.placeSize(fitTo(cls));
   const g = outline(id, draw(rx), slot, law0, true);
   return { ...g, outlineCls: cls, rx, cut: OUTLINE_CUT[cls].map(v => v * k), tries };
 }
@@ -98,7 +99,7 @@ const only = process.argv[2] ? process.argv[2].split(',') : ['bed', 'bedAgainst'
 // bed: the blind result (rule 11 as written, pillow 1/2); bedAgainst: rule 11 scoped only; bedFixed: rule 11 scoped and the
 // whole-ellipse rule (no flatter than 2/3), the two fixes proposed in blind-test.md
 const BEDS = { bed: { rule11: 'strict' }, bedAgainst: { rule11: 'against' }, bedFixed: { rule11: 'against', pillowH: 2 / 3 } };
-const BED2 = { bed2: {}, bed2n: { p: { pillow: 1 / 3 } }, bed2h: { p: { pillowH: 2 / 3 } } };   // bed2 = PROP.bed2; tried: bed2n the pillow 1/3 wide, bed2h 2/3 tall (2 KINK)   // g7ba re-run: bed2 = PROP.bed2; bed2h tries the pillow 2/3 as tall
+const BED2 = { bed2: {}, bed2o: { overhang: true }, bed2n: { p: { pillow: 1 / 3 } }, bed2h: { p: { pillowH: 2 / 3 } } };   // bed2o: v241's foot (overhang)   // bed2 = PROP.bed2; tried: bed2n the pillow 1/3 wide, bed2h 2/3 tall (2 KINK)   // g7ba re-run: bed2 = PROP.bed2; bed2h tries the pillow 2/3 as tall
 const jf = path.join(out, 'blind.json'), all = fs.existsSync(jf) ? JSON.parse(fs.readFileSync(jf, 'utf8')) : {};
 for (const id of only) {
   const t0 = Date.now();

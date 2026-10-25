@@ -70,8 +70,11 @@ function shaped(id) {
   // largest size that fits, by halving
   { const fits = s_ => { const b = measure(E.build(dr(s_), fast).d).box; return { ok: b.x1 - b.x0 <= kw + 1e-3 && b.y1 - b.y0 <= bh + 1e-3, touch: Math.abs(b.x1 - b.x0 - kw) < 5e-3 || Math.abs(b.y1 - b.y0 - bh) < 5e-3 }; };
     const f0 = fits(s); if (!(f0.ok && f0.touch)) { let lo = f0.ok ? s : s * 0.9, hi = f0.ok ? s * 1.1 : s; for (let k = 0; k < 24; k++) { const m = (lo + hi) / 2; if (fits(m).ok) lo = m; else hi = m; } s = lo; sizes.push(s); } }
+  // g7ba: the six are the approved builds, made before the placement law (engine.js placeOffset). LAW1000=1 rebuilds them under it,
+  // for the record (turn 159): they move 0.0001-0.02px and the tree's top tip gains a TAIL, so the six stay as approved; see engine.js.
+  const L3 = process.env.LAW1000 === '1' ? E.placeOffset : v => v;
   const ox = (24 - s) / 2, oy = r3((24 - s) / 2), prims0 = dr(s), m = measure(E.build(E.xform(prims0, 1, 0, 0, ox, oy), opts).d);
-  const tx = r4(12 - (m.box.cx + m.cx) / 2), sym = id !== 'cafe' ? ox + tx + s / 2 : undefined, ty = oy + 12 - opticalY(m);
+  const tx = r4(12 - (m.box.cx + m.cx) / 2), sym = id !== 'cafe' ? ox + tx + s / 2 : undefined, ty = L3(oy + 12 - opticalY(m));
   const prims = E.xform(prims0, 1, 0, 0, ox + tx, ty);
   const laws = [], cornerLog = [];
   const law = c => { const r = LAW(c); laws.push({ pt: c.pt, convex: c.convex, hole: !!c.hole, angle: c.angle, lin: c.lin, lout: c.lout, r, why: lawWhy(c) }); return r; };
@@ -90,13 +93,13 @@ function mark(id) {
   if (id === 'star') {
     const rc = starHoleRc(W) * 24 / 20 / 9.6, prims = star(20, rc, W, 'root'), base = starTipLaw(O.starTip);
     const law = c => { const r = base(c); laws.push({ pt: c.pt, convex: c.convex, hole: !!c.hole, angle: c.angle, lin: c.lin, lout: c.lout, r, why: c.hole ? 'counter corner' : c.convex ? 'tip (share of edge)' : 'wide inside (valley)' }); return r; };
-    const d0 = E.build(prims, { law, ease: EASE, tightHoles: true, join: { ...JOIN10, cornerLog, flareLog: [], arcLog: [] } }).d, m = measure(d0), dy = 12 - opticalY(m);
+    const d0 = E.build(prims, { law, ease: EASE, tightHoles: true, join: { ...JOIN10, cornerLog, flareLog: [], arcLog: [] } }).d, m = measure(d0), dy = (process.env.LAW1000 === '1' ? E.placeOffset : v => v)(12 - opticalY(m));
     return { id, cls: 'OUTLINE', slot: 20, sc: rc, Rc: 9.6 * rc, ri: 9.6 * rc * P7.STAR.ri, centre: [12, 12 + 0.6 * rc], lw: W * 24 / 20, holeLines: OUTLINE_HOLE, dy, mPre: m, mFin: measure(shiftD(d0, dy)),
       prims: prims.map(q => primOut(q)), parts: E.parts(prims).map(p => p.d), sharp: E.build(prims).d, d0, d: shiftD(d0, dy), laws: dedupe(laws), corners: cornerLog };
   }
   const sc = KEY.OPEN[0] / 14, prims = plus(26.4, sc, LINEW), base = scaled(LINE_LAW, 24 / 26.4);
   const law = c => { const r = base(c); laws.push({ pt: c.pt, convex: c.convex, hole: !!c.hole, angle: c.angle, lin: c.lin, lout: c.lout, r, why: c.convex ? 'cut end' : 'join' }); return r; };
-  const d0 = E.build(prims, { law, ease: EASE, join: { ...JOIN10, cornerLog, flareLog: [], arcLog: [] } }).d, m = measure(d0), dy = 12 - opticalY(m);
+  const d0 = E.build(prims, { law, ease: EASE, join: { ...JOIN10, cornerLog, flareLog: [], arcLog: [] } }).d, m = measure(d0), dy = (process.env.LAW1000 === '1' ? E.placeOffset : v => v)(12 - opticalY(m));
   return { id, cls: 'OPEN', slot: 26.4, sc, L: 14 * sc, lw: LINEW * 24 / 26.4, dy, mPre: m, mFin: measure(shiftD(d0, dy)),
     prims: prims.map(q => primOut(q)), parts: E.parts(prims).map(p => p.d), sharp: E.build(prims).d, d0, d: shiftD(d0, dy), laws: dedupe(laws), corners: cornerLog };
 }

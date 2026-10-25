@@ -98,7 +98,8 @@ const PROP = {
   //   HOLDS   a post carries a mass, or stands on a base: it FLARES a step into it (the engine's flare round, 1/2px; leaned where
   //           the mass is curved), on every face open to the outside; a face into a closed counter stays tight.
   //           [coupe stem into bowl and foot; tree trunk into the bottom tier; museum columns into beam and plinth]
-  //   OVERHANG a slab or mass that runs past its last post passes it by 1/3 of a post; past the post its face toward the post
+  //   OVERHANG (a SLAB carried by two or more posts only; turn 158: on a mass on legs the drop read as a clipped corner) a slab that
+  //           runs past its last post passes it by 1/3 of a post; past the post its face toward the post
   //           drops a step, and the post's flare and the drop are ONE curve (the capital). A mass that ends ON a post that runs
   //           on past it (a headboard, a wall) has no overhang: HOLDS on both faces.   [museum beam and plinth]
   //   RESTS   a part that lies on (or leans against) another and is not fixed to it is CUT FREE, the cut on every face it
@@ -159,7 +160,7 @@ const PROP = {
     pillow: 2 / 5,      // the pillow, a CAP resting (RESTS: flat on the mattress, its end against the headboard), 2/5 of the mattress
                         // (1/3 read as a crumb at 24; a cap no taller than its width: at 2/3 the ends turn under 30 degrees, KINK)
     pillowH: 1 / 2,     // its height 1/2 its width (a cap: the ellipse its full height, its ends cut at half its height)
-    // the foot leg holds the mattress up: OVERHANG at the foot (1/3 post past it, the underside drops a step, one curve); the legs reach
+    // the foot leg holds the mattress up, flush under its end: HOLDS only (a mass on legs: no overhang; turn 158); the legs reach
     // the floor (no base), showing at least one line (the lattice rule: 1 2/3px); FREE ends
   },
   person2: {
