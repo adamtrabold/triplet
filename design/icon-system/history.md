@@ -105,6 +105,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-25 · v244 shown:** blind round 1 (v240: bed, person) scored the system 7 (person too big; bed generic; spec carried no character). Fixed as rules (v241-v242): rule 4 "the joins" (holds, overhang only on a slab over 2+ posts, rests, base, free), outline sizing, one round table, slab vs mass, lattice, one cut, master grid rebuilt. Engine made robust (v243): hard switches blended; jitter check (50 rebuilds, ±0.02px; max 0.044px, no verdict flips) now standard. Rule 15, outline/solid/open by job (a tap fills it → outline; place category → solid; control → open, may carry small solid parts; state marks solid); person redrawn open. Director 7 → 8 → 9. Asked: bed and person family? Neighbourhood/Street class (team: open in the diamond shell)? Blind round 2 started: bag and heart.
 
+- **10-25 · Stuck: blind round 2 failed (v245):** bag (darkest, padlock read, no family joins, fair JUMP, fails jitter) and heart (notched counter, mirror and jitter break). System 7 → 6. Director: structural — the engine applies treatments by angle/length, not declared kind; character lives in hand-written picks; spec describes the six rather than generating new icons; no single hole method; geometry robust only on the six. Proposed: declaration-driven engine (roots, joins by kind, holes), six rebuilt from declarations within 0.05px, one hole method, geometry fuzzed on random shapes, weight rule, plain-mass treatment; 2-3 build rounds, then round 3. Owner asked: holes where shapes overlap; what makes a plain block ours.
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
