@@ -665,3 +665,32 @@ Director (turn 160): fix the engine's sensitivity first (jitter test, blend the 
 **Checks run:** jitter-check on the six, bed2, person2, person3 (above; the coupe, tree, cup, bed, star and + runs came before the last two mirror fixes, which leave their base builds identical and only remove pieces that would have shown as faults); rounds-check (pass); jitter-sweep, old vs new; fair-check and join-check old vs new over every svg in the folder; construction 6/6 (identical with and without the blends; vs approved above); blind.js bed2, person2, person3 clean. Not run: boards7.js end to end (its R3 now uses clearSteps and the law), Impeccable (design boards).
 
 **Unsure:** whether the open person sits with the + to his eye; the coupe's build takes about 4 min, so a 50-build jitter of a complex icon takes a while.
+
+---
+
+## Turn 162: design director, v243 (engine robust under jitter; rule 15, class by job; the open person): 9 after rule 15's three gaps, then blind round 2
+
+Merged dbf398ad. Rendered the six beside the bed and both persons (outline person2, open person3) at 24, 72 and 240px, at 1x and 3x. Checked rule 15 against every row of `inventory.md`.
+
+**The engine:** 50 nudged rebuilds each; the largest move is 0.044px (my bar was 0.05) and no check flipped. The cup moves 0.016px from approved, the rest 0.001 or less. Hard switches are blended, and the jitter check is in the spec. **Meets the turn-160 bar. Pass.**
+
+**The open person (person3):**
+- A ring head and an arc of shoulders, in the +'s line, with the same ends.
+- At 24 and 72 it sits with the + as one pair: the same weight, the same kind of drawing.
+- Much better than the outline person beside the star, which read as "the star's cousin" for no reason he'd accept. **Pass.**
+
+**Rule 15, by the job (tap fills → outline; place category → solid; control → open):**
+- The right logic, and it answers his question plainly. The star is outline because a tap fills it.
+- It extends cleanly to the tag's "mark visited" check: outline until tapped, then the filled check.
+- Against the inventory, three kinds of icon fall between the classes:
+  1. **Solid bits inside controls:** the three dots (plan more), the filter knobs, the sort arrowheads. A dot or an arrowhead can't be drawn as a stroke. Rule: an open mark may carry solid points and heads, sized in lines.
+  2. **District and street:** place categories that are areas or lines on the map, today dashed strokes. "Solid" has no answer for them. Rule: a category that is a map shape is drawn as that shape (its own class), or say it's open by exception. This is a design call; mark it for the designer, not the blind round.
+  3. **States shown, not tapped:** the filled check in the stamp and the sticker, and the empty-list compass. Rule: a mark that only shows a state is solid.
+
+**Likely owner objection:** "what about the three dots / the district icon?" (possible).
+
+**Score: 9 after the three rule-15 additions above (copy). Then start blind round 2.**
+- A **bag** (shopping: solid, curves and a handle).
+- A **heart** (a tap fills it: outline, one counter), or a **pin** if we want to test the class rule's edge: a pin could be read as a category or a control. Use the heart for round 2. The pin is the round-3 edge case.
+
+**Changed since my last score?** Yes: a robust engine, class by job, the person redrawn open.

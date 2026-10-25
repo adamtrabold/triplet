@@ -1424,3 +1424,10 @@ The verdict stands within our own set:
 - **Bed2:** right weight, crown pillow. The foot's overhang drop on a mass reads as a chamfer.
 - **Spec:** rule 4 (joins by kind) carries the character; one round table (6/6 identical).
 - **Fixes:** overhang only on slabs carried by 2+ posts; the 1/1000 rounding made engine law. Then blind round 2 (a bag; a pin or heart). Jam turn 158.
+
+## Round: engine jitter + class by job (canvas v243), 2026-10-24: 9 after three rule-15 additions
+
+- **Engine:** max 0.044px under ±0.02px nudges, no check flipped. Meets the bar.
+- **Open person:** pairs with the + at 24 and 72.
+- **Rule 15 (by job):** sound. Three gaps from the inventory: solid dots and heads in controls; district/street (map-shape categories, a design call); shown-only states are solid.
+- **Next:** blind round 2, a bag and a heart. The pin is round 3. Jam turn 162.

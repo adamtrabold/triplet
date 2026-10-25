@@ -1922,3 +1922,9 @@ checks; don't eyeball "is it as good as".
 - A character rule taken from one icon (the museum's overhang) has to be scoped by part type: slab on posts, not any mass. Test each join rule on a part unlike its source.
 - Engine conventions a designer would trip on (the 1/1000 rounding) belong in the engine, not the spec.
 - Next: two fixes, then blind round 2 (a bag; a pin or heart), judged by eye first.
+
+## v243 (2026-10-24): 9 after three rule-15 additions
+
+- Test a class rule against the real inventory, row by row. The holes are where an icon has two jobs or parts that can't take the class (dots in an open mark, map-shape categories, shown-only states).
+- The class pairs: outline with the star (two states), open with the + (controls), solid with the places.
+- Next: rule-15 additions, then blind round 2 (bag, heart). Round 3 can test the pin, as the class-edge case.

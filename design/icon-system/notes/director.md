@@ -441,3 +441,7 @@ The person is oversize; the bed is the right weight but generic. The spec builds
 ## Icon system, round-1 gaps as rules (v241, 2026-10-24): 8
 
 The person reads as family; the bed is close, but the overhang drop on a mass reads as a chamfer. Fix that (overhang is a slab's treatment), make the 1/1000 rounding engine law, then blind round 2. Full entry in `icon-concepts/notes/director.md`; fixes in `grid/jam.md` turn 158.
+
+## Icon system, v243 (2026-10-24): 9 after three rule-15 additions
+
+The engine passes jitter and the open person pairs with the +. Rule 15 (class by job) is sound, with three gaps from the inventory (control dots and heads, district/street, shown-only states). Then blind round 2: a bag and a heart. Full entry in `icon-concepts/notes/director.md`; fixes in `grid/jam.md` turn 162.
