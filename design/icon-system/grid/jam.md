@@ -618,3 +618,50 @@ The bed's square foot passes. On the rounding: an engine where an invisible 0.02
 4. **Done when:** the six rebuild under the 1/1000 law with their outlines within 0.05px and every check stable under jitter. Then they're no longer frozen; they come out of the same engine as any new icon.
 
 Then blind round 2: a bag, and a pin or a heart.
+
+---
+
+## Turn 161: icon designer (twelfth), the engine made robust; outline, solid or open as a rule (canvas v243)
+
+Director (turn 160): fix the engine's sensitivity first (jitter test, blend the cutoffs, checks with a band), then blind round 2. Owner (10-25): "when is an icon outlined vs not in this brand ... we need logic".
+
+**The jitter check** (`src/jitter-check.js`, now a standard check, spec rule 20 and step 5): each icon rebuilt 50 times with its solved size and its place nudged at random by up to ±0.02px, plus fixed trials (the 1/1000 size floor; no placement law; person2 at its raw float size). Pass: every rebuild within 0.05px and the same answer from fair-check and join-check. A fault in only some rebuilds is reported marginal.
+
+**What flipped, and the fix** (each a rule, none per icon):
+- **Turn 159's TAILs were the check, not the engine.** The outlines differed by 0.0001px; fair-check's foot walk ran on along a gently bending edge (tree tier, coupe bowl) on a 1e-6 change, so the share jumped 0.43 → 0.76. The base is now read where the bend has settled. Over 675 svgs, TAIL 173 → 157; all the dropped ones are archived rows that still fail on JUMP or SHOULDER.
+- **join-check HUMP** read a 0.002 mismatch at a node as a peak. Extremes now need a real turn-back (0.02 + 3%). HUMP 70 → 21; every dropped one is the coupe band-end node pattern.
+- **The cup's size stood exactly on its saucer's lattice step.** The fit's "largest size that fits" lands there. A nudge moved the saucer 1/3px (0.2px measured). `engine.js clearSteps`: the size stands 0.03 clear of any lattice step, in construction.js, blind.js and boards7 R3. Cup s 10.80 → 10.77.
+- **The coupe's band corners fell to the old join round** (KNEE, HUMP) or a stalled two-piece hill in about 1 build in 3. `pieces()` now rejects a stall (SHOULDER's numbers), tries the on-hill two-piece split, walks the half from its other end, and last searches deeper (every split share, both ways), before giving up. The left corner had failed where its mirror succeeded; the bed's pillow cap was the same.
+- **Two more seen only under the nudges, fixed in symD (the mirror):** two points left at one place at the museum's apex (a zero-length piece) are folded into one; the seam is put on the output's 7-decimal grid, and a zero-area hairline the halves leave is dropped (the person lost its head's counter).
+- **The coupe's foot:** a round stopping 0.02 short of a drawn node left a sliver whose bend was lost at 5 decimals (KNEE). Fair outlines are now written to 7 decimals.
+
+**Cutoffs blended** (smoothstep ramps laid just outside each band, so every in-band value is exactly as before):
+- the table (laws7 `fromTable`): 105° (to 108), 75° (from 72), end/mass edge 2 (to 2.25), flare edge 1.5 (from 1.25). rounds-check: equal to the table off the ramps (656,384 corners); largest step across a ramp 0.0021px per 0.01°.
+- the engine: line end vs mass corner (edge 3 to 3.25, 0.2 to 0.25 rad, depth mixed); tip vs corner (75° to 78°, crest mixed, landing partial); the leaned flare's three gates (runs mixed); the counter end (1.5 to 1.75, and straight to a 0.05 bend); the shared edge (L − 0.16 to L − 0.08).
+- tipSoft was already continuous (a min).
+- The six are byte-identical with and without the blends.
+- `src/jitter-sweep.js` walks a corner across each cutoff. The old jumps were 0.195px (105°), 0.197 (75°), 0.145 (flare edge) and 0.035 (end edge); each is now the size of the step itself.
+
+**Left as switches, guarded by the jitter check:** the S rule, arcEase's gates, hillRound's fallback order, the piece count.
+
+**Jitter results** (50 nudged builds each, plus the fixed trials): every icon HOLDS, 53 builds each (50 nudged): coupe max move 0.030px, tree 0.034, cup 0.032, museum 0.044, star 0.024, + 0.028, bed 0.031, the open person 0.029; no check changed its answer in any build. person2, the v242 outline person (retired by the class rule): 5 of 54 builds show one SHOULDER at its shoulders' counter corner, on one side only of a mirrored outline, so it reads as the check's walk off a flat-topped crest; reported marginal, not fixed. Results: `svg/g7/jitter/<id>.json`.
+
+**The six vs approved** (frozen in `svg/g7/before-g7bb/`): cup 0.0155px at 24 (0.046 at 72), coupe 0.0010, museum 0.0007, tree, star and + 0.0000. All clean. They are no longer frozen: the Between r3 svgs and construction.json are the engine's own builds, with the 1/1000 law. bed2 identical; person2 0.0003.
+
+**Outline, solid or open** (`PROP.classByJob`, spec rule 15), asked in order:
+1. A tap fills it (a toggled state: star, visited) → **outline**, solid when on.
+2. It names what a place is (a category, in the badge ring) → **shaped**.
+3. Otherwise it's a control or action on a bare button → **open**: strokes of the open line (1 2/3px), free ends cut square, nothing filled.
+- Evidence (inventory.md): 9 filled category glyphs (district and street are dashed map linework); star open → filled; the visited check outline → stamp; every control (+, ×, sort, filters, locate, chevron, menu checks) stroked.
+- The person (the account button) is a control, so **open**; the bed (hotel) stays **shaped**. The blind person was an outline only because the orchestrator's brief said so.
+- **person3** (`picks-blind.js`, `blind.js openFit`, `PROP.open`, `PROP.person3`): the head a ring 1/2 the shoulders' width; the shoulders the top half of a 5/6 ellipse, as a stroke with square free ends; the larger extent 13.2px (the +'s span). Tried: a half circle (head counter 2.77px, under 2 lines) and 4/5 (the inside edge bends 0.38 at the free end, a JUMP). Clean, counter 3.28px. At 24 and 72, and on the account button beside the +, it reads as the +'s kin.
+
+**Canvas v243:**
+- Between, round-1 section: "Did the six change?" and the engine paragraph replaced by a short note; new "Outline, solid or open?" (three lines, plus a figure: outline vs open at 24 and 72, and on the account button).
+- Construction: rule 15 (class by job, open sizing), rule 20 and step 5 (the jitter check).
+- Start q1.
+- Between h 15360; row 2 +180.
+
+**Checks run:** jitter-check on the six, bed2, person2, person3 (above; the coupe, tree, cup, bed, star and + runs came before the last two mirror fixes, which leave their base builds identical and only remove pieces that would have shown as faults); rounds-check (pass); jitter-sweep, old vs new; fair-check and join-check old vs new over every svg in the folder; construction 6/6 (identical with and without the blends; vs approved above); blind.js bed2, person2, person3 clean. Not run: boards7.js end to end (its R3 now uses clearSteps and the law), Impeccable (design boards).
+
+**Unsure:** whether the open person sits with the + to his eye; the coupe's build takes about 4 min, so a 50-build jitter of a complex icon takes a while.

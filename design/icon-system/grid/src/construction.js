@@ -31,7 +31,7 @@ const HUMAN_V = { flare: 0.5, mass: 0.6, end: 0.3, tipShare: 0.0877 };
 // g7ba: the law from the one table (PROP.rounds; src/rounds-check.js proves it answers as HUMAN(HUMAN_V) and the star's law did)
 const LAW = fromTable(PROP.rounds.shaped), LINE_LAW = fromTable(PROP.rounds.line), FK = 11 / 12;
 const opticalY = m => m.box.cy - 0.5 * Math.max(0, m.box.cy - m.cy);
-const shiftD = (d, dy) => { let k = 0; return d.replace(/[MLCZ]|-?\d*\.?\d+(?:e-?\d+)?/g, t => { if (/[MLCZ]/.test(t)) { k = 0; return t; } const v = (k++ % 2) ? +(+t + dy).toFixed(7) : +t; return `${v}`; }).replace(/([0-9])(-)/g, '$1 $2'); };
+const shiftD = (d, dy) => { let k = 0; return d.replace(/[MLCZ]|-?\d*\.?\d+(?:e-?\d+)?/g, t => { if (/[MLCZ]/.test(t)) { k = 0; return t; } const v = (k++ % 2) ? (+t + dy).toFixed(7).replace(/\.?0+$/, "").replace(/^-0$/, "0") : t; return v; }).replace(/([0-9])(-)/g, '$1 $2'); };
 const LINEW = 5 / 3, OUTLINE_HOLE = 2.5;
 const starHoleRc = (lw = W, holeLines = OUTLINE_HOLE) => (holeLines * lw / 2 + (lw / 2) / Math.sin(3 * Math.PI / 10)) / P7.STAR.ri;
 const starTipLaw = tip => scaled(LINE_LAW, 24 / 20);   // g7ba: the line marks' column of the table (tip share PROP.rounds.line.tipShare = O.starTip)

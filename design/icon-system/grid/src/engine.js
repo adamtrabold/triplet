@@ -434,7 +434,9 @@ function corners(item, law, info, opts = {}) {
     // (0.02 units) whose handles are a few thousandths long; written to 5 decimals its bend was lost to the rounding (it read -0.76 where
     // it is +0.4: a KNEE and a SHOULDER on the coupe's foot that came and went with a 0.01px nudge). Every outline drawn with join.fair
     // is now written to 7 decimals (ENGDEC overrides, for tests)
-    const DEC = +(process.env.ENGDEC || 7), rd = opts.join ? (opts.join.fair ? v => Math.round(v * 10 ** DEC) / 10 ** DEC : v => Math.round(v * 1e4) / 1e4) : r3g;   // g7ar: a hill's short pieces need the 5th decimal (at 4, a 0.005 handle loses its bend)   // g7aq: a join round's short handles need the 4th decimal to keep its curvature
+    const DEC = +(process.env.ENGDEC || 7); let rd = opts.join ? (opts.join.fair ? v => Math.round(v * 10 ** DEC) / 10 ** DEC : v => Math.round(v * 1e4) / 1e4) : r3g;   // g7ar: a hill's short pieces need the 5th decimal (at 4, a 0.005 handle loses its bend)   // g7aq: a join round's short handles need the 4th decimal to keep its curvature
+    // g7bb: written as plain decimals, never 1e-7 (JavaScript writes a number under 1e-6 with an exponent, and at 7 decimals one can occur)
+    { const rd0 = rd; rd = v => { const x = rd0(v); return Math.abs(x) < 1e-6 ? (x === 0 || Object.is(x, -0) ? '0' : x.toFixed(DEC).replace(/\.?0+$/, '')) : x; }; }
     let d = `M${rd(segs[0].pts[0].x)} ${rd(segs[0].pts[0].y)}`;
     for (const s of segs) {
       const [p0, c1, c2, p3] = s.pts;
@@ -683,7 +685,7 @@ function hillRound(cin, cout, c, roomIn, roomOut, J) {
   // a half written as cubics: ONE where one follows the hill (its place within J.hillTol, and it leaves its ends bending at
   // the hill's own rate), else TWO, their meeting point, tangent and curvature there solved so all three ends bend at the
   // hill's rate (no knee where the pieces meet); three or four even pieces only if two can't
-  const pieces = (p, a, k0, k1, L, rev) => {
+  const pieces = (p, a, k0, k1, L, rev, deep = false) => {
     const NS = 240, S = run(p, a, k0, k1, L, NS, true, rev), tol = J.hillTol ?? 0.004;
     const stol = Math.max(0.7, (J.hillSlopeTol ?? 0.12) * Math.max(Math.abs(k0), Math.abs(k1)) ** 2);   // relative to the round: a tight round may change faster
     const sl = q => { const a_ = Math.max(0, q - 1), b_ = Math.min(NS, q + 1); return (S[b_].k - S[a_].k) / ((b_ - a_) * L / NS); };
@@ -715,6 +717,20 @@ function hillRound(cin, cout, c, roomIn, roomOut, J) {
       let kv = 0; if (J.maxPieces === 2) { const span = Math.max(1e-6, Math.abs(k1 - k0)); for (const [P, i0, i1] of [[b_.P1, 0, b_.q], [b_.P2, b_.q, NS]]) { let Lp = 0; const Ls = [0]; let pr = bzP(P, 0); for (let s_ = 1; s_ <= 16; s_++) { const pt = bzP(P, s_ / 16); Lp += pt.getDistance(pr); pr = pt; Ls.push(Lp); } for (let s_ = 1; s_ < 16; s_++) { const qi = Math.round(i0 + (i1 - i0) * Ls[s_] / Lp); kv += ((kBez(P, s_ / 16) - S[qi].k) / (0.03 * span)) ** 2 / 30; } } }
       return e1 * e1 + e2 * e2 + e3 * e3 + dip + kv + (dv > 1 ? 10 * (dv - 1) ** 2 : 0) + 0.01 * dv * dv;
     };
+    // g7bb A DEEPER SEARCH for two pieces, the last resort (turn 161: the bed's pillow cap, one corner solved and its mirror twin not):
+    // Nelder-Mead from every split share 0.1-0.9 in steps of 0.05, its first steps both ways, longer; of the pairs that keep the knee
+    // limit, one hill, no stall and hillTol2, the one that costs least
+    function deepTwo() {
+      let pick = null; const kl2 = Math.max(2.5, 0.2 * Math.max(Math.abs(k0), Math.abs(k1)) ** 2);
+      for (let u0 = 0.1; u0 <= 0.9001; u0 += 0.05) for (const sg_ of [1, -1]) {
+        const v = nelderMead(cost2, [u0, 0, 0, 0], [0.1 * sg_, tol * 2 * sg_, 0.05 * sg_, Math.max(0.05, 0.1 * Math.abs(k1 - k0)) * sg_], 400), b_ = build2(v.x); if (!b_) continue;
+        const kOK = Math.abs(kd(b_.P1, 0) - sl(0)) <= kl2 && Math.abs(kd(b_.P1, 1) - kd(b_.P2, 0)) <= kl2 && Math.abs(kd(b_.P2, 1) - sl(NS)) <= kl2;
+        if (kOK && hillMono([b_.P1, b_.P2]) && !stall([b_.P1, b_.P2]) && Math.max(dev(b_.P1, 0, b_.q), dev(b_.P2, b_.q, NS)) <= (J.hillTol2 ?? 0.02) && (!pick || v.f < pick.f)) pick = { f: v.f, Ps: [b_.P1, b_.P2] };
+      }
+      if (process.env.FAIRDBG) console.error('   deep two', pick ? 'found ' + pick.f.toFixed(3) : 'none');
+      return pick ? pick.Ps : null;
+    }
+    if (deep) return deepTwo();
     let best2 = null;
     for (const u0 of fl > 0 ? [fl / NS, 0.5, 0.3, 0.7] : J.maxPieces === 2 ? [0.5, 0.35, 0.65, 0.25, 0.75, 0.15, 0.85] : [0.5, 0.35, 0.65, 0.25, 0.75]) {
       const scale = [0.15, tol * 2, 0.05, Math.max(0.05, 0.1 * Math.abs(k1 - k0))];
@@ -773,7 +789,8 @@ function hillRound(cin, cout, c, roomIn, roomOut, J) {
   // from (on the coupe's band, the left corner's half failed where its mirror, the right one, was found). If one way finds nothing,
   // the half is walked from its other end (heading turned round, bends negated) and the pieces are turned back
   const flipPs = Ps => Ps.slice().reverse().map(P => [P[3], P[2], P[1], P[0]]);
-  const piecesEither = (p, a, k0, k1, L, rev, q, aq) => { const f = pieces(p, a, k0, k1, L, rev); if (f) return f; const b = pieces(q, aq + Math.PI, -k1, -k0, L, !rev); if (process.env.FAIRDBG && b) console.error('   pieces found the other way round'); return b ? flipPs(b) : null; };
+  const piecesEither = (p, a, k0, k1, L, rev, q, aq) => { const f = pieces(p, a, k0, k1, L, rev); if (f) return f; const b = pieces(q, aq + Math.PI, -k1, -k0, L, !rev); if (process.env.FAIRDBG && b) console.error('   pieces found the other way round'); if (b) return flipPs(b);
+    if (J.maxPieces !== 2) return null; const f2 = pieces(p, a, k0, k1, L, rev, true); if (f2) return f2; const b2 = pieces(q, aq + Math.PI, -k1, -k0, L, !rev, true); return b2 ? flipPs(b2) : null; };
   const h1 = piecesEither(A.p, A.a, A.k, kM, L1, false, M, aM), h2 = piecesEither(M, aM, kM, Bq.k, L2, true, Bq.p, Bq.a); if (!h1 || !h2) { if (process.env.FAIRDBG) console.error("   why: no fit", !!h1, !!h2); return null; }
   const S0 = [...h1, ...h2], kS = kBez(S0[0], 1e-4), kE_ = kBez(S0[S0.length - 1], 1 - 1e-4);
   if (Math.abs(kS - A.k) > 0.1 || Math.abs(kE_ - Bq.k) > 0.1) { if (process.env.FAIRDBG) console.error("   why: ends off", kS.toFixed(2), A.k.toFixed(2), kE_.toFixed(2), Bq.k.toFixed(2)); return null; }   // never leave an edge with a step in its bend
@@ -878,11 +895,21 @@ function erode(d, w, miter = true) {
 // stem flared into the domed foot). Keep the left half of the FINISHED outline, mirror it across x, and drop the
 // collinear points the seam leaves on straight lines.
 function symD(d, x, dec = 4) {
+  // g7bb (turn 161, jitter check): the outline comes in written to dec decimals, so its axis sits on that grid; the seam is put on the
+  // same grid, or the cut leaves a sliver of 1e-8 beyond the written axis points that splits a ring at the seam (the person's head lost
+  // its counter with the axis nudged off a round number)
+  x = Math.round(x * 10 ** dec) / 10 ** dec;
   const it = new CompoundPath(d), half = new Path.Rectangle(new Point(-1000, -1000), new Point(x, 1000));
   const seamPts = []; for (const k of (it.children.length ? it.children : [it])) for (const s of k.segments) if (Math.abs(s.point.x - x) < 1e-4) seamPts.push({ p: s.point.clone(), hi: s.handleIn.clone(), ho: s.handleOut.clone() });
   const l = it.intersect(half); it.remove(); half.remove();
   const r = l.clone(); r.scale(-1, 1, new Point(x, 0)); const u = l.unite(r); l.remove(); r.remove();
+  // g7bb (turn 161, jitter check): with the axis off a round number the two halves can miss each other by 1e-7 along the seam and
+  // leave a hairline piece with no area (the person nudged 0.012px: its optical centre came out NaN); such a piece is dropped
+  if (u.children && u.children.length > 1) for (const k of u.children.slice()) if (Math.abs(k.area) < 1e-5) k.remove();
   for (const k of (u.children && u.children.length ? u.children : [u])) {
+    // g7bb (turn 161, jitter check): the seam can also leave two points at one place (a zero-length piece between them, the museum's
+    // apex with its axis nudged 0.009px); fold them into one point, keeping the handle that comes in and the one that goes out
+    for (let i = k.segments.length - 1; i >= 0 && k.segments.length > 3; i--) { const s = k.segments[i], n = s.next; if (n && n !== s && s.point.getDistance(n.point) < 1e-6) { s.handleOut = n.handleOut.clone(); n.remove(); } }
     // g7ae: the seam can split a curve into slivers a hundredth of a px long; fold them into their neighbours
     // (in mirror pairs, so the outline stays symmetric: a point just off the seam, next to a point on it, goes)
     for (let i = k.segments.length - 1; i >= 0 && k.segments.length > 3; i--) { const s = k.segments[i], off = Math.abs(s.point.x - x); if (off > 1e-6 && off < 0.012 && [s.next, s.previous].some(q => Math.abs(q.point.x - x) < 1e-6 && q.point.getDistance(s.point) < 0.012)) s.remove(); }
@@ -913,7 +940,7 @@ function symD(d, x, dec = 4) {
     else if (s.handleOut.isZero() && !s.handleIn.isZero() && s.handleIn.length > 1e-4) s.handleOut = new Point(-s.handleIn.x, s.handleIn.y);
   }
   // absolute commands, as corners() writes them (the checks read M, L, C, Z)
-  const n = v => +v.toFixed(dec), P = q => `${n(q.x)} ${n(q.y)}`;
+  const n = v => { const x = +v.toFixed(dec); return Math.abs(x) < 1e-6 && x !== 0 ? x.toFixed(dec).replace(/\.?0+$/, '') : Object.is(x, -0) ? 0 : x; }, P = q => `${n(q.x)} ${n(q.y)}`;   // g7bb: no 1e-7
   let out = '';
   for (const k of (u.children && u.children.length ? u.children : [u])) {
     out += `M${P(k.firstSegment.point)}`;

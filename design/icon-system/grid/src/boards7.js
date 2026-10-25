@@ -619,7 +619,7 @@ const VESSEL_ROOT = { bowlRoot: 7 / 8, bowlWide: true, bowlSplit: 'even', cupRoo
 // on its plinth, a tree on its trunk) is not lifted: the eye measures its clearance, top and bottom. No lattice snap: the
 // position is the optical one, exactly (the 1/3px lattice could leave a drawing up to 1/6px off it).
 const opticalY = m => m.box.cy - 0.5 * Math.max(0, m.box.cy - m.cy);
-const shiftD = (d, dy) => { let k = 0; return d.replace(/[MLCZ]|-?\d*\.?\d+(?:e-?\d+)?/g, t => { if (/[MLCZ]/.test(t)) { k = 0; return t; } const v = (k++ % 2) ? +(+t + dy).toFixed(7) : +t; return `${v}`; }).replace(/([0-9])(-)/g, '$1 $2'); };
+const shiftD = (d, dy) => { let k = 0; return d.replace(/[MLCZ]|-?\d*\.?\d+(?:e-?\d+)?/g, t => { if (/[MLCZ]/.test(t)) { k = 0; return t; } const v = (k++ % 2) ? (+t + dy).toFixed(7).replace(/\.?0+$/, "").replace(/^-0$/, "0") : t; return v; }).replace(/([0-9])(-)/g, '$1 $2'); };
 // g7aa (owner on v147: "also the interior counter shape of the coupe *still* does not look right. and there is
 // *still* not enough liquid in the cup how many times do i have to say it"): B's flat bowl, closed by its rim bar,
 // holds less drink than v134 (measured, src/liquid.js). Three ways to give it clearly more, one idea each:

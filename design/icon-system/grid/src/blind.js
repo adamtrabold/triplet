@@ -66,12 +66,12 @@ function shaped(id, draw, symmetric, o3 = false, J = null) {
 }
 
 // the outline pipeline (construction.js mark('star'): drawn in its own 24 box at its slot, moved by the optical rule)
-const shiftD = (d, dy) => { let k = 0; return d.replace(/[MLCZ]|-?\d*\.?\d+(?:e-?\d+)?/g, t => { if (/[MLCZ]/.test(t)) { k = 0; return t; } const v = (k++ % 2) ? +(+t + dy).toFixed(7) : +t; return `${v}`; }).replace(/([0-9])(-)/g, '$1 $2'); };
+const shiftD = (d, dy) => { let k = 0; return d.replace(/[MLCZ]|-?\d*\.?\d+(?:e-?\d+)?/g, t => { if (/[MLCZ]/.test(t)) { k = 0; return t; } const v = (k++ % 2) ? (+t + dy).toFixed(7).replace(/\.?0+$/, "").replace(/^-0$/, "0") : t; return v; }).replace(/([0-9])(-)/g, '$1 $2'); };
 function outline(id, prims, slot, law0 = LAW, o3 = false, J = null) {
   if (J && (J.dx || J.dy)) prims = E.xform(prims, 1, 0, 0, J.dx || 0, J.dy || 0);
   const laws = [];
   const law = c => { const r = law0(c); laws.push({ pt: c.pt, convex: c.convex, hole: !!c.hole, angle: c.angle, lin: c.lin, lout: c.lout, r, why: lawWhy(c) }); return r; };
-  const d0 = E.build(prims, { law, ease: EASE, tightHoles: true, join: JOIN10, sym: 12 }).d, m = measure(d0), dy = E.placeOffset(12 - opticalY(m)), d = shiftD(d0, dy);
+  const d0 = E.build(prims, { law, ease: EASE, tightHoles: true, join: JOIN10, sym: 12 + (J && J.dx || 0) }).d, m = measure(d0), dy = E.placeOffset(12 - opticalY(m)), d = shiftD(d0, dy);
   if (J) return { id, d };
   const b = measure(d).box;
   return { id, cls: 'OUTLINE', slot, dy, mPre: m, mFin: measure(d), finished: [b.x1 - b.x0, b.y1 - b.y0], prims: prims.map(q => primOut(q, 0, dy)), parts: E.parts(E.xform(prims, 1, 0, 0, 0, dy)).map(p => p.d), sharp: E.build(E.xform(prims, 1, 0, 0, 0, dy)).d, d, laws: dedupe(laws).map(l => ({ ...l, pt: [l.pt[0], l.pt[1] + dy] })) };
