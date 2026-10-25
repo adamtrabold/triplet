@@ -707,3 +707,35 @@ Director (turn 162): 9 after three short additions to rule 15. Words only.
 - **Code:** the same words in `PROP.classByJob`'s comment and in `proportions-board.js` (rule 15 there now matches the live board).
 - **Canvas v244:** Construction rule 15; Start question 5 (Start h 1020). Live re-read first (it was v243).
 - No drawing changes.
+
+---
+
+## Turn 164: design director, blind round 2 (v245): the system 6, and why it's structural
+
+Read `blind-test-2.md`. Rendered the six, the bed, the bag, the heart (off and on) and the open person at 24, 72 and 240px, at 1x and 3x.
+
+**By eye:**
+- **Heart (off):** the right size and weight beside the star, but its counter has two notches on the inner lobes and a V under the cleft, plain at 72. The "on" heart reads well.
+- **Bag:** the darkest mark in the row, a plain block with a loop. At 12 and 24 it reads as a padlock. None of the family's joins.
+- Neither landed. Round 1 got one of two through the checks; round 2 got neither.
+
+**Score: the system, 6.** Down from 7: a second round failed, and failed in kinds round 1 didn't reach.
+
+**Diagnosis: structural, not a list of patches.** Twelve gaps, but they come from four causes:
+1. **The engine doesn't read the spec.** Rule 4 names join kinds, but the engine treats a join by its angle and edge length. The family's character (flares, caps, leaned joins) lives in hand-written per-icon code (`picks7`), not in rules the engine applies. So a new icon gets character only if its designer hand-writes it, and a blind one won't. That's why both rounds came out generic.
+2. **The spec describes the six; it doesn't generate.** Each round meets part types the six don't have: a turned root, a loop fixed to a mass, a mass on the ground, overlapping counters. A patch per round is whack-a-mole.
+3. **Counters have no single operation.** "Each root less a wall" works only when the counter is one root. The six's counters were each built their own way. Overlapping roots need one operation on the finished outside, which touches his "shapes and proportions, not stroke logic".
+4. **The geometry is only robust where it's been tuned.** Tangent roots drop out, and the mirror crashes or seams on new shapes. Jitter passed on the six because they're the six.
+
+**What would make round 3 likely to pass** (big: two or three build rounds, not a patch):
+1. **Declarative builds.** An icon is a list of roots, each join declared by kind, and its counters. The engine applies each kind's treatment. Proof: the six rebuilt from declarations alone, within 0.05px of approved, with `picks7`'s hand code retired.
+2. **One counter operation** (after his answer below), with its corner rule.
+3. **Robust geometry:** tangency and the mirror handled for any outline. Fuzz-test on random root sets, not just the six.
+4. **A weight rule** (ink against the class's target) and a **plain-mass treatment** (after his answer).
+5. Then round 3, with fresh icons and a fresh designer.
+
+**Bring the owner in now** (two rounds below 9, the score not rising). Two questions only he can settle:
+1. "Where shapes overlap (a heart), can the hole be the finished outside drawn in by one line, so the wall stays even? Or does that count as the 'stroke logic' you ruled out?"
+2. "What should make a plain block ours (a bag, a box, a suitcase)? Or is plain fine for plain things?"
+
+Tell him the plan in one line: the rules have to drive the drawing, not describe it.

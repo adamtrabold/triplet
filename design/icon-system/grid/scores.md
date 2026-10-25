@@ -1431,3 +1431,11 @@ The verdict stands within our own set:
 - **Open person:** pairs with the + at 24 and 72.
 - **Rule 15 (by job):** sound. Three gaps from the inventory: solid dots and heads in controls; district/street (map-shape categories, a design call); shown-only states are solid.
 - **Next:** blind round 2, a bag and a heart. The pin is round 3. Jam turn 162.
+
+## Round: blind test 2 (canvas v245), 2026-10-24: the system 6
+
+- **Heart:** the right size and weight, but notched counter. **Bag:** the darkest in the row, a padlock at 12 and 24, generic. Neither landed.
+- **Structural:** the engine treats joins by geometry, not declared kind; character lives in per-icon code; the spec describes the six; no single counter operation; the geometry is robust only on the six.
+- **Plan:** declarative builds (the six rebuilt from declarations), one counter operation, robust geometry plus a fuzz test, a weight rule and a plain-mass treatment, then round 3.
+- **Owner now:** the counter operation where roots overlap; what makes a plain block ours.
+- **Fixes:** jam turn 164.

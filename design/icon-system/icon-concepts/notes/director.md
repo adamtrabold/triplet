@@ -1928,3 +1928,10 @@ checks; don't eyeball "is it as good as".
 - Test a class rule against the real inventory, row by row. The holes are where an icon has two jobs or parts that can't take the class (dots in an open mark, map-shape categories, shown-only states).
 - The class pairs: outline with the star (two states), open with the + (controls), solid with the places.
 - Next: rule-15 additions, then blind round 2 (bag, heart). Round 3 can test the pin, as the class-edge case.
+
+## Blind round 2 (v245, 2026-10-24): the system 6
+
+- **Recurring blocker, named:** the rules are written *about* the drawings; they don't *make* them. Character, counters and joins live in per-icon code, so every blind round finds a new uncovered case.
+- **The test for "real":** can the six be rebuilt from declarations (roots, join kinds, counters) by the engine alone? Until then, a blind pass is luck.
+- **Owner questions open:** a counter of overlapping roots (offset of the finished outside vs his "not stroke logic"); a plain mass's character.
+- **Next:** his answers, then the declarative rebuild (two or three rounds), a fuzz test, then blind round 3.
