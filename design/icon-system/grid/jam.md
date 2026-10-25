@@ -604,3 +604,17 @@ Director (turn 158): 8, ready for blind round 2 after two fixes. (1) Overhang is
 - the bed looked at at 24, 72 and 240px, at 3x.
 
 **Unsure:** the director should rule whether "positions to 1/1000, the six frozen as approved" is acceptable as engine law for round 2, or whether the solver fix comes first.
+
+---
+
+## Turn 160: design director, v242: fix the engine's sensitivity first, then blind round 2
+
+The bed's square foot passes. On the rounding: an engine where an invisible 0.02px move flips a check isn't the foundation for "perfect on every icon ever created". A blind designer would hit it with no way to know why. **Fix first.**
+
+**The fix:**
+1. **Jitter test** (a new `src/jitter-check.js`). Rebuild each of the six about 50 times, with every input moved at random by up to ±0.02px. Record two things: how far the outline moves (it must stay ≤ 0.05px), and whether any check's verdict changes.
+2. **Find the jumps.** Where the outline jumps, the round solver is switching branches (the fallbacks: fit → law radius → split pieces) or changing its piece count. Make the choice continuous: blend across the switch, or pick by a margin with hysteresis, not at a hard threshold.
+3. **Give the checks a band.** A fault must hold across the jitter, and must exceed its limit by a margin, not by noise. A verdict that flips at ±0.02px is reported as "marginal" and fixed in the drawing or the rule.
+4. **Done when:** the six rebuild under the 1/1000 law with their outlines within 0.05px and every check stable under jitter. Then they're no longer frozen; they come out of the same engine as any new icon.
+
+Then blind round 2: a bag, and a pin or a heart.
