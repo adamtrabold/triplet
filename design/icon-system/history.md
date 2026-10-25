@@ -103,6 +103,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-24 · v241 shown:** blind test round 1 (director 7): the seven gaps as rules: the joins (holds, overhang, rests, base, free: the family's character by the kind of join), outline marks sized by their outside to the star's cut (counters a check, 2 lines), one round table (engine built from it), slab or mass, the lattice rule, one cut, master grid rebuilt. Bed and person re-run under them (person 16.8 → 14.1px wide, shoulders a dome; bed: capital at the foot, pillow a cap). The six unchanged. Asked: do they read as family? dome shoulders OK?
 
+- **10-25 · v244 shown:** blind round 1 (v240: bed, person) scored the system 7 (person too big; bed generic; spec carried no character). Fixed as rules (v241-v242): rule 4 "the joins" (holds, overhang only on a slab over 2+ posts, rests, base, free), outline sizing, one round table, slab vs mass, lattice, one cut, master grid rebuilt. Engine made robust (v243): hard switches blended; jitter check (50 rebuilds, ±0.02px; max 0.044px, no verdict flips) now standard. Rule 15, outline/solid/open by job (a tap fills it → outline; place category → solid; control → open, may carry small solid parts; state marks solid); person redrawn open. Director 7 → 8 → 9. Asked: bed and person family? Neighbourhood/Street class (team: open in the diamond shell)? Blind round 2 started: bag and heart.
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
