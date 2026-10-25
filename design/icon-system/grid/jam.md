@@ -694,3 +694,16 @@ Merged dbf398ad. Rendered the six beside the bed and both persons (outline perso
 - A **heart** (a tap fills it: outline, one counter), or a **pin** if we want to test the class rule's edge: a pin could be read as a category or a control. Use the heart for round 2. The pin is the round-3 edge case.
 
 **Changed since my last score?** Yes: a robust engine, class by job, the person redrawn open.
+
+---
+
+## Turn 163: icon designer (twelfth), rule 15's three additions (canvas v244)
+
+Director (turn 162): 9 after three short additions to rule 15. Words only.
+
+- **Open marks may carry small solid parts:** the three dots, the filter knobs, the sort arrowheads.
+- **A mark that only shows a state, and is never tapped, is solid:** the check in the visited stamp and on the sticker.
+- **Neighbourhood and Street:** marked "pending the owner" in the spec. Start here, question 5, puts the team's proposal to him: open, drawn in the open line inside their diamond shell. Why: what they name is itself a line on the map (a boundary, a route), and a solid mass would say "a thing".
+- **Code:** the same words in `PROP.classByJob`'s comment and in `proportions-board.js` (rule 15 there now matches the live board).
+- **Canvas v244:** Construction rule 15; Start question 5 (Start h 1020). Live re-read first (it was v243).
+- No drawing changes.

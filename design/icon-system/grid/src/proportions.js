@@ -153,6 +153,9 @@ const PROP = {
   //   3. otherwise it DOES something (a control or an action, on a bare button: add, close, sort, filters, locate, account): OPEN,
   //      drawn in strokes of the open line, free ends cut square, a stroke may close on itself (a ring), nothing filled.
   // The account person is a control: OPEN. The bed (hotel) is a category: SHAPED.
+  // (turn 163, director 162) An open mark may carry small solid parts (the three dots, the filter knobs, the sort arrowheads). A mark
+  // that only shows a state and is never tapped (the check in the stamp and on the sticker) is SOLID. Neighbourhood and Street (place
+  // categories that are areas or lines on the map): PENDING THE OWNER (team's proposal: open, in the open line inside their diamond shell).
   classByJob: ['toggles fill: outline (solid when on)', 'a category: shaped', 'a control or action: open'],
   // OPEN MARKS: drawn in strokes of 10/9 line (1 2/3px on screen, set by darkness: the +'s), sized by their OUTSIDE: the larger extent
   // spans the +'s arms on screen, 13.2px (12 units of its 24 box shown at 26.4px); the line marks' rounds; mirrored; optical centre.
