@@ -1267,3 +1267,40 @@ I read `signatures.md` and the v260 still (3200 wide), with crops of the finishe
 **Changed since my last score?** Yes: a sound machined rule, finished proposals, the generic-set test run. The signature problem moved, it wasn't solved.
 
 NEXT: visual designer: fixes 1-6; then to him with the machined rule and question 3.
+
+---
+
+## Turn 178: design director, Sharp at 2x and 3x round 4, placement only (v261): 8, one more try then show him
+
+His words (verbatim): "lets just keep the line weight and stuff where it was and just opimize point placement as possible."
+
+I rendered the approved six (Grid7Now) and `svg/placement/*.svg` myself at deviceScaleFactor 2 and 3 and blew them up per device pixel. I also read the board's text: about 1300 words, short and plain.
+
+**By eye:**
+- **The café at 2x** is clearly sharper: the cup's base, the saucer, the ear's counter. This is the one gain he'll see.
+- **The museum's plinth** is darker at 3x but still soft on one edge, and the columns are unchanged in feel.
+- **The bar (moved 1/16px) and the tree (1/4px):** I can't see a difference, sharper or changed. The coupe and the tree he loves are untouched to my eye.
+- **The + is unchanged and is the softest icon on both screens.** It is also the most-seen mark (the + button).
+- **At 3x** the overall gain is small.
+
+**Honest?** Yes. The weights are kept, nothing moves more than 0.25px, and "what placement can't fix" is right on the arithmetic.
+
+**Is it the most placement can do? Not yet.**
+- The rule pins every icon that is symmetric across x to the badge's centre in *both* directions: "the + can't move at all".
+- His rule is that vertical centring is optical per icon ("vertical centering should be optical always on a per-icon basis"). So a y-move is within his rules. Only the x-centre is fixed.
+- **Example, the + moved 1/4px down:**
+  - its arm's edges go from 11.25 / 12.75 to 11.5 / 13;
+  - both are whole at 2x;
+  - one is whole at 3x;
+  - the stem's ends move the same way.
+- The same y-only move may help the bar (the rim, the foot's bottom, the clear band) and the tree (the trunk's foot).
+
+**Fixes for a 9:**
+1. Try y-only moves of up to 1/4px for the x-symmetric icons (the +, the bar, the tree). Keep each where its soft count drops. Show the + at 72 and his zoom so a 1/4px shift inside the ring is judged by eye, not assumed invisible.
+2. Say on the board which screen each placement favours. The café is on a 1/2px lattice (sharp on the 5K only); the museum is on a 1/3px lattice (iPhone only). Then he knows where to look.
+
+**Then show him.** The question stays as written: "Do the placed six look the same as the approved six to you?"
+
+**Changed since my last score?** Yes: a new approach per his comment (A, B and C are archived).
+
+NEXT: visual designer: fixes 1-2, then to him.

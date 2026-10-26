@@ -1517,3 +1517,11 @@ The verdict stands within our own set:
 - **The museum's sides:** drawn concave (a spool) though the text says they swell.
 - **Bags:** B reads as a padlock; A needs the blind read.
 - **Jam turn 177.**
+
+## Round: sharp by placement only (canvas v261), 2026-10-26: 8
+
+- **Honest and short:** the weights are kept, nothing moves more than 0.25px, and the coupe and tree are unchanged to the eye.
+- **Visible gain:** mainly the café at 2x; little at 3x.
+- **Not yet the most placement can do:** the x-symmetric icons were also pinned in y. The + (the softest, most-seen mark) could move 1/4px down within his "vertical centering ... optical" rule.
+- **Then:** say which screen each placement favours, and show him.
+- **Jam turn 178.**

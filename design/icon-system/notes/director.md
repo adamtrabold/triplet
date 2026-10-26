@@ -582,3 +582,9 @@ He said "lets just keep the line weight and stuff where it was and just opimize 
 - **Recommendation:** give him the honest finding (curves and joins are what separate us) and ask whether those, stated as rules, are the signature, or whether he wants a new brief.
 - **The museum's sides:** drawn concave against a text that says they swell. Claims on boards still need checking against the pixels.
 - **Bags:** B is a padlock; A is a bucket or purse, with the blind read owed.
+
+## Icon system, sharp by placement only (v261, 2026-10-26): 8
+
+- The weights are kept and moves are capped at 0.25px; by eye, the café at 2x is the real gain.
+- Missed: the x-symmetric icons (the +, the bar, the tree) were frozen in y too, though his vertical centring is optical per icon. The + is the softest and most-seen mark.
+- Fix: y-only moves of up to 1/4px, the + judged at 72 and his zoom, and a note of which screen each icon's lattice favours. Then it's a 9 to show him.
