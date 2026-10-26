@@ -886,3 +886,37 @@ Read the live board (v248, 8933px) and turn 166. Rendered approved against B for
 2. Rebuild all six. The tree and the museum must come back by eye at 24 and 72.
 3. Then the fork, the bed, and the bag with new root calls (a tapered body, a wider handle, a band hole).
 4. Show him only when the six come back.
+
+---
+
+## Turn 168: icon designer, the A+B mix prototyped outside the engine (canvas v249)
+
+Brief: director turn 167 ("notches and holes are roots, cut after the rule; the capital its own root; each root states its thickness"). Code: `src/mix.py` (B's raster base, `castlib.py`), sheets `src/mix-sheet.py`, close-ups `src/mix-crop.py`, board section `src/mix-board.py`; outputs `svg/mix/`. Engine, picks7 and the six untouched.
+
+**All six came back by eye at 24 and 72** (sheet `svg/mix/sheet-six.png`, row `row-1x.png`/`row-3x.png`, looked at, plus 8x overlays). Deviation at 24, px² differing (approved-only + mix-only), and ink against approved:
+
+| Icon | Differ | Ink | Under B |
+|---|---|---|---|
+| Café | 0.23 | +0.0% | 0.23 |
+| Bar | 0.53 | -0.3% | 0.45 |
+| Museum | 1.09 | +0.0% | 4.75 |
+| Tree | 1.00 | -0.6% | 8.31 |
+| Star | 3.03 | +2.8% | 3.50 |
+| + | 0.08 | +0.0% | 0.34 |
+
+- **Tree back.** Part of B's failure: it guessed thickness from the drawing, so a tier thinning to its tip read as thin-meets-thick and flared into the notch. Declared thickness (tiers are masses; two masses meeting get only the base round) keeps the notch open by itself; the notch root (triangle: tier tip, underside middle, a point under the tip) guarantees it. Tips: the engine's tip law on the *visible* edge (min(0.35, 0.0877 x edge)), and a tier's tip **lands**: it ends where an eased round's point would be (ends 1.4 x 1.6 a circle's distance back, handles 0.55), its edges re-aimed about their other node. Without landing the tree was 11% heavy: the approved tiers sit ~0.15px inside their logged roots, which is the engine's tip landing, not a root.
+- **Museum's capitals back** from one call (a post holds a slab past its end): a block a step either side of the slab face, from the post's face to the slab end, less a quarter ellipse centred on the slab end a step past its face (rx the overhang, ry two steps), cut after the rule. It reproduces the approved capital curve almost exactly; the approved outer post face bulges ~0.05px more.
+- **Star** a hair heavy (outline ~1/25px outside). It came back best WITHOUT landing (with the tree's landing its points went blunt), so landing is a tier behaviour here, not a universal one. Named, not hidden.
+- **Coupe** flares a touch less leaned (no flare lean in the mix).
+
+**New icons** (`sheet-new.png`, row): Restaurant (fork and knife, all posts and masses: tines flare into the head, the knife's handle into the blade, nobody drew them); Hotel (bed2's roots with kinds: headboard and leg flare). **Shopping: not solved.** New calls: body a trapezoid wider at the top (foot 5/6); handle a 4/3 loop, a wide flat arch 4/5 of the top, its counter running straight half a line into the body (the cup ear's slot rule); a rim band hole. Reads as a bag or basket at 72; at 24 still a dark block with a loop, near the padlock. Tried: wider at the foot (kettlebell), a half-circle handle (padlock again), a flatter arch with a thin counter (counter closed). It needs a better concept, not a better rule.
+
+**Root-call vocabulary** (px at 24): MASS 3 (2 lines, PROP.block.massMin); SLAB 1.5; POST 1.25, flares 0.5 into anything it holds or stands on; LOOP 4/3; HOLE (proportional, base round only); NOTCH (cut after the rule, takes only space); CAPITAL (above); TIP (a living mass lands soft; a line mark gets the plain tip round). The rule: inside round 0.15 + (t_thick - t_thin)/5, at most 1.0 and 0.45 of the gap, base only in closed counters and holes; outside t/5, held by the settle limit (a corner loses at most 0.5px at its point). Fifths throughout.
+
+**Canvas v249:** "How the system makes new icons": the B tests (Tests 1-3) replaced by "The mix: roots that carry the brand" (the six approved vs mix at 24/72 with numbers; the tree and the museum at 192; the three new icons beside the six; the vocabulary; "not yet true"). The whole v248 board copied to the Archive page as Archive-G7bd-BTest (x 2520, y 189300). Frame unchanged (content 9341 in its 9600 frame).
+
+**Checks run:** area diffs vs approved for the six and the bed; look sheets at 24/72/288 and the row at 1x/3x, all looked at; 8x close-ups of the tree, the museum capital, the coupe stem, a star point; the board section rendered in Chromium and looked at. No engine checks (nothing in the engine changed). Impeccable not run (a design board, not the app).
+
+**Unsure:** the landing value (1.6) was chosen on the tree, so the tree's return is partly calibrated (one frozen number, but picked on it); outlines are traced polygons, not clean curves; weight still judged by eye.
+
+NEXT: design director: score whether the six's return holds by eye and whether the vocabulary is spec-ready; the bag needs a concept call.

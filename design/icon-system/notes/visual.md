@@ -1,5 +1,16 @@
 # Visual designer notes: icon system
 
+## Update (2026-10-26, canvas v249, turn 168; icon designer, the mix)
+
+- **Brief:** director turn 167: prototype the A+B mix outside the engine (cut roots never filled, the capital as a root, declared thickness); rebuild the six, then Restaurant, the bag, the bed; write the vocabulary as a spec draft.
+- **Code:** `grid/src/mix.py` (root calls + the one rule; `python3 -I src/mix.py [names]` from `grid/`, about 40s for three icons), `mix-sheet.py` (sheets and rows; needs the .npy files mix.py writes, not committed), `mix-crop.py` (8x overlay), `mix-board.py` (writes the board section and splices it into Grid7NewIcons). Outputs `grid/svg/mix/` (traced svgs, summary.json with the deviations).
+- **Result:** all six back by eye (table in jam turn 168). Tree: declared thickness keeps the notches open, notch roots guarantee it, tips by the visible edge, tier tips land (ease 1.6, chosen on the tree). Museum: the CAPITAL call (a block less a quarter ellipse) reproduces the capitals. Star +2.8% ink (no landing); coupe flares less leaned.
+- **Finding:** construction.json's tree parts are right; the approved tree sits ~0.15px inside them because of the engine's tip landing (edges re-aimed to a shorter tip), not because of a root. Without landing the mix tree was 11% heavy. B's prototype also guessed thickness, which is what flared its notches.
+- **New icons:** Restaurant and Hotel read as family. Shopping not solved (near the padlock at 24, a basket at 72); what was tried is in the jam turn.
+- **Canvas v249:** Grid7NewIcons: the B tests replaced by "The mix: roots that carry the brand"; the v248 board archived whole as Archive-G7bd-BTest (Archive page, x 2520, y 189300).
+- **Open:** the bag's concept (a designer/director call); whether tier landing stays a root behaviour or becomes a rule the star follows too; building the mix into the engine (clean curves, not traces); weight by rule.
+- **Next:** the director scores v249; if the six hold, the owner sees it; then the engine build.
+
 ## Update (2026-10-25, canvas v243, turn 161; twelfth icon designer)
 
 - **Director turn 160:** fix the engine's sensitivity before blind round 2 (jitter test, blend the cutoffs, checks with a band). **Done.** Plus the owner's question (10-25): "when is an icon outlined vs not in this brand ... we need logic". **Answered as a rule** (PROP.classByJob, Construction rule 15) and the person redrawn open.

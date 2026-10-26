@@ -1,0 +1,97 @@
+{
+ "rule": {
+  "base": 0.15,
+  "k_in": 0.2,
+  "post_flare": 0.5,
+  "max_in": 1.0,
+  "window": 0.8,
+  "gap_keep": 0.45,
+  "gap_read": 1.0,
+  "k_out": 0.2,
+  "settle": 0.5,
+  "out_min": 0.075,
+  "out_max": 0.6,
+  "tip": 0.35,
+  "tip_share": 0.0877,
+  "trim": 1.4,
+  "ease": 1.6,
+  "reach": 0.9,
+  "handle": 0.55
+ },
+ "thickness": {
+  "mass": 3.0,
+  "slab": 1.5,
+  "post": 1.25,
+  "loop": 1.3333333333333333
+ },
+ "cafe": {
+  "ink_px2": 56.88,
+  "roots": 3,
+  "holes": 1,
+  "cuts": 0,
+  "approved_only": 0.11,
+  "mix_only": 0.12
+ },
+ "bar": {
+  "ink_px2": 44.99,
+  "roots": 3,
+  "holes": 1,
+  "cuts": 0,
+  "approved_only": 0.34,
+  "mix_only": 0.19
+ },
+ "plus": {
+  "ink_px2": 34.56,
+  "roots": 2,
+  "holes": 0,
+  "cuts": 0,
+  "approved_only": 0.02,
+  "mix_only": 0.06
+ },
+ "museum": {
+  "ink_px2": 63.15,
+  "roots": 11,
+  "holes": 0,
+  "cuts": 4,
+  "approved_only": 0.53,
+  "mix_only": 0.56
+ },
+ "nature": {
+  "ink_px2": 34.31,
+  "roots": 4,
+  "holes": 0,
+  "cuts": 4,
+  "approved_only": 0.61,
+  "mix_only": 0.39
+ },
+ "star": {
+  "ink_px2": 86.5,
+  "roots": 1,
+  "holes": 1,
+  "cuts": 0,
+  "approved_only": 0.38,
+  "mix_only": 2.65
+ },
+ "restaurant": {
+  "ink_px2": 45.25,
+  "roots": 7,
+  "holes": 0,
+  "cuts": 0
+ },
+ "bag": {
+  "ink_px2": 59.12,
+  "roots": 2,
+  "holes": 1,
+  "cuts": 0,
+  "approved_only": 14.68,
+  "mix_only": 4.18
+ },
+ "bed": {
+  "ink_px2": 46.86,
+  "roots": 4,
+  "holes": 0,
+  "cuts": 0,
+  "approved_only": 0.17,
+  "mix_only": 0.43
+ }
+}
