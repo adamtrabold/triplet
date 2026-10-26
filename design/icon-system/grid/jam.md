@@ -1542,3 +1542,11 @@ I checked v268 against the live board (2,373px) and the new 72 stills. The outli
 4. "Do the star (11 in the row, 13 on the tag) and the + sit right in their places?"
 
 NEXT: icon designer: the tag edit. Then the orchestrator shows him.
+
+---
+
+## Turn 187: icon designer (pixel shapes), turn 186's edit (canvas v269)
+
+The Hanging Tag star before / now pair is back, beside the + buttons (13.4 → 13px tall), so question 4 has its pictures. To keep the board under the cap: the "Visible:" caption under the pixel rows went, the star line is shorter, and the frame padding is tighter. No drawing changed. Board 940 × 2393 measured; v268 archived whole (`Archive-G7bk-Sharp.dc.html`, Archive x 5760 y 210000). Phone stills of the final board: `stills/pixel-shapes/r7/sharp-v269-1..3.png` (1504 wide).
+
+NEXT: orchestrator: show him v269.

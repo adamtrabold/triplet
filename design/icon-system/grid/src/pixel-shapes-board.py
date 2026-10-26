@@ -53,7 +53,6 @@ def board(local):
     for t, d in [('5K', '2x'), ('iPhone', '3x')]:
         b += f'<div style="font-size:15px;font-weight:700;color:{NAVY}">{t}</div>' + img(f'pix-before-{d}', f'{t}, before', 400, local) + img(f'pix-after-{d}', f'{t}, now', 400, local)
     b += '</div>'
-    b += cap('Visible: saucer, beam and plinth 2px shapes; ear and openings 2px; three columns; the coupe\'s band 1½ (was ¾); tines 1px apart.')
 
     b += label('The museum in the six', 18)
     b += p('Your question: four 1½px columns with 2px openings make it 13px wide (was 9.8); to keep its size it drops a column. Only the museum changes between rows (coupe C in each). At 24, true size:', 15)
@@ -84,11 +83,12 @@ def board(local):
     # the knife's section (v266/v267) is on the archived boards; unchanged since v266, in one line in the rules
 
     b += label('The star and the +, where they live', 18)
-    b += p('<b>In the app the star was already about this size; our boards drew it 16px tall in a ring.</b> It is now 11px in the row (the name\'s capital height; was 12.1) and 13 on the Hanging Tag (its neighbours\'; was 13.4).', 15)
+    b += p('<b>In the app the star was already about this size; our boards drew it 16px tall in a ring.</b> Now 11px in the row (the name\'s capital height; was 12.1), 13 on the tag (its neighbours\').', 15)
     b += p('<b>The +: which weight?</b> 14px across, ends whole. 2px: a third heavier than the line you kept (ink +26%), sharp everywhere. 1½px: your weight, set ¼px off the arms\' centre; one side soft on an iPhone like every line, the arms ½px unequal (6½, 6).', 15, INK, 6)
     b += f'<div style="display:grid;grid-template-columns:270px 270px 76px 76px 76px;gap:4px 10px;align-items:center">' + head('Row star, before') + head('Row star, now') + head('+ before') + head('2px') + head('1½, ¼ off')
     b += img('ctx-row-before-3x', 'row before', 270, local, False) + img('ctx-row-after-3x', 'row now', 270, local, False)
-    b += img('plus-btn-before-3x', '+ before', 68, local, False) + img('plus-btn-after-3x', '+ at 2px', 68, local, False) + img('plus-btn-after15-3x', '+ at 1½px', 68, local, False) + '</div>'
+    b += img('plus-btn-before-3x', '+ before', 68, local, False) + img('plus-btn-after-3x', '+ at 2px', 68, local, False) + img('plus-btn-after15-3x', '+ at 1½px', 68, local, False)
+    b += img('ctx-tag-open-before-3x', 'Hanging Tag before', 270, local, False) + img('ctx-tag-open-after-3x', 'Hanging Tag now', 270, local, False) + f'<div style="grid-column:span 3;font-size:14px;color:{GREY};line-height:1.35">Hanging Tag star, before / now: 13.4 → 13px tall.</div></div>'
     b += f'<div style="display:flex;gap:14px;margin-top:6px;align-items:center">' + img('plus-pix-2x', '+ on the 5K: before, 2px, 1½px', 239, local) + img('plus-pix-3x', '+ on an iPhone: before, 2px, 1½px', 239, local)
     b += '<div style="font-size:14px;color:#5A564C;line-height:1.35">In the app at true size; the + per device pixel, 5K then iPhone, each before / 2px / 1½. Soft: 6 / 8, 0 / 0, 0 / 4. The button and the row star\'s box move onto whole pixels (CSS).</div></div>'
 
@@ -101,7 +101,7 @@ def board(local):
                            'The +: 2px, or your 1½px set ¼px off centre?',
                            'Do the star (11 in the row, 13 on the tag) and the + sit right in their places?'], 1):
         b += f'<div style="display:grid;grid-template-columns:32px 1fr;gap:10px;padding:6px 0;border-top:1px solid {RULE}"><div style="font-size:22px;font-weight:700;color:{ORANGE}">{i}</div><div style="font-size:18px;line-height:1.35;color:{NAVY};font-weight:600">{q}</div></div>'
-    return f'<div style="width:940px;box-sizing:border-box;padding:30px 32px 16px;background:{PAPER};font-family:Archivo,Arial,sans-serif;color:{INK}">' + b + '</div>'
+    return f'<div style="width:940px;box-sizing:border-box;padding:26px 32px 10px;background:{PAPER};font-family:Archivo,Arial,sans-serif;color:{INK}">' + b + '</div>'
 
 HEAD = '<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<title>Sharp at 2x and 3x</title>\n<script src="./support.js"></script>\n</head>\n<body>\n<x-dc>\n<helmet>\n<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&amp;display=swap">\n<style>\nbody{margin:0}\n</style>\n</helmet>\n'
 TAIL = '\n</x-dc>\n<script type="text/x-dc" data-dc-script data-props=\'{"$preview":{"width":940,"height":%d}}\'>\nclass Component extends DCLogic {\nrenderVals() { return {}; }\n}\n</script>\n</body>\n</html>\n'
