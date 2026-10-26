@@ -1509,3 +1509,11 @@ The verdict stands within our own set:
   - The museum's bevel is "way better", so my "pinch" call is withdrawn.
   - Both museum swings are out; next he wants the sides (fix 8).
   - The score stays 7.
+
+## Round: brand signatures round 3 (canvas v260), 2026-10-26: 7
+
+- **The machined rule (three cutters, continuous curvature, chamfer or fillet by join):** close to a 9. Show the snaps on the tree trunk and the bed.
+- **The signature:** test 1 weights his "no circles" note, which he asked us not to do; test 2 is his machined note; "Weight" names neither.
+- **The museum's sides:** drawn concave (a spool) though the text says they swell.
+- **Bags:** B reads as a padlock; A needs the blind read.
+- **Jam turn 177.**
