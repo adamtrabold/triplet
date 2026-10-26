@@ -1211,3 +1211,15 @@ NEXT: visual designer: fix 7 first (it settles joins for every icon), then fixes
 **Addendum 3: his comment on the bag proposal (verbatim):** "i can't see what the new icon would look like"
 
 **Fix 9:** every proposal is shown as the finished icon: filled, in its badge, at true size 24 and at 72, beside the six. Not a diagram, an overlay or a partial line drawing. Construction marks may sit beside it, but the icon comes first. This applies to the bag, the museum's side swing, and every join drawn under fix 7.
+
+---
+
+## Turn 176: design director, Sharp at 2x and 3x round 3 (v259): superseded, no score
+
+His comment, verbatim: "lets just keep the line weight and stuff where it was and just opimize point placement as possible. the other options look like shit". He made that call before my score, so the board is moot.
+
+My notes from the read, for the next round:
+- A and C were snapped rather than redrawn, which biased the comparison.
+- B's 32px badge would have outgrown the 28px glyph column.
+
+**Next:** keep the 1.5px line and the 24 badge, and optimise point placement in the drawings themselves, not with a fitting pass ("without extrawork").
