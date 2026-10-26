@@ -1439,3 +1439,11 @@ The verdict stands within our own set:
 - **Plan:** declarative builds (the six rebuilt from declarations), one counter operation, robust geometry plus a fuzz test, a weight rule and a plain-mass treatment, then round 3.
 - **Owner now:** the counter operation where roots overlap; what makes a plain block ours.
 - **Fixes:** jam turn 164.
+
+## Round: "How the system makes new icons" (canvas v246, concept), 2026-10-26: 9 after three edits and a layout fix
+
+- **B (one casting rule; thin meets thick) with C as the judge:** the right idea. The rebuild-the-six test is decisive; A is the right fallback.
+- **Objections:** "how is B different from today's engine?" (not answered); "will my six change?"
+- **Edits:** a what's-new block; the precedent cut to three lines; C's test set widened, and B's at-risk touches listed.
+- **Layout:** the frame to about 5620px; row 2 moved below y 21160 (Between overlaps the master grid).
+- **Fixes:** jam turn 165.

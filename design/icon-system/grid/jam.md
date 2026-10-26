@@ -739,3 +739,37 @@ Read `blind-test-2.md`. Rendered the six, the bed, the bag, the heart (off and o
 2. "What should make a plain block ours (a bag, a box, a suitcase)? Or is plain fine for plain things?"
 
 Tell him the plan in one line: the rules have to drive the drawing, not describe it.
+
+---
+
+## Turn 165: design director, "How the system makes new icons" (v246): the concept, 9 after three edits and a layout fix
+
+Read `flexible-system.md` and rendered the live board (Grid7NewIcons, 760 wide, content 5569px tall) at 1x. Scored as a concept: the idea, not the polish.
+
+**The idea:**
+- **B (one casting rule) is the right answer to "flexible, coherent, consistent".**
+  - The family's look is mostly about how thin meets thick: the stem into the bowl, the trunk into the tier, the columns into the beam. B puts that into one rule acting on the filled shape, so any new part gets it.
+  - It keeps the designer's freedom where he wants it: roots, the scale, joined or cut.
+  - It answers his "not stroke logic" and his casting words.
+- **Is it too loose to keep the six's character?** Possibly, and the plan tests exactly that first: rebuild the six from plain roots, and see what doesn't come back. That's the decisive test.
+  - Caps, tips and the drooping tiers are root choices, so they stay with the designer and the scale.
+  - The museum's dropped beam end and the leaned flare are what B must earn, or lose.
+- **C as the judge, tested first:** cheap, and decisive in the right way ("if it can't tell the generic bag from the six, C is dead"). Four blind icons is a small sample; add the round-1 bed and person variants, and the six themselves nudged, so the ranking has teeth.
+- **A as the fallback:** right. A kit is the surest look, but it's a catalogue, and that's the "so specific" he's against.
+
+**Plain enough for him on a phone?** The approaches and the recommendation are plain. The precedent section is long and full of names (Metafont, Noordzij, shape grammars). On a phone it's a wall before the point.
+
+**Likely owner objections:**
+1. **"How is B different from what the engine does now?"** (very likely). Today's engine already rounds every corner by its angle and length. The board never says what's new: thickness decides the flare, so it comes without anyone declaring it, and it works on the filled shape.
+2. **"Will my six change?"** (likely). Answered by the test, but say up front that the six stay as approved unless he accepts the rebuild.
+3. "Why is the bag still a padlock?" (possible). The test bag is round 2's drawing. B fixes its joins, not what it looks like it is.
+
+**Score: 9 after three edits and a layout fix:**
+1. Add one short block near the top, "What's new compared with today": thickness decides the flares, the rule needs no list of join kinds, and it works on the filled shape. Say the six stay as approved unless he picks a rebuilt version.
+2. Cut the precedent section to three lines (a tool gives the character: the nib; a kit gives it: corner parts; people plus review give it: SF Symbols). Link the full list in the .md.
+3. In C's test, add the round-1 icons and the six nudged to the set it must rank. In B's test, list the six's touches B must reproduce or lose (the museum's beam end, the leaned flare), so he knows what's at stake.
+4. **Layout:**
+   - Set this board's frame to the content, about 5620px (it's 6600 now, with empty space).
+   - Move row 2 (the title note at y 15740, the master grid and Construction at y 16040) below the end of Between (y 21160), to y 21460 or lower. Between (x 840-1600) overlaps the master grid (x 0-1600) from y 16040.
+
+**Changed since my last score?** A new board; first score.

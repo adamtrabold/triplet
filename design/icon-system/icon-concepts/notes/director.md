@@ -1935,3 +1935,11 @@ checks; don't eyeball "is it as good as".
 - **The test for "real":** can the six be rebuilt from declarations (roots, join kinds, counters) by the engine alone? Until then, a blind pass is luck.
 - **Owner questions open:** a counter of overlapping roots (offset of the finished outside vs his "not stroke logic"); a plain mass's character.
 - **Next:** his answers, then the declarative rebuild (two or three rounds), a fuzz test, then blind round 3.
+
+## How new icons are made (v246 concept, 2026-10-26): 9 after edits
+
+- He rejected "so specific" (a list of join kinds). The answer is a rule that reads the shape (thickness), not a declaration.
+- The decisive test for any generative rule: rebuild the approved six from plain roots, and list what doesn't come back.
+- A judge (fingerprint) is only real if it ranks known failures below the six. Give it enough known cases.
+- Expect his first question to be "what's different from now?" Answer it on the board.
+- Next: the edits, then him; then C's test (half a day), then B outside the engine.

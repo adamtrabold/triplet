@@ -449,3 +449,7 @@ The engine passes jitter and the open person pairs with the +. Rule 15 (class by
 ## Icon system, blind round 2 (v245, 2026-10-24): the system 6
 
 Two blind rounds without a pass. The cause is structural: the spec describes the six, but the engine and per-icon code draw them, so new icons don't inherit the character. Plan: declarative builds, one counter operation, robust geometry, then round 3. Owner asked two questions (counters on overlapping roots; what makes a plain block ours). Full entry in `icon-concepts/notes/director.md`; jam turn 164.
+
+## Icon system, how new icons are made (v246 concept, 2026-10-26): 9 after edits
+
+B (a casting rule: thin meets thick, on the filled shape) with C (a fingerprint judge) is the right idea. Edits: say what's new compared with today, cut the precedent section, sharpen the tests. Layout: row 2 overlaps Between. Full entry in `icon-concepts/notes/director.md`; jam turn 165.
