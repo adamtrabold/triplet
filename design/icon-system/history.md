@@ -107,6 +107,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-25 · Stuck: blind round 2 failed (v245):** bag (darkest, padlock read, no family joins, fair JUMP, fails jitter) and heart (notched counter, mirror and jitter break). System 7 → 6. Director: structural — the engine applies treatments by angle/length, not declared kind; character lives in hand-written picks; spec describes the six rather than generating new icons; no single hole method; geometry robust only on the six. Proposed: declaration-driven engine (roots, joins by kind, holes), six rebuilt from declarations within 0.05px, one hole method, geometry fuzzed on random shapes, weight rule, plain-mass treatment; 2-3 build rounds, then round 3. Owner asked: holes where shapes overlap; what makes a plain block ours.
 
+- **10-26 · v247 shown:** "How the system makes new icons" (thinking only; `grid/flexible-system.md`). A kit of parts / B one casting rule on the filled shape (flares where thin meets thick, rounds by angle and thickness, walls and gaps kept, sized against the slot) / C sketch, snap and score against a fingerprint of the six. Recommend B with C as judge; test C first (half a day), then B outside the engine on the six (what doesn't come back = what the rule can't say), Restaurant, the bag, the bed. Risk: B softer than the six; A the fallback. Director 9 as concept. Layout: row 2 moved below Between.
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
