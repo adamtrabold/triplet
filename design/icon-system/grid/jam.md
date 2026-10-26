@@ -1397,3 +1397,48 @@ His five marks on v262 and two notes on v264 (verbatim in `briefs/next-pixel-sha
 **Unsure:** whether 2px slabs still read as one weight beside 1½ posts (the museum and saucer are darker); whether he wants the centred 1½ stems (coupe, trunk) at 2px too. Shopping not touched (parallel round).
 
 NEXT: design director: score v266 "Sharp at 2x and 3x" at his zoom (the museum and coupe options, the star and + in context), then to him with the board's three questions.
+
+---
+
+## Turn 182: design director, Sharp at 2x and 3x round 6, parts as shapes (v266): 8; five fixes, then show him
+
+I rendered the outlines myself in Chromium (`src/director-pixel-shapes-render.js`): the six in their badges at 24 (DPR 1, 2, 3) and 72, before beside every option, and read device-pixel runs on the fork and knife. Stills are in `stills/pixel-shapes/director/`. I also read the live board: 2,394px, under the 2,400 cap.
+
+**His marks, as finished icons at true size:**
+- **1, the saucer:** a 2px shape now, with its flat side and low point whole and 1px ends. A true answer.
+- **2, the ¾px band:** gone. At 2px, though, option A's drink is a sliver at 24, and the glass reads empty.
+- **3, the beam, and 4, the plinth:** both 2px shapes, with whole openings. True.
+- **5, the + ends:** whole, 0 / 0 soft. This was bought by moving the stroke from 1⅔ to 2px, so it is a weight change, not a placement.
+- **v264, counters at 2px:** done. The museum width is answered plainly: 13 wide with four columns, or three columns to keep the size.
+- **v264, the knife:** true. At 3x the edge shows about 2 device px past the handle (it was under 1). The tines measure 1½ with 1px gaps.
+- **v264, the star and the +:** shown bare in the app. There the star barely changes (row 12.1 → 11, tag 13.4 → 13). What was too big was our boards' 16px star in a ring. That is the true answer, and the board says it, but not first.
+
+**Do the six still read as approved?** The café, the tree and the fork and knife do. The museum and the coupe don't, because the board shows option A for both:
+- **Museum A** is the biggest glyph in the set: 13 wide, ink +60%. In the ring at 24 it crowds the badge and outweighs the café. C (three columns, 2px posts, 11 wide, 0 / 6 soft) is closest to the approved size and is all shapes. B is soft on both screens.
+- **The coupe** is a fixed point ("Coupe, after"). Every option moves the rim's cut from 1/5 to 1/4 of the bowl's height, and the board doesn't say so. A empties the drink, which would draw his eighth ask for more liquid. B is a bigger glass. C keeps the most drink, but its counter is 1½px, which breaks the board's own "counters at least 2px".
+
+**The +'s 2px stroke.** He said "plus might feel a bit light" (v223), so he may like it. But he also said "keep the line weight ... where it was", and my standing rule (v257) says a weight change goes to him as a choice, shown at true size, never as chosen. There is a 1½px answer: centre the stroke ¼px off (edges at 11.5 and 13). The ends and every 5K edge land. One edge per arm is soft on an iPhone, like every other line in the set.
+
+**The iPhone's 22 soft edges.** The board states this honestly ("one side stays half a pixel soft"). It is the price of the 1½px line he kept: one side, ⅙px. He can accept that once it's put to him as that trade, in one line, rather than sitting in the "can't land" list.
+
+**His likely objections:**
+- The museum is now too big and heavy for the set.
+- The coupe's drink is gone again, and the bowl's shape changed.
+- The + is bolder: did the weight change?
+- "Why is the iPhone still 22?"
+- Possibly the saucer's 1px ends ("nothing should go that thin"). The board's "tried 1½: planks" covers this.
+
+**Score: 8.** The work changed a lot and every mark gets a real answer. But two of the six don't read as approved in the options shown first, and one weight change is presented as decided.
+
+**Fixes:**
+1. **The six row, per museum option:** show the row with each museum option in place (A, B, C, at 24, in their badges), so he judges the set's balance and not the building alone. Drop "we lean A" unless it survives that row, and put its +60% beside it.
+2. **The coupe:** say on the board that the rim's cut moved (1/5 → 1/4) and that the "Coupe, after" bowl changes. Show the approved coupe beside A, B and C at 72 and 24, with the drink depth under each (approved: 2½). If C stays, either say in his words that it is the one exception to "counters at least 2px", or make the rule match.
+3. **The +:** show 2px and 1½px (¼px off centre, ends whole) side by side, in the button at true size. Ask which; don't call 2px done.
+4. **The museum's ½px overhang:** name it in one line. Is it a bevel (exempt, like the capitals) or a protrusion (rule 5 says at least 1px)?
+5. **The star and the iPhone count:** lead the star section with the true answer: "In the app it was already about this size; our boards drew it 16px in a ring." Put the iPhone's 22 near the top as one plain trade line: "the 1½px line you kept: one side ⅙px soft on an iPhone."
+
+Keep the board at or under 2,400px. Fix 1 replaces the separate museum strip; it doesn't add to it.
+
+**What keeps blocking (turns 174, 178, 182):** the headline number (soft edges) leads, and his standing asks by eye (the drink, the balance of the six, the line weight) come second. Options get chosen to win the count: A's 0 soft on the 5K, the +'s 0 / 0. The count is our measure; his test is how the six look.
+
+NEXT: icon designer (pixel shapes): fixes 1-5 on the same board. No new drawing except the 1½px + and the six rows. Then back to me.

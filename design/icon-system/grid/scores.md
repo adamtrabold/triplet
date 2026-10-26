@@ -1541,3 +1541,11 @@ The verdict stands within our own set:
   - remove "cuts and counters stay" (he said counters are shapes, nothing that small);
   - move the museum's openings to the pixel round.
 - **Jam turn 180.**
+
+## Round: parts as shapes on whole pixels (canvas v266), 2026-10-26: 8
+
+- **True answers, at true size:** the saucer, beam and plinth are 2px shapes; the band is 2px; the + ends are whole; the knife's edge is visible (about 2 device px at 3x); the museum width is answered plainly; the star and + are shown bare in the app.
+- **Not yet as approved:** museum A is +60% ink and crowds the badge. Every coupe option moves the rim's cut (1/5 → 1/4), unstated, and A empties the drink.
+- **Weight change presented as decided:** the + went from 1⅔ to a 2px stroke. A 1½px stroke ¼px off centre also lands its ends.
+- **Fixes:** the six row per museum option; the coupe's change and drink depth stated; the + at 2 vs 1½; name the ½px overhang; lead with the star's true answer and the iPhone trade.
+- **Jam turn 182.**

@@ -597,3 +597,29 @@ He said "lets just keep the line weight and stuff where it was and just opimize 
 - **His v262 notes:** counters are shapes, nothing as thin as the ¾px band, the saucer is a shape. These now override any "cuts stay" claim. The pixel round handles them, including the museum's openings.
 
 **Next:** edits, then show him. After that: the pixel round, and a blind read of the tag by someone who hasn't seen it.
+
+## Icon system, sharp at 2x and 3x round 6: parts as shapes (v266, 2026-10-26): 8
+
+I rendered it myself in Chromium: the six in badges at 24 (DPR 1, 2, 3) and 72, every option beside its before, plus device-pixel runs on the fork and knife. Renderer: `grid/src/director-pixel-shapes-render.js`; stills in `grid/stills/pixel-shapes/director/`.
+
+**Answered truly:**
+- the saucer, beam and plinth are 2px shapes;
+- the band is 2px and the openings are 2px;
+- the + ends are whole;
+- the knife's edge is visible and the tines measure 1½ with 1px gaps;
+- the museum width is answered plainly (four columns = 13 wide; three keep the size);
+- the star and + are shown bare in the app.
+
+The star barely changes in the app (row 12.1 → 11, tag 13.4 → 13). Only the boards drew it big (16px in a ring). The board should say that first.
+
+**Not yet:**
+- **Museum A** (the designer's lean): +60% ink, crowds the ring at 24, outweighs the set. C (2px posts, 11 wide, 0 / 6 soft) is closest to approved.
+- **The coupe (fixed point):** every option changes the rim's cut (1/5 → 1/4), and the board doesn't say so. A empties the drink. B is a bigger glass. C (a 1½px band, his own "equal to the thickness of the stroke") breaks the board's "counters at least 2px" rule.
+- **The +'s stroke:** 1⅔ → 2px is a weight change, presented as done. A 1½px option exists: ¼px off centre, ends whole, 5K sharp, one iPhone edge soft like every line.
+- **The museum's ½px overhang:** it isn't named as a bevel or a protrusion, and rule 5's minimum protrusion is 1px.
+
+**The iPhone's 22 soft edges:** stated honestly. It is the trade for the kept 1½px line (one side, ⅙px). Put it to him as one line.
+
+**What keeps blocking (174, 178, 182):** the soft-edge count leads, and options are picked to win it. His standing asks by eye come second: the drink, the six's balance, the line weight. Lesson: score options in the six's row, not alone, and treat any width change made to land an edge as a weight change for him to choose.
+
+**Next:** the designer does fixes 1-5 (jam 182). Then I re-score. If it's a 9, his questions are the museum (in the row), the coupe (with drink depths), and the + at 2 vs 1½.
