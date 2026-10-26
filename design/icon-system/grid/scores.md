@@ -1492,3 +1492,20 @@ The verdict stands within our own set:
 - **Not blocking:** jitter (the assets are frozen); the museum's fair faults go into the flare redraw.
 - **Fixes:** weight as his choice (1⅔ or 1⅓, at true size on iPhone); show the post drift and the band at his zoom; 12px gets its own answer; a shorter board.
 - **Jam turn 174.**
+
+## Round: brand signatures round 2 (canvas v258), 2026-10-26: 7
+
+- **Progress:** the handle as a ring (the cup matches within 0.1px) answers his question; the bracket demo is sound; Weight is a real idea, not his words.
+- **Blocking:**
+  - Shadow is the generic pictogram test (a given, not ours).
+  - Weight's either/or test passes almost anything; neither signature has been run on generic sets.
+  - Museum B is a sagging building, and A risks a domed roof at 24.
+  - The ring bag reads as a kettlebell.
+  - At 72 the bracket looks like the plain round.
+  - The board is too long.
+- **Jam turn 175.**
+- **Later, his comments on v258:**
+  - The bracket is out; joins follow an Apple-like machined rule (fix 7).
+  - The museum's bevel is "way better", so my "pinch" call is withdrawn.
+  - Both museum swings are out; next he wants the sides (fix 8).
+  - The score stays 7.

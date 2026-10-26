@@ -1124,3 +1124,86 @@ He'll see the gain on both his screens.
 **Changed since my last score?** First score of this board.
 
 NEXT: visual designer: the five fixes, then back to me; the flare redraw (turn 173) carries the museum's capitals.
+
+---
+
+## Turn 175: design director, Brand signatures round 2 (v258): 7
+
+I read the board still (3200 wide), with crops of the bracket demos, the real joins and the museum, bag and ring row. His notes since turn 173 are in the brief:
+- "this is a bad rule -- what's the underlying shape that a handle is that we can make a good rule about"
+- "the swoop, flare, press are all things i've basically said verbatim... use your randomness and creative moves"
+
+**Real progress:**
+- **The handle is a ring.** This answers his question with a root shape: one whole ellipse, the wall one line all round, half buried in the body. The approved cup already matches it within 0.1px, which is the best evidence on the board.
+- **The bracket demo is now sound.** It is taller than wide, with soft corners, and its "Not" cases (drip, bevel) are clear.
+- **Weight is not his words.** Gravity as the brand's physicality (set down, carried, sagging) is a real idea. The droop gives it whimsy.
+
+**Why it isn't a 9:**
+1. **Shadow is a quality bar, not a brand signature.** "Fill the cuts, does the silhouette name it" is the classic pictogram test. Every good sign set passes it (Apple, AIGA, Otl Aicher). It tests travel-sign clarity, but it doesn't make a new icon read as *Triplet*. It belongs with the press, as a given.
+2. **Weight's test is too easy to pass.** "Rests across a cut, OR carried on a bracket, OR gives": any icon with one cut passes. The visible elements underneath are the cut, the flare and the swoop again, so he may read it as his words renamed. The bag "failing" Weight is arguable: its handle does rest.
+3. **The decisive test is missing.** A brand signature must fail the generic version. Run Weight, and any second signature, on Apple's, Lucide's and Material's cup, glass, museum, tree and bed. If they pass, it isn't ours. He likes holding ours up against those sets.
+4. **Museum B contradicts his own bar.** A sagging plinth on a building is a failing building, which is the opposite of "all joints should feel architecturally sound". A (an arch carries load) is the sound story. But at 24 the swollen lintel under the gable risks fusing into one domed or tent-like roof. Check it at 12 and 24, in the row of six, engine-built.
+5. **The ring bag reads as a kettlebell** at 24 and 12 (the small ones under its card). The handle rule is right; the bag isn't solved yet.
+6. **The bracket against the plain round:** at 72 the "Do" and the "Not: a plain round" nearly match. If he can't see the difference, the rule can't be judged by eye. Also, the bar's stem-into-foot join looks wider than tall; check it against 2/5 by 1/2.
+7. **Length:** 2394px. "How we got here" takes seven rows for ideas that were cut.
+
+**Likely objections:**
+- "shadow is just good icon design"
+- "weight is swoop/flare/cut again"
+- "the bag looks like a kettlebell"
+- "a sagging building?"
+- "I can't tell the bracket from the round"
+
+**Fixes:**
+1. Move Shadow to the givens (the clarity bar, beside the press).
+2. Sharpen Weight into a test that generic sets fail, and show that they fail it side by side. If it can't be made to, say so, and go back to the draw for one visual signature that is ours. The designer's call. One strong signature is allowed ("1-3").
+3. Museum: build A in the engine and show it at 12, 24 and his zoom in the row of six. Drop B, or say plainly that a sag on a building reads as failure.
+4. Bag: a blind "what is this?" read at 24 before it goes to him. The ring stays; the body's shape is the open part.
+5. Bracket: show Do against the plain round where the difference is visible (72 and his zoom), or explain why they differ. Bring the bar's foot to the rule or show it passes.
+6. "How we got here" becomes two lines, and the board gets shorter.
+
+**Changed since my last score?** Yes: new signatures, a sound bracket, the ring, and a swing for buildings. This is a real rework.
+
+NEXT: visual designer: fixes 1-6, the generic-set test first.
+
+**Addendum: his two comments on v258's bracket (verbatim), which settle it:**
+- "the bracket looks really awkward -- i don't like it. i'd prefer to use an apple-like methodology where the roundedness matches how something would actually be machined to be smooth."
+- On the museum's current bevel beside the proposed bracket: "bevel is *way* better than proposed version... how do we square these logics."
+
+**The bracket is out.** So is my turn-173 brief that asked for it. I called the museum's bevel "a pinch" and was wrong to his eye. A straight chamfer on a load joint is a real, sound construction; what I read as a pinch was the bevel meeting the column without a softened edge. Fix 5 above is void.
+
+The score stays **7**: Weight and Shadow are judged on their own (fixes 1-4 and 6 stand).
+
+**Fix 7 (replaces fix 5): a machined join rule.** The designer researches and proposes it; nothing is pre-drawn here.
+- **Precedent to study:**
+  - Apple's continuous-curvature corners: curvature ramps in from the straight edge instead of a circle meeting a line, as in the app-icon "squircle" and the hardware edges.
+  - Machining:
+    - Every round is the radius of the cutter that milled it, so radii come from a small set of tool sizes.
+    - Every inside corner is at least the tool's radius.
+    - A chamfer (a bevel) and a fillet are both real tool operations, and a chamfer's edges are themselves broken by the cutter's radius.
+- **The rule must answer:**
+  1. **The tool set:** which few radii (tools) exist, in lattice units, and how they relate to the line and the grid. This is the rounds table, re-derived as tools instead of a list. Keep its existing order: outside rounder than inside, nothing more than 1/5 of the shorter edge.
+  2. **Continuous curvature:** every round ramps in, never a circle against a line. Relate it to the engine's fairing (the curvature-smooth rounds that fixed the wobbles). Is that already the "machined" ramp, made a rule for every round, or does it need a stated profile (a superellipse exponent or a clothoid ramp)?
+  3. **Thin into thick:** a plain machined fillet (the tool's radius), or a chamfer softened by the tool? When does each apply? Test against his eye: the museum's bevel ("way better") must come out as a chamfer, and the bar's stem and the fork's neck must still read as he approved them. The bed is the test of the plain fillet.
+  4. **No added flare shapes.** If a join needs more presence than one tool can give, say why, rather than inventing a profile.
+- Show the museum capital, the bar stem, the fork neck and the bed at 72 and his zoom, today against the rule, with the tool radius drawn as a ghost circle on each join, so he can see the machining logic.
+
+NEXT: visual designer: fix 7 first (it settles joins for every icon), then fixes 1-4 and 6.
+
+**Addendum 2: his comments on the museum swings (verbatim):**
+- On B: "no this is bad... a building can't have a rounded base it will look like it's wobbling."
+- On A: "no i hate this too . what about the sides?"
+
+**Both are out**, and a building's base stays flat and grounded. Fix 3 above is replaced by:
+
+**Fix 8: the building's swing lives on the sides.** This is his suggestion, put as a question; the designer's next try.
+- Where on the sides: the outer walls or the outer columns. One shallow ellipse arc that leans out toward the ground, kin to the tree trunk's foot and to the curve the museum's outer columns already carry.
+- Show it at 12, 24 and his zoom, engine-built, in the row of six. It must stay grounded, never wobbling.
+- It must not read as any rejected form:
+  - the beam-shed museum ("no this is awful");
+  - the tent roof;
+  - the trapezoid "sweep at the foot" (v220, which read as a furniture foot);
+  - pills;
+  - a rounded base.
+- Do it together with fix 7. Where the side's curve meets the plinth and the capitals, that join follows the machined rule (chamfer or tool fillet), so the bevel he prefers and the side swing are designed as one.
+- The bag's swing follows the same question: the sides before the base.
