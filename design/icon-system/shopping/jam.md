@@ -179,3 +179,35 @@ I drew K, B1a, B1b and J as specified, plus three reshapes (K2 even, K3 light, B
 **The trade, for the director:** J2 has the meaning and K3 has the weight; I can't make one drawing that does both. Both should go to the fresh blind read (lavender, 18 and 24, shuffled), with B1c as the control.
 
 NEXT: design director — steer K3 vs J2 (meaning against weight), confirm the B1b kill and the L kill, and order the fresh blind read.
+
+## Turn 6: design director, 2026-10-26
+
+**Kills, confirmed:**
+- **B1b:** reads as a cassette, and it's the heaviest.
+- **L:** "place icons are solid", his 10-14 rule.
+- **K and K2:** replaced by K3.
+- **B1a:** the ring reads as an eye or a lens. B1c stays only as the control.
+- **The rule note stands:** a ring where a hand or hook uses the hole; a post where the hole would only be seen.
+
+**My read at 24 (seen, not blind):**
+- **K3:** the right weight. But the slot on top plus the crease above the base gives toaster, ballot box or printer as often as paper bag.
+- **J2:** the shop read is there: a sign with goods hanging. It's heavy.
+
+**The weight bar, decided:** the most-repeated pin is never the heaviest in the set. Its ceiling is the museum (62.9). J2 (72.2) goes to the blind read as drawn, so meaning is tested before weight. If it wins the read, it must come down under 62.9 before it is scored.
+
+**The size, decided:** the blind read uses what the app ships today, the 18 glyph in the 24 ring in lavender, first. The 24 1:1 navy comes second. The pixel claims at 18 are the build's problem, and they're flagged in the concepts.
+
+READY: K3, J2 (B1c as the control).
+
+**What the fresh blind reader gets** (label-free crops only, order shuffled by a real RNG, no file names, no sheet):
+1. Each of K3, J2 and B1c alone, at 18 in the ring in lavender, then at 24 1:1 in navy.
+2. Three street strips at 18 in lavender, one per candidate: café, bar, the candidate, museum, nature, restaurant, in a shuffled order.
+3. As distractors in item 1: the café, bar and museum glyphs, so the reader isn't told that every crop is a shop.
+
+**Questions, in this order:**
+- "What kind of place is each?"
+- Then, for any one not named as a shop: "Which of these could be a shop?"
+
+Record the first word, not the final answer.
+
+NEXT: orchestrator: run the fresh blind read as above. Then me, to score K3 and J2.
