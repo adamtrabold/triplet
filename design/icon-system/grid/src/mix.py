@@ -1,5 +1,8 @@
 """The A+B mix prototype: roots that carry the brand (outside the engine; engine.js, picks7.js and the six untouched).
 
+SUPERSEDED (turn 170) by src/mix-curves.js: the same root calls in clean curves through the engine's round solver. This raster
+version (canvas v249) is kept for the record; its "fifth of the thickness difference" inside rule and the 4/3 loop are retired.
+
 Director (jam turn 167): "the mix is the path": notches and holes are roots, cut out after the rule runs, never filled; the
 capital is a root of its own, placed whenever a post holds a slab; each root states its own thickness.
 Owner (10-26): "Holes should be based on proportional root shapes that also ensure the not hole area is correct"; "the brand

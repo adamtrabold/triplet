@@ -1,5 +1,13 @@
 # Visual designer notes: icon system
 
+## Update (2026-10-26, canvas v250, turn 170; icon designer, the mix in clean curves)
+
+- **Director turn 169: 8**; at his zoom the traced museum was lumpy, the coupe kinked. Fixed by building the mix in clean curves: `grid/src/mix-curves.js` (engine.js as a library; the rule is the corner law, answered from the roots meeting at each corner). Run: `node src/mix-curves.js [names]` (TOOLS defaults to this session's scratchpad tools; set TOOLS to a folder with node_modules/paper otherwise). Checks: `node src/fair-check.js svg/mix/curves/<n>.svg`, `node src/join-check.js ...`, `node src/mix-jitter.js <n> 8`. Sheets: `python3 -I src/mix-curves-sheet.py`. Board: `python3 -I src/mix-board.py <live board> <out>`.
+- **Result:** the six exact (max 0.03px² differing), fair/join clean, jitter holds on all; restaurant and bed clean and hold; bag 7 fair faults, unsolved.
+- **Rule now:** inside 0.15 (0.3 wide); a post's flare 0.5 where a post meets another kind; outside t/5 (mass 3, slab 1.5, post 1.25, loop 1.25), 0.7 for a wide corner; tips min(0.35, 0.0877 x edge); every round at most 1/5 of its shorter edge (a flare 0.45). Line marks in px x 24/slot. The thickness-difference rule is retired (it flared under the cup's ear and broke the line).
+- **Loop = 5/6 line** on the series; the cup's ear stays drawn at 4/3 (the six untouched).
+- **Open:** the bag's concept; whether the root-based law beats the table anywhere (so far it equals it on the six); the owner's two questions once the director passes it.
+
 ## Update (2026-10-26, canvas v249, turn 168; icon designer, the mix)
 
 - **Brief:** director turn 167: prototype the A+B mix outside the engine (cut roots never filled, the capital as a root, declared thickness); rebuild the six, then Restaurant, the bag, the bed; write the vocabulary as a spec draft.

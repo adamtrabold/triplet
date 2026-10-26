@@ -1,21 +1,23 @@
-"""The canvas section "The mix: roots that carry the brand" (board Grid7NewIcons), from svg/mix/ and the approved six.
-python3 -I src/mix-board.py <board.dc.html in> <board.dc.html out>
-Replaces the B-test section (from "Test 1" up to "The first proposal") with the mix section; the rest of the board is kept."""
+"""The canvas section "The mix: roots that carry the brand" (board Grid7NewIcons), from the mix in clean curves (svg/mix/curves/)
+and the approved six. python3 -I src/mix-board.py <board.dc.html in> <board.dc.html out>
+Replaces the section from "The mix: roots that carry the brand" (or, on the v248 board, the B tests) up to "The first proposal"."""
 import json, os, re, sys
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-MIX = os.path.join(HERE, 'svg/mix')
+CUR = os.path.join(HERE, 'svg/mix/curves')
 cons = json.load(open(os.path.join(HERE, 'svg/g7/construction.json')))
-summ = json.load(open(os.path.join(MIX, 'summary.json')))
+comp = json.load(open(os.path.join(CUR, 'compare.json')))
 NAVY = '#12293F'; GREY = '#5A564C'; RULE_C = '#D8CEBA'
-APPR_INK = {'cafe': 56.87, 'bar': 45.14, 'museum': 63.12, 'nature': 34.52, 'star': 84.14, 'plus': 34.56}
 
-def mixd(k): return re.search(r' d="([^"]+)"', open(os.path.join(MIX, f'{k}.svg')).read()).group(1)
+def mixd(k): return re.search(r' d="([^"]+)"', open(os.path.join(CUR, f'{k}.svg')).read()).group(1)
+def jit(k):
+    p = os.path.join(CUR, f'jitter-{k}.json')
+    return json.load(open(p)) if os.path.exists(p) else None
 def svg(d, px, label, vb='0 0 24 24'):
     return (f'<svg width="{px}" height="{px}" viewBox="{vb}" role="img" aria-label="{label}" style="display:block">'
             f'<path fill="{NAVY}" fill-rule="evenodd" d="{d}"/></svg>')
-def tile(d, px, label, cap=None):
+def tile(d, px, label, cap=None, vb='5 5 14 14'):
     c = f'<div style="font-size:14px;color:{GREY};margin-top:4px">{cap}</div>' if cap else ''
-    return f'<div style="display:flex;flex-direction:column;align-items:center">{svg(d, px, label, "5 5 14 14")}{c}</div>'
+    return f'<div style="display:flex;flex-direction:column;align-items:center">{svg(d, px, label, vb)}{c}</div>'
 def h2(kick, title):
     return (f'<div style="border-top:1px solid {RULE_C};margin-top:28px;padding-top:20px"><div style="font-size:15px;letter-spacing:.1em;'
             f'font-weight:700;color:{GREY};text-transform:uppercase;margin:0 0 4px">{kick}</div><h2 style="margin:0 0 12px;font-size:28px;'
@@ -23,6 +25,8 @@ def h2(kick, title):
 def h3(t): return f'<h3 style="margin:18px 0 8px;font-size:21px;line-height:1.2;color:{NAVY}">{t}</h3>'
 def p(t): return f'<p style="margin:0 0 12px;font-size:19px;line-height:1.45">{t}</p>'
 def ul(items): return '<ul style="margin:0 0 12px;padding-left:22px;font-size:19px;line-height:1.45">' + ''.join(f'<li style="margin:0 0 6px">{i}</li>' for i in items) + '</ul>'
+def grid(rows): return ('<div style="display:grid;grid-template-columns:110px 1fr;gap:6px 14px;font-size:18px;line-height:1.4;margin:6px 0 14px">' +
+                        ''.join(f'<div style="font-weight:700;color:{NAVY}">{a}</div><div>{b}</div>' for a, b in rows) + '</div>')
 def strip(label, ds, px):
     cw = 72 if len(ds) <= 6 else 52
     cells = ''.join(f'<div style="width:{cw}px;display:flex;justify-content:center">{svg(d, px, n)}</div>' for n, d in ds)
@@ -35,74 +39,79 @@ appr = [(n, cons[k]['d']) for k, n in SIX]
 mix = [(n, mixd(k)) for k, n in SIX]
 new = [(n, mixd(k)) for k, n in NEW]
 
+def jtext(k):
+    j = jit(k)
+    if not j: return 'jitter: not run'
+    return f"jitter {j['N']} nudges: moves at most {j['maxFar']:.3f}px, {'holds' if j['pass'] else 'FAILS'}"
+
 out = []
 out.append(h2('Round 3 · 10-26 · prototype, outside the engine', 'The mix: roots that carry the brand'))
-out.append(p('The director\'s call after the B test: keep B\'s one rule, but let the roots carry what it couldn\'t guess. '
-             'An icon is now only a list of root calls. Each root says what it is (a mass, a slab, a post, a loop) and so how thick it is. '
-             'Holes and notches are roots too, cut out after the rule, never filled. The rule then rounds every join from those '
-             'thicknesses, with one set of numbers for every icon. Nothing is touched by hand per icon.'))
+out.append(p('An icon is only a list of root calls. Each root says what it is (a mass, a slab, a post, a loop), and so how thick it is. '
+             'Holes, notches and capitals are roots too. One rule then answers every corner from the roots that meet there, with one set of '
+             'numbers for every icon. The engine\'s own round solver draws the curves. Nothing is touched by hand per icon.'))
 out.append(h3('The six, rebuilt from root calls only'))
-out.append(p('Top: the six you approved. Below: the same six from root calls alone. At 24 and at 72.'))
+out.append(p('Top: the six you approved. Below: the same six from root calls alone, in clean curves. At 24 and at 72.'))
 out.append(strip('Approved 24', appr, 24)); out.append(strip('Mix 24', mix, 24))
 out.append(strip('Approved 72', appr, 72)); out.append(strip('Mix 72', mix, 72))
 rows = []
 for k, n in SIX:
-    s = summ[k]; dev = s['approved_only'] + s['mix_only']; ink = (s['ink_px2'] / APPR_INK[k] - 1) * 100
-    rows.append(f'<div style="font-weight:700;color:{NAVY}">{n}</div><div>{dev:.2f} px² differ (at 24) · ink {ink:+.1f}%</div>')
-out.append(f'<div style="display:grid;grid-template-columns:110px 1fr;gap:6px 14px;font-size:18px;line-height:1.4;margin:6px 0 14px">{"".join(rows)}</div>')
-out.append(p('All six come back by eye at 24 and 72. The star is a hair heavier (its outline sits about 1/25 px outside); the coupe\'s '
-             'flares are a touch less leaned. Under B, the museum differed by 4.8 px² and the tree by 8.3.'))
-out.append(h3('The tree comes back'))
-out.append(f'<div style="display:flex;gap:28px;margin:4px 0 12px">{tile(cons["nature"]["d"], 192, "Tree approved", "approved")}{tile(mixd("nature"), 192, "Tree from root calls", "from root calls")}</div>')
+    c = comp[k]; dev = c['approved_only'] + c['mix_only']; ink = (c['ink'] / c['ink_approved'] - 1) * 100
+    rows.append((n, f'{dev:.2f} px² differ · ink {ink:+.1f}% · {jtext(k)}'))
+out.append(grid(rows))
+out.append(p('They come back exactly. At every corner the rule asks for the round the approved drawing has, and the curves come '
+             'from the same solver. The star\'s weight is back on the approved one. At 27px a unit, approved against mix overlaid, nothing differs that the eye can find. '
+             'The fair, kink and shoulder checks are clean on all six.'))
+out.append(h3('At your zoom'))
+out.append(f'<div style="display:flex;gap:16px;margin:4px 0 12px;flex-wrap:wrap">'
+           f'{tile(mixd("bar"), 216, "Coupe from root calls", "coupe: the stem\'s leaned flares", "6 6 12 12")}'
+           f'{tile(mixd("museum"), 216, "Museum from root calls", "museum: the capitals", "6 6 12 12")}'
+           f'{tile(mixd("nature"), 216, "Tree from root calls", "tree: notches and tips", "6 6 12 12")}</div>')
 out.append(ul([
-    'Under B the tree was ruined: the notches filled and the tips stayed spiky, a jagged blob at 72. B guessed thickness from the '
-    'drawing, and a tier thinning to its tip read as "thin meets thick", so it flared into the notch.',
-    'Now each tier says it is a mass. Two masses meeting get only the small base round, so the notch stays open. Each notch is also its own root '
-    '(the triangle from a tier\'s tip to the middle of its underside), cut out after the rule, so it can never fill.',
-    'The tips: a tier\'s tip lands short and soft, its two edges re-aimed to it, by a share of its edge (the engine\'s tip rule, the same numbers). That\'s why the top tier\'s tips are finer than the bottom\'s.',
+    '<b>On v249 I showed traced pixels,</b> and the museum\'s capitals had small bumps on the post faces. The board said "gets its capitals back"; at your zoom that wasn\'t true. In clean curves the bumps are gone, and the capital matches the approved one.',
+    '<b>The capital</b> is a root of its own. Wherever an outer post holds a slab that runs past it, the call adds it: the slab\'s end drops half a pixel into a quarter ellipse that runs into the post\'s face. Any colonnade gets the same capital from the same call.',
+    '<b>The tree:</b> its tiers are masses. Two masses meeting get only the small round, so the notches stay open. Each tip goes soft by a share of its edge.',
+    '<b>The coupe:</b> its stem is a post, and a post carries its own flare. The engine leans it as on the approved coupe.',
 ]))
-out.append(h3('The museum gets its capitals back'))
-out.append(f'<div style="display:flex;gap:28px;margin:4px 0 12px">{tile(cons["museum"]["d"], 192, "Museum approved", "approved")}{tile(mixd("museum"), 192, "Museum from root calls", "from root calls")}</div>')
-out.append(p('The capital is a root of its own. Wherever an outer post holds a slab that runs past it, the call adds it: '
-             'the slab\'s end drops half a pixel, and a quarter ellipse runs from it into the post\'s face, one curve. '
-             'Any colonnade gets the same capital from the same call. The spaces between the columns are closed counters, so they keep tight corners.'))
 out.append(h3('Three new icons, beside the six'))
 out.append(strip('24', mix + new, 24)); out.append(strip('72', mix[:3] + new, 72))
 out.append(ul([
     '<b>Restaurant</b> (fork and knife): the tines and the knife\'s handle are posts, the fork\'s head and the blade are masses. The family\'s flares '
-    'appear where they meet, and nobody drew them.',
-    '<b>Hotel</b> (the bed): the round-1 bed\'s roots, with their kinds stated. The headboard and leg flare into the mattress.',
-    '<b>Shopping</b> (the bag): new root calls. The body is wider at the top, the handle is a wide arch running straight into it, and a band '
-    'hole marks the folded rim. It reads as a bag at 72, closer to a basket. <b>At 24 it is still a dark block with a loop, near the padlock.</b> '
-    'Not solved: it needs a better idea for the bag, not a better rule.',
+    f'appear where they meet, and nobody drew them. Fair check clean; {jtext("restaurant")}.',
+    f'<b>Hotel</b> (the bed): the round-1 bed\'s roots with their kinds stated; the headboard and leg flare into the mattress. Clean; {jtext("bed")}.',
+    '<b>Shopping</b> (the bag): <b>not solved.</b> Body wider at the top, a wide arch handle, a rim band. At 72 it reads as a basket; at 24 it is '
+    'still a dark block with a loop, near the padlock. Its handle feet also fail the fair check. It needs a better idea for the bag, not a better rule.',
 ]))
 out.append(h3('The root calls'))
-voc = [
-    ('Mass', 'the thing itself (cup, bowl, tier, blade, mattress, bag): 2 lines thick (3px). Its corners round by a fifth of that.'),
+out.append(grid([
+    ('Mass', 'the thing itself (cup, bowl, tier, blade, mattress, bag): 2 lines thick (3px). Square corners round by a fifth of that.'),
     ('Slab', 'carries or caps (beam, plinth, saucer, foot, roof): 1 line. Corners round by a fifth of a line.'),
     ('Post', 'holds something up (stem, column, trunk, tine, leg, handle): 5/6 of a line. It flares half a pixel into whatever it holds or stands on.'),
-    ('Loop', 'a band around a counter (the cup\'s ear, a bag\'s handle): 4/3px.'),
-    ('Hole', 'a proportional shape cut from a root (the cup\'s ear, the coupe\'s band, the star\'s middle, the bag\'s rim). It keeps its shape, with only the base round.'),
-    ('Notch', 'where a tier sits in the one below: a triangle from the tier\'s tip, cut after the rule. Whatever was space stays space.'),
+    ('Loop', 'a band around a counter (a bag\'s handle, the cup\'s ear): 5/6 of a line, a post bent round its counter. The cup\'s ear is still drawn at 4/3px (the horizontal line\'s compensation), because the six stay as approved. Drawn at 5/6 it would be 1/12px thinner.'),
+    ('Hole', 'a proportional shape cut from a root (the cup\'s ear, the coupe\'s band, the star\'s middle, the bag\'s rim). Its corners keep the small round.'),
+    ('Notch', 'where a tier sits in the one below: two masses meeting, so only the small round. It never fills.'),
     ('Capital', 'whenever a post holds a slab past its end: the slab\'s end drops a step (half a pixel) into a quarter ellipse to the post.'),
-    ('Tip', 'a living mass (a tier) ends in a soft tip, landed short by a share of its edge. A line mark\'s point (the star) gets the plain tip round.'),
-    ('The rule', 'where roots meet, the inside round is 0.15px plus a fifth of their difference in thickness, never more than 0.45 of the gap there. Outside, a fifth of the root\'s thickness.'),
-]
-out.append('<div style="display:grid;grid-template-columns:110px 1fr;gap:6px 14px;font-size:18px;line-height:1.4;margin:6px 0 14px">' +
-           ''.join(f'<div style="font-weight:700;color:{NAVY}">{a}</div><div>{b}</div>' for a, b in voc) + '</div>')
+    ('Tip', 'a point goes soft by a share of its shorter edge, and lands where its soft end was: the tree\'s tiers, the star\'s points.'),
+    ('The rule', 'inside, 0.15px, or 0.3 for a wide corner; a post\'s flare where a post meets another kind. Outside, a fifth of the root\'s thickness, 0.7 for a wide corner. Never more than a fifth of the shorter edge (a flare 0.45).'),
+]))
+out.append(h3('What changed from v249'))
+out.append(ul([
+    'Clean curves instead of traced pixels.',
+    'One rule went. In v249, two roots meeting rounded by a fifth of their difference in thickness. In curves, that asked for a flare under the cup\'s ear, which the approved cup doesn\'t have, and the line broke there. Every flare in the six is a post\'s, so the post now carries it.',
+    'Wide corners (over 105°) take the engine\'s wide rounds, or a near-straight corner reads as a kink (the museum\'s roof apex).',
+]))
 out.append(h3('Not yet true'))
 out.append(ul([
-    'This is a prototype on pixels: the outlines are traced, not the engine\'s few clean curves. If you like the direction, it gets built into the engine next.',
-    'The tip landing was set by eye on the tree. The star came back without it, so here it belongs to tiers alone.',
+    'On the six the rule gives the same answers as the engine\'s corner table. That is the test passing, not yet proof it generalises: the fork and the bed are the first evidence.',
     'Weight is still judged by eye, not by a rule.',
 ]))
 SECTION = ''.join(out)
 
 if __name__ == '__main__':
     src = open(sys.argv[1]).read()
-    a = src.index('<div style="border-top:1px solid #D8CEBA;margin-top:28px;padding-top:20px"><div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:#5A564C;text-transform:uppercase;margin:0 0 4px">', src.index('Your answers, and what they change'))
-    # the B tests start at the section holding "Test 1"; the concept ("The first proposal") follows the tests
-    t1 = src.rfind('<div style="border-top:1px solid #D8CEBA', 0, src.index('Test 1: the six rebuilt'))
+    if 'The mix: roots that carry the brand' in src:
+        t1 = src.rfind('<div style="border-top:1px solid #D8CEBA', 0, src.index('The mix: roots that carry the brand'))
+    else:
+        t1 = src.rfind('<div style="border-top:1px solid #D8CEBA', 0, src.index('Test 1: the six rebuilt'))
     fp = src.rfind('<div style="border-top:1px solid #D8CEBA', 0, src.index('The first proposal (v247)'))
     out_s = src[:t1] + SECTION + src[fp:]
     out_s = out_s.replace('Grid concepts · B tested outside the engine', 'Grid concepts · the mix, prototyped outside the engine')

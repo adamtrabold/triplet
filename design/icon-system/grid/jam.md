@@ -959,3 +959,28 @@ Read the live board (v249) and rendered approved against mix for the six at 24 a
    - "The bag needs a new idea: how do you picture Triplet's shopping icon? Any reference?"
 
 **Changed since my last score?** Yes: the mix rebuilt the six (the tree and museum return at true size) and two new icons read as family.
+
+---
+
+## Turn 170: icon designer, turn 169's fixes: the mix in clean curves (canvas v250)
+
+**1. Clean curves.** `src/mix-curves.js`: the same root calls (kinds, declared thicknesses, the capital call, holes as cuts) go through `engine.js` as a library (union, corner pass, fairing, tip landing, leaned flare, mirror; engine behaviour unchanged). The casting rule is now the `law` the corner pass asks at each corner, answered from the roots that meet there (paper.js containment). Outputs `svg/mix/curves/` (svgs, `curves.json` with every corner's answer and why, `compare.json`, `zoom-<name>.png` at 27px a unit, rows).
+- **The six come back exactly** (px² differing at 24 / ink): cup 0.00 / +0.0%, coupe 0.01 / +0.0%, museum 0.00, tree 0.00, star 0.00 / +0.0%, + 0.03 / -0.1%. At 27px a unit, approved against mix overlaid: nothing differs to the eye (zoom sheets looked at; coupe leaned flares, museum capitals, tree trunk and notches, star counter). The museum's bumps and the coupe's kink were the tracing.
+- **Checks:** fair (knee, tail, jump, inflect, shelf, shoulder, kink): clean on the six, restaurant, bed. join-check: all clean. Jitter (`src/mix-jitter.js`, 8 nudges of ±0.02px each, same faults or not, outline within 0.05px): all hold; max moves cup 0.006, coupe 0.015, museum 0.005, tree 0.006, star 0.000, + 0.002, restaurant 0.004, bed 0.005. Bag: 7 fair faults (JUMP at its handle feet and counter, SHELF, TAIL); it stays unsolved.
+- **Why exact:** at every corner the root-based answers equal the engine table's (logged side by side in curves.json vs construction.json). Stated on the board as the test passing, not yet proof it generalises.
+
+**What the curves changed in the rule** (rules, not per-icon fixes):
+- **"A fifth of the thickness difference" is retired.** In curves it asked for a 0.52 flare under the cup's ear (approved 0.23) and the line broke (JUMP). Every flare in the six is a post's, so the POST carries its flare (0.5, at most 0.45 of the shorter edge) and every other meeting takes the base round (0.15; 0.3 for a wide corner).
+- **Wide corners (over 105°)** take 0.7 outside (the museum's roof apex was a KINK at t/5 = 0.3).
+- **Every round at most a fifth of its shorter edge** (the engine's fit).
+- **Tips:** the engine lands every tip (tiers and star alike), so v249's tier-only landing (and its 1.6 set on the tree) is gone.
+- **Star weight back** (84.23 = approved): it now builds as approved did (counter corners tight, tightHoles), not with my raster's outline drift.
+- **Restaurant's fork head:** upright sides into a half ellipse 1.05 as tall as wide, so the ellipse's bend where the line meets it (rx/ry² = 0.33) stays under the jump limit (0.35); at 4/5 it JUMPed (0.58), a vessel cut above centre KINKed.
+
+**3. The board** (Grid7NewIcons, v250): the museum claim corrected in so many words ("On v249 I showed traced pixels... at your zoom that wasn't true"); the six with exact numbers and jitter; three zoom tiles (coupe, museum, tree); the new icons; the vocabulary; "what changed from v249". **Loop on the series:** 5/6 of a line (a post bent round its counter). The cup's ear stays drawn at 4/3px (picks7's horizontal-line compensation) because the six stay as approved; at 5/6 it would be 1/12px thinner. Said on the board.
+
+`src/mix.py` (raster, v249) kept, marked superseded.
+
+**Unsure:** the six matching exactly shows the root-based law reproduces the table, but it can't show the rule is better than the table; the fork and the bed are the only evidence of that. Bag still open.
+
+NEXT: design director: re-score at his zoom; if it holds, the two questions to the owner (turn 169).

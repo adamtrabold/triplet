@@ -1,0 +1,47 @@
+{
+ "cafe": {
+  "approved_only": 0.0,
+  "mix_only": 0.001,
+  "ink": 56.87,
+  "ink_approved": 56.87
+ },
+ "bar": {
+  "approved_only": 0.002,
+  "mix_only": 0.004,
+  "ink": 45.15,
+  "ink_approved": 45.14
+ },
+ "museum": {
+  "approved_only": 0.0,
+  "mix_only": 0.0,
+  "ink": 63.12,
+  "ink_approved": 63.12
+ },
+ "nature": {
+  "approved_only": 0.0,
+  "mix_only": 0.0,
+  "ink": 34.52,
+  "ink_approved": 34.52
+ },
+ "star": {
+  "approved_only": 0.001,
+  "mix_only": 0.0,
+  "ink": 84.23,
+  "ink_approved": 84.23
+ },
+ "plus": {
+  "approved_only": 0.033,
+  "mix_only": 0.0,
+  "ink": 34.49,
+  "ink_approved": 34.52
+ },
+ "restaurant": {
+  "ink": 47.06
+ },
+ "bag": {
+  "ink": 58.49
+ },
+ "bed": {
+  "ink": 46.76
+ }
+}

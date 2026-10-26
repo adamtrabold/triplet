@@ -1,0 +1,5034 @@
+{
+ "plus": {
+  "curves": 48,
+  "corners": 24,
+  "law": [
+   {
+    "pt": [
+     11.242,
+     18
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.303,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     11.242,
+     12.758
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "slab"
+    ],
+    "r": 0.136,
+    "why": "base"
+   },
+   {
+    "pt": [
+     6,
+     12.758
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.303,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     6,
+     11.242
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.303,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     11.242,
+     11.242
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "slab"
+    ],
+    "r": 0.136,
+    "why": "base"
+   },
+   {
+    "pt": [
+     11.242,
+     6
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.303,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     12.758,
+     6
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.303,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     12.758,
+     11.242
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "slab"
+    ],
+    "r": 0.136,
+    "why": "base"
+   },
+   {
+    "pt": [
+     18,
+     11.242
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.303,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     18,
+     12.758
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.303,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     12.758,
+     12.758
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "slab"
+    ],
+    "r": 0.136,
+    "why": "base"
+   },
+   {
+    "pt": [
+     12.758,
+     18
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.303,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     11.242,
+     18
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.303,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     11.242,
+     12.758
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "slab"
+    ],
+    "r": 0.136,
+    "why": "base"
+   },
+   {
+    "pt": [
+     6,
+     12.758
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.303,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     6,
+     11.242
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.303,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     11.242,
+     11.242
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "slab"
+    ],
+    "r": 0.136,
+    "why": "base"
+   },
+   {
+    "pt": [
+     11.242,
+     6
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.303,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     12.758,
+     6
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.303,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     12.758,
+     11.242
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "slab"
+    ],
+    "r": 0.136,
+    "why": "base"
+   },
+   {
+    "pt": [
+     18,
+     11.242
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.303,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     18,
+     12.758
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.303,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     12.758,
+     12.758
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "slab"
+    ],
+    "r": 0.136,
+    "why": "base"
+   },
+   {
+    "pt": [
+     12.758,
+     18
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.303,
+    "why": "outside t/5"
+   }
+  ]
+ },
+ "cafe": {
+  "curves": 48,
+  "corners": 16,
+  "law": [
+   {
+    "pt": [
+     7.944,
+     7.927
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.6,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     13.527,
+     12.714
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 125.8,
+    "kinds": [
+     "mass",
+     "loop"
+    ],
+    "r": 0.23,
+    "why": "base"
+   },
+   {
+    "pt": [
+     6.615,
+     15.677
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 112.6,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.15,
+    "why": "outside, wide"
+   },
+   {
+    "pt": [
+     6.615,
+     14.927
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.15,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     17.385,
+     14.927
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.15,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     17.385,
+     15.677
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 112.6,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.15,
+    "why": "outside, wide"
+   },
+   {
+    "pt": [
+     13.928,
+     11.214
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 90,
+    "kinds": [
+     "mass",
+     "loop"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     13.928,
+     9.427
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 90,
+    "kinds": [
+     "mass",
+     "loop"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     7.944,
+     7.927
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.6,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     13.527,
+     12.714
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 125.8,
+    "kinds": [
+     "mass",
+     "loop"
+    ],
+    "r": 0.23,
+    "why": "base"
+   },
+   {
+    "pt": [
+     6.615,
+     15.677
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 112.6,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.15,
+    "why": "outside, wide"
+   },
+   {
+    "pt": [
+     6.615,
+     14.927
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.15,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     17.385,
+     14.927
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.15,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     17.385,
+     15.677
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 112.6,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.15,
+    "why": "outside, wide"
+   },
+   {
+    "pt": [
+     13.928,
+     11.214
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 90,
+    "kinds": [
+     "mass",
+     "loop"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     13.928,
+     9.427
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 90,
+    "kinds": [
+     "mass",
+     "loop"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   }
+  ]
+ },
+ "bar": {
+  "curves": 62,
+  "corners": 28,
+  "law": [
+   {
+    "pt": [
+     7.204,
+     8.079
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 104.3,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.6,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     16.797,
+     8.079
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 104.3,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.6,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     12.625,
+     12.746
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 95.9,
+    "kinds": [
+     "mass",
+     "post"
+    ],
+    "r": 0.5,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     12.625,
+     15.265
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 93.5,
+    "kinds": [
+     "post",
+     "slab"
+    ],
+    "r": 0.5,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     15.392,
+     15.995
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 123.5,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.15,
+    "why": "outside, wide"
+   },
+   {
+    "pt": [
+     15.392,
+     16.746
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.15,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     8.609,
+     16.746
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.15,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     8.609,
+     15.995
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 123.5,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.15,
+    "why": "outside, wide"
+   },
+   {
+    "pt": [
+     11.375,
+     15.265
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 93.5,
+    "kinds": [
+     "post",
+     "slab"
+    ],
+    "r": 0.5,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     11.375,
+     12.746
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 95.9,
+    "kinds": [
+     "mass",
+     "post"
+    ],
+    "r": 0.5,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     15.039,
+     10.329
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 116.8,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.16,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     15.312,
+     9.579
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 77,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     8.688,
+     9.579
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 76.8,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     8.961,
+     10.329
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 116.8,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.16,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     7.204,
+     8.079
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 104.3,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.6,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     16.797,
+     8.079
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 104.3,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.6,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     12.625,
+     12.746
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 95.9,
+    "kinds": [
+     "mass",
+     "post"
+    ],
+    "r": 0.5,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     12.625,
+     15.265
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 93.5,
+    "kinds": [
+     "post",
+     "slab"
+    ],
+    "r": 0.5,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     15.392,
+     15.995
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 123.5,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.15,
+    "why": "outside, wide"
+   },
+   {
+    "pt": [
+     15.392,
+     16.746
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.15,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     8.609,
+     16.746
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.15,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     8.609,
+     15.995
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 123.5,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.15,
+    "why": "outside, wide"
+   },
+   {
+    "pt": [
+     11.375,
+     15.265
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 93.5,
+    "kinds": [
+     "post",
+     "slab"
+    ],
+    "r": 0.5,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     11.375,
+     12.746
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 95.9,
+    "kinds": [
+     "mass",
+     "post"
+    ],
+    "r": 0.5,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     15.039,
+     10.329
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 116.8,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.16,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     15.312,
+     9.579
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 77,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     8.688,
+     9.579
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 76.8,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     8.961,
+     10.329
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 116.8,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.16,
+    "why": "counter"
+   }
+  ]
+ },
+ "museum": {
+  "curves": 91,
+  "corners": 50,
+  "law": [
+   {
+    "pt": [
+     7.111,
+     9.976
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.24,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     7.111,
+     8.776
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 108.4,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.24,
+    "why": "outside, wide"
+   },
+   {
+    "pt": [
+     12,
+     7.147
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 143.1,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.7,
+    "why": "outside, wide"
+   },
+   {
+    "pt": [
+     16.889,
+     8.776
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 108.4,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.24,
+    "why": "outside, wide"
+   },
+   {
+    "pt": [
+     16.889,
+     9.976
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.24,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     7.111,
+     10.976
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.2,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     16.889,
+     10.976
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.2,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     16.889,
+     11.976
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "slab"
+    ],
+    "r": 0.2,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     16.889,
+     15.81
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "slab"
+    ],
+    "r": 0.2,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     16.889,
+     16.81
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.2,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     7.111,
+     16.81
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.2,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     7.111,
+     15.81
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "slab"
+    ],
+    "r": 0.2,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     7.111,
+     11.976
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "slab"
+    ],
+    "r": 0.2,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     13.907,
+     12.476
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "post"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     13.907,
+     15.31
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "post"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     15.222,
+     15.31
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "post"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     15.222,
+     12.476
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "post"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     11.343,
+     12.476
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "post"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     11.343,
+     15.31
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "post"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     12.657,
+     15.31
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "post"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     12.657,
+     12.476
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "post"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     8.778,
+     12.476
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "post"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     8.778,
+     15.31
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "post"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     10.093,
+     15.31
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "post"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     10.093,
+     12.476
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "post"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     7.111,
+     9.976
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.24,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     7.111,
+     8.776
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 108.4,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.24,
+    "why": "outside, wide"
+   },
+   {
+    "pt": [
+     12,
+     7.147
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 143.1,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.7,
+    "why": "outside, wide"
+   },
+   {
+    "pt": [
+     16.889,
+     8.776
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 108.4,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.24,
+    "why": "outside, wide"
+   },
+   {
+    "pt": [
+     16.889,
+     9.976
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.24,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     7.111,
+     10.976
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.2,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     16.889,
+     10.976
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.2,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     16.889,
+     11.976
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "slab"
+    ],
+    "r": 0.2,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     16.889,
+     15.81
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "slab"
+    ],
+    "r": 0.2,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     16.889,
+     16.81
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.2,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     7.111,
+     16.81
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.2,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     7.111,
+     15.81
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "slab"
+    ],
+    "r": 0.2,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     7.111,
+     11.976
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "slab"
+    ],
+    "r": 0.2,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     13.907,
+     12.476
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "post"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     13.907,
+     15.31
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "post"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     15.222,
+     15.31
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "post"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     15.222,
+     12.476
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "post"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     11.343,
+     12.476
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "post"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     11.343,
+     15.31
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "post"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     12.657,
+     15.31
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "post"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     12.657,
+     12.476
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "post"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     8.778,
+     12.476
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "post"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     8.778,
+     15.31
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "post"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     10.093,
+     15.31
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "post"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     10.093,
+     12.476
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 90,
+    "kinds": [
+     "slab",
+     "post"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   }
+  ]
+ },
+ "nature": {
+  "curves": 72,
+  "corners": 60,
+  "law": [
+   {
+    "pt": [
+     12,
+     5.012
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 30,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.35,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     14.508,
+     9.854
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 21.7,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.16,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     12.814,
+     9.194
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 47.7,
+    "kinds": [
+     "mass",
+     "mass"
+    ],
+    "r": 0.15,
+    "why": "base"
+   },
+   {
+    "pt": [
+     15.672,
+     12.854
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 24,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.241,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     13.018,
+     12.171
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 46.9,
+    "kinds": [
+     "mass",
+     "mass"
+    ],
+    "r": 0.15,
+    "why": "base"
+   },
+   {
+    "pt": [
+     16.747,
+     16.188
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 24.1,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.35,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     12.625,
+     15.454
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 87.2,
+    "kinds": [
+     "mass",
+     "post"
+    ],
+    "r": 0.5,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     12.625,
+     17.728
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     11.375,
+     17.728
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     11.375,
+     15.454
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 87.2,
+    "kinds": [
+     "mass",
+     "post"
+    ],
+    "r": 0.5,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     7.253,
+     16.188
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 24.1,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.35,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     10.982,
+     12.171
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 46.9,
+    "kinds": [
+     "mass",
+     "mass"
+    ],
+    "r": 0.15,
+    "why": "base"
+   },
+   {
+    "pt": [
+     8.328,
+     12.854
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 24,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.241,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     11.186,
+     9.194
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 47.7,
+    "kinds": [
+     "mass",
+     "mass"
+    ],
+    "r": 0.15,
+    "why": "base"
+   },
+   {
+    "pt": [
+     9.492,
+     9.854
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 21.7,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.16,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     12,
+     5.399
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 30.7,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.35,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     14.217,
+     9.615
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 25.9,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.129,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     12.814,
+     9.194
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 54.9,
+    "kinds": [
+     "mass",
+     "mass"
+    ],
+    "r": 0.15,
+    "why": "base"
+   },
+   {
+    "pt": [
+     15.2,
+     12.555
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 31,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.195,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     13.018,
+     12.171
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 54.7,
+    "kinds": [
+     "mass",
+     "mass"
+    ],
+    "r": 0.15,
+    "why": "base"
+   },
+   {
+    "pt": [
+     16.014,
+     15.797
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 31.8,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.299,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     12.625,
+     15.454
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 91.5,
+    "kinds": [
+     "mass",
+     "post"
+    ],
+    "r": 0.5,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     12.625,
+     17.728
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     11.375,
+     17.728
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     11.375,
+     15.454
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 91.5,
+    "kinds": [
+     "mass",
+     "post"
+    ],
+    "r": 0.5,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     7.986,
+     15.796
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 31.8,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.299,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     10.982,
+     12.171
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 54.7,
+    "kinds": [
+     "mass",
+     "mass"
+    ],
+    "r": 0.15,
+    "why": "base"
+   },
+   {
+    "pt": [
+     8.801,
+     12.555
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 31,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.195,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     11.186,
+     9.194
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 54.9,
+    "kinds": [
+     "mass",
+     "mass"
+    ],
+    "r": 0.15,
+    "why": "base"
+   },
+   {
+    "pt": [
+     9.784,
+     9.615
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 25.9,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.129,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     12,
+     5.44
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 30.9,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.35,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     14.185,
+     9.577
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 26.9,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.125,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     12.814,
+     9.194
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 56.5,
+    "kinds": [
+     "mass",
+     "mass"
+    ],
+    "r": 0.15,
+    "why": "base"
+   },
+   {
+    "pt": [
+     15.111,
+     12.493
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 32.8,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.186,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     13.018,
+     12.171
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 56.7,
+    "kinds": [
+     "mass",
+     "mass"
+    ],
+    "r": 0.15,
+    "why": "base"
+   },
+   {
+    "pt": [
+     15.861,
+     15.711
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 33.8,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.285,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     12.625,
+     15.454
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 92.8,
+    "kinds": [
+     "mass",
+     "post"
+    ],
+    "r": 0.5,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     12.625,
+     17.728
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     11.375,
+     17.728
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     11.375,
+     15.454
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 92.8,
+    "kinds": [
+     "mass",
+     "post"
+    ],
+    "r": 0.5,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     8.139,
+     15.711
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 33.8,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.285,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     10.982,
+     12.171
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 56.7,
+    "kinds": [
+     "mass",
+     "mass"
+    ],
+    "r": 0.15,
+    "why": "base"
+   },
+   {
+    "pt": [
+     8.889,
+     12.493
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 32.8,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.186,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     11.186,
+     9.194
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 56.5,
+    "kinds": [
+     "mass",
+     "mass"
+    ],
+    "r": 0.15,
+    "why": "base"
+   },
+   {
+    "pt": [
+     9.815,
+     9.578
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 26.9,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.125,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     12,
+     5.448
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 30.9,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.35,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     14.179,
+     9.571
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 27.1,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.125,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     12.814,
+     9.194
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 56.8,
+    "kinds": [
+     "mass",
+     "mass"
+    ],
+    "r": 0.15,
+    "why": "base"
+   },
+   {
+    "pt": [
+     15.095,
+     12.481
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 33.1,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.185,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     13.018,
+     12.171
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 57.1,
+    "kinds": [
+     "mass",
+     "mass"
+    ],
+    "r": 0.15,
+    "why": "base"
+   },
+   {
+    "pt": [
+     15.832,
+     15.693
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 34.2,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.283,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     12.625,
+     15.454
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 93,
+    "kinds": [
+     "mass",
+     "post"
+    ],
+    "r": 0.5,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     12.625,
+     17.728
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     11.375,
+     17.728
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     11.375,
+     15.454
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 93,
+    "kinds": [
+     "mass",
+     "post"
+    ],
+    "r": 0.5,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     8.168,
+     15.693
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 34.2,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.283,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     10.982,
+     12.171
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 57.1,
+    "kinds": [
+     "mass",
+     "mass"
+    ],
+    "r": 0.15,
+    "why": "base"
+   },
+   {
+    "pt": [
+     8.905,
+     12.482
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 33.1,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.185,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     11.186,
+     9.194
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 56.8,
+    "kinds": [
+     "mass",
+     "mass"
+    ],
+    "r": 0.15,
+    "why": "base"
+   },
+   {
+    "pt": [
+     9.821,
+     9.571
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 27.1,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.125,
+    "why": "tip"
+   }
+  ]
+ },
+ "star": {
+  "curves": 80,
+  "corners": 80,
+  "law": [
+   {
+    "pt": [
+     12,
+     3.468
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 48,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.42,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     14.587,
+     9.272
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 120,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "base"
+   },
+   {
+    "pt": [
+     20.906,
+     9.939
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 48,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.42,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     16.186,
+     14.193
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 120,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "base"
+   },
+   {
+    "pt": [
+     17.504,
+     20.409
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 48,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.42,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     12,
+     17.235
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 120,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "base"
+   },
+   {
+    "pt": [
+     6.496,
+     20.409
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 48,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.42,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     7.814,
+     14.193
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 120,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "base"
+   },
+   {
+    "pt": [
+     3.094,
+     9.939
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 48,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.42,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     9.413,
+     9.272
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 120,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "base"
+   },
+   {
+    "pt": [
+     10.634,
+     10.953
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 120,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     7.298,
+     11.305
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 48,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.18,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     9.79,
+     13.551
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 120,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     9.094,
+     16.833
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 48,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.18,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     12,
+     15.157
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 120,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     14.906,
+     16.833
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 48,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.18,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     14.21,
+     13.551
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 120,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     16.702,
+     11.305
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 48,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.18,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     13.366,
+     10.953
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 120,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     12,
+     7.89
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 48,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.18,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     12,
+     3.704
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 49.8,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.42,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     14.587,
+     9.272
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 121.8,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "base"
+   },
+   {
+    "pt": [
+     20.682,
+     10.012
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 49.8,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.42,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     16.186,
+     14.193
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 121.8,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "base"
+   },
+   {
+    "pt": [
+     17.366,
+     20.219
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 49.8,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.42,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     12,
+     17.235
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 121.8,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "base"
+   },
+   {
+    "pt": [
+     6.634,
+     20.219
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 49.8,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.42,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     7.814,
+     14.193
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 121.8,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "base"
+   },
+   {
+    "pt": [
+     3.318,
+     10.012
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 49.8,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.42,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     9.413,
+     9.272
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 121.8,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "base"
+   },
+   {
+    "pt": [
+     10.634,
+     10.953
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 120,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     7.298,
+     11.305
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 48,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.18,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     9.79,
+     13.551
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 120,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     9.094,
+     16.833
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 48,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.18,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     12,
+     15.157
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 120,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     14.906,
+     16.833
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 48,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.18,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     14.21,
+     13.551
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 120,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     16.702,
+     11.305
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 48,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.18,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     13.366,
+     10.953
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 120,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     12,
+     7.89
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 48,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.18,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     12,
+     3.719
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 50,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.42,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     14.587,
+     9.272
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 122,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "base"
+   },
+   {
+    "pt": [
+     20.668,
+     10.017
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 50,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.42,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     16.186,
+     14.193
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 122,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "base"
+   },
+   {
+    "pt": [
+     17.357,
+     20.207
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 50,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.42,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     12,
+     17.235
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 122,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "base"
+   },
+   {
+    "pt": [
+     6.643,
+     20.207
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 50,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.42,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     7.814,
+     14.193
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 122,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "base"
+   },
+   {
+    "pt": [
+     3.332,
+     10.017
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 50,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.42,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     9.413,
+     9.272
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 122,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "base"
+   },
+   {
+    "pt": [
+     10.634,
+     10.953
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 120,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     7.298,
+     11.305
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 48,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.18,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     9.79,
+     13.551
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 120,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     9.094,
+     16.833
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 48,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.18,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     12,
+     15.157
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 120,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     14.906,
+     16.833
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 48,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.18,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     14.21,
+     13.551
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 120,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     16.702,
+     11.305
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 48,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.18,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     13.366,
+     10.953
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 120,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     12,
+     7.89
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 48,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.18,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     12,
+     3.72
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 50,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.42,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     14.587,
+     9.272
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 122,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "base"
+   },
+   {
+    "pt": [
+     20.667,
+     10.017
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 50,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.42,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     16.186,
+     14.193
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 122,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "base"
+   },
+   {
+    "pt": [
+     17.357,
+     20.206
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 50,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.42,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     12,
+     17.235
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 122,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "base"
+   },
+   {
+    "pt": [
+     6.643,
+     20.206
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 50,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.42,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     7.814,
+     14.193
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 122,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "base"
+   },
+   {
+    "pt": [
+     3.333,
+     10.017
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 50,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.42,
+    "why": "tip"
+   },
+   {
+    "pt": [
+     9.413,
+     9.272
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 122,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "base"
+   },
+   {
+    "pt": [
+     10.634,
+     10.953
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 120,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     7.298,
+     11.305
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 48,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.18,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     9.79,
+     13.551
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 120,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     9.094,
+     16.833
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 48,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.18,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     12,
+     15.157
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 120,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     14.906,
+     16.833
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 48,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.18,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     14.21,
+     13.551
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 120,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     16.702,
+     11.305
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 48,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.18,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     13.366,
+     10.953
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 120,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.36,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     12,
+     7.89
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 48,
+    "kinds": [
+     "slab"
+    ],
+    "r": 0.18,
+    "why": "counter"
+   }
+  ]
+ },
+ "restaurant": {
+  "curves": 79,
+  "corners": 38,
+  "law": [
+   {
+    "pt": [
+     7.75,
+     6.5
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     9,
+     6.5
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     9,
+     9.2
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post",
+     "mass"
+    ],
+    "r": 0.338,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     9.75,
+     9.2
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post",
+     "mass"
+    ],
+    "r": 0.338,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     9.75,
+     6.5
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     11,
+     6.5
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     11,
+     9.2
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post",
+     "mass"
+    ],
+    "r": 0.338,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     11.75,
+     9.2
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post",
+     "mass"
+    ],
+    "r": 0.338,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     11.75,
+     6.5
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     13,
+     6.5
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     11,
+     12.178
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 104.4,
+    "kinds": [
+     "mass",
+     "post"
+    ],
+    "r": 0.5,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     11,
+     17.5
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     9.75,
+     17.5
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     9.75,
+     12.178
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 104.4,
+    "kinds": [
+     "mass",
+     "post"
+    ],
+    "r": 0.5,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     14,
+     6.5
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.6,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     16.25,
+     12.5
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.2,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     15.25,
+     12.5
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "mass",
+     "post"
+    ],
+    "r": 0.45,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     15.25,
+     17.5
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     14,
+     17.5
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     7.75,
+     6.5
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     9,
+     6.5
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     9,
+     9.2
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post",
+     "mass"
+    ],
+    "r": 0.338,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     9.75,
+     9.2
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post",
+     "mass"
+    ],
+    "r": 0.338,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     9.75,
+     6.5
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     11,
+     6.5
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     11,
+     9.2
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post",
+     "mass"
+    ],
+    "r": 0.338,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     11.75,
+     9.2
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post",
+     "mass"
+    ],
+    "r": 0.338,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     11.75,
+     6.5
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     13,
+     6.5
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     11,
+     12.178
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 104.4,
+    "kinds": [
+     "mass",
+     "post"
+    ],
+    "r": 0.5,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     11,
+     17.5
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     9.75,
+     17.5
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     9.75,
+     12.178
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 104.4,
+    "kinds": [
+     "mass",
+     "post"
+    ],
+    "r": 0.5,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     14,
+     6.5
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.6,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     16.25,
+     12.5
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.2,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     15.25,
+     12.5
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "mass",
+     "post"
+    ],
+    "r": 0.45,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     15.25,
+     17.5
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     14,
+     17.5
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   }
+  ]
+ },
+ "bag": {
+  "curves": 52,
+  "corners": 24,
+  "law": [
+   {
+    "pt": [
+     7.8,
+     10.135
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 84.1,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.168,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     8.64,
+     10.135
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "mass",
+     "loop"
+    ],
+    "r": 0.15,
+    "why": "base"
+   },
+   {
+    "pt": [
+     15.36,
+     10.135
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "mass",
+     "loop"
+    ],
+    "r": 0.15,
+    "why": "base"
+   },
+   {
+    "pt": [
+     16.2,
+     10.135
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 84.1,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.168,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     15.5,
+     16.855
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 95.9,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.6,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     8.5,
+     16.855
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 95.9,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.6,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     9.89,
+     10.135
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 90,
+    "kinds": [
+     "mass",
+     "loop"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     14.11,
+     10.135
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 90,
+    "kinds": [
+     "mass",
+     "loop"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     9.534,
+     12.385
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 95.9,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     14.466,
+     12.385
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 95.9,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     14.544,
+     11.635
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 84.1,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     9.456,
+     11.635
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 84.1,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     7.8,
+     10.135
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 84.1,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.168,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     8.64,
+     10.135
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "mass",
+     "loop"
+    ],
+    "r": 0.15,
+    "why": "base"
+   },
+   {
+    "pt": [
+     15.36,
+     10.135
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "mass",
+     "loop"
+    ],
+    "r": 0.15,
+    "why": "base"
+   },
+   {
+    "pt": [
+     16.2,
+     10.135
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 84.1,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.168,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     15.5,
+     16.855
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 95.9,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.6,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     8.5,
+     16.855
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 95.9,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.6,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     9.89,
+     10.135
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 90,
+    "kinds": [
+     "mass",
+     "loop"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     14.11,
+     10.135
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 90,
+    "kinds": [
+     "mass",
+     "loop"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     9.534,
+     12.385
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 95.9,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     14.466,
+     12.385
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 95.9,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     14.544,
+     11.635
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 84.1,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   },
+   {
+    "pt": [
+     9.456,
+     11.635
+    ],
+    "convex": false,
+    "hole": true,
+    "angle": 84.1,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.15,
+    "why": "counter"
+   }
+  ]
+ },
+ "bed": {
+  "curves": 58,
+  "corners": 28,
+  "law": [
+   {
+    "pt": [
+     17.75,
+     11.667
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.6,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     17.75,
+     16
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     16.5,
+     16
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     16.5,
+     14.333
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "mass",
+     "post"
+    ],
+    "r": 0.5,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     8,
+     14.333
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "mass",
+     "post"
+    ],
+    "r": 0.5,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     8,
+     16
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     6.75,
+     16
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     6.75,
+     8
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     8,
+     8
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     8,
+     11.667
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "mass",
+     "post"
+    ],
+    "r": 0.5,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     13.4,
+     9.567
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 146.3,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.22,
+    "why": "outside, wide"
+   },
+   {
+    "pt": [
+     13.4,
+     10.667
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.22,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     9,
+     10.667
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.22,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     9,
+     9.567
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 146.3,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.22,
+    "why": "outside, wide"
+   },
+   {
+    "pt": [
+     17.75,
+     11.667
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.6,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     17.75,
+     16
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     16.5,
+     16
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     16.5,
+     14.333
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "mass",
+     "post"
+    ],
+    "r": 0.5,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     8,
+     14.333
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "mass",
+     "post"
+    ],
+    "r": 0.5,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     8,
+     16
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     6.75,
+     16
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     6.75,
+     8
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     8,
+     8
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "post"
+    ],
+    "r": 0.25,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     8,
+     11.667
+    ],
+    "convex": false,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "mass",
+     "post"
+    ],
+    "r": 0.5,
+    "why": "post flare"
+   },
+   {
+    "pt": [
+     13.4,
+     9.567
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 146.3,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.22,
+    "why": "outside, wide"
+   },
+   {
+    "pt": [
+     13.4,
+     10.667
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.22,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     9,
+     10.667
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 90,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.22,
+    "why": "outside t/5"
+   },
+   {
+    "pt": [
+     9,
+     9.567
+    ],
+    "convex": true,
+    "hole": false,
+    "angle": 146.3,
+    "kinds": [
+     "mass"
+    ],
+    "r": 0.22,
+    "why": "outside, wide"
+   }
+  ]
+ }
+}
