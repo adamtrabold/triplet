@@ -111,7 +111,10 @@ const { fromTable } = require('./laws7.js');
 const LINE_LAW = fromTable(PROP.rounds.line), EASE = 2.3;
 const JOIN10 = { ease: EASE, trim: 1.4, ends2: 1.5, fair: true, hillKeep: 'depth', tipKeep: 'crest', tipLand: true, tipPow: 1, tipSoft: PROP.transition.tipSoft, noReverse: true, maxPieces: 2, arcEase: true, arcRamp: 0.3, flareLean: PROP.transition.flareLean };
 function plusMark(o = {}) {
-  const s = o.span ?? X.mark.plus.span, w = o.stroke ?? X.mark.plus.stroke, a = 12 - s / 2, b = 12 - w / 2;
+  // o.off: the strokes sit that far right and down of the arms' centre. A 1 1/2px stroke can't be centred on arms whose ends
+  // are whole (its centre is always k + 1/4 or k + 3/4), so at off 1/4 its edges land at 11.5 and 13: one whole, one half, like
+  // every line; the cost is half a px between the arms (the left and top arms 6 1/2, the right and bottom 6)
+  const s = o.span ?? X.mark.plus.span, w = o.stroke ?? X.mark.plus.stroke, a = 12 - s / 2, b = 12 - w / 2 + (o.off ?? 0);
   return E.build([E.R(b, a, w, s), E.R(a, b, s, w)], { law: LINE_LAW, ease: EASE, join: JOIN10 }).d;
 }
 // the star: the approved star (STAR.ri, its counter the star itself made smaller, a wall of the line), sized so its tip-to-feet

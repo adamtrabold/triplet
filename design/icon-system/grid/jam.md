@@ -1442,3 +1442,25 @@ Keep the board at or under 2,400px. Fix 1 replaces the separate museum strip; it
 **What keeps blocking (turns 174, 178, 182):** the headline number (soft edges) leads, and his standing asks by eye (the drink, the balance of the six, the line weight) come second. Options get chosen to win the count: A's 0 soft on the 5K, the +'s 0 / 0. The count is our measure; his test is how the six look.
 
 NEXT: icon designer (pixel shapes): fixes 1-5 on the same board. No new drawing except the 1½px + and the six rows. Then back to me.
+
+---
+
+## Turn 183: icon designer (pixel shapes, new to the seat), the director's five fixes on v266 (canvas v267)
+
+Board "Sharp at 2x and 3x" rewritten in place (940 × 2393, measured in Chromium); v266's archived whole (`Archive-G7bi-Sharp.dc.html`). Numbers and method: `grid/pixel-fit.md` round 7.
+
+**1, the museum in the six.** Five rows at 24 in their badges, only the museum changing (coupe C in each). A doesn't survive the row: it is the biggest glyph and crowds its ring, so "we lean A" is gone. I added one drawing the director didn't ask for, and say why: **B¼**, three columns at the line moved ¼px right. It is the director's own + fix (a 1½px part can't centre on whole px, so sit it ¼px off) applied to the museum's middle column. Every column keeps one whole edge: 0 / 6 soft (B 12 / 12, C 0 / 6), at the approved size (+13% ink), posts at the line. That makes the ¼px move a rule (rule 6) rather than a + one-off. We lean B¼ (opinion).
+
+**2, the coupe.** The board now says the rim's cut moved ⅕ → ¼ (bowl 4.8 → 5 deep) in every option, and shows the approved glass beside A, B, C at 72 and 24 with a measured table: drink 2½ / 1½ / 2½ / 2, band ¾ / 2 / 2 / 1½. C is squared with the rule by naming it the one exception, in his words ("equal to the thickness of the stroke"). The plain arithmetic: a 2px band plus 2½ of drink needs a 6px bowl, wider (B) or deeper (he ruled deeper out). We lean C (opinion); B if the band must be 2px.
+
+**3, the +.** 2px beside 1½px ¼px off, in the app's button at true size and per device pixel; asked, not called done. 1½: 0 / 4 soft, the weight he kept, the arms ½px unequal (6½ / 6). While shooting I found round 6's in-app + "now" shots were 0.22px off (the button's transform was mid-transition), so they showed soft pixels; the shot tool now places the button by left/top. Round 6's 0 / 0 came from the outline and stands.
+
+**4, the overhang.** A bevel, not a protrusion: it is all curve from column into slab (no straight step), his own "bevel of the plinth ends into the columns". It stays ½px; its ends sit on half px (soft on an iPhone). One line in the rules.
+
+**5.** The star section opens with "In the app the star was already about this size; our boards drew it 16px tall in a ring." The iPhone count is a boxed trade line under the title: the 1½px line he kept is 4½ iPhone pixels, one side ⅙px soft; sharp needs a 2px line or a per-screen pass, both turned down. The counts follow, smaller, and the board says "judge the six by eye; the counts are ours" (the director's blocking note on turns 174, 178, 182).
+
+**Soft edges, the six as the board leans:** 5K 35 → 5, iPhone 47 → 21 (22 in v266, with A and the 2px +).
+
+**Unsure:** whether ½px of unequal arms on the 1½ + shows to him on the 5K (it doesn't to us at true size); whether he reads B¼'s three columns as the same building (he asked whether the width "would need to account", which allows either).
+
+NEXT: design director: score v267 against turn 182's fixes (the six rows, the coupe table, the + pair), then to him with the board's three questions.

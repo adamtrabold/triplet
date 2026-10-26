@@ -1,6 +1,36 @@
 # Sharp at 2x and 3x
 
-## Round 6 (10-26, canvas v266): parts are shapes on whole pixels. CURRENT
+## Round 7 (10-26, canvas v267): the director's five fixes (jam turn 182). CURRENT
+
+Same rules as round 6, two amended; the drawings are round 6's except two new ones (museum B¼, the + at 1½). Board "Sharp at 2x and 3x" rewritten in place (940 × 2393, measured); v266's board archived whole as `Archive-G7bi-Sharp.dc.html` (Archive page, x 3720 y 210000). Script `src/pixel-shapes-board.py` (round 6's kept as `pixel-shapes-board-r6.py`), asset ids `src/pixel-shapes-board-blobs.json`, stills `stills/pixel-shapes/r7/`, app shots `src/pixel-shapes-ctx.js`.
+
+**Rule changes.** Rule 3: one exception, a band directly under a rim may be the line (1½: `PROP.px.band`, the owner's "the empty part should be equal to the thickness of the stroke"), coupe C only, his to accept. Rule 6: a symmetric icon whose centred part is the line may sit ¼px off the centre line (`PROP.px.centreOff`), so that part keeps one whole edge like every line. Rule 5 clarified: a bevel is not a protrusion. The museum's ½px overhang is all curve (`joins.heldSlab`: the slab's end drops ½ and curves ½ into the post; no straight step), his "bevel of the plinth ends into the columns", so it stays ½px; its ends land on half px (sharp at 2x, soft at 3x).
+
+**Fix 1, the museum in the six.** Five rows at 24 in their badges (approved, A, B, B¼, C), the same café, coupe C, tree and fork and knife in each. A (13 wide, ink +60%) crowds its ring and is the biggest in the row: our round-6 lean doesn't survive it. **B¼ is new:** B (three 1½ columns, 2px openings, 9½ wide) moved ¼px right (`museum({cols:3, openH:4, dx:0.25})`): columns at 8..9.5, 11.5..13, 15..16.5, each with one whole edge; 0 / 6 soft (B 12 / 12), ink 74.5 (+13%, as B), fair 4 TAILs (the capitals', as every museum), join 0. We lean B¼ (opinion). It is the director's ¼px + fix applied to the other centred line part, so it is one rule, not a one-off.
+
+**Fix 2, the coupe.** Stated on the board: every option moves the rim's cut from ⅕ to ¼ of the ellipse's height (bowl 4.8 → 5 deep, bottom whole). Drink measured on the outlines (ink run under the band at x = 11, `src/pixel-shapes-drink.js`; +0.08 to the centre):
+
+| | approved | A | B | C |
+|---|---|---|---|---|
+| drink | 2.46 (≈2½) | 1.52 | 2.54 | 2.02 |
+| band | 0.75 | 2 | 2 | 1.5 |
+| bowl w × depth | 10 × 4.8 | 10 × 5 | 12 × 6 | 10 × 5 |
+| ink | 45.5 | 42.4 | 59.4 | 45.1 |
+| soft 2x / 3x | 11 / 10 | 2 / 4 | 2 / 4 | 2 / 3 |
+
+With a 2px band, 2½ of drink needs a 6px bowl: wider (B) or deeper (he ruled deeper out: "the shorter bowl i think is necessary"). C squared by the rule-3 exception. We lean C (opinion); if the band must be 2px, B.
+
+**Fix 3, the +.** 2px (round 6) beside 1½px set ¼px off the arms' centre (`plusMark({span:14, stroke:1.5, off:0.25})`: strokes 11.5..13, ends 5 and 19): 0 / 4 soft (2px 0 / 0; before 6 / 8), ink 39.6 (2px 51.9, +31% on it; before at its 26.4 display ≈ 41). Cost: the arms are ½px unequal (6½ left and top, 6 right and bottom); not visible at true size to us. A 1½ stroke can never be centred on arms with whole ends (its centre is k + ¼ or k + ¾). Shown in the app's button at true size and per device pixel; asked, not decided. Found while shooting: round 6's in-app "now" + shots were 0.22px off (the button's transform transition was still running), so their pixels were soft; `pixel-shapes-ctx.js` now places the button by `left`/`top` with no transition (checked: every 2px edge a whole device pixel). Round 6's 0 / 0 was from the outline and stands.
+
+**Fix 4:** the bevel line (rule 5 above). **Fix 5:** the board leads the star with "In the app the star was already about this size; our boards drew it 16px tall in a ring", and puts the iPhone's count near the top as one trade: the 1½px line he kept is 4½ iPhone px, one side ⅙px soft; sharp would need a 2px line or a per-screen pass, both turned down.
+
+**Soft core edges, the six as the board leans** (café, coupe C, museum B¼, tree, the + at 1½, star): **5K 35 → 5, iPhone 47 → 21** (of 64 → 59). With the + at 2px: 5 / 17. Fork and knife 13 / 18 → 2 / 5 (unchanged).
+
+**Still can't land:** the line at 3x; the coupe's stem and the trunk on the centre line (the ¼px rule would land them but soften their centred feet, so not applied); the capitals' ½px steps and the bevels' ends at 3x; curves, diagonals, tips.
+
+---
+
+## Round 6 (10-26, canvas v266): parts are shapes on whole pixels. Superseded in part by round 7 (rules 3, 5, 6; the leans)
 
 Owner on v262's iPhone row (verbatim): "this should be a shape not a line" (the saucer, the beam); "nothing should be this small" (the coupe's ¾px band); "i think of the counters as shapes. they can go to (or be shortened to) a whole pixel"; "it is a hard pixel number wide, it should be the same hard pixel number tall?" (the +). On v264: "the museum and coupe counters are reading as too small now -- maybe they could go up to 2px? would the museum width need to account for that ..."; "the knife edge doesnt stick out far enough to be visible ... adjust that somehow mathematically in the fules"; "the star is way too fucking big -- it would never be in a circle. and the plus is never in a circle like that." Standing: "no i want the base grid to make great icons without extrawork"; keep the line weight; "nothing should go that thin".
 
