@@ -1,5 +1,20 @@
 # Systems designer notes: icon system
 
+## Shopping, concepts (2026-10-26, jam turn 4)
+
+- After turn 2 (visual: 15 sketches; B1 sign and F4 die-cut bag pushed, the rest killed) and turn 3 (director: B1
+  tidied, F4 only as K, new J = sign hangs the bag, new L = open-glyph test; a bag is open only with a one-line
+  left-of-centre reason).
+- Wrote `shopping/concepts/` README, B1, J, K, L. Constructions on the 24 grid with the pixel round's minimums.
+- Findings: two Ø5 ring links need centres 6 apart, so B1a (one ring) / B1b (two rings, 11x4 board); nothing threads
+  a 2px hole, so J hangs on two drops with the handle clean; ring over a hole = padlock.
+- Rules proposed: support = line, carried = mass (the six already do it); link is a ring; hole held, never threaded;
+  fold is a cut (K).
+- Ink estimates: K 66, B1a 62, B1b 82, J 84/72; museum B¼ 74.5. Open: the weight bar's wording.
+- L proposed kill: owner-taste 10-14, place icons are solid; outline = not yet tapped.
+- Flag: whole-pixel claims hold at 24 1:1; the app draws glyphs at 18 in the ring. Director to name the size.
+- Next: visual draws K, B1a, B1b, J finished; a fresh blind read; director; then my coverage check per 9+ concept.
+
 ## Shopping (concept round, 2026-10-26, jam turn 1)
 
 Brief: `briefs/shopping-concepts.md`. Work: `shopping/jam.md`, `shopping/jobs.md`. No drawings yet, no canvas.

@@ -145,3 +145,17 @@ Oblique: **"Tidy up"** and **"Do the words need changing?"** Fields: **ceramics 
 A blind read at 24 and 18, in lavender, in the street strip, by a fresh agent who sees only shuffled glyphs. It covers B1 (tidied), J, K and the six. The question is one: "what kind of place is each?"
 
 NEXT: product designer (systems): set B1-tidied, J and K as concepts against `jobs.md` (F1-F5), with L as the one-drawing test; visual draws them. Then the fresh blind read, then me.
+
+## Turn 4: product designer (systems), 2026-10-26
+
+Concepts set in `concepts/` (README, B1, J, K, and L proposed killed). What's new since turn 3:
+
+- **The counter rule decides two things before drawing.** Two ring links need centres 6px apart, so B1 splits into **B1a** (one ring, 8 × 5 board, about 62 ink) and **B1b** (two rings, 11 × 4 wide board, about 82). Nothing can hang *through* a 2px hole (¼px slivers), so J's bag hangs from two short drops at its corners, with the handle hole left clean. A single ring over a holed bag is a shackle over a keyhole: a padlock.
+- **A rule the six already follow, now written down:** what carries is the line (stem, trunk, columns, bracket, links); what is carried is the mass (bowl, tiers, roof, board, bag).
+- **Rules each concept adds:** B1, a link is a ring. J, a hole is held, never threaded, at 24. Together with turn 2's rule: things are held through a counter, and the counter is the root. K, a fold is a cut (it reaches a folded map, a ticket's tear, a book).
+- **Weight, estimated:** K about 66, B1a 62, B1b 82, J 84 (72 if shrunk). Museum B¼ is 74½. Only K and B1a get near the café. Open for the director: is the bar "at or below the café" or "not the heaviest"?
+- **L: proposed kill.** `docs/owner-taste.md` (10-14): place icons are solid; an outline means "not yet tapped by me". An open Shopping pin reads as a state. The weight job can be met inside the solid style (`concepts/L-open-glyph.md`).
+- **Flag, not ours to solve:** the grid lands whole pixels at 24 drawn 1:1, but `badgeHtml()` draws glyphs at 18 in the ring (×0.75, so a 2px slab is 1½). Every concept's pixel claims hold only at 24. The blind read should use the size the app will ship; that's the build's call, and the director should name it.
+- **Draw order:** K and B1 (a and b) first, then J.
+
+NEXT: product designer (visual focus): draw K, B1a, B1b and J finished at 72, 24, 18 and 12, beside the six, with measured net ink, ready for the fresh blind read.
