@@ -266,3 +266,95 @@ def sign_low():
     """B1a with the board 8 x 4 (y 12..16): 8px2 lighter."""
     o, i = link(13, 10)
     return [rpoly(bracket(17)), rpoly(o), rpoly(rect(9, 12, 17, 16, E2))], [rpoly(i)]
+
+
+# ================================================================== round 2: the plain bag (concepts/bag-plain.md)
+# A handle is the hole the grip goes through: a counter 2 deep, as long as the grip; walled by the line where free,
+# closed by the body where attached. No hole in the body; flared slab, flat top, foot 1 wider a side.
+
+def bag_body(tx0, tx1, fx0, fx1, y0, y1=17):
+    return [(tx0, y0, E4), (tx1, y0, E4), (fx1, y1, E2), (fx0, y1, E2)]
+
+
+def arch(cx0, cx1, top_y, base_y, sink=0.4, n=20):
+    """A round-topped handle: the counter is the upper half of a stadium cx0..cx1, 2 deep (top_y+1.5 .. base_y), its lower
+    side closed by the body at base_y; the wall the line around it. Returns (wall, counter)."""
+    cy = top_y + LINE + 1                      # the counter's round ends: radius 1, centred 1 below its top
+    ri, ro = 1.0, 1.0 + LINE
+    def upper(x0, x1, r):                      # left end up and over to the right end, at height cy
+        return (ell(x0 + r, cy, r, r, math.pi, 1.5 * math.pi, n) + ell(x1 - r, cy, r, r, 1.5 * math.pi, 2 * math.pi, n))
+    ox0, ox1 = cx0 - LINE, cx1 + LINE
+    wall = upper(ox0, ox1, ro) + [(ox1, base_y + sink, 0), (ox0, base_y + sink, 0)]
+    counter = upper(cx0, cx1, ri) + [(cx1, base_y, 0), (cx0, base_y, 0)]
+    return wall, counter
+
+
+def square_handle(cx0, cx1, top_y, base_y, sink=0.4):
+    """Three posts at the line around a slab counter (cx0..cx1, 2 deep); outer corners 1/4, counter corners 1/8."""
+    ox0, ox1 = cx0 - LINE, cx1 + LINE
+    wall = [(ox0, top_y, E4), (ox1, top_y, E4), (ox1, base_y + sink, 0), (ox0, base_y + sink, 0)]
+    counter = [(cx0, top_y + LINE, E8), (cx1, top_y + LINE, E8), (cx1, base_y, 0), (cx0, base_y, 0)]
+    return wall, counter
+
+
+def plain_p1():
+    """P1, the ear turned up: body top 6 / foot 8, y 10..17; counter 3 x 2 (y 8..10) under a line arch (outer 9..15)."""
+    w, c = arch(10.5, 13.5, 6.5, 10)
+    return [rpoly(bag_body(9, 15, 8, 16, 10)), rpoly(w)], [rpoly(c)]
+
+
+def plain_p2():
+    """P2, the square handle: as P1, the handle three posts round a square-ended counter 3 x 2."""
+    w, c = square_handle(10.5, 13.5, 6.5, 10)
+    return [rpoly(bag_body(9, 15, 8, 16, 10)), rpoly(w)], [rpoly(c)]
+
+
+def plain_p3():
+    """P3, the cuffed paper bag: body top 7 / foot 9, y 10..17, the cuff cut off by a 1px gap at y 12..13; counter 4 x 2
+    under a line arch (outer 8.5..15.5) standing on the cuff."""
+    w, c = arch(10, 14, 6.5, 10)
+    cut = [(6, 12, 0), (18, 12, 0), (18, 13, 0), (6, 13, 0)]
+    return [rpoly(bag_body(8.5, 15.5, 7.5, 16.5, 10)), rpoly(w)], [rpoly(c), rpoly(cut)]
+
+
+def plain_p4():
+    """P4 (visual reshape of P1): the handle inset from the body's corners so it is a handle, not a dome. Counter 3 x 2
+    (x 10.5..13.5), arch outer 9..15 on a top 8 wide (x 8..16), foot 10 (7..17), body 6 tall (y 11..17)."""
+    w, c = arch(10.5, 13.5, 7.5, 11)
+    return [rpoly(bag_body(8, 16, 7, 17, 11)), rpoly(w)], [rpoly(c)]
+
+
+def plain_p5():
+    """P5 (visual reshape): P4 lightened to the museum: top 7 (8.5..15.5), foot 9, 6 tall; arch outer 9..15, inset 1/2."""
+    w, c = arch(10.5, 13.5, 7.5, 11)
+    return [rpoly(bag_body(8.5, 15.5, 7.5, 16.5, 11)), rpoly(w)], [rpoly(c)]
+
+
+ROUND2 = [
+    ('P1', 'The ear, turned up', 'bag-plain P1', plain_p1),
+    ('P2', 'The square handle', 'bag-plain P2', plain_p2),
+    ('P3', 'The cuffed paper bag', 'bag-plain P3', plain_p3),
+    ('P4', 'Handle inset, wider bag', 'visual reshape', plain_p4),
+    ('P5', 'Handle inset, lighter', 'visual reshape', plain_p5),
+    ('P6', 'Straight bag, open handle', 'visual reshape', lambda: plain_open(8, 16)),
+    ('P7', 'Straight bag, open handle, light', 'visual reshape', lambda: plain_open(8.5, 15.5)),
+    ('P8', 'Wide low handle', 'visual reshape', lambda: plain_wide()),
+]
+
+
+def plain_wide():
+    """P8 (visual): the hand-wide handle the rule allows at its long end: counter 5 x 2 (x 9.5..14.5, y 10..12), arch outer
+    8..16 on a top 8 wide, foot 9 (7.5..16.5), body 5 tall (y 12..17)."""
+    w, c = arch(9.5, 14.5, 8.5, 12)
+    return [rpoly(bag_body(8, 16, 7.5, 16.5, 12)), rpoly(w)], [rpoly(c)]
+
+
+def plain_open(x0, x1):
+    """P6/P7 (visual): what made P1-P5 kettlebells is a flared mass under a small, solid-looking knob. So: straight sides
+    (no flare), and a handle whose counter is 3 x 3 (deeper than the rule's 2, so the hole reads before the wall), arch
+    outer 6 wide (x 9..15), inset from the body's corners. Body y 11..17."""
+    cy_top = 6.5
+    w, c = arch(10.5, 13.5, cy_top, 11)
+    # the counter 3 deep: arch() makes it base - (top + 1.5) = 3 here (11 - 8)
+    body = [(x0, 11, E4), (x1, 11, E4), (x1, 17, E2), (x0, 17, E2)]
+    return [rpoly(body), rpoly(w)], [rpoly(c)]

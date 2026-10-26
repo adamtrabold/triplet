@@ -73,3 +73,22 @@ All three, shuffled with the café, bar and museum, the same way as round 1. The
 
 - His answer to "one step too common, or is readable the point?" decides whether round 3 hunts a subject or polishes this bag. Until then, nothing here should be called settled.
 - The handle rule, if he takes it, changes the cup's ear in words only. Its drawing is already this rule.
+
+## How it looks and feels (visual, jam turn 9)
+
+Drawn on `../sketches/contact-sheet-r2.png` (2x; also `-1x` and `-3x`). Source: `plain_p1()` … `plain_wide()` in `../sketches/shapes.py`, where `arch()` is the counter-first handle (the counter is the root and the line walls it) and `square_handle()` the posts. Every level edge lands on a whole px: body tops y 10, 11 or 12, foot y 17, counters 2 deep on whole px. Net ink is measured with holes subtracted (café 56.5, museum 62.9):
+
+| | Build | Net ink | My read at 24 and 18 (seen, not blind) |
+|---|---|---|---|
+| P1 | spec | 61.5 | a **kettlebell** or a weight. The arch's outer edge runs straight up from the body's corners, so handle and body merge into one dome over a flare. |
+| P2 | spec | 63.8 (over the bar by 0.9) | a **bottle or jar** with a label. The square counter reads as a window in a solid, not as a handle. |
+| P3 | spec | 62.3 | the most **bag** of the three spec drawings; a lunchbox or cooler second. The cuff gap survives at 24, goes grey at 18, and is gone at 12. |
+| P4 | top 8, handle inset 1 a side | 66.5 (over) | bag or kettlebell. The inset helps; the weight doesn't. |
+| P5 | P4 at top 7 | 60.5 | kettlebell. With only a ½ inset, the dome comes back. |
+| P6, P7 | straight sides, counter 3 deep | 63.5 / 57.5 | **padlock**, plainly. This is the proof of the rule: a counter deeper than 2 plus straight sides makes a shackle. Killed. |
+| **P8** | counter 5 × 2 (the rule's long end), arch outer 8..16 on a top 8, foot 9, body 5 tall | **58.1** | **bag, or handbag**. The wide, low handle is what the eye takes as "carried by hand". It is also the lightest bag drawn that reads. |
+
+- **What decides the read is the handle's proportion, not the body.** The rule's two depths split the field. At 2 deep and short (P1, P5), a solid knob sits on a flared mass: a kettlebell. At 3 deep (P6, P7) it is a padlock. At 2 deep and long (P3, P8) it is a bag. So I'd sharpen the systems rule: **a hand's handle is at least ½ the top, and at the bag's size that means a 4 or 5 counter.** P1's 3 is one finger's worth plus a bit, which is a kettlebell's grip.
+- **P8 breaks one brief line:** its body is 9 × 5, landscape, which `bag-plain.md` set against (briefcase). At 18 it reads as a bag before a briefcase, because the wide arch is what a briefcase lacks; a briefcase handle is small and centred. "Handbag" is its real risk, and the blind read decides.
+- **Feel:** P3 and P8 are quiet and plain, straight from a sign sheet. P3's cuff is the one particular detail that survives at 24, though not at 18. Neither is left of centre in subject, which the director's question to him already says.
+- **To the blind read:** P1, P2 and P3 as specified, plus P8 (my reshape), with the café, bar and museum as distractors. P4 to P7 don't go: P4 is over the ceiling, P5 repeats P1, and P6/P7 are padlocks.

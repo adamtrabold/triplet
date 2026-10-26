@@ -248,3 +248,15 @@ Round 2 concept: `concepts/bag-plain.md`.
 - **Three constructions:** P1, the ear turned up (a line arch; ~62). P2, the square handle (three posts; ~60½). P3, a cuffed paper bag, where the cut pays for a hand-wide handle (~62½; the left-of-centre one if it reads).
 
 NEXT: product designer (visual focus): draw P1, P2 and P3 finished at 72, 24, 18 and 12 beside the six, with measured net ink, for the fresh blind read.
+
+## Turn 9: product designer (visual focus), 2026-10-26
+
+I drew P1-P3 as specified and five reshapes (P4-P8): `sketches/contact-sheet-r2.png`, with `-1x` and `-3x` beside it. Full table and reads in `concepts/bag-plain.md`, "How it looks and feels".
+
+- **Net ink, measured** (museum 62.9): P1 61.5, P2 63.8 (just over), P3 62.3, **P8 58.1**.
+- **Reads (seen, not blind):** P1 a kettlebell; P2 a bottle or jar; P3 a bag (lunchbox second); P8 a bag or handbag. P6/P7 (counter 3 deep, straight sides) are padlocks, which confirms the 2-deep rule.
+- **Sharpen the handle rule:** a hand's handle is at least ½ the top (here a 4 or 5 counter), or it becomes a kettlebell's knob.
+- **P8** is landscape (9 × 5), against the brief's "portrait", and I've sent it to the read anyway. The wide arch is the part that says bag.
+- **Blind kit 2:** P1, P2, P3 and P8, with the café, bar and museum, at 18 lavender and 24 navy, plus one street per bag. Built in the scratchpad (`blind2/`), not committed.
+
+NEXT: orchestrator — run blind read 2 with a fresh agent; then the director scores.

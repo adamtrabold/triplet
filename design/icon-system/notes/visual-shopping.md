@@ -2,6 +2,14 @@
 
 My notes for the Shopping concept round (`design/icon-system/shopping/`). Brief: `briefs/shopping-concepts.md`. The system-wide notes are `notes/visual.md` (the pixel designer's seat); this file covers only Shopping.
 
+## Update: jam turn 9 (round 2, the plain bag)
+
+- Round 1 failed blind read 1 (K3 read as a lampshade, J2 a tap or pump, B1c a person at a counter). The director scored both 3 and redirected to the plainest readable bag.
+- I drew P1-P3 to spec (`concepts/bag-plain.md`) plus P4-P8: sheet `shopping/sketches/contact-sheet-r2.png` (`sheet.py r2`, `shoot.js r2`). Ink: P1 61.5, P2 63.8, P3 62.3, P8 58.1 (museum 62.9).
+- **Learned:** the handle's proportion decides the read. Short and 2 deep reads as a kettlebell (P1, P5); 3 deep as a padlock (P6, P7); long (4-5) and 2 deep as a bag (P3, P8). I proposed: a hand's handle is ≥ ½ the top.
+- Blind kit 2 (P1, P2, P3, P8 plus the café, bar and museum; 18 lavender, 24 navy, streets) is in the scratchpad `blind2/`, with its key beside it. Not committed.
+- Open: the blind read 2 result; P8's landscape body against the brief's portrait; the owner's "too common, or is readable the point?"
+
 ## Update: jam turn 5 (the concepts drawn)
 
 - I drew the systems designer's specs (K, B1a, B1b, J) plus reshapes: K2 (even 8:10), **K3** (6:8 × 9, light), B1c (B1a with a 4-tall board), **J2** (J with the bag 6:8 × 7 and 2px drops). Sheet: `shopping/sketches/contact-sheet-t5.png` (and `-1x`, `-3x`); `sheet.py t5` / `shoot.js t5`. Each card prints its net ink, measured in-page with holes subtracted.
