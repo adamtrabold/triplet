@@ -1,5 +1,20 @@
 # Systems designer notes: icon system
 
+## Update 2026-10-26 (B and C tested, canvas v248, jam turn 166)
+
+- Owner answers: holes = proportional root shapes keeping the wall right; "the brand should be built into the root
+  calls"; "And b is good to test". My read: a mix (roots carrying their joins, proportional) fits best; B becomes it
+  if root calls state thickness. Said in one line on the board; prototype is B.
+- B prototype: `grid/src/castB.py` (+ `castlib.py`, `castB-sheet.py`, `castB-overlay.py`, `castB-stages.py`,
+  `castB-row.py`). Re-run: `python3 -I src/castB.py` from `grid/` (needs scipy, scikit-image; pip-installed this
+  session). Outputs `svg/castB/` (.npy masks are not committed; regenerate).
+- Results: café/bar/+/star back within a hair (star points sharper); museum loses the capital drop; tree fails
+  (notches fill, tips sharp). New icons get flares at their joins; bag still a dark padlock; fork light.
+- C fingerprint (`src/fingerprint.py`) fails: nudged six 0-1.8, loaf bed 0.00, bag 0.26, heart-on 3.72. Judge stays
+  a person.
+- Next if the director passes it: fix tapers in the rule (one change, all icons); make the capital a root; then fit
+  curves to the traced outlines (the engine's clean-curve standard) before any engine rewrite.
+
 ## Update 2026-10-26 (grid: how the system makes new icons, canvas v246; director 9 after edits, done in v247)
 
 Task: think, don't build. Owner: "I think declarative is fine but I don't want

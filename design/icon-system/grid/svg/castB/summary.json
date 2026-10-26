@@ -1,0 +1,70 @@
+{
+ "rule": {
+  "base_in": 0.15,
+  "flare": 0.5,
+  "max_in": 1.0,
+  "window": 1.0,
+  "gap_keep": 0.45,
+  "out_share": 0.3,
+  "settle": 0.5,
+  "out_min": 0.075,
+  "out_max": 0.6,
+  "gap_read": 0.4,
+  "steady": 0.35,
+  "junction": 0.6
+ },
+ "bar": {
+  "note": "",
+  "ink_px2": 44.97,
+  "roots": 3,
+  "holes": 1
+ },
+ "cafe": {
+  "note": "",
+  "ink_px2": 56.84,
+  "roots": 3,
+  "holes": 1
+ },
+ "museum": {
+  "note": "beam and plinth as plain slabs (the capital drop removed: it was drawn into the part)",
+  "ink_px2": 59.04,
+  "roots": 7,
+  "holes": 0
+ },
+ "star": {
+  "note": "",
+  "ink_px2": 87.31,
+  "roots": 1,
+  "holes": 1
+ },
+ "plus": {
+  "note": "",
+  "ink_px2": 34.52,
+  "roots": 2,
+  "holes": 0
+ },
+ "nature": {
+  "note": "",
+  "ink_px2": 42.74,
+  "roots": 4,
+  "holes": 0
+ },
+ "restaurant": {
+  "note": "new: a fork from root calls (tines, a cap head, a handle)",
+  "ink_px2": 33.44,
+  "roots": 5,
+  "holes": 0
+ },
+ "bag": {
+  "note": "round 2's roots, unchanged",
+  "ink_px2": 69.82,
+  "roots": 2,
+  "holes": 1
+ },
+ "bed": {
+  "note": "bed2's roots, unchanged",
+  "ink_px2": 46.88,
+  "roots": 4,
+  "holes": 0
+ }
+}

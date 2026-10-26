@@ -773,3 +773,71 @@ Read `flexible-system.md` and rendered the live board (Grid7NewIcons, 760 wide, 
    - Move row 2 (the title note at y 15740, the master grid and Construction at y 16040) below the end of Between (y 21160), to y 21460 or lower. Between (x 840-1600) overlaps the master grid (x 0-1600) from y 16040.
 
 **Changed since my last score?** A new board; first score.
+
+---
+
+## Turn 166: product designer (systems), his two answers folded in; B and C tested outside the engine (canvas v248)
+
+Owner (10-26): "Holes should be based on proportional root shapes that also ensure the not hole area is correct. And a bag should look like this system by the decisions it took to make the bag…the brand should be built into the root calls"; then "And b is good to test".
+
+**Reading of his answers** (board top, `flexible-system.md` round 2):
+- Holes are root shapes, proportioned so the wall comes out right. Not "the outside moved in". That's true in A, B and C.
+- "Built into the root calls" points away from a finish laid on afterwards. A fits most literally (parts carry their joins) but stays a catalogue. B with his answers: the rule makes no choices of its own beyond one frozen set of numbers. It follows only what the root calls set up.
+- Stated as one line on the board: a mix (roots that bring their joins, sized by proportion) fits his words best. B becomes it if each root call states the thickness the rule now measures. Prototype = B, as he asked.
+
+**The prototype** (`src/castB.py`, `src/castlib.py`; raster at 48 grid px a unit; outputs in `svg/castB/`):
+- Input: root calls only. The ink roots are unioned, and the hole roots are cut out first.
+- One rule, the same numbers (`RULE`) for every icon:
+  1. Local thickness (the widest inscribed disc covering each point).
+  2. Inside corners close by r = 0.15 + 0.5 × the thickness contrast within 1 unit. The thin side counts only if it's a steady part, not a taper. The fill never exceeds 0.45 × the local gap width (read 0.4 unit off, within the same space). Inside a hole root, only the base 0.15. A space under 0.3 is a sliver and fills.
+  3. Outside corners open by r = 0.3 × the thickness of the part behind each outline point (a ray inward, up to 1 unit). r is also capped by the settle limit: a corner never loses more than 0.5 unit of ink at its point, r ≤ 0.5·sin(a)/(1−sin(a)). That cap applies along 1.2 units of the outline. The radius is blended between levels, so it changes without steps.
+- Calibrated once, on the coupe (flare 0.5: the smallest total difference from approved over 0.18-0.8), then frozen.
+- Exceptions:
+  - The museum's slabs are given as plain rectangles (the approved part has the capital drawn in).
+  - The star's and +'s parts are shifted by their stored dy.
+
+**Results (overlap with approved, px² at 24: approved-only / B-only):**
+
+| Icon | Approved-only | B-only |
+|---|---|---|
+| Café | 0.13 | 0.10 |
+| Bar | 0.31 | 0.14 |
+| + | 0.17 | 0.17 |
+| Star | 0.21 | 3.29 |
+| Museum | 4.42 | 0.33 |
+| Tree | 0.05 | 8.26 |
+
+- The star's points are sharper than approved.
+- The museum loses the capital drop.
+- The tree's notches fill and its tips stay sharp.
+- New icons, by eye at 24 and 72 beside the six:
+  - Restaurant (a fork on the scale): tines and handle flare into the head.
+  - The bag (round 2's roots): the handle's feet now flare into the body, but it's still the darkest mark and still a padlock.
+  - The bed (bed2's roots): headboard and legs flare.
+  - The fork is the lightest mark in the row.
+
+**C's fingerprint** (`src/fingerprint.py`; seven measures, band = the six's range ±15%):
+- The 18 nudged copies (±0.02px) score 0-1.83.
+- Blind icons:
+  - round-1 bed 0.00;
+  - bed2 0.05;
+  - bag 0.26;
+  - person2 0.51, person3 1.19;
+  - heart 0.12, heart-on 3.72.
+- It doesn't rank them the way the director's eye did, and it can't tell the generic bag from the six. **C fails its own test.**
+
+**Getting there (what failed on the way, for the record):**
+- Skeleton-based thickness left edge pixels at 0, which made every corner read as "thin meets thick".
+- A disc-union opening sharpened every corner.
+- A thickness reach imported the head's thickness into the fork's middle tine and cut it.
+- Opening without a corner cap left detached specks past tips.
+- Reading the gap width at the pixel stopped every corner fill, because a corner of open space reads as narrow.
+
+**Checks:** overlays approved vs B for the six, bag and bed (`src/castB-overlay.py`); look sheets at 24/72/288 (`svg/castB/sheet-six.png`, `sheet-new.png`) and the row at 1x/3x (`row-1x.png`, `row-3x.png`), all looked at. No engine, picks or six changed.
+
+**Unsure:**
+- Whether the tree's failure is B's or this rough prototype's: the taper handling is the weakest part.
+- Raster tracing gives polygon outlines, not the engine's few clean curves.
+- The board frame (9600) is estimated, not measured.
+
+NEXT: design director: score whether B passes enough to build properly (tapers fixed in the rule, the capital as a root), and whether the judge staying human is acceptable.

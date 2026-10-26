@@ -3,6 +3,41 @@
 Product designer (systems), 2026-10-26. Thinking only: nothing in the engine, the picks or the six changed.
 On the canvas as the board "How the system makes new icons" (Grid concepts page, row 1, right of "Every icon").
 
+## Round 2 (10-26): his answers, B tested, C tested (canvas v248)
+
+His answers (verbatim): "Holes should be based on proportional root shapes that also ensure the not hole area is
+correct. And a bag should look like this system by the decisions it took to make the bag…the brand should be built
+into the root calls" ("skulls" = should). Then: "And b is good to test".
+
+**What they mean:** a hole is its own root shape, sized by proportion so the wall comes out right (all three
+approaches). The look comes from how the roots are chosen and joined, not a finish laid on after.
+- A (kit) fits his words most literally but is still a catalogue.
+- B, with his answers folded in: the rule makes no choices of its own. It only follows what the root calls set up
+  (which roots, their proportions, joined or cut, the hole roots), with one set of numbers for every icon.
+- C judges and doesn't make anything, so his words don't change it.
+- A mix (roots that bring their own joins, sized by proportion) fits his words even better. B becomes that mix if each
+  root call states the thickness the rule now measures. The drawings stay the same. We tested B, as he asked.
+
+**Test 1, the six from root calls only** (`src/castB.py`, outside the engine; numbers set once on the coupe, then
+frozen): Café, Bar, + and Star come back within a hair (overlap differences of 0.1-0.4px², the star 3.3px² because its
+points are sharper). The museum loses its dropped beam ends (the capital was drawn into the slab part); the posts get
+small flares instead. The tree doesn't come back: its notches fill and its tips stay sharp (+8px² of ink). So B can't
+yet handle a taper running out to a point. Fix: one change to the rule, or the capital as its own root.
+
+**Test 2, new icons:** Restaurant (a fork: three tines 2/11 of the head, a cap head with ry 4/5 rx, a handle 3/11),
+Shopping and Hotel with the blind tests' own roots, unchanged. The joins now flare into what they meet without
+anyone asking. Not fixed: the bag is still the darkest mark and still reads as a padlock (that's the roots chosen). The
+fork is the lightest mark.
+
+**Test 3, C's judge** (`src/fingerprint.py`, seven measures; `svg/castB/fingerprint.json`): it fails. Nudged copies
+of the six score 0 to 1.8, the round-1 "loaf" bed scores 0.00, the round-2 bag 0.26, and the well-read heart (on) is
+worst at 3.7. It can't tell the generic bag from the six, so as built, C is dead. The judge stays a person.
+
+**Where it leaves it:** B works on four of the six and gives new icons the family's joins. Two gaps: tapers, and
+details drawn into a part. No automatic judge. Traced outlines, not final curves; the engine and the six are unchanged.
+
+---
+
 The question (owner): "I think declarative is fine but I don't want it to be so specific… it needs to be a flexible
 system that outputs coherent consistent icons. Have someone think about how we might achieve that before rewriting
 the system at all."

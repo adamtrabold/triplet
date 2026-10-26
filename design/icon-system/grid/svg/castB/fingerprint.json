@@ -1,0 +1,660 @@
+{
+ "band": {
+  "ink:shaped": [
+   30.23,
+   67.41
+  ],
+  "ink:line": [
+   27.064,
+   91.687
+  ],
+  "sharp": [
+   -0.15,
+   0.15
+  ],
+  "conc": [
+   0.104,
+   0.716
+  ],
+  "conv": [
+   0.178,
+   0.301
+  ],
+  "wobble": [
+   -0.3,
+   2.3
+  ],
+  "joins": [
+   -0.15,
+   1.15
+  ],
+  "contrast": [
+   1.242,
+   2.958
+  ]
+ },
+ "icons": {
+  "cafe (approved)": {
+   "ink": 56.87,
+   "sharp": 0,
+   "conc": 0.215,
+   "conv": 0.237,
+   "wobble": 1,
+   "joins": 0.0,
+   "contrast": 2.76,
+   "cls": "shaped",
+   "group": "six",
+   "off": {},
+   "score": 0
+  },
+  "museum (approved)": {
+   "ink": 63.12,
+   "sharp": 0,
+   "conc": 0.645,
+   "conv": 0.192,
+   "wobble": 0,
+   "joins": 1.0,
+   "contrast": 2.17,
+   "cls": "shaped",
+   "group": "six",
+   "off": {},
+   "score": 0
+  },
+  "star (approved)": {
+   "ink": 84.23,
+   "sharp": 0,
+   "conc": 0.366,
+   "conv": 0.207,
+   "wobble": 2,
+   "joins": 0.75,
+   "contrast": 1.44,
+   "cls": "line",
+   "group": "six",
+   "off": {},
+   "score": 0
+  },
+  "plus (approved)": {
+   "ink": 34.52,
+   "sharp": 0,
+   "conc": 0.175,
+   "conv": 0.287,
+   "wobble": 0,
+   "joins": 0.0,
+   "contrast": 1.47,
+   "cls": "line",
+   "group": "six",
+   "off": {},
+   "score": 0
+  },
+  "bar (approved)": {
+   "ink": 45.14,
+   "sharp": 0,
+   "conc": 0.527,
+   "conv": 0.204,
+   "wobble": 0,
+   "joins": 1.0,
+   "contrast": 1.79,
+   "cls": "shaped",
+   "group": "six",
+   "off": {},
+   "score": 0
+  },
+  "nature (approved)": {
+   "ink": 34.52,
+   "sharp": 0,
+   "conc": 0.21,
+   "conv": 0.203,
+   "wobble": 1,
+   "joins": 0.2,
+   "contrast": 1.5,
+   "cls": "shaped",
+   "group": "six",
+   "off": {},
+   "score": 0
+  },
+  "cafe nudged 1": {
+   "ink": 56.93,
+   "sharp": 0,
+   "conc": 0.287,
+   "conv": 0.203,
+   "wobble": 0,
+   "joins": 0.0,
+   "contrast": 2.76,
+   "cls": "shaped",
+   "group": "nudged",
+   "off": {},
+   "score": 0
+  },
+  "cafe nudged 2": {
+   "ink": 56.6,
+   "sharp": 0,
+   "conc": 0.325,
+   "conv": 0.475,
+   "wobble": 0,
+   "joins": 1.0,
+   "contrast": 2.76,
+   "cls": "shaped",
+   "group": "nudged",
+   "off": {
+    "conv": 1.83
+   },
+   "score": 1.83
+  },
+  "cafe nudged 3": {
+   "ink": 56.75,
+   "sharp": 0,
+   "conc": 0.212,
+   "conv": 0.43,
+   "wobble": 0,
+   "joins": 0.0,
+   "contrast": 2.76,
+   "cls": "shaped",
+   "group": "nudged",
+   "off": {
+    "conv": 1.36
+   },
+   "score": 1.36
+  },
+  "museum nudged 1": {
+   "ink": 63.23,
+   "sharp": 0,
+   "conc": 0.593,
+   "conv": 0.178,
+   "wobble": 0,
+   "joins": 1.0,
+   "contrast": 2.17,
+   "cls": "shaped",
+   "group": "nudged",
+   "off": {},
+   "score": 0
+  },
+  "museum nudged 2": {
+   "ink": 63.22,
+   "sharp": 0,
+   "conc": 0.0,
+   "conv": 0.207,
+   "wobble": 0,
+   "joins": 0.0,
+   "contrast": 2.17,
+   "cls": "shaped",
+   "group": "nudged",
+   "off": {
+    "conc": 0.22
+   },
+   "score": 0.22
+  },
+  "museum nudged 3": {
+   "ink": 63.11,
+   "sharp": 0,
+   "conc": 0.0,
+   "conv": 0.208,
+   "wobble": 0,
+   "joins": 0.0,
+   "contrast": 2.17,
+   "cls": "shaped",
+   "group": "nudged",
+   "off": {
+    "conc": 0.22
+   },
+   "score": 0.22
+  },
+  "star nudged 1": {
+   "ink": 84.39,
+   "sharp": 0,
+   "conc": 0.369,
+   "conv": 0.256,
+   "wobble": 5,
+   "joins": 0.7,
+   "contrast": 1.44,
+   "cls": "line",
+   "group": "nudged",
+   "off": {
+    "wobble": 1.35
+   },
+   "score": 1.35
+  },
+  "star nudged 2": {
+   "ink": 84.17,
+   "sharp": 0,
+   "conc": 0.362,
+   "conv": 0.209,
+   "wobble": 0,
+   "joins": 0.667,
+   "contrast": 1.44,
+   "cls": "line",
+   "group": "nudged",
+   "off": {},
+   "score": 0
+  },
+  "star nudged 3": {
+   "ink": 84.11,
+   "sharp": 0,
+   "conc": 0.353,
+   "conv": 0.245,
+   "wobble": 2,
+   "joins": 0.714,
+   "contrast": 1.44,
+   "cls": "line",
+   "group": "nudged",
+   "off": {},
+   "score": 0
+  },
+  "plus nudged 1": {
+   "ink": 34.59,
+   "sharp": 0,
+   "conc": 0.168,
+   "conv": 0.255,
+   "wobble": 0,
+   "joins": 0.0,
+   "contrast": 1.47,
+   "cls": "line",
+   "group": "nudged",
+   "off": {},
+   "score": 0
+  },
+  "plus nudged 2": {
+   "ink": 34.58,
+   "sharp": 0,
+   "conc": 0.152,
+   "conv": 0.307,
+   "wobble": 0,
+   "joins": 0.0,
+   "contrast": 1.47,
+   "cls": "line",
+   "group": "nudged",
+   "off": {
+    "conv": 0.06
+   },
+   "score": 0.06
+  },
+  "plus nudged 3": {
+   "ink": 34.3,
+   "sharp": 0,
+   "conc": 0.176,
+   "conv": 0.335,
+   "wobble": 0,
+   "joins": 0.0,
+   "contrast": 1.47,
+   "cls": "line",
+   "group": "nudged",
+   "off": {
+    "conv": 0.36
+   },
+   "score": 0.36
+  },
+  "bar nudged 1": {
+   "ink": 45.13,
+   "sharp": 0,
+   "conc": 0.524,
+   "conv": 0.255,
+   "wobble": 1,
+   "joins": 1.0,
+   "contrast": 1.79,
+   "cls": "shaped",
+   "group": "nudged",
+   "off": {},
+   "score": 0
+  },
+  "bar nudged 2": {
+   "ink": 45.11,
+   "sharp": 0,
+   "conc": 0.387,
+   "conv": 0.197,
+   "wobble": 0,
+   "joins": 0.667,
+   "contrast": 1.79,
+   "cls": "shaped",
+   "group": "nudged",
+   "off": {},
+   "score": 0
+  },
+  "bar nudged 3": {
+   "ink": 45.13,
+   "sharp": 0,
+   "conc": 0.484,
+   "conv": 0.3,
+   "wobble": 2,
+   "joins": 1.0,
+   "contrast": 1.79,
+   "cls": "shaped",
+   "group": "nudged",
+   "off": {},
+   "score": 0
+  },
+  "nature nudged 1": {
+   "ink": 34.56,
+   "sharp": 0,
+   "conc": 0.249,
+   "conv": 0.207,
+   "wobble": 0,
+   "joins": 0.333,
+   "contrast": 1.5,
+   "cls": "shaped",
+   "group": "nudged",
+   "off": {},
+   "score": 0
+  },
+  "nature nudged 2": {
+   "ink": 34.62,
+   "sharp": 0,
+   "conc": 0.235,
+   "conv": 0.162,
+   "wobble": 0,
+   "joins": 0.333,
+   "contrast": 1.5,
+   "cls": "shaped",
+   "group": "nudged",
+   "off": {
+    "conv": 0.17
+   },
+   "score": 0.17
+  },
+  "nature nudged 3": {
+   "ink": 34.46,
+   "sharp": 0,
+   "conc": 0.285,
+   "conv": 0.321,
+   "wobble": 0,
+   "joins": 0.5,
+   "contrast": 1.5,
+   "cls": "shaped",
+   "group": "nudged",
+   "off": {
+    "conv": 0.21
+   },
+   "score": 0.21
+  },
+  "bed, round 1 blind": {
+   "ink": 43.78,
+   "sharp": 0,
+   "conc": 0.439,
+   "conv": 0.224,
+   "wobble": 0,
+   "joins": 1.0,
+   "contrast": 1.44,
+   "cls": "shaped",
+   "group": "blind",
+   "off": {},
+   "score": 0
+  },
+  "bed, round 1 fixed": {
+   "ink": 45.54,
+   "sharp": 0,
+   "conc": 0.439,
+   "conv": 0.224,
+   "wobble": 1,
+   "joins": 1.0,
+   "contrast": 1.08,
+   "cls": "shaped",
+   "group": "blind",
+   "off": {
+    "contrast": 0.12
+   },
+   "score": 0.12
+  },
+  "bed2 (re-run)": {
+   "ink": 46.59,
+   "sharp": 0,
+   "conc": 0.434,
+   "conv": 0.223,
+   "wobble": 1,
+   "joins": 1.0,
+   "contrast": 1.18,
+   "cls": "shaped",
+   "group": "blind",
+   "off": {
+    "contrast": 0.05
+   },
+   "score": 0.05
+  },
+  "bed2 with overhang": {
+   "ink": 46.53,
+   "sharp": 0,
+   "conc": 0.429,
+   "conv": 0.223,
+   "wobble": 0,
+   "joins": 1.0,
+   "contrast": 1.27,
+   "cls": "shaped",
+   "group": "blind",
+   "off": {},
+   "score": 0
+  },
+  "person, round 1 blind": {
+   "ink": 85.42,
+   "sharp": 0,
+   "conc": 0.0,
+   "conv": 0.206,
+   "wobble": 1,
+   "joins": 0.0,
+   "contrast": 1.03,
+   "cls": "line",
+   "group": "blind",
+   "off": {
+    "conc": 0.22,
+    "contrast": 0.16
+   },
+   "score": 0.38
+  },
+  "person2 (outline)": {
+   "ink": 65.94,
+   "sharp": 0,
+   "conc": 0.0,
+   "conv": 0.15,
+   "wobble": 0,
+   "joins": 0.0,
+   "contrast": 1.31,
+   "cls": "line",
+   "group": "blind",
+   "off": {
+    "conc": 0.22,
+    "conv": 0.29
+   },
+   "score": 0.51
+  },
+  "person3 (open)": {
+   "ink": 53.48,
+   "sharp": 0,
+   "conc": 0.0,
+   "conv": 0.376,
+   "wobble": 1,
+   "joins": 0.0,
+   "contrast": 1.0,
+   "cls": "line",
+   "group": "blind",
+   "off": {
+    "conc": 0.22,
+    "conv": 0.79,
+    "contrast": 0.18
+   },
+   "score": 1.19
+  },
+  "bag, round 2 blind": {
+   "ink": 69.61,
+   "sharp": 0,
+   "conc": 0.168,
+   "conv": 0.262,
+   "wobble": 2,
+   "joins": 0.0,
+   "contrast": 1.0,
+   "cls": "shaped",
+   "group": "blind",
+   "off": {
+    "ink": 0.08,
+    "contrast": 0.18
+   },
+   "score": 0.26
+  },
+  "heart, round 2 blind": {
+   "ink": 82.54,
+   "sharp": 0,
+   "conc": 0.248,
+   "conv": 0.174,
+   "wobble": 1,
+   "joins": 0.0,
+   "contrast": 1.14,
+   "cls": "line",
+   "group": "blind",
+   "off": {
+    "conv": 0.04,
+    "contrast": 0.08
+   },
+   "score": 0.12
+  },
+  "heart on, round 2 blind": {
+   "ink": 174.91,
+   "sharp": 0,
+   "conc": 0.201,
+   "conv": 0.0,
+   "wobble": 1,
+   "joins": 0.0,
+   "contrast": 1.0,
+   "cls": "line",
+   "group": "blind",
+   "off": {
+    "ink": 1.67,
+    "conv": 1.87,
+    "contrast": 0.18
+   },
+   "score": 3.72
+  },
+  "restaurant (B)": {
+   "ink": 33.44,
+   "sharp": 0,
+   "conc": 0.449,
+   "conv": 0.3,
+   "wobble": 0,
+   "joins": 1.0,
+   "contrast": 2.6,
+   "cls": "shaped",
+   "group": "B",
+   "off": {},
+   "score": 0
+  },
+  "bag (B)": {
+   "ink": 69.82,
+   "sharp": 0,
+   "conc": 0.312,
+   "conv": 0.276,
+   "wobble": 0,
+   "joins": 0.5,
+   "contrast": 1.0,
+   "cls": "shaped",
+   "group": "B",
+   "off": {
+    "ink": 0.08,
+    "contrast": 0.18
+   },
+   "score": 0.26
+  },
+  "bed (B)": {
+   "ink": 46.88,
+   "sharp": 0,
+   "conc": 0.194,
+   "conv": 0.436,
+   "wobble": 0,
+   "joins": 0.25,
+   "contrast": 1.18,
+   "cls": "shaped",
+   "group": "B",
+   "off": {
+    "conv": 1.42,
+    "contrast": 0.05
+   },
+   "score": 1.47
+  },
+  "cafe (B)": {
+   "ink": 56.84,
+   "sharp": 0,
+   "conc": 0.0,
+   "conv": 0.283,
+   "wobble": 0,
+   "joins": 0.0,
+   "contrast": 2.76,
+   "cls": "shaped",
+   "group": "B",
+   "off": {
+    "conc": 0.22
+   },
+   "score": 0.22
+  },
+  "bar (B)": {
+   "ink": 44.97,
+   "sharp": 0,
+   "conc": 0.567,
+   "conv": 0.433,
+   "wobble": 0,
+   "joins": 1.0,
+   "contrast": 1.79,
+   "cls": "shaped",
+   "group": "B",
+   "off": {
+    "conv": 1.39
+   },
+   "score": 1.39
+  },
+  "museum (B)": {
+   "ink": 59.04,
+   "sharp": 0,
+   "conc": 0.188,
+   "conv": 0.308,
+   "wobble": 0,
+   "joins": 0.0,
+   "contrast": 2.08,
+   "cls": "shaped",
+   "group": "B",
+   "off": {
+    "conv": 0.07
+   },
+   "score": 0.07
+  },
+  "nature (B)": {
+   "ink": 42.74,
+   "sharp": 3,
+   "conc": 0.268,
+   "conv": 0.172,
+   "wobble": 0,
+   "joins": 0.308,
+   "contrast": 1.0,
+   "cls": "shaped",
+   "group": "B",
+   "off": {
+    "sharp": 2.85,
+    "conv": 0.06,
+    "contrast": 0.18
+   },
+   "score": 3.09
+  },
+  "star (B)": {
+   "ink": 87.31,
+   "sharp": 2,
+   "conc": 0.297,
+   "conv": 0.18,
+   "wobble": 3,
+   "joins": 0.333,
+   "contrast": 1.44,
+   "cls": "line",
+   "group": "B",
+   "off": {
+    "sharp": 1.85,
+    "wobble": 0.35
+   },
+   "score": 2.2
+  },
+  "plus (B)": {
+   "ink": 34.52,
+   "sharp": 0,
+   "conc": 0.479,
+   "conv": 0.339,
+   "wobble": 0,
+   "joins": 1.0,
+   "contrast": 1.6,
+   "cls": "line",
+   "group": "B",
+   "off": {
+    "conv": 0.4
+   },
+   "score": 0.4
+  }
+ }
+}
