@@ -1,5 +1,51 @@
 # Systems designer notes: icon system
 
+## Update 2026-10-26 (grid: how the system makes new icons, canvas v246)
+
+Task: think, don't build. Owner: "I think declarative is fine but I don't want
+it to be so specific… it needs to be a flexible system that outputs coherent
+consistent icons." Written up in `grid/flexible-system.md` and the board
+"How the system makes new icons" (Grid page, row 1, x 2520).
+
+- **Diagnosis I agree with (director, jam turn 164):** character lives in
+  per-icon code (`picks7`); the engine rounds by geometry, not by anything the
+  spec says. The director's fix (declared join kinds, one treatment each) is a
+  catalogue, which is what the owner pushed back on.
+- **Precedent finding:** flexible-but-coherent systems fix the tool or the
+  process, not the outcomes (Metafont's pen, the broad nib, Lucide's
+  renderer-made round ends, CAD/casting fillets by wall thickness). Catalogues
+  of drawn details (Glyphs corner components) and human review (SF Symbols)
+  are the other two routes.
+- **Settled across all approaches:** roots joined or cut; the ratio scale and
+  lattice; class by job.
+- **Three approaches, differing in where character lives:** A, a kit of drawn
+  parts (metal type / Lego Technic connection points); B, one casting rule over
+  the filled, joined shape (fill inside corners where thin meets thick, more
+  with bigger thickness contrast; inside corners tighter than outside; walls
+  minimum; size/weight to slot), with thickness measured from the shape (a
+  distance field / medial axis), so nothing needs to be told a join's kind; C,
+  sketch, snap to scale/lattice, score against a measured fingerprint of the six.
+- **Recommendation: B, with C as its judge.** Test C first (half a day: does a
+  fingerprint of the six rank the blind icons the way the director's eye did?),
+  then a separate B script (a day or two): rebuild the six from plain roots
+  with no hand code (the misses = what the rule can't say), then Restaurant
+  (blade, a new part), the bag and the bed. Fallback: A's kit from the six.
+- **B's risks, stated:** softer/more uniform than the six; the museum's beam
+  drop and the coupe's leaned flare may not emerge; fitting the traced result
+  to few, clean curves ("minimal bezier curves with perfect architecture").
+  Implementation idea, not yet told to the owner: SDF smooth-union with a blend
+  radius from local thickness; it can't drop tangent roots (the heart failure).
+- **Not resolved (owner's):** holes where shapes overlap (B does either, the
+  even inset is cheaper); what makes a plain block ours (under B, only rounds).
+- Randomness draw (role brief): "Use fewer notes"; joinery, Lego Technic,
+  metal type.
+- Canvas note for the orchestrator: Between (840, 300, h 20860) now runs past
+  y 16040 and overlaps row 2's Master (0, 16040, w 1600) in x 840-1600. Not
+  mine to move; flagged.
+
+Next: the owner picks (or not) an approach; then the cheap test, outside the
+engine.
+
 ## Update 2026-10-13 (canvas v12 re-check)
 
 - **C: all 10 jobs PASS, no blockers** (far/halfway proves J2 far; the
