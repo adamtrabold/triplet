@@ -1021,3 +1021,59 @@ Merged a87a55fd and read the live board (v250). Rendered approved against mix (`
 
 - Top of "The mix" section: B's single rule didn't hold (it broke the cup's ear); the brand now lives in eight kinds of root, each bringing its own joins, closer to A. The v247 block ("thickness decides the flares", "no list of join kinds") marked superseded in place.
 - The director's two questions verbatim at the end of the mix section and as items 1-2 on Start here (old items renumbered 3-7). Frames: Start here 1020 -> 1240, How the system makes new icons 9600 -> 10000 (measured content 1217 / 9972). Words only; no drawing changed.
+
+---
+
+## Turn 173: design director (new), Brand signatures (v256): 6, a rework
+
+I read the board (`stills/signatures-board.png`) and `signatures.md`, and took in his three comments on the board. I rendered the demo T and `svg/mix/curves/` at 24, 72 and about 27px a unit, plus the museum, fork, bed and bar joins at 100px a unit.
+
+**His comments on v256 (verbatim):**
+- On the flare's "Do" demo: "this is a really awkwardly shaped flare. all joints should feel architecturally sound"
+- On question 1, the museum: "there is probably a creative place to add swoops to all objects."
+- On the bag: "im noticing the handle of the bag is meaningfully different from the handle of the cup -- maybe this could be reasoned about in some way in the rules"
+
+**What works:** swoop and flare are countable yes/no tests built from root calls ("brand built into the root calls"). Folding "ellipses, not circles" into the swoop keeps it a possibility without weighting it, as he asked.
+
+**Why it isn't a 9:**
+- **It hands his words back.** He gave swoops and flares as *examples* and asked us to "come up with" signatures. Set A is his two examples plus the existing rounds table: the press is rule 17, which we already check. It gives us nothing new to filter with.
+- **Travel signs are missing.** He named "the graphic nature ... harkening to travel signs". The board demotes it to "a bar, not a fourth cue".
+- **Whimsy is missing.** The only whimsical cue, the lift, is parked in set C.
+- **The flare demo is awkward, and the real flare isn't one pattern.**
+  - The demo: the swell runs out 0.6 on a 0.7 post, nearly the post's own width. It is taller than it is wide, so the post looks like it melts into the slab. Its outer corners are knife-sharp, which breaks the board's own press.
+  - The real icons: there are three different flare shapes.
+    - Bar stem, and fork neck into handle: a smooth S-swell. These read sound.
+    - Museum's outer capitals: a straight bevel on the outside edge. That reads as a pinch, a waisted column. The board's own "Rules out" bans flares on outside edges.
+    - Bed: a plain inside fillet, not a flare.
+  - He flagged this before (10-22: "the join patterns ... look like slightly different approaches").
+- **The museum question is answered.** No building is exempt. The board's "fails exactly the two you objected to" is also untrue: the bag objection was the team's, not his.
+- **The flare is half a pixel at 24.** A brand cue you can't see at true size isn't a cue.
+- **Handles:** the cup's ear and the bag's arch follow no shared rule. Nobody chose that difference; it just happened.
+
+**Likely objections, now mostly confirmed by him:**
+- "awkward flare"
+- "that's just what I said"
+- "where are travel signs?"
+- "where's the whimsy?"
+- "swoops everywhere"
+- "why do the handles differ?"
+
+**Fixes (one round, then I re-score):**
+1. **The flare as an architecturally sound rule.** This applies to the engine, not only the demo. The designer sets the numbers; the rule must answer:
+   - **Shape:** one concave arc from an ellipse root. It is tangent to both parts and curvature-smooth. No straight bevel, no reverse kink, no fillet standing in for it.
+   - **Proportion:** set by the thinner part. The run is a fixed small share of the post's width (today's 1/3 line is the starting point, not a fillet nearly the post's width). Its rise is at least its run, so it reads as a bracket carrying load, not a drip. It is symmetric on a centred post, and the same ratio in every icon.
+   - **Where:** only where a thinner part bears load into a heavier one (a post into a slab, a stem into a bowl or foot, a handle into a blade). Never on an outside silhouette edge, never between parts of equal weight, never on line marks.
+   - **Then:** re-draw the museum's outer capitals to the rule. Re-check the fork, bed, bar and coupe at his zoom against it. Re-draw the board's demo with the press on its corners.
+2. **The swoop for every object** (his answer to question 1). Design task: say how a straight-lined object finds its one swoop, and test it on the museum and the bag. Where can it live: the roof, the base, the pediment, the body, the handle? Don't bring back what he rejected: the beam-shed museum ("no this is awful"), a tent roof, pill shapes. And keep the approved museum's separated gable ("I like the separated gable").
+3. **A handle and loop rule.** One family for every loop: the cup's ear, the bag's handle, future ones. The rule must answer:
+   - What does a handle share across icons: root shape (ellipse, flatter than a circle?), thickness, counter proportion, how its ends join (flare or cut)?
+   - When is it an ear on the side, and when an arch on top? Say why.
+   - Test it on the bag; it may be what breaks the padlock read.
+4. **Press becomes a given** (the rounds table), not a signature. That frees a slot.
+5. **Travel-sign clarity gets a real yes/no test** with its own visible cue, not a bar. What that cue is is the designer's call.
+6. **Find where whimsy lives as a test.** The lift is one candidate; look past it.
+7. **Every signature passes all six approved icons** and reads at 12, 24 and 72px. Say the size each one reads at; drop any that only reads at 3x. This ties to the subpixel work he asked for on 10-26.
+8. **Honesty:** drop "the two you objected to"; say the bag objection was the team's. Remove question 1, since he has answered it.
+9. **Shorter:** B and C get one line each, and the marks on the icons are bigger.
+
+NEXT: visual designer: the nine fixes, the flare rule first.

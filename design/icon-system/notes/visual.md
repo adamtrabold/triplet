@@ -1,5 +1,15 @@
 # Visual designer notes: icon system
 
+## Update (2026-10-26, brand signatures; product designer, visual)
+
+- **Ask (owner, verbatim in `grid/signatures.md`):** 1-3 core brand visual signatures as a filter ("we need one element X one element Y").
+- **Recommended:** every place icon has one **swoop** (a solid part's side as one shallow ellipse arc: rules 6, 11, 12) and one **flare** (holds or capital join: rules 4, 18); every icon is **pressed** (rounds table, rule 17). Marks carry the press only. Travel-sign clarity = the bar, not a cue.
+- **Evidence:** passes five of six places plus the fork and knife and the bed; fails the museum (no swoop) and the bag (no swoop, no flare), the two he objected to.
+- **Alternatives:** B three tools (compass, brush, knife: tests making, the bag passes, too easy); C signpost (stands, lifts: whimsical, but asks to change coupe, tree, fork).
+- **Board (canvas v256):** "Brand signatures" (`Grid7Signatures.dc.html`, 1600 x 2184, Grid page, right of the Rules column, x 3360 y 300); generator `grid/src/signatures-board.py <live Grid7Now.dc.html> <out>` (marks are hand-placed in 24-unit coordinates in MARKS, read off 50px/unit crops); still `grid/stills/signatures-board.png`. Start here got one line.
+- **Open:** museum swoop (exempt buildings or earn one; not changed); whether the filter becomes an engine check; the lift as optional or a fourth signature; the flare at 1x is half a pixel (subpixel work decides).
+- **Next:** owner answers; if yes, the systems designer turns swoop and flare into checks on root calls; the bag's designer briefs from the filter.
+
 ## Update (2026-10-26, canvas v250, turn 170; icon designer, the mix in clean curves)
 
 - **Director turn 169: 8**; at his zoom the traced museum was lumpy, the coupe kinked. Fixed by building the mix in clean curves: `grid/src/mix-curves.js` (engine.js as a library; the rule is the corner law, answered from the roots meeting at each corner). Run: `node src/mix-curves.js [names]` (TOOLS defaults to this session's scratchpad tools; set TOOLS to a folder with node_modules/paper otherwise). Checks: `node src/fair-check.js svg/mix/curves/<n>.svg`, `node src/join-check.js ...`, `node src/mix-jitter.js <n> 8`. Sheets: `python3 -I src/mix-curves-sheet.py`. Board: `python3 -I src/mix-board.py <live board> <out>`.
