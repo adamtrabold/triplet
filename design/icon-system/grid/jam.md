@@ -1318,3 +1318,58 @@ I rendered the approved and placed + in its badge at 24 and 72, at deviceScaleFa
 Totals: 2x 54 → 32, 3x 53 → 33.
 
 **Score: 9.** Show him the board's question as written: "Do the placed six look the same as the approved six to you?"
+
+---
+
+## Turn 180: design director, Brand and Shopping (v263): 8; 9 after four edits, no new drawing
+
+I read `signatures.md` and the v263 still (3200 wide), cropped the Shopping row at 72 and 24 and read it blind (labels cropped off), and checked his latest notes in `owner.md` (the five v262 marks).
+
+**The brand lines say what he said.**
+- **Plain:** "straightforwardness ... considering the source inspiration". The road signs and tags are the inspo he named.
+- **Made by a tool:** "machined rules ... by underlying method of creation".
+- **Left of centre:** "personality is by icon choice ... slightly left-of-center", the coupe.
+
+Nothing is added. This is the first round where using his words is right, because he set the direction himself. **Pass.**
+
+**The machined rule is a 9.**
+- The ⅛ / ¼ / ½ rack keeps his tree's trunk exactly. Every other round moves 0.04px or less.
+- The join type picks the cutter, and the chamfer gives his museum bevel.
+- Points under 75° keep the tip rule.
+- Build it into the engine.
+
+**Posts at 1.5 (72 and 24):**
+- The coupe and the tree are a touch heavier but still his.
+- The fork and the bed are fine.
+- The museum's flag is real.
+
+**The blind read at 24 (and 72):**
+| concept | it reads as | verdict |
+|---|---|---|
+| Swing tag | a price or luggage tag, plainly | shopping |
+| Market basket | a cooler, lunchbox or bucket; the handle over a slotted box | not a basket |
+| Awning | a storefront, clearly | the generic answer (Material's) |
+| Parcel | a gift | not shopping |
+| Till | a lump at 24 (a stapler or a scale); a register only at 72 | fails at size |
+
+- **The tag** is plain, left of centre (a tag, not a bag), and it rhymes with the app's own Hanging Tag and the inspo's luggage tags. **It is the right pick.**
+- **The till** is the coupe move in spirit but fails "plain" and fails at 24. The coupe works because it reads instantly at 24; the till doesn't.
+
+**What blocks a 9 (all edits, no drawing):**
+1. **The recommendation:** lead with the tag, and say the till fails at 24. Right now both carry orange "recommended" labels, which contradict each other.
+2. **"Cuts and counters aren't ink and stay" is now untrue to him.**
+   - On the coupe's ¾px band: "nothing should be this small".
+   - On the plinth: "i think of the counters as shapes. they can go to (or be shortened to) a whole pixel".
+   - On the saucer: "this should be a shape not a line".
+   - Drop that claim, and drop the open "does it cover tapers?". He answered both on v262.
+3. **The museum's 0.93px openings:** fold question 4 into the pixel round that follows (parts and counters as whole-pixel shapes), so he isn't asked twice.
+4. **The questions:** after edits, three remain:
+   - the brand as three filters;
+   - build the machined rule;
+   - the tag for Shopping, after one blind read by someone who hasn't seen the board.
+
+**Likely objections if sent as is:** "the till is a blob at 24"; "two recommended?"; "I already said counters are shapes."
+
+**Changed since my last score?** Yes, entirely: his direction is applied; the swoop, Weight and the cheeky proposals are gone; the rack is corrected; the Shopping subjects are new.
+
+NEXT: visual designer: edits 1-4, then show him. The machined rule can go to the engine now.

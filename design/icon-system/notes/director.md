@@ -588,3 +588,12 @@ He said "lets just keep the line weight and stuff where it was and just opimize 
 - The weights are kept and moves are capped at 0.25px; by eye, the café at 2x is the real gain.
 - Missed: the x-symmetric icons (the +, the bar, the tree) were frozen in y too, though his vertical centring is optical per icon. The + is the softest and most-seen mark.
 - Fix: y-only moves of up to 1/4px, the + judged at 72 and his zoom, and a note of which screen each icon's lattice favours. Then it's a 9 to show him.
+
+## Icon system, Brand and Shopping (v263, 2026-10-26): 8, 9 after edits
+
+- **Brand settled in his words:** plain, made by a tool, left of centre. The signature hunt is over: he set it himself on v260.
+- **The machined rule** (rack ⅛/¼/½, the tree's 0.5 trunk kept, tip rule under 75°) is a 9. Build it into the engine.
+- **Shopping:** by my blind read at 24, the tag is the only concept that is plain, left of centre, and reads as shopping. It also rhymes with the Hanging Tag. The till fails at 24; the basket reads as a cooler.
+- **His v262 notes:** counters are shapes, nothing as thin as the ¾px band, the saucer is a shape. These now override any "cuts stay" claim. The pixel round handles them, including the museum's openings.
+
+**Next:** edits, then show him. After that: the pixel round, and a blind read of the tag by someone who hasn't seen it.

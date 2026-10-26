@@ -1530,3 +1530,14 @@ The verdict stands within our own set:
 
 - **The + up 0.23px:** crisper at 2x, not visibly off-centre at 72 or 24. Bar and tree unchanged. Each icon's favoured screen is noted.
 - **Show him.** Jam turn 179.
+
+## Round: Brand and Shopping (canvas v263), 2026-10-26: 8, 9 after four edits
+
+- **Brand lines (plain, made by a tool, left of centre):** his words, nothing added. The machined rule (⅛/¼/½, tree kept) is a 9.
+- **Blind read at 24:** the tag reads as a tag; the basket as a cooler; the awning is generic; the parcel a gift; the till a lump.
+- **Edits:**
+  - lead with the tag;
+  - drop the double "recommended";
+  - remove "cuts and counters stay" (he said counters are shapes, nothing that small);
+  - move the museum's openings to the pixel round.
+- **Jam turn 180.**
