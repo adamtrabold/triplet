@@ -16,18 +16,18 @@ for (const m of now.matchAll(/<svg width="24" height="24" viewBox="0 0 24 24"[^>
 const ID = { 'Café': 'cafe', Bar: 'bar', Museum: 'museum', Nature: 'nature', Star: 'star', Add: 'plus' };
 const NAVY = '#12293F', PAPER = '#F2EBDD';
 // the badge ring (the master grid: ring 1 1/2px, outer edge on the badge's edge); after the fit its width is the fitted line
-const ring = (dpr, fitted) => { const w = fitted ? pf.devW(1.5, dpr, 'rank') / dpr : 1.5; return `<circle cx="12" cy="12" r="${12 - w / 2}" fill="none" stroke="${NAVY}" stroke-width="${w}"/>`; };
-const svg = (d, dpr, fitted, withRing) => `<svg width="24" height="24" viewBox="0 0 24 24" style="display:block">${withRing ? ring(dpr, fitted) : ''}<path fill="${NAVY}" fill-rule="evenodd" d="${d}"/></svg>`;
+const ring = (dpr, fitted, tie = 'rank') => { const w = fitted ? pf.devW(1.5, dpr, tie) / dpr : 1.5; return `<circle cx="12" cy="12" r="${12 - w / 2}" fill="none" stroke="${NAVY}" stroke-width="${w}"/>`; };
+const svg = (d, dpr, fitted, withRing, tie) => `<svg width="24" height="24" viewBox="0 0 24 24" style="display:block">${withRing ? ring(dpr, fitted, tie) : ''}<path fill="${NAVY}" fill-rule="evenodd" d="${d}"/></svg>`;
 
 (async () => {
   const b = await chromium.launch(), fuzz = {};
   for (const dpr of [2, 3]) {
     const p = await b.newPage({ viewport: { width: 400, height: 200 }, deviceScaleFactor: dpr });
     for (const [name, id] of Object.entries(ID)) {
-      for (const state of ['before', 'after']) {
-        const d = state === 'before' ? SIX[name] : pf.fit(SIX[name], { size: 24, dpr }).d;
+      for (const state of dpr === 3 ? ['before', 'after', 'after-down'] : ['before', 'after']) {   // after-down: the 3x line at 4 device px (1 1/3px), the alternative
+        const tie = state === 'after-down' ? 'down' : 'rank', d = state === 'before' ? SIX[name] : pf.fit(SIX[name], { size: 24, dpr, tie }).d;
         for (const withRing of [true, false]) {
-          await p.setContent(`<body style="margin:0;background:${PAPER}"><div id="t" style="width:24px;height:24px;position:absolute;left:8px;top:8px">${svg(d, dpr, state === 'after', withRing)}</div></body>`);
+          await p.setContent(`<body style="margin:0;background:${PAPER}"><div id="t" style="width:24px;height:24px;position:absolute;left:8px;top:8px">${svg(d, dpr, state !== 'before', withRing, tie)}</div></body>`);
           const file = path.join(OUT, `${id}-${state}-${dpr}x${withRing ? '' : '-glyph'}.png`);
           await p.screenshot({ path: file, clip: { x: 8, y: 8, width: 24, height: 24 } });
           if (!withRing) {

@@ -1,0 +1,268 @@
+{
+ "A": {
+  "cafe": {
+   "soft2": 1,
+   "soft3": 1,
+   "edges": 12,
+   "fair": 1,
+   "join": 0,
+   "area": 19.4,
+   "stems": [
+    2,
+    2,
+    2,
+    2
+   ]
+  },
+  "bar": {
+   "soft2": 0,
+   "soft3": 0,
+   "edges": 10,
+   "fair": 4,
+   "join": 2,
+   "area": -4.9,
+   "stems": [
+    1,
+    2
+   ]
+  },
+  "museum": {
+   "soft2": 0,
+   "soft3": 0,
+   "edges": 25,
+   "fair": 15,
+   "join": 0,
+   "area": 4.3,
+   "stems": [
+    1,
+    1,
+    1,
+    1,
+    2,
+    2
+   ]
+  },
+  "nature": {
+   "soft2": 0,
+   "soft3": 0,
+   "edges": 5,
+   "fair": 2,
+   "join": 0,
+   "area": -9.2,
+   "stems": [
+    1
+   ]
+  },
+  "star": {
+   "soft2": 0,
+   "soft3": 0,
+   "edges": 0,
+   "fair": 0,
+   "join": 0,
+   "area": 0,
+   "stems": []
+  },
+  "plus": {
+   "soft2": 0,
+   "soft3": 0,
+   "edges": 12,
+   "fair": 0,
+   "join": 0,
+   "area": 29.1,
+   "stems": [
+    2,
+    2,
+    2,
+    2
+   ]
+  }
+ },
+ "B": {
+  "cafe": {
+   "soft2": 0,
+   "soft3": 0,
+   "edges": 13,
+   "fair": 0,
+   "join": 0,
+   "area": -1.3,
+   "stems": [
+    2,
+    2,
+    2,
+    2
+   ]
+  },
+  "bar": {
+   "soft2": 0,
+   "soft3": 0,
+   "edges": 11,
+   "fair": 2,
+   "join": 0,
+   "area": 14.1,
+   "stems": [
+    2,
+    2
+   ]
+  },
+  "museum": {
+   "soft2": 0,
+   "soft3": 0,
+   "edges": 25,
+   "fair": 12,
+   "join": 0,
+   "area": 14.2,
+   "stems": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
+   ]
+  },
+  "nature": {
+   "soft2": 0,
+   "soft3": 0,
+   "edges": 5,
+   "fair": 0,
+   "join": 0,
+   "area": 8,
+   "stems": [
+    2
+   ]
+  },
+  "star": {
+   "soft2": 0,
+   "soft3": 0,
+   "edges": 0,
+   "fair": 0,
+   "join": 0,
+   "area": 0,
+   "stems": []
+  },
+  "plus": {
+   "soft2": 0,
+   "soft3": 0,
+   "edges": 12,
+   "fair": 0,
+   "join": 0,
+   "area": -0.9,
+   "stems": [
+    2,
+    2,
+    2,
+    2
+   ]
+  }
+ },
+ "C": {
+  "cafe": {
+   "soft2": 0,
+   "soft3": 0,
+   "edges": 13,
+   "fair": 2,
+   "join": 0,
+   "area": -17.1,
+   "stems": [
+    1,
+    1,
+    1,
+    1
+   ]
+  },
+  "bar": {
+   "soft2": 0,
+   "soft3": 0,
+   "edges": 10,
+   "fair": 4,
+   "join": 2,
+   "area": -4.9,
+   "stems": [
+    1,
+    1
+   ]
+  },
+  "museum": {
+   "soft2": 0,
+   "soft3": 0,
+   "edges": 24,
+   "fair": 12,
+   "join": 0,
+   "area": -16.2,
+   "stems": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ]
+  },
+  "nature": {
+   "soft2": 0,
+   "soft3": 0,
+   "edges": 5,
+   "fair": 2,
+   "join": 0,
+   "area": -9.2,
+   "stems": [
+    1
+   ]
+  },
+  "star": {
+   "soft2": 0,
+   "soft3": 0,
+   "edges": 0,
+   "fair": 0,
+   "join": 0,
+   "area": 0,
+   "stems": []
+  },
+  "plus": {
+   "soft2": 0,
+   "soft3": 0,
+   "edges": 12,
+   "fair": 0,
+   "join": 0,
+   "area": -38.3,
+   "stems": [
+    1,
+    1,
+    1,
+    1
+   ]
+  }
+ },
+ "now": {
+  "cafe": {
+   "soft2": 13,
+   "soft3": 13,
+   "edges": 13
+  },
+  "bar": {
+   "soft2": 11,
+   "soft3": 10,
+   "edges": 11
+  },
+  "museum": {
+   "soft2": 17,
+   "soft3": 17,
+   "edges": 24
+  },
+  "nature": {
+   "soft2": 5,
+   "soft3": 5,
+   "edges": 5
+  },
+  "star": {
+   "soft2": 0,
+   "soft3": 0,
+   "edges": 0
+  },
+  "plus": {
+   "soft2": 8,
+   "soft3": 8,
+   "edges": 12
+  }
+ }
+}
