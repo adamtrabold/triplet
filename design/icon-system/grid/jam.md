@@ -1373,3 +1373,27 @@ Nothing is added. This is the first round where using his words is right, becaus
 **Changed since my last score?** Yes, entirely: his direction is applied; the swoop, Weight and the cheeky proposals are gone; the rack is corrected; the Shopping subjects are new.
 
 NEXT: visual designer: edits 1-4, then show him. The machined rule can go to the engine now.
+
+---
+
+## Turn 181: icon designer (pixel shapes), parts as shapes on whole pixels; counters 2px; the knife's edge; the star and + where they live (canvas v266)
+
+His five marks on v262 and two notes on v264 (verbatim in `briefs/next-pixel-shapes-round.md`), built into the system: `PROP.px` in `src/proportions.js`, root calls in `src/pixel-shapes.js` (badge px at 1:1, through mix-curves' root law and the engine, unchanged). No fitting pass.
+
+**The rules (seven):** slabs and shapes whole px, a slab 2px; the line stays 1½ (one edge whole, one half); counters whole, at least 2px, gaps whole, at least 1px; no ink part under 1½ (a cap's ends keep the cap rule: 1px at a 2px crown); a protrusion that names the object at least 1px (the join's ½px round eats the first ½px); symmetric icons stay centred (a centred part lands only at an even width); line marks 1:1 in their slot, sized by what sits beside them.
+
+**Soft core edges, the six:** 5K 35 → 5, iPhone 47 → 22 (of 64). Fork and knife 13 / 18 → 2 / 5. Table in `pixel-fit.md` round 6.
+
+**Tried and dropped:** cap ends at the line (1½) read as planks (saucer, foot); 2×3px museum openings read as windows (now 4px tall); a 2px band in the approved bowl leaves a sliver of drink, so the coupe goes to him as three options.
+
+**His construction question, answered:** four 1½ columns and three 2px openings are 12, plus ½ each side: 13px wide (was 9.8). A: four columns, bigger (ink +60%); B: three, same size, the middle column can't land (soft on both); C: three, 2px posts, all sharp, posts heavier. We lean A (opinion).
+
+**Coupe:** A same glass (drink 1½), B glass 12 wide (drink 2½), C band 1½ (his "equal to the thickness of the stroke").
+
+**Knife:** edge 1px past the handle (was ¾); tines 1px apart (were ¾). Reads at 24 on both screens.
+
+**Star and +:** shown bare in the real app (row, Hanging Tag, the + button, via the gesture harness), before/after at 2x and 3x. Row star 11px tall (the name's cap height); tag star 13 (its neighbours'; the old rule gave 13.4: it already fit). The boards' 24-in-a-ring showed it 16 tall, which is what read too big. + 14 across, 2px stroke, 0 / 0 soft (was 6 / 8). App-side: the row star's box and the + button sit off whole px today (a CSS fix ships with them).
+
+**Unsure:** whether 2px slabs still read as one weight beside 1½ posts (the museum and saucer are darker); whether he wants the centred 1½ stems (coupe, trunk) at 2px too. Shopping not touched (parallel round).
+
+NEXT: design director: score v266 "Sharp at 2x and 3x" at his zoom (the museum and coupe options, the star and + in context), then to him with the board's three questions.

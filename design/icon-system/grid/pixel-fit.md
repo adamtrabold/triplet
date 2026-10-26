@@ -1,6 +1,61 @@
 # Sharp at 2x and 3x
 
-## Round 5 (10-26, canvas v262): vertical centring is optical, per icon. CURRENT
+## Round 6 (10-26, canvas v266): parts are shapes on whole pixels. CURRENT
+
+Owner on v262's iPhone row (verbatim): "this should be a shape not a line" (the saucer, the beam); "nothing should be this small" (the coupe's ¾px band); "i think of the counters as shapes. they can go to (or be shortened to) a whole pixel"; "it is a hard pixel number wide, it should be the same hard pixel number tall?" (the +). On v264: "the museum and coupe counters are reading as too small now -- maybe they could go up to 2px? would the museum width need to account for that ..."; "the knife edge doesnt stick out far enough to be visible ... adjust that somehow mathematically in the fules"; "the star is way too fucking big -- it would never be in a circle. and the plus is never in a circle like that." Standing: "no i want the base grid to make great icons without extrawork"; keep the line weight; "nothing should go that thin".
+
+Round 5 below is superseded (its board is archived whole: `Archive-G7bh-Sharp.dc.html`, Archive page x 2700 y 210000).
+
+**Built into the system, not a pass.** `src/proportions.js` `PROP.px` holds the numbers; `src/pixel-shapes.js` is the root calls that follow them (in badge px at 1:1, through `mix-curves.js`'s root-based corner law and `engine.js`, unchanged); a new icon written with these roots inherits them. Run: `OUT=<dir> VARIANTS='{"name":{"icon":"museum","o":{...}}}' node src/pixel-shapes.js` (about 1 min an icon; the star 3 builds, ~10 min). Outputs `svg/pixel-shapes/` (`build.json` = each option's opts and outline; `before.json` = the round's before set), stills `stills/pixel-shapes/` (board crops; `ctx/` = the app shots), board `src/pixel-shapes-board.py`.
+
+### The rules
+
+1. **Shapes are whole px.** A solid part that is not the line has whole-px height and width, and its level and upright edges, a curve's flat side and its extreme, on whole px. A **slab** (beam, plinth, saucer, foot) is **2px**: the first whole px not thinner than the line.
+2. **The line stays 1½px** (posts, walls, rims, stems, loops). The one width that can't be whole: one edge whole (the silhouette's side), the other on a half px. Sharp at 2x, half a pixel soft on one side at 3x.
+3. **Counters are whole px, at least 2px** (openings, the coupe's band, the cup's ear). **Gaps** between parts (a cut, the fork's tines): whole, at least 1px.
+4. **No ink part under 1½px.** A cap's ends are where its curve runs out, not a part: they keep the cap rule (half the crown), so a 2px cap ends at 1px and its flat side, the ends' foot and the crown all land whole. (Tried at 1½px ends: the saucer and foot read as planks.)
+5. **Minimum protrusion 1px.** A feature that names the object by sticking out (the knife's edge past its handle, a step, a lip): the join's own round (the post flare, ½px) eats the first ½px, so ¾px showed ¼px (half a 5K pixel); at 1px, ½px of straight step survives: a whole device pixel at 2x, 1½ at 3x. The capital's ½px drop and flare are a bevel (read by the diagonal), not a protrusion, and stay.
+6. **Symmetric icons stay on the badge's centre line.** A centred part lands whole only at an even width (a 2px opening lands 11..13); a 1½px part centred can't (11.25..12.75).
+7. **Line marks are drawn 1:1 in their real slot**, sized by that slot and the type beside them, never by the badge's coin, never in a ring. Row star = the name's cap height (Archivo 600 15px: 11px, measured in the app) → **11px tall**; tag star = its neighbours' size (compass, check) → **13px tall** (the old rule gave 13.4 there; it already fit); **+ = 14px across, 2px stroke** (the one stroke near the line that centres whole both ways), in a 24 box at 1:1 in its 60px button.
+
+### Soft core edges at the 24 badge (pixel-fit.js `edges`, off > 1/10 device px)
+
+| icon | before 2x / 3x | now 2x / 3x | ink before → now (px²) |
+|---|---|---|---|
+| Café | 0 / 5 (12 edges) | 0 / 3 (13) | 55.5 → 63.1 |
+| Bar, A (2px band, same glass) | 11 / 10 (11) | 2 / 4 (10) | 45.5 → 42.4 |
+| Museum, A (four columns) | 15 / 19 (24) | 0 / 10 (23) | 65.7 → 105.3 |
+| Nature (unchanged) | 3 / 5 | 3 / 5 | |
+| + (in its button, 1:1) | 6 / 8 | 0 / 0 | 34.0 (at 26.4: ~41) → 51.9 |
+| Star | no straight edges | | |
+| **the six** | **35 / 47 of 64** | **5 / 22 of 63** | |
+| Fork and knife | 13 / 18 | 2 / 5 | 54.2 → 57.8 |
+
+Before = the latest of each: the café, star and + as placed on v262 (`svg/placement`), the bar, museum, tree and fork and knife with posts at the line (`svg/post-line`, not placed).
+
+Options: Bar B (12 wide, 6 deep, drink 2½) 2 / 4, ink 59.4; Bar C (band 1½) 2 / 3, 45.1. Museum B (three columns, 9½ wide) 12 / 12, 74.5; Museum C (three columns, posts 2px, 11 wide) 0 / 6, 90.9.
+
+Checks: join-check 0 on every new outline. fair-check: bar A/B/C, fork and knife, + clean; café 1 JUMP (was 1 KNEE); the museum's 4 TAILs are the capitals', the same 4 as before (the flare redraw carries them).
+
+### The museum's width (his construction question)
+
+Four 1½px columns with three 2px openings are 12px; the beam and plinth pass the outer columns by ½px (1/3 of a post), so the building is **13px wide** (was 9.8); columns 4px tall (1/3 of the colonnade, as before; 3px read as windows), slabs 2px, cut 1px, gable ends 1.2, pitch 1/3: 12.4 tall. **A** keeps four columns and grows (ink +60%, the biggest of the six; sharp at 2x). **B** three columns keeps the size (+13%) but its middle column sits on the centre line at 1½px: soft at both (12 / 12). **C** three columns with 2px posts lands every edge but the ½px capital steps (0 / 6), ink +38%, posts a third heavier than the line. We lean A (an opinion: it is the building he described).
+
+### The coupe at a 2px band
+
+One ellipse 4/5 as tall as wide, the rim cutting it ¼ of its height above its centre (was 1/5, so the bowl's bottom lands whole: depth 5), rim 1½, band 2: **A** drink 1½px at its deepest (was about 2½); **B** keeps the drink (2½) by growing the glass to 12 wide, 6 deep; **C** band at the line (1½), his "the empty part should be equal to the thickness of the stroke", drink 2. Foot a 2px cap, 6 wide (A, C; 4/5 of the bowl's width over the cap's 1.155), 8 (B).
+
+### What still can't land
+
+- The 1½px line at 3x (4½ device px): one side half a pixel soft. Most of the iPhone's 22.
+- A 1½px stem on the centre line (coupe stem, trunk): 11.25..12.75, soft at both. 2px lands it (tried on the coupe B: sharp) but is heavier than the line.
+- The capitals' ½px steps (soft at 3x); curves, diagonals and tips (by design).
+- In the app, two slots sit off whole px today: the row star's 18px box at y +½ (top 675.5) and the + button at x 15.22. A CSS fix ships with the icons; the "now" shots apply it.
+- Shopping: not in this round (open for its own concept round).
+
+---
+
+## Round 5 (10-26, canvas v262): vertical centring is optical, per icon. Superseded by round 6
 
 Director, turn 178: symmetric icons were pinned vertically too, but "vertical centering should be optical always on a per-icon basis". Now every icon may move up or down (at most 1/4px); icons symmetric across x still stay on the centre line horizontally. Judged by eye at 72px and true size against the badge's centre line: none reads off-centre.
 - **Add:** moves 0.23px **up** (the search found up, not down, sharpens its arm: its horizontal arm's top edge lands whole). Soft 8/8 → 6/8. Favours the 5K. Up is also the optical-centre side.
