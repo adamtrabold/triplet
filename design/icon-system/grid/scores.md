@@ -1563,3 +1563,15 @@ The verdict stands within our own set:
   - date the 10-21 "equal to the thickness of the stroke" quote, set it beside his v264 "maybe they could go up to 2px?", and say that C has ½px less drink than approved;
   - drop B (it is B¼, only softer).
 - **Jam turn 184.**
+
+## Round: parts as shapes, turn-184 edits (canvas v268), 2026-10-26: 9 after one edit
+
+- **Done:**
+  - the six at 72 for approved, A, B¼ and C;
+  - B¼ named "2px taller";
+  - the coupe quote dated, beside his v264 question;
+  - C's ½px less drink in words;
+  - B dropped.
+- **The knife section's removal is fine:** the rows show the knife before and after.
+- **Edit:** put back the Hanging Tag star shots, which question 4 asks about (or trim the question to the row).
+- **Then show him the four questions. Jam turn 186.**

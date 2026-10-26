@@ -646,3 +646,12 @@ A fresh designer did all five turn-182 fixes. I re-rendered them myself (`grid/s
 - A new drawing reaches him rendered at 72, not as a scaled bitmap.
 
 **Next:** the designer makes the three edits. Then show him, without another score unless a drawing changes.
+
+## Icon system, sharp at 2x and 3x round 7b (v268, 2026-10-26): 9 after one edit
+
+All three turn-184 edits are true on the board.
+- **The knife section was cut, and that's fine:** the rows at 72 and 24 show the fork and knife before and after.
+- **The gap:** the tag star shots were cut while question 4 still asks about the tag. Put them back, or trim the question.
+- **Then show him the four questions** (jam 186).
+
+**Lesson:** when a board is trimmed to fit the cap, check that every question still has its picture.

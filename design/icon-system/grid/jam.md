@@ -1515,3 +1515,30 @@ No drawing changed. Board in place, 940 × 2373 measured; v267's archived whole 
 Room: the knife section went (unchanged since v266; it is on the archived boards, and the protrusion rule names it), the row star and the + buttons share one line, and the labels are tighter. The questions are the director's four, as written, except for the B¼ wording above.
 
 NEXT: orchestrator: show him v268 (the four questions).
+
+---
+
+## Turn 186: design director, Sharp at 2x and 3x round 7b (v268): 9 after one edit, then show him
+
+I checked v268 against the live board (2,373px) and the new 72 stills. The outlines are unchanged since v267, so my r7 renders still hold.
+
+**Turn 184's three edits:**
+1. **The six at 72, drawn at 72:** done for approved, A, B¼ and C, and it matches my renders. B¼ is named as it is: "approved width, 2px taller".
+2. **The coupe's exception:** the 10-21 quote is dated, his v264 "maybe they could go up to 2px?" sits beside it, and "C has ½px less drink than approved" is in words.
+3. **B:** dropped, with the reason given.
+
+**The knife section's removal is fine.** The approved row at 72 sits above three rows with the new fork and knife, so his v264 knife question is answered visibly, before against after, at 72 and 24. Rule 5 also names it in words.
+
+**One gap:** the Hanging Tag shots went with the trim, yet question 4 asks about the star "13 on the tag". He would be judging something not on the board ("i can't see what the new icon would look like").
+
+**Edit:** put the tag before/now pair back (two images, about 60px tall). Or, if that breaks the cap, cut question 4 to "the star (11 in the row) and the +". No drawing changes.
+
+**Score: 9 after that edit.** No re-score is needed for it.
+
+**Questions for him, exactly as on the board:**
+1. "Museum, in the row: A (four columns, 13 wide), B¼ (three columns, the approved width, 2px taller) or C (three columns, 2px posts)?"
+2. "Coupe: C (band at the line, same glass, ½px less drink than approved), B (2px band, drink kept, a bigger glass) or A (2px band, much less drink)?"
+3. "The +: 2px, or your 1½px set ¼px off centre?"
+4. "Do the star (11 in the row, 13 on the tag) and the + sit right in their places?"
+
+NEXT: icon designer: the tag edit. Then the orchestrator shows him.
