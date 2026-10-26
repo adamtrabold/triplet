@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sharp at 2x and 3x</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width:940px;box-sizing:border-box;padding:36px 32px 40px;background:#FAF5EA;font-family:Archivo,Arial,sans-serif;color:#1A1A18">
+<div style="font-size:15px;letter-spacing:.12em;font-weight:700;color:#A8400C;text-transform:uppercase">Icon grid · device pixels</div>
+<h1 style="margin:6px 0 16px;font-size:38px;line-height:1.1;color:#12293F">Sharp at 2x and 3x</h1>
+<p style="margin:0 0 8px;font-size:19px;line-height:1.4">At 24px, 41 of the six's 50 core edges land between device pixels on your 5K (2x) and 40 on an iPhone (3x). The reason: a 1½px line is 3 device pixels at 2x but 4½ at 3x, and optical centring moves each glyph off the grid.</p>
+<p style="margin:0 0 8px;font-size:19px;line-height:1.4">A last fitting pass now puts every one on a whole device pixel: 0 of 50 soft, at both. The drawings are unchanged; curves, diagonals and tips stay as drawn.</p>
+<div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:#5A564C;text-transform:uppercase;margin:24px 0 10px">Real Chromium pixels at 24px, one block per device pixel</div>
+<div style="display:grid;grid-template-columns:76px repeat(4,192px);column-gap:12px;row-gap:12px;align-items:start">
+<div></div>
+<div style="font-size:16px;font-weight:700;color:#12293F">5K (2x), before</div>
+<div style="font-size:16px;font-weight:700;color:#12293F">5K (2x), fitted</div>
+<div style="font-size:16px;font-weight:700;color:#12293F">iPhone (3x), before</div>
+<div style="font-size:16px;font-weight:700;color:#12293F">iPhone (3x), fitted</div>
+<div style="font-size:16px;font-weight:600;color:#12293F;padding-top:4px">Café</div>
+<img src="/_blob/984fd7d2ddd1c913af70680f995bfaad" alt="Café before, 2x" width="192" height="192" style="display:block;image-rendering:pixelated">
+<img src="/_blob/e64a4c164ad6ed89a498a8fdd69114d5" alt="Café fitted, 2x" width="192" height="192" style="display:block;image-rendering:pixelated">
+<img src="/_blob/ab352860495141ec6792b9e9bff8bfb7" alt="Café before, 3x" width="192" height="192" style="display:block;image-rendering:pixelated">
+<img src="/_blob/b4780e9e814c1fdf1d2572f4c2437400" alt="Café fitted, 3x" width="192" height="192" style="display:block;image-rendering:pixelated">
+<div style="font-size:16px;font-weight:600;color:#12293F;padding-top:4px">Bar</div>
+<img src="/_blob/d9aeb2e2a40b38f40d213efa24b82ade" alt="Bar before, 2x" width="192" height="192" style="display:block;image-rendering:pixelated">
+<img src="/_blob/417c315892e243825b3dcf014886ba9b" alt="Bar fitted, 2x" width="192" height="192" style="display:block;image-rendering:pixelated">
+<img src="/_blob/f526ec282be16a04fc1c3d548584cbbd" alt="Bar before, 3x" width="192" height="192" style="display:block;image-rendering:pixelated">
+<img src="/_blob/bd94ec3850cc29cc47d568c3e0e58ecc" alt="Bar fitted, 3x" width="192" height="192" style="display:block;image-rendering:pixelated">
+<div style="font-size:16px;font-weight:600;color:#12293F;padding-top:4px">Museum</div>
+<img src="/_blob/d4395852d8f950be141a71cef5491025" alt="Museum before, 2x" width="192" height="192" style="display:block;image-rendering:pixelated">
+<img src="/_blob/e2bda5cf3de1aa83e1f1b85a961d61e2" alt="Museum fitted, 2x" width="192" height="192" style="display:block;image-rendering:pixelated">
+<img src="/_blob/47e29a770a032c7d2d1fbb98b68743e4" alt="Museum before, 3x" width="192" height="192" style="display:block;image-rendering:pixelated">
+<img src="/_blob/a2910f5dbab30cf1502651839e156d66" alt="Museum fitted, 3x" width="192" height="192" style="display:block;image-rendering:pixelated">
+<div style="font-size:16px;font-weight:600;color:#12293F;padding-top:4px">Nature</div>
+<img src="/_blob/8f94d5f86b80db26dda08c91d95f9bdf" alt="Nature before, 2x" width="192" height="192" style="display:block;image-rendering:pixelated">
+<img src="/_blob/79f891ad148b891fbf2e49a621bde241" alt="Nature fitted, 2x" width="192" height="192" style="display:block;image-rendering:pixelated">
+<img src="/_blob/59e46b5f446e0520e258e767d4d94766" alt="Nature before, 3x" width="192" height="192" style="display:block;image-rendering:pixelated">
+<img src="/_blob/9b08b7ab93736af9058a52b11395c36e" alt="Nature fitted, 3x" width="192" height="192" style="display:block;image-rendering:pixelated">
+<div style="font-size:16px;font-weight:600;color:#12293F;padding-top:4px">Star</div>
+<img src="/_blob/e78ec5c63b3f599da9d3cc34c46d160a" alt="Star before, 2x" width="192" height="192" style="display:block;image-rendering:pixelated">
+<img src="/_blob/50627a4637b2ba72dd611908eee99828" alt="Star fitted, 2x" width="192" height="192" style="display:block;image-rendering:pixelated">
+<img src="/_blob/9bed9d1732ea8b96589806ca40a142d4" alt="Star before, 3x" width="192" height="192" style="display:block;image-rendering:pixelated">
+<img src="/_blob/8d34c120e2d0ccdded75026743d71e8a" alt="Star fitted, 3x" width="192" height="192" style="display:block;image-rendering:pixelated">
+<div style="font-size:16px;font-weight:600;color:#12293F;padding-top:4px">Add</div>
+<img src="/_blob/3bd19137fd133edf2dca279d4bd1b7c9" alt="Add before, 2x" width="192" height="192" style="display:block;image-rendering:pixelated">
+<img src="/_blob/b63ee9fbb317370adde428c02080f38c" alt="Add fitted, 2x" width="192" height="192" style="display:block;image-rendering:pixelated">
+<img src="/_blob/54361b7b5d4082a8aacdd3efabf64da5" alt="Add before, 3x" width="192" height="192" style="display:block;image-rendering:pixelated">
+<img src="/_blob/93a142322af9aa026c28e5032a5f7ebd" alt="Add fitted, 3x" width="192" height="192" style="display:block;image-rendering:pixelated">
+</div>
+<div style="font-size:16px;color:#5A564C;margin-top:10px;line-height:1.4">Grey pixels the glyph touches, before → fitted, 5K / iPhone: Café 33 → 14% / 24 → 11%, Bar 43 → 17 / 28 → 13, Museum 30 → 10 / 22 → 5, Add 48 → 2 / 31 → 3. Nature's tiers and the whole Star are diagonals, so they stay as drawn.</div>
+<div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:#5A564C;text-transform:uppercase;margin:26px 0 8px">The rule</div>
+<div style="display:grid;grid-template-columns:28px 1fr;gap:8px 10px;font-size:19px;line-height:1.4">
+<div style="font-weight:700;color:#EE7434">1</div><div>Lines and parts are whole device pixels per screen: the 1½px line is 3 on the 5K and 5 on an iPhone (1⅔px); a post is 2 and 4, so it stays thinner. The badge ring takes the line's width.</div>
+<div style="font-weight:700;color:#EE7434">2</div><div>Every straight edge, and the outermost point of every big curve, lands on a whole device pixel.</div>
+<div style="font-weight:700;color:#EE7434">3</div><div>Optical centring snaps too: the glyph moves less than half a device pixel. Symmetric glyphs stay symmetric.</div>
+<div style="font-weight:700;color:#EE7434">4</div><div>Curves, diagonals, tips and corner rounds stay where they were drawn. The edges around them carry them, so they never bend.</div>
+<div style="font-weight:700;color:#EE7434">5</div><div>It runs per size and per screen, like the @2x and @3x files an iPhone app ships, as a last pass after the drawing.</div>
+</div>
+<div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:#5A564C;text-transform:uppercase;margin:26px 0 8px">What it costs</div>
+<p style="margin:0 0 8px;font-size:19px;line-height:1.4">The line is 1½px on the 5K and 1⅔px on an iPhone, 11% heavier there. Centring moves at most ⅓px (the + on the 5K moves ¼px across and ¼px down). Short lengths move by up to a device pixel: the coupe's band is ½px on the 5K, and the museum's capital steps get shorter, so their flares turn a little more sharply.</p>
+<div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:#5A564C;text-transform:uppercase;margin:22px 0 8px">Waiting on you</div>
+<div style="display:grid;grid-template-columns:32px 1fr;gap:10px;padding:12px 0;border-top:1px solid #D8CEBA"><div style="font-size:24px;font-weight:700;color:#EE7434">1</div><div style="font-size:20px;line-height:1.35;color:#12293F;font-weight:600">On an iPhone a 1½px line can't be sharp. Shown: 1⅔px (5 device pixels). The other choice is 1⅓px (4), lighter. Keep 1⅔?</div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":940,"height":2246}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

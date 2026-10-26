@@ -1,0 +1,3480 @@
+{
+ "tie": "rank",
+ "sizes": [
+  12,
+  18,
+  23,
+  24,
+  72
+ ],
+ "dprs": [
+  2,
+  3
+ ],
+ "icons": {
+  "Café": {
+   "12@2x": {
+    "before": {
+     "n": 13,
+     "soft": 7,
+     "mean": 0.23
+    },
+    "after": {
+     "n": 12,
+     "soft": 1,
+     "mean": 0.019
+    },
+    "maxMovePx": 0.946,
+    "maxMoveDev": 0.95,
+    "centreShiftPx": 0.597,
+    "areaChange": 19.4,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.5,
+      "dev": 2
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 2
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 2
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 2
+     }
+    ],
+    "worst": [
+     {
+      "ax": "x",
+      "pos": 15.571,
+      "role": "stem (upright)",
+      "off": 0.43
+     },
+     {
+      "ax": "y",
+      "pos": 9.427,
+      "role": "horizontal",
+      "off": 0.43
+     },
+     {
+      "ax": "y",
+      "pos": 16.427,
+      "role": "horizontal",
+      "off": 0.43
+     },
+     {
+      "ax": "x",
+      "pos": 6.615,
+      "role": "round extreme",
+      "off": 0.38
+     }
+    ],
+    "fair": 1,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "12@3x": {
+    "before": {
+     "n": 13,
+     "soft": 9,
+     "mean": 0.191
+    },
+    "after": {
+     "n": 13,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.779,
+    "maxMoveDev": 1.17,
+    "centreShiftPx": 0.625,
+    "areaChange": -7.4,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.5,
+      "dev": 2
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 2
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 2
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 2
+     }
+    ],
+    "worst": [
+     {
+      "ax": "x",
+      "pos": 17.071,
+      "role": "stem (upright)",
+      "off": 0.39
+     },
+     {
+      "ax": "y",
+      "pos": 14.927,
+      "role": "horizontal",
+      "off": 0.39
+     },
+     {
+      "ax": "y",
+      "pos": 16.427,
+      "role": "horizontal",
+      "off": 0.36
+     },
+     {
+      "ax": "x",
+      "pos": 15.571,
+      "role": "stem (upright)",
+      "off": 0.36
+     }
+    ],
+    "fair": 1,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "18@2x": {
+    "before": {
+     "n": 13,
+     "soft": 9,
+     "mean": 0.191
+    },
+    "after": {
+     "n": 13,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.779,
+    "maxMoveDev": 1.17,
+    "centreShiftPx": 0.625,
+    "areaChange": -7.4,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.5,
+      "dev": 2
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 2
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 2
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 2
+     }
+    ],
+    "worst": [
+     {
+      "ax": "x",
+      "pos": 17.071,
+      "role": "stem (upright)",
+      "off": 0.39
+     },
+     {
+      "ax": "y",
+      "pos": 14.927,
+      "role": "horizontal",
+      "off": 0.39
+     },
+     {
+      "ax": "y",
+      "pos": 16.427,
+      "role": "horizontal",
+      "off": 0.36
+     },
+     {
+      "ax": "x",
+      "pos": 15.571,
+      "role": "stem (upright)",
+      "off": 0.36
+     }
+    ],
+    "fair": 1,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "18@3x": {
+    "before": {
+     "n": 13,
+     "soft": 11,
+     "mean": 0.223
+    },
+    "after": {
+     "n": 13,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.313,
+    "maxMoveDev": 0.7,
+    "centreShiftPx": 0.111,
+    "areaChange": -6.7,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.5,
+      "dev": 3
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 3
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 3
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 3
+     }
+    ],
+    "worst": [
+     {
+      "ax": "y",
+      "pos": 14.927,
+      "role": "horizontal",
+      "off": 0.41
+     },
+     {
+      "ax": "x",
+      "pos": 17.071,
+      "role": "stem (upright)",
+      "off": 0.41
+     },
+     {
+      "ax": "y",
+      "pos": 12.714,
+      "role": "horizontal",
+      "off": 0.39
+     },
+     {
+      "ax": "x",
+      "pos": 13.928,
+      "role": "outer edge",
+      "off": 0.34
+     }
+    ],
+    "fair": 1,
+    "join": 0,
+    "jitterFlips": 8,
+    "jitterShapeFlips": 8
+   },
+   "23@2x": {
+    "before": {
+     "n": 13,
+     "soft": 12,
+     "mean": 0.304
+    },
+    "after": {
+     "n": 12,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.482,
+    "maxMoveDev": 0.92,
+    "centreShiftPx": 0.24,
+    "areaChange": -2.3,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.5,
+      "dev": 3
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 3
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 3
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 3
+     }
+    ],
+    "worst": [
+     {
+      "ax": "y",
+      "pos": 11.214,
+      "role": "horizontal",
+      "off": 0.49
+     },
+     {
+      "ax": "y",
+      "pos": 16.427,
+      "role": "horizontal",
+      "off": 0.49
+     },
+     {
+      "ax": "y",
+      "pos": 14.927,
+      "role": "horizontal",
+      "off": 0.39
+     },
+     {
+      "ax": "y",
+      "pos": 12.714,
+      "role": "horizontal",
+      "off": 0.37
+     }
+    ],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 1,
+    "jitterShapeFlips": 0
+   },
+   "23@3x": {
+    "before": {
+     "n": 13,
+     "soft": 7,
+     "mean": 0.144
+    },
+    "after": {
+     "n": 13,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.192,
+    "maxMoveDev": 0.55,
+    "centreShiftPx": 0.036,
+    "areaChange": -5.3,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.5,
+      "dev": 4
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 4
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 4
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 4
+     }
+    ],
+    "worst": [
+     {
+      "ax": "y",
+      "pos": 12.714,
+      "role": "horizontal",
+      "off": 0.45
+     },
+     {
+      "ax": "y",
+      "pos": 11.214,
+      "role": "horizontal",
+      "off": 0.24
+     },
+     {
+      "ax": "x",
+      "pos": 15.571,
+      "role": "stem (upright)",
+      "off": 0.23
+     },
+     {
+      "ax": "y",
+      "pos": 16.427,
+      "role": "horizontal",
+      "off": 0.23
+     }
+    ],
+    "fair": 1,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "24@2x": {
+    "before": {
+     "n": 13,
+     "soft": 13,
+     "mean": 0.201
+    },
+    "after": {
+     "n": 12,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.221,
+    "maxMoveDev": 0.44,
+    "centreShiftPx": 0.075,
+    "areaChange": -1.8,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.5,
+      "dev": 3
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 3
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 3
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 3
+     }
+    ],
+    "worst": [
+     {
+      "ax": "y",
+      "pos": 11.214,
+      "role": "horizontal",
+      "off": 0.43
+     },
+     {
+      "ax": "y",
+      "pos": 12.714,
+      "role": "horizontal",
+      "off": 0.43
+     },
+     {
+      "ax": "x",
+      "pos": 17.385,
+      "role": "round extreme",
+      "off": 0.23
+     },
+     {
+      "ax": "x",
+      "pos": 6.615,
+      "role": "round extreme",
+      "off": 0.23
+     }
+    ],
+    "fair": 1,
+    "join": 0,
+    "jitterFlips": 6,
+    "jitterShapeFlips": 6
+   },
+   "24@3x": {
+    "before": {
+     "n": 13,
+     "soft": 13,
+     "mean": 0.228
+    },
+    "after": {
+     "n": 13,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.359,
+    "maxMoveDev": 1.08,
+    "centreShiftPx": 0.276,
+    "areaChange": 7.3,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.5,
+      "dev": 5
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 5
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 5
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 5
+     }
+    ],
+    "worst": [
+     {
+      "ax": "y",
+      "pos": 11.214,
+      "role": "horizontal",
+      "off": 0.36
+     },
+     {
+      "ax": "x",
+      "pos": 15.571,
+      "role": "stem (upright)",
+      "off": 0.29
+     },
+     {
+      "ax": "y",
+      "pos": 9.427,
+      "role": "horizontal",
+      "off": 0.28
+     },
+     {
+      "ax": "y",
+      "pos": 16.427,
+      "role": "horizontal",
+      "off": 0.28
+     }
+    ],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "72@2x": {
+    "before": {
+     "n": 13,
+     "soft": 13,
+     "mean": 0.386
+    },
+    "after": {
+     "n": 13,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.148,
+    "maxMoveDev": 0.89,
+    "centreShiftPx": 0.114,
+    "areaChange": 0.8,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.5,
+      "dev": 9
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 9
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 9
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 9
+     }
+    ],
+    "worst": [
+     {
+      "ax": "y",
+      "pos": 13.91,
+      "role": "round extreme",
+      "off": 0.46
+     },
+     {
+      "ax": "y",
+      "pos": 7.927,
+      "role": "horizontal",
+      "off": 0.44
+     },
+     {
+      "ax": "y",
+      "pos": 9.427,
+      "role": "horizontal",
+      "off": 0.44
+     },
+     {
+      "ax": "y",
+      "pos": 14.927,
+      "role": "horizontal",
+      "off": 0.44
+     }
+    ],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 21,
+    "jitterShapeFlips": 0
+   },
+   "72@3x": {
+    "before": {
+     "n": 13,
+     "soft": 12,
+     "mean": 0.305
+    },
+    "after": {
+     "n": 13,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.071,
+    "maxMoveDev": 0.64,
+    "centreShiftPx": 0.011,
+    "areaChange": 2.7,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.5,
+      "dev": 14
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 14
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 14
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 14
+     }
+    ],
+    "worst": [
+     {
+      "ax": "x",
+      "pos": 7.944,
+      "role": "outer edge",
+      "off": 0.5
+     },
+     {
+      "ax": "x",
+      "pos": 6.615,
+      "role": "round extreme",
+      "off": 0.46
+     },
+     {
+      "ax": "x",
+      "pos": 17.385,
+      "role": "round extreme",
+      "off": 0.46
+     },
+     {
+      "ax": "y",
+      "pos": 12.714,
+      "role": "horizontal",
+      "off": 0.43
+     }
+    ],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 7,
+    "jitterShapeFlips": 2
+   }
+  },
+  "Bar": {
+   "12@2x": {
+    "before": {
+     "n": 11,
+     "soft": 10,
+     "mean": 0.291
+    },
+    "after": {
+     "n": 11,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.892,
+    "maxMoveDev": 0.89,
+    "centreShiftPx": 0.515,
+    "areaChange": -4.9,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 1
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 2
+     }
+    ],
+    "worst": [
+     {
+      "ax": "y",
+      "pos": 9.579,
+      "role": "horizontal",
+      "off": 0.42
+     },
+     {
+      "ax": "x",
+      "pos": 8.609,
+      "role": "round extreme",
+      "off": 0.39
+     },
+     {
+      "ax": "x",
+      "pos": 15.391,
+      "role": "round extreme",
+      "off": 0.39
+     },
+     {
+      "ax": "x",
+      "pos": 12.625,
+      "role": "stem (upright)",
+      "off": 0.37
+     }
+    ],
+    "fair": 4,
+    "join": 2,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "12@3x": {
+    "before": {
+     "n": 11,
+     "soft": 6,
+     "mean": 0.195
+    },
+    "after": {
+     "n": 11,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.331,
+    "maxMoveDev": 0.5,
+    "centreShiftPx": 0.026,
+    "areaChange": -1.6,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 2
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 2
+     }
+    ],
+    "worst": [
+     {
+      "ax": "y",
+      "pos": 10.329,
+      "role": "outer edge",
+      "off": 0.49
+     },
+     {
+      "ax": "y",
+      "pos": 9.579,
+      "role": "horizontal",
+      "off": 0.37
+     },
+     {
+      "ax": "x",
+      "pos": 16.894,
+      "role": "round extreme",
+      "off": 0.34
+     },
+     {
+      "ax": "x",
+      "pos": 7.106,
+      "role": "round extreme",
+      "off": 0.34
+     }
+    ],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "18@2x": {
+    "before": {
+     "n": 11,
+     "soft": 6,
+     "mean": 0.195
+    },
+    "after": {
+     "n": 11,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.331,
+    "maxMoveDev": 0.5,
+    "centreShiftPx": 0.026,
+    "areaChange": -1.6,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 2
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 2
+     }
+    ],
+    "worst": [
+     {
+      "ax": "y",
+      "pos": 10.329,
+      "role": "outer edge",
+      "off": 0.49
+     },
+     {
+      "ax": "y",
+      "pos": 9.579,
+      "role": "horizontal",
+      "off": 0.37
+     },
+     {
+      "ax": "x",
+      "pos": 16.894,
+      "role": "round extreme",
+      "off": 0.34
+     },
+     {
+      "ax": "x",
+      "pos": 7.106,
+      "role": "round extreme",
+      "off": 0.34
+     }
+    ],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "18@3x": {
+    "before": {
+     "n": 11,
+     "soft": 9,
+     "mean": 0.288
+    },
+    "after": {
+     "n": 11,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.409,
+    "maxMoveDev": 0.92,
+    "centreShiftPx": 0.16,
+    "areaChange": -4.8,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 3
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 3
+     }
+    ],
+    "worst": [
+     {
+      "ax": "y",
+      "pos": 9.579,
+      "role": "horizontal",
+      "off": 0.45
+     },
+     {
+      "ax": "x",
+      "pos": 11.375,
+      "role": "stem (upright)",
+      "off": 0.41
+     },
+     {
+      "ax": "x",
+      "pos": 11.375,
+      "role": "round extreme",
+      "off": 0.41
+     },
+     {
+      "ax": "x",
+      "pos": 12.625,
+      "role": "stem (upright)",
+      "off": 0.41
+     }
+    ],
+    "fair": 2,
+    "join": 0,
+    "jitterFlips": 2,
+    "jitterShapeFlips": 0
+   },
+   "23@2x": {
+    "before": {
+     "n": 11,
+     "soft": 10,
+     "mean": 0.318
+    },
+    "after": {
+     "n": 11,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.409,
+    "maxMoveDev": 0.78,
+    "centreShiftPx": 0.238,
+    "areaChange": -1.5,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 2
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 3
+     }
+    ],
+    "worst": [
+     {
+      "ax": "x",
+      "pos": 15.391,
+      "role": "round extreme",
+      "off": 0.5
+     },
+     {
+      "ax": "x",
+      "pos": 8.609,
+      "role": "round extreme",
+      "off": 0.5
+     },
+     {
+      "ax": "y",
+      "pos": 8.079,
+      "role": "horizontal",
+      "off": 0.48
+     },
+     {
+      "ax": "x",
+      "pos": 16.894,
+      "role": "round extreme",
+      "off": 0.38
+     }
+    ],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 8,
+    "jitterShapeFlips": 0
+   },
+   "23@3x": {
+    "before": {
+     "n": 11,
+     "soft": 11,
+     "mean": 0.308
+    },
+    "after": {
+     "n": 11,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.353,
+    "maxMoveDev": 1.02,
+    "centreShiftPx": 0.174,
+    "areaChange": 2.7,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 4
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 4
+     }
+    ],
+    "worst": [
+     {
+      "ax": "y",
+      "pos": 9.579,
+      "role": "horizontal",
+      "off": 0.46
+     },
+     {
+      "ax": "x",
+      "pos": 7.106,
+      "role": "round extreme",
+      "off": 0.43
+     },
+     {
+      "ax": "x",
+      "pos": 16.894,
+      "role": "round extreme",
+      "off": 0.43
+     },
+     {
+      "ax": "y",
+      "pos": 10.329,
+      "role": "outer edge",
+      "off": 0.3
+     }
+    ],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 5,
+    "jitterShapeFlips": 0
+   },
+   "24@2x": {
+    "before": {
+     "n": 11,
+     "soft": 11,
+     "mean": 0.251
+    },
+    "after": {
+     "n": 11,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.333,
+    "maxMoveDev": 0.67,
+    "centreShiftPx": 0.227,
+    "areaChange": 2.1,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 2
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 3
+     }
+    ],
+    "worst": [
+     {
+      "ax": "y",
+      "pos": 16.746,
+      "role": "outer edge",
+      "off": 0.49
+     },
+     {
+      "ax": "y",
+      "pos": 10.329,
+      "role": "outer edge",
+      "off": 0.34
+     },
+     {
+      "ax": "x",
+      "pos": 11.375,
+      "role": "stem (upright)",
+      "off": 0.25
+     },
+     {
+      "ax": "x",
+      "pos": 11.375,
+      "role": "round extreme",
+      "off": 0.25
+     }
+    ],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "24@3x": {
+    "before": {
+     "n": 11,
+     "soft": 10,
+     "mean": 0.192
+    },
+    "after": {
+     "n": 11,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.24,
+    "maxMoveDev": 0.72,
+    "centreShiftPx": 0.133,
+    "areaChange": 0.4,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 4
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 5
+     }
+    ],
+    "worst": [
+     {
+      "ax": "x",
+      "pos": 7.106,
+      "role": "round extreme",
+      "off": 0.32
+     },
+     {
+      "ax": "x",
+      "pos": 16.894,
+      "role": "round extreme",
+      "off": 0.32
+     },
+     {
+      "ax": "y",
+      "pos": 9.579,
+      "role": "horizontal",
+      "off": 0.26
+     },
+     {
+      "ax": "y",
+      "pos": 16.746,
+      "role": "outer edge",
+      "off": 0.24
+     }
+    ],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 4,
+    "jitterShapeFlips": 4
+   },
+   "72@2x": {
+    "before": {
+     "n": 11,
+     "soft": 10,
+     "mean": 0.329
+    },
+    "after": {
+     "n": 11,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.188,
+    "maxMoveDev": 1.13,
+    "centreShiftPx": 0.135,
+    "areaChange": 1.1,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 7
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 9
+     }
+    ],
+    "worst": [
+     {
+      "ax": "y",
+      "pos": 16.746,
+      "role": "outer edge",
+      "off": 0.47
+     },
+     {
+      "ax": "y",
+      "pos": 8.079,
+      "role": "horizontal",
+      "off": 0.47
+     },
+     {
+      "ax": "y",
+      "pos": 9.579,
+      "role": "horizontal",
+      "off": 0.47
+     },
+     {
+      "ax": "x",
+      "pos": 16.894,
+      "role": "round extreme",
+      "off": 0.36
+     }
+    ],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "72@3x": {
+    "before": {
+     "n": 11,
+     "soft": 8,
+     "mean": 0.273
+    },
+    "after": {
+     "n": 11,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.111,
+    "maxMoveDev": 1,
+    "centreShiftPx": 0.056,
+    "areaChange": 1.6,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 11
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 14
+     }
+    ],
+    "worst": [
+     {
+      "ax": "x",
+      "pos": 8.609,
+      "role": "round extreme",
+      "off": 0.48
+     },
+     {
+      "ax": "x",
+      "pos": 15.391,
+      "role": "round extreme",
+      "off": 0.48
+     },
+     {
+      "ax": "x",
+      "pos": 12.625,
+      "role": "stem (upright)",
+      "off": 0.37
+     },
+     {
+      "ax": "x",
+      "pos": 11.375,
+      "role": "round extreme",
+      "off": 0.37
+     }
+    ],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 13,
+    "jitterShapeFlips": 13
+   }
+  },
+  "Museum": {
+   "12@2x": {
+    "before": {
+     "n": 24,
+     "soft": 20,
+     "mean": 0.238
+    },
+    "after": {
+     "n": 25,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.603,
+    "maxMoveDev": 0.6,
+    "centreShiftPx": 0.112,
+    "areaChange": 4.3,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 1
+     },
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 1
+     },
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 1
+     },
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 1
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 2
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 2
+     }
+    ],
+    "worst": [
+     {
+      "ax": "y",
+      "pos": 12.476,
+      "role": "horizontal",
+      "off": 0.48
+     },
+     {
+      "ax": "y",
+      "pos": 12.476,
+      "role": "outer edge",
+      "off": 0.48
+     },
+     {
+      "ax": "y",
+      "pos": 12.476,
+      "role": "outer edge",
+      "off": 0.48
+     },
+     {
+      "ax": "x",
+      "pos": 7.528,
+      "role": "stem (upright)",
+      "off": 0.47
+     }
+    ],
+    "fair": 14,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "12@3x": {
+    "before": {
+     "n": 24,
+     "soft": 18,
+     "mean": 0.213
+    },
+    "after": {
+     "n": 25,
+     "soft": 1,
+     "mean": 0.007
+    },
+    "maxMovePx": 0.558,
+    "maxMoveDev": 0.84,
+    "centreShiftPx": 0.038,
+    "areaChange": 1.5,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 2
+     },
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 2
+     },
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 2
+     },
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 2
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 2
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 2
+     }
+    ],
+    "worst": [
+     {
+      "ax": "y",
+      "pos": 10.976,
+      "role": "horizontal",
+      "off": 0.46
+     },
+     {
+      "ax": "x",
+      "pos": 16.889,
+      "role": "outer edge",
+      "off": 0.33
+     },
+     {
+      "ax": "x",
+      "pos": 7.111,
+      "role": "outer edge",
+      "off": 0.33
+     },
+     {
+      "ax": "x",
+      "pos": 7.111,
+      "role": "outer edge",
+      "off": 0.33
+     }
+    ],
+    "fair": 12,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "18@2x": {
+    "before": {
+     "n": 24,
+     "soft": 18,
+     "mean": 0.213
+    },
+    "after": {
+     "n": 25,
+     "soft": 1,
+     "mean": 0.007
+    },
+    "maxMovePx": 0.558,
+    "maxMoveDev": 0.84,
+    "centreShiftPx": 0.038,
+    "areaChange": 1.5,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 2
+     },
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 2
+     },
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 2
+     },
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 2
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 2
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 2
+     }
+    ],
+    "worst": [
+     {
+      "ax": "y",
+      "pos": 10.976,
+      "role": "horizontal",
+      "off": 0.46
+     },
+     {
+      "ax": "x",
+      "pos": 16.889,
+      "role": "outer edge",
+      "off": 0.33
+     },
+     {
+      "ax": "x",
+      "pos": 7.111,
+      "role": "outer edge",
+      "off": 0.33
+     },
+     {
+      "ax": "x",
+      "pos": 7.111,
+      "role": "outer edge",
+      "off": 0.33
+     }
+    ],
+    "fair": 12,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "18@3x": {
+    "before": {
+     "n": 24,
+     "soft": 13,
+     "mean": 0.201
+    },
+    "after": {
+     "n": 24,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.512,
+    "maxMoveDev": 1.15,
+    "centreShiftPx": 0.308,
+    "areaChange": -0.9,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 3
+     },
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 3
+     },
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 3
+     },
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 3
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 3
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 3
+     }
+    ],
+    "worst": [
+     {
+      "ax": "x",
+      "pos": 11.343,
+      "role": "stem (upright)",
+      "off": 0.48
+     },
+     {
+      "ax": "x",
+      "pos": 12.657,
+      "role": "stem (upright)",
+      "off": 0.48
+     },
+     {
+      "ax": "y",
+      "pos": 15.31,
+      "role": "outer edge",
+      "off": 0.45
+     },
+     {
+      "ax": "y",
+      "pos": 15.31,
+      "role": "outer edge",
+      "off": 0.45
+     }
+    ],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 11,
+    "jitterShapeFlips": 0
+   },
+   "23@2x": {
+    "before": {
+     "n": 24,
+     "soft": 20,
+     "mean": 0.272
+    },
+    "after": {
+     "n": 24,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.461,
+    "maxMoveDev": 0.88,
+    "centreShiftPx": 0.141,
+    "areaChange": 1.8,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 2
+     },
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 2
+     },
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 2
+     },
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 2
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 3
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 3
+     }
+    ],
+    "worst": [
+     {
+      "ax": "x",
+      "pos": 16.472,
+      "role": "stem (upright)",
+      "off": 0.43
+     },
+     {
+      "ax": "x",
+      "pos": 7.528,
+      "role": "stem (upright)",
+      "off": 0.43
+     },
+     {
+      "ax": "x",
+      "pos": 16.889,
+      "role": "outer edge",
+      "off": 0.37
+     },
+     {
+      "ax": "x",
+      "pos": 7.111,
+      "role": "outer edge",
+      "off": 0.37
+     }
+    ],
+    "fair": 5,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "23@3x": {
+    "before": {
+     "n": 24,
+     "soft": 19,
+     "mean": 0.272
+    },
+    "after": {
+     "n": 24,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.269,
+    "maxMoveDev": 0.77,
+    "centreShiftPx": 0.015,
+    "areaChange": 1,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 4
+     },
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 4
+     },
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 4
+     },
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 4
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 4
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 4
+     }
+    ],
+    "worst": [
+     {
+      "ax": "x",
+      "pos": 16.889,
+      "role": "outer edge",
+      "off": 0.44
+     },
+     {
+      "ax": "x",
+      "pos": 7.111,
+      "role": "outer edge",
+      "off": 0.44
+     },
+     {
+      "ax": "y",
+      "pos": 10.976,
+      "role": "horizontal",
+      "off": 0.44
+     },
+     {
+      "ax": "x",
+      "pos": 16.889,
+      "role": "outer edge",
+      "off": 0.44
+     }
+    ],
+    "fair": 12,
+    "join": 0,
+    "jitterFlips": 4,
+    "jitterShapeFlips": 3
+   },
+   "24@2x": {
+    "before": {
+     "n": 24,
+     "soft": 17,
+     "mean": 0.228
+    },
+    "after": {
+     "n": 24,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.387,
+    "maxMoveDev": 0.77,
+    "centreShiftPx": 0.019,
+    "areaChange": -1.6,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 2
+     },
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 2
+     },
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 2
+     },
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 2
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 3
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 3
+     }
+    ],
+    "worst": [
+     {
+      "ax": "x",
+      "pos": 8.778,
+      "role": "stem (upright)",
+      "off": 0.44
+     },
+     {
+      "ax": "x",
+      "pos": 15.222,
+      "role": "stem (upright)",
+      "off": 0.44
+     },
+     {
+      "ax": "y",
+      "pos": 16.81,
+      "role": "horizontal",
+      "off": 0.38
+     },
+     {
+      "ax": "y",
+      "pos": 16.81,
+      "role": "round extreme",
+      "off": 0.38
+     }
+    ],
+    "fair": 4,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "24@3x": {
+    "before": {
+     "n": 24,
+     "soft": 17,
+     "mean": 0.275
+    },
+    "after": {
+     "n": 24,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.286,
+    "maxMoveDev": 0.86,
+    "centreShiftPx": 0.141,
+    "areaChange": 6.3,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 4
+     },
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 4
+     },
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 4
+     },
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 4
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 5
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 5
+     }
+    ],
+    "worst": [
+     {
+      "ax": "y",
+      "pos": 16.81,
+      "role": "horizontal",
+      "off": 0.43
+     },
+     {
+      "ax": "y",
+      "pos": 16.81,
+      "role": "round extreme",
+      "off": 0.43
+     },
+     {
+      "ax": "y",
+      "pos": 12.476,
+      "role": "horizontal",
+      "off": 0.43
+     },
+     {
+      "ax": "y",
+      "pos": 12.476,
+      "role": "outer edge",
+      "off": 0.43
+     }
+    ],
+    "fair": 6,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "72@2x": {
+    "before": {
+     "n": 24,
+     "soft": 22,
+     "mean": 0.226
+    },
+    "after": {
+     "n": 23,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.114,
+    "maxMoveDev": 0.68,
+    "centreShiftPx": 0.005,
+    "areaChange": -2.3,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 7
+     },
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 7
+     },
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 7
+     },
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 7
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 9
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 9
+     }
+    ],
+    "worst": [
+     {
+      "ax": "x",
+      "pos": 10.093,
+      "role": "stem (upright)",
+      "off": 0.44
+     },
+     {
+      "ax": "x",
+      "pos": 13.907,
+      "role": "stem (upright)",
+      "off": 0.44
+     },
+     {
+      "ax": "x",
+      "pos": 16.889,
+      "role": "outer edge",
+      "off": 0.34
+     },
+     {
+      "ax": "x",
+      "pos": 7.111,
+      "role": "outer edge",
+      "off": 0.34
+     }
+    ],
+    "fair": 8,
+    "join": 0,
+    "jitterFlips": 11,
+    "jitterShapeFlips": 11
+   },
+   "72@3x": {
+    "before": {
+     "n": 24,
+     "soft": 14,
+     "mean": 0.146
+    },
+    "after": {
+     "n": 24,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.082,
+    "maxMoveDev": 0.74,
+    "centreShiftPx": 0.053,
+    "areaChange": 0.6,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 11
+     },
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 11
+     },
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 11
+     },
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 11
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 14
+     },
+     {
+      "ax": "y",
+      "w": 1.5,
+      "dev": 14
+     }
+    ],
+    "worst": [
+     {
+      "ax": "y",
+      "pos": 16.81,
+      "role": "horizontal",
+      "off": 0.29
+     },
+     {
+      "ax": "y",
+      "pos": 16.81,
+      "role": "round extreme",
+      "off": 0.29
+     },
+     {
+      "ax": "y",
+      "pos": 12.476,
+      "role": "horizontal",
+      "off": 0.28
+     },
+     {
+      "ax": "y",
+      "pos": 12.476,
+      "role": "outer edge",
+      "off": 0.28
+     }
+    ],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   }
+  },
+  "Nature": {
+   "12@2x": {
+    "before": {
+     "n": 5,
+     "soft": 5,
+     "mean": 0.38
+    },
+    "after": {
+     "n": 5,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.943,
+    "maxMoveDev": 0.94,
+    "centreShiftPx": 0.686,
+    "areaChange": -9.2,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 1
+     }
+    ],
+    "worst": [
+     {
+      "ax": "y",
+      "pos": 15.439,
+      "role": "round extreme",
+      "off": 0.44
+     },
+     {
+      "ax": "y",
+      "pos": 15.439,
+      "role": "round extreme",
+      "off": 0.44
+     },
+     {
+      "ax": "x",
+      "pos": 12.625,
+      "role": "stem (upright)",
+      "off": 0.38
+     },
+     {
+      "ax": "x",
+      "pos": 11.375,
+      "role": "stem (upright)",
+      "off": 0.38
+     }
+    ],
+    "fair": 2,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "12@3x": {
+    "before": {
+     "n": 5,
+     "soft": 3,
+     "mean": 0.17
+    },
+    "after": {
+     "n": 5,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.396,
+    "maxMoveDev": 0.59,
+    "centreShiftPx": 0.174,
+    "areaChange": 1.5,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 2
+     }
+    ],
+    "worst": [
+     {
+      "ax": "y",
+      "pos": 17.728,
+      "role": "outer edge",
+      "off": 0.41
+     },
+     {
+      "ax": "y",
+      "pos": 15.439,
+      "role": "round extreme",
+      "off": 0.16
+     },
+     {
+      "ax": "y",
+      "pos": 15.439,
+      "role": "round extreme",
+      "off": 0.16
+     }
+    ],
+    "fair": 2,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "18@2x": {
+    "before": {
+     "n": 5,
+     "soft": 3,
+     "mean": 0.17
+    },
+    "after": {
+     "n": 5,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.396,
+    "maxMoveDev": 0.59,
+    "centreShiftPx": 0.174,
+    "areaChange": 1.5,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 2
+     }
+    ],
+    "worst": [
+     {
+      "ax": "y",
+      "pos": 17.728,
+      "role": "outer edge",
+      "off": 0.41
+     },
+     {
+      "ax": "y",
+      "pos": 15.439,
+      "role": "round extreme",
+      "off": 0.16
+     },
+     {
+      "ax": "y",
+      "pos": 15.439,
+      "role": "round extreme",
+      "off": 0.16
+     }
+    ],
+    "fair": 2,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "18@3x": {
+    "before": {
+     "n": 5,
+     "soft": 5,
+     "mean": 0.29
+    },
+    "after": {
+     "n": 5,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.288,
+    "maxMoveDev": 0.65,
+    "centreShiftPx": 0.242,
+    "areaChange": 2.4,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 3
+     }
+    ],
+    "worst": [
+     {
+      "ax": "x",
+      "pos": 11.375,
+      "role": "stem (upright)",
+      "off": 0.41
+     },
+     {
+      "ax": "x",
+      "pos": 12.625,
+      "role": "stem (upright)",
+      "off": 0.41
+     },
+     {
+      "ax": "y",
+      "pos": 15.439,
+      "role": "round extreme",
+      "off": 0.26
+     },
+     {
+      "ax": "y",
+      "pos": 15.439,
+      "role": "round extreme",
+      "off": 0.26
+     }
+    ],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "23@2x": {
+    "before": {
+     "n": 5,
+     "soft": 4,
+     "mean": 0.247
+    },
+    "after": {
+     "n": 5,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.237,
+    "maxMoveDev": 0.45,
+    "centreShiftPx": 0.193,
+    "areaChange": -7.5,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 2
+     }
+    ],
+    "worst": [
+     {
+      "ax": "y",
+      "pos": 15.439,
+      "role": "round extreme",
+      "off": 0.41
+     },
+     {
+      "ax": "y",
+      "pos": 15.439,
+      "role": "round extreme",
+      "off": 0.41
+     },
+     {
+      "ax": "x",
+      "pos": 11.375,
+      "role": "stem (upright)",
+      "off": 0.2
+     },
+     {
+      "ax": "x",
+      "pos": 12.625,
+      "role": "stem (upright)",
+      "off": 0.2
+     }
+    ],
+    "fair": 2,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "23@3x": {
+    "before": {
+     "n": 5,
+     "soft": 4,
+     "mean": 0.28
+    },
+    "after": {
+     "n": 5,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.279,
+    "maxMoveDev": 0.8,
+    "centreShiftPx": 0.207,
+    "areaChange": 5.3,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 4
+     }
+    ],
+    "worst": [
+     {
+      "ax": "y",
+      "pos": 15.439,
+      "role": "round extreme",
+      "off": 0.39
+     },
+     {
+      "ax": "y",
+      "pos": 15.439,
+      "role": "round extreme",
+      "off": 0.39
+     },
+     {
+      "ax": "x",
+      "pos": 11.375,
+      "role": "stem (upright)",
+      "off": 0.3
+     },
+     {
+      "ax": "x",
+      "pos": 12.625,
+      "role": "stem (upright)",
+      "off": 0.3
+     }
+    ],
+    "fair": 2,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "24@2x": {
+    "before": {
+     "n": 5,
+     "soft": 5,
+     "mean": 0.24
+    },
+    "after": {
+     "n": 5,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.287,
+    "maxMoveDev": 0.57,
+    "centreShiftPx": 0.123,
+    "areaChange": -7.5,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 2
+     }
+    ],
+    "worst": [
+     {
+      "ax": "y",
+      "pos": 17.728,
+      "role": "outer edge",
+      "off": 0.46
+     },
+     {
+      "ax": "x",
+      "pos": 11.375,
+      "role": "stem (upright)",
+      "off": 0.25
+     },
+     {
+      "ax": "x",
+      "pos": 12.625,
+      "role": "stem (upright)",
+      "off": 0.25
+     },
+     {
+      "ax": "y",
+      "pos": 15.439,
+      "role": "round extreme",
+      "off": 0.12
+     }
+    ],
+    "fair": 2,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "24@3x": {
+    "before": {
+     "n": 5,
+     "soft": 5,
+     "mean": 0.214
+    },
+    "after": {
+     "n": 5,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.114,
+    "maxMoveDev": 0.34,
+    "centreShiftPx": 0.103,
+    "areaChange": 2.9,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 4
+     }
+    ],
+    "worst": [
+     {
+      "ax": "y",
+      "pos": 15.439,
+      "role": "round extreme",
+      "off": 0.32
+     },
+     {
+      "ax": "y",
+      "pos": 15.439,
+      "role": "round extreme",
+      "off": 0.32
+     },
+     {
+      "ax": "y",
+      "pos": 17.728,
+      "role": "outer edge",
+      "off": 0.19
+     },
+     {
+      "ax": "x",
+      "pos": 12.625,
+      "role": "stem (upright)",
+      "off": 0.13
+     }
+    ],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "72@2x": {
+    "before": {
+     "n": 5,
+     "soft": 5,
+     "mean": 0.32
+    },
+    "after": {
+     "n": 5,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.164,
+    "maxMoveDev": 0.98,
+    "centreShiftPx": 0.123,
+    "areaChange": -2.6,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 7
+     }
+    ],
+    "worst": [
+     {
+      "ax": "y",
+      "pos": 17.728,
+      "role": "outer edge",
+      "off": 0.37
+     },
+     {
+      "ax": "y",
+      "pos": 15.439,
+      "role": "round extreme",
+      "off": 0.37
+     },
+     {
+      "ax": "y",
+      "pos": 15.439,
+      "role": "round extreme",
+      "off": 0.37
+     },
+     {
+      "ax": "x",
+      "pos": 12.625,
+      "role": "stem (upright)",
+      "off": 0.25
+     }
+    ],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 9,
+    "jitterShapeFlips": 0
+   },
+   "72@3x": {
+    "before": {
+     "n": 5,
+     "soft": 3,
+     "mean": 0.259
+    },
+    "after": {
+     "n": 5,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.083,
+    "maxMoveDev": 0.75,
+    "centreShiftPx": 0.058,
+    "areaChange": -0.7,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.25,
+      "dev": 11
+     }
+    ],
+    "worst": [
+     {
+      "ax": "y",
+      "pos": 17.728,
+      "role": "outer edge",
+      "off": 0.44
+     },
+     {
+      "ax": "x",
+      "pos": 12.625,
+      "role": "stem (upright)",
+      "off": 0.38
+     },
+     {
+      "ax": "x",
+      "pos": 11.375,
+      "role": "stem (upright)",
+      "off": 0.38
+     }
+    ],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 2,
+    "jitterShapeFlips": 0
+   }
+  },
+  "Star": {
+   "12@2x": {
+    "before": {
+     "n": 0,
+     "soft": 0,
+     "mean": 0
+    },
+    "after": {
+     "n": 0,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0,
+    "maxMoveDev": 0,
+    "centreShiftPx": 0,
+    "areaChange": 0,
+    "stems": [],
+    "worst": [],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "12@3x": {
+    "before": {
+     "n": 0,
+     "soft": 0,
+     "mean": 0
+    },
+    "after": {
+     "n": 0,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0,
+    "maxMoveDev": 0,
+    "centreShiftPx": 0,
+    "areaChange": 0,
+    "stems": [],
+    "worst": [],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "18@2x": {
+    "before": {
+     "n": 0,
+     "soft": 0,
+     "mean": 0
+    },
+    "after": {
+     "n": 0,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0,
+    "maxMoveDev": 0,
+    "centreShiftPx": 0,
+    "areaChange": 0,
+    "stems": [],
+    "worst": [],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "18@3x": {
+    "before": {
+     "n": 0,
+     "soft": 0,
+     "mean": 0
+    },
+    "after": {
+     "n": 0,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0,
+    "maxMoveDev": 0,
+    "centreShiftPx": 0,
+    "areaChange": 0,
+    "stems": [],
+    "worst": [],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "23@2x": {
+    "before": {
+     "n": 0,
+     "soft": 0,
+     "mean": 0
+    },
+    "after": {
+     "n": 0,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0,
+    "maxMoveDev": 0,
+    "centreShiftPx": 0,
+    "areaChange": 0,
+    "stems": [],
+    "worst": [],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "23@3x": {
+    "before": {
+     "n": 0,
+     "soft": 0,
+     "mean": 0
+    },
+    "after": {
+     "n": 0,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0,
+    "maxMoveDev": 0,
+    "centreShiftPx": 0,
+    "areaChange": 0,
+    "stems": [],
+    "worst": [],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "24@2x": {
+    "before": {
+     "n": 0,
+     "soft": 0,
+     "mean": 0
+    },
+    "after": {
+     "n": 0,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0,
+    "maxMoveDev": 0,
+    "centreShiftPx": 0,
+    "areaChange": 0,
+    "stems": [],
+    "worst": [],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "24@3x": {
+    "before": {
+     "n": 0,
+     "soft": 0,
+     "mean": 0
+    },
+    "after": {
+     "n": 0,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0,
+    "maxMoveDev": 0,
+    "centreShiftPx": 0,
+    "areaChange": 0,
+    "stems": [],
+    "worst": [],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "72@2x": {
+    "before": {
+     "n": 0,
+     "soft": 0,
+     "mean": 0
+    },
+    "after": {
+     "n": 0,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0,
+    "maxMoveDev": 0,
+    "centreShiftPx": 0,
+    "areaChange": 0,
+    "stems": [],
+    "worst": [],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "72@3x": {
+    "before": {
+     "n": 0,
+     "soft": 0,
+     "mean": 0
+    },
+    "after": {
+     "n": 0,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0,
+    "maxMoveDev": 0,
+    "centreShiftPx": 0,
+    "areaChange": 0,
+    "stems": [],
+    "worst": [],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   }
+  },
+  "Add": {
+   "12@2x": {
+    "before": {
+     "n": 12,
+     "soft": 8,
+     "mean": 0.162
+    },
+    "after": {
+     "n": 12,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.34,
+    "maxMoveDev": 0.34,
+    "centreShiftPx": 0,
+    "areaChange": 29.1,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.515,
+      "dev": 2
+     },
+     {
+      "ax": "x",
+      "w": 1.515,
+      "dev": 2
+     },
+     {
+      "ax": "y",
+      "w": 1.515,
+      "dev": 2
+     },
+     {
+      "ax": "y",
+      "w": 1.515,
+      "dev": 2
+     }
+    ],
+    "worst": [
+     {
+      "ax": "x",
+      "pos": 12.758,
+      "role": "stem (upright)",
+      "off": 0.24
+     },
+     {
+      "ax": "y",
+      "pos": 12.758,
+      "role": "horizontal",
+      "off": 0.24
+     },
+     {
+      "ax": "x",
+      "pos": 11.242,
+      "role": "stem (upright)",
+      "off": 0.24
+     },
+     {
+      "ax": "x",
+      "pos": 12.758,
+      "role": "stem (upright)",
+      "off": 0.24
+     }
+    ],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "12@3x": {
+    "before": {
+     "n": 12,
+     "soft": 8,
+     "mean": 0.091
+    },
+    "after": {
+     "n": 12,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.128,
+    "maxMoveDev": 0.19,
+    "centreShiftPx": 0,
+    "areaChange": -11.3,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.515,
+      "dev": 2
+     },
+     {
+      "ax": "x",
+      "w": 1.515,
+      "dev": 2
+     },
+     {
+      "ax": "y",
+      "w": 1.515,
+      "dev": 2
+     },
+     {
+      "ax": "y",
+      "w": 1.515,
+      "dev": 2
+     }
+    ],
+    "worst": [
+     {
+      "ax": "x",
+      "pos": 11.242,
+      "role": "stem (upright)",
+      "off": 0.14
+     },
+     {
+      "ax": "y",
+      "pos": 11.242,
+      "role": "horizontal",
+      "off": 0.14
+     },
+     {
+      "ax": "y",
+      "pos": 12.758,
+      "role": "horizontal",
+      "off": 0.14
+     },
+     {
+      "ax": "x",
+      "pos": 11.242,
+      "role": "stem (upright)",
+      "off": 0.14
+     }
+    ],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "18@2x": {
+    "before": {
+     "n": 12,
+     "soft": 8,
+     "mean": 0.091
+    },
+    "after": {
+     "n": 12,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.128,
+    "maxMoveDev": 0.19,
+    "centreShiftPx": 0,
+    "areaChange": -11.3,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.515,
+      "dev": 2
+     },
+     {
+      "ax": "x",
+      "w": 1.515,
+      "dev": 2
+     },
+     {
+      "ax": "y",
+      "w": 1.515,
+      "dev": 2
+     },
+     {
+      "ax": "y",
+      "w": 1.515,
+      "dev": 2
+     }
+    ],
+    "worst": [
+     {
+      "ax": "x",
+      "pos": 11.242,
+      "role": "stem (upright)",
+      "off": 0.14
+     },
+     {
+      "ax": "y",
+      "pos": 11.242,
+      "role": "horizontal",
+      "off": 0.14
+     },
+     {
+      "ax": "y",
+      "pos": 12.758,
+      "role": "horizontal",
+      "off": 0.14
+     },
+     {
+      "ax": "x",
+      "pos": 11.242,
+      "role": "stem (upright)",
+      "off": 0.14
+     }
+    ],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "18@3x": {
+    "before": {
+     "n": 12,
+     "soft": 12,
+     "mean": 0.364
+    },
+    "after": {
+     "n": 12,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.442,
+    "maxMoveDev": 0.99,
+    "centreShiftPx": 0.314,
+    "areaChange": -11.3,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.515,
+      "dev": 3
+     },
+     {
+      "ax": "x",
+      "w": 1.515,
+      "dev": 3
+     },
+     {
+      "ax": "y",
+      "w": 1.515,
+      "dev": 3
+     },
+     {
+      "ax": "y",
+      "w": 1.515,
+      "dev": 3
+     }
+    ],
+    "worst": [
+     {
+      "ax": "y",
+      "pos": 6,
+      "role": "outer edge",
+      "off": 0.5
+     },
+     {
+      "ax": "x",
+      "pos": 6,
+      "role": "outer edge",
+      "off": 0.5
+     },
+     {
+      "ax": "x",
+      "pos": 18,
+      "role": "outer edge",
+      "off": 0.5
+     },
+     {
+      "ax": "y",
+      "pos": 18,
+      "role": "outer edge",
+      "off": 0.5
+     }
+    ],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "23@2x": {
+    "before": {
+     "n": 12,
+     "soft": 12,
+     "mean": 0.468
+    },
+    "after": {
+     "n": 12,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.404,
+    "maxMoveDev": 0.77,
+    "centreShiftPx": 0.369,
+    "areaChange": 3.1,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.515,
+      "dev": 3
+     },
+     {
+      "ax": "x",
+      "w": 1.515,
+      "dev": 3
+     },
+     {
+      "ax": "y",
+      "w": 1.515,
+      "dev": 3
+     },
+     {
+      "ax": "y",
+      "w": 1.515,
+      "dev": 3
+     }
+    ],
+    "worst": [
+     {
+      "ax": "y",
+      "pos": 6,
+      "role": "outer edge",
+      "off": 0.5
+     },
+     {
+      "ax": "x",
+      "pos": 6,
+      "role": "outer edge",
+      "off": 0.5
+     },
+     {
+      "ax": "x",
+      "pos": 18,
+      "role": "outer edge",
+      "off": 0.5
+     },
+     {
+      "ax": "y",
+      "pos": 18,
+      "role": "outer edge",
+      "off": 0.5
+     }
+    ],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "23@3x": {
+    "before": {
+     "n": 12,
+     "soft": 12,
+     "mean": 0.298
+    },
+    "after": {
+     "n": 12,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.351,
+    "maxMoveDev": 1.01,
+    "centreShiftPx": 0.246,
+    "areaChange": -9.1,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.515,
+      "dev": 4
+     },
+     {
+      "ax": "x",
+      "w": 1.515,
+      "dev": 4
+     },
+     {
+      "ax": "y",
+      "w": 1.515,
+      "dev": 4
+     },
+     {
+      "ax": "y",
+      "w": 1.515,
+      "dev": 4
+     }
+    ],
+    "worst": [
+     {
+      "ax": "x",
+      "pos": 12.758,
+      "role": "stem (upright)",
+      "off": 0.32
+     },
+     {
+      "ax": "y",
+      "pos": 12.758,
+      "role": "horizontal",
+      "off": 0.32
+     },
+     {
+      "ax": "x",
+      "pos": 11.242,
+      "role": "stem (upright)",
+      "off": 0.32
+     },
+     {
+      "ax": "x",
+      "pos": 12.758,
+      "role": "stem (upright)",
+      "off": 0.32
+     }
+    ],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "24@2x": {
+    "before": {
+     "n": 12,
+     "soft": 8,
+     "mean": 0.323
+    },
+    "after": {
+     "n": 12,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.561,
+    "maxMoveDev": 1.12,
+    "centreShiftPx": 0.354,
+    "areaChange": -5.3,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.515,
+      "dev": 3
+     },
+     {
+      "ax": "x",
+      "w": 1.515,
+      "dev": 3
+     },
+     {
+      "ax": "y",
+      "w": 1.515,
+      "dev": 3
+     },
+     {
+      "ax": "y",
+      "w": 1.515,
+      "dev": 3
+     }
+    ],
+    "worst": [
+     {
+      "ax": "x",
+      "pos": 12.758,
+      "role": "stem (upright)",
+      "off": 0.48
+     },
+     {
+      "ax": "y",
+      "pos": 12.758,
+      "role": "horizontal",
+      "off": 0.48
+     },
+     {
+      "ax": "x",
+      "pos": 11.242,
+      "role": "stem (upright)",
+      "off": 0.48
+     },
+     {
+      "ax": "x",
+      "pos": 12.758,
+      "role": "stem (upright)",
+      "off": 0.48
+     }
+    ],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "24@3x": {
+    "before": {
+     "n": 12,
+     "soft": 8,
+     "mean": 0.182
+    },
+    "after": {
+     "n": 12,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.404,
+    "maxMoveDev": 1.21,
+    "centreShiftPx": 0.236,
+    "areaChange": 6,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.515,
+      "dev": 5
+     },
+     {
+      "ax": "x",
+      "w": 1.515,
+      "dev": 5
+     },
+     {
+      "ax": "y",
+      "w": 1.515,
+      "dev": 5
+     },
+     {
+      "ax": "y",
+      "w": 1.515,
+      "dev": 5
+     }
+    ],
+    "worst": [
+     {
+      "ax": "x",
+      "pos": 11.242,
+      "role": "stem (upright)",
+      "off": 0.27
+     },
+     {
+      "ax": "y",
+      "pos": 11.242,
+      "role": "horizontal",
+      "off": 0.27
+     },
+     {
+      "ax": "y",
+      "pos": 12.758,
+      "role": "horizontal",
+      "off": 0.27
+     },
+     {
+      "ax": "x",
+      "pos": 11.242,
+      "role": "stem (upright)",
+      "off": 0.27
+     }
+    ],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "72@2x": {
+    "before": {
+     "n": 12,
+     "soft": 8,
+     "mean": 0.303
+    },
+    "after": {
+     "n": 12,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.188,
+    "maxMoveDev": 1.13,
+    "centreShiftPx": 0.118,
+    "areaChange": -2.4,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.515,
+      "dev": 9
+     },
+     {
+      "ax": "x",
+      "w": 1.515,
+      "dev": 9
+     },
+     {
+      "ax": "y",
+      "w": 1.515,
+      "dev": 9
+     },
+     {
+      "ax": "y",
+      "w": 1.515,
+      "dev": 9
+     }
+    ],
+    "worst": [
+     {
+      "ax": "x",
+      "pos": 12.758,
+      "role": "stem (upright)",
+      "off": 0.45
+     },
+     {
+      "ax": "y",
+      "pos": 12.758,
+      "role": "horizontal",
+      "off": 0.45
+     },
+     {
+      "ax": "x",
+      "pos": 11.242,
+      "role": "stem (upright)",
+      "off": 0.45
+     },
+     {
+      "ax": "x",
+      "pos": 12.758,
+      "role": "stem (upright)",
+      "off": 0.45
+     }
+    ],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   },
+   "72@3x": {
+    "before": {
+     "n": 12,
+     "soft": 8,
+     "mean": 0.121
+    },
+    "after": {
+     "n": 12,
+     "soft": 0,
+     "mean": 0
+    },
+    "maxMovePx": 0.028,
+    "maxMoveDev": 0.26,
+    "centreShiftPx": 0,
+    "areaChange": 2.5,
+    "stems": [
+     {
+      "ax": "x",
+      "w": 1.515,
+      "dev": 14
+     },
+     {
+      "ax": "x",
+      "w": 1.515,
+      "dev": 14
+     },
+     {
+      "ax": "y",
+      "w": 1.515,
+      "dev": 14
+     },
+     {
+      "ax": "y",
+      "w": 1.515,
+      "dev": 14
+     }
+    ],
+    "worst": [
+     {
+      "ax": "x",
+      "pos": 12.758,
+      "role": "stem (upright)",
+      "off": 0.18
+     },
+     {
+      "ax": "y",
+      "pos": 12.758,
+      "role": "horizontal",
+      "off": 0.18
+     },
+     {
+      "ax": "x",
+      "pos": 11.242,
+      "role": "stem (upright)",
+      "off": 0.18
+     },
+     {
+      "ax": "x",
+      "pos": 12.758,
+      "role": "stem (upright)",
+      "off": 0.18
+     }
+    ],
+    "fair": 0,
+    "join": 0,
+    "jitterFlips": 0,
+    "jitterShapeFlips": 0
+   }
+  }
+ }
+}
