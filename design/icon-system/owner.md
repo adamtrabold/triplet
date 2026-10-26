@@ -241,3 +241,4 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > (10-26, canvas comment on Brand signatures v258, "B · plinth sags") no this is bad... a building can't have a rounded base it will look like it's wobbling.
 > (10-26, canvas comment on Brand signatures v258, the museum swing proposal A, the lintel arch: Grid7Signatures #355:1/9/1/0/0/1/0) no i hate this too . what about the sides?
 > (10-26, canvas comment on Brand signatures v258, a proposal drawing: Grid7Signatures #516:1/9/8/0/0/0, likely the bag's) i can't see what the new icon would look like
+> (10-26, canvas comment on "Sharp at 2x and 3x", on "It runs per size and per screen, like t…" (the per-size, per-density fitting pass)) no i want the base grid to make great icons without extrawork
