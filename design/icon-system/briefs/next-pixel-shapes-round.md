@@ -144,3 +144,10 @@ Fold into this round:
 - Counters (the museum's openings, the coupe's band) try 2px, as a whole-px counter rule. Answer his construction question plainly: with posts at 1.5 and openings at 2px, what the museum's width becomes (or whether it drops a column), and how the beam, plinth and overhang follow from the proportions. Show the options as finished icons.
 - A minimum-protrusion rule: any feature that must read (the knife's edge past the handle, a step, a lip) sticks out at least a set amount (derive it, e.g. from the line or whole device px at 2x and 3x), so it's visible at 24. Apply to the fork and knife.
 - Shopping: he doesn't like any of the five (swing tag, basket, awning, parcel, till). Don't redesign it in this round; note it as open for a concept round.
+
+## Added after v264, second note (owner, verbatim)
+
+> also the star is way too fucking big -- it would never be in a circle. and the plus is never in a circle like that.
+
+- The boards show the star and the + inside badge rings; in the app they never sit in one. Present them as they actually appear: bare, in their real contexts (the star on a row and on the Hanging Tag, the + on its button; see `design/icon-system/inventory.md` for where and at what size each renders).
+- The star is far too big. Re-derive the line marks' size from their real contexts and slots, not from the badge's fitting rule, so they sit right beside the text and controls they live with. State it as a rule for every open or outline mark. Show before/after in context at true size.
