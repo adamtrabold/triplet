@@ -1,5 +1,15 @@
 # Visual designer notes: icon system
 
+## Update (2026-10-26, brand signatures round 3, canvas v260; product designer, visual)
+
+- **Why:** director turn 175 (7) + addenda: Shadow is a quality bar (moved to givens); Weight's either/or too easy; new standing test: a signature must FAIL Material/Phosphor/Lucide (and Apple); the bracket is out (owner: "really awkward ... apple-like methodology ... machined"; "bevel is *way* better"); museum base and lintel swings out (owner: "wobbling", "i hate this too . what about the sides?"); show proposals finished ("i can't see what the new icon would look like").
+- **Signature now: Weight, two tests:** (1) squashed: no circle, every curve an ellipse 4/5 or flatter; (2) machined where it carries: chamfer across a step or a cutter fillet, never a plain corner. Generic test on the board (cup, glass, museum, tree, fork, bag): ours pass, Material/Phosphor/Lucide fail every object. Finding: only curves and joins separate us at 24px. Owner's "no circles" note became test 1 (said plainly).
+- **Machined rule:** cutters fine 0.15 / medium 0.3 / broad 0.6; continuous-curvature ramp (1.5x radius along each edge); chamfer under an overhang (edges broken by fine), broad fillet into a curved face, medium into a flat face. Museum bevel, bar stem, fork neck pass; tree 0.42 -> broad; bed 0.38 -> medium.
+- **Proposals (finished, badge, 72 + 24, beside the six):** museum sides = entasis (outer column faces swell 1/6 line), capitals stay the bevel; bag A tote (ring level, sides bow, flat base); bag B paper (taller, hem cut). Hand-built (`museum_sides()`, `bag()`, `rpoly()` in the generator), not engine output. Blind read of the bags still owed.
+- **Board:** 1600 x 2081 at x 3360, y 300. Generator `grid/src/signatures-board.py <live Now> grid/reference/generic <out>`; generic SVGs in `grid/reference/generic/` (Material, Phosphor, Lucide with licences). Start here item 5 updated. Scratch in scratchpad `vsig/`.
+- **Note:** the pixel-fit designer recommends a 32px badge (Start item 6); my badge row is at the current 24.
+- **Open:** owner on Weight, the museum swell, bag A/B. Engine build of the machined rule (cutters + ramp) after he answers.
+
 ## Update (2026-10-26, brand signatures round 2, canvas v258; product designer, visual)
 
 - **Why a round 2:** director turn 173 scored v256 a 6 (his examples handed back; press = rule 17; travel signs and whimsy missing; the flare demo a drip and three flare shapes in the real icons; untrue "the two you objected to"). Owner on v256: the flare "awkwardly shaped ... all joints should feel architecturally sound"; "a creative place to add swoops to all objects"; the handle question ("what's the underlying shape that a handle is"); "swoop, flare, press are all things i've basically said verbatim".
