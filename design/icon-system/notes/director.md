@@ -465,3 +465,35 @@ The right direction: the six return at true size, and the fork and bed read as f
 ## Icon system, the mix in clean curves (v250, 2026-10-26): 9 after one honesty edit
 
 The six are exact at his zoom; the fork and bed are family. B's one rule didn't survive; the brand lives in kinds of root (mostly A). The board must say so, and drop v247's stale claims. Then show him the direction plus the bag question. Full entry in `icon-concepts/notes/director.md`; jam turn 171.
+
+## Icon system, brand signatures (v256, 2026-10-26): 6 (new director takes over)
+
+Set A ("one swoop, one flare, every icon pressed") has real yes/no tests built from root calls. But:
+- it echoes his examples back;
+- press is the existing rounds table;
+- travel signs and whimsy are missing.
+
+**His three comments on v256:**
+- "this is a really awkwardly shaped flare. all joints should feel architecturally sound"
+- "there is probably a creative place to add swoops to all objects."
+- The bag's handle is "meaningfully different from the handle of the cup".
+
+**At 100px a unit:**
+- The demo flare is nearly the post's width, taller than wide, with sharp corners.
+- The engine's flares come in three shapes: an S-swell (bar, fork: sound), a straight bevel on the outside edge (the museum's outer capitals: a pinch), and a plain fillet (bed).
+
+**Rules from now:**
+- A signature must pass all six approved icons and read at 24px.
+- A flare is one concave ellipse arc, tangent and smooth. Its size is set by the thinner part, and it is a bracket, not a drip. It goes only where a thinner part bears load into a heavier one; never on an outside edge, never between equals.
+- No object is exempt from the swoop. The beam-shed museum, the tent roof and pills are banned.
+- Loops are one family: the cup's ear and the bag's arch are decided by a stated rule, not by accident.
+
+Nine fixes are in `grid/jam.md` turn 173.
+
+**What keeps blocking (inherited):** joins that differ at a pattern level (10-22, again now), and claims on the board that overstate what he said.
+
+**Open:**
+- what the travel-sign cue is;
+- where whimsy lives;
+- the bag (perhaps via the handle rule);
+- the subpixel landing, which decides whether a 1/3-line flare can be a visible cue.

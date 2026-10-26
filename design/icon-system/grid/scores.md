@@ -1469,3 +1469,15 @@ The verdict stands within our own set:
 - **Now mostly A:** B's thickness rule is gone; the brand lives in the kinds of root. That fits his "brand built into the root calls".
 - **Edit:** say plainly that B's rule went, and supersede v247's "What's new" claims.
 - **Then show him:** is the eight-root direction right? And how does he picture the bag? Jam turn 171.
+
+## Round: brand signatures (canvas v256), 2026-10-26: 6
+
+- **Real filters:** swoop and flare are countable tests built from root calls.
+- **Not his yet:**
+  - It repeats his two examples plus the existing rounds table.
+  - Travel signs and whimsy are missing.
+  - The flare demo is awkward ("all joints should feel architecturally sound"), and the real flare comes in three shapes, with a bevel on the museum's outer capitals.
+  - He answered question 1: every object gets a swoop.
+  - The handles follow no shared rule.
+- **Fixes:** a sound flare rule (shape, proportion, where); a swoop for every object; a handle and loop rule; press becomes a given; travel signs and whimsy get real tests; pass all six; check at 12/24/72; honesty; shorter.
+- **Jam turn 173.**
