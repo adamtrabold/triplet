@@ -597,3 +597,61 @@ He said "lets just keep the line weight and stuff where it was and just opimize 
 - **His v262 notes:** counters are shapes, nothing as thin as the ¾px band, the saucer is a shape. These now override any "cuts stay" claim. The pixel round handles them, including the museum's openings.
 
 **Next:** edits, then show him. After that: the pixel round, and a blind read of the tag by someone who hasn't seen it.
+
+## Icon system, sharp at 2x and 3x round 6: parts as shapes (v266, 2026-10-26): 8
+
+I rendered it myself in Chromium: the six in badges at 24 (DPR 1, 2, 3) and 72, every option beside its before, plus device-pixel runs on the fork and knife. Renderer: `grid/src/director-pixel-shapes-render.js`; stills in `grid/stills/pixel-shapes/director/`.
+
+**Answered truly:**
+- the saucer, beam and plinth are 2px shapes;
+- the band is 2px and the openings are 2px;
+- the + ends are whole;
+- the knife's edge is visible and the tines measure 1½ with 1px gaps;
+- the museum width is answered plainly (four columns = 13 wide; three keep the size);
+- the star and + are shown bare in the app.
+
+The star barely changes in the app (row 12.1 → 11, tag 13.4 → 13). Only the boards drew it big (16px in a ring). The board should say that first.
+
+**Not yet:**
+- **Museum A** (the designer's lean): +60% ink, crowds the ring at 24, outweighs the set. C (2px posts, 11 wide, 0 / 6 soft) is closest to approved.
+- **The coupe (fixed point):** every option changes the rim's cut (1/5 → 1/4), and the board doesn't say so. A empties the drink. B is a bigger glass. C (a 1½px band, his own "equal to the thickness of the stroke") breaks the board's "counters at least 2px" rule.
+- **The +'s stroke:** 1⅔ → 2px is a weight change, presented as done. A 1½px option exists: ¼px off centre, ends whole, 5K sharp, one iPhone edge soft like every line.
+- **The museum's ½px overhang:** it isn't named as a bevel or a protrusion, and rule 5's minimum protrusion is 1px.
+
+**The iPhone's 22 soft edges:** stated honestly. It is the trade for the kept 1½px line (one side, ⅙px). Put it to him as one line.
+
+**What keeps blocking (174, 178, 182):** the soft-edge count leads, and options are picked to win it. His standing asks by eye come second: the drink, the six's balance, the line weight. Lesson: score options in the six's row, not alone, and treat any width change made to land an edge as a weight change for him to choose.
+
+**Next:** the designer does fixes 1-5 (jam 182). Then I re-score. If it's a 9, his questions are the museum (in the row), the coupe (with drink depths), and the + at 2 vs 1½.
+
+## Icon system, sharp at 2x and 3x round 7 (v267, 2026-10-26): 8, 9 after three edits
+
+A fresh designer did all five turn-182 fixes. I re-rendered them myself (`grid/src/director-pixel-shapes-render-r7.js`; stills `grid/stills/pixel-shapes/director/r7-*`).
+
+**Seen in the renders:**
+- **Museum A** fails in the row.
+- **B¼** (B moved ¼px right: 0 / 6 soft, approved size, posts at the line) reads right at 24. At 72 the move is invisible. It's narrower and taller than the approved temple.
+- **The + at 1½, ¼px off:** clean at 72.
+- **Coupe C** (the lean): drink 2 against the approved 2½.
+
+**Edits:**
+- six rows at 72, rendered at 72;
+- the coupe's "in your words" exception is a true but older quote (10-21). Put his latest, v264's "maybe they could go up to 2px?" (a question), beside it, and say C's drink loss in words;
+- drop B (it's B¼, only softer).
+
+**The four questions for him** are in jam 184, worded exactly.
+
+**Lessons:**
+- An exception "in his words" carries the quote's date and sits beside his latest word on the same thing.
+- A new drawing reaches him rendered at 72, not as a scaled bitmap.
+
+**Next:** the designer makes the three edits. Then show him, without another score unless a drawing changes.
+
+## Icon system, sharp at 2x and 3x round 7b (v268, 2026-10-26): 9 after one edit
+
+All three turn-184 edits are true on the board.
+- **The knife section was cut, and that's fine:** the rows at 72 and 24 show the fork and knife before and after.
+- **The gap:** the tag star shots were cut while question 4 still asks about the tag. Put them back, or trim the question.
+- **Then show him the four questions** (jam 186).
+
+**Lesson:** when a board is trimmed to fit the cap, check that every question still has its picture.

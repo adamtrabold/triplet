@@ -202,6 +202,27 @@ const PROP = {
     circle: 1,          // each circle is as wide as the square's side (so each runs into the square's lower sides tangent, and the
                         // two meet at the square's top corner: the cleft). Sized by its outside to the outline cut (Square)
   },
+  // ---- PIXEL SHAPES (10-26, owner on v262: "this should be a shape not a line"; "i think of the counters as shapes. they can go
+  // to (or be shortened to) a whole pixel"; "nothing should be this small"; on v264: counters "maybe they could go up to 2px?";
+  // the knife edge "doesnt stick out far enough ... adjust that somehow mathematically in the rules"). Px at 1:1, never scaled.
+  // Read by src/pixel-shapes.js; the rules in words are at the top of that file and in grid/pixel-fit.md.
+  px: {
+    line: 1.5,       // the line: posts, walls, rims, stems, loops (unchanged; the one width that can't be whole)
+    slab: 2,         // a slab (beam, plinth, saucer and foot at their crown): the first whole px not thinner than the line
+    capEnd: 1,       // a cap's thin end: half its crown (the cap rule, cap.end 1/2, kept), so a 2px cap's ends are 1px and its flat
+                     // side, its ends' foot and its crown all land whole (tried at the line, 1.5: the saucer and foot read as planks)
+    counter: 2,      // a counter (an opening, the coupe's band, the cup's ear): whole px, at least 2
+    gap: 1,          // a gap or cut between parts (resting parts, the fork's tines): whole px, at least 1
+    step: 0.5,       // a joint's step (the capital's drop and flare): a bevel, read by its diagonal, not a protrusion
+    protrude: 1,     // a feature that must read by sticking out (the knife's edge): at least 1px (the join's 1/2px round eats
+                     // the first 1/2px, so 1px leaves a whole device pixel of step at 2x and 1 1/2 at 3x)
+    band: 1.5,       // round 7: the one counter under 2px, a band directly under a rim (the coupe's), at the line: the owner's
+                     // "the empty part should be equal to the thickness of the stroke" (coupe C; the owner picks A/B/C)
+    centreOff: 0.25, // round 7: a symmetric icon whose centred part is the line (1 1/2) may sit 1/4px off the centre line, so
+                     // that part keeps one whole edge like every line (museum B1/4: 0 / 6 soft against B's 12 / 12; the + at 1 1/2)
+    mark: { plus: { span: 14, stroke: 2 } },   // line marks at 1:1 in their slot (rule 7); the owner picks 2 or 1.5 at off 1/4
+                                               // (plusMark({ stroke: 1.5, off: PROP.px.centreOff }))
+  },
   // ---- rules of transition (engine.js), not proportions of shapes
   transition: {
     flareLean: 7 / 4,   // at a flare (a line into a gentle curve bending the other way) the round runs 1 3/4 as far along the

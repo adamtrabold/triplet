@@ -1373,3 +1373,180 @@ Nothing is added. This is the first round where using his words is right, becaus
 **Changed since my last score?** Yes, entirely: his direction is applied; the swoop, Weight and the cheeky proposals are gone; the rack is corrected; the Shopping subjects are new.
 
 NEXT: visual designer: edits 1-4, then show him. The machined rule can go to the engine now.
+
+---
+
+## Turn 181: icon designer (pixel shapes), parts as shapes on whole pixels; counters 2px; the knife's edge; the star and + where they live (canvas v266)
+
+His five marks on v262 and two notes on v264 (verbatim in `briefs/next-pixel-shapes-round.md`), built into the system: `PROP.px` in `src/proportions.js`, root calls in `src/pixel-shapes.js` (badge px at 1:1, through mix-curves' root law and the engine, unchanged). No fitting pass.
+
+**The rules (seven):** slabs and shapes whole px, a slab 2px; the line stays 1½ (one edge whole, one half); counters whole, at least 2px, gaps whole, at least 1px; no ink part under 1½ (a cap's ends keep the cap rule: 1px at a 2px crown); a protrusion that names the object at least 1px (the join's ½px round eats the first ½px); symmetric icons stay centred (a centred part lands only at an even width); line marks 1:1 in their slot, sized by what sits beside them.
+
+**Soft core edges, the six:** 5K 35 → 5, iPhone 47 → 22 (of 64). Fork and knife 13 / 18 → 2 / 5. Table in `pixel-fit.md` round 6.
+
+**Tried and dropped:** cap ends at the line (1½) read as planks (saucer, foot); 2×3px museum openings read as windows (now 4px tall); a 2px band in the approved bowl leaves a sliver of drink, so the coupe goes to him as three options.
+
+**His construction question, answered:** four 1½ columns and three 2px openings are 12, plus ½ each side: 13px wide (was 9.8). A: four columns, bigger (ink +60%); B: three, same size, the middle column can't land (soft on both); C: three, 2px posts, all sharp, posts heavier. We lean A (opinion).
+
+**Coupe:** A same glass (drink 1½), B glass 12 wide (drink 2½), C band 1½ (his "equal to the thickness of the stroke").
+
+**Knife:** edge 1px past the handle (was ¾); tines 1px apart (were ¾). Reads at 24 on both screens.
+
+**Star and +:** shown bare in the real app (row, Hanging Tag, the + button, via the gesture harness), before/after at 2x and 3x. Row star 11px tall (the name's cap height); tag star 13 (its neighbours'; the old rule gave 13.4: it already fit). The boards' 24-in-a-ring showed it 16 tall, which is what read too big. + 14 across, 2px stroke, 0 / 0 soft (was 6 / 8). App-side: the row star's box and the + button sit off whole px today (a CSS fix ships with them).
+
+**Unsure:** whether 2px slabs still read as one weight beside 1½ posts (the museum and saucer are darker); whether he wants the centred 1½ stems (coupe, trunk) at 2px too. Shopping not touched (parallel round).
+
+NEXT: design director: score v266 "Sharp at 2x and 3x" at his zoom (the museum and coupe options, the star and + in context), then to him with the board's three questions.
+
+---
+
+## Turn 182: design director, Sharp at 2x and 3x round 6, parts as shapes (v266): 8; five fixes, then show him
+
+I rendered the outlines myself in Chromium (`src/director-pixel-shapes-render.js`): the six in their badges at 24 (DPR 1, 2, 3) and 72, before beside every option, and read device-pixel runs on the fork and knife. Stills are in `stills/pixel-shapes/director/`. I also read the live board: 2,394px, under the 2,400 cap.
+
+**His marks, as finished icons at true size:**
+- **1, the saucer:** a 2px shape now, with its flat side and low point whole and 1px ends. A true answer.
+- **2, the ¾px band:** gone. At 2px, though, option A's drink is a sliver at 24, and the glass reads empty.
+- **3, the beam, and 4, the plinth:** both 2px shapes, with whole openings. True.
+- **5, the + ends:** whole, 0 / 0 soft. This was bought by moving the stroke from 1⅔ to 2px, so it is a weight change, not a placement.
+- **v264, counters at 2px:** done. The museum width is answered plainly: 13 wide with four columns, or three columns to keep the size.
+- **v264, the knife:** true. At 3x the edge shows about 2 device px past the handle (it was under 1). The tines measure 1½ with 1px gaps.
+- **v264, the star and the +:** shown bare in the app. There the star barely changes (row 12.1 → 11, tag 13.4 → 13). What was too big was our boards' 16px star in a ring. That is the true answer, and the board says it, but not first.
+
+**Do the six still read as approved?** The café, the tree and the fork and knife do. The museum and the coupe don't, because the board shows option A for both:
+- **Museum A** is the biggest glyph in the set: 13 wide, ink +60%. In the ring at 24 it crowds the badge and outweighs the café. C (three columns, 2px posts, 11 wide, 0 / 6 soft) is closest to the approved size and is all shapes. B is soft on both screens.
+- **The coupe** is a fixed point ("Coupe, after"). Every option moves the rim's cut from 1/5 to 1/4 of the bowl's height, and the board doesn't say so. A empties the drink, which would draw his eighth ask for more liquid. B is a bigger glass. C keeps the most drink, but its counter is 1½px, which breaks the board's own "counters at least 2px".
+
+**The +'s 2px stroke.** He said "plus might feel a bit light" (v223), so he may like it. But he also said "keep the line weight ... where it was", and my standing rule (v257) says a weight change goes to him as a choice, shown at true size, never as chosen. There is a 1½px answer: centre the stroke ¼px off (edges at 11.5 and 13). The ends and every 5K edge land. One edge per arm is soft on an iPhone, like every other line in the set.
+
+**The iPhone's 22 soft edges.** The board states this honestly ("one side stays half a pixel soft"). It is the price of the 1½px line he kept: one side, ⅙px. He can accept that once it's put to him as that trade, in one line, rather than sitting in the "can't land" list.
+
+**His likely objections:**
+- The museum is now too big and heavy for the set.
+- The coupe's drink is gone again, and the bowl's shape changed.
+- The + is bolder: did the weight change?
+- "Why is the iPhone still 22?"
+- Possibly the saucer's 1px ends ("nothing should go that thin"). The board's "tried 1½: planks" covers this.
+
+**Score: 8.** The work changed a lot and every mark gets a real answer. But two of the six don't read as approved in the options shown first, and one weight change is presented as decided.
+
+**Fixes:**
+1. **The six row, per museum option:** show the row with each museum option in place (A, B, C, at 24, in their badges), so he judges the set's balance and not the building alone. Drop "we lean A" unless it survives that row, and put its +60% beside it.
+2. **The coupe:** say on the board that the rim's cut moved (1/5 → 1/4) and that the "Coupe, after" bowl changes. Show the approved coupe beside A, B and C at 72 and 24, with the drink depth under each (approved: 2½). If C stays, either say in his words that it is the one exception to "counters at least 2px", or make the rule match.
+3. **The +:** show 2px and 1½px (¼px off centre, ends whole) side by side, in the button at true size. Ask which; don't call 2px done.
+4. **The museum's ½px overhang:** name it in one line. Is it a bevel (exempt, like the capitals) or a protrusion (rule 5 says at least 1px)?
+5. **The star and the iPhone count:** lead the star section with the true answer: "In the app it was already about this size; our boards drew it 16px in a ring." Put the iPhone's 22 near the top as one plain trade line: "the 1½px line you kept: one side ⅙px soft on an iPhone."
+
+Keep the board at or under 2,400px. Fix 1 replaces the separate museum strip; it doesn't add to it.
+
+**What keeps blocking (turns 174, 178, 182):** the headline number (soft edges) leads, and his standing asks by eye (the drink, the balance of the six, the line weight) come second. Options get chosen to win the count: A's 0 soft on the 5K, the +'s 0 / 0. The count is our measure; his test is how the six look.
+
+NEXT: icon designer (pixel shapes): fixes 1-5 on the same board. No new drawing except the 1½px + and the six rows. Then back to me.
+
+---
+
+## Turn 183: icon designer (pixel shapes, new to the seat), the director's five fixes on v266 (canvas v267)
+
+Board "Sharp at 2x and 3x" rewritten in place (940 × 2393, measured in Chromium); v266's archived whole (`Archive-G7bi-Sharp.dc.html`). Numbers and method: `grid/pixel-fit.md` round 7.
+
+**1, the museum in the six.** Five rows at 24 in their badges, only the museum changing (coupe C in each). A doesn't survive the row: it is the biggest glyph and crowds its ring, so "we lean A" is gone. I added one drawing the director didn't ask for, and say why: **B¼**, three columns at the line moved ¼px right. It is the director's own + fix (a 1½px part can't centre on whole px, so sit it ¼px off) applied to the museum's middle column. Every column keeps one whole edge: 0 / 6 soft (B 12 / 12, C 0 / 6), at the approved size (+13% ink), posts at the line. That makes the ¼px move a rule (rule 6) rather than a + one-off. We lean B¼ (opinion).
+
+**2, the coupe.** The board now says the rim's cut moved ⅕ → ¼ (bowl 4.8 → 5 deep) in every option, and shows the approved glass beside A, B, C at 72 and 24 with a measured table: drink 2½ / 1½ / 2½ / 2, band ¾ / 2 / 2 / 1½. C is squared with the rule by naming it the one exception, in his words ("equal to the thickness of the stroke"). The plain arithmetic: a 2px band plus 2½ of drink needs a 6px bowl, wider (B) or deeper (he ruled deeper out). We lean C (opinion); B if the band must be 2px.
+
+**3, the +.** 2px beside 1½px ¼px off, in the app's button at true size and per device pixel; asked, not called done. 1½: 0 / 4 soft, the weight he kept, the arms ½px unequal (6½ / 6). While shooting I found round 6's in-app + "now" shots were 0.22px off (the button's transform was mid-transition), so they showed soft pixels; the shot tool now places the button by left/top. Round 6's 0 / 0 came from the outline and stands.
+
+**4, the overhang.** A bevel, not a protrusion: it is all curve from column into slab (no straight step), his own "bevel of the plinth ends into the columns". It stays ½px; its ends sit on half px (soft on an iPhone). One line in the rules.
+
+**5.** The star section opens with "In the app the star was already about this size; our boards drew it 16px tall in a ring." The iPhone count is a boxed trade line under the title: the 1½px line he kept is 4½ iPhone pixels, one side ⅙px soft; sharp needs a 2px line or a per-screen pass, both turned down. The counts follow, smaller, and the board says "judge the six by eye; the counts are ours" (the director's blocking note on turns 174, 178, 182).
+
+**Soft edges, the six as the board leans:** 5K 35 → 5, iPhone 47 → 21 (22 in v266, with A and the 2px +).
+
+**Unsure:** whether ½px of unequal arms on the 1½ + shows to him on the 5K (it doesn't to us at true size); whether he reads B¼'s three columns as the same building (he asked whether the width "would need to account", which allows either).
+
+NEXT: design director: score v267 against turn 182's fixes (the six rows, the coupe table, the + pair), then to him with the board's three questions.
+
+---
+
+## Turn 184: design director, Sharp at 2x and 3x round 7 (v267): 8; 9 after three edits, then show him
+
+I re-rendered the outlines myself (`src/director-pixel-shapes-render-r7.js`). Five six-rows in their badges: approved, then the museum as A, B, B¼ and C, each with coupe C. Plus the + at before, 2px and 1½ ¼px off, on its orange. All at 24 (DPR 2, 3) and 72. Stills are `stills/pixel-shapes/director/r7-*`. I read the live board: 2,393px.
+
+**Turn 182's fixes, checked against the pixels:**
+1. **The museum in the row:** done, and it changed the answer. A crowds its ring in the row; the lean moved off it.
+   - B¼ is the same drawing as B, moved ¼px right. At 72 the move can't be seen. At 24 it reads as the set's size and weight.
+   - The board shows B¼ only at 24, plus that 24 bitmap scaled up 1½. That is not a render at his zoom. **New drawings go to him finished at 72.**
+2. **The coupe:** the cut change (⅕ → ¼, 4.8 → 5 deep) is stated, with a measured table. The arithmetic is honest: a 2px band plus 2½ of drink needs a 6px bowl.
+   - The exception's quote is verbatim and his ("the empty part should be equal to the thickness of the stroke", 10-21, owner.md line 193).
+   - But his latest word on counters is v264's question, "the museum and coupe counters are reading as too small now -- maybe they could go up to 2px?" Headed "in your words" with no date, the rule reads as if the 10-21 quote were his current call.
+   - The lean C has **less drink than approved** (2 against 2½). His most repeated ask is more liquid: "coupe after needs slightly more drink". The table shows it; the words don't say it.
+3. **The +:** shown as a choice, in its button and per device pixel, with ink and soft counts. Both are clean at 72; the ½px unequal arms don't show. Done.
+4. **The overhang:** named a bevel, with his "bevel of the plinth ends into the columns". Done.
+5. **The star and the iPhone trade:** both lead, in plain words. Done.
+
+**His likely objections:**
+- "There's still not enough drink" (C), or "bigger glass?" (B).
+- B¼'s three columns are narrower and taller than the approved temple. He'll want to see it big before choosing.
+
+**Score: 8, 9 after three edits** (no new drawing):
+1. Add the six row at 72, rendered at 72 (not scaled from 24), for A, B¼ and C. Fix 3 frees the room.
+2. Coupe: give the 10-21 quote its date and put his v264 question beside it. Say in words that C has ½px less drink than approved and B keeps it in a bigger glass.
+3. Drop B from question 1, or mark it "B¼ with the middle column soft". It is B¼'s drawing, only softer, so it isn't a real choice.
+
+**Then to him, exactly:**
+1. "Museum, in the row: A (four columns, 13 wide), B¼ (three columns, the approved size) or C (three columns, 2px posts)?"
+2. "Coupe: C (band at the line, same glass, ½px less drink than approved), B (2px band, drink kept, a bigger glass) or A (2px band, much less drink)?"
+3. "The +: 2px, or your 1½px set ¼px off centre?"
+4. "Do the star (11 in the row, 13 on the tag) and the + sit right in their places?"
+
+**What keeps blocking (now easing):** the count no longer leads. What's left: older quotes stand in for his latest words, and new drawings stop short of his zoom.
+
+NEXT: icon designer (pixel shapes): edits 1-3 on the same board, ≤ 2,400px. Then the orchestrator shows him, unless an edit changes a drawing.
+
+---
+
+## Turn 185: icon designer (pixel shapes), turn 184's three edits (canvas v268)
+
+No drawing changed. Board in place, 940 × 2373 measured; v267's archived whole (`Archive-G7bj-Sharp.dc.html`, Archive x 4740 y 210000).
+
+1. **The six at 72, drawn at 72** (rendered at 72, DPR 2, not scaled) for approved, A, B¼ and C, beside the true-size rows. Each row now gives the museum's size: approved 9.8 × 9.6; A 13 × 12.3; **B¼ 9.5 × 11.7, as narrow as approved but 2px taller** (4px columns, 2px slabs); C 11 × 12. Question 1 says "the approved width, 2px taller", not "the approved size": the height change is visible at 72, so the board names it.
+2. **Coupe:** the exception is dated (10-21, owner.md line 193) with his v264 question beside it ("maybe they could go up to 2px?", which points to A or B). The caption opens "C has ½px less drink than approved (2 against 2½)"; B keeps the drink in a bigger glass; A has much less.
+3. **Museum B dropped** (it was B¼'s drawing, only softer, 12 / 12), noted in one line.
+
+Room: the knife section went (unchanged since v266; it is on the archived boards, and the protrusion rule names it), the row star and the + buttons share one line, and the labels are tighter. The questions are the director's four, as written, except for the B¼ wording above.
+
+NEXT: orchestrator: show him v268 (the four questions).
+
+---
+
+## Turn 186: design director, Sharp at 2x and 3x round 7b (v268): 9 after one edit, then show him
+
+I checked v268 against the live board (2,373px) and the new 72 stills. The outlines are unchanged since v267, so my r7 renders still hold.
+
+**Turn 184's three edits:**
+1. **The six at 72, drawn at 72:** done for approved, A, B¼ and C, and it matches my renders. B¼ is named as it is: "approved width, 2px taller".
+2. **The coupe's exception:** the 10-21 quote is dated, his v264 "maybe they could go up to 2px?" sits beside it, and "C has ½px less drink than approved" is in words.
+3. **B:** dropped, with the reason given.
+
+**The knife section's removal is fine.** The approved row at 72 sits above three rows with the new fork and knife, so his v264 knife question is answered visibly, before against after, at 72 and 24. Rule 5 also names it in words.
+
+**One gap:** the Hanging Tag shots went with the trim, yet question 4 asks about the star "13 on the tag". He would be judging something not on the board ("i can't see what the new icon would look like").
+
+**Edit:** put the tag before/now pair back (two images, about 60px tall). Or, if that breaks the cap, cut question 4 to "the star (11 in the row) and the +". No drawing changes.
+
+**Score: 9 after that edit.** No re-score is needed for it.
+
+**Questions for him, exactly as on the board:**
+1. "Museum, in the row: A (four columns, 13 wide), B¼ (three columns, the approved width, 2px taller) or C (three columns, 2px posts)?"
+2. "Coupe: C (band at the line, same glass, ½px less drink than approved), B (2px band, drink kept, a bigger glass) or A (2px band, much less drink)?"
+3. "The +: 2px, or your 1½px set ¼px off centre?"
+4. "Do the star (11 in the row, 13 on the tag) and the + sit right in their places?"
+
+NEXT: icon designer: the tag edit. Then the orchestrator shows him.
+
+---
+
+## Turn 187: icon designer (pixel shapes), turn 186's edit (canvas v269)
+
+The Hanging Tag star before / now pair is back, beside the + buttons (13.4 → 13px tall), so question 4 has its pictures. To keep the board under the cap: the "Visible:" caption under the pixel rows went, the star line is shorter, and the frame padding is tighter. No drawing changed. Board 940 × 2393 measured; v268 archived whole (`Archive-G7bk-Sharp.dc.html`, Archive x 5760 y 210000). Phone stills of the final board: `stills/pixel-shapes/r7/sharp-v269-1..3.png` (1504 wide).
+
+NEXT: orchestrator: show him v269.
