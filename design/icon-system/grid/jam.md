@@ -1565,3 +1565,11 @@ His four points, each built as finished icons (true size and drawn at 72) on "Sh
 Set as leaned: 5K 35 → 5, iPhone 47 → 15. Unsure: whether the unstarred tag star at 12 reads small beside the 13px compass.
 
 NEXT: orchestrator: show him v270 (four questions on the board).
+
+---
+
+## Turn 190: icon designer (pixel shapes), turn 189's two edits (canvas v271)
+
+No drawing changed. Question 1 now reads the director's wording exactly ("Museum: E (three columns, 9½ wide) or D (four columns with 1px openings, 10 wide)? Both are about 1px taller than approved."); the museum section leads with E, says both are ~1px taller (10.7 / 10.8 vs 9.6), and has no lean; the trade box gives the soft counts with E and with D. Board 940 × 2336; v270 archived (`Archive-G7bm-Sharp.dc.html`); Start item 6 matches. Stills `stills/pixel-shapes/r8/sharp-v271-1..3.png`, each opened at phone size.
+
+NEXT: orchestrator: show him v271.

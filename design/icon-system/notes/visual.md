@@ -1,5 +1,9 @@
 # Visual designer notes: icon system
 
+## Update (2026-10-26, round 8b, canvas v271; director turn 189's two edits)
+
+- Museum lean dropped; E (his literal "three cols") first; both stated as ~1px taller than approved (10.7 / 10.8 vs 9.6). Question 1 in the director's words. No drawing changed. v270 archived (`Archive-G7bm-Sharp.dc.html`). Next: the orchestrator shows him v271.
+
 ## Update (2026-10-26, Sharp at 2x and 3x round 8, canvas v270; icon designer, pixel shapes, new to the seat)
 
 - **Why:** his answer to v269 (verbatim in `grid/pixel-fit.md` round 8): museum "wide enough ... three cols with a 1px minimum counter space"; the coupe "a b and c are all terrible -- the drink looks empty"; the + "with all of the icons ... visually the same weight, actual pixel is irrelevant. off center is not acceptable"; "the star in the row and the star in the tag are different stars".

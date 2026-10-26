@@ -31,7 +31,7 @@ def board(local):
     b = f'<div style="font-size:15px;letter-spacing:.12em;font-weight:700;color:{DEEP};text-transform:uppercase">Icon grid · device pixels · round 8, your v269 answers</div>'
     b += f'<h1 style="margin:6px 0 10px;font-size:38px;line-height:1.1;color:{NAVY}">Sharp at 2x and 3x</h1>'
     b += p('Your four answers, built: the museum with a 1px minimum counter; a coupe that reads full; the + judged by eye beside every icon, always centred; one star, the same in the row and on the tag. Judge by eye; the counts are ours.', 17)
-    b += f'<div style="border-left:4px solid {ORANGE};padding:4px 0 4px 14px;margin:4px 0">' + p('<b>The trade you kept:</b> the 1½px line is 4½ iPhone pixels, so one side of each line is ⅙px soft there. Soft straight edges in the set as it leans (museum D, coupe E, the + at 2): 5K 35 → 5, iPhone 47 → 15.', 15, NAVY, 0) + '</div>'
+    b += f'<div style="border-left:4px solid {ORANGE};padding:4px 0 4px 14px;margin:4px 0">' + p('<b>The trade you kept:</b> the 1½px line is 4½ iPhone pixels, so one side of each line is ⅙px soft there. Soft straight edges in the set (coupe E, the + at 2): 5K 35 → 17 with museum E, → 5 with D; iPhone 47 → 23 with E, → 15 with D.', 15, NAVY, 0) + '</div>'
 
     # 1. the + beside every icon
     b += label('1 · The + beside every icon (always centred)', 18)
@@ -55,13 +55,13 @@ def board(local):
 
     # 3. the museum
     b += label('3 · The museum, 1px minimum counter', 18)
-    b += p('<b>Which one you meant:</b> "that icon" isn\'t named. We read it as the approved one (the most balanced in v269\'s rows), whose three counters were under 1px. <b>D</b> keeps its four columns and widens it just enough for 1px openings: 4 × 1½ + 3 × 1 = 9, plus the ½px bevel each side = <b>10 wide</b> (was 9.8). If you meant three columns: <b>E</b>, three columns at the approved height, 2px openings (what 9½ wide gives).', 15)
+    b += p('<b>E, as you wrote it:</b> three columns, <b>9½ wide</b>, 2px openings (what that width gives; the floor is 1px). "That icon" isn\'t named, so in case you meant the approved four-column one: <b>D</b> keeps four columns and widens just enough for 1px openings (4 × 1½ + 3 × 1 + the ½px bevels = <b>10 wide</b>, was 9.8). <b>Both are about 1px taller than approved</b> (10.7 and 10.8 against 9.6): the beam and plinth are now 2px shapes.', 15)
     b += f'<div style="display:grid;grid-template-columns:360px 1fr;gap:0 18px;align-items:start"><div>' + img('museum72', 'museums at 72', 352, local) + heads(['Approved', 'D', 'E', 'B¼ (v269)'], 88, 0, 6) + '</div>'
     b += '<div style="display:grid;grid-template-columns:76px 176px;gap:4px 10px;align-items:center">'
-    for k, n in [('was_museum', 'Approved'), ('museumD', 'D'), ('museumE', 'E')]:
+    for k, n in [('was_museum', 'Approved'), ('museumE', 'E'), ('museumD', 'D')]:
         b += head(n) + img(f'row-{k}-3x', f'the set with museum {n}', 176, local)
     b += '</div></div>'
-    b += cap('<b>D</b>: 10 × 10.8, ink +19%, columns 3px tall (⅓ of the colonnade), slabs 2px; 0 / 4 soft. The middle opening sits on the centre line at 1px, so its edges are half pixels (sharp on the 5K, soft on an iPhone). <b>E</b>: 9.5 × 10.7, ink +6%; its middle column centred at 1½px is soft on both screens (12 / 12). B¼ is withdrawn: it sat ¼px off centre.')
+    b += cap('<b>E</b>: 9.5 × 10.7, ink +6%; its middle column, centred at 1½px, is soft on both screens (12 / 12). <b>D</b>: 10 × 10.8, ink +19%, columns 3px tall (⅓ of the colonnade); 0 / 4 soft, its 1px middle opening on half pixels (sharp on the 5K, soft on an iPhone). No lean. B¼ is withdrawn: it sat ¼px off centre.')
 
     # 4. the coupe
     b += label('4 · The coupe, full', 18)
@@ -74,7 +74,7 @@ def board(local):
 
     # 5. pixels
     b += label('The set at 24, one block per device pixel (before / as it leans)', 18)
-    b += f'<div style="display:grid;grid-template-columns:60px 400px 400px;gap:6px 12px;align-items:center"><div></div>' + head('Before') + head('Now: café, coupe E, museum D, tree, fork and knife')
+    b += f'<div style="display:grid;grid-template-columns:60px 400px 400px;gap:6px 12px;align-items:center"><div></div>' + head('Before') + head('Now: café, coupe E, museum D (E: 12 / 12), tree, fork and knife')
     for t, d in [('5K', '2x'), ('iPhone', '3x')]:
         b += head(t, 15) + img(f'pix-was-{d}', f'{t}, before', 400, local, True) + img(f'pix-now-{d}', f'{t}, now', 400, local, True)
     b += '</div>'
@@ -93,7 +93,7 @@ def board(local):
     b += p('The 1½px line on an iPhone (one side ⅙px soft); the 1px middle opening of museum D on an iPhone; the coupe\'s stem and the trunk on the centre line; the capitals\' steps and the bevels\' ends at 3x; curves, diagonals and tips. Shopping is its own round.', 15)
 
     b += label('Waiting on you', 18)
-    for i, q in enumerate(['Museum: D (four columns as approved, 1px openings, 10 wide) or E (three columns, the approved height)?',
+    for i, q in enumerate(['Museum: E (three columns, 9½ wide) or D (four columns with 1px openings, 10 wide)? Both are about 1px taller than approved.',
                            'Coupe: E (drink 3, rim ½px higher) or D (drink 2½, the same glass)?',
                            'The +, centred: which reads the same weight as the set, 1½, 1¾ or 2?',
                            'The star: one star, 12px, in the row and on the tag. Right size?'], 1):

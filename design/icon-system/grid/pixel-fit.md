@@ -1,6 +1,8 @@
 # Sharp at 2x and 3x
 
-## Round 8 (10-26, canvas v270): the owner's answer to v269. CURRENT
+## Round 8 (10-26, canvas v270, edited v271): the owner's answer to v269. CURRENT
+
+**v271 (director turn 189, no drawing changed):** the museum lean is dropped and E (his "three cols") comes first; the board and question 1 say both options are about 1px taller than approved (E 10.7, D 10.8 vs 9.6; the slabs are now 2px). Soft counts in the trade box are given for both (with E: 5K 17, iPhone 23; with D: 5 / 15). Board 940 × 2336; v270 archived as `Archive-G7bm-Sharp.dc.html` (x 7800 y 210000); stills `stills/pixel-shapes/r8/sharp-v271-1..3.png`. The "Lean D" below is withdrawn.
 
 Owner, verbatim: "re museum what does it look like if we just make it wide enough (and the grid pattern for whatever grid its aligning with) to support three cols with a 1px minimum counter space? that icon feels the most visually balanced with the rest. for the coupe, a b and c are all terrible -- the drink looks empty. re: the plus, i need to see it with all of the icons -- it should look visually the same weight, actual pixel is irrelevant. off center is not acceptable. the star in the row and the star in the tag are different stars -- they need to be the same star for me to judge them."
 
