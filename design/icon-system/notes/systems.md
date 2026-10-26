@@ -1,5 +1,16 @@
 # Systems designer notes: icon system
 
+## Shopping, round 2 (2026-10-26, jam turn 8)
+
+- Round 1 failed the blind read (`shopping/blind-read-1.md`): K3 lampshade/toaster, J2 tap/pump, B1c reception.
+  Director 7: K3 3, J2 3; "every left-of-centre move changes the object or hides what reads as a shop".
+- Wrote `shopping/concepts/bag-plain.md`: the handle rule (counter = root, 2 deep, length = the grip; wall = line;
+  body closes; ½ fillet), which covers the cup's ear and the bag and rules out the shackle. Anti-misread table.
+  P1 ear turned up (~62), P2 square handle (~60.5), P3 cuffed paper bag (~62.5). Ceiling: museum 62.9.
+- Process note: twice this session the worktree index went stale after a fetch (staged reversions of others' commits);
+  fixed with `git reset --hard HEAD` (all my work was pushed) and then a merge. Check `git status` before merging.
+- Next: visual draws P1-P3; a fresh blind read; director; if it passes, the owner gets the "too common?" question.
+
 ## Shopping, concepts (2026-10-26, jam turn 4)
 
 - After turn 2 (visual: 15 sketches; B1 sign and F4 die-cut bag pushed, the rest killed) and turn 3 (director: B1

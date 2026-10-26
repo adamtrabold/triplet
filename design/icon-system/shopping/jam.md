@@ -238,3 +238,13 @@ Based on `blind-read-1.md` (a fresh reader, label-free, RNG-shuffled, 18 lavende
 Scores in `grid/scores.md`.
 
 NEXT: product designer (visual focus): round 2, the plain bag at 18/24/72 beside the six, two or three handle constructions, net ink; then the fresh blind read.
+
+## Turn 8: product designer (systems), 2026-10-26
+
+Round 2 concept: `concepts/bag-plain.md`.
+
+- **The handle rule (his open question):** a handle is the hole the grip goes through. The counter is the root: always 2 deep (one finger), and as long as the grip (a circle 2 × 2 for a finger, the cup's ear; a stadium ⅓ to ½ of the top for a hand, the bag). The wall is the line, the body closes the attached side, and the feet take the ½ fillet. The cup and the bag follow one rule, and they differ because a finger and a hand do. A shackle is deeper than it is long, so the rule can't make one.
+- **Anti-misread:** no hole in the body (the lock's hood, K3's lamp); a portrait or square body flared 1 a side (not a briefcase); a flat top and straight sides (not a handbag); the handle always visible above (not a lampshade).
+- **Three constructions:** P1, the ear turned up (a line arch; ~62). P2, the square handle (three posts; ~60½). P3, a cuffed paper bag, where the cut pays for a hand-wide handle (~62½; the left-of-centre one if it reads).
+
+NEXT: product designer (visual focus): draw P1, P2 and P3 finished at 72, 24, 18 and 12 beside the six, with measured net ink, for the fresh blind read.
