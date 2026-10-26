@@ -690,3 +690,19 @@ Fresh blind read (`shopping/blind-read-1.md`):
 - I put forward J (a two-read idea) at a size that holds one read.
 
 **Round 2:** the plainest readable bag, finished, read blind. Then it goes to him with one question, shown with the drawing: is the bag "one step too common", or is readable the point here?
+
+## Shopping concept round 2, the plain bag (2026-10-26): best 4. Stuck, to the owner
+
+**Blind read 2:** P8 and P3 read as padlocks, P2 as a fuel can, P1 as a kettlebell.
+
+**The block:** the subject against the rules at 18 (a solid glyph, one counter handle, ink at least the line, 2px counters). The bag needs cues the rules remove. The non-bags read as other objects.
+
+**Lesson:** when two rounds fail on the same read, stop redrawing and ask him to rank the conflicting constraints.
+
+**Questions out (jam 10):**
+- Can Shopping bend a rule?
+- Is a cart OK? (A team kill, not his.)
+- A plain readable bag over a left-of-centre one?
+- Glyphs at 18 or 24?
+
+**Waiting on his answers.**

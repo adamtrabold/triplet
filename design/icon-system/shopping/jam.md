@@ -260,3 +260,34 @@ I drew P1-P3 as specified and five reshapes (P4-P8): `sketches/contact-sheet-r2.
 - **Blind kit 2:** P1, P2, P3 and P8, with the café, bar and museum, at 18 lavender and 24 navy, plus one street per bag. Built in the scratchpad (`blind2/`), not committed.
 
 NEXT: orchestrator — run blind read 2 with a fresh agent; then the director scores.
+
+## Turn 10: design director, scores for Shopping concept round 2; stuck, to the owner, 2026-10-26
+
+Based on `blind-read-2.md` (fresh reader, label-free, shuffled) and `sketches/contact-sheet-r2.png`.
+
+| | blind read (first word) | score |
+|---|---|---|
+| P8, wide low handle | padlock alone; "handbag, so a shop" only in a row | **4** |
+| P2, square handle | jerrycan or fuel can; about 50/50 bag in a row | **4** |
+| P3, cuffed paper bag | padlock, even in the row | **2** |
+| P1, the ear turned up | kettlebell | **2** |
+
+The reader: "None of them say 'shop' on their own at first glance." The distractors were instant.
+
+**Stuck, by the loop's rule.** The best score went from 3 to 4: under 9, and not a meaningful rise. That's three rounds plus v263/v264: over 20 subjects and two rounds of bags.
+
+**What keeps blocking:** Shopping has no plain object of its own that reads at 18 inside this system.
+- The non-bags (tag, awning, till, sign, fold) became other things: a label, reception, a tap, a lampshade.
+- The bag reads as one, but only with the cues our rules take away. Generic sets draw a bag with two thin strap handles, or as an outline, or with a visible open top or gusset. Our rules give a solid place glyph (his 10-14 rule), one counter handle, no ink under the line, counters at least 2px, all drawn at 18. In that silhouette, a body with one loop on top is a padlock, kettlebell or jerrycan.
+
+**Why it keeps happening:** we kept changing the subject, or styling the bag inside the rules, as if the drawing were the problem. The conflict is between the subject and the rules at this size, and only he can rank them. The cart, the one other thing the reader reached for, was killed by the team ("online checkout"), not by him.
+
+**No candidates go to him.** One labelled "not ready" picture may go with question 1: P8 and P2 at 18 beside a padlock, so he sees the clash.
+
+**Questions for him:**
+1. "At 18px our bags keep reading as padlocks or fuel cans: a solid bag with one handle has a lock's outline. Can Shopping bend a rule to read, such as two thinner handles or an outline drawing, or must it stay inside the rules?"
+2. "Is a shopping cart OK? We ruled it out ourselves as 'online checkout'; you never did."
+3. "You asked if the bag is 'one step too common'. For Shopping, would you take a plain bag that reads instantly over a left-of-centre one that doesn't?"
+4. "Will place icons stay drawn at 18 inside the 24 ring, or could they go to 24? Every detail that tells a bag from a lock is a pixel at 18."
+
+NEXT: orchestrator: take these four questions to him, with the one "not ready" picture for question 1. The team waits for his answers.
