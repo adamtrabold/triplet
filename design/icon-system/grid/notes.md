@@ -1,5 +1,16 @@
 # Grid: notes
 
+
+## The live Grid concepts page (10-26 simplification, canvas v255)
+
+Owner: "canvases are too long not everything is showing. do we really need this much content? simplify my view to only important information and concise breakdowns". Supersedes the v236 layout below. Two titled rows, every frame set to its rendered height (Chromium), none over 2,420px:
+
+- **Row 1 · Waiting on you** (`gridRow1`, y 0; boards at y 300): Start here (`Grid7Start`, 856: where things stand in 3 lines, then 4 open questions) · Now: where the icons stand (`Grid7Now`, 860 wide, 1170: the approved six + fork and knife, bed, bag (unsolved) at 24 and 72; the eight root kinds as close-up crops of those drawings, one line each; proven / not yet).
+- **Row 2 · Decided** (`gridRow2`, y 1590; boards at y 1890): The master grid (`Grid7Master`, 2213: badge, classes, fitting, blocks, the line; its joins figure and rounds table moved to Rules) · Rules (`Grid7Rules`, 2417: Construction's 20 rules condensed, the joins figure and the rounds table).
+- **Archive**, row "Before the 10-26 simplification" (`archiveG7beSimplify`, y 197700; boards at 198000): `Archive-G7be-*`: old Start, the master grid as it was, Originals, and NewIcons (2 parts), Between (4 parts), Construction (3 parts), sliced at their own section boundaries because they were taller than a frame can be (8000px; Between was 20,658, Construction 16,182). Slices are lossless (same text, SVGs and element count as the originals). `Grid7Between`, `Grid7NewIcons`, `Grid7Construction` and `Grid7Originals` are gone from the live page.
+- Questions dropped from Start as superseded (still on the archived boards): blind round 1's family read of the bed and person (the bed was rebuilt in the mix), "the glass on a plate" (the cap rule), "does Joins connect the museum" (capitals are now a root).
+- Code: `simplify/build.py <live project dir> <out root>` (copies icon paths from the live boards; nothing redrawn), `simplify/measure.js` (Chromium heights), `simplify/layout.py <live canvas.json> <out root>`. Published boards in `simplify/boards/`. A new round: update `Grid7Now` and `START_QS`; keep each board under ~2,400px; move the old Now to the Archive.
+
 ## Round g3 (2026-10-16), after the owner: "I don't see a single grid" and "what about the interior?"
 
 - **Sheets show the grid as a grid:** outside (circle, air, live area, keyshapes, pixel or ring structure), inside (guides with all 13 overlaid), the 12px chip grid, and corners. Icons are secondary.
