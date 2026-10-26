@@ -135,3 +135,12 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_01Xhrd7NitLyXh4e2jzS92hu
 
 Update pixel-fit.md and push. Reply in under 150 words: canvas version, the rules, soft-edge counts before/after at 2x and 3x, what visibly changed, what still can't land.
+
+## Added after v264 (owner, verbatim)
+
+> ok this is a lot better. the museum and coupe counters are reading as too small now -- maybe they could go up to 2px? would the museum width need to account for that so that the posts/beams can be the right size? im not sure how that is all constructed. fork and knife also look good but the knife edge doesnt stick out far enough to be visible. im wondering if we should adjust that somehow mathematically in the fules. i do not like any of the proposed shopping icons.
+
+Fold into this round:
+- Counters (the museum's openings, the coupe's band) try 2px, as a whole-px counter rule. Answer his construction question plainly: with posts at 1.5 and openings at 2px, what the museum's width becomes (or whether it drops a column), and how the beam, plinth and overhang follow from the proportions. Show the options as finished icons.
+- A minimum-protrusion rule: any feature that must read (the knife's edge past the handle, a step, a lip) sticks out at least a set amount (derive it, e.g. from the line or whole device px at 2x and 3x), so it's visible at 24. Apply to the fork and knife.
+- Shopping: he doesn't like any of the five (swing tag, basket, awning, parcel, till). Don't redesign it in this round; note it as open for a concept round.
