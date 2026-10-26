@@ -235,3 +235,4 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > (10-26, canvas comment on Brand signatures, "The museum has flares and press but no…" swoop) there is probably a creative place to add swoops to all objects.
 > (10-26, canvas comment on Brand signatures, the bag) im noticing the handle of the bag is meaningfully different from the handle of the cup -- maybe this could be reasoned about in some way in the rules
 > (10-26, on the orchestrator's summary "Handles: one rule for all handles and loops") this is a bad rule -- what's the underlying shape that a handle is that we can make a good rule about
+> (10-26, on Brand signatures v256) i will say "the swoop, flare, press" are all things i've basically said verbatim... use your randomness and creative moves in the design buds skills to think a bit outside the box
