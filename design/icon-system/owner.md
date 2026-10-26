@@ -245,3 +245,9 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > (10-26, on "Sharp at 2x and 3x" v259, options A/B/C) lets just keep the line weight and stuff where it was and just opimize point placement as possible. the other options look like shit
 > (10-26, answering the brand-signatures stuck note, on v260) some of these are too cheeky. i do think the prior straightforwardness is part of the allure considering the source inspiration. i dont think the swoop is working. i do think i like the machined rules a lot -- and maybe that is stronger than defining the rounds by a shape.. it's by underlying method of creation. i think all of these things together speak to the brand. the bag i think is conceptually the problem -- the way we have added personality is by icon choice -- the bar coupe is one of the specifically good ones. whereas other systems used a simple wine glass or something, we went slightly left-of-center. i think the shopping bag works, but it may be one step too common?
 > (10-26, after learning the posts measure 1.24-1.25px at 24) ok yeah i must be viewing these too big then -- nothing should go that thin.   (decision: no ink thinner than the 1.5px line; posts go to the line)
+> (10-26, answering the five subpixel marks on v262)
+> 1. [saucer bottom] this cant be true because the edges are thinner than the center. where is it 1.5px? this should be a shape not a line.
+> 2. [coupe band ¾px] nothing should be this small.
+> 3. [museum beam] should be a shape not a line.
+> 4. [museum plinth] i think of the counters as shapes. they can go to (or be shortened to) a whole pixel. no problem. especially with the bevel of the plinth ends into the columns.
+> 5. [+ ends moved off whole pixels by the 0.23px move] why would moving the ends take them off whole pixels? it is a hard pixel number wide, it should be the same hard pixel number tall?
