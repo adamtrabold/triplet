@@ -146,7 +146,7 @@ mx, mc_ = WORST
 RULE_TXT = (p('<b>The rack: three cutters</b>, an eighth, a quarter and a half px, each double the last. Every round is one of them. (Last round\'s 0.15 / 0.3 / 0.6 would have moved the trunk, stem and fork neck; they measure 0.5, so the half keeps them. The trunk was 0.5, not 0.42 as last round\'s board said.)', 17)
             + p('<b>Continuous curvature.</b> Every round ramps in from the straight, never a circle meeting a line (the engine\'s fairing already does this).', 17)
             + p('<b>Which cutter, by join.</b> A post under an overhang: a <b>chamfer</b>, its edges broken by the quarter (the museum\'s bevel). A post into a face: the <b>half</b> fillet (stem, trunk, fork neck). A part\'s own corners: the half on a mass, the quarter on a slab or post, the eighth on anything thinner and on every cut. Points sharper than 75° (tips, and the notches between them) keep today\'s tip rule: a point is broken, not milled.', 17)
-            + p('<b>Nothing thinner than the line</b> (your note today): posts and loops go from 1¼ to 1½px. Cuts and counters aren\'t ink and stay.', 17)
+            + p('<b>Nothing thinner than the line</b> (your note today): posts and loops go from 1¼ to 1½px.', 17)
             + p(f'<b>On the six:</b> his tree keeps its trunk exactly; every other round moves at most {mx:.2f}px at 24 (the {"cup\'s top corner" if mc_ and mc_["r"] == 0.6 else "largest change"}). Not redrawn yet: below, the posts are rebuilt, the rounds are today\'s.', 16, GREY))
 joins = ''.join(join_cell(*j) for j in J)
 RULE_H = (label('The machined rule, ready', 34)
@@ -168,13 +168,13 @@ POSTS_H = (label('Posts at the line: before and after, at 72 and 24', 34)
 
 # ------------------------------------------------------------------ 4. Shopping, left of centre
 SHOP = {
-    'tag': ('Swing tag', 'The price tag on its string: kin to the luggage tags in the inspo and to the app\'s own Hanging Tag.'),
-    'basket': ('Market basket', 'The market\'s basket, not the mall\'s bag: an older, warmer object for the same job.'),
-    'awning': ('Shop awning', 'The striped awning over a shopfront, from the brochure streets. The most common of the five.'),
-    'parcel': ('Tied parcel', 'What you carry home: a box tied with string. Reads as a gift first.'),
-    'till': ('Till', 'The old register with its sale flag: the coupe move, a specific vintage object over a generic one.'),
+    'tag': ('Swing tag', 'The price tag on its string. Blind read: a price or luggage tag, plainly; kin to the app\'s Hanging Tag.'),
+    'basket': ('Market basket', 'Blind read: a cooler, lunchbox or bucket, not a basket.'),
+    'awning': ('Shop awning', 'Blind read: a storefront, clearly, but the generic answer (Material\'s).'),
+    'parcel': ('Tied parcel', 'Blind read: a gift, not shopping.'),
+    'till': ('Till', 'Blind read: a lump at 24 (a stapler or a scale); a register only at 72.'),
 }
-REC = ('till', 'tag')
+REC = ('tag',)
 six = ''.join(f'<div style="display:flex;flex-direction:column;align-items:center;gap:6px">{badge(solid(D[k]), 72, k)}{badge(solid(D[k]), 24)}</div>'
               for k in ['Café', 'Bar', 'Museum', 'Nature', 'Star', 'Add'])
 def concept(key):
@@ -189,12 +189,11 @@ def concept(key):
 SHOP_H = (label('Shopping, left of centre: five subjects, drawn finished, beside the six', 34)
           + f'<div style="display:flex;gap:14px;align-items:flex-start;margin-bottom:16px">{six}<div style="font-size:15px;color:{GREY};align-self:center;margin-left:8px">the six, approved, for scale</div></div>'
           + f'<div style="display:flex;justify-content:space-between;align-items:flex-start">{"".join(concept(k) for k, _ in S.CONCEPTS)}</div>'
-          + p('<b>Recommended: the till</b>, then the tag. The till is the coupe\'s move (a particular old object, still read at 24 by its flag and raked keys); the tag carries the inspo\'s luggage tags, but its string is busy at 24. The basket is the safe pick. All five use the existing roots (mass, slab, post, loop, cut, chamfer) and the rack; no ink under the line. Picked from a real random draw (awning, parcel, weighing pan, till roll, string bag, basket; knots, botany), hand-built, not engine output.', 16, INK, '14px 0 0'))
+          + p('<b>Recommended: the swing tag.</b> Plain, left of centre (a tag, not a bag), and it rhymes with the inspo\'s luggage tags and the app\'s own Hanging Tag. The till is the coupe\'s move in spirit, but it fails at 24. Blind read at 24 and 72 by the design director, labels cropped off; one more by someone who hasn\'t seen the board is still owed. All five use the existing roots (mass, slab, post, loop, cut, chamfer) and the rack; no ink under the line. Picked from a real random draw (awning, parcel, weighing pan, till roll, string bag, basket; knots, botany), hand-built, not engine output.', 16, INK, '14px 0 0'))
 
 QS = ['The brand as three filters (plain, made by a tool, left of centre): is that it?',
       'The machined rule with the rack ⅛ / ¼ / ½ (your tree kept exactly): build it into the engine?',
-      'Shopping: the till, the tag, or another of the five?',
-      'The museum with posts at the line: its openings narrow to 0.93px. Three columns, or a wider building?']
+      'Shopping: the swing tag, once someone who hasn\'t seen this board has read it blind at 24?']
 qhtml = ''.join(f'<div style="display:grid;grid-template-columns:32px 1fr;gap:10px;padding:8px 0;border-top:1px solid {RULE}">'
                 f'<div style="font-size:24px;font-weight:700;color:{ORANGE}">{i + 1}</div><div style="font-size:19px;line-height:1.4;color:{NAVY}">{q}</div></div>'
                 for i, q in enumerate(QS))

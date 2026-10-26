@@ -1,6 +1,8 @@
 # Visual designer notes: icon system
 
-## Update (2026-10-26, Brand and Shopping, round 4, canvas v263; product designer, visual, new to the seat)
+## Update (2026-10-26, Brand and Shopping, round 4, canvas v263 -> v264; product designer, visual, new to the seat)
+
+- **v264 (director turn 180: 8, 9 after four text edits):** the swing tag is the one recommendation (blind read: tag = price/luggage tag; basket = cooler; awning = generic storefront; parcel = gift; till = a lump at 24); "cuts and counters aren't ink and stay" dropped (owner v262: counters are shapes, "nothing should be this small"); the museum's narrow openings and the fork's gaps moved to the pixel round; questions cut to three. Board 1600 x 1855. Next: the rack into the engine (director: "can go to the engine now"); a fresh blind read of the tag; if he picks it, a cleaner string threading at 24.
 
 - **Why:** owner on v260: "too cheeky ... the prior straightforwardness is part of the allure ... i dont think the swoop is working ... i like the machined rules a lot ... it's by underlying method of creation ... personality is by icon choice -- the bar coupe ... slightly left-of-center ... the shopping bag ... may be one step too common?" Mid-round: posts measure 1.24-1.25px, owner "nothing should go that thin" (coordinator: posts to the line, fold into the rule, show before/after).
 - **Brand = three filters, his words only:** plain (straightforward, as the signs and tags); made by a tool (rounds and joins from the machined rule); left of centre (personality by subject). Swoop, Weight, both bags and the museum's sides dropped; "no circles" stays his open note.

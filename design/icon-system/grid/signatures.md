@@ -1,4 +1,4 @@
-# Brand and Shopping (round 4, 2026-10-26, canvas v263)
+# Brand and Shopping (round 4, 2026-10-26, canvas v263; director's edits v264)
 
 Board "Brand and Shopping" on the Grid concepts page (`Grid7Signatures.dc.html`, renamed from "Brand signatures"; round 3's board, v260, is on the Archive page). Generator: `python3 -I src/brand-shopping-board.py <live Grid7Now.dc.html> <out>`; Shopping drawings in `src/shop_shapes.py`; posts-at-the-line rebuilds in `svg/post-line/`. Still: `stills/brand-shopping-board.png`. History: rounds 1-3 (swoop/flare/press 6; weight + shadow 7; weight as two tests + the machined rule 7) are in git and the director's turns 173-177.
 
@@ -21,7 +21,7 @@ Dropped: the swoop, Weight as a named signature, "no circles" as a test (it stay
 - **The rack:** three cutters, ⅛, ¼ and ½ px (each double the last). Every round is one of them. Changed from round 3's 0.15 / 0.3 / 0.6 because the trunk, the coupe's stem and the fork's neck are all 0.5 fillets (construction.json, and 0.50 measured on the drawn tree): the half keeps them exactly. Round 3's "trunk 0.42" was a misreading; the trunk was never 0.42.
 - **Continuous curvature:** every round ramps in from the straight (the engine's fairing already does).
 - **Which cutter, by join:** a post under an overhang = a chamfer, its edges broken by the ¼ (the museum's bevel); a post into a face (curved or flat) = the ½ fillet; a part's own corners = ½ on a mass, ¼ on a slab or post, ⅛ on anything thinner and on every cut. Points sharper than 75° (tips and the notches between them) keep today's tip rule: a point is broken, not milled.
-- **Nothing thinner than the line** (owner, 10-26): no ink part under 1.5px. Posts and loops 5/6 → 1 line (`proportions.js` line.post, `mix-curves.js` T.post / T.loop). Cuts, counters and the coupe's band are not ink and are unchanged.
+- **Nothing thinner than the line** (owner, 10-26): no ink part under 1.5px. Posts and loops 5/6 → 1 line (`proportions.js` line.post, `mix-curves.js` T.post / T.loop). Counters are shapes too (owner on v262: "nothing should be this small", "i think of the counters as shapes"); the pixel round sets them, not this note.
 - **On the six:** the tree keeps its trunk exactly. Every other round moves at most 0.04px at 24 (the cup's top corners, 0.6 -> ½) (nearest cutter on a doubling scale, outline move = Δr (1/sin(θ/2) − 1)); computed in the generator from `svg/g7/construction.json`. The rack is not yet built into the engine: the rebuilds below carry today's rounds.
 - Shown on the board: eight real joins at 50px a unit (café ear and cup corner, coupe stem into bowl and onto foot, museum capital chamfer and an opening, the tree's trunk, the +'s crossing) with the cutter drawn as a ghost; museum keeps its approved drawing and its bevel.
 
@@ -30,7 +30,7 @@ Dropped: the swoop, Weight as a named signature, "no circles" as a test (it stay
 Rebuilt by `construction.js` (coupe, tree, museum; `CONS_OUT` to scratch, stored in `svg/post-line/*.json`), `mix-curves.js` (fork and knife) and the bed through `mix-curves.js` with its headboard and leg at 1.5 (outer edges kept; `blind.json` still has the 1.25 parts). Flags:
 - **Museum:** with four columns at 1.5, the three openings narrow from 1.31 to 0.93px, now thinner than the columns; the colonnade darkens at 24. Open: three columns (two wider openings), or a wider building.
 - **Coupe and tree:** a touch heavier, as expected. The fork's ¾px gaps between 1½px tines read denser at 24.
-- **Still under the line, not changed (outside this note):** the saucer's and the coupe foot's ends taper to 0.75px (the cap root), and the tree's tier tips. His call whether "nothing that thin" covers tapers.
+- The museum's openings and the fork's gaps move to the pixel round (parts and counters as whole-pixel shapes), so he isn't asked twice.
 
 ## Shopping, left of centre (five concepts, finished, in the badge at 24 and 72)
 
@@ -42,11 +42,10 @@ Real random draw: awning, tissue-wrapped parcel, weighing pan, till roll, string
 4. **Tied parcel:** a box tied with string, knot as two leaves; reads as a gift first.
 5. **Till:** the old register with its sale flag; the coupe move (a particular vintage object over a generic one).
 
-**Recommended:** the till, then the tag. Hand-built from the roots and the rack; no ink under the line. A blind "what is this?" read at 24 is still owed.
+**Recommended: the swing tag** (director turn 180). Blind read at 24 and 72 (director, labels cropped): tag = a price or luggage tag, plainly; basket = a cooler, lunchbox or bucket; awning = a storefront, the generic answer; parcel = a gift; till = a lump at 24 (stapler or scale), a register only at 72, so it fails at size. One more blind read by someone who hasn't seen the board is owed.
 
-## Open questions (on the board)
+## Open questions (on the board, three)
 
-1. The brand as three filters: is that it?
-2. The machined rule with the ⅛ / ¼ / ½ rack (tree kept): build it into the engine?
-3. Shopping: the till, the tag, or another?
-4. Museum with posts at the line: three columns, or a wider building?
+1. The brand as three filters (plain, made by a tool, left of centre): is that it?
+2. The machined rule with the rack ⅛ / ¼ / ½ (your tree kept exactly): build it into the engine?
+3. Shopping: the swing tag, once someone who hasn't seen this board has read it blind at 24?

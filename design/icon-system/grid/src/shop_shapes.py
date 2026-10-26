@@ -67,8 +67,8 @@ def compose(parts, holes, uid, fill='#12293F'):
     return f'<defs>{m}</defs><g mask="url(#{uid})">' + ''.join(f'<path fill="{fill}" d="{p}"/>' for p in parts) + '</g>'
 
 
-# Every ink part is at least the line (1.5px) across (owner 10-26: "nothing should go that thin"); cuts and counters are
-# at least half a line (3/4px) and aren't ink.
+# Every ink part is at least the line (1.5px) across (owner 10-26: "nothing should go that thin"). The cuts here are 3/4px;
+# the owner's v262 notes make counters shapes ("nothing should be this small"): the pixel round sets them.
 
 # ------------------------------------------------------------------ 1. the swing tag
 def tag():
