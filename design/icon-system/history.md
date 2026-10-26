@@ -109,6 +109,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-26 · v247 shown:** "How the system makes new icons" (thinking only; `grid/flexible-system.md`). A kit of parts / B one casting rule on the filled shape (flares where thin meets thick, rounds by angle and thickness, walls and gaps kept, sized against the slot) / C sketch, snap and score against a fingerprint of the six. Recommend B with C as judge; test C first (half a day), then B outside the engine on the six (what doesn't come back = what the rule can't say), Restaurant, the bag, the bed. Risk: B softer than the six; A the fallback. Director 9 as concept. Layout: row 2 moved below Between.
 
+- **10-26 · v251 shown:** owner: holes = proportional roots keeping the wall right; "the brand should be built into the root calls"; "b is good to test". B test (v248): one thickness rule gave joins to 4 of 6 + new icons; museum capitals lost, tree failed; C's fingerprint failed its own test (judging stays by eye). Mix prototype (v249 traced → v250 clean curves through the engine's solver, engine unchanged): the six back exactly (≤0.03px² at 24), checks and jitter clean; fork-and-knife and bed read as family; bag unsolved. B's core rule retired (broke the cup's ear): the brand lives in eight kinds of root (post, slab, mass, loop, hole, notch, capital, tip), each carrying its joins; closer to A. Director 8 → 8 → 9. Asked: is that the direction before the engine? how does he picture Shopping?
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
