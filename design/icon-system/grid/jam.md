@@ -920,3 +920,42 @@ Brief: director turn 167 ("notches and holes are roots, cut after the rule; the 
 **Unsure:** the landing value (1.6) was chosen on the tree, so the tree's return is partly calibrated (one frozen number, but picked on it); outlines are traced polygons, not clean curves; weight still judged by eye.
 
 NEXT: design director: score whether the six's return holds by eye and whether the vocabulary is spec-ready; the bag needs a concept call.
+
+---
+
+## Turn 169: design director, the mix (v249): 8, right direction, not yet at his zoom
+
+Read the live board (v249) and rendered approved against mix for the six at 24 and 72px, and at about 27px a unit, which is his zoom. Also rendered the fork and knife, the bed and the bag.
+
+**Do the six come back?**
+- **At 24 and 72: yes**, all six.
+- **At his zoom: not yet.**
+  - **Museum:** the outer posts' capitals and feet come out lumpy, small bumps on the post faces. At the board's own 2x crop they read as wobbles. The board's "gets its capitals back" overstates it.
+  - **Coupe:** a small kink where the stem meets the bowl. The rim corners and foot ends are harder. Less leaned flares than the coupe he called perfect.
+  - **Tree:** comes back, with a small tick where the trunk meets the bottom tier.
+  - **Star:** points a touch sharper, 2.8% heavier.
+- **Most of this is the tracing** (pixels, not clean curves). That's serious here. His bar is "minimal bezier curves with perfect architecture" and "no visible humps or wobbles", and he judges at his zoom. The mix can't be judged on join quality until it's in clean curves.
+
+**Is a star 2.8% heavier acceptable?** At 24 and 72 it's invisible. But he raised the star's weight twice, so it goes in the "not yet true" list. Bring the outline back onto the approved line once curves are clean.
+
+**New icons, by his words:**
+- **Restaurant (fork and knife):** the tines and the knife's handle flare into the head and the blade. At 72 it reads as ours, from its root calls. That's what "the brand built into the root calls" means.
+- **Hotel:** the headboard and leg flare into the mattress. Family.
+- **Bag:** honestly marked unsolved. At 24 it's a block with a loop. It needs a new idea, not a rule.
+
+**Is the root-call list a real vocabulary?** Mostly.
+- Mass, slab, post, loop and hole are general types. Any future icon is made of them.
+- Notch, capital and tip are written generally (any stacked form, any colonnade, any living mass), not as the six's names.
+- That's a grammar, not a catalogue. Nit: the loop's 4/3px isn't a fraction of the line; put it on the series (or say why not).
+
+**Ready for him?** Not yet: he'd see the museum's bumps at his zoom first.
+
+**Score: 8.** Fixes:
+1. **Clean curves.** Run the root calls through the engine's round solver (or fit minimal cubics to the mix outlines). Recheck the six at his zoom: no lumps, no kinks. The museum and the coupe must match approved at 27px a unit.
+2. Bring the star's weight back to approved.
+3. Correct the board's museum claim, or show the bumps honestly.
+4. **Then show him, with two questions:**
+   - "Is this the direction (the brand in the root calls, with these eight kinds of root) before we build it into the engine?"
+   - "The bag needs a new idea: how do you picture Triplet's shopping icon? Any reference?"
+
+**Changed since my last score?** Yes: the mix rebuilt the six (the tree and museum return at true size) and two new icons read as family.

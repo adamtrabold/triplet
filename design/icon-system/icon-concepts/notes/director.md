@@ -1951,3 +1951,11 @@ checks; don't eyeball "is it as good as".
 - Measurement judges can't see "reads as a padlock". Judging stays by eye.
 - An icon's identity comes from its root decisions (the bag's taper, its handle, a band hole), not from the joins.
 - Next: the mix prototype; the six must all return by eye before he sees it.
+
+## The mix (v249, 2026-10-26): 8
+
+- "Comes back by eye" must include his zoom (about 27px a unit), not only 24 and 72. He judges joins there.
+- Prototypes on traced pixels can prove the direction, not the craft. Get clean curves before he sees joins.
+- Root-call vocabulary: mass, slab, post, loop, hole (general) + notch, capital, tip (general forms of the six's touches). A grammar.
+- The bag is a concept problem. Ask him how he pictures it.
+- Next: clean curves, a recheck at his zoom, then him.

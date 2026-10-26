@@ -457,3 +457,7 @@ B (a casting rule: thin meets thick, on the filled shape) with C (a fingerprint 
 ## Icon system, B tested (v248, 2026-10-26): 8 as evidence
 
 One thickness rule gives joins for four of the six and for new icons. It fills the tree's notches and can't make the capital; C is dead. Path: the mix (cut roots never filled, the capital as a called root, declared thickness). The bag is a padlock because of its root calls. Full entry in `icon-concepts/notes/director.md`; jam turn 167.
+
+## Icon system, the mix (v249, 2026-10-26): 8
+
+The right direction: the six return at true size, and the fork and bed read as family from root calls. Not yet at his zoom: the traced curves leave lumps (museum) and kinks (coupe). Clean curves, then show him (direction plus the bag). Full entry in `icon-concepts/notes/director.md`; jam turn 169.

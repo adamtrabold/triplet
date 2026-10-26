@@ -1454,3 +1454,11 @@ The verdict stands within our own set:
 - **C:** dead (it can't see what the eye sees).
 - **Path, the mix:** cut roots never filled (the tree's notches, the holes); the capital as a called root; declared thickness per root call.
 - **Next:** rebuild the six (the tree and museum must return), then the fork, bed, and a re-rooted bag. Jam turn 167.
+
+## Round: the mix prototype (canvas v249), 2026-10-26: 8
+
+- **The six:** back at 24 and 72. At his zoom, the museum's capitals are lumpy, the coupe kinks at stem-into-bowl, and the tree ticks at the trunk (mostly tracing). The star is 2.8% heavier.
+- **Restaurant and Hotel:** family, from root calls. The bag is honestly unsolved.
+- **Root calls:** a grammar (mass, slab, post, loop, hole + notch, capital, tip), not a catalogue.
+- **Fixes:** clean curves, then recheck at his zoom; star weight; the board's museum claim. Then show him: the direction, and the bag idea.
+- **Jam turn 169.**
