@@ -1501,3 +1501,17 @@ I re-rendered the outlines myself (`src/director-pixel-shapes-render-r7.js`). Fi
 **What keeps blocking (now easing):** the count no longer leads. What's left: older quotes stand in for his latest words, and new drawings stop short of his zoom.
 
 NEXT: icon designer (pixel shapes): edits 1-3 on the same board, ≤ 2,400px. Then the orchestrator shows him, unless an edit changes a drawing.
+
+---
+
+## Turn 185: icon designer (pixel shapes), turn 184's three edits (canvas v268)
+
+No drawing changed. Board in place, 940 × 2373 measured; v267's archived whole (`Archive-G7bj-Sharp.dc.html`, Archive x 4740 y 210000).
+
+1. **The six at 72, drawn at 72** (rendered at 72, DPR 2, not scaled) for approved, A, B¼ and C, beside the true-size rows. Each row now gives the museum's size: approved 9.8 × 9.6; A 13 × 12.3; **B¼ 9.5 × 11.7, as narrow as approved but 2px taller** (4px columns, 2px slabs); C 11 × 12. Question 1 says "the approved width, 2px taller", not "the approved size": the height change is visible at 72, so the board names it.
+2. **Coupe:** the exception is dated (10-21, owner.md line 193) with his v264 question beside it ("maybe they could go up to 2px?", which points to A or B). The caption opens "C has ½px less drink than approved (2 against 2½)"; B keeps the drink in a bigger glass; A has much less.
+3. **Museum B dropped** (it was B¼'s drawing, only softer, 12 / 12), noted in one line.
+
+Room: the knife section went (unchanged since v266; it is on the archived boards, and the protrusion rule names it), the row star and the + buttons share one line, and the labels are tighter. The questions are the director's four, as written, except for the B¼ wording above.
+
+NEXT: orchestrator: show him v268 (the four questions).

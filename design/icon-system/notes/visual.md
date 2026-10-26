@@ -1,5 +1,9 @@
 # Visual designer notes: icon system
 
+## Update (2026-10-26, round 7b, canvas v268; turn 184's three edits)
+
+- Added the six at 72, drawn at 72, for approved/A/B¼/C, and the museum's size on each row. B¼ is 9.5 × 11.7 against approved 9.8 × 9.6: the same width, 2px taller. Question 1 says so ("the approved width, 2px taller") rather than the director's "approved size". Coupe: the 10-21 quote is dated, with his v264 "maybe they could go up to 2px?" beside it; C is stated as ½px less drink than approved. Museum B dropped. The knife section came off the board for room (it is on the archived v266/v267). Board 2373; v267 archived (`Archive-G7bj-Sharp.dc.html`). Next: the orchestrator shows him v268.
+
 ## Update (2026-10-26, Sharp at 2x and 3x round 7, the director's five fixes, canvas v267; icon designer, pixel shapes, new to the seat)
 
 - **Why:** director turn 182 scored v266 an 8 with five fixes: each museum option in the row of six; the coupe's change and drink stated, C squared with "counters ≥ 2px"; the + at 2px beside 1½ ¼px off; the overhang bevel vs protrusion; lead the star with "already this size in the app" and the iPhone count as one trade line.

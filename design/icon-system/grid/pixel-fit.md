@@ -1,6 +1,10 @@
 # Sharp at 2x and 3x
 
-## Round 7 (10-26, canvas v267): the director's five fixes (jam turn 182). CURRENT
+## Round 7b (10-26, canvas v268): turn 184's three edits. CURRENT
+
+No drawing changed. The six at 72 rendered at 72 (`stills/pixel-shapes/r7/row72-*.png`) for approved, A, B¼, C. Museum sizes (outline boxes): approved 9.78 × 9.62, A 13 × 12.32, B¼ 9.5 × 11.74 (2px taller than approved), C 11 × 11.99. Museum B dropped (it was B¼, softer). The coupe's exception is dated (10-21) beside his v264 "maybe they could go up to 2px?"; C stated as ½px less drink than approved. Board 2373 tall; v267's archived as `Archive-G7bj-Sharp.dc.html`.
+
+## Round 7 (10-26, canvas v267): the director's five fixes (jam turn 182)
 
 Same rules as round 6, two amended; the drawings are round 6's except two new ones (museum B¼, the + at 1½). Board "Sharp at 2x and 3x" rewritten in place (940 × 2393, measured); v266's board archived whole as `Archive-G7bi-Sharp.dc.html` (Archive page, x 3720 y 210000). Script `src/pixel-shapes-board.py` (round 6's kept as `pixel-shapes-board-r6.py`), asset ids `src/pixel-shapes-board-blobs.json`, stills `stills/pixel-shapes/r7/`, app shots `src/pixel-shapes-ctx.js`.
 

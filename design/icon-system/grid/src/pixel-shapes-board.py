@@ -40,14 +40,14 @@ def board(local):
     b += bullets([
         '<b>Shapes are whole pixels.</b> A slab (beam, plinth, saucer, foot) is 2px; its flat edges and lowest point land whole.',
         '<b>The line stays 1½px</b> (posts, walls, rims, stems): one edge whole, the other on a half pixel.',
-        '<b>Counters are whole pixels, at least 2px</b>; gaps at least 1px. <b>One exception, in your words:</b> a band under a rim is "equal to the thickness of the stroke", 1½px (coupe C).',
+        '<b>Counters are whole pixels, at least 2px</b>; gaps at least 1px. <b>One exception</b> (coupe C), from your 10-21 words: a band under a rim "equal to the thickness of the stroke", 1½px. Your latest, on v264, asked the other way: "maybe they could go up to 2px?" (A, B).',
         '<b>No ink under 1½px,</b> but a cap\'s ends, where its curve runs out (1px: the cap rule, kept).',
-        '<b>What must stick out sticks out at least 1px</b> (the knife\'s edge, a lip). <b>A bevel is not a protrusion:</b> the museum\'s ½px overhang is all curve, column into slab (your "bevel of the plinth ends into the columns"), so it stays ½px, its ends on a half pixel.',
+        '<b>What must stick out sticks out at least 1px</b> (the knife\'s edge, now 1px past its handle, as on v266; a lip). <b>A bevel is not a protrusion:</b> the museum\'s ½px overhang is all curve, column into slab (your "bevel of the plinth ends into the columns"), so it stays ½px, its ends on a half pixel.',
         '<b>Symmetric icons sit on the centre line, or ¼px off it</b> when a 1½px part is centred, so that part keeps one whole edge like every other line (museum B¼, the + at 1½).',
         '<b>The star and the + are drawn 1:1 where they live,</b> sized by their neighbours, never in a ring.',
     ], 15)
 
-    b += label('The six at 24, one block per device pixel', 24)
+    b += label('The six at 24, one block per device pixel', 18)
     hd = lambda names: f'<div style="display:grid;grid-template-columns:repeat(5,1fr);font-size:13px;font-weight:700;color:{NAVY}">' + ''.join(f'<div>{n}</div>' for n in names) + '</div>'
     b += f'<div style="display:grid;grid-template-columns:70px 400px 400px;gap:6px 16px;align-items:center"><div></div>' + head('Before (as approved, posts at the line)') + head('Now (as the questions lean)') + '<div></div>' + hd(['Café', 'Coupe', 'Museum', 'Nature', 'Restaurant']) + hd(['Café', 'Coupe C', 'Museum B¼', 'Nature', 'Restaurant'])
     for t, d in [('5K', '2x'), ('iPhone', '3x')]:
@@ -55,50 +55,51 @@ def board(local):
     b += '</div>'
     b += cap('Visible: saucer, beam and plinth 2px shapes; ear and openings 2px; three columns; the coupe\'s band 1½ (was ¾); tines 1px apart.')
 
-    b += label('The museum in the six, at 24', 24)
-    b += p('Your question: four 1½px columns with 2px openings make it 13px wide (was 9.8); to keep its size it drops a column. Only the museum changes between rows (coupe C in each). True size, then 1½ up.', 15)
-    rows = [('was_museum', 'Approved', 'four columns, 9.8 wide; openings under 1px.'),
-            ('museumA', 'A', 'four columns, 13 wide, ink +60%: the biggest of the set; it crowds its ring. 0 / 10 soft.'),
-            ('museumB', 'B', 'three columns, 9½ wide, ink +13%; the middle column sits on the centre line, soft on both screens: 12 / 12.'),
-            ('museumB4', 'B¼', 'B, moved ¼px right: the same drawing, every column keeps one whole edge. 0 / 6. New this round.'),
-            ('museumC', 'C', 'three columns at 2px, 11 wide, ink +38%: the posts read a third heavier than the line. 0 / 6.')]
-    b += f'<div style="display:grid;grid-template-columns:84px 168px 252px 1fr;gap:6px 14px;align-items:center">'
+    b += label('The museum in the six', 18)
+    b += p('Your question: four 1½px columns with 2px openings make it 13px wide (was 9.8); to keep its size it drops a column. Only the museum changes between rows (coupe C in each). At 24, true size:', 15)
+    rows = [('was_museum', 'Approved', 'four columns, 9.8 wide × 9.6 tall; openings under 1px.'),
+            ('museumA', 'A', 'four columns, 13 × 12.3, ink +60%: the biggest of the set; it crowds its ring. 0 / 10 soft.'),
+            ('museumB4', 'B¼', 'three columns, 9.5 × 11.7, ink +13%: as narrow as approved, but 2px taller (4px columns, 2px slabs). Sits ¼px right. 0 / 6.'),
+            ('museumC', 'C', 'three columns at 2px, 11 × 12, ink +38%: the posts read a third heavier than the line. 0 / 6.')]
+    b += f'<div style="display:grid;grid-template-columns:84px 168px 1fr;gap:6px 14px;align-items:center">'
     for k, n, t in rows:
-        b += f'<div style="font-size:17px;font-weight:700;color:{NAVY}">{n}</div>' + img(f'row-{k}-3x', f'the six with museum {n}, true size', 168, local, False) + img(f'row-{k}-3x', f'the six with museum {n}, 1 1/2 up', 252, local, False) + f'<div style="font-size:14px;line-height:1.35">{t}</div>'
+        b += f'<div style="font-size:17px;font-weight:700;color:{NAVY}">{n}</div>' + img(f'row-{k}-3x', f'the six with museum {n}, true size', 168, local, False) + f'<div style="font-size:14px;line-height:1.35">{t}</div>'
     b += '</div>'
-    b += cap('We lean B¼ (an opinion): it sits at the set\'s size and weight, posts at the line. A, our lean last time, does not survive the row.')
+    b += p('At 72, drawn at 72:', 15, INK, 4)
+    b += f'<div style="display:grid;grid-template-columns:408px 408px;gap:4px 28px">'
+    for k, n, _ in rows:
+        b += '<div>' + head(n) + img(f'row72-{k}-2x', f'the six with museum {n} at 72', 408, local, False) + '</div>'
+    b += '</div>'
+    b += cap('We lean B¼ (an opinion): it sits at the set\'s size and weight, posts at the line; it is taller than approved. B (the same drawing centred) is dropped: it was B¼, only softer (12 / 12).')
 
-    b += label('The coupe at a 2px band', 24)
+    b += label('The coupe at a 2px band', 18)
     b += p('<b>What changed in every option:</b> the rim now cuts the bowl\'s ellipse ¼ of its height above the centre (was ⅕), so the bowl is 5px deep (was 4.8) and its bottom lands whole. With a 2px band, 2½px of drink needs a 6px bowl: wider (B), or deeper, which you ruled out ("the shorter bowl i think is necessary").', 15)
     b += f'<div style="display:grid;grid-template-columns:350px 1fr;gap:0 18px;align-items:start">'
     b += '<div>' + img('coupe-72', 'coupe approved, A, B, C at 72px', 340, local, False) + f'<div style="display:grid;grid-template-columns:repeat(4,84px);padding-left:8px;margin:2px 0">' + ''.join(head(c) for c in ['Approved', 'A', 'B', 'C']) + '</div>' + img('coupe-24', 'coupe options at 24px', 292, local, False) + '</div>'
     tr = lambda cells, bold=False: ''.join(f'<div style="padding:4px 0;border-top:1px solid {RULE};font-size:14px;{"font-weight:700;color:" + NAVY if bold else ""}">{c}</div>' for c in cells)
     b += f'<div><div style="display:grid;grid-template-columns:110px repeat(4,1fr);gap:0 8px">' + tr(['', 'Approved', 'A', 'B', 'C'], True)
     b += tr(['<b>Drink</b>', '2½', '1½', '2½', '2']) + tr(['Band', '¾', '2', '2', '1½']) + tr(['Bowl', '10 × 4.8', '10 × 5', '12 × 6', '10 × 5']) + tr(['Ink', '45.5', '42.4', '59.4', '45.1']) + tr(['Soft 5K / iPhone', '11 / 10', '2 / 4', '2 / 4', '2 / 3']) + '</div>'
-    b += cap('A empties the glass. B keeps the drink in a bigger glass (ink +30%). C keeps the glass and most of the drink, as the one counter under 2px (rule 3). We lean C (an opinion); if the band must be 2px, B.') + '</div></div>'
+    b += cap('<b>C has ½px less drink than approved</b> (2 against 2½), in the same glass. B keeps the drink, in a bigger glass (ink +30%). A has much less (1½). We lean C (an opinion); if the band must be 2px, B.') + '</div></div>'
 
-    b += label('The knife\'s edge, by rule', 24)
-    b += f'<div style="display:flex;gap:20px;align-items:center">' + img('knife-72', 'fork and knife, before and now, 72px', 220, local, False) + img('knife-pix-2x', '5K pixels, before and now', 120, local) + img('knife-pix-3x', 'iPhone pixels, before and now', 120, local) + f'<div style="font-size:14px;line-height:1.35">Edge 1px past the handle (was ¾): ½px of straight step survives the join\'s round, a full 5K pixel. Tines 1px apart. Before / now at 72, on the 5K, on an iPhone.</div></div>'
+    # the knife's section (v266/v267) is on the archived boards; unchanged since v266, in one line in the rules
 
-    b += label('The star and the +, where they live', 24)
+    b += label('The star and the +, where they live', 18)
     b += p('<b>In the app the star was already about this size; our boards drew it 16px tall in a ring.</b> It is now 11px in the row (the name\'s capital height; was 12.1) and 13 on the Hanging Tag (its neighbours\'; was 13.4).', 15)
-    b += f'<div style="display:grid;grid-template-columns:300px 300px;gap:6px 14px">' + head('Before') + head('Now')
-    b += img('ctx-row-before-3x', 'row before', 300, local, False) + img('ctx-row-after-3x', 'row now', 300, local, False)
-    b += '</div>'
     b += p('<b>The +: which weight?</b> 14px across, ends whole. 2px: a third heavier than the line you kept (ink +26%), sharp everywhere. 1½px: your weight, set ¼px off the arms\' centre; one side soft on an iPhone like every line, the arms ½px unequal (6½, 6).', 15, INK, 6)
-    b += f'<div style="display:grid;grid-template-columns:repeat(3,84px) 1fr;gap:4px 10px;align-items:center">' + head('Before') + head('2px') + head('1½px, ¼ off') + '<div></div>'
-    b += img('plus-btn-before-3x', '+ before', 68, local, False) + img('plus-btn-after-3x', '+ at 2px', 68, local, False) + img('plus-btn-after15-3x', '+ at 1½px', 68, local, False)
-    b += f'<div style="display:flex;gap:14px">' + img('plus-pix-2x', '+ on the 5K: before, 2px, 1½px', 239, local) + img('plus-pix-3x', '+ on an iPhone: before, 2px, 1½px', 239, local) + '</div></div>'
-    b += cap('In the app at true size, then per device pixel on the 5K and an iPhone, each before / 2px / 1½. Soft: 6 / 8, 0 / 0, 0 / 4. The + button and row star\'s box move onto whole pixels (CSS, ships with them).')
+    b += f'<div style="display:grid;grid-template-columns:270px 270px 76px 76px 76px;gap:4px 10px;align-items:center">' + head('Row star, before') + head('Row star, now') + head('+ before') + head('2px') + head('1½, ¼ off')
+    b += img('ctx-row-before-3x', 'row before', 270, local, False) + img('ctx-row-after-3x', 'row now', 270, local, False)
+    b += img('plus-btn-before-3x', '+ before', 68, local, False) + img('plus-btn-after-3x', '+ at 2px', 68, local, False) + img('plus-btn-after15-3x', '+ at 1½px', 68, local, False) + '</div>'
+    b += f'<div style="display:flex;gap:14px;margin-top:6px;align-items:center">' + img('plus-pix-2x', '+ on the 5K: before, 2px, 1½px', 239, local) + img('plus-pix-3x', '+ on an iPhone: before, 2px, 1½px', 239, local)
+    b += '<div style="font-size:14px;color:#5A564C;line-height:1.35">In the app at true size; the + per device pixel, 5K then iPhone, each before / 2px / 1½. Soft: 6 / 8, 0 / 0, 0 / 4. The button and the row star\'s box move onto whole pixels (CSS).</div></div>'
 
-    b += label('What still can\'t land', 24)
-    b += bullets(['The 1½px line on an iPhone: one side ⅙px soft (most of the 21). The coupe\'s stem and the trunk, 1½px on the centre line: soft on both (the ¼px rule would soften their feet instead).',
-                  'The capitals\' ½px steps and the bevels\' ends, on half pixels (soft on an iPhone); curves, diagonals and tips. Shopping is open for its own round.'], 15)
+    b += label('What still can\'t land', 18)
+    b += p('The 1½px line on an iPhone (one side ⅙px soft); the coupe\'s stem and the trunk on the centre line (the ¼px rule would soften their feet instead); the capitals\' steps and bevels\' ends on half pixels; curves, diagonals, tips. Shopping is its own round.', 15)
 
-    b += label('Waiting on you', 24)
-    for i, q in enumerate(['Museum: A, B, B¼ or C, judged in the row?',
-                           'Coupe: A (2px band, less drink), B (bigger glass) or C (band at the line, the one exception)?',
-                           'The +: 2px or 1½px? And do it and the star (11 in the row, 13 on the tag) sit right?'], 1):
+    b += label('Waiting on you', 18)
+    for i, q in enumerate(['Museum, in the row: A (four columns, 13 wide), B¼ (three columns, the approved width, 2px taller) or C (three columns, 2px posts)?',
+                           'Coupe: C (band at the line, same glass, ½px less drink than approved), B (2px band, drink kept, a bigger glass) or A (2px band, much less drink)?',
+                           'The +: 2px, or your 1½px set ¼px off centre?',
+                           'Do the star (11 in the row, 13 on the tag) and the + sit right in their places?'], 1):
         b += f'<div style="display:grid;grid-template-columns:32px 1fr;gap:10px;padding:6px 0;border-top:1px solid {RULE}"><div style="font-size:22px;font-weight:700;color:{ORANGE}">{i}</div><div style="font-size:18px;line-height:1.35;color:{NAVY};font-weight:600">{q}</div></div>'
     return f'<div style="width:940px;box-sizing:border-box;padding:30px 32px 16px;background:{PAPER};font-family:Archivo,Arial,sans-serif;color:{INK}">' + b + '</div>'
 
