@@ -2,7 +2,16 @@
 
 My notes for the Shopping concept round (`design/icon-system/shopping/`). Brief: `briefs/shopping-concepts.md`. The system-wide notes are `notes/visual.md` (the pixel designer's seat); this file covers only Shopping.
 
-## Where things stand (jam turn 2, done)
+## Update: jam turn 5 (the concepts drawn)
+
+- I drew the systems designer's specs (K, B1a, B1b, J) plus reshapes: K2 (even 8:10), **K3** (6:8 × 9, light), B1c (B1a with a 4-tall board), **J2** (J with the bag 6:8 × 7 and 2px drops). Sheet: `shopping/sketches/contact-sheet-t5.png` (and `-1x`, `-3x`); `sheet.py t5` / `shoot.js t5`. Each card prints its net ink, measured in-page with holes subtracted.
+- **Net ink (café 56.5, museum 62.9):** K3 50.2; K 66.2; B1c 66.2; J2 72.2; K2 73.2; B1a 74.2; J 84.2; B1b 94.2.
+- **Push K3** (weight; a small paper bag; crease risk: plinth/pot) and **J2** (meaning; a bag hung from a sign; weight +15% over the museum). **Kill B1b** (cassette, heaviest). **B1a/B1c**: the ring reads as an eye or lens; it goes to the blind read as a control only. **L**: I agree with the kill (owner 10-14), not drawn.
+- **Rule note:** "a link is a ring" should apply where the hole is used (a handle, a hook), not where it would only be seen. A seen hole over a mass reads as an eye.
+- The concept files' "How it looks and feels" parts are written (K, B1, J, L).
+- Open: J2 vs K3 is a trade (meaning vs weight) for the director. The fresh blind read is still owed. If "pot" comes back for K3, move the crease up to y 13..14.
+
+## Where things stood after jam turn 2
 
 - I drew turn 1's A-E and my own F-H, 15 drawings in all: `shopping/sketches/contact-sheet.png` (2x) and `contact-sheet-1x.png`. Each one is shown at 72, at 24 1:1 in the badge, at 18 in the ring (today's `badgeHtml()`), at 12 bare, in a street beside Café/Bar/Museum/Nature, in lavender, and reversed.
 - **Survivors:** B1 the blade sign (strongest: a silhouette nothing else in the set has), and F4 the die-cut bag with gusset cuts.

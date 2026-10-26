@@ -185,3 +185,84 @@ CONCEPTS = [
     ('F5', 'Die-cut tote, lighter', 'push F', lambda: die_cut_tote(False, (8.5, 15.5), 9)),
     ('B3', 'Blade sign, braced', 'push B', blade_clean),
 ]
+
+
+# ================================================================== concepts round (jam turn 5): K, B1a, B1b, J
+# Built to concepts/*.md (systems, turn 4). What carries is the line; what is carried is the mass. A link is a ring
+# (counter 2, wall the line, so 5 across); a handle is its counter; a fold is a cut.
+
+def bracket(x_end, y0=7.5, stub_h=5):
+    """The wall stub and arm as one L of line (1.5): stub x 4.5..6 (inner edge whole), arm y0..y0+1.5 (underside on
+    whole px when y0 is a half), the inside corner the 1/2 fillet (a post into a face), outer corners 1/4."""
+    y1 = y0 + LINE
+    return [(4.5, y0, E4), (x_end, y0, E4), (x_end, y1, E4), (6, y1, E2), (6, y0 + stub_h, E4), (4.5, y0 + stub_h, E4)]
+
+
+def link(cx, cy):
+    """A link: a ring, counter 2 (whole px when cx, cy are whole), wall the line."""
+    return ell(cx, cy, 2.5, 2.5, 0, 2 * math.pi, 48)[:-1], ell(cx, cy, 1, 1, 0, 2 * math.pi, 32)[:-1]
+
+
+def sign_one():
+    """B1a: one ring, centred on an 8 x 5 board (x 9..17, y 12..17); the ring's top wall runs into the arm, its bottom
+    1/2px behind the board, so what shows is the 2px hole between them."""
+    o, i = link(13, 10)
+    board = rect(9, 12, 17, 17, E2)
+    return [rpoly(bracket(17)), rpoly(o), rpoly(board)], [rpoly(i)]
+
+
+def sign_two():
+    """B1b: two rings 6 apart (x 9 and 15, holes on whole px), a wide low board 12 x 4 (x 6..18, y 12..16)."""
+    o1, i1 = link(9, 10); o2, i2 = link(15, 10)
+    board = rect(6, 12, 18, 16, E2)
+    return [rpoly(bracket(18)), rpoly(o1), rpoly(o2), rpoly(board)], [rpoly(i1), rpoly(i2)]
+
+
+def flared_bag(top, foot, y0, y1, slot, crease=None, rt=E4):
+    """A flared slab (the bag), foot corners 1/2, top corners 1/4; the handle a stadium counter; an optional crease cut
+    (a fold is a cut: 1px, across the full width)."""
+    (tx0, tx1), (fx0, fx1) = top, foot
+    body = [(tx0, y0, rt), (tx1, y0, rt), (fx1, y1, E2), (fx0, y1, E2)]
+    holes = [rpoly([(x, y, 0) for x, y, _ in stadium(*slot)])]
+    if crease is not None:
+        holes.append(rpoly([(fx0 - 1, crease, 0), (fx1 + 1, crease, 0), (fx1 + 1, crease + 1, 0), (fx0 - 1, crease + 1, 0)]))
+    return [rpoly(body)], holes
+
+
+def fold_bag(even=False):
+    """K: the folded paper bag. Spec 7:9, 10 tall (y 7..17), slot 3 x 2 under a 2px band (y 9..11), crease y 14..15
+    leaving the 2px block bottom. even=True: 8:10 with a 4 x 2 slot, every level and upright edge whole."""
+    if even:
+        return flared_bag((8, 16), (7, 17), 7, 17, (10, 9, 14, 11), 14)
+    return flared_bag((8.5, 15.5), (7.5, 16.5), 7, 17, (10.5, 9, 13.5, 11), 14)
+
+
+def hung_bag(small=False):
+    """J: the sign that hangs the bag. Bracket arm y 6.5..8; two drops (posts at the line, 1px showing) over the bag's
+    top corners; the bag a flared slab with its handle hole clean (held, never threaded). small: the bag 6:8 x 7."""
+    if small:
+        y0, top, foot, slot = 10, (9.5, 15.5), (8.5, 16.5), (11, 12, 14, 14)
+    else:
+        y0, top, foot, slot = 9, (9, 16), (8, 17), (11, 11, 14, 13)
+    arm = bracket(17, 6.5, 4)
+    drops = [rect(top[0], 7.9, top[0] + LINE, y0 + 0.3, 0), rect(top[1] - LINE, 7.9, top[1], y0 + 0.3, 0)]
+    parts, holes = flared_bag(top, foot, y0, 17, slot)
+    return [rpoly(arm)] + [rpoly(d) for d in drops] + parts, holes
+
+
+ROUND5 = [
+    ('K', 'The fold (7:9, slot 3)', 'concept K', fold_bag),
+    ('K2', 'The fold, even (8:10, slot 4)', 'K reshaped', lambda: fold_bag(True)),
+    ('B1a', 'Blade sign, one ring', 'concept B1', sign_one),
+    ('B1b', 'Blade sign, two rings', 'concept B1', sign_two),
+    ('J', 'Sign hangs the bag', 'concept J', hung_bag),
+    ('J2', 'Sign hangs the bag, small', 'J lightened', lambda: hung_bag(True)),
+    ('K3', 'The fold, light (6:8 x 9)', 'K lightened', lambda: flared_bag((9, 15), (8, 16), 8, 17, (10.5, 10, 13.5, 12), 14)),
+    ('B1c', 'Blade sign, one ring, low board', 'B1a lightened', lambda: sign_low()),
+]
+
+
+def sign_low():
+    """B1a with the board 8 x 4 (y 12..16): 8px2 lighter."""
+    o, i = link(13, 10)
+    return [rpoly(bracket(17)), rpoly(o), rpoly(rect(9, 12, 17, 16, E2))], [rpoly(i)]

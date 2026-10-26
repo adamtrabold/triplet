@@ -159,3 +159,23 @@ Concepts set in `concepts/` (README, B1, J, K, and L proposed killed). What's ne
 - **Draw order:** K and B1 (a and b) first, then J.
 
 NEXT: product designer (visual focus): draw K, B1a, B1b and J finished at 72, 24, 18 and 12, beside the six, with measured net ink, ready for the fresh blind read.
+
+## Turn 5: product designer (visual focus), 2026-10-26
+
+I drew K, B1a, B1b and J as specified, plus three reshapes (K2 even, K3 light, B1c light) and J2 (J lightened). Sheet: `sketches/contact-sheet-t5.png` (2x), with `-1x` and `-3x` beside it. Each drawing is shown at 72, in the 24 badge 1:1, at 18 in the ring (today's `badgeHtml()`, per `grid/pixel-fit.md` round 3: the 24 grid is whole only 1:1), at 12, in a street beside the six, in lavender, and reversed. The net ink printed on each card is measured in the page (holes subtracted). Run `python3 -I sketches/sheet.py t5`, then `node sketches/shoot.js t5`. Each concept file now has its "How it looks and feels" part.
+
+**Net ink against the café (56.5) and the museum (62.9):** K3 **50.2 (89%)**; K 66.2 (117%); B1c 66.2 (117%); J2 72.2 (128%); K2 73.2 (130%); B1a 74.2 (131%); J 84.2 (149%); B1b 94.2 (167%). Only K3 sits inside the six's band.
+
+**Reads at 24 (my own; seen, not blind):**
+- **K3 (push):** a small paper bag. The crease may read as a plinth (a pot or a bin). It is the quietest drawing and the right weight.
+- **J2 (push):** a bag hanging from a sign, the strongest "shop" read. It's the museum's weight plus 15%, and the bracket can't lose any more ink.
+- **B1b (kill):** a cassette tape or a bus, and the heaviest.
+- **B1a/B1c (expect kill):** the ring's round hole over a block reads as an eye or lens (a camera on a crane). Ring links hurt the sign at this size. The hole is seen but never used, so "a link is a ring" holds for handles, not for hangers. B1c goes to the blind read only to confirm this.
+- **K and K2:** too big. They fill the ring like a printer. K3 replaces both.
+- **L:** I agree with the kill (owner 10-14: place icons are solid), so it's not drawn. K3 meets the weight job inside the solid style.
+
+**For the rules:** the line/mass split held in every drawing. "A link is a ring" needs a narrower scope: a ring where a hand or hook *uses* the hole; a post where the hole would only be seen.
+
+**The trade, for the director:** J2 has the meaning and K3 has the weight; I can't make one drawing that does both. Both should go to the fresh blind read (lavender, 18 and 24, shuffled), with B1c as the control.
+
+NEXT: design director — steer K3 vs J2 (meaning against weight), confirm the B1b kill and the L kill, and order the fresh blind read.

@@ -41,3 +41,18 @@ The café's band isn't reached by either version. B1a sits between the coupe and
 | F5 Reversed | pass | the counter is 2 at 24; at 18 it is 1½, the first thing to close |
 
 **Kill criterion:** if the fresh blind read gives "sign" or "pub" and nobody says shop or store, B1 alone dies and J is its only route.
+
+## How it looks and feels (visual, jam turn 5)
+
+Drawn on `../sketches/contact-sheet-t5.png`. Source `bracket()`, `link()`, `sign_one()`, `sign_two()` and `sign_low()` in `../sketches/shapes.py`. The bracket is one L of line (stub x 4½..6, arm 1½ with its underside on whole px, the ½ fillet inside). Links are rings with a 2px counter on whole px. Net ink is measured:
+
+| | Build | Net ink | vs café / museum |
+|---|---|---|---|
+| B1a | one ring (x 13), board 8 × 5 | 74.2 | 131% / 118% |
+| **B1b: propose kill** | two rings (x 9, 15), board 12 × 4 | 94.2 | 167% / 150% |
+| B1c (B1a lightened) | one ring, board 8 × 4 | 66.2 | 117% / 105% |
+
+- **B1b: kill.** At 24 it reads as a cassette tape or a bus, because two round holes over a wide block is a cassette. It is also the heaviest mark in any row, and 13½ wide (the six run about 10-12).
+- **B1a and B1c lose what made B1 work in turn 2.** The tidy-up was right in principle (no chequer, no brace), but the ring is the trouble. A round 2px hole centred over a block reads as an **eye or a lens**: at 24, a camera on a crane, or a robot's head. Turn 2's B1, with its two plain drops, read as a sign first. So at this size, ring links and the blade sign work against each other. The rule "a link is a ring" is sound for a handle, where the hole is what the hand uses, but here the hole is seen and never used.
+- **Feel:** of all the drawings, the bracket gives the strongest sense of place (it stands off a wall, and you look up at it). It is also the busiest, and in a street of shops it dominates.
+- **Proposal:** keep B1 alive only as B1c, for the blind read, and expect it to fail on the eye read. If the director wants the sign without J, the honest fix is turn 2's drops back in place of the ring. That breaks the museum-rhyme fix, and the director should weigh it.

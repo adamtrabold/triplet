@@ -40,3 +40,18 @@ Bag about 64, less the handle 5 and the corners, so about 58. Arm 18, stub 5, dr
 | F5 Reversed | pass | the handle is 2 at 24 |
 
 **Kill criterion:** if the fresh read says "bag" with no sign or shop, J collapses to a bag and K does that job lighter. If it says "sign" with no bag, the bag adds nothing and B1 does it lighter.
+
+## How it looks and feels (visual, jam turn 5)
+
+Drawn on `../sketches/contact-sheet-t5.png`. Source `hung_bag()` in `../sketches/shapes.py`. The bracket is B1's L (arm y 6½..8), the drops are posts at the line with 1px showing, and the bag is the K body with its slot clean. Net ink is measured:
+
+| | Build | Net ink | vs café / museum |
+|---|---|---|---|
+| J (spec) | bag 7:9 × 8 (y 9..17), slot 3 × 2 | 84.2 | 149% / 134% |
+| **J2 (lightened, to read)** | bag 6:8 × 7 (y 10..17), slot 3 × 2 under its 2px band, drops 2px showing | 72.2 | 128% / 115% |
+
+- **To my eye (seen, not blind) this is the strongest "shop" read in the round.** At 24 it is a bag hanging from a sign: the bracket says a place, the bag says goods. With J2's longer drops the bag hangs rather than sits on the arm, and that gap is what sells it. In J the drops are 1px and the bag looks bolted to the arm, like a T over a bin.
+- **The drops are the right call over rings.** Under a bag they don't rhyme with the museum's columns, because nothing roof-like sits on them. Rings here would bring back B1's eye read.
+- **Weight is the cost.** Even J2 is the museum's weight plus 15%. The bracket alone is about 22px², and it can't go: without it, J is K on a rail. To come down further, the bag would have to drop to about 5:7, and then it loses the handle's 2px band. So J is the meaning pick and K3 the weight pick, and I don't see one drawing that is both.
+- **At 18 in the ring and at 12:** the drops close up and it becomes a Γ with a block, still unlike any other chip. Reversed, the slot holds.
+- **Feel:** the most characterful, and the closest to the inspo's signage, yet drawn straight: no tilt, no swing. In a street of six shops it would be the loudest thing on the map, and that is the risk, given that Shopping is the commonest pin.

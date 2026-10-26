@@ -10,3 +10,5 @@
 - write the weight band as a rule: measure the six's net ink, set a band, and put frequent categories at its light end.
 
 **If the director still wants evidence:** draw L once, labelled "against your 10-14 rule, shown only to settle weight", beside K, inside the team. I wouldn't show it to the owner as an option.
+
+**Visual (jam turn 5): I agree, and I haven't drawn it.** The owner's 10-14 rule settles it, and K3 now meets the weight job inside the solid style (net 50.2, 89% of the café). The director's to confirm.
