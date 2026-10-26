@@ -516,3 +516,48 @@ I rendered before and after myself at DPR 2 and 3. The fit is the right idea, an
 **Open:** 12px needs a per-size answer. Five fixes are in jam turn 174.
 
 **Order:** the flare rule and the signatures rework (turn 173), then the pixel fit re-runs on the redrawn museum.
+
+## Icon system, brand signatures round 2 (v258, 2026-10-26): 7
+
+He said swoop, flare and press were "basically said verbatim", and the handle rule was "a bad rule". This round brings Weight and Shadow, plus the bracket, the swing and the ring.
+
+**Good:**
+- The ring is a real root-shape answer.
+- The bracket demo is sound.
+- Weight is a genuine idea.
+
+**Not yet:**
+- Shadow is the generic pictogram test.
+- Weight's either/or test passes anything with a cut.
+- Museum B (a sag) contradicts "architecturally sound".
+- The ring bag reads as a kettlebell.
+- At 72 the bracket and the plain round look alike.
+
+**New standing test:** a brand signature must FAIL generic sets (Apple, Lucide, Material versions of the same objects), shown side by side. Otherwise it's a quality bar, and quality bars go in the givens with the press.
+
+**What keeps blocking across rounds (173, 175):** the team turns his words, or the general laws of good icons, into "signatures". Neither is ours. Root cause: no one has tested a candidate against what it should exclude.
+
+Fixes are in jam turn 175. The pixel fit (turn 174) re-runs after the museum is redrawn.
+
+**Later the same round (his comments on v258, verbatim):**
+- "the bracket looks really awkward -- i don't like it. i'd prefer to use an apple-like methodology where the roundedness matches how something would actually be machined to be smooth."
+- "bevel is *way* better than proposed version... how do we square these logics."
+- On museum B: "a building can't have a rounded base it will look like it's wobbling."
+- On museum A: "no i hate this too . what about the sides?"
+
+**Settled:**
+- The bracket is out, and so is my turn-173 flare spec. I called the museum's bevel "a pinch"; that was wrong to his eye.
+- Joins are now a machined rule: a small set of tool radii, continuous-curvature rounds, and a chamfer or a fillet as real operations (fix 7).
+- A building's base stays flat. Its swing lives on the sides (fix 8).
+
+**Lesson:** don't spec a join shape from a rubric. Joins come from a making logic he recognises (machining), checked against his eye on the existing museum bevel.
+
+**Banned forms so far:**
+- the beam shed;
+- the tent roof;
+- the v220 foot sweep;
+- pills;
+- a rounded base;
+- the arched lintel;
+- the bracket.
+- **Standing rule from him (bag, v258):** "i can't see what the new icon would look like". Every proposal is shown as the finished icon (filled, in its badge, at 24 and 72, beside the six), with construction marks beside it, never in place of it.

@@ -236,3 +236,9 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > (10-26, canvas comment on Brand signatures, the bag) im noticing the handle of the bag is meaningfully different from the handle of the cup -- maybe this could be reasoned about in some way in the rules
 > (10-26, on the orchestrator's summary "Handles: one rule for all handles and loops") this is a bad rule -- what's the underlying shape that a handle is that we can make a good rule about
 > (10-26, on Brand signatures v256) i will say "the swoop, flare, press" are all things i've basically said verbatim... use your randomness and creative moves in the design buds skills to think a bit outside the box
+> (10-26, canvas comment on Brand signatures v258, the bracket demo) the bracket looks really awkward -- i don't like it. i'd prefer to use an apple-like methodology where the roundedness matches how something would actually be machined to be smooth.
+> (10-26, canvas comment on Brand signatures v258, the bevel (the museum's current capital) beside the proposed bracket) bevel is *way* better than proposed version... how do we square these logics.
+> (10-26, canvas comment on Brand signatures v258, "B · plinth sags") no this is bad... a building can't have a rounded base it will look like it's wobbling.
+> (10-26, canvas comment on Brand signatures v258, the museum swing proposal A, the lintel arch: Grid7Signatures #355:1/9/1/0/0/1/0) no i hate this too . what about the sides?
+> (10-26, canvas comment on Brand signatures v258, a proposal drawing: Grid7Signatures #516:1/9/8/0/0/0, likely the bag's) i can't see what the new icon would look like
+> (10-26, canvas comment on "Sharp at 2x and 3x", on "It runs per size and per screen, like t…" (the per-size, per-density fitting pass)) no i want the base grid to make great icons without extrawork
