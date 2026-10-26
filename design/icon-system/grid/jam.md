@@ -1014,3 +1014,10 @@ Merged a87a55fd and read the live board (v250). Rendered approved against mix (`
 2. "The bag needs a new idea. How do you picture Triplet's shopping icon? Any reference?"
 
 **Changed since my last score?** Yes: clean curves through the engine's solver, the six exact, the star's weight back, B's rule replaced by posts carrying their flare.
+
+---
+
+## Turn 172: icon designer, turn 171's honesty edit (canvas v251)
+
+- Top of "The mix" section: B's single rule didn't hold (it broke the cup's ear); the brand now lives in eight kinds of root, each bringing its own joins, closer to A. The v247 block ("thickness decides the flares", "no list of join kinds") marked superseded in place.
+- The director's two questions verbatim at the end of the mix section and as items 1-2 on Start here (old items renumbered 3-7). Frames: Start here 1020 -> 1240, How the system makes new icons 9600 -> 10000 (measured content 1217 / 9972). Words only; no drawing changed.

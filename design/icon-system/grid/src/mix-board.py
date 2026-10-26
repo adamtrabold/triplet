@@ -46,6 +46,10 @@ def jtext(k):
 
 out = []
 out.append(h2('Round 3 · 10-26 · prototype, outside the engine', 'The mix: roots that carry the brand'))
+out.append('<div style="margin:0 0 12px;padding:10px 14px;background:#F2EBDD;font-size:19px;line-height:1.45">'
+           '<b>B\'s single rule didn\'t hold.</b> One rule driven by thickness broke the cup\'s ear (it asked for a flare there that the cup '
+           'doesn\'t have, and the line broke). So the brand now lives in eight kinds of root, each bringing its own joins. That is closer to A, the kit of parts. '
+           'The v247 proposal further down is kept as the record and is marked superseded.</div>')
 out.append(p('An icon is only a list of root calls. Each root says what it is (a mass, a slab, a post, a loop), and so how thick it is. '
              'Holes, notches and capitals are roots too. One rule then answers every corner from the roots that meet there, with one set of '
              'numbers for every icon. The engine\'s own round solver draws the curves. Nothing is touched by hand per icon.'))
@@ -104,7 +108,13 @@ out.append(ul([
     'On the six the rule gives the same answers as the engine\'s corner table. That is the test passing, not yet proof it generalises: the fork and the bed are the first evidence.',
     'Weight is still judged by eye, not by a rule.',
 ]))
+out.append(h3('Questions for you'))
+out.append('<ol style="margin:0 0 12px;padding-left:26px;font-size:20px;line-height:1.4;color:#12293F;font-weight:600">'
+           '<li style="margin:0 0 8px">"B\'s single rule didn\'t hold. The brand now lives in eight kinds of root, each bringing its own joins. Is that the direction before we build it into the engine?"</li><li style="margin:0 0 8px">"How do you picture the shopping icon? Any reference?"</li></ol>')
 SECTION = ''.join(out)
+SUPERSEDED = ('<div style="margin:0 0 12px;padding:10px 14px;background:#F2EBDD;font-size:18px;line-height:1.45">'
+              '<b>Superseded by the mix above.</b> B\'s single rule didn\'t hold, so "thickness decides the flares" and "no list of join kinds" '
+              'below are no longer true: each kind of root now brings its own joins. Kept as the v247 record.</div>')
 
 if __name__ == '__main__':
     src = open(sys.argv[1]).read()
@@ -113,7 +123,11 @@ if __name__ == '__main__':
     else:
         t1 = src.rfind('<div style="border-top:1px solid #D8CEBA', 0, src.index('Test 1: the six rebuilt'))
     fp = src.rfind('<div style="border-top:1px solid #D8CEBA', 0, src.index('The first proposal (v247)'))
-    out_s = src[:t1] + SECTION + src[fp:]
+    rest = src[fp:]
+    if 'Superseded by the mix above' not in rest:
+        h = rest.index('</h2></div>', rest.index('The first proposal (v247)')) + len('</h2></div>')
+        rest = rest[:h] + SUPERSEDED + rest[h:]
+    out_s = src[:t1] + SECTION + rest
     out_s = out_s.replace('Grid concepts · B tested outside the engine', 'Grid concepts · the mix, prototyped outside the engine')
     open(sys.argv[2], 'w').write(out_s)
     print('section', len(SECTION), 'board', len(src), '->', len(out_s))
