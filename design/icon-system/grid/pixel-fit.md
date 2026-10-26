@@ -1,4 +1,29 @@
-# Sharp at 2x and 3x: the pixel fit (10-26)
+# Sharp at 2x and 3x
+
+## Round 3 (10-26, canvas v259): the grid itself, no fitting pass
+
+Owner, on the fitting pass (comment on the board, verbatim): "no i want the base grid to make great icons without extrawork". This supersedes the fitting pass below (rounds 1 and 2 are kept as history) and the director's turn-174 fixes where they differ.
+
+**The arithmetic.** A position is whole at 2x (his 5K) and at 3x (iPhone) only if it is a whole CSS px: x*2 and x*3 both whole means x is whole. 1/2px lands only at 2x, 1/3px only at 3x. So a grid that is sharp at both with no per-size or per-screen work must have:
+- **Every core edge on a whole px**, so the line and every part are a whole number of px. **1.5px cannot satisfy the rule at any size it is drawn at 1:1.** "Weight wise 1.5" can survive only as a proportion: line : badge = 1/16.
+- **A 1px lattice**, not 1/3px. Of the coin, halves, quarters and eighths come out whole; thirds and sixths round to the nearest px (the proportion series loses its exact thirds and sixths). Posts can't be 5/6 of the line, so a post equals the line (or 1px).
+- **Optical centring in whole px.** A symmetric glyph centres exactly when its centred stem is an even width (2px is); an odd one needs a half-px centre, which fails at 3x.
+- **Each glyph shown only at 1:1 (or 2x, 3x).** One drawing can't serve 24, 18 and 23: at 18 its edges would need to be every 4px of the 24 grid, at 23 every 24px. So 18 and 23 go: the selected pin grows its ring, not the glyph. The 12px chip can't reuse a 2px-line drawing (half of it is 1px, but every edge would need to be on even px): it needs its own drawing. 72 (a showcase) becomes a whole multiple.
+- **Where no grid can satisfy it:** curves, diagonals and tips (the star, the pediment, the tree's tiers) never land whole. The owner's own words allow it ("subpixels are fine in some cases").
+
+**The options** (src/whole-grid.js; previews: the approved six moved once onto each grid, not yet redrawn; the star keeps its drawn line). Every straight edge is sharp at 2x and 3x in all three (0 soft edges, against 41/40 of 50 today):
+- **A: 24px badge, 2px line.** A third heavier than chosen (line : badge 1/12). Counters shrink (the cup's ear closes in the preview); posts drop to 1px. Ink +19% (café) to +29% (+).
+- **B: 32px badge, 2px line. Recommended.** The approved proportion exactly (1/16); everything a third bigger. Costs size, not weight: badges 32 in rows and on the map, the selected pin 40 (ring grows, glyph 1:1). The chip at 16px with a 1px line keeps the proportion (its own drawing). Posts become the line.
+- **C: 24px badge, 1px line.** A third lighter (1/24); the + loses 38% of its ink.
+- Not offered: 1.5px on a 1/2px lattice (sharp on the 5K, soft on iPhone) and 4/3px on a 1/3px lattice (the reverse): each fails one screen.
+
+Checks on the previews (fair / join): B is clean except the museum (12 fair faults, the capital flares, which go to the flare redraw) and the bar (2); A and C carry more because their snaps change widths in place. These are snaps, not redraws: the engine would redraw on the chosen grid.
+
+Board: "Sharp at 2x and 3x" (`simplify/boards/Grid7Sharp.dc.html`, from `src/pixel-fit-board.py`), Start item 6. Images: `stills/wholegrid/raw/`; outlines `svg/wholegrid/`.
+
+---
+
+## Rounds 1 and 2 (superseded): the pixel fit
 
 Owner, verbatim: "additionally, the long play is an iphone app, so we need to resolve the subpixel issue. subpixels are fine in some cases, but in core dimensions and core line landings the fuzziness is tough. and while i am also testing on iphone (even though you say nobody has looked) i am also using a 5k LG display on mac...so im seeing these in high res no matter where i am looking."
 

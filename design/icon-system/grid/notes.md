@@ -11,7 +11,11 @@ Owner: "canvases are too long not everything is showing. do we really need this 
 - Questions dropped from Start as superseded (still on the archived boards): blind round 1's family read of the bed and person (the bed was rebuilt in the mix), "the glass on a plate" (the cap rule), "does Joins connect the museum" (capitals are now a root).
 - Code: `simplify/build.py <live project dir> <out root>` (copies icon paths from the live boards; nothing redrawn), `simplify/measure.js` (Chromium heights), `simplify/layout.py <live canvas.json> <out root>`. Published boards in `simplify/boards/`. A new round: update `Grid7Now` and `START_QS`; keep each board under ~2,400px; move the old Now to the Archive.
 
-## Sharp at 2x and 3x: the pixel fit (10-26, canvas v257)
+## Sharp at 2x and 3x (10-26): round 3, canvas v259, the grid itself
+
+Owner: "no i want the base grid to make great icons without extrawork". Whole px is the only position sharp at 2x and 3x, so the line can't be 1.5px; options A (24, 2px), B (32, 2px, recommended: his proportion), C (24, 1px) in `pixel-fit.md` round 3; code `src/whole-grid.js`. The fitting pass below is superseded.
+
+## Sharp at 2x and 3x: the pixel fit (10-26, canvas v257, superseded)
 
 Owner: "the long play is an iphone app, so we need to resolve the subpixel issue ... i am also using a 5k LG display on mac". A last pass outside the drawing logic (`src/pixel-fit.js`) fits each outline per render size and density: widths to whole device px (line 3 at 2x, 5 at 3x; ties by rank), core edges to whole device px, centring snapped, symmetry kept, curves carried by per-contour interpolation. At 24: soft core edges 41/50 (2x) and 40/50 (3x) -> 0. Full write-up, costs, checks and open questions: `pixel-fit.md`. Board `Grid7Sharp` (x 5040, y 300, 940 x 2246) on the Grid concepts page, item 6 on Start; source in `simplify/boards/`.
 

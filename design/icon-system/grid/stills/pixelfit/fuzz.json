@@ -19,6 +19,11 @@
    "touched": 579,
    "grey": 64,
    "share": 0.111
+  },
+  "after-down-3x": {
+   "touched": 518,
+   "grey": 53,
+   "share": 0.102
   }
  },
  "bar": {
@@ -41,6 +46,11 @@
    "touched": 435,
    "grey": 57,
    "share": 0.131
+  },
+  "after-down-3x": {
+   "touched": 417,
+   "grey": 57,
+   "share": 0.137
   }
  },
  "museum": {
@@ -63,6 +73,11 @@
    "touched": 633,
    "grey": 34,
    "share": 0.054
+  },
+  "after-down-3x": {
+   "touched": 595,
+   "grey": 36,
+   "share": 0.061
   }
  },
  "nature": {
@@ -82,6 +97,11 @@
    "share": 0.253
   },
   "after-3x": {
+   "touched": 376,
+   "grey": 85,
+   "share": 0.226
+  },
+  "after-down-3x": {
    "touched": 376,
    "grey": 85,
    "share": 0.226
@@ -107,6 +127,11 @@
    "touched": 898,
    "grey": 210,
    "share": 0.234
+  },
+  "after-down-3x": {
+   "touched": 898,
+   "grey": 210,
+   "share": 0.234
   }
  },
  "plus": {
@@ -129,6 +154,11 @@
    "touched": 325,
    "grey": 8,
    "share": 0.025
+  },
+  "after-down-3x": {
+   "touched": 272,
+   "grey": 8,
+   "share": 0.029
   }
  }
 }

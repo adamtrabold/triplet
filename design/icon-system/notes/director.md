@@ -561,3 +561,12 @@ Fixes are in jam turn 175. The pixel fit (turn 174) re-runs after the museum is 
 - the arched lintel;
 - the bracket.
 - **Standing rule from him (bag, v258):** "i can't see what the new icon would look like". Every proposal is shown as the finished icon (filled, in its badge, at 24 and 72, beside the six), with construction marks beside it, never in place of it.
+
+## Icon system, sharp from the grid (v259, 2026-10-26): superseded, not scored
+
+He said "lets just keep the line weight and stuff where it was and just opimize point placement as possible. the other options look like shit".
+
+**Settled:**
+- 1.5px line, 24 badge;
+- no fitting pass;
+- better point placement in the drawings themselves.
