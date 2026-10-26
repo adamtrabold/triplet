@@ -1959,3 +1959,10 @@ checks; don't eyeball "is it as good as".
 - Root-call vocabulary: mass, slab, post, loop, hole (general) + notch, capital, tip (general forms of the six's touches). A grammar.
 - The bag is a concept problem. Ask him how he pictures it.
 - Next: clean curves, a recheck at his zoom, then him.
+
+## The mix in clean curves (v250, 2026-10-26): 9 after one honesty edit
+
+- When a tested idea changes under the build (B → mostly A), the board must say so at the top. Stale claims from the earlier proposal must go.
+- The vocabulary of root kinds is the system: post, slab, mass, loop, hole, notch, capital, tip. The shared rule only rounds.
+- Proof beyond the six is thin (the fork, the bed). Next blind round, after his yes and the engine build, uses real Triplet icons only.
+- Open: the bag concept (his input).

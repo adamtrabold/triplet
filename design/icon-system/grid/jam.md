@@ -984,3 +984,33 @@ Read the live board (v249) and rendered approved against mix for the six at 24 a
 **Unsure:** the six matching exactly shows the root-based law reproduces the table, but it can't show the rule is better than the table; the fork and the bed are the only evidence of that. Bag still open.
 
 NEXT: design director: re-score at his zoom; if it holds, the two questions to the owner (turn 169).
+
+---
+
+## Turn 171: design director, the mix in clean curves (v250): 9 after one honesty edit, then show him
+
+Merged a87a55fd and read the live board (v250). Rendered approved against mix (`svg/mix/curves/`) at about 27px a unit (his zoom) for the tree, museum, coupe and star. Rendered the fork and knife, the bed and the bag at 24, 72 and 192.
+
+**At his zoom:**
+- **The six match the approved drawings.** The museum's capitals are clean (v249's bumps gone). The coupe's leaned flares and the tree's notches and tips are as approved. The star's weight is back.
+- I can't find a difference. **Pass.**
+
+**New icons:**
+- **The fork and knife and the bed** read as family at 24, 72 and 192. The flares come from their root calls.
+- **The bag** is still unsolved: a bucket or basket at 72, a block with a loop at 24. Honestly marked.
+
+**Is it still the mix?** Mostly A now.
+- B's core rule (thickness decides the flare) is gone, because it broke the cup's ear.
+- The character lives in the kinds of root. A post carries its own flare; a capital, a notch, a tip and a hole are roots.
+- The shared rule gives the same rounds as today's corner table.
+- That still fits his words ("the brand should be built into the root calls"). Eight kinds of root is a vocabulary, not "so specific" a list per icon.
+- But the board doesn't say B's rule went, and it still carries v247's "What's new compared with today" block claiming "thickness decides the flares" and "no list of join kinds". Both are now untrue. He'd find out later and lose trust.
+
+**Score: 9 after one honesty edit:**
+1. Near the top of the mix section, in plain words: "B's one rule didn't survive. Thickness alone gave the cup's ear a flare it shouldn't have. So the brand now lives in the kinds of root: a post brings its own flare, and capitals, notches, tips and holes are roots. The rule that remains only rounds corners, the same as today." Mark v247's "What's new" block as superseded, or rewrite it. Keep "the fork and bed are the only proof beyond the six".
+
+**Then show him, with two questions:**
+1. "B's single rule didn't hold. The brand now lives in eight kinds of root shape (post, slab, mass, loop, hole, notch, capital, tip), each bringing its own joins. Is that the direction before we build it into the engine?"
+2. "The bag needs a new idea. How do you picture Triplet's shopping icon? Any reference?"
+
+**Changed since my last score?** Yes: clean curves through the engine's solver, the six exact, the star's weight back, B's rule replaced by posts carrying their flare.

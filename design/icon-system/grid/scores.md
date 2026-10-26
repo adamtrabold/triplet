@@ -1462,3 +1462,10 @@ The verdict stands within our own set:
 - **Root calls:** a grammar (mass, slab, post, loop, hole + notch, capital, tip), not a catalogue.
 - **Fixes:** clean curves, then recheck at his zoom; star weight; the board's museum claim. Then show him: the direction, and the bag idea.
 - **Jam turn 169.**
+
+## Round: the mix in clean curves (canvas v250), 2026-10-26: 9 after one honesty edit
+
+- **The six:** exact at his zoom (museum capitals clean). The fork and bed are family; the bag is unsolved.
+- **Now mostly A:** B's thickness rule is gone; the brand lives in the kinds of root. That fits his "brand built into the root calls".
+- **Edit:** say plainly that B's rule went, and supersede v247's "What's new" claims.
+- **Then show him:** is the eight-root direction right? And how does he picture the bag? Jam turn 171.

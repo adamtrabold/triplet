@@ -461,3 +461,7 @@ One thickness rule gives joins for four of the six and for new icons. It fills t
 ## Icon system, the mix (v249, 2026-10-26): 8
 
 The right direction: the six return at true size, and the fork and bed read as family from root calls. Not yet at his zoom: the traced curves leave lumps (museum) and kinks (coupe). Clean curves, then show him (direction plus the bag). Full entry in `icon-concepts/notes/director.md`; jam turn 169.
+
+## Icon system, the mix in clean curves (v250, 2026-10-26): 9 after one honesty edit
+
+The six are exact at his zoom; the fork and bed are family. B's one rule didn't survive; the brand lives in kinds of root (mostly A). The board must say so, and drop v247's stale claims. Then show him the direction plus the bag question. Full entry in `icon-concepts/notes/director.md`; jam turn 171.
