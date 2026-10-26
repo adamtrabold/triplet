@@ -113,6 +113,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-26 · Stuck on brand signatures (v256 → v258 → v260; director 6 → 7 → 7):** set A swoop/flare/press (his words back), then Weight/Shadow (Shadow = generic legibility), then Weight = squashed curves + machined joins (his "no circles" possibility weighted; his machined note). Owner rejections on the boards: the bracket ("really awkward"), sagging plinth ("will look like it's wobbling"), arched lintel ("i hate this too"); the bevel "*way* better". Kept: handle = a ring (cup's ear matches); machined join rule (tool radii 0.15/0.3/0.6, continuous curvature, chamfer under an overhang = his bevel; changes the tree trunk 0.42 → 0.6). Museum swelling sides read pinched (spool); bags: paper = padlock, tote = bucket. Pixels: fitting pass rejected ("no i want the base grid to make great icons without extrawork"), whole-px grids A/B/C rejected ("look like shit"); now: keep the 1.5 line etc., optimise point placement. Stuck note sent.
 
+- **10-26 · v262 shown:** sharp edges by placement only (weights and drawings as approved): each icon's placement moved once, in the drawing (≤0.25px), the + 0.23px up (optical). Soft core straight edges 54 → 32 at 2x, 53 → 33 at 3x (of 65); café fully sharp at 2x. Can't fix under his constraints: one edge of the 1.5 line at 3x, one of a 1.25 post, centred stems, the ring's inner edge, curves/diagonals/tips. Director 8 → 9.
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
