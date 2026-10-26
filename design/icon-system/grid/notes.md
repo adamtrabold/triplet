@@ -11,7 +11,11 @@ Owner: "canvases are too long not everything is showing. do we really need this 
 - Questions dropped from Start as superseded (still on the archived boards): blind round 1's family read of the bed and person (the bed was rebuilt in the mix), "the glass on a plate" (the cap rule), "does Joins connect the museum" (capitals are now a root).
 - Code: `simplify/build.py <live project dir> <out root>` (copies icon paths from the live boards; nothing redrawn), `simplify/measure.js` (Chromium heights), `simplify/layout.py <live canvas.json> <out root>`. Published boards in `simplify/boards/`. A new round: update `Grid7Now` and `START_QS`; keep each board under ~2,400px; move the old Now to the Archive.
 
-## Sharp at 2x and 3x (10-26): round 4, canvas v261, placement only (current)
+## Sharp at 2x and 3x (10-26): round 5, canvas v262 (current)
+
+Vertical moves allowed for every icon (director: vertical centring is optical, per icon). The + moves 0.23px up: 8/8 -> 6/8. Totals 107 -> 65 of 130. `pixel-fit.md` round 5.
+
+## Sharp at 2x and 3x (10-26): round 4, canvas v261, placement only
 
 Owner: "lets just keep the line weight and stuff where it was and just opimize point placement as possible. the other options look like shit". Widths kept; only positions move, once, in the drawings (`src/placement.js`, board from `src/placement-board.py`). Soft core edges 107 -> 67 of 130 (2x+3x); max move 0.25px. A/B/C archived (`Archive-G7bf-WholeGrid`, y 210000). Details: `pixel-fit.md` round 4.
 

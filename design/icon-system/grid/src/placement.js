@@ -33,8 +33,8 @@ for (const [n, id] of Object.entries(ID)) {
   const shiftD = (d, dx, dy) => d.replace(/(-?\d*\.?\d+)\s+(-?\d*\.?\d+)/g, (m, a, b) => `${(+a + dx).toFixed(6)} ${(+b + dy).toFixed(6)}`);
   let tb = null;
   // capped at 1/4px a side (optical centring must not visibly move); an icon symmetric across x stays on the badge's centre line
-  // (the + is symmetric both ways, so it can't move at all)
-  const SYMX = { bar: 1, museum: 1, nature: 1, star: 1, plus: 1 }, SYMY = { plus: 1 };
+  // (round 5: the + may move vertically too)
+  const SYMX = { bar: 1, museum: 1, nature: 1, star: 1, plus: 1 }, SYMY = {};   // vertical centring is optical, per icon (director, turn 178): every icon may move up or down
   for (let i = SYMX[id] ? 0 : -12; i <= (SYMX[id] ? 0 : 12); i++) for (let j = SYMY[id] ? 0 : -12; j <= (SYMY[id] ? 0 : 12); j++) {
     const dx = i / 48, dy = j / 48, d = shiftD(d0, dx, dy), c = { lattice: 'moved whole', d, s2: soft(d, 2), s3: soft(d, 3), move: Math.hypot(dx, dy) };
     if (!tb || c.s2 + c.s3 < tb.s2 + tb.s3 || (c.s2 + c.s3 === tb.s2 + tb.s3 && c.move < tb.move)) tb = c;

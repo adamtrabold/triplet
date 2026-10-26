@@ -1,6 +1,16 @@
 # Sharp at 2x and 3x
 
-## Round 4 (10-26, canvas v261): placement only, weights kept. CURRENT
+## Round 5 (10-26, canvas v262): vertical centring is optical, per icon. CURRENT
+
+Director, turn 178: symmetric icons were pinned vertically too, but "vertical centering should be optical always on a per-icon basis". Now every icon may move up or down (at most 1/4px); icons symmetric across x still stay on the centre line horizontally. Judged by eye at 72px and true size against the badge's centre line: none reads off-centre.
+- **Add:** moves 0.23px **up** (the search found up, not down, sharpens its arm: its horizontal arm's top edge lands whole). Soft 8/8 → 6/8. Favours the 5K. Up is also the optical-centre side.
+- **Bar:** unchanged (1/16px up already its best); 9/9. Both screens alike.
+- **Nature:** unchanged (1/4px down); 4/2. Favours the iPhone.
+- Café 0/5 favours the 5K; Museum 13/9 favours the iPhone.
+
+**Totals:** soft core edges 5K 54 → 32, iPhone 53 → 33 (107 → 65 of 130). The board lists which screen each icon's sharpening favours.
+
+## Round 4 (10-26, canvas v261): placement only, weights kept
 
 Owner on the whole-pixel grids (verbatim): "lets just keep the line weight and stuff where it was and just opimize point placement as possible. the other options look like shit". His "no i want the base grid to make great icons without extrawork" still stands. Rounds 1 to 3 below are history; A, B and C are on the Archive page (row "Whole-pixel grids", `Archive-G7bf-WholeGrid`).
 

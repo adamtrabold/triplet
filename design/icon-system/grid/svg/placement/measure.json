@@ -116,17 +116,17 @@
    "s3": 8
   },
   "shiftOnly": {
-   "s2": 8,
+   "s2": 6,
    "s3": 8,
-   "move": 0
+   "move": 0.229
   },
   "after": {
-   "s2": 8,
+   "s2": 6,
    "s3": 8
   },
-  "lattice": "as drawn",
-  "maxMovePx": 0,
-  "centreShiftPx": 0,
+  "lattice": "moved whole",
+  "maxMovePx": 0.229,
+  "centreShiftPx": 0.229,
   "areaChange": 0,
   "fair": 0,
   "join": 0
