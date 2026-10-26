@@ -11,7 +11,11 @@ Owner: "canvases are too long not everything is showing. do we really need this 
 - Questions dropped from Start as superseded (still on the archived boards): blind round 1's family read of the bed and person (the bed was rebuilt in the mix), "the glass on a plate" (the cap rule), "does Joins connect the museum" (capitals are now a root).
 - Code: `simplify/build.py <live project dir> <out root>` (copies icon paths from the live boards; nothing redrawn), `simplify/measure.js` (Chromium heights), `simplify/layout.py <live canvas.json> <out root>`. Published boards in `simplify/boards/`. A new round: update `Grid7Now` and `START_QS`; keep each board under ~2,400px; move the old Now to the Archive.
 
-## Sharp at 2x and 3x (10-26): round 3, canvas v259, the grid itself
+## Sharp at 2x and 3x (10-26): round 4, canvas v261, placement only (current)
+
+Owner: "lets just keep the line weight and stuff where it was and just opimize point placement as possible. the other options look like shit". Widths kept; only positions move, once, in the drawings (`src/placement.js`, board from `src/placement-board.py`). Soft core edges 107 -> 67 of 130 (2x+3x); max move 0.25px. A/B/C archived (`Archive-G7bf-WholeGrid`, y 210000). Details: `pixel-fit.md` round 4.
+
+## Sharp at 2x and 3x (10-26): round 3, canvas v259, the grid itself (rejected)
 
 Owner: "no i want the base grid to make great icons without extrawork". Whole px is the only position sharp at 2x and 3x, so the line can't be 1.5px; options A (24, 2px), B (32, 2px, recommended: his proportion), C (24, 1px) in `pixel-fit.md` round 3; code `src/whole-grid.js`. The fitting pass below is superseded.
 

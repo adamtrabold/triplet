@@ -1,0 +1,134 @@
+{
+ "cafe": {
+  "edges": 13,
+  "before": {
+   "s2": 13,
+   "s3": 13
+  },
+  "shiftOnly": {
+   "s2": 5,
+   "s3": 5,
+   "move": 0.133
+  },
+  "after": {
+   "s2": 0,
+   "s3": 5
+  },
+  "lattice": "1/2px",
+  "maxMovePx": 0.221,
+  "centreShiftPx": 0.075,
+  "areaChange": -1.84,
+  "fair": 1,
+  "join": 0
+ },
+ "bar": {
+  "edges": 11,
+  "before": {
+   "s2": 11,
+   "s3": 10
+  },
+  "shiftOnly": {
+   "s2": 9,
+   "s3": 9,
+   "move": 0.063
+  },
+  "after": {
+   "s2": 9,
+   "s3": 9
+  },
+  "lattice": "moved whole",
+  "maxMovePx": 0.063,
+  "centreShiftPx": 0.062,
+  "areaChange": 0,
+  "fair": 0,
+  "join": 0
+ },
+ "museum": {
+  "edges": 24,
+  "before": {
+   "s2": 17,
+   "s3": 17
+  },
+  "shiftOnly": {
+   "s2": 17,
+   "s3": 17,
+   "move": 0
+  },
+  "after": {
+   "s2": 13,
+   "s3": 9
+  },
+  "lattice": "1/3px",
+  "maxMovePx": 0.114,
+  "centreShiftPx": 0.016,
+  "areaChange": 1.76,
+  "fair": 0,
+  "join": 0
+ },
+ "nature": {
+  "edges": 5,
+  "before": {
+   "s2": 5,
+   "s3": 5
+  },
+  "shiftOnly": {
+   "s2": 4,
+   "s3": 2,
+   "move": 0.25
+  },
+  "after": {
+   "s2": 4,
+   "s3": 2
+  },
+  "lattice": "moved whole",
+  "maxMovePx": 0.25,
+  "centreShiftPx": 0.25,
+  "areaChange": 0,
+  "fair": 0,
+  "join": 0
+ },
+ "star": {
+  "edges": 0,
+  "before": {
+   "s2": 0,
+   "s3": 0
+  },
+  "shiftOnly": {
+   "s2": 0,
+   "s3": 0,
+   "move": 0
+  },
+  "after": {
+   "s2": 0,
+   "s3": 0
+  },
+  "lattice": "as drawn",
+  "maxMovePx": 0,
+  "centreShiftPx": 0,
+  "areaChange": 0,
+  "fair": 0,
+  "join": 0
+ },
+ "plus": {
+  "edges": 12,
+  "before": {
+   "s2": 8,
+   "s3": 8
+  },
+  "shiftOnly": {
+   "s2": 8,
+   "s3": 8,
+   "move": 0
+  },
+  "after": {
+   "s2": 8,
+   "s3": 8
+  },
+  "lattice": "as drawn",
+  "maxMovePx": 0,
+  "centreShiftPx": 0,
+  "areaChange": 0,
+  "fair": 0,
+  "join": 0
+ }
+}

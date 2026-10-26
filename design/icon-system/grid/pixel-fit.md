@@ -1,6 +1,40 @@
 # Sharp at 2x and 3x
 
-## Round 3 (10-26, canvas v259): the grid itself, no fitting pass
+## Round 4 (10-26, canvas v261): placement only, weights kept. CURRENT
+
+Owner on the whole-pixel grids (verbatim): "lets just keep the line weight and stuff where it was and just opimize point placement as possible. the other options look like shit". His "no i want the base grid to make great icons without extrawork" still stands. Rounds 1 to 3 below are history; A, B and C are on the Archive page (row "Whole-pixel grids", `Archive-G7bf-WholeGrid`).
+
+**What stays:** the 1.5px line, the 1.25px posts, the badge and ring, the sizes, the proportions, the six's look. **What moves:** positions only, once, in the drawings themselves (one outline for every screen, no per-screen pass). Code: `src/placement.js` (uses `pixel-fit.js` with `tie: 'keep'`: every width kept exactly). Outlines: `svg/placement/<icon>.svg` (the candidate six); numbers `svg/placement/measure.json`; renders `stills/placement/raw/`; board `src/placement-board.py`.
+
+**How:** whole CSS px are the only positions sharp at both 2x and 3x. Per icon, the best of:
+1. the whole icon moved (its optical centring snapped), at most 1/4px a side; icons symmetric across x stay on the badge's centre line (the + can't move at all);
+2. its straight edges moved to a whole-px, 1/2px or 1/3px lattice with widths kept (a stem lands whichever edge moves less), accepted only if no point moves over 1/2px and ink changes under 2%.
+
+**Result (soft core edges, 5K / iPhone, at the 24 badge):** 54 → 34 at 2x and 53 → 33 at 3x, of 65 each (107 → 67 of 130). No point moves more than 0.25px.
+
+| icon | core edges | approved | whole icon moved only | placed | how | max move px | ink | fair / join |
+|---|---|---|---|---|---|---|---|---|
+| Café | 13 | 13 / 13 | 5 / 5 | 0 / 5 | 1/2px | 0.221 | -1.84% | 1 / 0 |
+| Bar | 11 | 11 / 10 | 9 / 9 | 9 / 9 | moved whole | 0.063 | 0% | 0 / 0 |
+| Museum | 24 | 17 / 17 | 17 / 17 | 13 / 9 | 1/3px | 0.114 | 1.76% | 0 / 0 |
+| Nature | 5 | 5 / 5 | 4 / 2 | 4 / 2 | moved whole | 0.25 | 0% | 0 / 0 |
+| Star | 0 | 0 / 0 | 0 / 0 | 0 / 0 | as drawn | 0 | 0% | 0 / 0 |
+| Add | 12 | 8 / 8 | 8 / 8 | 8 / 8 | as drawn | 0 | 0% | 0 / 0 |
+
+**Visible change:** at true size, none that we can see (board: approved and placed side by side). The museum's parts move up to 0.11px (ink +1.8%), the café's up to 0.22px (ink -1.8%); the tree moves 1/4px down, the bar 1/16px.
+
+**What placement can't fix under his constraints:**
+- A 1.5px line is 4.5 iPhone pixels: one edge can be whole, never both. At 2x (3 device px) both can.
+- A 1.25px post is 2.5 / 3.75 device px: one edge whole at both, the other at neither.
+- A stem centred on the badge (the +, the coupe's stem, the trunk) has its edges at centre ± 0.75 (or ± 0.625): neither is whole unless the icon leaves the centre. So the + stays exactly as approved, 8 / 8 soft.
+- The bar's parts can't move enough within 1/2px and 2% ink, so only the whole icon moves (1/16px).
+- The ring's inner edge at 3x (1.5px in from the badge edge), and every curve, diagonal and tip.
+
+Checks on the placed six: join-check 0 faults on all six; fair-check 0 except café 1 (as in round 1, a marginal KNEE). Open: does the owner see them as the same six? If so, they replace the approved outlines.
+
+---
+
+## Round 3 (10-26, canvas v259, rejected): the grid itself, no fitting pass
 
 Owner, on the fitting pass (comment on the board, verbatim): "no i want the base grid to make great icons without extrawork". This supersedes the fitting pass below (rounds 1 and 2 are kept as history) and the director's turn-174 fixes where they differ.
 

@@ -140,7 +140,8 @@ const tokenW = w => Math.round(w * 12) / 12;   // a width read as its token, to 
 // a tie (exactly half a device px over) goes by RANK by default: the line (1.5px) and anything heavier up, anything thinner than
 // the line (a post, 1.25px) down, so a post stays thinner than the line at both densities (2x: line 3, post 2; 3x: line 5, post 4)
 const LINE = 1.5;
-function devW(w, k, tie = 'rank') { const t = tokenW(w), v = t * k; const fl = Math.floor(v + 1e-9), fr = v - fl; const up = tie === 'up' || (tie === 'rank' && t >= LINE - 1e-6); return Math.max(1, Math.abs(fr - 0.5) < 1e-6 ? (up ? fl + 1 : fl) : Math.round(v)); }
+function devW(w, k, tie = 'rank') { if (tie === 'keep') return w * k;   // keep: the drawn width exactly (placement only, round 4)
+  const t = tokenW(w), v = t * k; const fl = Math.floor(v + 1e-9), fr = v - fl; const up = tie === 'up' || (tie === 'rank' && t >= LINE - 1e-6); return Math.max(1, Math.abs(fr - 0.5) < 1e-6 ? (up ? fl + 1 : fl) : Math.round(v)); }
 
 // ---- the per-axis map: control points (orig -> fitted), then a smooth monotone curve through them
 // SHIFT: first the whole glyph moves, by less than half a device pixel, so that its lattice edges (lone edges and every
@@ -154,6 +155,8 @@ function devW(w, k, tie = 'rank') { const t = tokenW(w), v = t * k; const fl = M
 // 2x) always lands the same way.
 // nearest whole px, via sixths; a half goes back toward where the edge was drawn (o, unshifted), else down
 const rnd6 = (v, o = null) => { const T = Math.round(v * 6); if (((T % 6) + 6) % 6 === 3) { const a = (T - 3) / 6; return o !== null && Math.abs(a + 1 - o) < Math.abs(a - o) - 1e-9 ? a + 1 : a; } return Math.round(T / 6); };
+// keep mode: a stem keeps its drawn width, so only one of its edges can be whole; it lands whichever edge moves less
+function keepLo(v, W, tie) { const a = rnd6(v); if (tie !== 'keep') return a; const b = rnd6(v + W) - W; return Math.abs(b - v) < Math.abs(a - v) - 1e-9 ? b : a; }
 function axisMap(list, k, tie, minSpan = false) {
   const { stems, used } = pairStems(list), lat = [];
   for (const s of stems) lat.push({ v: list[s.i].pos * k, w: list[s.i].hi - list[s.i].lo });
@@ -165,7 +168,7 @@ function axisMap(list, k, tie, minSpan = false) {
   if (phase < -5 / 12) phase += 1;   // a phase near a half (a centred odd width) always reads as + a half: no flip across the seam
   const shift = -phase, ctl = [];
   for (const s of stems) {
-    const a = list[s.i], b = list[s.j], W = devW(s.w, k, tie), lo = rnd6(a.pos * k + shift);
+    const a = list[s.i], b = list[s.j], W = devW(s.w, k, tie), lo = keepLo(a.pos * k + shift, W, tie);
     const pri = Math.min(a.hi - a.lo, b.hi - b.lo) + 100;   // stems before lone edges
     ctl.push({ o: a.pos, n: lo / k, pri, W, role: 'stem', sid: s.i, cis: [a.ci] }, { o: b.pos, n: (lo + W) / k, pri, W, role: 'stem', sid: s.i, cis: [b.ci] });
   }
@@ -181,12 +184,12 @@ function axisMap(list, k, tie, minSpan = false) {
     const get = pos => (byO.get(pos.toFixed(5)) || [])[0], set = (pos, n) => { for (const c of byO.get(pos.toFixed(5)) || []) c.n = n; }, tag = (pos, m) => { for (const c of byO.get(pos.toFixed(5)) || []) c.mate = m; };
     const centred = stems.filter(s => Math.abs(list[s.i].pos + list[s.j].pos - 2 * sym.c) < 0.01).sort((p, q) => q.ov - p.ov);
     let twoC = Math.round(2 * sym.c * k);
-    if (centred.length) { const W = devW(centred[0].w, k, tie); if (((twoC - W) % 2 + 2) % 2) twoC = Math.abs(twoC - 1 - 2 * sym.c * k) <= Math.abs(twoC + 1 - 2 * sym.c * k) + 0.5 ? twoC - 1 : twoC + 1; }   // near a tie (a centre on a whole pixel), always up / left
+    if (centred.length && tie !== 'keep') { const W = devW(centred[0].w, k, tie); if (((twoC - W) % 2 + 2) % 2) twoC = Math.abs(twoC - 1 - 2 * sym.c * k) <= Math.abs(twoC + 1 - 2 * sym.c * k) + 0.5 ? twoC - 1 : twoC + 1; }   // near a tie (a centre on a whole pixel), always up / left
     const C = twoC / 2, sh = C - sym.c * k;
     for (const s of stems) {
       const a = list[s.i], b = list[s.j], W = devW(s.w, k, tie);
       if (centred.includes(s)) { set(a.pos, (C - W / 2) / k); set(b.pos, (C + W / 2) / k); }
-      else if (b.pos < sym.c) { const lo = rnd6(a.pos * k + sh, a.pos * k); set(a.pos, lo / k); set(b.pos, (lo + W) / k); }
+      else if (b.pos < sym.c) { const lo = tie === 'keep' ? keepLo(a.pos * k + sh, W, tie) : rnd6(a.pos * k + sh, a.pos * k); set(a.pos, lo / k); set(b.pos, (lo + W) / k); }
     }
     list.forEach((e, i) => { if (!used.has(i) && e.pos < sym.c) set(e.pos, rnd6(e.pos * k + sh, e.pos * k) / k); });
     for (const [i, j] of sym.mate) if (list[i].pos > sym.c && list[j].pos < sym.c) { const R = get(list[i].pos), L = get(list[j].pos); if (R && L) { set(R.o, (2 * C - L.n * k) / k); tag(R.o, L.o); tag(L.o, R.o); } }
