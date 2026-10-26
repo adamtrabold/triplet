@@ -1,57 +1,52 @@
-# Brand signatures (round 3, 2026-10-26, canvas v260)
+# Brand and Shopping (round 4, 2026-10-26, canvas v263)
 
-Board "Brand signatures" on the Grid concepts page (`Grid7Signatures.dc.html`). Generator: `python3 -I src/signatures-board.py <live Grid7Now.dc.html> reference/generic <out>`. Still: `stills/signatures-board.png`. History: round 1 (v256, swoop/flare/press) scored 6 (jam turn 173); round 2 (v258, weight + shadow, the bracket, swings on lintel/plinth, the ring) scored 7 (turn 175 and addenda 1-3).
+Board "Brand and Shopping" on the Grid concepts page (`Grid7Signatures.dc.html`, renamed from "Brand signatures"; round 3's board, v260, is on the Archive page). Generator: `python3 -I src/brand-shopping-board.py <live Grid7Now.dc.html> <out>`; Shopping drawings in `src/shop_shapes.py`; posts-at-the-line rebuilds in `svg/post-line/`. Still: `stills/brand-shopping-board.png`. History: rounds 1-3 (swoop/flare/press 6; weight + shadow 7; weight as two tests + the machined rule 7) are in git and the director's turns 173-177.
 
-## The owner's words on round 2 (verbatim)
+## The owner's words (verbatim)
 
-- "the bracket looks really awkward -- i don't like it. i'd prefer to use an apple-like methodology where the roundedness matches how something would actually be machined to be smooth."
-- "bevel is *way* better than proposed version... how do we square these logics."
-- "no this is bad... a building can't have a rounded base it will look like it's wobbling." (plinth sag)
-- "no i hate this too . what about the sides?" (lintel arch)
-- "i can't see what the new icon would look like"
+On v260: "some of these are too cheeky. i do think the prior straightforwardness is part of the allure considering the source inspiration. i dont think the swoop is working. i do think i like the machined rules a lot -- and maybe that is stronger than defining the rounds by a shape.. it's by underlying method of creation. i think all of these things together speak to the brand. the bag i think is conceptually the problem -- the way we have added personality is by icon choice -- the bar coupe is one of the specifically good ones. whereas other systems used a simple wine glass or something, we went slightly left-of-center. i think the shopping bag works, but it may be one step too common?"
 
-Earlier: the ask ("1-3 core brand visual signatures ... as a filter"), "swoop, flare, press are all things i've basically said verbatim", "what's the underlying shape that a handle is", and the blocks note ("only ellipses no circles... do not weight towards this just keep it as a possibility"). Full text in `../owner.md`.
+On the posts measuring 1.24-1.25px: "ok yeah i must be viewing these too big then -- nothing should go that thin."
 
-## The signature: weight
+## The brand, in his words (three filters)
 
-Triplet's objects are heavy things, set down and carried. Two yes/no tests show it:
+1. **Plain.** Straightforward forms, as plain as the road signs and tags they come from. Nothing cheeky.
+2. **Made by a tool.** Every round and join is what a cutter would leave (the machined rule). The method makes the shape, not a shape rule.
+3. **Left of centre.** Personality comes from what we choose to draw: the coupe, not a wine glass.
 
-1. **Squashed.** No curve is a circle: every curve is cut from an ellipse 4/5 or flatter, as if a round had settled under weight. (Tool rounds at corners aside.)
-2. **Machined where it carries.** Wherever one part holds another, the join is cut by a tool (a chamfer across a step, or a fillet), never a plain corner.
+Dropped: the swoop, Weight as a named signature, "no circles" as a test (it stays his open note), the museum's swelling sides, both bags.
 
-- **The generic test (director's standing test):** the same objects from Material Symbols Rounded, Phosphor and Lucide all fail on every object (cup, glass, museum, tree, fork, bag): round bowls and handles, circular fork heads, plain stems and trunks, columns that float. Ours pass on all six approved (the museum, star and + have no curves, so test 1 is empty for them). Apple SF Symbols can't be redistributed, so they're not shown; by eye they fail both tests on the cup and the wine glass.
-- **Honest finding:** at 24px only two things separate our six from those sets: the shape of the curves and how parts join. Weight is the idea behind both. His "only ellipses no circles" note turned out to be one of its two tests; we did not start from it.
-- **Reads at:** 24 and 72 (a flattened bowl and a cut join show at 24 on 2x/3x). At 12 the shadow carries the icon.
-- **Buildable:** test 1 = every root curve's ellipse ratio ≤ 4/5 (the vessel, cap, ring roots already are); test 2 = every holds/overhang join is a chamfer or a cutter fillet (the machined rule below).
-- **Today's bag fails both:** its handle is nearly a circle (0.94) and stands on a ledge.
+## The machined rule
 
-## The machined rule (replaces the bracket; the bracket is out)
+- **The rack:** three cutters, ⅛, ¼ and ½ px (each double the last). Every round is one of them. Changed from round 3's 0.15 / 0.3 / 0.6 because the trunk, the coupe's stem and the fork's neck are all 0.5 fillets (construction.json, and 0.50 measured on the drawn tree): the half keeps them exactly. Round 3's "trunk 0.42" was a misreading; the trunk was never 0.42.
+- **Continuous curvature:** every round ramps in from the straight (the engine's fairing already does).
+- **Which cutter, by join:** a post under an overhang = a chamfer, its edges broken by the ¼ (the museum's bevel); a post into a face (curved or flat) = the ½ fillet; a part's own corners = ½ on a mass, ¼ on a slab or post, ⅛ on anything thinner and on every cut. Points sharper than 75° (tips and the notches between them) keep today's tip rule: a point is broken, not milled.
+- **Nothing thinner than the line** (owner, 10-26): no ink part under 1.5px. Posts and loops 5/6 → 1 line (`proportions.js` line.post, `mix-curves.js` T.post / T.loop). Cuts, counters and the coupe's band are not ink and are unchanged.
+- **On the six:** the tree keeps its trunk exactly. Every other round moves at most 0.04px at 24 (the cup's top corners, 0.6 -> ½) (nearest cutter on a doubling scale, outline move = Δr (1/sin(θ/2) − 1)); computed in the generator from `svg/g7/construction.json`. The rack is not yet built into the engine: the rebuilds below carry today's rounds.
+- Shown on the board: eight real joins at 50px a unit (café ear and cup corner, coupe stem into bowl and onto foot, museum capital chamfer and an opening, the tree's trunk, the +'s crossing) with the cutter drawn as a ghost; museum keeps its approved drawing and its bevel.
 
-- **Three cutters**, each double the last: fine 0.15, medium 0.3, broad 0.6 (2/5 line). Every round is the radius of the tool that cut it. Outside rounder than inside; never more than 1/5 of the shorter edge (the rounds table, re-derived as tools: the table's 0.35 tip and 0.7 wide outside collapse to medium and broad).
-- **Continuous curvature:** every round ramps in from the straight (Apple's continuous corner: the curve starts about 1.5x the radius back along each edge), never a circle meeting a line. The engine's fairing already makes rounds curvature-smooth; this makes it the rule for every round. (The board's proposals approximate the ramp with one cubic per corner.)
-- **Thin into thick, by join type:** a post under an overhang: a **chamfer** across the step, its two edges broken by the fine cutter (the museum's bevel he prefers comes out of this). A post into a curved face: the **broad** fillet (the bar's stem and the fork's neck, as approved). A post into a flat face: the **medium** fillet (the bed). No added flare shapes.
-- **Against today (approved drawings, ghost cutters on the board):** museum capital = chamfer, passes; bar stem into bowl and fork neck = broad fillets, pass; tree trunk 0.42 snaps to broad (the tier droops); bed leg 0.38 snaps to medium.
+## Posts at the line (before / after)
 
-## Proposals, shown finished (in the badge, 72 and 24, beside the six)
+Rebuilt by `construction.js` (coupe, tree, museum; `CONS_OUT` to scratch, stored in `svg/post-line/*.json`), `mix-curves.js` (fork and knife) and the bed through `mix-curves.js` with its headboard and leg at 1.5 (outer edges kept; `blind.json` still has the 1.25 parts). Flags:
+- **Museum:** with four columns at 1.5, the three openings narrow from 1.31 to 0.93px, now thinner than the columns; the colonnade darkens at 24. Open: three columns (two wider openings), or a wider building.
+- **Coupe and tree:** a touch heavier, as expected. The fork's ¾px gaps between 1½px tines read denser at 24.
+- **Still under the line, not changed (outside this note):** the saucer's and the coupe foot's ends taper to 0.75px (the cap root), and the tree's tier tips. His call whether "nothing that thin" covers tapers.
 
-- **Museum, sides** ("what about the sides?"): the outer columns' faces swell as one shallow ellipse arc, 1/6 line out at mid-height (entasis, as a Greek column swells). Capitals stay the bevel (chamfer, fine cutters). Base flat, gable separated, openings square, four columns. Not the v220 foot sweep (it swells in the middle, not out at the foot), not a rounded base or lintel. At 24 on 1x the swell is a quarter pixel: it reads at 72 and on 2x/3x.
-- **Bag A, tote:** the ring lies level along the top (long axis along the edge), so it reads as a carried handle, not a kettlebell's grip; sides bow 0.3 (a full bag; the swing on the sides); flat base; medium fillets where the ring meets the body.
-- **Bag B, paper:** taller and narrower, sides bow 0.2, a folded hem as one cut.
-- A blind "what is this?" read of the bags at 24 is still owed by someone who hasn't seen them.
-- Hand-built from root shapes and the three cutters, not engine output.
+## Shopping, left of centre (five concepts, finished, in the badge at 24 and 72)
 
-## Givens (the bar, not signatures)
+Real random draw: awning, tissue-wrapped parcel, weighing pan, till roll, string bag, basket; fields sailing knots and botany; Oblique "Emphasize the flaws" (the bag's flaw is that it's common: lean into what's particular about shopping on a trip).
 
-- **The shadow:** fill every cut; the side-on silhouette still names it (the 12px test).
-- **The press:** the three cutters.
-- **A handle is a ring:** one whole ellipse 4/5, its hole the same ellipse with both radii shortened by one line (wall one line all round), centre on the body's edge so half shows. The cup's ear already is it (within 0.1px). Round 3 lays the bag's ring level.
+1. **Swing tag:** the price tag on its string; kin to the inspo's luggage tags and the app's Hanging Tag. String busy at 24.
+2. **Market basket:** the market's basket, not the mall's bag; the safe pick. Risk: bucket at 24.
+3. **Shop awning:** the striped awning over a shopfront; the most common (Material's storefront).
+4. **Tied parcel:** a box tied with string, knot as two leaves; reads as a gift first.
+5. **Till:** the old register with its sale flag; the coupe move (a particular vintage object over a generic one).
 
-## How we got here
-
-Random draws (round 3: saddlery, enamel signs, signwriting, carousel carving; earlier: kites, tailoring, knots, glassblowing, origami; Oblique Strategies) and the director's test that a signature must fail Material, Phosphor and Lucide. Candidates cut over the rounds: seam, landing, stack, free end, blown; the shadow moved to the givens (every good sign set passes it).
+**Recommended:** the till, then the tag. Hand-built from the roots and the rack; no ink under the line. A blind "what is this?" read at 24 is still owed.
 
 ## Open questions (on the board)
 
-1. Weight, shown by two tests (squashed curves; machined where it carries): is that the signature?
-2. The museum's sides: does the swell read as part of the building, or push it / drop it?
-3. Bag A (tote) or B (paper)? Or neither yet?
+1. The brand as three filters: is that it?
+2. The machined rule with the ⅛ / ¼ / ½ rack (tree kept): build it into the engine?
+3. Shopping: the till, the tag, or another?
+4. Museum with posts at the line: three columns, or a wider building?

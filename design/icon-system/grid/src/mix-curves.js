@@ -20,7 +20,7 @@ const HERE = path.join(__dirname, '..');
 const cons = require('../svg/g7/construction.json');
 const LINE = 1.5;
 // THICKNESS BY KIND, px at 24 (fractions of the line)
-const T = { mass: 2 * LINE, slab: LINE, post: 5 / 6 * LINE, loop: 5 / 6 * LINE };   // a loop is a post bent round its counter: 5/6 line
+const T = { mass: 2 * LINE, slab: LINE, post: LINE, loop: LINE };   // a loop is a post bent round its counter; owner 10-26: no ink thinner than the line (post and loop were 5/6)
 const RULE = { base: 0.15, wideIn: 0.3, wideOut: 0.7, k: 1 / 5, postFlare: 0.5, tip: 0.35, tipShare: 0.0877, fit: 0.2, flareFit: 0.45 };
 const JOIN10 = { ease: 2.3, trim: 1.4, ends2: 1.5, fair: true, hillKeep: 'depth', tipKeep: 'crest', tipLand: true, tipPow: 1, tipSoft: PROP.transition.tipSoft, noReverse: true, maxPieces: 2, arcEase: true, arcRamp: 0.3, flareLean: PROP.transition.flareLean };
 

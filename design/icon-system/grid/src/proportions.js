@@ -29,7 +29,8 @@ const LINE = 1.5;   // px at the 24 badge (owner: 1.5px; monoweight)
 const PROP = {
   // ---- thicknesses, in lines (x 1.5px)
   line: {
-    post: 5 / 6,          // a post that holds a mass up (stem, column, trunk): 1 1/4px
+    post: 1,              // a post that holds a mass up (stem, column, trunk): the line, 1 1/2px (owner 10-26: "nothing should go that thin";
+                          // was 5/6, 1 1/4px; no ink part thinner than the line)
     cut: 2 / 3,           // between parts that rest on each other: 1px
     band: 1 / 2,          // a clear gap between two walls (the coupe's band): 3/4px (was 5/6px: 5/9 of a line, no mark)
     step: 1 / 3,          // every small step: a flare, a slab end's drop: 1/2px
