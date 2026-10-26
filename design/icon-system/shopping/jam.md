@@ -52,3 +52,44 @@ Also killed, with reason: coat hanger (only vintage clothes; a cloakroom), shopp
 ### Strongest: B (the hanging sign), then A (the specific bag) as the honest control, C (the purse) as the wild card.
 
 NEXT: product designer (visual focus) — give A to E their look at 18px beside the six, push or kill on how they'd draw, before the director steers.
+
+## Turn 2 — product designer (visual focus), 2026-10-26
+
+I drew all five of turn 1's directions and three of my own as finished icons, 15 drawings in all: `sketches/contact-sheet.png` (2x) and `sketches/contact-sheet-1x.png` (true size). Each card shows the icon at 72; at 24 in the badge (drawn 1:1, the system's rule 1); at 18 in the 24 ring (how `badgeHtml()` draws a glyph today); and at 12 bare (the chip). Below that, a street at 24 beside Café, Bar, Museum and Nature, then lavender as in the app, and reversed (selected). Source: `sketches/shapes.py` (the roots, rack rounds and whole-pixel rules from `grid/pixel-fit.md`: slabs 2, counters ≥ 2, gaps ≥ 1, protrusion ≥ 1, symmetric on x = 12), `sheet.py` and `shoot.js`. They are quick and hand-built, not engine output.
+
+### The draw (`random.SystemRandom`)
+
+Oblique: **"The inconsistency principle"**, **"Simple subtraction"**. Fields: **chess, beekeeping, numismatics**. Twists: **weightless: mostly air; must contain a hole that carries the meaning; must be drawn from the side only**. Constraint: **one root**.
+- *Numismatics* → G, the holed Danish krone (one root, one hole). *Beekeeping* → the market's honey jar. Killed without drawing it: a jar is food, which is Restaurant's ground. *Chess* → nothing honest, so dropped.
+- *A hole that carries the meaning* + *one root* + *simple subtraction* (take the handle away) → **F, the die-cut bag**: the record or design shop's bag, whose handle is a hole the die punched. Nothing is added to the body; the handle *is* a counter.
+- *Simple subtraction* again (no handle at all) + *made by a tool* taken literally → H, the market paper bag with the serrated mouth the bag machine leaves.
+- *Inconsistency principle* → B stays asymmetric on purpose: the one icon that stands off a wall.
+
+### Turn 1's five, drawn: push or kill
+
+- **A, gusseted bag: kill.** At 24 it is plainly a padlock, and at 18 a kettlebell. The gusset notches vanish below 72. The problem is structural, not styling: any ring standing on a box is a shackle. The handle-as-ring rule can't make a bag that doesn't read as a lock.
+- **B, the blade sign: push (B1).** It is the only drawing whose silhouette nothing else in the set shares. In the street strip it is found first, by shape, not weight. It reads as a hanging sign at 24 and is still a sign at 12. B2 (oval board) reads as a face, and B3 (braced arm) as a crane or gallows: both killed. Its open risk is the one turn 1 named: it says "a sign", not "a shop". The board stays blank. Every mark I could cut into it (a bag, a key, a pretzel) is the cheeky move he rejected.
+- **C, kiss-lock purse: kill.** At 24 it is a bowl with two cherries, or a face with ears. The beads are the only purse cue, and they read as ears.
+- **D, string bag: kill.** A football at 24, as turn 1 expected. Diamonds at 2½px with the line between them don't survive 18.
+- **E, goods on the counter: kill.** A factory skyline at every size. Three goods at 18 are three bumps.
+
+### My three
+
+- **F, the die-cut bag: push (F4, the strongest of the family).** F1 (square, LP proportions) is a phone or a fob at 24. F2 (outline) is a calendar or a floppy disk. Both killed. F3 and F5 (flared, no gusset) read as a kettlebell. **F4** (flared, the gusset as a V cut at each top corner, the die-cut slot) reads as a bag, and the cut corners stop the kettlebell read. It answers his handle question with a rule, not a shape: **a handle is the hole a hand goes through**. The cup's ear is that hole (a 2px counter) with the line around it. The bag's handle is the same hole cut straight through the body under a 2px band. Both come from one root, the counter, sized once. The risk: it is still "a bag", which he called "one step too common". The die-cut handle is the left-of-centre part (the boutique and record-shop bag, not the supermarket's), but he may not see it as far enough left.
+- **G, holed krone: kill.** It reads as a record or a target. Nordic, and a nice story, but unreadable.
+- **H, serrated paper bag: kill.** H1 reads as a crown or a battery, H2 (folded mouth) as a calendar. The tool's mark is a lovely idea that doesn't survive 24.
+
+### Weight (measured; outline area, holes not subtracted)
+
+The six run 34-63px² (the museum is 63). B1 is about 60 net and F4 about 71 net. Both sit at or above the museum, which is the wrong end for the most-repeated pin. Either can lose ink if it goes forward (B1's board 1px shorter; F4 8 wide, not 10).
+
+### For the rules
+
+- **A handle is its counter** (from F4): the hole is the root, and the ink around it is either the line (the cup) or the body (the bag). This also explains why A reads as a lock: a ring on a box is a shackle; a hole in a body is a handle.
+- **A silhouette nothing else has** is how the commonest mark stays findable when its ink is the weakest (lavender, 3.26:1). That is B1's lesson, and worth a check on every new icon.
+
+### Strongest
+
+**B1, the blade sign**, then **F4, the die-cut bag**. Before anything goes to him, both need a blind read at 24 by someone who hasn't seen this sheet, and both need ink taken out.
+
+NEXT: design director — two survivors (B1 sign, F4 die-cut bag) and a proposed handle rule; steer which go to concepts and whether "a bag" is still open after v264.
