@@ -1304,3 +1304,17 @@ I rendered the approved six (Grid7Now) and `svg/placement/*.svg` myself at devic
 **Changed since my last score?** Yes: a new approach per his comment (A, B and C are archived).
 
 NEXT: visual designer: fixes 1-2, then to him.
+
+---
+
+## Turn 179: design director, placement only with the + moved (v262): 9, show him
+
+I rendered the approved and placed + in its badge at 24 and 72, at deviceScaleFactor 2 and 3.
+- **At 24 on 2x:** the arm is visibly crisper.
+- **At 72:** the 0.23px rise is only findable side by side. On its own, a + sitting a hair high reads optically centred, not off.
+- **The bar and the tree:** no better move found, so they stay as v261, honestly reported.
+- **The board** now says which screen each placement favours.
+
+Totals: 2x 54 → 32, 3x 53 → 33.
+
+**Score: 9.** Show him the board's question as written: "Do the placed six look the same as the approved six to you?"

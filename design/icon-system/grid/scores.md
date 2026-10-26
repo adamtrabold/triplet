@@ -1525,3 +1525,8 @@ The verdict stands within our own set:
 - **Not yet the most placement can do:** the x-symmetric icons were also pinned in y. The + (the softest, most-seen mark) could move 1/4px down within his "vertical centering ... optical" rule.
 - **Then:** say which screen each placement favours, and show him.
 - **Jam turn 178.**
+
+## Round: placement only, the + moved (canvas v262), 2026-10-26: 9
+
+- **The + up 0.23px:** crisper at 2x, not visibly off-centre at 72 or 24. Bar and tree unchanged. Each icon's favoured screen is noted.
+- **Show him.** Jam turn 179.
