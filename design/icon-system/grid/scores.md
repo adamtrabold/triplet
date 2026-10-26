@@ -1586,3 +1586,11 @@ The verdict stands within our own set:
 - **Blocking across v263, v264 and round 1:** every move left of centre removes what reads as shopping at 18.
 - **Round 2:** the plainest readable bag in the system, read blind. If it passes, it goes to him with the question: is the bag one step too common, or is readable the point? (His "may be one step too common?" was a question.)
 - **Shopping jam turn 7.**
+
+## Round: Shopping concepts round 2, the plain bag (P1-P3, P8), 2026-10-26: P8 4, P2 4, P3 2, P1 2. Stuck
+
+- **Blind read:** P8 padlock (a handbag only in a row), P2 fuel can, P3 padlock, P1 kettlebell. "None of them say 'shop' on their own."
+- **Stuck:** the best rose 3 → 4.
+- **The block:** the subject against the rules at 18. A solid glyph with one counter handle and no ink under the line has a padlock's outline. The non-bags read as other things.
+- **To him:** may Shopping bend a rule (two handles, an outline)? Is a cart OK (ruled out by the team, not by him)? A plain readable bag over a left-of-centre one? Place glyphs at 18 or 24?
+- **Shopping jam turn 10.**

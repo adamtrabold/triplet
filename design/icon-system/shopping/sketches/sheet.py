@@ -35,7 +35,7 @@ def bare(inner, px):
 def six_glyph(k, fill): return f'<path fill="{fill}" fill-rule="evenodd" d="{SIX[k]}"/>'
 
 SET = sys.argv[1] if len(sys.argv) > 1 else 't2'
-LIST = S.CONCEPTS if SET == 't2' else S.ROUND5
+LIST = {'t2': S.CONCEPTS, 't5': S.ROUND5, 'r2': S.ROUND2}[SET]
 SUFFIX = '' if SET == 't2' else '-' + SET
 paths = {}
 cards = []
@@ -64,7 +64,7 @@ html = f'''<!doctype html><html><head><meta charset="utf-8"><title>Shopping sket
 .row{{display:flex;gap:12px;align-items:center}} .col{{display:flex;flex-direction:column;gap:6px}}
 .sz{{display:flex;align-items:center;gap:6px}} .sz i{{font-style:normal;font-size:10px;color:{GREY}}}
 .strip{{display:flex;gap:4px;margin-top:8px}} .ink{{font-size:11px;color:{GREY};margin:-4px 0 8px}}</style></head><body><div class="page">
-<h1>Shopping, jam turn {'2: sketches' if SET == 't2' else '5: the concepts drawn'}</h1>
+<h1>Shopping, jam turn { {'t2': '2: sketches', 't5': '5: the concepts drawn', 'r2': '9: the plain bag'}[SET] }</h1>
 <p>Each card: 72; 24 in the badge (drawn 1:1); 18 in the 24 ring (how the app draws glyphs today); 12 bare (chip). Strip 1: a street at 24 beside Café, Bar, Museum, Nature. Strip 2: lavender as in the app (18 in ring, x2) and selected (reversed).</p>
 <div class="six">{sixrow}</div><div class="grid">{''.join(cards)}</div></div></body></html>'''
 # net ink, holes subtracted, measured in the page (rasterised at 20px a unit, alpha summed), against Café and Museum
