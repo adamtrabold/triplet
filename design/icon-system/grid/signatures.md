@@ -1,80 +1,57 @@
-# Brand signatures (round 2, 2026-10-26, canvas v258)
+# Brand signatures (round 3, 2026-10-26, canvas v260)
 
-Board "Brand signatures" on the Grid concepts page (`Grid7Signatures.dc.html`, generator `src/signatures-board.py`, still `stills/signatures-board.png`). Round 1 (v256: swoop, flare, press) scored 6 by the director (jam turn 173) and was sent back.
+Board "Brand signatures" on the Grid concepts page (`Grid7Signatures.dc.html`). Generator: `python3 -I src/signatures-board.py <live Grid7Now.dc.html> reference/generic <out>`. Still: `stills/signatures-board.png`. History: round 1 (v256, swoop/flare/press) scored 6 (jam turn 173); round 2 (v258, weight + shadow, the bracket, swings on lintel/plinth, the ring) scored 7 (turn 175 and addenda 1-3).
 
-## The owner's words (verbatim)
+## The owner's words on round 2 (verbatim)
 
-- The ask: "i think we're missing a set of brand-specific visual cues. thinking of the inspo and the brand identity this far -- i see whimsy and tactility. i see the joy of movement. this is represented by things like the root shapes harkening back to print icon mechanics (drawing with tools), i see the light swoops in the tree branches, and the flares. I see the graphic nature of the iconography harkening to travel signs. from there come up with 1-3 core brand visual signatures that we can apply as a filter on decisions (e.g. we need one element X one element Y)."
-- On v256: "this is a really awkwardly shaped flare. all joints should feel architecturally sound"; "there is probably a creative place to add swoops to all objects."; "im noticing the handle of the bag is meaningfully different from the handle of the cup -- maybe this could be reasoned about in some way in the rules"; on a "handle rule": "this is a bad rule -- what's the underlying shape that a handle is that we can make a good rule about"; "i will say "the swoop, flare, press" are all things i've basically said verbatim... use your randomness and creative moves in the design buds skills to think a bit outside the box".
-- On the blocks (kept as a possibility only): "the blocks can be part of this visual signature, for instance i'm seeing only ellipses no circles... not that this is correct, but something to consider. do not weight towards this just keep it as a possibility".
+- "the bracket looks really awkward -- i don't like it. i'd prefer to use an apple-like methodology where the roundedness matches how something would actually be machined to be smooth."
+- "bevel is *way* better than proposed version... how do we square these logics."
+- "no this is bad... a building can't have a rounded base it will look like it's wobbling." (plinth sag)
+- "no i hate this too . what about the sides?" (lintel arch)
+- "i can't see what the new icon would look like"
 
-## The filter: every object shows its weight, and its shadow names it
+Earlier: the ask ("1-3 core brand visual signatures ... as a filter"), "swoop, flare, press are all things i've basically said verbatim", "what's the underlying shape that a handle is", and the blocks note ("only ellipses no circles... do not weight towards this just keep it as a possibility"). Full text in `../owner.md`.
 
-### 1. Weight
+## The signature: weight
 
-- **Test:** can you point to where its weight goes? Every object shows it at least once: it **rests** on something across a one-line cut, it is **carried** on a bracket, or it **gives** (sags, droops). Marks (star, +, controls) weigh nothing: centred, no ground.
-- **Why it's ours:** not his words; what they share. The cup set down on its saucer, the gable lowered onto its beam, the stem carrying the bowl, branches heavy at the tips. Tactility and whimsy as weight you can see; places sit, controls float.
-- **The six as drawn:** café rests and gives (saucer); bar: the drink rests in the bowl across the band, the stem carries; museum: the gable rests, the columns carry; tree gives (droop) and the trunk carries; star and + weightless. Fork: carried; bed: the pillow rests, the legs carry. Today's bag fails (its handle stands on a ledge).
-- **Buildable:** the root calls already declare join kinds (rule 4: holds, rests, base, free; the stacked droop). Check: an object has at least one rests or holds join or a living droop; a mark has none and no ground.
-- **Reads at:** 24px (the cuts and the droop). At 12 the shadow carries the icon.
-- **Rules out:** floating objects; parts glued flat with no cut, bracket or give; a mark with a ground.
+Triplet's objects are heavy things, set down and carried. Two yes/no tests show it:
 
-### 2. The shadow
+1. **Squashed.** No curve is a circle: every curve is cut from an ellipse 4/5 or flatter, as if a round had settled under weight. (Tool rounds at corners aside.)
+2. **Machined where it carries.** Wherever one part holds another, the join is cut by a tool (a chamfer across a step, or a fillet), never a plain corner.
 
-- **Test:** fill every cut. Does the side-on silhouette alone still name the thing, like a sign symbol seen from the road?
-- **Why it's ours:** "travel signs": dead side-on, one solid, detail only as cuts.
-- **The six:** all pass (rendered at 64, 24 and 12 on the board). Fork and bed pass. Today's bag fails: its shadow is a padlock's.
-- **Buildable:** rule 15 (places solid) plus a check: render the root calls with every hole filled at 12px.
-- **Reads at:** 12px; it is the chip-size test.
-- **Rules out:** three-quarter and top views; lines drawn inside a solid; silhouettes that need their cuts to be named.
+- **The generic test (director's standing test):** the same objects from Material Symbols Rounded, Phosphor and Lucide all fail on every object (cup, glass, museum, tree, fork, bag): round bowls and handles, circular fork heads, plain stems and trunks, columns that float. Ours pass on all six approved (the museum, star and + have no curves, so test 1 is empty for them). Apple SF Symbols can't be redistributed, so they're not shown; by eye they fail both tests on the cup and the wine glass.
+- **Honest finding:** at 24px only two things separate our six from those sets: the shape of the curves and how parts join. Weight is the idea behind both. His "only ellipses no circles" note turned out to be one of its two tests; we did not start from it.
+- **Reads at:** 24 and 72 (a flattened bowl and a cut join show at 24 on 2x/3x). At 12 the shadow carries the icon.
+- **Buildable:** test 1 = every root curve's ellipse ratio ≤ 4/5 (the vessel, cap, ring roots already are); test 2 = every holds/overhang join is a chamfer or a cutter fillet (the machined rule below).
+- **Today's bag fails both:** its handle is nearly a circle (0.94) and stands on a ledge.
 
-### How we got here (generated, then cut)
+## The machined rule (replaces the bracket; the bracket is out)
 
-Moves: threw away the set he had already named (swoop, flare, press); a real random draw (kite making, sailing knots, glassblowing, tailoring, origami; Oblique Strategies "Imagine the piece as a set of disconnected events", "Look at the order in which you do things", "Retrace your steps"; constraints "must be a verb", "must exist exactly once"); inverting travel signs.
+- **Three cutters**, each double the last: fine 0.15, medium 0.3, broad 0.6 (2/5 line). Every round is the radius of the tool that cut it. Outside rounder than inside; never more than 1/5 of the shorter edge (the rounds table, re-derived as tools: the table's 0.35 tip and 0.7 wide outside collapse to medium and broad).
+- **Continuous curvature:** every round ramps in from the straight (Apple's continuous corner: the curve starts about 1.5x the radius back along each edge), never a circle meeting a line. The engine's fairing already makes rounds curvature-smooth; this makes it the rule for every round. (The board's proposals approximate the ramp with one cubic per corner.)
+- **Thin into thick, by join type:** a post under an overhang: a **chamfer** across the step, its two edges broken by the fine cutter (the museum's bevel he prefers comes out of this). A post into a curved face: the **broad** fillet (the bar's stem and the fork's neck, as approved). A post into a flat face: the **medium** fillet (the bed). No added flare shapes.
+- **Against today (approved drawings, ghost cutters on the board):** museum capital = chamfer, passes; bar stem into bowl and fork neck = broad fillets, pass; tree trunk 0.42 snaps to broad (the tier droops); bed leg 0.38 snaps to medium.
 
-| Candidate | Verdict | From / why |
-|---|---|---|
-| Weight | kept | tailoring and kites (how a piece hangs and lands); "the order": things built ground-up |
-| The shadow | kept | inverting the brief: what a road sign keeps when everything else is taken away |
-| The seam | cut | tailoring: every object pieced with one cut. The tree has none. |
-| The landing | cut | kites, "disconnected events": one part hovers just before it settles. The tree and fork have none; it lives on inside weight (rests). |
-| The stack | cut | "the order in which you do things": built ground-up in layers. The fork isn't a stack; says less than weight. |
-| One free end | cut | sailing knots: every line has a working end. Too vague to test. (Board drops this row for length.) |
-| Blown | cut | glassblowing: every mass swells from inside. Untrue of the museum. |
-| No circles | cut | his note on the blocks, kept as a possibility: it lives inside the swing and the ring; alone, the museum, tree, star and + have nothing to test. |
+## Proposals, shown finished (in the badge, 72 and 24, beside the six)
 
-## The rules underneath
+- **Museum, sides** ("what about the sides?"): the outer columns' faces swell as one shallow ellipse arc, 1/6 line out at mid-height (entasis, as a Greek column swells). Capitals stay the bevel (chamfer, fine cutters). Base flat, gable separated, openings square, four columns. Not the v220 foot sweep (it swells in the middle, not out at the foot), not a rounded base or lintel. At 24 on 1x the swell is a quarter pixel: it reads at 72 and on 2x/3x.
+- **Bag A, tote:** the ring lies level along the top (long axis along the edge), so it reads as a carried handle, not a kettlebell's grip; sides bow 0.3 (a full bag; the swing on the sides); flat base; medium fillets where the ring meets the body.
+- **Bag B, paper:** taller and narrower, sides bow 0.2, a folded hem as one cut.
+- A blind "what is this?" read of the bags at 24 is still owed by someone who hasn't seen them.
+- Hand-built from root shapes and the three cutters, not engine output.
 
-### The bracket (was "the flare")
+## Givens (the bar, not signatures)
 
-- Where a lighter part carries a heavier one, it lands on **one quarter ellipse, tangent to both**: run 2/5, rise 1/2 of the lighter part's width (0.5 by 0.63px on a 1.25px post). Taller than wide (a bracket, not a drip), symmetric on a centred post, the same ratio in every icon. On a curved face (the bowl, the fork's head) the same run and rise measured along it. The engine's transition fairing eases its ends, as today.
-- **Only** in a concave corner that carries load. Never a convex corner, a straight silhouette side, parts of equal weight, or a mark. An overhang passes the post by the run plus the slab's corner round, so the bracket lands on flat.
-- **The real joins** (board, 40px a unit): bar stem into bowl and foot, fork neck: already brackets. Tree trunk: 0.1px short of the rule. Museum outer capitals: a straight bevel (a pinch); proposal redraws them as brackets. Bed: plain rounds (rebuild to the rule). Knife step: a plain round. Café: the ear's lower join is a small round today; under the rule it is a bracket (tiny; not drawn).
-- **Not a signature:** at 24px on a 1x screen it's half a pixel. It reads at 72 and on 2x/3x: craft, not a cue.
-- **The press** stays the rounds table (rule 17), a given.
+- **The shadow:** fill every cut; the side-on silhouette still names it (the 12px test).
+- **The press:** the three cutters.
+- **A handle is a ring:** one whole ellipse 4/5, its hole the same ellipse with both radii shortened by one line (wall one line all round), centre on the body's edge so half shows. The cup's ear already is it (within 0.1px). Round 3 lays the bag's ring level.
 
-### A swing for every object (proposals)
+## How we got here
 
-His answer to "should buildings be exempt": "there is probably a creative place to add swoops to all objects." A swing = one long curve from one ellipse flatter than a circle (a cap or vessel), where the object's weight gives or is carried.
-
-- **Museum A, the lintel arches** (we think this one): the beam's top swells to the middle as a cap; the separated gable rides it on one even cut (its underside the same arc). A lintel is how a building carries weight. Capitals as brackets (column block 7.9-16.1 so the beam overhangs by run + corner).
-- **Museum B, the plinth sags:** the base's underside is a cap, like the saucer and the coupe's foot. Risk: every building reads as a boat.
-- Kept: the separated gable ("I like the separated gable"), square openings, four columns. Not used: the beam shed ("no this is awful"), a tent roof, pill shapes.
-- **Bag:** the handle is the ring (below); the body's underside sags as a cap (a full bag). Its shadow is no longer a padlock's (owner to judge).
-
-### What a handle is underneath: a ring
-
-- **Root:** a ring: one whole ellipse, short axis 4/5 of the long (rule 11's proportion), with a hole that is the same ellipse with both radii shortened by one line, so the wall is one line (1.5px) all round. The hole is a root and keeps the wall right.
-- **Placement:** half-buried. Its centre sits on the body's edge, its long axis pointing out of the body, so exactly half shows and the hole's flat side is the body's edge.
-- **Size:** one size for every handle (long half-axis 3.1, short 2.48; hole 1.6 by 0.98), because it is sized to a hand, not the object.
-- **Where:** where the hand lifts against the weight. A cup tips: the side, its top tangent to the rim. A bag hangs: the top, centred.
-- **Meets the body:** where it carries the body, on brackets.
-- **Evidence:** the approved cup's ear already is this ring (centre 13.95, 10.4; within 0.1px). The old bag arch wasn't: a stilted arch (straight legs), a thinner wall (1.25), a near-circle, standing on a ledge.
+Random draws (round 3: saddlery, enamel signs, signwriting, carousel carving; earlier: kites, tailoring, knots, glassblowing, origami; Oblique Strategies) and the director's test that a signature must fail Material, Phosphor and Lucide. Candidates cut over the rounds: seam, landing, stack, free end, blown; the shadow moved to the givens (every good sign set passes it).
 
 ## Open questions (on the board)
 
-1. Weight and the shadow as the two signatures, with the bracket and the press as givens underneath: is that the filter?
-2. Museum A (the lintel arches) or B (the plinth sags)? Does the bag built from the ring read as a bag?
-3. The ring gives every handle one size (sized to a hand). Yes, or should a handle scale with its object?
-
-Team unsure: the proposals are drawn by hand from root shapes (polygons for the arcs), not engine output; the bracket's ends are G1 there, not faired. The bag's read is untested at 12px in the app.
+1. Weight, shown by two tests (squashed curves; machined where it carries): is that the signature?
+2. The museum's sides: does the swell read as part of the building, or push it / drop it?
+3. Bag A (tote) or B (paper)? Or neither yet?

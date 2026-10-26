@@ -1211,3 +1211,59 @@ NEXT: visual designer: fix 7 first (it settles joins for every icon), then fixes
 **Addendum 3: his comment on the bag proposal (verbatim):** "i can't see what the new icon would look like"
 
 **Fix 9:** every proposal is shown as the finished icon: filled, in its badge, at true size 24 and at 72, beside the six. Not a diagram, an overlay or a partial line drawing. Construction marks may sit beside it, but the icon comes first. This applies to the bag, the museum's side swing, and every join drawn under fix 7.
+
+---
+
+## Turn 176: design director, Sharp at 2x and 3x round 3 (v259): superseded, no score
+
+His comment, verbatim: "lets just keep the line weight and stuff where it was and just opimize point placement as possible. the other options look like shit". He made that call before my score, so the board is moot.
+
+My notes from the read, for the next round:
+- A and C were snapped rather than redrawn, which biased the comparison.
+- B's 32px badge would have outgrown the 28px glyph column.
+
+**Next:** keep the 1.5px line and the 24 badge, and optimise point placement in the drawings themselves, not with a fitting pass ("without extrawork").
+
+---
+
+## Turn 177: design director, Brand signatures round 3 (v260): 7; the machined rule nearly ready, the signature not
+
+I read `signatures.md` and the v260 still (3200 wide), with crops of the finished row at 72/24 and the museum's side at about 5x.
+
+**The machined rule is what he asked for:** "apple-like ... how something would actually be machined to be smooth".
+- Three cutters, each double the last (0.15 / 0.3 / 0.6).
+- Every round ramps in with continuous curvature.
+- The join type picks the operation: a chamfer under an overhang, the broad fillet into a curve, the medium fillet into a flat face.
+- It reproduces his museum bevel and keeps the bar's stem and the fork's neck as approved. It reconciles "bevel is *way* better" with "machined" honestly: both are tool operations.
+- Alone, this rule is close to a 9. **One gap:** it snaps the tree trunk (0.42 → 0.6) and the bed (0.38 → 0.3). The tree is a fixed point he loves ("the between tree is perfect"), so show the trunk before and after at his zoom before it's adopted.
+
+**The signature is still not a 9:**
+1. **Test 1 is the weighting he asked us not to do.** He said: "i'm seeing only ellipses no circles... not that this is correct, but something to consider. do not weight towards this just keep it as a possibility". It is now half the brand signature. "We did not start from it" doesn't change where it ended up.
+2. **Test 2 is his note from an hour ago.** That's the third round in a row where the signature is his own recent words (swoop, flare, press; then the bracket; now no circles plus machined).
+3. **"Weight" doesn't name the tests.** "As if a round had settled" is a story laid over an ellipse ratio, and machining is about the making, not about weight. Nothing visible on the board is about weight.
+4. **The generic test is useful but proves less than it seems.** Material, Phosphor and Lucide fail mostly on circles, which is test 1 again.
+
+**Honest finding, worth giving him straight:** at 24, what separates our six from generic sets is the shape of the curves and how parts join. Three rounds haven't found a visual cue that isn't already his words. That's a real result, not a failure to hide.
+
+**The proposals at 72 and 24:**
+- **The museum's sides don't match the text.** The board says the outer columns "swell ... 1/6 line out" (entasis). At 5x the face is **concave**: it cuts in at mid-height, past the ghosted straight line. With the bevels above and below, each side reads as one scoop, so the building looks waisted like a spool at 72. Fix the drawing to swell out as written, or correct the text, then judge again at his zoom.
+- **Bag A (tote):** the level ring helps, and it no longer reads as a kettlebell. But the wide-topped body reads as a bucket or a purse at 72. The blind read is still owed.
+- **Bag B (paper):** an arch on a box with a line across reads as a padlock or a bin at 24. Drop it.
+
+**Likely objections:**
+- "I said don't weight the circles note."
+- "this is my words again"
+- "the museum looks pinched / wobbly"
+- "that's a bucket" (A), "padlock" (B)
+
+**Fixes:**
+1. Take "no circles" out of the signature. It stays what he called it: a possibility, listed under the givens as his open note.
+2. Separate the machined rule from the signature. Put it to him as the join rule for every icon (his ask, answered), with the tree-trunk and bed snaps shown before and after.
+3. Put the honest finding to him as the question instead of forcing a name: "Three rounds keep landing on your words. What separates our six from generic sets is the curves and the joins. Should the signature be those two, stated as rules, or do you want another exploration with a different brief?" No "Weight" unless a test is visibly about weight.
+4. Museum: make the drawing match the text (swelling out), shown at 72, 24 and his zoom. Otherwise say plainly that it cuts in.
+5. Bags: run the blind read on A at 24; drop B.
+6. Length is fine (2081). Cut "how we got here" to one line.
+
+**Changed since my last score?** Yes: a sound machined rule, finished proposals, the generic-set test run. The signature problem moved, it wasn't solved.
+
+NEXT: visual designer: fixes 1-6; then to him with the machined rule and question 3.

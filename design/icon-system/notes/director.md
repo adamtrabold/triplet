@@ -561,3 +561,24 @@ Fixes are in jam turn 175. The pixel fit (turn 174) re-runs after the museum is 
 - the arched lintel;
 - the bracket.
 - **Standing rule from him (bag, v258):** "i can't see what the new icon would look like". Every proposal is shown as the finished icon (filled, in its badge, at 24 and 72, beside the six), with construction marks beside it, never in place of it.
+
+## Icon system, sharp from the grid (v259, 2026-10-26): superseded, not scored
+
+He said "lets just keep the line weight and stuff where it was and just opimize point placement as possible. the other options look like shit".
+
+**Settled:**
+- 1.5px line, 24 badge;
+- no fitting pass;
+- better point placement in the drawings themselves.
+
+## Icon system, brand signatures round 3 (v260, 2026-10-26): 7
+
+- **The machined rule** (cutters 0.15/0.3/0.6, continuous curvature, chamfer under an overhang, fillet into a face) answers his "apple-like ... machined" ask and reproduces the bevel he prefers. It's nearly ready; show the tree trunk's snap first.
+- **The signature "Weight":**
+  - test 1 is his "no circles" note, which he said not to weight;
+  - test 2 is his machined note;
+  - the name is a story over both.
+- **Three rounds of the same failure:** the signature lands on his words each time.
+- **Recommendation:** give him the honest finding (curves and joins are what separate us) and ask whether those, stated as rules, are the signature, or whether he wants a new brief.
+- **The museum's sides:** drawn concave against a text that says they swell. Claims on boards still need checking against the pixels.
+- **Bags:** B is a padlock; A is a bucket or purse, with the blind read owed.
