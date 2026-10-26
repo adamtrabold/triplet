@@ -674,3 +674,19 @@ All three turn-184 edits are true on the board.
 - **"A handle is its counter":** a proposal; it goes to him beside the ring rule he set.
 
 **Next:** the systems designer sets the concepts, then a fresh blind read, then I score.
+
+## Shopping concept round 1 (K3, J2), 2026-10-26: 3 and 3, replace both
+
+Fresh blind read (`shopping/blind-read-1.md`):
+- **K3:** lampshade, toaster.
+- **J2:** tap, pump, padlock-like.
+- **The control, B1c:** reception.
+- **The reader:** "I'd never reach for a cart or a bag here because there isn't one."
+
+**The pattern across three rounds (20 subjects):** making Shopping "left of centre" by changing the object, or hiding its tell, kills the read at 18. The coupe is left of centre and still a glass.
+
+**My errors to watch:**
+- I passed the tag at 9 on a seen read.
+- I put forward J (a two-read idea) at a size that holds one read.
+
+**Round 2:** the plainest readable bag, finished, read blind. Then it goes to him with one question, shown with the drawing: is the bag "one step too common", or is readable the point here?

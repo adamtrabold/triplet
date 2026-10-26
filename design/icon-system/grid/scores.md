@@ -1575,3 +1575,14 @@ The verdict stands within our own set:
 - **The knife section's removal is fine:** the rows show the knife before and after.
 - **Edit:** put back the Hanging Tag star shots, which question 4 asks about (or trim the question to the row).
 - **Then show him the four questions. Jam turn 186.**
+
+## Round: Shopping concepts round 1 (K3, J2), 2026-10-26: K3 3, J2 3, replace both
+
+- **Blind read:**
+  - K3: lampshade, toaster, beehive;
+  - J2: tap, pump, vending machine, "a bit padlock-like";
+  - control B1c: reception.
+  - The reader, unprompted: "I'd never reach for a cart or a bag here because there isn't one."
+- **Blocking across v263, v264 and round 1:** every move left of centre removes what reads as shopping at 18.
+- **Round 2:** the plainest readable bag in the system, read blind. If it passes, it goes to him with the question: is the bag one step too common, or is readable the point? (His "may be one step too common?" was a question.)
+- **Shopping jam turn 7.**

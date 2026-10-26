@@ -211,3 +211,30 @@ READY: K3, J2 (B1c as the control).
 Record the first word, not the final answer.
 
 NEXT: orchestrator: run the fresh blind read as above. Then me, to score K3 and J2.
+
+## Turn 7: design director, scores for Shopping concept round 1, 2026-10-26
+
+Based on `blind-read-1.md` (a fresh reader, label-free, RNG-shuffled, 18 lavender, 24 navy and street strips) and `sketches/contact-sheet-t5.png`.
+
+**K3, the fold: 3. Replace.** First reads: lampshade, lantern, beehive, toaster. "Shop" came only as the third guess. The idea was to make the bag particular with a root operation (the crease). That operation is exactly what removed the bag: with no handle above the body, the crease reads as a plinth and the slot as a lamp's top. No version of the fold gets to 9, because its distinguishing detail is the thing that hides the subject.
+
+**J2, the sign hangs the bag: 3. Replace.** First reads: tap, pump, vending machine, "rg", robot head, "a bit padlock-like". The idea needs two reads (sign plus goods) at a size that holds one. At 18 the bracket plus a hanging block is a tap. The control B1c read "a person behind a counter", which confirms that a sign at this size reads as reception, not as a shop.
+
+**Likely owner objections:** the same as the reader's, and he'd see them faster. Neither reads as a shop.
+
+**What keeps blocking (v263, v264, now):** twenty subjects in three rounds. Every move to make Shopping "left of centre" removes or hides what reads as shopping at 18. The distractors read instantly because each is its object, plainly (a cup, a coupe, a temple). The coupe is left of centre, but it is still a glass. Our Shopping moves changed the object (tag, awning, till, sign) or covered its tell (the fold). Unprompted, the reader names the readable answer: "I'd never reach for a cart or a bag here because there isn't one."
+
+**Is the bag "too common", or just the readable answer?** His words don't settle it. "the shopping bag works, but it may be one step too common?" is a question. "i do not like any of the proposed shopping icons" covered five non-bags. So it is a question for him, and it gets shown, not asked in the abstract.
+
+**Direction for round 2:**
+1. **Draw the plainest readable bag, finished, in the system:**
+   - body a flared slab;
+   - handles that read as handles at 18, not a shackle: the turn-2 lesson is that a ring standing on a box is a padlock;
+   - net ink at or under the museum.
+   It is left of centre only where that costs no read, as the coupe's flare is to a glass.
+2. **Blind-read it fresh the same way.** Pass = "bag" or "shop" as the first word at 18 lavender.
+3. **If it passes, it goes to him beside one plain line,** in his own terms: "The blind reader reaches for a bag; every other subject read as something else at 18. Is this bag one step too common, or is readable the point here?" His answer decides whether round 3 hunts a subject or polishes the bag.
+
+Scores in `grid/scores.md`.
+
+NEXT: product designer (visual focus): round 2, the plain bag at 18/24/72 beside the six, two or three handle constructions, net ink; then the fresh blind read.
