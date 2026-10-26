@@ -655,3 +655,22 @@ All three turn-184 edits are true on the board.
 - **Then show him the four questions** (jam 186).
 
 **Lesson:** when a board is trimmed to fit the cap, check that every question still has its picture.
+
+## Shopping concept round, jam turn 3 (2026-10-26): steering, no score
+
+**A signal:** he turned down the swing tag that I passed at 9 on v263 ("i do not like any of the proposed shopping icons", no reason). My "blind" read had seen the sheet, and I counted the tag's rhyme with the Hanging Tag as a plus. In this app, a tag means the place's tag.
+- **Rule from now:** a blind read is done by a fresh agent on shuffled glyphs. Mine is labelled "seen".
+
+**The bag is open:**
+- The v264 five held no bag.
+- His last bag words (v260): "the bag i think is conceptually the problem ... the shopping bag works, but it may be one step too common?"
+- A bag must say what makes it left of centre, or it goes to him as a question.
+
+**Steering:**
+- **B1:** tidy it: no chequer, links as rings so it stops rhyming with the museum's columns, ink at or under the café.
+- **F4:** goes forward only as K (the ears out, a fold crease, a hand-sized slot).
+- **New J:** the trade sign hangs the bag itself by its die-cut hole.
+- **L:** one test drawing of an open glyph for the most-repeated pin.
+- **"A handle is its counter":** a proposal; it goes to him beside the ring rule he set.
+
+**Next:** the systems designer sets the concepts, then a fresh blind read, then I score.

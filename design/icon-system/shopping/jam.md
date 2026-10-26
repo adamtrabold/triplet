@@ -93,3 +93,55 @@ The six run 34-63px² (the museum is 63). B1 is about 60 net and F4 about 71 net
 **B1, the blade sign**, then **F4, the die-cut bag**. Before anything goes to him, both need a blind read at 24 by someone who hasn't seen this sheet, and both need ink taken out.
 
 NEXT: design director — two survivors (B1 sign, F4 die-cut bag) and a proposed handle rule; steer which go to concepts and whether "a bag" is still open after v264.
+
+## Turn 3: design director, 2026-10-26
+
+### Is a bag still open? Yes, on his words alone
+
+- **v264:** "i do not like any of the proposed shopping icons." The five on v264 were the swing tag, basket, awning, parcel and till (`../briefs/shopping-concepts.md`). **None was a bag.** So v264 tells us nothing about bags, and he gave no reason, so we don't supply one.
+- **His last words on the bag itself (v260):** "the bag i think is conceptually the problem -- the way we have added personality is by icon choice ... i think the shopping bag works, but it may be one step too common?"
+- **Both halves stand.** He said the bag "works", then asked whether it's too common, and called it "conceptually the problem" by the coupe standard. A bag stays open, but it carries the burden of proof: what makes this bag left of centre the way the coupe is? If we can't say that in one plain line he'd accept, it goes to him as the question, not as a concept.
+
+### A signal for me
+
+He turned down the swing tag, which I scored 9 on v263. I called my read of it "blind", but I had seen it, and I counted its rhyme with the Hanging Tag as a plus. Turn 1 shows that rhyme is a confusion: a tag means "the place's tag". From now on, a blind read is done by an agent who hasn't seen the sheet. My own read is not blind, and I label it so (below).
+
+### My read at 24 (seen, not blind; the street strips on `sketches/contact-sheet.png`, plus my own shuffled render)
+
+- **B1:** at 24 I read a hanging sign first, then a crane with a crate. But in the street its bracket with two drops rhymes with the museum's beam over columns: two marks in the set built as "beam plus short posts". Its chequered wall plate is noise at 24.
+- **F4:** I read a handbag, then a padlock. The V cuts at its top corners read as ears or a crown, not a gusset. The slot reads as a lock's hood more than a hand's hole. It's better than A and F3, but not yet a bag that only we would draw.
+- **A, C, D, E, G, H:** the kills stand. At 24 I read padlock, cherries, football, skyline, record, battery.
+
+### The draw (`random.SystemRandom`, run, not chosen)
+
+Oblique: **"Tidy up"** and **"Do the words need changing?"** Fields: **ceramics glazing, bookbinding, bicycle frames.** Twists: **seen from above; the lightest mark in the set.**
+
+### Three directions of mine (they differ in kind)
+
+**J. The sign that hangs the goods (B1 × F4; "Do the words need changing?").** A Nordic trade sign hangs no words. It hangs the thing itself, cut out of plate: the boot over the cobbler, the key over the locksmith. So the board is **not a board but the bag**, hung by its own die-cut hole from the bracket. Two reads, each confirming the other: the bracket says shop, the shape says goods, and the bag's handle is literally what it hangs by. That is plain (a sign), made by a tool (a cut plate), and left of centre in the coupe way: everyone draws a bag; we draw the sign a shop hangs. The risk is "cheeky", his word for v260, so it must be drawn straight, with no wit beyond the one fusion.
+
+**K. The fold, not the ears (bookbinding; "Tidy up" on F4).** A binder's identity is the fold. Take F4 and remove the V ears. Its particular detail becomes the block-bottom paper bag's crease: one 1px cut (the gap rule) across the body where the bag folds flat, and the die-cut slot above it. Every part is a root operation: the body is a flared slab, the slot a 2px counter, the crease a gap. If it reads as a calendar (H2 did), it dies.
+
+**L. The lightest mark (bicycle frames; "the lightest mark in the set").** Shopping is 27% of pins, the most-repeated mark, in the weakest ink. Draw it as the set's first **open** category glyph: a frame of 1½px line, like the star and the +, with the handle as a ring on the line. This tests the settled rule "outline/solid/open follows the icon's job" on its hardest case: is "most repeated" a job that earns the open style? I expect the answer is no, because an open glyph among solids reads as unselected or disabled. Draw it once at 24 in the street to find out, then decide. It differs in kind: weight, not subject.
+
+**Seen from above:** a bag mouth or a stall plan seen from above is unreadable at 18. Killed. **Ceramics glazing:** a vase means home decor or flowers. Killed.
+
+### Steering
+
+- **B1: push, as concept 1.** Tidy up:
+  - one bracket, no chequer;
+  - links as rings (the handle rule reused), not drops, so it stops rhyming with the museum's columns;
+  - net ink at or below the café.
+  - Its board stays plain unless J beats it.
+- **F4: push only as K.** The ears go. The slot is sized as a hand's hole (about ⅓ of the top's width, a 2px counter at least). If K still reads as a handbag or padlock at 24 in a fresh read, the die-cut bag dies, and the bag question goes to him in one line.
+- **J: build it.** It's the one that answers "one step too common?" with a reason rather than a styling.
+- **L: one drawing, in the street strip only.** It's a test, not a concept, unless it surprises us.
+- **The handle rule:** "a handle is its counter" (turn 2) is a better underlying shape than "a handle is a ring", and it explains the padlock read. It goes forward as a proposal to the rules. It is not settled: he set the ring, so it reaches him as a question with the cup and the bag side by side.
+- **Weight:** every survivor is shown with net ink (holes subtracted) beside the six. The commonest pin is not the heaviest.
+- **The parallel pixel round's rules apply:** slabs 2, counters ≥ 2, gaps ≥ 1, protrusion ≥ 1, line 1½.
+
+### Before anything is concepts
+
+A blind read at 24 and 18, in lavender, in the street strip, by a fresh agent who sees only shuffled glyphs. It covers B1 (tidied), J, K and the six. The question is one: "what kind of place is each?"
+
+NEXT: product designer (systems): set B1-tidied, J and K as concepts against `jobs.md` (F1-F5), with L as the one-drawing test; visual draws them. Then the fresh blind read, then me.
