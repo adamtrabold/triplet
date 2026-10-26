@@ -1,17 +1,22 @@
 #!/usr/bin/env python3
-"""The "Brand signatures" board (Grid concepts page), 2026-10-26.
+"""The "Brand signatures" board (Grid concepts page), round 2 (2026-10-26, after director turn 173 and his three comments).
 
-Owner: "come up with 1-3 core brand visual signatures that we can apply as a filter on decisions (e.g. we need one
-element X one element Y)." Nothing is redrawn: the nine icon paths are copied from the live Now board; this script only
-lays marks over them (a swoop line, a flare ring, a press ring) and draws the abstract do/don't diagrams.
+Owner: "come up with 1-3 core brand visual signatures that we can apply as a filter on decisions". Then, on v256:
+"this is a really awkwardly shaped flare. all joints should feel architecturally sound"; "there is probably a creative
+place to add swoops to all objects."; and on handles: "what's the underlying shape that a handle is that we can make a
+good rule about".
+
+The approved six and the fork and knife are copied from the live Now board, never redrawn. The museum and bag
+proposals and the bracket diagrams are drawn here by hand from root shapes (proposals, not engine output).
 
   python3 -I src/signatures-board.py <live Grid7Now.dc.html> <out dir>   -> <out dir>/Grid7Signatures.dc.html
-Then measure the root div in Chromium and set the frame height (and $preview) to it.
+Then measure the root div in Chromium and set the frame height and $preview (PREVIEW_H below) to it.
 """
-import json, os, re, sys
+import math, os, re, sys
 
 NOW, OUT = sys.argv[1], sys.argv[2]
 os.makedirs(OUT, exist_ok=True)
+PREVIEW_H = 2394
 
 NAVY, ORANGE, DEEP, GREY, RULE, PAPER, TILE, INK = '#12293F', '#EE7434', '#A8400C', '#5A564C', '#D8CEBA', '#FAF5EA', '#F2EBDD', '#1A1A18'
 MOSS = '#547326'
@@ -20,206 +25,378 @@ FONT = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ar
 
 # ------------------------------------------------------------------ icon paths, copied from the live Now board (72px row)
 s = open(NOW, encoding='utf-8').read()
-ICON = {}
+D = {}
 for svg in re.findall(r'<svg width="72"[^>]*>.*?</svg>', s, re.S):
     name = re.search(r'aria-label="([^"]+)"', svg).group(1)
-    ICON[name] = re.search(r'<svg[^>]*>(.*)</svg>', svg, re.S).group(1)
-assert len(ICON) == 9, ICON.keys()
+    D[name] = re.search(r' d="([^"]+)"', svg).group(1)
+assert len(D) == 9, D.keys()
+
+
+def solid(d, fill=NAVY):
+    return f'<path fill="{fill}" fill-rule="evenodd" d="{d}"/>'
+
+
+def shadow(d, fill=NAVY):
+    """Every subpath filled on its own: the cuts close, only the silhouette is left."""
+    return ''.join(f'<path fill="{fill}" d="M{p.strip()}"/>' for p in d.split('M') if p.strip())
+
+
+def svg(inner, px, vb='0 0 24 24', bg=None):
+    style = f'display:block;background:{bg}' if bg else 'display:block'
+    return f'<svg width="{px}" height="{px}" viewBox="{vb}" aria-hidden="true" style="{style}">{inner}</svg>'
+
+
+# ------------------------------------------------------------------ geometry helpers for the proposals (24-unit space)
+K = 0.5523
+
+
+def f(v): return f'{v:.3f}'.rstrip('0').rstrip('.')
+
+
+def bracket(px, py, dx, dy, run, rise):
+    """The bracket: one quarter ellipse filling the concave corner at (px,py). The heavier face runs along x (dx = the
+    side the bracket runs out to), the lighter part's face along y (dy = the side it rises up). Tangent to both."""
+    x1, y2 = px + dx * run, py + dy * rise
+    return (f'M{f(px)},{f(py)} L{f(x1)},{f(py)} C{f(px + dx * run * (1 - K))},{f(py)} {f(px)},{f(py + dy * rise * (1 - K))} '
+            f'{f(px)},{f(y2)} Z')
+
+
+def rrect(x0, y0, x1, y1, r):
+    return (f'M{f(x0 + r)},{f(y0)} H{f(x1 - r)} Q{f(x1)},{f(y0)} {f(x1)},{f(y0 + r)} V{f(y1 - r)} Q{f(x1)},{f(y1)} {f(x1 - r)},{f(y1)} '
+            f'H{f(x0 + r)} Q{f(x0)},{f(y1)} {f(x0)},{f(y1 - r)} V{f(y0 + r)} Q{f(x0)},{f(y0)} {f(x0 + r)},{f(y0)} Z')
+
+
+def arc_pts(x0, x1, yend, ymid, n=40):
+    """A shallow ellipse arc (one root) from (x0,yend) to (x1,yend) through (mid, ymid): y = yend + (ymid-yend)*sqrt(1-t^2)
+    scaled so the ends meet the chord at the ellipse's flat cut (a cap)."""
+    cx, a = (x0 + x1) / 2, (x1 - x0) / 2
+    A = a * 1.155                     # the cap's 7/6 (2/sqrt3) cut: the arc is the crown of a wider ellipse
+    B = (ymid - yend) / (1 - math.sqrt(1 - (a / A) ** 2))
+    pts = []
+    for i in range(n + 1):
+        x = x0 + (x1 - x0) * i / n
+        t = (x - cx) / A
+        pts.append((x, ymid - B + B * math.sqrt(1 - t * t)))
+    return pts
+
+
+def poly(pts):
+    return 'M' + ' L'.join(f'{f(x)},{f(y)}' for x, y in pts) + ' Z'
+
+
+def ellipse_half(cx, cy, a, b, up=True, n=48):
+    """Half an ellipse (b vertical half-axis), above (up) the line y=cy, as a closed polygon with its chord."""
+    pts = [(cx + b * math.cos(math.pi * i / n) * 1.0 if False else cx + a * math.cos(math.pi * i / n),
+            cy - (b if up else -b) * math.sin(math.pi * i / n)) for i in range(n + 1)]
+    return poly(pts)
+
+
+# ------------------------------------------------------------------ proposals
+RUN, RISE = 2 / 5, 1 / 2            # the bracket, as shares of the lighter part's width
+
+
+def museum(variant):
+    """The approved museum's proportions; capitals as brackets; variant 'lintel' (the beam arches, the gable rides it on
+    one even cut) or 'plinth' (the plinth's underside is a cap). Openings stay square; the gable stays separated."""
+    col, x0, x1 = 1.2, 7.1, 16.9
+    run, rise = RUN * col, RISE * col
+    bx0, bx1 = 7.9, 16.1                       # column block: the beam overhangs by run + its corner round
+    out, holes = [], []
+    if variant == 'lintel':
+        g = arc_pts(x0, x1, 9.85, 9.3)
+        gable = [(x0, 8.95), (x0 + 0.25, 8.72), (11.75, 7.25), (12.25, 7.25), (x1 - 0.25, 8.72), (x1, 8.95)] + list(reversed(g))
+        out.append(poly(gable))
+        b = arc_pts(x0, x1, 10.85, 10.3)
+        out.append(poly(b + [(x1, 11.75), (x1 - 0.25, 12.0), (x0 + 0.25, 12.0), (x0, 11.75)]))
+        plinth = rrect(x0, 15.85, x1, 16.85, 0.3)
+        out.append(plinth)
+    else:
+        gable = [(x0, 8.95), (x0 + 0.25, 8.72), (11.75, 7.25), (12.25, 7.25), (x1 - 0.25, 8.72), (x1, 8.95), (x1, 9.7),
+                 (x1 - 0.3, 10.0), (x0 + 0.3, 10.0), (x0, 9.7)]
+        out.append(poly(gable))
+        out.append(rrect(x0, 11.0, x1, 12.0, 0.3))
+        p = arc_pts(x0, x1, 16.45, 17.0)
+        out.append(poly([(x0, 16.15), (x0 + 0.3, 15.85), (x1 - 0.3, 15.85), (x1, 16.15)] + list(reversed(p))))
+    out.append(f'M{bx0},11.9 H{bx1} V15.95 H{bx0} Z')
+    s_ = (bx1 - bx0 - 4 * col) / 3
+    for i in range(3):
+        sx = bx0 + col + i * (col + s_)
+        holes.append(rrect(sx, 12.45, sx + s_, 15.4, 0.15))
+    out += [bracket(bx0, 12.0, -1, 1, run, rise), bracket(bx1, 12.0, 1, 1, run, rise),
+            bracket(bx0, 15.85, -1, -1, run, rise), bracket(bx1, 15.85, 1, -1, run, rise)]
+    return out, holes
+
+
+RING = dict(a=3.1, b=3.1 * 4 / 5, wall=1.5)   # the handle's root: a whole ellipse 4/5, wall one line, sized to a hand
+
+
+def bag():
+    """The bag built from the ring: the ring's long axis points out of the body (up), its centre on the body's top edge,
+    so half shows; its hole = the ring's ellipse with both radii shortened by the wall; brackets where it carries the
+    body. The body is a mass whose underside is a cap (its swing: a full bag sags)."""
+    a, b, w = RING['a'], RING['b'], RING['wall']
+    top, cx = 9.6, 12.0
+    out, holes = [], []
+    # ring (long axis vertical: half-height a above the edge, half-width b)
+    out.append(f'M{f(cx - b)},{f(top)} A{f(b)} {f(a)} 0 1 1 {f(cx + b)},{f(top)} A{f(b)} {f(a)} 0 1 1 {f(cx - b)},{f(top)} Z')
+    holes.append(ellipse_half(cx, top + 0.01, b - w, a - w))
+    # body: top 7.9..16.1, sides in to 8.45/15.55, underside a cap
+    cap = arc_pts(8.45, 15.55, 16.15, 16.95)
+    r = [(7.9 + 0.6 * (1 - math.cos(t * math.pi / 2)), top + 0.6 * (1 - math.sin(t * math.pi / 2))) for t in [i / 8 for i in range(9)]]
+    body = [(16.1 - (x - 7.9), y) for x, y in reversed(r)][::-1]
+    body = list(reversed([(16.1 - (x - 7.9), y) for x, y in r])) + [(15.62, 15.75), (15.55, 16.15)] + list(reversed(cap))[1:-1] + \
+           [(8.45, 16.15), (8.38, 15.75)] + r
+    out.append(poly(body))
+    run, rise = RUN * w, RISE * w
+    out += [bracket(cx - b, top, -1, -1, run, rise), bracket(cx + b, top, 1, -1, run, rise)]
+    return out, holes
+
+
+def compose(parts, holes, px, vb='0 0 24 24', fill=NAVY, uid='m'):
+    if holes:
+        mask = (f'<mask id="{uid}" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24"><rect width="24" height="24" fill="#fff"/>'
+                + ''.join(f'<path d="{h}" fill="#000"/>' for h in holes) + '</mask>')
+        body = f'<defs>{mask}</defs><g mask="url(#{uid})">' + ''.join(f'<path fill="{fill}" stroke="{fill}" stroke-width="0.03" d="{p}"/>' for p in parts) + '</g>'
+    else:
+        body = ''.join(f'<path fill="{fill}" stroke="{fill}" stroke-width="0.03" d="{p}"/>' for p in parts)
+    return svg(body, px, vb)
+
+
+# ------------------------------------------------------------------ marks
+def swing_mark(d): return f'<path d="{d}" fill="none" stroke="{ORANGE}" stroke-width="0.42" stroke-linecap="round"/>'
+def ring_mark(cx, cy, r=0.75, c=DEEP): return f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="{c}" stroke-width="0.2"/>'
 
 
 def quad(x0, y0, xm, ym, x1, y1):
-    """A quadratic through (x0,y0), (xm,ym) at t=1/2, and (x1,y1)."""
     cx, cy = 2 * xm - (x0 + x1) / 2, 2 * ym - (y0 + y1) / 2
     return f'M{x0},{y0} Q{cx:.3f},{cy:.3f} {x1},{y1}'
 
 
-# Marks in the icons' own 24-unit space, read off 50px-a-unit crops of the live drawings. Each sits just outside the
-# feature it names so the drawing stays visible. swoop: the lead swoop; flare: rings; press: one example corner.
-MARKS = {
-    'Café':       dict(swoop=[quad(6.7, 16.2, 12, 16.95, 17.3, 16.2)], flare=[(13.55, 12.85)], press=[(8.25, 8.2)]),
-    'Bar':        dict(swoop=['M6.6,9.1 C6.7,11.3 8.6,12.75 10.9,13.2'], flare=[(11.35, 13.05), (12.65, 15.15)], press=[(7.45, 8.35)]),
-    'Museum':     dict(swoop=[], flare=[(7.45, 12.45), (16.55, 15.55)], press=[(12, 7.3)]),
-    'Nature':     dict(swoop=[quad(10.75, 12.15, 9.45, 14.05, 8.0, 15.05)], flare=[(11.45, 15.75)], press=[(12, 6.35)]),
-    'Star':       dict(swoop=[], flare=[], press=[(12, 4.35)]),
-    'Add':        dict(swoop=[], flare=[], press=[(12, 6.25)]),
-    'Restaurant': dict(swoop=['M14.45,6.25 C15.95,6.9 16.65,9.4 16.75,12.0'], flare=[(11.05, 12.55), (15.45, 12.65)], press=[(8.05, 6.75)]),
-    'Hotel':      dict(swoop=[quad(8.75, 9.25, 11.15, 7.95, 13.65, 9.25)], flare=[(8.1, 11.3), (16.5, 14.75)], press=[(7.15, 8.2)]),
-    'Shopping':   dict(swoop=[], flare=[], press=[(8.2, 16.6)]),
+SWING = {
+    'Café': quad(6.7, 16.25, 12, 17.0, 17.3, 16.25),
+    'Bar': 'M6.55,9.1 C6.65,11.35 8.6,12.8 10.9,13.25',
+    'Nature': quad(10.7, 12.1, 9.4, 14.0, 7.95, 15.05),
+    'Restaurant': 'M14.5,6.2 C16.0,6.85 16.7,9.4 16.8,12.0',
+    'Hotel': quad(8.7, 9.2, 11.15, 7.85, 13.7, 9.2),
 }
-SW = 0.34   # swoop line width, units
 
-
-def marked(name, px=150, marks=True):
-    m = MARKS[name]
-    g = ''
-    if marks:
-        for d in m['swoop']:
-            g += f'<path d="{d}" fill="none" stroke="{ORANGE}" stroke-width="{SW}" stroke-linecap="round"/>'
-        for x, y in m['flare']:
-            g += f'<circle cx="{x}" cy="{y}" r="0.68" fill="none" stroke="{DEEP}" stroke-width="0.17"/>'
-        for x, y in m['press']:
-            g += f'<circle cx="{x}" cy="{y}" r="0.62" fill="none" stroke="{MOSS}" stroke-width="0.15" stroke-dasharray="0.28 0.2"/>'
-    return f'<svg width="{px}" height="{px}" viewBox="3.4 3.4 17.2 17.2" aria-hidden="true" style="display:block">{ICON[name]}{g}</svg>'
-
-
-def true24(name):
-    return f'<svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" style="display:block">{ICON[name]}</svg>'
-
-
-# ------------------------------------------------------------------ small type helpers
+# ------------------------------------------------------------------ type helpers
 def kicker(t): return f'<div style="font-size:15px;letter-spacing:.12em;font-weight:700;color:{DEEP};text-transform:uppercase">{t}</div>'
-def label(t, top=28): return f'<div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:{GREY};text-transform:uppercase;margin:{top}px 0 12px">{t}</div>'
-def p(t, size=19, color=INK, m='0 0 8px'): return f'<p style="margin:{m};font-size:{size}px;line-height:1.4;color:{color}">{t}</p>'
+def label(t, top=30): return f'<div style="font-size:15px;letter-spacing:.1em;font-weight:700;color:{GREY};text-transform:uppercase;margin:{top}px 0 12px">{t}</div>'
+def p(t, size=18, color=INK, m='0 0 8px'): return f'<p style="margin:{m};font-size:{size}px;line-height:1.4;color:{color}">{t}</p>'
+def cap(t, c=GREY): return f'<div style="font-size:15px;line-height:1.3;color:{c};margin-top:6px;text-align:center">{t}</div>'
+def tile(inner, pad=6): return f'<div style="background:#fff;border:1px solid {RULE};padding:{pad}px">{inner}</div>'
 
 
-YES = f'<span style="color:{MOSS};font-weight:700">yes</span>'
-NO = f'<span style="color:{DEEP};font-weight:700">no</span>'
-NA = f'<span style="color:{GREY}">mark</span>'
+ORDER = [('Café', 'Café'), ('Bar', 'Bar'), ('Museum', 'Museum'), ('Nature', 'Nature'), ('Star', 'Star'), ('Add', 'The +'),
+         ('Restaurant', 'Fork'), ('Hotel', 'Bed'), ('Shopping', 'Bag')]
 
-# ------------------------------------------------------------------ the do / don't diagrams (abstract parts, not icons)
-# Drawn at 22px a unit (a unit = 1px of the 24px badge), the scale of the Rules board's joins figure.
-U = 22
+# ---- signature 1: the shadow
+shadow_row = ''.join(
+    f'<div style="display:flex;flex-direction:column;align-items:center;gap:6px">'
+    f'{tile(svg(shadow(D[k]), 60, "3.4 3.4 17.2 17.2"), 4)}'
+    f'<div style="display:flex;gap:8px;align-items:center">{svg(shadow(D[k]), 24)}{svg(shadow(D[k]), 12)}</div>'
+    f'<div style="font-size:15px;color:{DEEP if k == "Shopping" else GREY};font-weight:{700 if k == "Shopping" else 400}">{n}{" ✗" if k == "Shopping" else ""}</div></div>'
+    for k, n in ORDER)
+
+# ---- signature 1: weight
+def rest_mark(x0, x1, y): return f'<path d="M{x0},{y} H{x1}" stroke="{MOSS}" stroke-width="0.34" stroke-linecap="round" stroke-dasharray="0.01 0.62"/>'
 
 
-def diag(body, w, h, vb):
-    return f'<svg width="{w*U}" height="{h*U}" viewBox="{vb}" aria-hidden="true" style="display:block">{body}</svg>'
-
-
-F = f'fill="{NAVY}"'
-DIAG = {
-    # swoop: a slab whose underside is one shallow ellipse (the saucer's way) / a half circle / a ruler-only box
-    'swoop_do':   diag(f'<path {F} d="M0.6,0 H9.4 Q10,0 10,0.6 V1.1 A7.2 1.5 0 0 1 0,1.1 V0.6 Q0,0 0.6,0 Z"/>', 4.6, 1.5, '0 -0.3 10 3.3'),
-    'swoop_no1':  diag(f'<path {F} d="M0.6,0 H9.4 Q10,0 10,0.6 V1.1 A5 5 0 0 1 0,1.1 V0.6 Q0,0 0.6,0 Z"/>', 3.0, 1.9, '-0.3 -0.3 10.6 6.6'),
-    'swoop_no2':  diag(f'<path {F} d="M0.6,0 H9.4 Q10,0 10,0.6 V2.0 Q10,2.6 9.4,2.6 H0.6 Q0,2.6 0,2.0 V0.6 Q0,0 0.6,0 Z"/>', 4.6, 1.5, '0 -0.3 10 3.3'),
-    # flare: a post (5/6 line) into a slab, flaring 1/3 line on a concave curve / a square T / an ink-trap notch
-    'flare_do':   diag(f'<path {F} d="M0,0 H7 V1.5 H4.45 C4.0,1.5 3.85,1.85 3.85,2.45 V5 H3.15 V2.45 C3.15,1.85 3.0,1.5 2.55,1.5 H0 Z"/>', 3.2, 2.3, '0 0 7 5'),
-    'flare_no1':  diag(f'<path {F} d="M0,0 H7 V1.5 H3.85 V5 H3.15 V1.5 H0 Z"/>', 3.2, 2.3, '0 0 7 5'),
-    'flare_no2':  diag(f'<path {F} d="M0,0 H7 V1.5 H4.3 L3.85,1.05 V5 H3.15 V1.05 L2.7,1.5 H0 Z"/>', 3.2, 2.3, '0 0 7 5'),
-    # press: outside soft, inside tighter / knife-sharp / every corner the same full round
-    'press_do':   diag(f'<path {F} d="M0.6,0 H1.9 Q2.5,0 2.5,0.6 V3.35 Q2.5,3.5 2.65,3.5 H5.4 Q6,3.5 6,4.1 V4.4 Q6,5 5.4,5 H0.6 Q0,5 0,4.4 V0.6 Q0,0 0.6,0 Z"/>', 2.9, 2.3, '-0.3 -0.3 6.6 5.6'),
-    'press_no1':  diag(f'<path {F} d="M0,0 H2.5 V3.5 H6 V5 H0 Z"/>', 2.9, 2.3, '-0.3 -0.3 6.6 5.6'),
-    'press_no2':  diag(f'<path {F} d="M1.25,0 A1.25 1.25 0 0 1 2.5,1.25 V2.75 A0.75 0.75 0 0 0 3.25,3.5 H5.25 A0.75 0.75 0 0 1 5.25,5 H0.75 A0.75 0.75 0 0 1 0,4.25 V1.25 A1.25 1.25 0 0 1 1.25,0 Z"/>', 2.9, 2.3, '-0.3 -0.3 6.6 5.6'),
+WEIGHT = {   # where each object's weight goes, read off the live drawings: rests (a cut under a loose part), carried (a
+             # bracket where a lighter part holds a heavier one), gives (a sag or droop)
+    'Café': (rest_mark(9.2, 14.6, 14.45) + swing_mark(SWING['Café']), 'rests, gives'),
+    'Bar': (rest_mark(9.4, 14.6, 9.97) + ring_mark(11.3, 13.0) + ring_mark(12.7, 15.2), 'drink rests; carried'),
+    'Museum': (rest_mark(7.8, 16.2, 10.5) + ring_mark(7.4, 12.4), 'gable rests; carried'),
+    'Nature': (swing_mark(SWING['Nature']) + ring_mark(11.45, 15.75), 'gives; carried'),
+    'Star': ('', 'a mark: weightless'),
+    'Add': ('', 'a mark: weightless'),
+    'Restaurant': (ring_mark(11.05, 12.55) + ring_mark(15.45, 12.65), 'carried'),
+    'Hotel': (rest_mark(9.4, 13.1, 11.15) + ring_mark(16.5, 14.75), 'pillow rests; carried'),
+    'Shopping': ('', 'nothing: it stands on a ledge'),
 }
 
 
-def dodont(do, nos):
-    cell = lambda svg, cap, ok: (f'<div style="display:flex;flex-direction:column;align-items:flex-start;gap:6px">'
-                                 f'<div style="height:56px;display:flex;align-items:center">{svg}</div>'
-                                 f'<div style="font-size:15px;line-height:1.3;color:{MOSS if ok else DEEP};font-weight:700">{"Do" if ok else "Not"}</div>'
-                                 f'<div style="font-size:15px;line-height:1.3;color:{GREY}">{cap}</div></div>')
-    return (f'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;background:{TILE};padding:14px 16px;margin-top:14px">'
-            + cell(DIAG[do[0]], do[1], True) + ''.join(cell(DIAG[k], c, False) for k, c in nos) + '</div>')
+def weight_cell(k):
+    m, note = WEIGHT[k]
+    bad = k == 'Shopping'
+    return (f'<div style="display:flex;flex-direction:column;align-items:center;width:100px">'
+            f'{tile(svg(solid(D[k]) + m, 86, "3.4 3.4 17.2 17.2"), 3)}'
+            f'<div style="font-size:15px;color:{DEEP if bad else GREY};margin-top:4px;text-align:center;line-height:1.3">{note}</div></div>')
 
 
-SIGS = [
-    dict(name='The swoop', mark=f'<svg width="44" height="14" viewBox="0 0 44 14"><path d="M3,4 Q22,15 41,4" fill="none" stroke="{ORANGE}" stroke-width="3.4" stroke-linecap="round"/></svg>',
-         test='Does one side of a solid part bend as one shallow ellipse arc you could pull with a curve template?',
-         his='"the light swoops in the tree branches"; "the joy of movement"',
-         built='A side of a mass or slab declared as one ellipse, flatter than a circle (4/5 or flatter; a cap\'s 7/6 cut), spanning at least half the drawing. Rules 6, 11; the tier\'s droop and sweep (rule 12).',
-         out='All-ruler drawings; half circles; curves that are only corner rounds; loops and holes standing in for it (the bag\'s handle is an arch, not a swoop).',
-         dd=dodont(('swoop_do', 'one shallow arc'), [('swoop_no1', 'a half circle'), ('swoop_no2', 'ruler only')])),
-    dict(name='The flare', mark=f'<svg width="22" height="22" viewBox="0 0 22 22"><circle cx="11" cy="11" r="8" fill="none" stroke="{DEEP}" stroke-width="2.4"/></svg>',
-         test='Where a thin part meets a heavier one, does its edge swell into it on a concave curve, like ink squeezed at the joint?',
-         his='"the flares"; "something screened or pressed"',
-         built='The holds join (a post flares 1/3 line, 0.5px, on open faces), the capital, the leaned flare into a curve (rule 4, rule 18; rounds table: flare 0.5). Places only.',
-         out='Square T and L joints; ink-trap notches; flares on outside edges or on line marks; flares bigger than 1/3 line.',
-         dd=dodont(('flare_do', 'swells 1/3 line'), [('flare_no1', 'square joint'), ('flare_no2', 'ink trap')])),
-    dict(name='The press', mark=f'<svg width="22" height="22" viewBox="0 0 22 22"><circle cx="11" cy="11" r="8" fill="none" stroke="{MOSS}" stroke-width="2.2" stroke-dasharray="3.4 2.4"/></svg>',
-         test='Is every corner pressed soft, outside rounder than inside, with no knife point and no pill end?',
-         his='"slight rounding of interior and exterior corners ... allude to something screened or pressed"',
-         built='The rounds table (rule 17): mass corner 0.6, line end 0.3, tip 0.35 or less, inside join 0.15, never more than 1/5 of the shorter edge. Every icon, marks too.',
-         out='Sharp corners; one radius everywhere; round caps and pill ends; corners rounded so far the root shape is lost.',
-         dd=dodont(('press_do', 'outside soft, inside tight'), [('press_no1', 'knife sharp'), ('press_no2', 'one big radius')])),
-]
+weight_row = ''.join(weight_cell(k) for k, _ in ORDER)
+weight_legend = (f'<div style="display:flex;gap:22px;font-size:15px;color:{GREY};margin-top:10px">'
+                 f'<span><svg width="30" height="10" viewBox="0 0 3 1"><path d="M0.3,0.5 H2.7" stroke="{MOSS}" stroke-width="0.34" stroke-linecap="round" stroke-dasharray="0.01 0.62"/></svg> rests</span>'
+                 f'<span><svg width="14" height="14" viewBox="0 0 2 2"><circle cx="1" cy="1" r="0.75" fill="none" stroke="{DEEP}" stroke-width="0.2"/></svg> carried</span>'
+                 f'<span><svg width="30" height="10" viewBox="0 0 3 1"><path d="M0.3,0.3 Q1.5,1 2.7,0.3" fill="none" stroke="{ORANGE}" stroke-width="0.3" stroke-linecap="round"/></svg> gives</span></div>')
 
 
-def sig_col(sg):
-    row = lambda k, v: (f'<div style="margin-top:12px"><div style="font-size:14px;letter-spacing:.1em;font-weight:700;color:{GREY};text-transform:uppercase">{k}</div>'
-                        f'<div style="font-size:17px;line-height:1.4;margin-top:3px">{v}</div></div>')
-    return (f'<div style="border-top:4px solid {ORANGE};padding-top:14px">'
-            f'<div style="display:flex;align-items:center;gap:12px">{sg["mark"]}<div style="font-size:30px;font-weight:700;color:{NAVY}">{sg["name"]}</div></div>'
-            f'<div style="font-size:20px;line-height:1.35;color:{NAVY};font-weight:600;margin-top:10px">{sg["test"]}</div>'
-            + row('His words', sg['his']) + row('Built by', sg['built']) + row('Rules out', sg['out']) + sg['dd'] + '</div>')
+def sig_card(name, test, his, reads, out, visual):
+    row = lambda k, v: (f'<div style="display:grid;grid-template-columns:120px 1fr;gap:12px;margin-top:8px">'
+                        f'<div style="font-size:14px;letter-spacing:.1em;font-weight:700;color:{GREY};text-transform:uppercase;padding-top:2px">{k}</div>'
+                        f'<div style="font-size:17px;line-height:1.4">{v}</div></div>')
+    return (f'<div style="border-top:4px solid {ORANGE};padding-top:12px;margin-top:22px">'
+            f'<div style="display:grid;grid-template-columns:520px 1fr;gap:36px;align-items:start">'
+            f'<div><div style="font-size:30px;font-weight:700;color:{NAVY}">{name}</div>'
+            f'<div style="font-size:20px;line-height:1.35;color:{NAVY};font-weight:600;margin-top:6px">{test}</div>'
+            + row('From', his) + row('Reads at', reads) + row('Rules out', out) +
+            f'</div><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:4px">{visual}</div></div></div>')
 
 
-def icon_card(name, label_, s1, s2, s3, note=''):
-    tick = lambda k, v: f'<div style="display:flex;justify-content:space-between;font-size:16px;line-height:1.5"><span style="color:{GREY}">{k}</span>{v}</div>'
-    return (f'<div style="display:flex;flex-direction:column;align-items:center">'
-            f'<div style="background:#fff;border:1px solid {RULE}">{marked(name)}</div>'
-            f'<div style="display:flex;align-items:center;gap:8px;margin-top:8px"><div style="background:#fff;padding:2px">{true24(name)}</div>'
-            f'<div style="font-size:18px;font-weight:600;color:{NAVY}">{label_}</div></div>'
-            f'<div style="width:140px;margin-top:6px">{tick("swoop", s1)}{tick("flare", s2)}{tick("press", s3)}</div>'
-            + (f'<div style="width:150px;font-size:15px;line-height:1.35;color:{GREY};margin-top:6px;text-align:center">{note}</div>' if note else '')
-            + '</div>')
+SIG1 = sig_card(
+    'The shadow',
+    'Fill every cut. Does the side-on silhouette alone still name the thing, like a sign symbol seen from the road?',
+    '"travel signs": dead side-on, one solid, detail only as cuts.',
+    '12px: it is the chip-size test (true size under each).',
+    'Three-quarter and top views; lines drawn inside a solid; silhouettes that need their cuts. Today\'s bag: its shadow is a padlock\'s.',
+    shadow_row)
+
+SIG2 = sig_card(
+    'Weight',
+    'Can you point to where its weight goes? Every object shows it at least once: it rests on something across a one-line cut, it is carried on a bracket, or it gives (sags, droops). Marks weigh nothing.',
+    'Not your words; what they share. The cup set down on its saucer, the gable lowered onto its beam, the stem carrying the bowl, branches heavy at the tips: tactility and whimsy as weight you can see.',
+    '24px: the cuts and the droop. At 12 the shadow carries the icon.',
+    'Floating objects; parts glued flat with no cut, bracket or give; a mark with a ground. Today\'s bag: its handle stands on a ledge.',
+    f'<div><div style="display:flex;justify-content:space-between;gap:4px">{weight_row}</div>{weight_legend}</div>')
+
+# ---- the givens: bracket rule
+U = 20
+def diag(body, w, h, vb): return f'<svg width="{w*U}" height="{h*U}" viewBox="{vb}" aria-hidden="true" style="display:block">{body}</svg>'
 
 
-legend = (f'<div style="display:flex;gap:28px;align-items:center;font-size:16px;color:{GREY};margin:0 0 14px">'
-          f'<span style="display:flex;gap:8px;align-items:center">{SIGS[0]["mark"]} swoop</span>'
-          f'<span style="display:flex;gap:8px;align-items:center">{SIGS[1]["mark"]} flare</span>'
-          f'<span style="display:flex;gap:8px;align-items:center">{SIGS[2]["mark"]} press (one example corner; every corner has it)</span></div>')
-
-six = ''.join([
-    icon_card('Café', 'Café', YES, YES, YES, 'saucer\'s underside; cup leans into ear'),
-    icon_card('Bar', 'Bar', YES, YES, YES, 'the bowl; stem flares both ends'),
-    icon_card('Museum', 'Museum', NO, YES, YES, 'capitals flare; no swoop (question 1)'),
-    icon_card('Nature', 'Nature', YES, YES, YES, 'tiers sweep and droop; trunk flares'),
-    icon_card('Star', 'Star', NA, NA, YES, 'a mark: soft tips'),
-    icon_card('Add', 'The +', NA, NA, YES, 'a mark: line ends'),
-])
-new = ''.join([
-    icon_card('Restaurant', 'Fork and knife', YES, YES, YES, 'knife\'s back; both flare into handles'),
-    icon_card('Hotel', 'Bed', YES, YES, YES, 'pillow\'s dome; headboard, leg flare'),
-    icon_card('Shopping', 'Bag', NO, NO, YES, 'an arch on a block: reads as a padlock'),
-])
+post = 1.25
+br_do = (f'<path fill="{NAVY}" d="{rrect(0, 0, 7, 1.5, 0.3)}"/><path fill="{NAVY}" d="M2.875,1.4 H4.125 V5.2 H2.875 Z"/>'
+         f'<path fill="{NAVY}" d="{bracket(2.875, 1.5, -1, 1, RUN*post, RISE*post)}"/><path fill="{NAVY}" d="{bracket(4.125, 1.5, 1, 1, RUN*post, RISE*post)}"/>')
+br_drip = (f'<path fill="{NAVY}" d="{rrect(0, 0, 7, 1.5, 0.3)}"/><path fill="{NAVY}" d="M2.875,1.4 H4.125 V5.2 H2.875 Z"/>'
+           f'<path fill="{NAVY}" d="{bracket(2.875, 1.5, -1, 1, 1.15, 0.7)}"/><path fill="{NAVY}" d="{bracket(4.125, 1.5, 1, 1, 1.15, 0.7)}"/>')
+br_bevel = (f'<path fill="{NAVY}" d="{rrect(0, 0, 7, 1.5, 0.3)}"/><path fill="{NAVY}" d="M2.875,1.4 H4.125 V5.2 H2.875 Z"/>'
+            f'<path fill="{NAVY}" d="M2.875,1.5 L2.375,1.5 L2.875,2.3 Z M4.125,1.5 L4.625,1.5 L4.125,2.3 Z"/>')
+br_round = (f'<path fill="{NAVY}" d="{rrect(0, 0, 7, 1.5, 0.3)}"/><path fill="{NAVY}" d="M2.875,1.4 H4.125 V5.2 H2.875 Z"/>'
+            f'<path fill="{NAVY}" d="{bracket(2.875, 1.5, -1, 1, 0.3, 0.3)}"/><path fill="{NAVY}" d="{bracket(4.125, 1.5, 1, 1, 0.3, 0.3)}"/>')
 
 
-def alt_row(letter, name, cue, rows, verdict):
-    cells = ''.join(f'<td style="padding:6px 8px;text-align:center;border-top:1px solid {RULE}">{v}</td>' for v in rows)
-    return (f'<tr><td style="padding:10px 12px 10px 0;border-top:1px solid {RULE};vertical-align:top;width:430px">'
-            f'<div style="font-size:20px;font-weight:700;color:{NAVY}">{letter} · {name}</div>'
-            f'<div style="font-size:16px;line-height:1.4;color:{INK};margin-top:4px">{cue}</div>'
-            f'<div style="font-size:16px;line-height:1.4;color:{DEEP};margin-top:4px">{verdict}</div></td>{cells}</tr>')
+def dd(svg_, word, cap_, ok):
+    return (f'<div style="display:flex;flex-direction:column;gap:4px"><div>{svg_}</div>'
+            f'<div style="font-size:15px;font-weight:700;color:{MOSS if ok else DEEP}">{word}</div>'
+            f'<div style="font-size:15px;line-height:1.3;color:{GREY}">{cap_}</div></div>')
 
 
-HEAD = ['Café', 'Bar', 'Museum', 'Nature', 'Star', 'The +', 'Fork', 'Bed', 'Bag']
-heads = ''.join(f'<th style="font-size:14px;font-weight:700;color:{GREY};padding:4px 8px;text-transform:uppercase;letter-spacing:.06em">{h}</th>' for h in HEAD)
-both = lambda a, b: f'{a} {b}'
-alts = (f'<table style="border-collapse:collapse;width:100%;font-size:17px"><tr><th></th>{heads}</tr>'
-        + alt_row('A', 'Swoop · flare · press (recommended)',
-                  'What you see: one pulled curve, one squeezed joint, every corner pressed.',
-                  [both(YES, YES), both(YES, YES), both(NO, YES), both(YES, YES), NA, NA, both(YES, YES), both(YES, YES), both(NO, NO)],
-                  'Passes five of six places, and fails exactly the two you objected to (the museum on v147, the bag now).')
-        + alt_row('B', 'Three tools: compass · brush · knife',
-                  'How it was made: every curve from a whole circle or ellipse; every join lands with a flare or lifts to a soft tip; one knife cut lets the paper in (a lifted part or a hole).',
-                  [YES, YES, YES, NO, YES, NO, NO, YES, f'{YES}*'],
-                  '*The bag passes compass and knife and still reads as a padlock: it tests the making, not the look. Too easy to pass.')
-        + alt_row('C', 'Signpost: stands · lifts',
-                  'Composition and play: every place stands on a level ground edge, like a sign symbol; one part floats free on a paper gap (the cup off its saucer, the gable off its beam, the pillow).',
-                  [both(YES, YES), both(YES, NO), both(YES, YES), both(YES, NO), NA, NA, both(NO, NO), both(YES, YES), both(YES, NO)],
-                  'The lift is the most whimsical cue we have, but this set would ask you to change the coupe, the tree and the fork.')
-        + '</table>'
-        + p('Cells: A and C give one answer per signature, in order. B is one answer for all three tools. "mark" = the star and the +, which only carry the press.', 15, GREY, '8px 0 0')
-        + p('<b>Also weighed: "ellipses, never circles"</b> (your note on the blocks). Not its own signature: the museum, tree, star and + have no curves to test, and the bag passes it (its handle is an ellipse) yet reads as a padlock. It already lives inside the swoop, which must be flatter than a circle.', 17, INK, '12px 0 0'))
+dodont = (f'<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;background:{TILE};padding:14px 16px">'
+          + dd(diag(br_do, 7, 5.2, '0 0 7 5.2'), 'Do', 'a bracket: run 2/5, rise 1/2 of the post', True)
+          + dd(diag(br_drip, 7, 5.2, '0 0 7 5.2'), 'Not', 'a drip: wider than tall', False)
+          + dd(diag(br_bevel, 7, 5.2, '0 0 7 5.2'), 'Not', 'a bevel: a pinch', False)
+          + dd(diag(br_round, 7, 5.2, '0 0 7 5.2'), 'Not', 'a plain round', False) + '</div>')
 
-qs = [
-    'The museum has flares and press but no swoop. The filter agrees with what you said on v147 ("completely out of place"). Should buildings be the one kind exempt from the swoop, or should the museum earn one? We have not changed it.',
-    'Is "every place icon has one swoop and one flare; every icon is pressed" the filter? If yes, it becomes a check the engine runs on every new icon (a declared ellipse side, a holds or capital join, the rounds table).',
-    'The lift (one part floating on a paper gap, set C) is allowed today by rule 14 but not asked for. Keep it as an optional flourish, or promote it to a fourth signature?',
-]
-qhtml = ''.join(f'<div style="display:grid;grid-template-columns:32px 1fr;gap:10px;padding:10px 0;border-top:1px solid {RULE}">'
-                f'<div style="font-size:24px;font-weight:700;color:{ORANGE}">{i+1}</div><div style="font-size:19px;line-height:1.4;color:{NAVY}">{q}</div></div>'
-                for i, q in enumerate(qs))
+JOINS = [('Bar', 10.2, 12.1, 2.6, 'bar: stem into bowl', True), ('Bar', 10.2, 14.3, 2.6, 'bar: stem into foot', True),
+         ('Restaurant', 8.8, 11.5, 2.6, 'fork: neck', True), ('Nature', 10.1, 14.7, 2.6, 'tree: trunk (0.1 short)', True),
+         ('Museum', 6.6, 11.5, 2.6, 'museum: a bevel', False), ('Hotel', 15.4, 13.7, 2.6, 'bed: a plain round', False)]
+joins = ''.join(f'<div style="display:flex;flex-direction:column;align-items:center">{tile(svg(solid(D[k]), 108, f"{x} {y} {w} {w}"), 0)}'
+                f'<div style="font-size:15px;line-height:1.3;color:{MOSS if ok else DEEP};margin-top:4px;text-align:center;width:112px">{c}</div></div>'
+                for k, x, y, w, c, ok in JOINS)
+mp, mh = museum('lintel')
+joins += (f'<div style="display:flex;flex-direction:column;align-items:center">{tile(compose(mp, mh, 108, "6.6 11.5 2.6 2.6", uid="mj"), 0)}'
+          f'<div style="font-size:15px;line-height:1.3;color:{MOSS};margin-top:4px;text-align:center;width:112px">museum, proposed</div></div>')
 
-body = (kicker('Grid concepts · Brand signatures · 10-26')
-        + f'<h1 style="margin:6px 0 14px;font-size:38px;line-height:1.1;color:{NAVY}">Brand signatures</h1>'
-        + f'<div style="font-size:28px;line-height:1.3;color:{NAVY};font-weight:700;margin:0 0 10px">Every place icon has <span style="color:{ORANGE}">one swoop</span> and <span style="color:{DEEP}">one flare</span>. Every icon is <span style="color:{MOSS}">pressed</span>.</div>'
-        + p('A yes/no filter for any icon decision. Swoop = the joy of movement; flare and press = the tactility of print and tools. Travel-sign clarity is the bar each one must clear, not a fourth cue: a swoop or flare that doesn\'t read on a solid silhouette at 24px is drawn wrong. Marks (star, +, controls) carry the press only, so they stay plain beside the places.', 19, INK, '0 0 4px')
-        + f'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:36px;margin-top:22px">{"".join(sig_col(s) for s in SIGS)}</div>'
-        + label('The six (approved, unchanged) and three new icons, marked', 34) + legend
-        + f'<div style="display:flex;justify-content:space-between;align-items:flex-start">{six}<div style="width:2px;align-self:stretch;background:{RULE}"></div>{new}</div>'
-        + p('<b>The filter predicts the blind tests.</b> The fork and knife and the bed pass and read as family; the bag fails swoop and flare and reads as a padlock. What its next designer must find (not a drawing): one solid side drawn as a swoop, and a handle that flares into the body instead of standing on it.', 18, INK, '18px 0 0')
-        + label('Three sets considered', 30) + alts
-        + label('Waiting on you', 30) + qhtml)
+GIVENS = (label('Givens, not signatures: what every joint and corner does', 34)
+          + f'<div style="display:grid;grid-template-columns:520px 1fr;gap:36px;align-items:start">'
+          f'<div><div style="font-size:26px;font-weight:700;color:{NAVY}">The bracket (was "the flare")</div>'
+          + p('Where a lighter part carries a heavier one, it lands on one quarter ellipse tangent to both: run 2/5, rise 1/2 of the lighter part (0.5 by 0.63 on a 1.25 post), taller than wide, in every icon; on a curved face, measured along it. Only in a concave corner that carries load: never a convex corner, a straight side, equal parts or a mark. An overhang passes the post by the run plus its corner, so the bracket lands on flat.', 17, INK, '6px 0 8px')
+          + p('<b>The press</b> stays the rounds table (rule 17): every corner soft, outside rounder than inside.', 17)
+          + p('A given, not a signature: half a pixel at 24 on 1x; it reads at 72 and on 2x/3x.', 17, GREY)
+          + f'</div><div>{dodont}<div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">{joins}</div>'
+          + p('The real joins at 40px a unit. The bar and the fork already are brackets; the tree is 0.1 short; the museum\'s outer capitals (a bevel) and the bed (plain rounds) are not.', 15, GREY, '8px 0 0')
+          + '</div></div>')
+
+# ---- every object swings: museum + bag proposals
+m1p, m1h = museum('lintel')
+m2p, m2h = museum('plinth')
+bp, bh = bag()
+
+
+def prop_cell(parts, holes, title, note, uid, mark=''):
+    big = compose(parts, holes, 124, '3.4 3.4 17.2 17.2', uid=uid + 'b')
+    if mark:
+        big = big.replace('</svg>', mark + '</svg>')
+    return (f'<div style="display:flex;flex-direction:column;align-items:center;width:170px">{tile(big, 4)}'
+            f'<div style="display:flex;gap:8px;align-items:center;margin-top:6px">{compose(parts, holes, 24, uid=uid + "t")}{compose(parts, holes, 12, uid=uid + "s")}</div>'
+            f'<div style="font-size:17px;font-weight:700;color:{NAVY};margin-top:4px">{title}</div>'
+            f'<div style="font-size:15px;line-height:1.3;color:{GREY};text-align:center">{note}</div></div>')
+
+
+def now_cell(k, title, note):
+    return (f'<div style="display:flex;flex-direction:column;align-items:center;width:150px">{tile(svg(solid(D[k]), 124, "3.4 3.4 17.2 17.2"), 4)}'
+            f'<div style="display:flex;gap:8px;align-items:center;margin-top:6px">{svg(solid(D[k]), 24)}{svg(solid(D[k]), 12)}</div>'
+            f'<div style="font-size:17px;font-weight:700;color:{GREY};margin-top:4px">{title}</div>'
+            f'<div style="font-size:15px;line-height:1.3;color:{GREY};text-align:center">{note}</div></div>')
+
+
+lintel_mark = swing_mark('M7.3,10.35 Q12,9.25 16.7,10.35')
+plinth_mark = swing_mark('M7.4,17.25 Q12,17.95 16.6,17.25')
+bag_mark = swing_mark('M8.6,17.0 Q12,17.85 15.4,17.0')
+SWINGS = ''
+
+# ---- the handle's root
+a, b, w = RING['a'], RING['b'], RING['wall']
+cup_ring = (f'<ellipse cx="13.95" cy="10.4" rx="{a}" ry="{f(b)}" fill="none" stroke="{ORANGE}" stroke-width="0.12" stroke-dasharray="0.35 0.25"/>'
+            f'<ellipse cx="13.95" cy="10.4" rx="{a - w}" ry="{f(b - w)}" fill="none" stroke="{ORANGE}" stroke-width="0.12" stroke-dasharray="0.35 0.25"/>')
+bag_ring = (f'<ellipse cx="12" cy="9.6" rx="{f(b)}" ry="{a}" fill="none" stroke="{ORANGE}" stroke-width="0.12" stroke-dasharray="0.35 0.25"/>'
+            f'<ellipse cx="12" cy="9.6" rx="{f(b - w)}" ry="{a - w}" fill="none" stroke="{ORANGE}" stroke-width="0.12" stroke-dasharray="0.35 0.25"/>')
+ring_alone = svg(f'<ellipse cx="12" cy="12" rx="{a}" ry="{f(b)}" fill="{NAVY}"/><ellipse cx="12" cy="12" rx="{a - w}" ry="{f(b - w)}" fill="#fff"/>'
+                 f'<line x1="12" y1="7.5" x2="12" y2="16.5" stroke="{ORANGE}" stroke-width="0.12" stroke-dasharray="0.35 0.25"/>', 124, '6 6 12 12')
+cup_big = svg(solid(D['Café']) + cup_ring, 124, '3.4 3.4 17.2 17.2')
+bag_big = compose(bp, bh, 124, '3.4 3.4 17.2 17.2', uid='hb').replace('</svg>', bag_ring + '</svg>')
+
+
+def hcell(big, small, title, note):
+    return (f'<div style="display:flex;flex-direction:column;align-items:center;width:170px">{tile(big, 4)}'
+            f'<div style="display:flex;gap:8px;align-items:center;margin-top:6px">{small}</div>'
+            f'<div style="font-size:17px;font-weight:700;color:{NAVY};margin-top:4px">{title}</div>'
+            f'<div style="font-size:15px;line-height:1.3;color:{GREY};text-align:center">{note}</div></div>')
+
+
+HANDLE = (label('Rule work underneath: a swing for every object, and what a handle is (proposals)', 34)
+          + f'<div style="display:flex;justify-content:space-between;align-items:flex-start">'
+          + now_cell('Museum', 'Museum now', 'approved; no swing')
+          + prop_cell(m1p, m1h, 'A · lintel arches', 'the beam swells; the gable rides it on one even cut', 'ml', lintel_mark)
+          + prop_cell(m2p, m2h, 'B · plinth sags', 'the base is a cap, like the saucer', 'mp', plinth_mark)
+          + f'<div style="width:2px;align-self:stretch;background:{RULE}"></div>'
+          + now_cell('Shopping', 'Bag now', 'the team\'s blind test')
+          + hcell(bag_big.replace('</svg>', bag_mark + '</svg>'), f'{compose(bp, bh, 24, uid="ht")}{compose(bp, bh, 12, uid="hs")}', 'Bag from the ring', 'handle = the ring; the full bag sags')
+          + f'<div style="width:2px;align-self:stretch;background:{RULE}"></div>'
+          + hcell(ring_alone, '', 'The ring', 'the handle\'s root')
+          + hcell(cup_big, f'{svg(solid(D["Café"]), 24)}{svg(solid(D["Café"]), 12)}', 'Cup (approved)', 'already the ring, within 0.1px')
+          + '</div>'
+          + f'<div style="display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-top:12px">'
+          + '<div>' + p('<b>A swing for every object</b> ("there is probably a creative place to add swoops to all objects"). Kept: the separated gable, square openings, four columns. Not used: the beam shed, a tent roof, pills. We think A: a lintel is how a building carries weight; B risks every building reading as a boat.', 16) + '</div>'
+          + f'<div><div style="font-size:19px;line-height:1.35;font-weight:700;color:{NAVY}">A handle is a ring: one whole ellipse (short axis 4/5 of the long), its hole the same ellipse with both radii shortened by one line, so the wall is one line all round.</div>'
+          + p('Half-buried: centre on the body\'s edge, long axis out, so half shows. One size, sized to a hand. A cup tips, so the side, top on the rim; a bag hangs, so the top. Where it carries, brackets. The bag\'s old arch was a stilted arch on a ledge.', 16, INK, '6px 0 0') + '</div></div>')
+
+CANDS = [('Weight', 'kept', 'tailoring and kites (how a piece hangs and lands), and "look at the order": things are built from the ground up'),
+         ('The shadow', 'kept', 'inverting the brief: what a road sign keeps when everything else is taken away'),
+         ('The seam', 'cut', 'tailoring: every object pieced with one cut. The tree has none.'),
+         ('The landing', 'cut', 'kites, "disconnected events": one part hovers just before it settles. Lovely, but the tree and the fork have none; it lives on inside weight (rests).'),
+         ('The stack', 'cut', '"the order in which you do things": built ground-up in layers. The fork isn\'t a stack, and it says less than weight.'),
+         ('Blown', 'cut', 'glassblowing: every mass swells from inside. Untrue of the museum.'),
+         ('No circles', 'cut', 'your note on the blocks, kept as a possibility: it lives inside the swing and the ring; alone, the museum, tree, star and + have nothing to test.')]
+CONSIDERED = (label('How we got here: generated, then cut', 32)
+              + p('Moves: threw away the set you had already named (swoop, flare, press); a real random draw (kite making, sailing knots, glassblowing, tailoring; Oblique Strategies "Imagine the piece as a set of disconnected events", "Look at the order in which you do things"; constraint "must be a verb"); inverting travel signs.', 16, GREY, '0 0 8px')
+              + ''.join(f'<div style="display:grid;grid-template-columns:150px 60px 1fr;gap:12px;padding:5px 0;border-top:1px solid {RULE};font-size:16px;line-height:1.35">'
+                        f'<b style="color:{NAVY}">{n}</b><span style="color:{MOSS if v == "kept" else DEEP};font-weight:700">{v}</span><span>{c}</span></div>' for n, v, c in CANDS)
+              )
+
+QS = ['Weight and the shadow as the two signatures, with the bracket and the press as givens underneath: is that the filter?',
+      'For the museum, A (the lintel arches) or B (the plinth sags)? Does the bag built from the ring read as a bag?',
+      'The ring gives every handle one size (sized to a hand). Yes, or should a handle scale with its object?']
+qhtml = ''.join(f'<div style="display:grid;grid-template-columns:32px 1fr;gap:10px;padding:9px 0;border-top:1px solid {RULE}">'
+                f'<div style="font-size:24px;font-weight:700;color:{ORANGE}">{i + 1}</div><div style="font-size:19px;line-height:1.4;color:{NAVY}">{q}</div></div>'
+                for i, q in enumerate(QS))
+
+body = (kicker('Grid concepts · Brand signatures · round 2 · 10-26')
+        + f'<h1 style="margin:6px 0 12px;font-size:38px;line-height:1.1;color:{NAVY}">Brand signatures</h1>'
+        + f'<div style="font-size:28px;line-height:1.3;color:{NAVY};font-weight:700">Every object shows its <span style="color:{ORANGE}">weight</span>, and its <span style="color:{DEEP}">shadow</span> names it.</div>'
+        + p('Two yes/no tests. Both pass all six approved icons as drawn (the star and + by weighing nothing) and read at true size; the bracket, the swing and the ring are rules underneath.', 18, INK, '8px 0 0')
+        + SIG2 + SIG1 + GIVENS + SWINGS + HANDLE + CONSIDERED + label('Waiting on you', 30) + qhtml)
 
 html = f'''<!doctype html>
 <html lang="en">
@@ -240,7 +417,7 @@ body{{margin:0}}
 {body}
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{{"$preview":{{"width":{W},"height":2184}}}}'>
+<script type="text/x-dc" data-dc-script data-props='{{"$preview":{{"width":{W},"height":{PREVIEW_H}}}}}'>
 class Component extends DCLogic {{
 renderVals() {{ return {{}}; }}
 }}

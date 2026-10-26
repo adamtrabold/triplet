@@ -1,5 +1,14 @@
 # Visual designer notes: icon system
 
+## Update (2026-10-26, brand signatures round 2, canvas v258; product designer, visual)
+
+- **Why a round 2:** director turn 173 scored v256 a 6 (his examples handed back; press = rule 17; travel signs and whimsy missing; the flare demo a drip and three flare shapes in the real icons; untrue "the two you objected to"). Owner on v256: the flare "awkwardly shaped ... all joints should feel architecturally sound"; "a creative place to add swoops to all objects"; the handle question ("what's the underlying shape that a handle is"); "swoop, flare, press are all things i've basically said verbatim".
+- **Signatures now:** **Weight** (every object shows where its weight goes: rests across a cut, carried on a bracket, or gives; marks weigh nothing) and **the shadow** (fill every cut: the side-on silhouette names it; the 12px test). Both pass the six as drawn. Moves: random draw (kites, knots, glassblowing, tailoring, origami; "disconnected events", "the order in which you do things"; "must be a verb"), inversion of travel signs. Cut: seam, landing, stack, free end, blown, no circles.
+- **Rules underneath:** the bracket (quarter ellipse, run 2/5 and rise 1/2 of the lighter part, concave load corners only; a given, not a signature, since it's half a pixel at 24 on 1x); the press (rule 17); a swing for every object (museum A lintel arches, our pick; B plinth sags; bag's underside a cap); the handle = a ring (whole ellipse 4/5, hole = radii minus one line, centre on the body's edge, long axis out, one size; the cup's ear already is it within 0.1px).
+- **Board:** 1600 x 2394 at x 3360, y 300; generator `grid/src/signatures-board.py <live Grid7Now.dc.html> <out>`; proposals hand-built in it (`museum()`, `bag()`, `bracket()`, RING). Still `grid/stills/signatures-board.png`. Start here item 5 updated. Scratch work in the scratchpad's `vsig/` (another designer uses `sig/`; don't share a shooter file).
+- **Open:** owner on the filter, museum A/B, the bag read, one handle size. The museum's capital brackets and the bed's joins need an engine build; the tree trunk is 0.1 short of the bracket rule.
+- **Next:** director re-scores; flare thread reply is the coordinator's.
+
 ## Update (2026-10-26, brand signatures; product designer, visual)
 
 - **Ask (owner, verbatim in `grid/signatures.md`):** 1-3 core brand visual signatures as a filter ("we need one element X one element Y").
