@@ -15,7 +15,11 @@
 //      A slab is 2px: the first whole px that is not thinner than the line.
 //   2. THE LINE STAYS 1 1/2px (posts, walls, rims, stems, a loop's wall). It is the one width that can't be whole: one edge sits
 //      on a whole px (the silhouette's side), the other on a half px: sharp at 2x, half a pixel soft on one side at 3x.
-//   3. COUNTERS ARE WHOLE PX, AT LEAST 2px (the museum's openings, the coupe's band, the cup's ear): a counter is a shape.
+//   ROUND 8 (owner on v269): counters and gaps whole px, AT LEAST 1px (PROP.px.counterMin; the 2px floor and coupe C's
+//   exception retired); symmetric icons EXACTLY on the centre line (the 1/4px offset withdrawn: "off center is not acceptable");
+//   one star drawing everywhere (12px); the +'s stroke chosen by eye, centred. Options: museum({cols:4, open:1, openH:3}) = D,
+//   museum({cols:3, openH:3}) = E; bar({band:1, footW:6}) = D, bar({band:1, footW:6, rimTop:7.5, depth:5.5}) = E.
+//   3. (round 6-7) COUNTERS ARE WHOLE PX, AT LEAST 2px (the museum's openings, the coupe's band, the cup's ear): a counter is a shape.
 //      GAPS (a cut between parts that rest on each other, the fork's tines apart) are whole px, at least 1px.
 //   4. MINIMUM PART: no ink part under the line, 1 1/2px. A cap's ends are where its curve runs out, not a part: they keep the
 //      cap rule (half the crown), so a 2px cap ends at 1px and its flat side, the ends' foot and the crown all land whole.

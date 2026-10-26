@@ -1,5 +1,13 @@
 # Visual designer notes: icon system
 
+## Update (2026-10-26, Sharp at 2x and 3x round 8, canvas v270; icon designer, pixel shapes, new to the seat)
+
+- **Why:** his answer to v269 (verbatim in `grid/pixel-fit.md` round 8): museum "wide enough ... three cols with a 1px minimum counter space"; the coupe "a b and c are all terrible -- the drink looks empty"; the + "with all of the icons ... visually the same weight, actual pixel is irrelevant. off center is not acceptable"; "the star in the row and the star in the tag are different stars".
+- **Decisions:** counters ≥ 1px (`PROP.px.counterMin`; the 2px floor and coupe C's exception retired); symmetric icons exactly centred (¼px `centreOff` withdrawn: B¼ and the ¼-off + gone); one star (12px) everywhere; the +'s stroke picked by eye. Museum: read "that icon" as the approved one, so **D** = four columns, 1px openings, 10 wide (0 / 4); **E** = three columns at the approved height (12 / 12) for the literal reading. Coupe: band 1px; **D** same glass (drink 2½), **E** rim ½px higher (drink 3). Leans (opinions): museum D, coupe E, + at 2. Taste ledger: four entries added (centred marks / weight by eye, one mark one drawing, 1px counters, the drink reads full).
+- **Files:** board script `grid/src/pixel-shapes-board.py` (r7 kept as `-r7.py`); `pixel-shapes-ctx.js` takes any state names; stills `grid/stills/pixel-shapes/r8/`; outlines in `svg/pixel-shapes/` (+ `build.json`). Scratch: the session scratchpad's `r4/` (all.json every outline; strip.js, shots.js, pixrow.py, edges.js, checks.js, drink.js, bbox.js, marks.js, ctx.js, measure-board.js, split.py, pub.py).
+- **Result:** the set as leaned: 5K 35 → 5, iPhone 47 → 15. Canvas v270: board 940 × 2341; v269 archived (`Archive-G7bl-Sharp.dc.html`, x 6780 y 210000); Start item 6 rewritten.
+- **Open:** his four picks (museum D/E, coupe E/D, + 1½/1¾/2, star at 12). The unstarred tag star at 12 reads a touch small beside the 13px compass and check (we didn't change it; one size was the ask). Not yet done: the director's look at v270 (the orchestrator sent this straight from his answer).
+
 ## Update (2026-10-26, round 7b, canvas v268; turn 184's three edits)
 
 - Added the six at 72, drawn at 72, for approved/A/B¼/C, and the museum's size on each row. B¼ is 9.5 × 11.7 against approved 9.8 × 9.6: the same width, 2px taller. Question 1 says so ("the approved width, 2px taller") rather than the director's "approved size". Coupe: the 10-21 quote is dated, with his v264 "maybe they could go up to 2px?" beside it; C is stated as ½px less drink than approved. Museum B dropped. The knife section came off the board for room (it is on the archived v266/v267). Board 2373; v267 archived (`Archive-G7bj-Sharp.dc.html`). Next: the orchestrator shows him v268.

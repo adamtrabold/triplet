@@ -1550,3 +1550,18 @@ NEXT: icon designer: the tag edit. Then the orchestrator shows him.
 The Hanging Tag star before / now pair is back, beside the + buttons (13.4 → 13px tall), so question 4 has its pictures. To keep the board under the cap: the "Visible:" caption under the pixel rows went, the star line is shorter, and the frame padding is tighter. No drawing changed. Board 940 × 2393 measured; v268 archived whole (`Archive-G7bk-Sharp.dc.html`, Archive x 5760 y 210000). Phone stills of the final board: `stills/pixel-shapes/r7/sharp-v269-1..3.png` (1504 wide).
 
 NEXT: orchestrator: show him v269.
+
+---
+
+## Turn 188: icon designer (pixel shapes, new to the seat), his answer to v269 (canvas v270)
+
+His four points, each built as finished icons (true size and drawn at 72) on "Sharp at 2x and 3x", in place (940 × 2341 measured); v269 archived whole (`Archive-G7bl-Sharp.dc.html`). Numbers: `grid/pixel-fit.md` round 8.
+
+1. **Museum.** "That icon" isn't named. I read it as the approved one: the most balanced in v269's rows, and the one whose counters were under 1px. **D** keeps its four columns and widens it just enough for 1px openings (4 × 1½ + 3 × 1 + the ½px bevels = 10 wide, was 9.8), 0 / 4 soft, ink +19%. For the literal "three cols": **E**, three columns at the approved height, 2px openings, 12 / 12. The rule becomes **counters whole px, at least 1px** (his number), replacing "at least 2" and coupe C's exception. Lean D.
+2. **Coupe.** The band was eating the drink. At the new 1px minimum the band is 1px ("a little thinner" than the stroke, his 10-21 words). **D**: same glass, drink 2½ (= approved). **E**: rim ½px higher, bowl 5½ deep, drink 3, the fullest yet. Lean E.
+3. **The +.** Centred, arms equal, at 1½, 1¾ and 2, in a row with the five badges and the star (24 and 72) and in its button. The ¼px rule is withdrawn ("off center is not acceptable"). Lean 2 by eye: on the orange it carries the filled glyphs' weight; 1½ matches only the ring.
+4. **Star.** One drawing, 12px tall, in the row (starred), the tag starred and the tag unstarred.
+
+Set as leaned: 5K 35 → 5, iPhone 47 → 15. Unsure: whether the unstarred tag star at 12 reads small beside the 13px compass.
+
+NEXT: orchestrator: show him v270 (four questions on the board).

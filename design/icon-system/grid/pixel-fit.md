@@ -1,6 +1,28 @@
 # Sharp at 2x and 3x
 
-## Round 7b (10-26, canvas v268): turn 184's three edits. CURRENT
+## Round 8 (10-26, canvas v270): the owner's answer to v269. CURRENT
+
+Owner, verbatim: "re museum what does it look like if we just make it wide enough (and the grid pattern for whatever grid its aligning with) to support three cols with a 1px minimum counter space? that icon feels the most visually balanced with the rest. for the coupe, a b and c are all terrible -- the drink looks empty. re: the plus, i need to see it with all of the icons -- it should look visually the same weight, actual pixel is irrelevant. off center is not acceptable. the star in the row and the star in the tag are different stars -- they need to be the same star for me to judge them."
+
+**Rule changes.** Rule 3: counters and gaps whole px, **at least 1px** (`PROP.px.counterMin`); the 2px floor and coupe C's 1½px exception are retired. A counter is what the drawing's proportions give, rounded whole. Rule 6: symmetric icons sit **exactly** on the centre line; a 1½px part on it goes soft instead; the ¼px offset (`centreOff`: museum B¼, the ¼-off +) is withdrawn. Rule 7: one drawing per line mark everywhere (the star 12px tall in the row and on the tag); a line mark's stroke is picked by eye beside the whole set, not by pixel count.
+
+**Museum.** "That icon" isn't named; we read it as the approved one (most balanced in v269's rows; its three counters were under 1px). **D** = `museum({cols:4, open:1, openH:3})`: four 1½ columns, 1px openings, 9 colonnade + ½px bevel each side = **10 × 10.8** (approved 9.78 × 9.62), columns 3px (⅓ of the colonnade), ink 77.9 (+19%), 0 / 4 soft (the middle opening is centred at 1px: 11.5..12.5, sharp at 2x, soft at 3x). **E** (the literal "three cols" reading) = `museum({cols:3, openH:3})`: 9.5 × 10.7, 2px openings, ink 70.0 (+6%), 12 / 12 (middle column centred at 1½). D4 (openH 4, 11.8 tall) built and dropped: too tall. Lean D. fair: the 4 capital TAILs as every museum; join 0.
+
+**Coupe.** Measured drink at x 11 (`pixel-shapes-drink.js`): approved 2.46, C 2.02, **D** `bar({band:1, footW:6})` 2.52 (band 1, bowl 10 × 5), **E** `bar({band:1, footW:6, rimTop:7.5, depth:5.5})` 3.02 (rim ½px higher, bowl 10 × 5½; rim top on a half px). Ink 48.1 / 52.7; soft 2 / 4 and 2 / 3; fair 0, join 0. The band at 1px is "a little thinner" than the 1½ rim (his 10-21 words). Lean E (fullest), D if ½px deeper is too far.
+
+**The +.** Centred, arms equal, 14 across: 1½ (ink 39.6, 8 / 8 soft), 1¾ (45.8, 8 / 8), 2 (51.9, 0 / 0). Shown in a row with the five badges and the star at 24 and 72 (drawn at 72), and in its orange button in the app. Lean 2 (opinion): on the orange it carries the filled glyphs' weight; 1½ matches only the ring.
+
+**Star.** `starMark({h:12})`: one star, 12.0 × 12.6, fair 0, join 0, ink 50.8 (outline), shown 1:1 in the row (starred, filled), the tag starred and the tag unstarred (app shots via `src/pixel-shapes-ctx.js`, now looping over any states in its glyph file). Before: row 12.1, tag 13.4; v269: 11 and 13.
+
+**Soft straight edges, the set as it leans** (café, coupe E, museum D, tree, + 2): 5K 35 → 5, iPhone 47 → 15.
+
+**Board:** 940 × 2341 measured; v269's archived whole (`Archive-G7bl-Sharp.dc.html`, Archive x 6780 y 210000); Start item 6 rewritten. Script `src/pixel-shapes-board.py` (round 7's kept as `-r7.py` with `pixel-shapes-board-blobs-r7.json`); stills `stills/pixel-shapes/r8/` (phone stills `sharp-v270-1..3.png`); outlines `svg/pixel-shapes/{museum-D,museum-D4,museum-E,bar-D,bar-E,plus-15c,plus-175c,star-12}.svg`.
+
+**Still can't land:** the 1½ line at 3x; museum D's 1px centred opening at 3x; the coupe's stem and the trunk (centred 1½); capital steps and bevel ends at 3x; curves, diagonals, tips.
+
+---
+
+## Round 7b (10-26, canvas v268): turn 184's three edits. Superseded by round 8
 
 No drawing changed. The six at 72 rendered at 72 (`stills/pixel-shapes/r7/row72-*.png`) for approved, A, B¼, C. Museum sizes (outline boxes): approved 9.78 × 9.62, A 13 × 12.32, B¼ 9.5 × 11.74 (2px taller than approved), C 11 × 11.99. Museum B dropped (it was B¼, softer). The coupe's exception is dated (10-21) beside his v264 "maybe they could go up to 2px?"; C stated as ½px less drink than approved. Board 2373 tall; v267's archived as `Archive-G7bj-Sharp.dc.html`.
 

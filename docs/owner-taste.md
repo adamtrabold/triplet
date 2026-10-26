@@ -183,6 +183,20 @@ sources are the file where the quote is recorded.
   `docs/shipped.md`, `design/archive/swipe-visit/p8-design.md`).
 - **Moving rows move everything.** "it should move like any other element"
   (stamp during swipe; `design/state-system/sheet.html`).
+- **Marks are centred; weight is judged by eye.** "re: the plus, i need to
+  see it with all of the icons -- it should look visually the same weight,
+  actual pixel is irrelevant. off center is not acceptable." (2026-10-26, icon
+  system "Sharp at 2x and 3x" v269; `design/icon-system/owner.md`). A
+  symmetric mark never sits off its centre to sharpen pixels; a line mark's
+  weight is chosen beside the whole set, not by pixel count.
+- **One mark, one drawing.** "the star in the row and the star in the tag are
+  different stars -- they need to be the same star for me to judge them."
+  (2026-10-26, same board).
+- **Counters may go to 1px.** "make it wide enough ... to support three cols
+  with a 1px minimum counter space" (2026-10-26, the museum, same board).
+- **A drink must read full.** "for the coupe, a b and c are all terrible --
+  the drink looks empty." (2026-10-26, same board; his long history on the
+  liquid is in `design/icon-system/owner.md`).
 
 ## Shadows / edges / lines
 
