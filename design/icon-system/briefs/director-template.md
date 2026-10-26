@@ -130,7 +130,7 @@ https://claude.ai/artifact/SVKZ9PpaMCKUpk7Ks622jW (Artifact tool, read action wi
 In your worktree: `git fetch origin claude/elegant-galileo-1c5ntm && git checkout -B dir-next origin/claude/elegant-galileo-1c5ntm`. Commit your jam turn, the `scores.md` line and your notes; push `git push origin HEAD:claude/elegant-galileo-1c5ntm` (fetch and merge on rejection). End commit messages with:
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
-Claude-Session: https://claude.ai/code/session_01Xhrd7NitLyXh4e2jzS92hu
+Claude-Session: https://claude.ai/code/session_017adeKGQosgkH8rdDFz7cVM
 
 ## This round: score "Brand signatures" (canvas v256)
 

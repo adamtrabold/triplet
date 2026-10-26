@@ -132,7 +132,7 @@ Update the "Sharp at 2x and 3x" board in place; keep it short; archive what it s
 In your worktree: `git fetch origin claude/elegant-galileo-1c5ntm && git checkout -B icon-pixelshapes origin/claude/elegant-galileo-1c5ntm`. Commit, push `git push origin HEAD:claude/elegant-galileo-1c5ntm` (fetch and merge on rejection, keep both sides). Another designer works on the same branch and canvas in parallel: read the live canvas files right before publishing and change only your own board(s). End commit messages with:
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
-Claude-Session: https://claude.ai/code/session_01Xhrd7NitLyXh4e2jzS92hu
+Claude-Session: https://claude.ai/code/session_017adeKGQosgkH8rdDFz7cVM
 
 Update pixel-fit.md and push. Reply in under 150 words: canvas version, the rules, soft-edge counts before/after at 2x and 3x, what visibly changed, what still can't land.
 
