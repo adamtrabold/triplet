@@ -233,3 +233,4 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > (10-26, on v255 Rules, screenshot grid/owner-marks/v255-rules-blocks.png, "The blocks") the blocks can be part of this visual signature, for instance i'm seeing only ellipses no circles... not that this is correct, but something to consider. do not weight towards this just keep it as a possibility
 > (10-26, canvas comment on the Brand signatures board, a flare drawing: Grid7Signatures #64:1/4/1/5) this is a really awkwardly shaped flare. all joints should feel architecturally sound
 > (10-26, canvas comment on Brand signatures, "The museum has flares and press but no…" swoop) there is probably a creative place to add swoops to all objects.
+> (10-26, canvas comment on Brand signatures, the bag) im noticing the handle of the bag is meaningfully different from the handle of the cup -- maybe this could be reasoned about in some way in the rules
