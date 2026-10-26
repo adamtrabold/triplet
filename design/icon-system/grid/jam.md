@@ -1464,3 +1464,40 @@ Board "Sharp at 2x and 3x" rewritten in place (940 × 2393, measured in Chromium
 **Unsure:** whether ½px of unequal arms on the 1½ + shows to him on the 5K (it doesn't to us at true size); whether he reads B¼'s three columns as the same building (he asked whether the width "would need to account", which allows either).
 
 NEXT: design director: score v267 against turn 182's fixes (the six rows, the coupe table, the + pair), then to him with the board's three questions.
+
+---
+
+## Turn 184: design director, Sharp at 2x and 3x round 7 (v267): 8; 9 after three edits, then show him
+
+I re-rendered the outlines myself (`src/director-pixel-shapes-render-r7.js`). Five six-rows in their badges: approved, then the museum as A, B, B¼ and C, each with coupe C. Plus the + at before, 2px and 1½ ¼px off, on its orange. All at 24 (DPR 2, 3) and 72. Stills are `stills/pixel-shapes/director/r7-*`. I read the live board: 2,393px.
+
+**Turn 182's fixes, checked against the pixels:**
+1. **The museum in the row:** done, and it changed the answer. A crowds its ring in the row; the lean moved off it.
+   - B¼ is the same drawing as B, moved ¼px right. At 72 the move can't be seen. At 24 it reads as the set's size and weight.
+   - The board shows B¼ only at 24, plus that 24 bitmap scaled up 1½. That is not a render at his zoom. **New drawings go to him finished at 72.**
+2. **The coupe:** the cut change (⅕ → ¼, 4.8 → 5 deep) is stated, with a measured table. The arithmetic is honest: a 2px band plus 2½ of drink needs a 6px bowl.
+   - The exception's quote is verbatim and his ("the empty part should be equal to the thickness of the stroke", 10-21, owner.md line 193).
+   - But his latest word on counters is v264's question, "the museum and coupe counters are reading as too small now -- maybe they could go up to 2px?" Headed "in your words" with no date, the rule reads as if the 10-21 quote were his current call.
+   - The lean C has **less drink than approved** (2 against 2½). His most repeated ask is more liquid: "coupe after needs slightly more drink". The table shows it; the words don't say it.
+3. **The +:** shown as a choice, in its button and per device pixel, with ink and soft counts. Both are clean at 72; the ½px unequal arms don't show. Done.
+4. **The overhang:** named a bevel, with his "bevel of the plinth ends into the columns". Done.
+5. **The star and the iPhone trade:** both lead, in plain words. Done.
+
+**His likely objections:**
+- "There's still not enough drink" (C), or "bigger glass?" (B).
+- B¼'s three columns are narrower and taller than the approved temple. He'll want to see it big before choosing.
+
+**Score: 8, 9 after three edits** (no new drawing):
+1. Add the six row at 72, rendered at 72 (not scaled from 24), for A, B¼ and C. Fix 3 frees the room.
+2. Coupe: give the 10-21 quote its date and put his v264 question beside it. Say in words that C has ½px less drink than approved and B keeps it in a bigger glass.
+3. Drop B from question 1, or mark it "B¼ with the middle column soft". It is B¼'s drawing, only softer, so it isn't a real choice.
+
+**Then to him, exactly:**
+1. "Museum, in the row: A (four columns, 13 wide), B¼ (three columns, the approved size) or C (three columns, 2px posts)?"
+2. "Coupe: C (band at the line, same glass, ½px less drink than approved), B (2px band, drink kept, a bigger glass) or A (2px band, much less drink)?"
+3. "The +: 2px, or your 1½px set ¼px off centre?"
+4. "Do the star (11 in the row, 13 on the tag) and the + sit right in their places?"
+
+**What keeps blocking (now easing):** the count no longer leads. What's left: older quotes stand in for his latest words, and new drawings stop short of his zoom.
+
+NEXT: icon designer (pixel shapes): edits 1-3 on the same board, ≤ 2,400px. Then the orchestrator shows him, unless an edit changes a drawing.

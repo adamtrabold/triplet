@@ -623,3 +623,26 @@ The star barely changes in the app (row 12.1 → 11, tag 13.4 → 13). Only the 
 **What keeps blocking (174, 178, 182):** the soft-edge count leads, and options are picked to win it. His standing asks by eye come second: the drink, the six's balance, the line weight. Lesson: score options in the six's row, not alone, and treat any width change made to land an edge as a weight change for him to choose.
 
 **Next:** the designer does fixes 1-5 (jam 182). Then I re-score. If it's a 9, his questions are the museum (in the row), the coupe (with drink depths), and the + at 2 vs 1½.
+
+## Icon system, sharp at 2x and 3x round 7 (v267, 2026-10-26): 8, 9 after three edits
+
+A fresh designer did all five turn-182 fixes. I re-rendered them myself (`grid/src/director-pixel-shapes-render-r7.js`; stills `grid/stills/pixel-shapes/director/r7-*`).
+
+**Seen in the renders:**
+- **Museum A** fails in the row.
+- **B¼** (B moved ¼px right: 0 / 6 soft, approved size, posts at the line) reads right at 24. At 72 the move is invisible. It's narrower and taller than the approved temple.
+- **The + at 1½, ¼px off:** clean at 72.
+- **Coupe C** (the lean): drink 2 against the approved 2½.
+
+**Edits:**
+- six rows at 72, rendered at 72;
+- the coupe's "in your words" exception is a true but older quote (10-21). Put his latest, v264's "maybe they could go up to 2px?" (a question), beside it, and say C's drink loss in words;
+- drop B (it's B¼, only softer).
+
+**The four questions for him** are in jam 184, worded exactly.
+
+**Lessons:**
+- An exception "in his words" carries the quote's date and sits beside his latest word on the same thing.
+- A new drawing reaches him rendered at 72, not as a scaled bitmap.
+
+**Next:** the designer makes the three edits. Then show him, without another score unless a drawing changes.
