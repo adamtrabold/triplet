@@ -706,3 +706,23 @@ Fresh blind read (`shopping/blind-read-1.md`):
 - Glyphs at 18 or 24?
 
 **Waiting on his answers.**
+
+## Sharp at 2x and 3x round 8 (v270, 2026-10-26): 8, 9 after two edits
+
+**Signal:** he turned down my v269 9.
+- "for the coupe, a b and c are all terrible -- the drink looks empty";
+- "off center is not acceptable" (I had proposed the ¼px-off + in turn 182);
+- "the star in the row and the star in the tag are different stars".
+
+**Lesson:** a 9 can't contain an option that breaks a standing ask of his (the drink, centring, one mark per thing), even offered as a choice. I mustn't propose answers that trade one of his asks for a pixel count.
+
+**v270:**
+- the + is centred in the whole set;
+- there is one 12px star;
+- coupe E reads full by eye;
+- the museum readings are both shown.
+- **Wrong:** question 1 hides that D and E are both about 1px taller than approved, and the lean (D) reads "that icon" against his "three cols".
+
+**Next:** those two edits, then show him (four questions in jam 189).
+
+**Shopping:** waiting on his four answers (Shopping jam 10).

@@ -1594,3 +1594,16 @@ The verdict stands within our own set:
 - **The block:** the subject against the rules at 18. A solid glyph with one counter handle and no ink under the line has a padlock's outline. The non-bags read as other things.
 - **To him:** may Shopping bend a rule (two handles, an outline)? Is a cart OK (ruled out by the team, not by him)? A plain readable bag over a left-of-centre one? Place glyphs at 18 or 24?
 - **Shopping jam turn 10.**
+
+## Round: his v269 answers (canvas v270), 2026-10-26: 8, 9 after two edits
+
+- **Signal:** he turned down my v269 9. The coupe options "all terrible -- the drink looks empty"; the off-centre + "not acceptable" (my turn-182 suggestion); two stars.
+- **True on v270:**
+  - the + centred at 1½, 1¾ and 2 in the whole set;
+  - one 12px star;
+  - coupe E reads full (drink 3, band 1px, his v269 minimum);
+  - both museum readings are shown.
+- **Edits:**
+  - say that D and E are both about 1px taller than approved (question 1 says "as approved" and "approved height");
+  - drop the museum lean, or put E first (he wrote "three cols").
+- **Jam turn 189.**

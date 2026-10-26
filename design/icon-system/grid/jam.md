@@ -1568,6 +1568,43 @@ NEXT: orchestrator: show him v270 (four questions on the board).
 
 ---
 
+## Turn 189: design director, Sharp at 2x and 3x round 8 (v270), his v269 answers: 8; 9 after two edits
+
+**A signal first.** He turned down my 9 on v269:
+- "for the coupe, a b and c are all terrible -- the drink looks empty";
+- "off center is not acceptable" (the ¼px-off +, my own suggestion from turn 182);
+- "the star in the row and the star in the tag are different stars".
+
+I passed options that each traded away his most repeated ask (the drink), and I proposed the off-centre answer myself. A 9 can't hold an option that breaks a standing ask of his, even when it is offered as a choice.
+
+I rendered it myself (`src/director-pixel-shapes-render-r8.js`, stills `stills/pixel-shapes/director/r8-*`): approved, then D/D, then E/E, in the six at 24 (DPR 2, 3) and 72. Also the + at 1½, 1¾ and 2, centred, on orange and on paper. I read the live board (2,341px) and the phone stills `sharp-r3-1..3`: readable on a phone.
+
+**His four points, checked:**
+- **The +:** centred, arms equal, 1½ / 1¾ / 2 in the whole set at 24 and 72 and in its button. That's what he asked ("i need to see it with all of the icons"). The lean is labelled as an opinion. True.
+- **The star:** one 12px drawing in the row, the tag starred and the tag unstarred. True. The unstarred tag star reads a touch small beside the 13px compass, and question 4 asks him.
+- **The coupe:** by eye at 72 and 24, E reads full. The drink is the biggest dark mass of any version, and D matches the approved drink. The 1px band is still a gap at 24 on both screens (3 device px on an iPhone).
+  - Against "nothing should be this small" (the ¾ band): 1px is his own v269 number ("1px minimum counter space"), so the rule is his, not ours.
+  - Risk: he may still see it as thin. The board cites both of his quotes. Acceptable.
+- **The museum:** both readings are shown. That is honest, and right, since his words are ambiguous. But two things are not:
+  1. **The height.** Question 1 calls D "four columns as approved" and E "the approved height". The board's own numbers say D is 10 × 10.8 and E 9.5 × 10.7, against approved 9.8 × 9.6. **Both are about 1px taller than approved**, which is what we flagged for B¼ last round.
+  2. **The lean against his literal words.** He wrote "three cols". The only three-column icon on v269 near the set's size was B¼, which our board then called the one that "sits at the set's size and weight". E is B¼ re-centred, so "that icon" may well be B¼. Leaning D (four columns) puts our reading of an unnamed referent ahead of his explicit "three cols". Show both neutrally, or lead with E.
+
+**His likely objections:** "why is it taller?" (the museum); possibly "the band is still thin" (the coupe). Score: **8, 9 after two edits.** No new drawing.
+
+**Edits:**
+1. Question 1 and the museum caption: say both D and E are about 1px taller than approved (10.8 and 10.7 against 9.6). Drop "the approved height" for E.
+2. Drop the museum lean, or put E first. His words say "three cols"; "that icon" is ours to ask about, not to settle.
+
+**Then to him, exactly:**
+1. "Museum: E (three columns, 9½ wide) or D (four columns with 1px openings, 10 wide)? Both are about 1px taller than approved."
+2. "Coupe: E (drink 3, rim ½px higher) or D (drink 2½, the same glass)?"
+3. "The +, centred: which reads the same weight as the set, 1½, 1¾ or 2?"
+4. "The star: one star, 12px, in the row and on the tag. Right size?"
+
+NEXT: icon designer (pixel shapes): edits 1-2, no drawing change. Then the orchestrator shows him.
+
+---
+
 ## Turn 190: icon designer (pixel shapes), turn 189's two edits (canvas v271)
 
 No drawing changed. Question 1 now reads the director's wording exactly ("Museum: E (three columns, 9½ wide) or D (four columns with 1px openings, 10 wide)? Both are about 1px taller than approved."); the museum section leads with E, says both are ~1px taller (10.7 / 10.8 vs 9.6), and has no lean; the trade box gives the soft counts with E and with D. Board 940 × 2336; v270 archived (`Archive-G7bm-Sharp.dc.html`); Start item 6 matches. Stills `stills/pixel-shapes/r8/sharp-v271-1..3.png`, each opened at phone size.
