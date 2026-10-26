@@ -1077,3 +1077,50 @@ I read the board (`stills/signatures-board.png`) and `signatures.md`, and took i
 9. **Shorter:** B and C get one line each, and the marks on the icons are bigger.
 
 NEXT: visual designer: the nine fixes, the flare rule first.
+
+---
+
+## Turn 174: design director, Sharp at 2x and 3x (v257): 8
+
+I read `pixel-fit.md` and `stills/pixelfit/sheet.png`. I rendered the approved 24 row (from Grid7Now) and the fitted `svg/pixelfit/*-24@{2,3}x.svg` myself in Chromium at deviceScaleFactor 2 and 3, then blew them up pixel for pixel.
+
+**The sharpening is real.**
+- **At 2x:**
+  - The coupe's clear band goes from a grey smear to a gap.
+  - The +'s stems and the museum's plinth and columns go from two-tone to crisp.
+  - The saucer's and the foot's bottoms are clean.
+- **At 3x:** the gain is smaller but plain on the museum, the +, the cup and the badge ring.
+- **Tree and star:** barely change. Their character is diagonals, which are left soft by rule, and that is the right call.
+
+He'll see the gain on both his screens.
+
+**What changes character (by eye):**
+1. **The 3x weight.** The ring and the + are visibly heavier on an iPhone. The star doesn't move, because it has no core edges. So the +/star balance he tuned (10-21: the star heavy; 10-23: the + "might feel a bit light") shifts by density.
+2. **The museum's columns drift between densities.**
+   - At 2x a post is 1px (2/3 of the line), so the colonnade reads open and spindly.
+   - At 3x it is 4 device px against a 5 line.
+   - It is the same icon with two different column-to-gap readings.
+3. **The coupe's band** is 1/2px at 2x: one device pixel, a hairline. It is the part he has corrected most often. It reads, but thinner than approved, and the board must show it at his zoom, not just say it.
+4. **The coupe and tree as wholes:** unchanged to my eye at 24. Good.
+
+**Likely objections:**
+- "I said 1.5" (his weight decision).
+- "the museum looks different on my phone vs my Mac"
+- "the band got thinner"
+- At 12px, "+33% darker".
+
+**Does fair and jitter block it?** No.
+- **Jitter:** the assets are generated once from a frozen drawing, so the fit is deterministic there. The flips are equally sharp alternatives.
+- **The museum capitals' fair faults:** they sit on the flares he just called awkward (turn 173). Fold them into the flare-rule redraw, putting the capital step on a lattice length (1/3 or 2/3px) so it survives the fit. Don't patch them here.
+- **Café 2x KNEE 2.08 and nature 2x JUMP 0.36:** marginal. They are invisible at 2x true size, so log them, don't block.
+
+**Fixes for a 9:**
+1. **Put the weight to him as his choice, not a default.** One line: "1.5px can't land sharp on an iPhone (it's 4.5 pixels). Pick: 1⅔ (5 px, a touch heavier) or 1⅓ (4 px, a touch lighter). 2x stays 1.5." Show both on the iPhone at true size, as a row of the six plus the badge, with the star and + side by side. No recommendation baked in as "chosen".
+2. **Post-to-line ratio.** State the drift: 2/3 at 2x and 4/5 at 3x, against the system's 5/6. Show the museum at both densities side by side at true size. Offer the alternative tie (a post the same as the line at 2x) only if it reads closer. The designer decides what to show.
+3. **The coupe's band** at both densities at his zoom, next to the approved one, with its device-pixel count. If it reads thinner than approved, the band's tie must not round below the approved look.
+4. **12px:** say plainly it needs its own answer (a per-size line or drawing). Don't ship the fit there yet.
+5. **Short board:** the before and after crops at true size and at his zoom, the rule in six lines, and the two questions (weight; 12px). Move the measurement tables to `pixel-fit.md`.
+
+**Changed since my last score?** First score of this board.
+
+NEXT: visual designer: the five fixes, then back to me; the flare redraw (turn 173) carries the museum's capitals.

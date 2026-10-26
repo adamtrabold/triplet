@@ -497,3 +497,22 @@ Nine fixes are in `grid/jam.md` turn 173.
 - where whimsy lives;
 - the bag (perhaps via the handle rule);
 - the subpixel landing, which decides whether a 1/3-line flare can be a visible cue.
+
+## Icon system, pixel fit (v257, 2026-10-26): 8
+
+I rendered before and after myself at DPR 2 and 3. The fit is the right idea, and the gain is real: the band, the + and the museum are crisp.
+
+**Cost, by eye:**
+- the 3x line and ring are +11%, which shifts the +/star balance he tuned;
+- the museum's post-to-line ratio differs by density;
+- the coupe's band is one device pixel at 2x.
+
+**Rule from now:** "Weight wise 1.5" is his. Any density weight goes to him as a choice, shown at true size on iPhone, never as "chosen".
+
+**Not blocking:**
+- jitter (the assets are frozen);
+- the museum's capital fair faults, which ride with the turn-173 flare redraw (step on a 1/3px lattice).
+
+**Open:** 12px needs a per-size answer. Five fixes are in jam turn 174.
+
+**Order:** the flare rule and the signatures rework (turn 173), then the pixel fit re-runs on the redrawn museum.

@@ -1,0 +1,134 @@
+{
+ "cafe": {
+  "before-2x": {
+   "touched": 293,
+   "grey": 96,
+   "share": 0.328
+  },
+  "after-2x": {
+   "touched": 245,
+   "grey": 34,
+   "share": 0.139
+  },
+  "before-3x": {
+   "touched": 611,
+   "grey": 145,
+   "share": 0.237
+  },
+  "after-3x": {
+   "touched": 579,
+   "grey": 64,
+   "share": 0.111
+  }
+ },
+ "bar": {
+  "before-2x": {
+   "touched": 236,
+   "grey": 101,
+   "share": 0.428
+  },
+  "after-2x": {
+   "touched": 204,
+   "grey": 34,
+   "share": 0.167
+  },
+  "before-3x": {
+   "touched": 473,
+   "grey": 132,
+   "share": 0.279
+  },
+  "after-3x": {
+   "touched": 435,
+   "grey": 57,
+   "share": 0.131
+  }
+ },
+ "museum": {
+  "before-2x": {
+   "touched": 296,
+   "grey": 90,
+   "share": 0.304
+  },
+  "after-2x": {
+   "touched": 265,
+   "grey": 26,
+   "share": 0.098
+  },
+  "before-3x": {
+   "touched": 660,
+   "grey": 148,
+   "share": 0.224
+  },
+  "after-3x": {
+   "touched": 633,
+   "grey": 34,
+   "share": 0.054
+  }
+ },
+ "nature": {
+  "before-2x": {
+   "touched": 178,
+   "grey": 59,
+   "share": 0.331
+  },
+  "after-2x": {
+   "touched": 164,
+   "grey": 44,
+   "share": 0.268
+  },
+  "before-3x": {
+   "touched": 372,
+   "grey": 94,
+   "share": 0.253
+  },
+  "after-3x": {
+   "touched": 376,
+   "grey": 85,
+   "share": 0.226
+  }
+ },
+ "star": {
+  "before-2x": {
+   "touched": 420,
+   "grey": 144,
+   "share": 0.343
+  },
+  "after-2x": {
+   "touched": 420,
+   "grey": 144,
+   "share": 0.343
+  },
+  "before-3x": {
+   "touched": 898,
+   "grey": 210,
+   "share": 0.234
+  },
+  "after-3x": {
+   "touched": 898,
+   "grey": 210,
+   "share": 0.234
+  }
+ },
+ "plus": {
+  "before-2x": {
+   "touched": 176,
+   "grey": 84,
+   "share": 0.477
+  },
+  "after-2x": {
+   "touched": 129,
+   "grey": 3,
+   "share": 0.023
+  },
+  "before-3x": {
+   "touched": 396,
+   "grey": 124,
+   "share": 0.313
+  },
+  "after-3x": {
+   "touched": 325,
+   "grey": 8,
+   "share": 0.025
+  }
+ }
+}
