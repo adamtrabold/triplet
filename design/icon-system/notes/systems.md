@@ -1,5 +1,29 @@
 # Systems designer notes: icon system
 
+## Shopping (concept round, 2026-10-26, jam turn 1)
+
+Brief: `briefs/shopping-concepts.md`. Work: `shopping/jam.md`, `shopping/jobs.md`. No drawings yet, no canvas.
+
+- **Where things stand:** jobs written; five directions in the jam; visual designer next.
+- **Jobs findings (load-bearing):** the "24 badge" holds an **18px** drawing (`badgeHtml()`); selected = 24px reversed;
+  filter chip = **12px bare** (not in the brief: flagged); far zoom and visited pins show no glyph. Ink lavender
+  `#8A7AA8`, weakest (3.26:1). Shopping is the **largest category, 49/183 pins (27%)**: the most repeated mark, so it
+  should sit at the light end of the set's weight (the old bag was the darkest). Told apart from: cup (same ring root),
+  Museum/Landmark (buildings), Venue (paper slips); padlock, briefcase, bell, gift, cart, wallet, tag (= the app's popup).
+- **Draw:** Oblique "Look closely at the most embarrassing details and amplify them", "Water"; fields semaphore,
+  bell founding, Swedish runestones; twists hold-in-one-hand, Nordic-not-American, ugliest-honest-answer.
+- **Directions:** A gusseted paper shop bag (specific bag; gusset = one cut per top corner; the honest control);
+  B hanging old-town shop sign on a bracket (post + slab + ring links; asymmetric, light) — my strongest;
+  C kiss-lock coin purse (wild card); D string bag (tests holes/counters, expect to kill); E goods on a counter
+  (three roots for sale; risk cheeky). Killed: shop bell (notifications), fehu rune (reads F), hanger, cart.
+- **Rule proposals:** handle = a ring partly hidden by its parent, hidden share a proportion (cup ear and bag loop one
+  rule); weight band from the six's ink coverage, frequent categories at the light end; line as the founder's unit
+  (left to the pixel round).
+- **Open:** the v264 rejection had no reason; only A depends on it. 12px chip as a judged size.
+- **Live DB:** the Supabase MCP returned 502 twice; the shop list is from the 10-16 inventory, not re-read.
+- **Next:** visual designer's turn; then director steer; then drawings at 18/24/72 beside the six, a blind read
+  (including 12px), and the coverage check against `shopping/jobs.md` for every 9+ concept.
+
 ## Update 2026-10-26 (B and C tested, canvas v248, jam turn 166)
 
 - Owner answers: holes = proportional root shapes keeping the wall right; "the brand should be built into the root
