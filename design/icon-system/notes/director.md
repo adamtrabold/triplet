@@ -560,3 +560,4 @@ Fixes are in jam turn 175. The pixel fit (turn 174) re-runs after the museum is 
 - a rounded base;
 - the arched lintel;
 - the bracket.
+- **Standing rule from him (bag, v258):** "i can't see what the new icon would look like". Every proposal is shown as the finished icon (filled, in its badge, at 24 and 72, beside the six), with construction marks beside it, never in place of it.

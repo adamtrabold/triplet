@@ -1207,3 +1207,7 @@ NEXT: visual designer: fix 7 first (it settles joins for every icon), then fixes
   - a rounded base.
 - Do it together with fix 7. Where the side's curve meets the plinth and the capitals, that join follows the machined rule (chamfer or tool fillet), so the bevel he prefers and the side swing are designed as one.
 - The bag's swing follows the same question: the sides before the base.
+
+**Addendum 3: his comment on the bag proposal (verbatim):** "i can't see what the new icon would look like"
+
+**Fix 9:** every proposal is shown as the finished icon: filled, in its badge, at true size 24 and at 72, beside the six. Not a diagram, an overlay or a partial line drawing. Construction marks may sit beside it, but the icon comes first. This applies to the bag, the museum's side swing, and every join drawn under fix 7.
