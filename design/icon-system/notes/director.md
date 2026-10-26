@@ -453,3 +453,7 @@ Two blind rounds without a pass. The cause is structural: the spec describes the
 ## Icon system, how new icons are made (v246 concept, 2026-10-26): 9 after edits
 
 B (a casting rule: thin meets thick, on the filled shape) with C (a fingerprint judge) is the right idea. Edits: say what's new compared with today, cut the precedent section, sharpen the tests. Layout: row 2 overlaps Between. Full entry in `icon-concepts/notes/director.md`; jam turn 165.
+
+## Icon system, B tested (v248, 2026-10-26): 8 as evidence
+
+One thickness rule gives joins for four of the six and for new icons. It fills the tree's notches and can't make the capital; C is dead. Path: the mix (cut roots never filled, the capital as a called root, declared thickness). The bag is a padlock because of its root calls. Full entry in `icon-concepts/notes/director.md`; jam turn 167.

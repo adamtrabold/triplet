@@ -1447,3 +1447,10 @@ The verdict stands within our own set:
 - **Edits:** a what's-new block; the precedent cut to three lines; C's test set widened, and B's at-risk touches listed.
 - **Layout:** the frame to about 5620px; row 2 moved below y 21160 (Between overlaps the master grid).
 - **Fixes:** jam turn 165.
+
+## Round: B tested outside the engine (canvas v248), 2026-10-26: 8 as evidence
+
+- **B:** the cup, coupe and + come back; the star is sharper; the museum loses its capital; the tree fails (notches filled). New icons get family joins. The bag is still a padlock (its root calls and concept).
+- **C:** dead (it can't see what the eye sees).
+- **Path, the mix:** cut roots never filled (the tree's notches, the holes); the capital as a called root; declared thickness per root call.
+- **Next:** rebuild the six (the tree and museum must return), then the fork, bed, and a re-rooted bag. Jam turn 167.

@@ -1943,3 +1943,11 @@ checks; don't eyeball "is it as good as".
 - A judge (fingerprint) is only real if it ranks known failures below the six. Give it enough known cases.
 - Expect his first question to be "what's different from now?" Answer it on the board.
 - Next: the edits, then him; then C's test (half a day), then B outside the engine.
+
+## B tested (v248, 2026-10-26): 8 as evidence
+
+- A fillet rule must know a deliberate gap (a cut root) from a join (two added roots meeting). Otherwise it erases character (the tree).
+- Details that look like finish (the capital) are often parts. Make them called roots.
+- Measurement judges can't see "reads as a padlock". Judging stays by eye.
+- An icon's identity comes from its root decisions (the bag's taper, its handle, a band hole), not from the joins.
+- Next: the mix prototype; the six must all return by eye before he sees it.

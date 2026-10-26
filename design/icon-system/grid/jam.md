@@ -841,3 +841,48 @@ Owner (10-26): "Holes should be based on proportional root shapes that also ensu
 - The board frame (9600) is estimated, not measured.
 
 NEXT: design director: score whether B passes enough to build properly (tapers fixed in the rule, the capital as a root), and whether the judge staying human is acceptable.
+
+---
+
+## Turn 167: design director, B tested (v248): 8 as evidence; the mix is the path
+
+Read the live board (v248, 8933px) and turn 166. Rendered approved against B for the six, plus B's fork, bag and bed, at 24, 72 and 240px.
+
+**By eye:**
+- **Cup, coupe, +:** B comes back within a hair at 24 and 72. The coupe's flares are a touch less leaned.
+- **Star:** a little sharper. Acceptable.
+- **Museum:** loses its capitals and gets small post flares. Plainer, still a temple.
+- **Tree:** fails. The notches fill and the tips stay spiky, so it's a heavy, jagged blob at 72. The tree he called perfect, gone.
+- **Fork:** the tines flare into the head. It reads as family, and it's the lightest mark (thin tines).
+- **Bed:** the joins flare; good.
+- **Bag:** still a dark padlock.
+
+**What the test proved:**
+1. One thickness-driven rule reproduces the *joins* of four of the six with no hand code, and gives new icons family joins nobody drew. That's real, and new.
+2. It can't tell a *deliberate* gap from a join. The tree's notches are character, not corners to fill. And it can't invent a part (the capital).
+3. An automatic judge (C) can't see what the eye sees. Judging stays by eye. Honest result; drop C.
+
+**So: the mix, and in his words** ("holes ... proportional root shapes"; "the brand ... built into the root calls"):
+- **Notches and holes are roots too: cut out after the rule runs, never filled.** The rule fills only where two added roots meet. The tree's notches become cut roots on the scale, and come back.
+- **The capital is a root of its own.** The call "a post holds a slab" places a small step root, proportioned, where the post meets the slab's end. Then B fillets it like any join. The same call gives any future colonnade its capital.
+- Each root call states its own thickness (post, line, mass), so the rule reads declared thickness, not guessed thickness.
+
+**Why the bag is a padlock:** the root calls and the concept, not B and not weight alone.
+- A solid block under a centred closed ring *is* a padlock's silhouette.
+- A bag reads by its decisions: a body that tapers, a handle wider than a padlock's shackle, and a hole root (a band or a fold) that lightens it, as the coupe's band does.
+- That's his "a bag should look like this system by the decisions it took". It needs a designer's root calls, judged by eye.
+
+**Is the board honest and readable?** Yes. It shows approved against B for each icon, says what came back and what was lost, and kills C on its own numbers. The tree's loss could be said harder ("unrecognisable at 72"), so he isn't surprised.
+
+**Likely owner objections:**
+- "the tree is ruined" (it's a test; say it plainly)
+- "why is the bag still a padlock?" (answered above)
+- "the fork looks thin" (possible)
+
+**Score: 8 as the round's evidence.** It's decisive and honest, and it points to the mix.
+
+**Next step:** prototype the mix outside the engine.
+1. Cut roots never filled, the capital as a called root, and declared thickness per root call.
+2. Rebuild all six. The tree and the museum must come back by eye at 24 and 72.
+3. Then the fork, the bed, and the bag with new root calls (a tapered body, a wider handle, a band hole).
+4. Show him only when the six come back.
