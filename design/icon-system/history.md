@@ -115,6 +115,8 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 
 - **10-26 · v262 shown:** sharp edges by placement only (weights and drawings as approved): each icon's placement moved once, in the drawing (≤0.25px), the + 0.23px up (optical). Soft core straight edges 54 → 32 at 2x, 53 → 33 at 3x (of 65); café fully sharp at 2x. Can't fix under his constraints: one edge of the 1.5 line at 3x, one of a 1.25 post, centred stems, the ring's inner edge, curves/diagonals/tips. Director 8 → 9.
 
+- **10-26 · v264 shown:** "Brand and Shopping". Brand as three filters in his words: plain (signs and tags), made by a tool (machined rounds and joins), left of centre (personality from subject choice). Machined rule: cutter rack ⅛/¼/½px, continuous curvature, chamfer or fillet by join; keeps his tree exactly (the trunk is a 0.5 fillet), other rounds move ≤0.04px; not yet in the engine (director 9). Posts at 1.5 (no ink thinner than the line): coupe and tree still read as his; museum openings narrow to 0.93px (→ pixel round). Shopping concepts: swing tag (recommended; blind read: a price tag, kin to the Hanging Tag), basket (cooler), awning (generic), parcel (gift), till (lump at 24). Director 8 → 9. Asked: the brand as three filters? build the machined rule into the engine? the swing tag, after a blind read? Pending: the shapes-on-whole-pixels round (brief saved), handoff to a new orchestrator.
+
 ## Milestone commits
 
 (Git tags can't be pushed from this environment, so these commits stand in for them.)
