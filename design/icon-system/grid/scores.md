@@ -1481,3 +1481,14 @@ The verdict stands within our own set:
   - The handles follow no shared rule.
 - **Fixes:** a sound flare rule (shape, proportion, where); a swoop for every object; a handle and loop rule; press becomes a given; travel signs and whimsy get real tests; pass all six; check at 12/24/72; honesty; shorter.
 - **Jam turn 173.**
+
+## Round: sharp at 2x and 3x (canvas v257), 2026-10-26: 8
+
+- **Sharpening real:** the band, the + and the museum are crisp at 2x; smaller but plain at 3x. Tree and star are rightly untouched.
+- **Character shifts:**
+  - The 3x line and ring are heavier, so the +/star balance changes on iPhone.
+  - The museum's posts read 2/3 at 2x and 4/5 at 3x.
+  - The coupe's band is one device pixel at 2x.
+- **Not blocking:** jitter (the assets are frozen); the museum's fair faults go into the flare redraw.
+- **Fixes:** weight as his choice (1⅔ or 1⅓, at true size on iPhone); show the post drift and the band at his zoom; 12px gets its own answer; a shorter board.
+- **Jam turn 174.**
