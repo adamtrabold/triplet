@@ -1,6 +1,6 @@
 # Systems designer notes: icon system
 
-## Update 2026-10-26 (grid: how the system makes new icons, canvas v246)
+## Update 2026-10-26 (grid: how the system makes new icons, canvas v246; director 9 after edits, done in v247)
 
 Task: think, don't build. Owner: "I think declarative is fine but I don't want
 it to be so specific… it needs to be a flexible system that outputs coherent
@@ -39,7 +39,8 @@ consistent icons." Written up in `grid/flexible-system.md` and the board
   even inset is cheaper); what makes a plain block ours (under B, only rounds).
 - Randomness draw (role brief): "Use fewer notes"; joinery, Lego Technic,
   metal type.
-- Canvas note for the orchestrator: Between (840, 300, h 20860) now runs past
+- v247: added "what's new compared with today"; precedent cut to three lines; C's test ranks both blind rounds plus nudged six; B's test names the touches at stake (museum beam end, coupe leaned flare, the columns' and trunk's sweep; the cup claim was stale since g7p). Frame 5700. Row 2 moved +5540 (boards y 21580, note 21280).
+- Was: Between (840, 300, h 20860) ran past
   y 16040 and overlaps row 2's Master (0, 16040, w 1600) in x 840-1600. Not
   mine to move; flagged.
 

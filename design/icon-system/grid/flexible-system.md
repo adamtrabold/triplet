@@ -12,7 +12,27 @@ the system at all."
 Today the family's look (the flares, the caps, the soft joins) is hand-written into each of the six icons. A new
 icon gets none of it unless someone hand-writes it again. That's why both blind tests came out generic.
 
+## What's new compared with today
+
+Today the engine rounds each corner by its angle and length, and the flares are written by hand for each icon.
+With the recommended way (B, below):
+
+- **Thickness decides the flares.** The rule measures how thick the parts meeting are, so a flare appears without
+  anyone asking for it.
+- **No list of join kinds.** The only thing said about a join is "joined" or "cut".
+- **It works on the filled shape,** not the outline, so touching shapes and holes can't fall apart.
+
+**Your six stay as approved** unless you pick a rebuilt version.
+
 ## What other systems do (precedent)
+
+Systems that stay consistent without a long list of cases get their character from one of three places:
+
+- **A tool:** a broad nib puts thick and thin in the same places on every letter.
+- **A kit:** font tools let a detail be drawn once and fit any corner.
+- **People plus review:** Apple's SF Symbols, drawn by hand to a strict template.
+
+### The full list (detail behind the three lines)
 
 Systems that stay consistent without a catalogue mostly fix **the tool or the process**, and leave the drawing free.
 
@@ -131,10 +151,13 @@ bag that failed round 2), plus the bed. Any judge sees them beside the six at 24
 - **B:** a small separate script (a day or two): plain roots in, the one rule, outline out. First rebuild the six
   from plain roots only, no hand code: the list of what doesn't come back is exactly what the rule can't say. Then
   Restaurant, the bag and the bed. Passes if the flares appear where nobody asked and the six come back close enough
-  that you'd accept them.
-- **C:** measure the fingerprint from the six (half a day) and score the round-1 and round-2 icons. Passes only if
-  the score ranks them the way the director's eye did (the round-2 bag worst). If it can't tell the generic bag from
-  the six, C is dead.
+  that you'd accept them. The six's touches at stake (B must make them or lose them): the museum's dropped beam end,
+  the coupe's flare leaning into the bowl, and the sweep where the museum's outer columns and the tree's trunk curve
+  out toward the ground. The caps, tips and tree tiers are shape choices, so they stay.
+- **C:** measure the fingerprint from the six (half a day) and score every blind-test icon (both rounds: the beds,
+  the people, the bag, the heart) plus slightly nudged copies of the six. Passes only if the nudged six all score as
+  family and it ranks the rest the way the director's eye did (the round-2 bag worst). If it can't tell the generic
+  bag from the six, C is dead.
 
 ## Recommendation
 
