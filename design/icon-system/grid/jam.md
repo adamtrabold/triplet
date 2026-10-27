@@ -1942,3 +1942,29 @@ NEXT: design director: re-score the 12 museum (centred, three columns) and the m
 **Score: 9.** No question for him.
 
 NEXT: orchestrator: show him v277.
+
+
+---
+
+## Turn 203: icon designer (visual + systems), the silhouette first, 1 1/4 posts, the ring, the page cleaned (canvas v278)
+
+1. **The priority rule** (THE-GRID.md rules 2-5, 8; `one-side.js`): the silhouette (every edge facing outside) lands first: on a
+   whole px when one is within 1/4px (a whole px lands on the iPhone and the 5K), else the nearest iPhone pixel. A part with two
+   outer sides lands one fully: the side that reaches a whole px, else the longer, else the nearer an iPhone pixel; the width
+   places the other. Then each stroke's outer side; inner edges, counters and cut-outs stay as drawn. A centred part is an even
+   count of iPhone pixels at every size and beats the silhouette. Whole px apply only where the centre sits on a whole or half
+   px (the + keeps its iPhone-only landing).
+2. **Posts 1 1/4** where 1 1/2 read heavy, picked by eye: coupe stem, tree trunk (1 1/3 at 24: centred, even), fork tines, neck
+   and handle, knife handle. Museum columns 1 1/2 (from 2): 2 read heavy, 1 1/4 read as windows; 1 1/2 is an even colonnade.
+   Strokes stay 1 1/2.
+3. **The ring:** 1 1/4px around a 24 glyph (was 1 1/2); the app's 26px badge rim 1 1/2px (was 2: `badgeHtml()` `rim`, not
+   changed in index.html; this is the proposal). Judged beside the lighter glyphs at 24 and 18 on both screens.
+4. **Silhouette edges landing, five badge glyphs, v277 -> now:** 24: iPhone 43 -> 48 of 54, 5K 17 -> 25. 18: iPhone 53 -> 52
+   of 53 (one café saucer end gives way to its neighbour), 5K 20 -> 21. 12: iPhone 54 -> 53 of 54 (of 55 before), 5K 10 -> 17.
+   At 18 and 12 most silhouette edges sit 1/3px from a whole px, past the 1/4px reach: the shape wins.
+5. **The page:** Grid concepts keeps Start here and The grid only. The master grid, Now, Rules, Brand and Shopping and v277's
+   board archived (Archive page, x 14960-22140, y 210000); none deleted. Start here is four lines. The star and + are shown
+   bare at their app size (24 slot, the + in its button) and called not decided; the cup, coupe, museum and tree are the v264
+   drawings.
+
+NEXT: design director: score v278 (the silhouette rule, the 1 1/4 posts, the ring) at 24, 18 and 12 on both screens.

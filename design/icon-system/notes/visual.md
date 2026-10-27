@@ -1,5 +1,20 @@
 # Visual designer notes: icon system
 
+## Silhouette first (2026-10-27, jam turn 203, canvas v278)
+
+- Rule: silhouette edges to a whole px within 1/4px (lands on both screens), else the iPhone pixel; two outer sides: one lands
+  fully (whole-px side, else longer, else nearer); then stroke outer sides; centred = even iPhone count at every size, beats
+  the silhouette. Code: `one-side.js` `WHOLE_REACH`, `snapOut`, `landAxis(..., wk)`.
+- Drawings: coupe and tree from `svg/g7/between/` (1 1/4 posts), fork and knife `RPOST` 1.25, museum `MPW` 1.5 (env overrides
+  in `back-to-drawings.js` for trials). Ring 1 1/4 at 24, badge rim 1 1/2 (proposal for `badgeHtml()`; index.html untouched).
+- Board: before = v277 (`svg/back/v277.json`, the last board's build); sections: rules, iPhone 24, app 18/12/+ button, 5K
+  24/18/12, what changed, silhouette landing table. 1200 x 2382. Images in `src/back-board-blobs.json`.
+- Page cleaned: Grid concepts = Start here + The grid; five boards archived (x 14960-22140, y 210000). Owner: the star and +
+  are not decided; never call anything approved.
+- Silhouette landing v277 -> now: 24 iPhone 43->48/54, 5K 17->25; 18 iPhone 53->52/53, 5K 20->21; 12 iPhone 54/55->53/54,
+  5K 10->17.
+- Open: the director's score; the ring into index.html when the owner says the look is good; Shopping on hold.
+
 ## Centred parts even (2026-10-27, jam turn 201, canvas v277)
 
 - Rule 8: at 18 and 12 a centred part always takes an even count; never move the centre (`one-side.js`: an odd centred solid

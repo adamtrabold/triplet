@@ -3,12 +3,15 @@
 //
 // THE GRID: one iPhone pixel, 1/3 CSS px at 3x. At a size s (CSS px of the 24 box) one drawing unit is s/24 x 3 iPhone pixels.
 // THE RULES (grid/THE-GRID.md says them in words):
-//   1. Outer edges land. Every straight edge (0.4 long or more) and every big round's extreme (radius 3/4 or more) that faces the
-//      outside of the icon goes to the nearest iPhone pixel: it moves at most half an iPhone pixel across itself (1/6 px at 24).
+//   1. THE SILHOUETTE FIRST. Every straight edge (0.4 long or more) and every big round's extreme (radius 3/4 or more) that faces
+//      the outside of the icon goes to the nearest whole px when one is within 1/4 px (it lands on the iPhone and the 5K), else to
+//      the nearest iPhone pixel (at most half an iPhone pixel). A part with both sides outside lands one side fully: the one that
+//      reaches a whole px, else the longer, else the nearer an iPhone pixel; the width places the other. Whole px apply on an
+//      axis whose centre sits on a whole or half px (the frame is placed on whole px).
 //   2. One side of each stroke and stem lands: the outer side. The part keeps its width, so its inner side falls where the width
 //      puts it. Inner edges, counters and cut-outs are sized by the drawing, never snapped.
-//   3. A part on the icon's centre line stays centred. A symmetric icon stays exactly on its centre; its right half is the mirror
-//      of its left.
+//   3. A part on the icon's centre line stays centred, an even count of iPhone pixels at every size (the centre beats the
+//      silhouette). A symmetric icon stays exactly on its centre; its right half is the mirror of its left.
 //   4. Curves, diagonals, points and corner rounds are not snapped: they are carried by the edges either side of them
 //      (straight-line interpolation per contour), so a curve keeps its shape and a join stays smooth.
 //   5. Counters (a space closed on every side) are at least the size's minimum. At 24 and 18 a short one opens by moving the
@@ -24,7 +27,7 @@
 const { parse } = require('./join-check.js');
 const { findEdges, centroid } = require('./pixel-fit.js');
 
-const DPR = 3, STEM_MAX = 3.5, OVERLAP = 0.4, EPS = 1e-6;
+const DPR = 3, STEM_MAX = 3.5, OVERLAP = 0.4, EPS = 1e-6, WHOLE_REACH = 0.25;   // px
 const STANDARD = {   // per shown size: the stroke and the counter minimum, in iPhone pixels (null: keep the drawing's)
   24: { stroke: null, counter: 3 },
   18: { stroke: 3, counter: 3 },
@@ -138,26 +141,36 @@ function openAxis(list, stems, isOut, ax, min, strokeU, close = false, closed = 
 }
 
 // ---- rules 1-3 and 6: land
-function landAxis(list, stems, used, isOut, ax, k, sym, strokeU, centredU, kW = null) {
+function landAxis(list, stems, used, isOut, ax, k, sym, strokeU, centredU, kW = null, wk = null) {
   const snap = v => Math.round(v * k) / k, ctl = [], kinds = [];
+  // THE SILHOUETTE FIRST: an edge facing outside goes to the nearest whole px when that is within WHOLE_REACH (it lands on the
+  // iPhone and on the 5K), else to the nearest iPhone pixel. wk = px per unit (null: iPhone pixels only)
+  const whole = v => wk ? Math.round(v * wk) / wk : null, onWhole = v => wk != null && Math.abs(v * wk - Math.round(v * wk)) <= WHOLE_REACH + EPS;
+  const snapOut = v => onWhole(v) ? whole(v) : snap(v);
   const solidW = w => kW ? evenTie(w * kW) / kW : w;
   const put = (e, n, kind) => { ctl.push({ o: e.pos, n, pri: (e.hi - e.lo) + (kind === 'kept' ? 0 : 100), cis: [e.ci], e }); kinds.push({ pos: e.pos, kind }); };
   const C = sym != null ? sym : null, left = v => C == null || v < C - 1e-3, onAxis = (a, b) => C != null && Math.abs(a + b - 2 * C) < 0.02;
   for (const s of stems) {
     const a = list[s.i], b = list[s.j], W = strokeU && isStroke(s.w) ? strokeU : solidW(s.w);
-    if (onAxis(a.pos, b.pos)) { const Wc = centredU && isStroke(s.w) ? centredU : kW ? evenUp(W * kW) / kW : W; put(a, C - Wc / 2, 'centred'); put(b, C + Wc / 2, 'centred'); continue; }
+    if (onAxis(a.pos, b.pos)) { const Wc = centredU && isStroke(s.w) ? centredU : kW ? evenUp(W * kW) / kW : wk ? 2 * Math.round(W * k / 2) / k : W; put(a, C - Wc / 2, 'centred'); put(b, C + Wc / 2, 'centred'); continue; }
     if (!left(b.pos)) continue;   // the right half is the left's mirror
     const oa = facesOut(a, ax, isOut), ob = facesOut(b, ax, isOut);
     let lo, hi;
-    if (oa && !ob) { lo = snap(a.pos); hi = lo + W; put(a, lo, 'outer'); put(b, hi, 'stroke side'); }
-    else if (ob && !oa) { hi = snap(b.pos); lo = hi - W; put(b, hi, 'outer'); put(a, lo, 'stroke side'); }
+    if (oa && !ob) { lo = snapOut(a.pos); hi = lo + W; put(a, lo, 'outer'); put(b, hi, 'stroke side'); }
+    else if (ob && !oa) { hi = snapOut(b.pos); lo = hi - W; put(b, hi, 'outer'); put(a, lo, 'stroke side'); }
+    else if (oa && ob) {   // a free post, both sides silhouette: the side that reaches a whole px lands; if both do, the longer one
+      const wa = onWhole(a.pos), wb = onWhole(b.pos), ra = a.hi - a.lo, rb = b.hi - b.lo;
+      const takeA = wa && wb ? (Math.abs(ra - rb) > 0.05 ? ra > rb : Math.abs(whole(a.pos) - a.pos) <= Math.abs(whole(b.pos) - b.pos)) : wa ? true : wb ? false : Math.abs(snap(a.pos) - a.pos) <= Math.abs(snap(b.pos) - b.pos);
+      if (takeA) { const la = snapOut(a.pos); put(a, la, 'outer'); put(b, la + W, onWhole(la + W) ? 'outer' : 'stroke side'); }
+      else { const hb = snapOut(b.pos); put(b, hb, 'outer'); put(a, hb - W, onWhole(hb - W) ? 'outer' : 'stroke side'); }
+    }
     else {   // both sides out (a free post) or both in (a column between counters): the side nearer the grid lands
       const la = snap(a.pos), hb = snap(b.pos);
       if (Math.abs(la - a.pos) <= Math.abs(hb - b.pos)) { put(a, la, oa ? 'outer' : 'inner (lands)'); put(b, la + W, 'stroke side'); }
       else { put(b, hb, ob ? 'outer' : 'inner (lands)'); put(a, hb - W, 'stroke side'); }
     }
   }
-  list.forEach((e, i) => { if (used.has(i) || !left(e.pos)) return; if (facesOut(e, ax, isOut)) put(e, snap(e.pos), 'outer'); else put(e, e.pos, 'kept'); });
+  list.forEach((e, i) => { if (used.has(i) || !left(e.pos)) return; if (facesOut(e, ax, isOut)) put(e, snapOut(e.pos), 'outer'); else put(e, e.pos, 'kept'); });
   if (C != null) {   // mirror the left half's controls onto the right
     const L = [...ctl];
     // each left edge's mate: the edge at its mirror position whose run matches it best (several edges can share a position)
@@ -191,7 +204,9 @@ function land(d0, { size = 24, sym = null, symY = null } = {}) {
     if (closed.size) d = d.split(/(?=M)/).filter((q, i) => !closed.has(i)).join('');
     else if (opened.length) d = apply(d, ox.m, oy.m).d; }
   // rules 2-4, 6: land
-  const E = findEdges(d), isOut = outside(d), mx = landAxis(E.x, ...stemsOf(E.x), isOut, 'x', k, sym, null), my = landAxis(E.y, ...stemsOf(E.y), isOut, 'y', k, symY, null);
+  // whole px apply when the icon's centre on that axis sits on a whole or half px (the frame is placed on whole px)
+  const wk = size / 24, wOK = c => c == null || Math.abs(2 * c * wk - Math.round(2 * c * wk)) < 1e-6;
+  const E = findEdges(d), isOut = outside(d), mx = landAxis(E.x, ...stemsOf(E.x), isOut, 'x', k, sym, null, null, null, wOK(sym) ? wk : null), my = landAxis(E.y, ...stemsOf(E.y), isOut, 'y', k, symY, null, null, null, wOK(symY) ? wk : null);
   const r = apply(d, mx.m, my.m);
   return { d: r.d, maxMove: r.maxMove, opened, shift, sym, size, k };
 }

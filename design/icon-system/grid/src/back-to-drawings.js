@@ -1,8 +1,9 @@
 // BACK TO THE DRAWINGS (10-27). The set as drawn on v264, built by the engine, then landed on the iPhone's pixels at each size it
 // ships (one-side.js: one side of every stroke on the grid, outer edges on the grid, inner edges by the drawing).
-// Drawings: the café as approved; the coupe, tree with posts at the line (svg/post-line); the museum with three columns at the
-// line (redrawn from the v264 museum's own numbers: same slabs, roof, capitals, overhang and size); the fork and knife with 1px
-// gaps and the knife's edge out past its handle by 1 1/4; the star as one drawing, 12 tall; the + in 1 1/2 strokes.
+// Drawings: the café as on v264; the coupe and tree with 1 1/4 posts (svg/g7/between: 1 1/2 read heavy); the museum with three
+// 1 1/2 columns (redrawn from the v264 museum's own numbers: same slabs, roof, capitals, overhang and size); the fork and knife
+// with 1 1/4 posts, 1px gaps and the knife's edge out past its handle by 1 1/4; the star as one drawing, 12 tall; the + in 1 1/2
+// strokes. Each part's width is picked by eye; the landing (one-side.js) then puts the silhouette first.
 //   node src/back-to-drawings.js [names]   -> svg/back/<name>-<size>.svg, svg/back/build.json   (REUSE=1: land the stored drawings again)
 'use strict';
 const fs = require('fs'), path = require('path');
@@ -16,9 +17,9 @@ const { ink, capital, LINE } = MC;
 
 // THE MUSEUM, three columns. The v264 museum's numbers (beam 7.111..16.889, roof, gap 1, beam and plinth 1 1/2, overhang 1/2)
 // with the middle column on the centre and the outer columns where v264's outer ones stood. A column is a solid, not a stroke:
-// 2px, so the columns outweigh the openings (1.39) as v264's temple did, and the ink is v264's. Same box (9.78 x 9.62).
+// 1 1/2, so columns and openings (1.89) read as one even colonnade (2 read heavy, 1 1/4 like windows). Same box (9.78 x 9.62).
 function museum3() {
-  const beam = [7.111, 16.889], bt = 10.976, bu = 12.476, pt = 15.31, pb = 16.81, pw = 2, over = 0.5, step = 0.5;
+  const beam = [7.111, 16.889], bt = 10.976, bu = 12.476, pt = 15.31, pb = 16.81, pw = +(process.env.MPW || 1.5), over = 0.5, step = 0.5;
   const xs = [beam[0] + over, 12 - pw / 2, beam[1] - over - pw];
   const roots = [ink('slab', E.D('M7.111,9.97633v-1.2l4.889,-1.62933l4.889,1.62933v1.2z')),
     ink('slab', E.R(beam[0], bt, beam[1] - beam[0], bu - bt)), ink('slab', E.R(beam[0], pt, beam[1] - beam[0], pb - pt)),
@@ -31,7 +32,7 @@ function museum3() {
 // THE FORK AND KNIFE: v264's drawing; the tines' gaps a counter's minimum (1, were 3/4); the knife's edge 1 1/4 past its handle
 // (was 3/4: the join's round ate most of it)
 function restaurant2() {
-  const post = LINE, band = 1, cutW = 2 / 3 * LINE, top = 6.5, bot = 17.5, fw = 3 * post + 2 * band, kw = post + 1.25, K = 0.5523;
+  const post = +(process.env.RPOST || 1.25), band = 1, cutW = 2 / 3 * LINE, top = 6.5, bot = 17.5, fw = 3 * post + 2 * band, kw = post + 1.25, K = 0.5523;
   const x0 = 12 - (fw + cutW + kw) / 2, fcx = x0 + fw / 2, hc = top + 3.0, roots = [];
   for (let i = 0; i < 3; i++) { const x = x0 + i * (post + band); roots.push(ink('post', E.R(x, top, post, hc - 0.1 - top))); }
   { const rx = fw / 2, ry = 1.05 * rx; roots.push(ink('mass', E.D(`M${fcx - rx} ${hc - 0.3}V${hc}C${fcx - rx} ${hc + ry * K} ${fcx - rx * K} ${hc + ry} ${fcx} ${hc + ry}C${fcx + rx * K} ${hc + ry} ${fcx + rx} ${hc + ry * K} ${fcx + rx} ${hc}V${hc - 0.3}Z`))); }
@@ -54,9 +55,9 @@ function plus() { const c = PLUS.centre, s = PLUS.span, w = PLUS.stroke, a = c -
 // the set: [drawing, x symmetry, sizes]
 const SET = {
   cafe: () => [A['Café'], null, [24, 18, 12]],
-  bar: () => [rd('svg/post-line/bar.svg'), 12, [24, 18, 12]],
+  bar: () => [rd(process.env.BARD || 'svg/g7/between/bar-r2b.svg'), 12, [24, 18, 12]],
   museum: () => [MC.buildIcon('museum3').d, 12, [24, 18, 12]],
-  nature: () => [rd('svg/post-line/nature.svg'), 12, [24, 18, 12]],
+  nature: () => [rd(process.env.NATD || 'svg/g7/between/nature-r2.svg'), 12, [24, 18, 12]],
   restaurant: () => [MC.buildIcon('restaurant2').d, null, [24, 18, 12]],
   star: () => [rd('svg/the-grid/star.svg'), 12, [24]],
   plus: () => [plus(), PLUS.centre, [24], PLUS.centre],
