@@ -1,6 +1,6 @@
 # Sharp at 2x and 3x
 
-**Superseded 10-27 by THE grid (`THE-GRID.md`, `src/the-grid.js`).** Rounds 1-8 below are history; their rules are retired or reconciled there (section 6).
+**Superseded 10-27 by `THE-GRID.md` (one side on the grid, `src/one-side.js`).** Rounds 1-8 below are history; their rules are retired or reconciled there (section 6).
 
 ## Round 8 (10-26, canvas v270, edited v271): the owner's answer to v269. Superseded by THE grid
 

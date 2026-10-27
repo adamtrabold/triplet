@@ -1,152 +1,88 @@
 # The grid
 
-The one pixel grid every Triplet icon is drawn on, and the rules that put each kind of part on it. A new icon follows these
-rules and nothing else; every number in it is a grid value, a whole px, or a proportion taken to the grid.
-Code (the one source of truth): `src/the-grid.js` (`GRID`, the rule functions, the six). Check: `src/grid-check.js`.
-Board: "The grid" (canvas v274, Grid concepts page, after Start here). Written 10-27; round 2 the same day (director turn 192);
-round 3 (director turn 194): the give order shrinks the subject last (museum columns 3).
+How every Triplet icon lands on the screen. Draw the icon first, the way the set is drawn (the v264 drawings). Then the build
+lands it on the iPhone's pixels at each size it ships, by the rules below. Nothing is redrawn to fit the grid.
 
-Owner, verbatim: "Why is there no grid!!! This whole fucking exercise has been about creating a system and grid!! For
-days!" · "We talked about doing the counters 1 or 2 px I am so tired of this back and forth. I need a grid and visual system
-that creates coherent icons based on our rules" · "I want them to be as sharp as possible and strokes to be 1.5px. If it's
-not a strike it doesn't have to be 1.5px! Just has to read the right weight" ("strike" = stroke).
+Code: `src/one-side.js` (the rules), `src/back-to-drawings.js` (the set), `src/back-check.js` (the check).
+Board: "The grid" (canvas v275, Grid concepts page). Written 10-27.
 
 ## 1. The grid
 
-| | value | why |
+| | value |
+|---|---|
+| Grid | one iPhone pixel: ⅓px (iPhones are 3x) |
+| Frame | 24 × 24, its centre at 12, 12 (a grid point at every size below) |
+| Master size | 24 |
+| Other sizes | 18 (the badge glyph in the app), 12 (the filter chip): their own builds from the same drawing |
+| Stroke | 1½px at 24 |
+| Counter minimum | 1px at 24 and 18; ⅔px (2 iPhone pixels) at 12 |
+| The 5K (2x) | a check, not the target |
+
+## 2. The rules
+
+1. **Build each icon for the size it ships at.** The landing step is part of the build, at every size, not a pass applied afterwards.
+2. **Put outer edges on the grid.** Every straight edge that faces the outside of the icon, and the extreme of every curve with a
+   radius of ¾px or more (a bowl's bottom, the side of a handle), goes to the nearest iPhone pixel. No edge moves more than ⅙px.
+3. **Put one side of every stroke on the grid: the outer side.** The part keeps its width; the inner side falls where the width
+   puts it. At 24 the 1½px stroke is 4½ iPhone pixels, so its inner side sits half a pixel off. That is the design.
+4. **Leave inner edges, counters and cut-outs as drawn.** They are sized by the drawing, never snapped.
+5. **Open a short counter by moving the stroke beside it, never the mass.** A counter is a space closed on every side (the
+   coupe's band, the cup's ear). Below the size's minimum it opens: the stroke moves outward, its width kept.
+6. **Keep a centred part centred.** A symmetric icon stays exactly on its centre, its right half the mirror of its left. A part on
+   the centre line keeps its width and stays centred, even when that leaves both its sides off the grid (a 1½px stem at 24).
+7. **Never snap curves, diagonals, points or corner rounds.** They ride on the edges either side of them, so a curve keeps its
+   shape and a join stays smooth.
+8. **Give each size its own stroke.** At 18 and 12, the stroke is the drawing's weight at that size, rounded to whole iPhone
+   pixels: 18 → 3 (1px), 12 → 2 (⅔px). Both its sides land. A stroke on the centre line takes the nearest even count (18 → 4,
+   12 → 2), so it lands and stays centred. A stroke changes on its inner side; the outer side stays put.
+9. **Judge weight by eye at true size, on the iPhone.** Each size should read as the same weight as the 24.
+10. **Marks live at 1:1 in their own slot, never in a ring.** The star is one drawing, 12px tall, in the row and on the tag. The +
+    is two 1½px strokes, arms equal, 13½ across; its centre is drawn at 12 1/12 so one side of each stroke and one end of each
+    arm land, and the button's centre sits on the mark's centre, so it is dead centre in its circle.
+
+## 3. Writing a new icon
+
+1. Draw it with the engine like the set (roots, joins, rounds), at 24, with its strokes at 1½ and counters at least 1px.
+2. If it is symmetric, say its centre (`sym: 12`).
+3. Build it with `land(d, { size, sym })` at 24, 18 and 12 (marks at 24 only).
+4. Look at it at true size on the iPhone (`src/back-shots.js`), beside the set. Run `src/back-check.js` for which edges land.
+   The check is information, not the goal.
+
+## 4. The set (v264 drawings, landed)
+
+| | what changed from v264 | ink at 24 vs v264 |
 |---|---|---|
-| Cell | 1px | A whole CSS px is the only position sharp on both the 5K (2x) and an iPhone (3x). |
-| Frame | 24 × 24, drawn and shown 1:1 | The grid only holds 1:1. (The app draws the badge glyph's 24 box at 18px today: the build must show it 1:1.) |
-| Centre | the lines x 12, y 12 | A grid line, not a cell, so a centred part is an even width (2, 6, 10). |
-| Badge | ring 1½ (a stroke, outer edge on the frame); live circle ⌀16 (4..20); coin ⌀12 (6..18) | Kept from the master grid. |
-| Stroke | 1½px | A line in the thing: outer edge on a line, inner edge on the half line. Sharp on the 5K; the inner edge is soft on an iPhone. |
-| Solid | 2px or more | A body or a member that carries or stands: whole px, never thinner than the stroke. |
-| Gap | 1px | The space between two parts: a cut, an opening between columns, the coupe's band (rim / drink). |
-| Counter | 1 or 2 across | A hole inside one part: what its root leaves. A 1-across counter is at least 2 long (1 × 1 reads as a dot). |
-| Overhang / protrusion | 1px | What reads by sticking out does so by a whole px. |
-| Capital | past its last post a slab drops to half its height (2 → 1), the post flaring ½ into it, one curve | The cap rule's half, applied to a held slab; a curve, so no edge to land. |
-| Limit | each icon's approved box rounded UP to whole px (a centred width to the next even); points count inside | Never smaller than approved, at most 1px bigger (2 for a centred width). Café 11 × 9, coupe 10 × 9, museum 10 × 10, tree 8 × 12. |
-| Weight | ink within 10% of approved, then by eye in the row of six | Owner: "just has to read the right weight". Marks (sized by their slot) by ink per box area. |
-| Marks | 1:1 in their slot: the star 12 tall, the + 13½ across | Round 8's one star; the + as approved (13.2) to the grid. |
+| Café | nothing in the drawing; landed | +0.2% |
+| Coupe | the band opens ¾ → 1px (rule 5 lifts the rim ¼px); the drink stays 2½ | −0.4% |
+| Museum | three columns at 1½, two openings of 2.14 (were four, at 0.93); same box, slabs, roof, capitals | −6.8% |
+| Tree | nothing; landed | +0.3% |
+| Fork and knife | gaps between the tines 1px (were ¾); the knife's edge 1¼px past its handle (was ¾) | +6.1% |
+| Star | one drawing, 12px tall (was 14 in the row, 13.4 on the tag) | −13% (smaller) |
+| + | strokes 1½ (were 1⅔), 13½ across | −7.1% |
 
-**Stroke or solid** (his question, "when is an icon outlined vs not", for parts): would the part still be the thing drawn as
-one pen line? Then it is a STROKE: a rim, a handle or loop, a ring, the wall round a hole, a mark's outline or arms. Otherwise
-it is a SOLID: a body, a slab or base, a post, column, stem, trunk, leg. Whole icons by job stay as `PROP.classByJob`.
+## 5. The check (`node src/back-check.js`)
 
-**Weight: his lines reconciled.** "Strokes to be 1.5px": every stroke is 1½. "Nothing should go that thin": no ink under 1½.
-"If it's not a strike it doesn't have to be 1.5px ... just has to read the right weight": solids go to whole px (2 or more),
-and the WEIGHT GATE holds each icon's ink within 10% of approved. Round 1 of this grid made every part solid (walls and rims at
-2): ink rose 16-32%. Making the lines in the thing strokes again, and letting proportions round down to fit the limit, brings
-every badge icon inside the gate (table below).
+Edges that land on an iPhone pixel, the five badge icons and the two marks at 24, new vs v264:
 
-## 2. How each kind of part lands
+| kind | now | v264 |
+|---|---|---|
+| outer edges | 38 of 42 | 6 of 41 |
+| free posts (one side each) | 6 of 12 | 3 of 20 |
+| stroke inner sides | 0 of 8 (by design) | 1 of 7 |
+| centred parts | 4 of 14 (the +'s one side each) | 0 of 4 |
 
-1. **Solid parts** (slab, base, post, column, stem, trunk): 2 or more, every edge on lines. Centred, a post is 11..13. A **cap**
-   (saucer, foot): crown 2, ends 1 (half the crown); flat side, ends and crown on lines.
-2. **Stroke parts** (rim, handle, ring): 1½, outer edge on a line, inner edge on the half line. A gap laid from that inner edge
-   stays on the half line (the coupe's band). Each half-line edge is named in the build (`meta.half`) by the rule that made it;
-   the check accepts no other.
-3. **Gap**: 1. **Counter**: 1 or 2 across; at 1 across, at least 2 long (`counter()`, `GRID.counterLong`).
-4. **Curve**: its extremes (a bowl's bottom, an ellipse's side, a tier's lowest point) on lines. Where a straight cut meets a
-   curve (the rim on the bowl), the corner sits on the curve.
-5. **Point, diagonal, the small rounds at corners** (the engine's law): free. They have no edge to land.
-6. **Centred part**: even px (`centred()` refuses an odd one).
-7. **A centred row of equal parts** (`row()`): the thing on the centre is even. 2px parts in an odd count take 1px gaps (the
-   middle part on the centre); an even count takes 2px gaps (the middle gap on it).
-8. **Protrusion, overhang**: whole px, ≥ 1.
-9. **Proportions** (`proportions.js`, all kept): each result goes to the nearest whole px (`whole()`, `even()` for centred widths).
-10. **The give order** (`give()`, round 3): **the part that makes the icon what it is shrinks last.** Each part sized by a
-    proportion is named with a role and starts at the nearest whole px; past the limit they give one step at a time, first
-    fit wins: (1) DETAIL, a part in lines that only finishes another (a gable's ends, a step): down by ½, never under ½ (at 0 a
-    roof's eave is an acute point the rounds eat); (2) PEAK, a point (an apex): its rise takes what the limit has left (a point
-    has no edge to land), never under 1; (3) BODY, any other proportion: rounds DOWN instead of to the nearest (the coupe's rim
-    cut 1.6 → 1); (4) SUBJECT, the part that names it (the museum's colonnade): rounds down last, never under its floor (a
-    colonnade's 1-across openings at least 3 long, `GRID.subjectLong`: at 2 they read as two windows in a block). The fixed
-    units (stroke, solid, gap, counter) and his standing asks (the drink, centring, the tree) are not parts and never give.
-    If nothing fits, the build stops and says by how much: the grid is not bent. The weight gate is checked after.
-11. **Placement** (`place()`): whole px only. Up or down to the optical centre (the engine's opticalY); a symmetric icon on
-    the centre line; a lopsided one (the cup) to the whole px nearest its optical centre.
-12. **A centred stroke**: its centre on a quarter line (k + ¼), so each edge is on a line or a half line. The + is drawn so
-    (centre 12¼; edges 11½ | 13; arm ends 5½ | 19), and its frame's centre is its button's centre: dead centre in its orange
-    circle (the circle has no straight edge, so its ¼px shows nowhere).
-13. **Joins and rounds**: the engine's law, unchanged (`PROP.rounds.shaped` / `.line`), by the corner, never per icon.
-14. **Other sizes**: only 24 at 1:1 is defined. At 48 (2:1) everything still lands. At 12 (the filter chip, ½) every line falls
-    on a half px: sharp on the 5K, soft on an iPhone. Map pins at other sizes scale the 24 drawing and are not promised sharp;
-    a size that must be sharp needs its own grid, not drawn yet.
+At 18: outer 35 of 37, everything else lands. On the 5K at 24: outer 14 of 42 (v264 16 of 41): as sharp as before.
+join-check: clean on all seven. fair-check: the museum's capitals 8 marginal KNEEs (2.50 against a limit of 2.48) on top of
+v264's 4 TAILs, and 2 KNEEs at the coupe's band ends; none shows at 24, 72 or 192.
 
-## 3. The museum (his construction question)
+## 6. Retired
 
-Three 2px columns, 1px openings: 2 + 1 + 2 + 1 + 2 = 8; beam and plinth pass it by 1 each side: **10**. The middle column is
-11..13, on the centre. Four can't: an even count puts an opening on the centre, so openings 2: 4 × 2 + 3 × 2 + 2 = 16.
-
-Height, held at 10: plinth 2, beam 2 and gap 1 are fixed units. To the nearest px the columns (⅓ of the colonnade: 2⅔ → 3) and
-the roof (ends 1.2 → 1, peak 1⅔ to a point) make 10⅔: over by ⅔. The colonnade is the SUBJECT (it makes it a museum), so by the
-give order it gives last and the roof gives first: its ends (a DETAIL) 1 → ½ (10⅙), then its peak (a PEAK, a point) takes what
-is left, 1⅔ → 1½ (pitch ⅓ → 3⁄10): **10** to the apex point. **Columns 3, openings 1 × 3**; it reads **9.97** tall after the
-apex's round (limit 10, approved 9.62). Width 10 (approved 9.78). Ink 68.9 (+9.4%).
-
-Round 3 (director turn 194) measured the other ways and the gate ruled them out: ends kept at 1 and the peak flattened to 1 fits
-10 but is +13% ink; ends to 0 (a plain triangle) is +1% but its eaves are 18° points the engine's rounds eat, so the roof reads
-as a lens. Hence the detail's floor of ½ and the order ends → peak.
-
-## 4. The six (built by `node src/the-grid.js`, outlines `svg/the-grid/`)
-
-| | approved (w × h, ink) | on the grid | limit | weight | what the grid set |
-|---|---|---|---|---|---|
-| Café | 10.77 × 8.5, 56.5 | **11 × 9**, 61.5 | 11 × 9 | +9% | saucer 11 (9/5 of the 6 cup), crown 2, ends 1, gap 1; cup 6 square; ear 4/5 → 5 tall, a stroke 1½ round a 2-across hole |
-| Coupe | 9.78 × 8.67, 44.8 | **10 × 9**, 49.0 | 10 × 9 | +9% | bowl ellipse 10 × 8; rim cut ⅕ of 8 = 1.6, to fit rounded down to 1: bowl 5 deep; rim 1½ (stroke), band 1, drink 2½ (as approved); stem 2 × 2; foot 6, crown 2 |
-| Museum | 9.78 × 9.62, 63.0 | **10 × 9.97**, 68.9 | 10 × 10 | +9% | above: columns 3 (the subject, given last), roof ends ½, peak 1½; capitals drop to half the slab |
-| Tree | 6.98 × 11.46, 34.3 | **7.29 × 11.21**, 35.9 | 8 × 12 | +5% | tiers as approved; trunk 1¼ → 2 (11..13), shows 2 under the bottom tier's lowest point (on a line); tips 0.16 longer (the tip round is a share of its edge) |
-| Star | 14.07 × 13.39 on screen, 58 | **12.6 × 12**, 51 | its slot | +10% per area | one star (round 8), outline 1½, top tip on a line |
-| + | 13.2 × 13.2 on screen, 41 | **13½ × 13½**, 38 | its slot | −11% per area | stroke 1½ (approved 1⅔: his "strokes to be 1.5px") on its quarter line |
-
-Sizes are outline boxes after the engine's rounds.
-
-## 5. The check (`node src/grid-check.js`)
-
-Reads every edge of every outline (each straight level or upright run ≥ 0.4px, and each round's extreme where its radius is
-≥ ¾px: `pixel-fit.js findEdges`). Badge icons: every edge on a line, or on a half line where the build names it a stroke's
-inner edge. Marks: lines or half lines. Then the size against the limit and the ink against the gate. Exit 1 on any miss.
-`--approved` runs it on the approved six. The star has no straight run, so for it the check proves only size and weight.
-
-| | edges | off the grid | soft 5K / iPhone | limits | weight |
-|---|---|---|---|---|---|
-| approved six | 65 | 61 | 54 / 53 | | |
-| on the grid | 59 | **0** | **0 / 11** (every one a stroke's inner edge on a half line) | all held | all within 10% |
-
-Also: join-check 0 everywhere; fair-check café 3 (as round 1: at the ear), museum 8 (the capitals' 4 TAILs, as approved, and
-a KNEE and DIP at each ½ eave: a 0.2px corner round on a ½ run, not visible at 24 or 72).
-
-## 6. Retired (history, not commandment)
-
-- The ⅓px lattice (`PROP.lattice`) and the fractional class cuts (Master grid: 9.78, 11 × 8.56, 8.56 × 11, × 11/12): the
-  boxes above replace them. The lattice landed at 3x only (⅓px = ⅔ device px at 2x).
-- The line as the width of posts and slabs (`PROP.line.post`, `PROP.block.slab`, mix-curves `T`), and `PROP.px` (round 6-8:
-  slab 2 but posts 1½, `band`, `centreOff`, `counterMin`, `mark`): `GRID` replaces them.
-- Sums from the centre line (`pixel-shapes.js museum()`), which put museum E's edges on quarter px.
-- Bands of ¾ and 1½; the ¼px offset; options per icon (A/B/C, D/E).
-- Round 1 of this grid (v272): class boxes as the size limit, and every part a 2px solid (rims and handles too): the icons grew and darkened 16-32%.
-- Round 2's give order (v273: every proportion rounds down first, details only after): it shrank the museum's columns to 2
-  before the roof gave anything.
-- Kept: every proportion in `proportions.js`, the cap rule, the vessel ellipse, the joins, the rounds table, the transitions.
-`pixel-shapes.js`, `whole-grid.js` and the construction path (`construction.js`, class fit) stay for history and rebuilding old
-boards; new icons are written in `the-grid.js`.
-
-## 7. Writing a new icon
-
-1. Take its limit (the approved or agreed box, rounded up). 2. Name its roots and the widest (it takes the limit's width).
-3. Sort each part: stroke or solid (the pen-line test). 4. Every size is a proportion of a root through `whole()` / `even()`;
-every stroke `GRID.stroke`, every solid `GRID.solid` or more, every space `GRID.gap`, every hole `counter()`; name each
-half-line edge a stroke makes. 5. Rows through `row()`, centred parts through `centred()`, heights through `give()`
-with each proportioned part named DETAIL, PEAK, BODY or SUBJECT (one subject: the part that makes it what it is).
-6. `place()`, `build()`, then `grid-check.js`: 0 off the grid, within the limit and the weight gate, or a rule is missing here
-(add it, don't nudge the icon).
+- Whole-pixel parts (v266 to v274): 2px solids, slab and post rules in whole px, the box limits, the give order, the ¼px offset,
+  option menus. Kept from them: counters at least 1px, the knife's edge, one star, the + dead centre in its button.
+- `src/the-grid.js`, `src/pixel-shapes.js`, `src/whole-grid.js`, `src/placement.js`, `src/pixel-fit.js`'s fitting pass: kept to
+  rebuild old boards. `pixel-fit.js`'s edge finder is used by the check.
 
 ## Open
 
-- Judged by eye, the set reads as one weight to us (opinion): the badge icons +5 to +9%, the star about the same per area,
-  the + 11% lighter per area (his 1½). The owner's eye decides.
-- The museum (round 3): columns 3 tall, openings 1 × 3, 9.97 tall within 10, roof pitch 3⁄10 (approved ⅓), ink +9.4% (the
-  top of the gate). Approved was 9.62; it is ⅓ taller, inside the limit.
-- The app: show the badge glyph 1:1 (24 box at 24px) and put the + button's centre on k + ¼.
-- Not yet in `the-grid.js`: fork and knife, bed, shopping.
+- The app draws the badge glyph's 24 box at 18px and the chip at 12px today: it should take the 18 and 12 builds.
+- Not yet built on this: the bed, shopping.

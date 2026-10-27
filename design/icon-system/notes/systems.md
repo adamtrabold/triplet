@@ -1,5 +1,21 @@
 # Systems designer notes: icon system
 
+## Back to the drawings (2026-10-27, jam turn 197, canvas v275)
+
+- **Structure:** `src/one-side.js` holds the rules (`land(d, {size, sym, symY})`, `report()`), `src/back-to-drawings.js`
+  the set (`SET`, `BEFORE`; museum3 and restaurant2 roots through `mix-curves.js`, which now exports `capital`, `ink`, `LINE`),
+  `src/back-check.js` the check, `src/back-shots.js` / `back-board-imgs.py` / `back-board.js` / `back-board-shot.js` the
+  board, `back-zoom.js` and `back-look.py` for looking. `REUSE=1 node src/back-to-drawings.js` re-lands without rebuilding.
+- **How land works:** findEdges (pixel-fit.js) per axis; stems paired; which side faces out by a flood fill of the empty space
+  from the frame; per contour straight-line interpolation of every point between its controls, handles by the local slope,
+  smooth nodes kept smooth. Order: the size's stroke (widths only), counters open, then landing at k = size/24 x 3.
+- **Decisions:** the grid is the iPhone pixel because the drawings sit on fractional positions, so the nearest ⅓px moves an
+  edge at most ⅙px (whole px moved edges up to ½ and changed the drawings: the v266-v274 lesson). Widths kept at 24 so the
+  weight is v264's. A centred 1½ part stays centred, both sides ¼ iPhone pixel soft. Free posts (fork tines, knife) land
+  whichever side is nearer.
+- **Known:** fair-check marginal KNEEs from landing (museum capitals, coupe band ends); a free post counts one side.
+- **Retired as the method:** `the-grid.js` and its rules (kept to rebuild boards).
+
 ## THE grid, round 3 (2026-10-27, jam turn 195, canvas v274; director turn 194 scored v273 8, 9 after one fix)
 
 - **Why:** v273's give order rounded every proportion down before any detail gave, so the museum's columns (the subject) went

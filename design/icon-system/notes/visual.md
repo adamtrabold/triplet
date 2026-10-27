@@ -1,5 +1,19 @@
 # Visual designer notes: icon system
 
+## Back to the drawings (2026-10-27, jam turn 197, canvas v275; icon designer carrying visual + systems, new to the seat)
+
+- **Look:** the v264 drawings, landed: at true size the same set, crisper on the iPhone; weight within 7% at 24. The museum now
+  has three columns (two 2.14 openings): balanced in the row, reads as a colonnade at 24, a little like two windows at 12. The
+  coupe's band is 1px with the drink kept full; the knife's edge reads.
+- **Sizes:** 18 and 12 read as the same weight as the 24 at the nearest whole-pixel stroke (18: 1px, 12: ⅔px). Heavier (4 and
+  3) was tried and read a size heavier, the museum at 12 a block.
+- **Board:** "The grid" replaced in place, 1200 × 2392: rules, the set at true size (iPhone, 18, 12, the + in its button, 5K),
+  what changed, drawn large on the iPhone grid, the check, retired. Images are uploaded assets (`src/back-board-blobs.json`).
+  v274's board archived (Archive page x 11120 y 210000). Start: the "New" line and item 6 rewritten.
+- **Owner rule (10-27):** no source names, quotes or links in anything he reads; plain directives only.
+- **Stills:** `grid/stills/back/phone/back-1..2.png` (1500 wide), each opened. Raw rows `grid/stills/back/raw/`.
+- **Open:** the director's score; the app taking the 18 and 12 builds; bed and shopping on this.
+
 ## THE grid, round 3 (2026-10-27, jam turn 195, canvas v274)
 
 - Museum: columns 3 tall read as a colonnade again at 24 (3x) and 72; the roof is lower (ends ½, peak 1½) and still reads as a

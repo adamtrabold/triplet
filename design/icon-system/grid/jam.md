@@ -1760,3 +1760,33 @@ NEXT: design director: the museum in the row at 24 and 72.
 **Question for him:** none. Show v274 as the grid and the six built on it.
 
 NEXT: orchestrator: show him v274 (no question).
+
+
+---
+
+## Turn 197: icon designer (visual + systems, new to the seat), back to the drawings, one side on the grid (canvas v275)
+
+Brief `briefs/back-to-drawings-round.md`. His direction: back to the v264 drawings, one side on the pixel grid, iPhone as the
+core output built in, size-specific standards fine, plain directives only.
+
+**The grid is one iPhone pixel (⅓px), and landing is the build's last step at each size it ships** (`src/one-side.js`):
+outer edges and the outer side of every stroke to the nearest iPhone pixel (at most ⅙px of movement), widths kept, inner edges
+and counters as drawn, centred parts centred, curves carried by the edges either side. A short counter opens by moving the stroke
+beside it, never the mass. 18 and 12 are their own builds: the stroke is the drawing's weight rounded to whole iPhone pixels
+(18: 3, 12: 2; centred stems an even count), so both sides land there.
+
+**The set** (`src/back-to-drawings.js`, `svg/back/`): café and tree as v264, landed. Coupe: band ¾ → 1px by lifting the rim
+¼px, drink kept 2½. Museum: three columns at 1½, two 2.14 openings, same box and parts. Fork and knife: tine gaps 1px, the
+knife's edge 1¼ past its handle. Star: one drawing, 12 tall. +: 1½ strokes, 13½ across, dead centre in its button.
+
+**By eye at true size:** the same set as v264, crisper on the iPhone; ink within 7% at 24 (marks smaller by their slot). Tried
+and dropped: 4 iPhone px at 18 and 3 at 12 (a size heavier than v264; the museum at 12 closed to a block with two windows).
+
+**Check** (`src/back-check.js`, information): outer edges landing on the iPhone at 24, 38 of 42 (v264 6 of 41); at 18, 35 of
+37 with every stroke side landing. The 5K is as sharp as v264. join-check clean; fair-check adds marginal KNEEs at the
+museum's capitals (2.50 against 2.48) and the coupe's band ends, not visible at 24, 72 or 192.
+
+Board "The grid" replaced in place (1200 × 2392); v274's archived as "Archive-TheGrid-v274". THE-GRID.md rewritten as the spec.
+Phone stills `grid/stills/back/phone/back-1..2.png`. No question for him.
+
+NEXT: design director: score v275 at true size on the iPhone, v264 beside it, then to him.

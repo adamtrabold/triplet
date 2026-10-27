@@ -128,7 +128,7 @@ function buildIcon(name, J = {}) {
   const d = E.build(prims, { law: lawFor(icon, log), tightHoles: icon.loose ? false : true, ease: 2.3, join: { ...JOIN10 }, sym }).d;
   return { d, log, sym };
 }
-module.exports = { buildIcon, ICONS, T, RULE };
+module.exports = { buildIcon, ICONS, T, RULE, capital, ink, LINE };
 if (require.main === module) {
   const out = path.join(HERE, 'svg/mix/curves'); fs.mkdirSync(out, { recursive: true });
   const names = process.argv.slice(2).length ? process.argv.slice(2) : Object.keys(ICONS);
