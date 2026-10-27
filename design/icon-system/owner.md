@@ -279,3 +279,4 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > (10-27, on v282) it's not acceptable that the fork tines and counters are different widths
 > (10-27, on v282) and where did the bevel go on the museum exterior? why are these so different?
 > i feel like all of the guidance has been lost   (orchestrator rendered v264 beside the 18 masters: museum bevel gone; coupe band thick over a shallow drink, was thin over a deep one; fork tines ≠ gaps. The 18s were redrawn, not derived from v264.)
+> (10-27) oh my god why the fuck are the brand and icon decisions not persistent we are building a SYSTEM
