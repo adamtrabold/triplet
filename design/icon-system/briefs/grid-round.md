@@ -31,7 +31,7 @@
 
 ## Settled (his rules; don't reopen)
 
-1.5px line, monoweight; no ink thinner than the line; slabs and other solid parts are shapes on whole px; counters are shapes, whole px, 1 or 2px; line-mark ends whole; centred is centred, never off-centre; no per-size/per-screen fitting pass; every piece from a root shape, proportions related to each other and the grid; machined rounds and joins; holes are proportional root shapes; the approved six (cup, coupe, museum, tree, +, star) keep their sizes and character (tree and "Coupe, after" fixed points); the + and star are never in a ring; one star; brand = plain, made by a tool, left of centre.
+1.5px line, monoweight; no ink thinner than the line; slabs and other solid parts are shapes on whole px; counters are shapes, whole px, 1 or 2px; line-mark ends whole; centred is centred, never off-centre; no per-size/per-screen fitting pass; every piece from a root shape, proportions related to each other and the grid; machined rounds and joins; holes are proportional root shapes; the cup, coupe, museum and tree keep their v264 sizes and character (tree and "Coupe, after" fixed points); the star and + are NOT approved (owner, 10-27), are never in a ring, and are judged only bare at their in-app size; one star; brand = plain, made by a tool, left of centre.
 
 ## The task
 
