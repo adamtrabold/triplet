@@ -1,5 +1,28 @@
 # Visual designer notes: icon system
 
+## Stopped: system first (2026-10-27, after v282; WIP, nothing published)
+
+- Owner: "create the SYSTEM to derive the icons. THEN create the icons." This batch (fork tines = gaps, coupe interior back, museum
+  bevel) was stopped mid-build. `src/right-size.js` holds WIP (`museumV`, `restaurantV`, per-icon std overrides) that builds from
+  the v264 outlines; its outputs were NOT written: `svg/right/` and the board are still v282.
+- What the 18 redraw (v281/v282) lost vs v264, and why:
+  - **Museum bevel and four columns:** v281 replaced v264's museum with a new root call (`museumOpen`: three columns, open ends,
+    no `capital()`), so the slab ends no longer drop into the outer columns. The owner meant 3 counters (v264's four columns),
+    not three columns. Cause: I redrew to answer "three" instead of deriving from v264's roots.
+  - **Coupe interior:** built from v280's `drawn` (bar-r2b: 1px band), not v264 (0.75 band, deep drink). The 18 width pass then
+    set the rim to 1 1/3 and the counter minimum (1px) held the band near rim weight: thick band over a shallow drink. At 12
+    `close` filled the band (no interior at all).
+  - **Fork:** tines are stems (one-side lands each by its outer side) but the gaps are inner spaces "left as drawn", so after
+    landing the gaps came out 1 and 2/3 beside 1 1/3 tines. The landing has no notion of a row of equal parts.
+  - Root cause: the sizes were made by landing whatever outline was at hand (v280's drawings, a new museum), not by one source
+    with each size as parameters. Per-size choices (counter minimums, close at 12, stroke standard applied to anything 1.2-1.8
+    wide) changed proportions the owner had settled.
+- Learned for the system: (1) one source: v264's roots, joins, bevel and proportions, sizes as parameters only; (2) a row of
+  equal parts and its gaps is one constraint, solved before landing; (3) a counter minimum must not override a settled
+  proportion (band under rim, drink depth): those are checks, not moves; (4) every STANDING.md line needs a check that runs on
+  each build and blocks publishing; (5) never close a counter that defines the object (the coupe's band).
+- Next: the systems work the owner asked for, then the icons from it.
+
 ## Drawn at the size it ships (2026-10-27, jam turn 206, canvas v281)
 
 - Owner: 18 is the master, 24 and 12 drawn from it with detail adjusted. THE-GRID.md rewritten as the sizes table + 10 rules.

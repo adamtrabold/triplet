@@ -24,30 +24,62 @@ const SIZES = {
   12: { frame: 16, box: 12, std: { stroke: env('S12', 3), centred: env('C12', 4), counter: 3, solidMin: 3, close: true } },
 };
 
-// THE MUSEUM: three columns under open ends. The beam and plinth run a full px past the outer columns, so every column stands
-// free under its slab and reads as a column, not a wall; openings (2) wider than the columns (1 1/3). Roof as v264 (18 deg).
-function museumOpen(J = {}) {
-  const pw = 4 / 3, b0 = 7, b1 = 17, over = J.over ?? 1;
-  const roofB = 10, eave = 1, rise = 5 / 3, bt = 11, bu = 12 + 1 / 3, pt = 15 + 2 / 3, pb = 17;
-  const xs = [b0 + over, 12 - pw / 2, b1 - over - pw];
-  const roots = [ink('slab', E.D(`M${b0},${roofB}v${-eave}l5,${-rise} 5,${rise}v${eave}z`)),
-    ink('slab', E.R(b0, bt, b1 - b0, bu - bt)), ink('slab', E.R(b0, pt, b1 - b0, pb - pt)),
-    ...xs.map(x => ink('post', E.R(x, bu - 0.01, pw, pt - bu + 0.02)))];
-  const cuts = [];
-  if (J.caps) for (const [face, end, side] of [[xs[0], b0, -1], [xs[2] + pw, b1, 1]])   // 24: the capitals (detail added)
-    for (const [under, down] of [[bu, true], [pt, false]]) { const [bb, c] = capital(face, end, under, 0.5, side, down); roots.push(bb); cuts.push(c.cutPrim); }
-  return { roots, cuts, sym: 12 };
-}
-MC.ICONS.museumOpen = museumOpen;
+// Every icon is the v264 drawing (the same roots, joins, rounds and bevels; svg/post-line, svg/placement), fitted to each size's
+// grid. Where v264's own numbers fall off the grid, the parts are set on it from the same root calls (museum, fork); the rest are
+// landed from the v264 outline by one-side.js.
 
-// the set: the v264 drawings as built for v280 (svg/back/build.json 'drawn'), the museum redrawn; per size the drawing to land
-const D = n => V280[n].drawn;
+// THE MUSEUM (v264): columns under a beam and plinth whose ends drop into the outer columns (the bevel: capital()), a pediment.
+// A row of equal parts: columns and openings share one width. 18 and 24: four columns, three openings; 12: three and two (less
+// detail). Numbers per size in that size's CSS px (frame = the badge), converted to drawing units.
+const MUS = {
+  18: { n: 4, w: 4 / 3, over: 2 / 3, step: 0.5, c: 12, peak: 7 + 2 / 3, eave: 9 + 1 / 3, base: 10 + 1 / 3, bt: 11 + 1 / 3, bu: 12 + 2 / 3, pt: 15 + 2 / 3, pb: 17 },
+  24: { n: 4, w: 2, over: 2 / 3, step: 2 / 3, c: 16, peak: 5 + 2 / 3, eave: 8, base: 9 + 1 / 3, bt: 10 + 2 / 3, bu: 12 + 2 / 3, pt: 16 + 2 / 3, pb: 18 + 2 / 3 },
+  12: { n: 3, w: 4 / 3, over: 1 / 3, step: 1 / 3, c: 8, peak: 5 + 1 / 3, eave: 6 + 1 / 3, base: 7, bt: 7 + 2 / 3, bu: 8 + 2 / 3, pt: 10 + 2 / 3, pb: 11 + 2 / 3 },
+};
+function museumV(J) {
+  const M = MUS[J.size], u = 24 / SIZES[J.size].frame, U = v => v * u;   // css px -> units
+  const span = (2 * M.n - 1) * M.w, b0 = M.c - span / 2 - M.over, b1 = M.c + span / 2 + M.over;
+  const xs = Array.from({ length: M.n }, (_, i) => M.c - span / 2 + 2 * i * M.w);
+  const roots = [ink('slab', E.D(`M${U(b0)},${U(M.base)}V${U(M.eave)}L${U(M.c)},${U(M.peak)}L${U(b1)},${U(M.eave)}V${U(M.base)}Z`)),
+    ink('slab', E.R(U(b0), U(M.bt), U(b1 - b0), U(M.bu - M.bt))), ink('slab', E.R(U(b0), U(M.pt), U(b1 - b0), U(M.pb - M.pt))),
+    ...xs.map(x => ink('post', E.R(U(x), U(M.bu) - 0.01, U(M.w), U(M.pt - M.bu) + 0.02)))];
+  const cuts = [];
+  for (const [face, end, side] of [[xs[0], b0, -1], [xs[M.n - 1] + M.w, b1, 1]])
+    for (const [under, down] of [[M.bu, true], [M.pt, false]]) { const [bb, c] = capital(U(face), U(end), U(under), U(M.step), side, down); roots.push(bb); cuts.push(c.cutPrim); }
+  return { roots, cuts, sym: U(M.c) };
+}
+MC.ICONS.museumV = museumV;
+
+// THE FORK AND KNIFE (v264): three tines over a bowl into a neck; a knife whose blade curves out past its handle. A row of equal
+// parts: tines and the gaps between them share one width (the neck and the knife's handle take it too).
+const FORK = {
+  18: { w: 4 / 3, cut: 2 / 3, kw: 8 / 3, x0: 7, top: 6 + 2 / 3, bot: 17 + 1 / 3, tine: 3, ry: 2.75, blade: 6 },
+  24: { w: 5 / 3, cut: 1, kw: 10 / 3, x0: 9 + 2 / 3, top: 9, bot: 23, tine: 4, ry: 3 + 2 / 3, blade: 8 },
+  12: { w: 1, cut: 2 / 3, kw: 5 / 3, x0: 4 + 1 / 3, top: 4 + 1 / 3, bot: 11 + 2 / 3, tine: 2, ry: 11 / 6, blade: 4 },
+};
+function restaurantV(J) {
+  const F = FORK[J.size], u = 24 / SIZES[J.size].frame, U = v => v * u, K = 0.5523;
+  const w = U(F.w), x0 = U(F.x0), top = U(F.top), bot = U(F.bot), fw = 5 * w, fcx = x0 + fw / 2, hc = top + U(F.tine), roots = [];
+  for (let i = 0; i < 3; i++) roots.push(ink('post', E.R(x0 + 2 * i * w, top, w, hc - 0.1 - top)));
+  { const rx = fw / 2, ry = U(F.ry); roots.push(ink('mass', E.D(`M${fcx - rx} ${hc - 0.3}V${hc}C${fcx - rx} ${hc + ry * K} ${fcx - rx * K} ${hc + ry} ${fcx} ${hc + ry}C${fcx + rx * K} ${hc + ry} ${fcx + rx} ${hc + ry * K} ${fcx + rx} ${hc}V${hc - 0.3}Z`)));
+    const hb = hc + ry - 0.4; roots.push(ink('post', E.R(fcx - w / 2, hb, w, bot - hb))); }
+  const ks = x0 + fw + U(F.cut), kw = U(F.kw), ke = top + U(F.blade), ry = ke - top;
+  roots.push(ink('mass', E.D(`M${ks} ${top}C${ks + kw * K} ${top} ${ks + kw} ${ke - ry * K} ${ks + kw} ${ke}H${ks}Z`)));
+  roots.push(ink('post', E.R(ks, ke - 0.2, w, bot - ke + 0.2)));
+  return { roots, cuts: [] };
+}
+MC.ICONS.restaurantV = restaurantV;
+
+// the set. d(size) = the drawing for that size (units); std = per-size overrides of the size's standard; keep: no width standard
+// (the parts are already set on the grid, equal where they must be)
+const V264 = n => V280[n].before;
 const SET = {
-  cafe: { sym: null, d: () => D('cafe') },
-  bar: { sym: 12, d: () => D('bar') },
-  museum: { sym: 12, d: s => MC.buildIcon('museumOpen', { caps: s === 24 && !!env('CAPS', 0) }).d },
-  nature: { sym: 12, d: () => D('nature') },
-  restaurant: { sym: null, d: () => D('restaurant') },
+  cafe: { sym: null, d: () => V264('cafe') },
+  // the coupe's band stays thin under the rim, over a deep drink (v264): its counter minimum is 2/3px at 18 and 12, 1px at 24
+  bar: { sym: 12, d: () => V264('bar'), std: { 18: { counter: 2 }, 24: { counter: 3 }, 12: { counter: 2, close: false } } },
+  museum: { sym: 12, keep: true, d: s => MC.buildIcon('museumV', { size: s }).d },
+  nature: { sym: 12, d: () => V264('nature') },
+  restaurant: { sym: null, keep: true, d: s => MC.buildIcon('restaurantV', { size: s }).d },
 };
 
 // ---- path transform (units -> the box's CSS px)
@@ -57,7 +89,8 @@ function xformD(d, k, t) {
 }
 function build(n, size) {
   const Z = SIZES[size], d0 = SET[n].d(size), sym = SET[n].sym;
-  const L = OS.land(d0, { size: Z.frame, sym, std: Z.std });
+  const std = SET[n].keep ? { counter: 0 } : { ...Z.std, ...((SET[n].std || {})[size] || {}) };
+  const L = OS.land(d0, { size: Z.frame, sym, std });
   const k = Z.frame / 24, t = (Z.frame - Z.box) / 2;
   return { d: xformD(L.d, k, t), units: L.d, maxMove: +L.maxMove.toFixed(3), opened: L.opened };
 }
