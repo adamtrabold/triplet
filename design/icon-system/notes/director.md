@@ -873,3 +873,23 @@ The fix is in, and the museum's mirror is fixed at every size. I verified the de
 - the 12 museum narrowed to 14 iPhone px.
 
 **Standing rule now:** never call the six approved; check the canvas holds only Start here + one board per open topic.
+
+## Drawn at the size it ships (v281, 0b32de45, 2026-10-27): 8, 9 after one board edit, with one question
+
+**Third rejected 9:** v278/v280 ("a lot worse", "two reads as a bank", "crispy/blurry", "what is the size they actually are?").
+
+**Root cause:** every board, and I, judged a 24 drawing the app never shows. The app scales it by ¾ into 18, undoing the snapping.
+
+**Recalibration:** judge at the shipped size first (18 in its 24 ring), using the app's own cells, at 100% on 3x and 2x. Then the 24 selected pin and the 12 chip.
+
+**v281:**
+- clearly crisper at 18;
+- the museum's three free columns;
+- 1⅓ everywhere at 18 (the whole-pixel consequence, stated, not a question);
+- the + 2px, the star the same.
+
+**Block:** the board claims his approval of the 10–11px size. Never claim his approval unless owner.md records it.
+
+**Open, his call:** 10–11px against the app's ~8px.
+
+**Next:** the one edit, then to him with the question.

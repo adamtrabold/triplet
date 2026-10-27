@@ -2052,3 +2052,43 @@ Owner: "they should be drawn at the right size"; "yes 18 should be the master, d
    1 1/3 (rows, pins) and the selected pin's glyph at 24 (today 23, at a half-px offset: `g = field - 4` with rim 2.5).
 
 NEXT: orchestrator: show him v281.
+
+
+---
+
+## Turn 207: design director, v281 (0b32de45): 8, 9 after one board edit, with one question
+
+**Third rejected 9 (v278/v280):** "now looks a lot worse somehow", "two reads as a bank", "crispy/blurry", then "what is the size they actually are? that's all i care about". I had been scoring a size the app never shows. From now I judge at the shipped size first: 18 in its 24 ring, then the 24 selected pin and the 12 chip, at 100% on 3x and 2x.
+
+**Rendered myself:** the app's cells from `src/right-cells.js`, real SVGs at true CSS size, v280 above and now below, at DPR 3 and 2. Script and crops in `stills/right/director/`.
+
+**By eye at the shipped size:**
+- **18 in the ring:** clearly better on both screens. It's crisp and legible, where v280's ¾-scaled glyphs are small and soft.
+  - 1⅓ strokes read the right weight, between his 1¼ and the 1½ he called heavy.
+  - The 1⅓ rim no longer outweighs the glyph.
+- **Museum:** three columns. The open ends free the outer columns, so it reads as a colonnade, not a bank, at 18 and 12.
+- **24 selected:** big in its 32 disc but proportionate; 2px reversed strokes read right.
+- **12 chip:** crisper than v280; the coupe is a full glass.
+- **+:** 2px across 14, cream on orange, reads as the set's weight for a mark that size.
+  - 1⅔ can't centre (5 iPhone px, odd), and 1⅓ reads thin reversed out.
+  - Fine, and it is "not decided".
+- **Star:** still 35% / 46% grey. It is all diagonals, so that is the shape, not a fault. Top and feet land.
+
+**The strokes:** 1⅓ (4 iPhone px), not 1½. This is a consequence of whole pixels, not a weight change, and the board states it in one line. Not a question.
+
+**The size:**
+- The glyph grows from about 8px (what the app shows today, the 24 drawing at ¾) to 10–11px in the same 24 ring.
+- That is a visible change in the app. It doesn't crowd the ring (about 5px of air each side), and it's what he has looked at on every board.
+- But he has never chosen between the two, and his newest ask is exactly "the size they actually are". So it's his call.
+
+**Block:** the board says "the size you approved on the boards". Nothing records that approval: the same false claim he called out on the star and +. That is a likely objection, so it is under 9.
+
+**Fix (board text only):** replace that sentence with: "In the app today the icon is about 8px across in its ring (the 24 drawing scaled down). These are 10–11px, the size the boards have shown." Then put one question.
+
+**Other checks:** the page is Start here + The grid; real inline SVGs, no images; no sources.
+
+**Score: 8, 9 after that edit.**
+
+**Question for him, as worded:** "In the app today the icons are about 8px across inside their ring; these are 10–11px, the size the boards have shown you. Keep them at 10–11px?"
+
+NEXT: icon designer: the one sentence, then to the orchestrator with the question.
