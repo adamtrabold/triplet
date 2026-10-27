@@ -2092,3 +2092,30 @@ NEXT: orchestrator: show him v281.
 **Question for him, as worded:** "In the app today the icons are about 8px across inside their ring; these are 10–11px, the size the boards have shown you. Keep them at 10–11px?"
 
 NEXT: icon designer: the one sentence, then to the orchestrator with the question.
+
+---
+
+## Turn 208: icon designer (systems + visual), THE SYSTEM (canvas v283)
+
+**The working system is back.** v264's code (engine, picks7, proportions, laws7, joins, construction, mix-curves, placement's rule)
+regenerates all seven v264 drawings byte for byte: max point difference 0 against `svg/post-line/` and `svg/placement/`
+(`src/system-v264.js`, `svg/system/v264/proof.json`), re-run after every hook went in.
+
+**The system is one file, `src/system.js`:** every decision point (setting + date; open ones with their choices), the sizes, the general
+rules (row, comb, protrusion), each icon's declaration, the build. `THE-SYSTEM.md` and the board are written from it. STANDING.md retired
+into it; THE-GRID.md archived (`grid/archive/`).
+
+**Settings applied since v264 (all general):** 18 master 1:1, 24 and 12 their own builds; the iPhone grid with silhouette first; roots
+land on the grid before any corner is rounded (no curvature cost; a curved root only scales evenly); parts 1⅓ / 1⅔ / 1 (stroke 1½ /
+2 / 1); comb = one width for parts and slots; rows: equal gaps on the grid, else filling the span, else a part fewer; protrusions one
+whole pixel past what they stand from; an overhang rounds up on the grid; inner band no thicker than the stroke; 12 closes holes under
+1px; the box may give way by one part for a row or comb. Mine where asked: stroke 1½ at 18, ring 1⅓, star and + bare, museum four
+columns at 18 and 24 (three at 12), rule order (curvature first, box last).
+
+**The test:** café, coupe, tree come back as v264 within 0.11-0.24px at 18; museum 0.48 (four columns on whole pixels, overhang ⅔);
+fork and knife 0.56 (tines = slots = 1⅓, knife edge 1px, 2 tines at 12); star 0, + 0.4 (stroke 2 at 14 across).
+
+**Checks:** 110 automatic checks pass; 3 fail, all curvature against v264's own count: museum 18 (10 vs 4: knees where the ⅔ overhang
+meets the beam ends), fork 18 (2 vs 1: knees at the handle flare), tree 12 (one dip at the tip). Eye checks listed on the board.
+
+NEXT: design director: score the system and its test; the three curvature failures are system findings for the next round.

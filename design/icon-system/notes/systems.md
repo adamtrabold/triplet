@@ -1,5 +1,32 @@
 # Systems designer notes: icon system
 
+## THE SYSTEM (2026-10-27, jam turn 208; icon designer carrying systems + visual)
+
+- **Where:** `grid/src/system.js` is the system: SETTINGS (every decision point: name, setting, date; open ones with choices; `designer`
+  marks the ones I set where asked), SIZES (18 master; 24 and 12 as their own builds; widths in px at that size), the general rules
+  (`row`, `comb`, `protrusion`), DECL (each icon's roots, relations, joins), the build. `grid/THE-SYSTEM.md` is written from it
+  (`node src/system.js spec`); the board from it too (`src/system-board.js`). Checks: `src/system-check.js` (`node src/system.js check`,
+  exit 1 blocks publishing). Proof: `src/system-v264.js` (regenerates v264 from the kernel; `svg/system/v264/proof.json`).
+  Landing: `src/system-land.js` (`landPrims`). Outputs `svg/system/<size>/<icon>.svg|json` (json: `drawn`, `d`, `meta`).
+- **The kernel is v264's code, unchanged in behaviour:** engine, picks7, proportions, laws7, joins, construction, mix-curves, placement's
+  rule. Hooks (all inert when unset, re-proved byte-identical): `global.SYSTEM_O` (construction's draw options per build: the museum's row),
+  `global.SYSTEM_PRIMS` (construction and mix-curves: land the roots before the corner law), picks7 `o.cols` may be a function
+  `(span, w, over) -> { n, w, span, over }`, one-side returns its `maps`.
+- **How a size is built:** PROP.line.post / band / cut are set from SIZES before the kernel loads (one size per process); the kernel fits
+  and draws in its 24 frame; the roots land on that size's iPhone grid (one-side's snap priority worked out on the plain union, applied
+  to the roots: straight roots take the map; a curved root moves whole or scales evenly so its curves keep their shape); then the corner
+  law and fairing run; at 12, holes under 1px close.
+- **Why roots first:** landing a finished outline stretches curves between landed edges and breaks curvature at joins (museum gable 31
+  faults); moving curve runs rigidly bent straight edges. Landing roots then rounding keeps every join fair.
+- **Decisions I made where asked (marked on the board):** stroke at 18 stays 1½ (v264's weight; outer side lands, inner half an iPhone px
+  soft); ring 1⅓ at 24 (whole px, lighter than the glyph); star = v264 at the 18 box (outline ≈1.35); + = v264 at 14 across, stroke 2,
+  centred; museum 4 columns at 18 and 24, 3 at 12 (3 at 18 read as a bank); rule order: curvature, minimum widths, same role,
+  protrusions, grid, box (the box may give way by one part for a row or comb).
+- **Open (his):** cutter rack in the engine; outline/solid logic; novelty; Shopping. Also the director's 8 vs 10-11px question was never
+  answered (the system keeps v264's 10-11px).
+- **Next:** his read on the board; every change he makes goes into SETTINGS/rules first. The builder takes `svg/system/<size>/` into
+  index.html when he says the look is good.
+
 ## Director fixes (2026-10-27, jam turn 199, canvas v276)
 
 - `one-side.js`: STANDARD[12].close (short counters drop their hole contour); every width whole iPhone pixels at 18 and 12

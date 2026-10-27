@@ -1,0 +1,732 @@
+{
+ "results": [
+  {
+   "size": 18,
+   "id": "cafe",
+   "checks": [
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "2 of 2 core outer edges on the iPhone grid; parts with both sides outside: 1 of 1 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 1.25px"
+    },
+    {
+     "point": "The box",
+     "ok": true,
+     "detail": "outer edges against v264 at this size: left -0.167, right -0.167, top 0, bottom -0.014"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "2 counters"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "0 curvature faults (v264: 1)"
+    }
+   ],
+   "v264": {
+    "hausdorffPx": 0.181
+   }
+  },
+  {
+   "size": 18,
+   "id": "bar",
+   "checks": [
+    {
+     "point": "Centring",
+     "ok": true,
+     "detail": "centre 0px off"
+    },
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "3 of 3 core outer edges on the iPhone grid; parts with both sides outside: 0 of 0 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 1.25px"
+    },
+    {
+     "point": "The box",
+     "ok": true,
+     "detail": "outer edges against v264 at this size: left +0.105, right +0.105, top +0.063, bottom -0.063"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "1 counters"
+    },
+    {
+     "point": "Inner bands",
+     "ok": true,
+     "detail": "band 1.055px, stroke 1.5"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "0 curvature faults (v264: 0)"
+    }
+   ],
+   "v264": {
+    "hausdorffPx": 0.242
+   }
+  },
+  {
+   "size": 18,
+   "id": "museum",
+   "checks": [
+    {
+     "point": "Centring",
+     "ok": true,
+     "detail": "centre 0px off"
+    },
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "12 of 12 core outer edges on the iPhone grid; parts with both sides outside: 0 of 0 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 1.25px"
+    },
+    {
+     "point": "The box",
+     "ok": true,
+     "detail": "outer edges against v264 at this size: left +0.444, right +0.444, top +0.124, bottom +0.19 (gives way to the row and the protrusion, as When rules meet sets)"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "4 counters"
+    },
+    {
+     "point": "Same role, same width",
+     "ok": true,
+     "detail": "counters 1.333, 1.333, 1.333; columns between them 1.333, 1.333"
+    },
+    {
+     "point": "Rows",
+     "ok": true,
+     "detail": "4 columns, 3 counters (on the grid)"
+    },
+    {
+     "point": "Chamfer under an overhang",
+     "ok": true,
+     "detail": "the beam runs 0.667px past the outer column; the bevel joins them (eye: it reads as a bevel)"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": false,
+     "detail": "10 curvature faults (v264: 4)"
+    }
+   ],
+   "v264": {
+    "hausdorffPx": 0.483
+   }
+  },
+  {
+   "size": 18,
+   "id": "nature",
+   "checks": [
+    {
+     "point": "Centring",
+     "ok": true,
+     "detail": "centre 0px off"
+    },
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "1 of 1 core outer edges on the iPhone grid; parts with both sides outside: 0 of 0 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 1.25px"
+    },
+    {
+     "point": "The box",
+     "ok": true,
+     "detail": "outer edges against v264 at this size: left -0.033, right -0.033, top +0.062, bottom -0.062"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "0 counters"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "0 curvature faults (v264: 0)"
+    }
+   ],
+   "v264": {
+    "hausdorffPx": 0.109
+   }
+  },
+  {
+   "size": 18,
+   "id": "restaurant",
+   "checks": [
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "5 of 5 core outer edges on the iPhone grid; parts with both sides outside: 10 of 10 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 1.25px"
+    },
+    {
+     "point": "The box",
+     "ok": true,
+     "detail": "outer edges against v264 at this size: left +0.375, right +0.374, top -0.167, bottom +0.167 (gives way to the row and the protrusion, as When rules meet sets)"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "1 counters"
+    },
+    {
+     "point": "Same role, same width",
+     "ok": true,
+     "detail": "parts 1.333, 1.333, 1.333; slots 1.333, 1.333"
+    },
+    {
+     "point": "Protrusions",
+     "ok": true,
+     "detail": "the edge stands 0.998px past what it sticks out from (minimum 1)"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": false,
+     "detail": "2 curvature faults (v264: 1)"
+    }
+   ],
+   "v264": {
+    "hausdorffPx": 0.558
+   }
+  },
+  {
+   "size": 18,
+   "id": "star",
+   "checks": [
+    {
+     "point": "Centring",
+     "ok": true,
+     "detail": "centre 0px off"
+    },
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "0 of 0 core outer edges on the iPhone grid; parts with both sides outside: 0 of 0 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 1.25px"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "1 counters"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "0 curvature faults (v264: 0)"
+    }
+   ],
+   "v264": {
+    "hausdorffPx": 0
+   }
+  },
+  {
+   "size": 18,
+   "id": "plus",
+   "checks": [
+    {
+     "point": "Centring",
+     "ok": true,
+     "detail": "centre 0px off"
+    },
+    {
+     "point": "+",
+     "ok": true,
+     "detail": "width 14 height 14"
+    },
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "4 of 4 core outer edges on the iPhone grid; parts with both sides outside: 4 of 4 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 1.25px"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "0 counters"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "0 curvature faults (v264: 0)"
+    }
+   ],
+   "v264": {
+    "hausdorffPx": 0.4
+   }
+  },
+  {
+   "size": 24,
+   "id": "cafe",
+   "checks": [
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "2 of 2 core outer edges on the iPhone grid; parts with both sides outside: 1 of 1 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 1.66px"
+    },
+    {
+     "point": "The box",
+     "ok": true,
+     "detail": "outer edges against v264 at this size: left -0.333, right +0.085, top 0, bottom +0.008"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "2 counters"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "0 curvature faults (v264: 1)"
+    }
+   ],
+   "v264": {
+    "hausdorffPx": 0.343
+   }
+  },
+  {
+   "size": 24,
+   "id": "bar",
+   "checks": [
+    {
+     "point": "Centring",
+     "ok": true,
+     "detail": "centre 0px off"
+    },
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "3 of 3 core outer edges on the iPhone grid; parts with both sides outside: 0 of 0 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 1.66px"
+    },
+    {
+     "point": "The box",
+     "ok": true,
+     "detail": "outer edges against v264 at this size: left +0.14, right +0.14, top +0.084, bottom +0.027"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "1 counters"
+    },
+    {
+     "point": "Inner bands",
+     "ok": true,
+     "detail": "band 1.415px, stroke 2"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "0 curvature faults (v264: 0)"
+    }
+   ],
+   "v264": {
+    "hausdorffPx": 0.331
+   }
+  },
+  {
+   "size": 24,
+   "id": "museum",
+   "checks": [
+    {
+     "point": "Centring",
+     "ok": true,
+     "detail": "centre 0px off"
+    },
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "12 of 12 core outer edges on the iPhone grid; parts with both sides outside: 0 of 0 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 1.66px"
+    },
+    {
+     "point": "The box",
+     "ok": true,
+     "detail": "outer edges against v264 at this size: left +0.148, right +0.148, top +0.018, bottom -0.08"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "4 counters"
+    },
+    {
+     "point": "Same role, same width",
+     "ok": true,
+     "detail": "counters 1.333, 1.333, 1.333; columns between them 2, 2"
+    },
+    {
+     "point": "Rows",
+     "ok": true,
+     "detail": "4 columns, 3 counters (on the grid)"
+    },
+    {
+     "point": "Chamfer under an overhang",
+     "ok": true,
+     "detail": "the beam runs 0.667px past the outer column; the bevel joins them (eye: it reads as a bevel)"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "4 curvature faults (v264: 4)"
+    }
+   ],
+   "v264": {
+    "hausdorffPx": 0.166
+   }
+  },
+  {
+   "size": 24,
+   "id": "nature",
+   "checks": [
+    {
+     "point": "Centring",
+     "ok": true,
+     "detail": "centre 0px off"
+    },
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "0 of 0 core outer edges on the iPhone grid; parts with both sides outside: 0 of 0 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 1.66px"
+    },
+    {
+     "point": "The box",
+     "ok": true,
+     "detail": "outer edges against v264 at this size: left +0.101, right +0.101, top -0.029, bottom +0.029"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "0 counters"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "0 curvature faults (v264: 0)"
+    }
+   ],
+   "v264": {
+    "hausdorffPx": 0.169
+   }
+  },
+  {
+   "size": 24,
+   "id": "restaurant",
+   "checks": [
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "5 of 5 core outer edges on the iPhone grid; parts with both sides outside: 10 of 10 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 1.66px"
+    },
+    {
+     "point": "The box",
+     "ok": true,
+     "detail": "outer edges against v264 at this size: left +0.167, right +0.166, top 0, bottom 0"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "1 counters"
+    },
+    {
+     "point": "Same role, same width",
+     "ok": true,
+     "detail": "parts 1.667, 1.667, 1.667; slots 1.667, 1.667"
+    },
+    {
+     "point": "Protrusions",
+     "ok": true,
+     "detail": "the edge stands 1.331px past what it sticks out from (minimum 1.33)"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "0 curvature faults (v264: 1)"
+    }
+   ],
+   "v264": {
+    "hausdorffPx": 0.5
+   }
+  },
+  {
+   "size": 12,
+   "id": "cafe",
+   "checks": [
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "2 of 2 core outer edges on the iPhone grid; parts with both sides outside: 1 of 1 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 0.99px"
+    },
+    {
+     "point": "The box",
+     "ok": true,
+     "detail": "outer edges against v264 at this size: left 0, right 0, top 0, bottom +0.021"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "1 counters"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "1 curvature faults (v264: 1)"
+    }
+   ],
+   "v264": {
+    "hausdorffPx": 1.497
+   }
+  },
+  {
+   "size": 12,
+   "id": "bar",
+   "checks": [
+    {
+     "point": "Centring",
+     "ok": true,
+     "detail": "centre 0px off"
+    },
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "3 of 3 core outer edges on the iPhone grid; parts with both sides outside: 0 of 0 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 0.99px"
+    },
+    {
+     "point": "The box",
+     "ok": true,
+     "detail": "outer edges against v264 at this size: left +0.07, right +0.07, top +0.042, bottom -0.153"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "1 counters"
+    },
+    {
+     "point": "Inner bands",
+     "ok": true,
+     "detail": "band 1.01px, stroke 1"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "0 curvature faults (v264: 0)"
+    }
+   ],
+   "v264": {
+    "hausdorffPx": 0.468
+   }
+  },
+  {
+   "size": 12,
+   "id": "museum",
+   "checks": [
+    {
+     "point": "Centring",
+     "ok": true,
+     "detail": "centre 0px off"
+    },
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "12 of 12 core outer edges on the iPhone grid; parts with both sides outside: 0 of 0 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 0.99px"
+    },
+    {
+     "point": "The box",
+     "ok": true,
+     "detail": "outer edges against v264 at this size: left +0.074, right +0.074, top +0.009, bottom -0.207"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "3 counters"
+    },
+    {
+     "point": "Same role, same width",
+     "ok": true,
+     "detail": "counters 1, 1; columns between them 1.333"
+    },
+    {
+     "point": "Rows",
+     "ok": true,
+     "detail": "3 columns, 2 counters (on the grid)"
+    },
+    {
+     "point": "Chamfer under an overhang",
+     "ok": true,
+     "detail": "the beam runs 0.334px past the outer column; the bevel joins them (eye: it reads as a bevel)"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "4 curvature faults (v264: 4)"
+    }
+   ],
+   "v264": {
+    "hausdorffPx": 0.724
+   }
+  },
+  {
+   "size": 12,
+   "id": "nature",
+   "checks": [
+    {
+     "point": "Centring",
+     "ok": true,
+     "detail": "centre 0px off"
+    },
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "1 of 1 core outer edges on the iPhone grid; parts with both sides outside: 0 of 0 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 0.99px"
+    },
+    {
+     "point": "The box",
+     "ok": true,
+     "detail": "outer edges against v264 at this size: left +0.167, right +0.167, top -0.181, bottom +0.181"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "0 counters"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": false,
+     "detail": "1 curvature faults (v264: 0)"
+    }
+   ],
+   "v264": {
+    "hausdorffPx": 0.246
+   }
+  },
+  {
+   "size": 12,
+   "id": "restaurant",
+   "checks": [
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "4 of 4 core outer edges on the iPhone grid; parts with both sides outside: 8 of 8 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 0.99px"
+    },
+    {
+     "point": "The box",
+     "ok": true,
+     "detail": "outer edges against v264 at this size: left -0.083, right -0.086, top 0, bottom 0"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "1 counters"
+    },
+    {
+     "point": "Same role, same width",
+     "ok": true,
+     "detail": "parts 1, 1; slots 1"
+    },
+    {
+     "point": "Protrusions",
+     "ok": true,
+     "detail": "the edge stands 0.996px past what it sticks out from (minimum 1)"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "1 curvature faults (v264: 1)"
+    }
+   ],
+   "v264": {
+    "hausdorffPx": 0.895
+   }
+  }
+ ],
+ "eye": [
+  "Every icon the same optical size and weight in the row, at 18 on the phone",
+  "Vertical centring reads right, per icon",
+  "Loosened, humanist curves; flares restrained and sound; no hump or wobble leaving a join",
+  "The museum reads as a museum, not a bank",
+  "The coupe's drink reads full",
+  "The star and + read as the set's weight",
+  "Each size reads as the same icon as the 18"
+ ],
+ "ok": false
+}

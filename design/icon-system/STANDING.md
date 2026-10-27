@@ -1,6 +1,6 @@
-# Icons: standing decisions
+# Icons: standing decisions (retired)
 
-Check every icon and every board against this list. Latest decision wins; update this file the same day the owner decides something.
+Retired 2026-10-27. Every decision now lives in the system, as a decision point with its setting and date: `grid/THE-SYSTEM.md`, written from `grid/src/system.js` (the code reads the same settings). Change the system, not this file. The list below is kept as it stood when it was folded in.
 
 ## System and grid
 - Build one harmonious, complete set plus rules that make future icons come out right first time. [10-21]

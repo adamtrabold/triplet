@@ -26,7 +26,7 @@ const VESSEL_ROOT = { bowlRoot: 7 / 8, bowlWide: true, bowlSplit: 'even', cupRoo
 // the cap's ends at half its height, every vessel's ellipse 4/5, the cup, coupe and museum by their ratios, thicknesses in lines
 const { PROP, capOver } = require('./proportions.js'), LN = k => +(k * W).toFixed(10), CAP_P = { root: 'ellipse', ry: 1, over: capOver(PROP.cap.end) };
 const O = { droop: 0.5, bow: -0.2, dome: true, ...COUPE_B, ...P7.VESSEL_SIDE, post: 1.25, starTip: 0.0877, plate: 0.5, colW: 1.25, struct: { ...STRUCT, ...JOINS }, bandH: 5 / 6, dome: 0.5, cap: CAP_RULE, capPlate: CAP_RULE, ...VESSEL_ROOT,
-  prop: PROP, cap: CAP_P, capPlate: CAP_P, post: LN(PROP.line.post), colW: LN(PROP.line.post), droop: PROP.line.droop, bow: PROP.line.bow , ...(global.SYSTEM_O || {}) };   // THE SYSTEM (system.js): a size's settings, when it builds
+  prop: PROP, cap: CAP_P, capPlate: CAP_P, post: LN(PROP.line.post), colW: LN(PROP.line.post), droop: PROP.line.droop, bow: PROP.line.bow  };
 const HUMAN_V = { flare: 0.5, mass: 0.6, end: 0.3, tipShare: 0.0877 };
 // g7ba: the law from the one table (PROP.rounds; src/rounds-check.js proves it answers as HUMAN(HUMAN_V) and the star's law did)
 const LAW = fromTable(PROP.rounds.shaped), LINE_LAW = fromTable(PROP.rounds.line), FK = 11 / 12;
@@ -60,7 +60,7 @@ const primOut = (q, dx = 0, dy = 0) => { const o = { t: q.t, root: q.root || nul
 
 function shaped(id, J = {}) {
   const opts = { law: LAW, tightHoles: true, ease: EASE, join: JOIN10 }, fast = { ...opts, join: { ...JOIN10, fair: false } };
-  const [cls0, apex] = CLASS[id], dr = (s, x = {}) => DRAW[id](s, { style: 'mono', ...O, ...x });
+  const [cls0, apex] = CLASS[id], dr = (s, x = {}) => DRAW[id](s, { style: 'mono', ...O, ...x, ...(global.SYSTEM_O || {}) })   // SYSTEM_O: the system's settings for this build (system.js);
   // g7az: the class by the drawing's proportion at its fitted size (px parts don't scale, so at 12 a drawing reads squatter than shown)
   const fitTo = c => { const kw_ = KEY[c][0] * FK, bh_ = (KEY[c][1] + apex) * FK; let s_ = 12; for (let k = 0; k < 4; k++) { const b = measure(E.build(dr(s_), fast).d).box; s_ *= Math.min(kw_ / (b.x1 - b.x0), bh_ / (b.y1 - b.y0)); } return s_; };
   const cb = J.fit ? J.fit.classFrom : classByProportion(id, () => dr(['WIDE', 'SQUARE', 'TALL'].includes(cls0) ? fitTo(cls0) : 12), fast, apex, cls0), cls = cb.cls, kw = KEY[cls][0] * FK, bh = (KEY[cls][1] + apex) * FK;
@@ -85,7 +85,7 @@ function shaped(id, J = {}) {
   const prims = E.xform(prims0, 1, 0, 0, ox + tx, ty);
   const laws = [], cornerLog = [];
   const law = c => { const r = LAW(c); laws.push({ pt: c.pt, convex: c.convex, hole: !!c.hole, angle: c.angle, lin: c.lin, lout: c.lout, r, why: lawWhy(c) }); return r; };
-  const d = E.build(prims, { ...opts, law, join: { ...JOIN10, cornerLog, flareLog: [], arcLog: [] }, sym }).d;
+  const d = E.build(global.SYSTEM_PRIMS ? global.SYSTEM_PRIMS(prims, sym) : prims, { ...opts, law, join: { ...JOIN10, cornerLog, flareLog: [], arcLog: [] }, sym }).d;   // SYSTEM_PRIMS: the system lands the roots on the grid first (system-land.js)
   if (J.fit) return { id, s, tx, ty, d, corners: cornerLog };   // a jitter rebuild: the outline only
   const raw = E.build(prims, { ...opts, join: JOIN10 }).d;   // before the mirror, for the record
   const sharp = E.build(prims).d;                           // the union, before the corner law

@@ -123,8 +123,9 @@ function buildIcon(name, J = {}) {
   const icon = ICONS[name](J);
   let prims = [...icon.roots.map(r => r.prim), ...icon.cuts];
   if (!icon.selfShift && (J.dx || J.dy)) { prims = E.xform(prims, 1, 0, 0, J.dx || 0, J.dy || 0); icon.roots = icon.roots.map((r, i) => ({ ...r, prim: prims[i] })); }
-  const log = [];
   const sym = icon.sym != null ? icon.sym + (J.dx || 0) : undefined;
+  if (global.SYSTEM_PRIMS) { prims = global.SYSTEM_PRIMS(prims, sym); icon.roots = icon.roots.map((r, i) => ({ ...r, prim: prims[i] })); }   // the system lands the roots first
+  const log = [];
   const d = E.build(prims, { law: lawFor(icon, log), tightHoles: icon.loose ? false : true, ease: 2.3, join: { ...JOIN10 }, sym }).d;
   return { d, log, sym };
 }

@@ -209,7 +209,7 @@ function land(d0, { size = 24, sym = null, symY = null, std: stdIn = null } = {}
   const wk = size / 24, wOK = c => c == null || Math.abs(2 * c * wk - Math.round(2 * c * wk)) < 1e-6;
   const E = findEdges(d), isOut = outside(d), mx = landAxis(E.x, ...stemsOf(E.x), isOut, 'x', k, sym, null, null, null, wOK(sym) ? wk : null), my = landAxis(E.y, ...stemsOf(E.y), isOut, 'y', k, symY, null, null, null, wOK(symY) ? wk : null);
   const r = apply(d, mx.m, my.m);
-  return { d: r.d, maxMove: r.maxMove, opened, shift, sym, size, k };
+  return { d: r.d, maxMove: r.maxMove, opened, shift, sym, size, k, maps: [mx.m, my.m] };   // maps: the landing as a map of the plane (system-land.js)
 }
 const evenUp = n => { const r = Math.round(n); return r % 2 ? r + 1 : r; };   // a centred part: an odd count goes up one, so both sides land and the centre never moves
 const evenTie = v => { const f = Math.floor(v), r = v - f; return Math.abs(r - 0.5) < 0.02 ? (f % 2 ? f + 1 : f) : Math.round(v); };   // a tie (within 1/50 of a pixel) goes to the even count

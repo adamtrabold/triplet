@@ -545,14 +545,14 @@ const BATCH = [['cafe', 'Café'], ['bar', 'Bar'], ['museum', 'Museum'], ['nature
 //               posts the plinth's top falls to the plate rule's 1px end, and the outer posts flare into it on the
 //               OUTSIDE only (an opening is a counter: it stays square)
 function structMuseum(s, o) {
-  const u = s / 12, X = v => f(v * u), Y = v => T(v * u), c = s / 2, st = o.struct, sh = slabH(o), cw = o.colW ?? W;
+  const u = s / 12, X = v => f(v * u), Y = v => T(v * u), c = s / 2, st = o.struct, sh = slabH(o), cw0 = o.colW ?? W;
   // g7az o.prop (PROP.museum, PROP.line): the beam is the widest root (11 1/2 units, the cut); it passes the colonnade by 1/3 of a
   // post each side, as the plinth does; the roof rises pitch (1/3) of its run from the top of its 4/5-line ends; the columns
   // stand columns (1/3) of the colonnade's width tall, to the lattice
   const pm = o.prop && o.prop.museum, stepP = o.prop ? o.prop.line.step * W : 0, overP = pm ? pm.over * o.prop.line.post * W : 0;
   const gb = Y(st.gb ?? 3.667), bt = gb + CUT, ct = bt + sh;
-  const hs = pm ? X(11.5 / 2) - overP : X((st.span ?? 10.5) / 2), xa = c - hs, xb = c + hs, bo = pm ? overP : X(st.beamOver ?? 0.5), bL = xa - bo, bR = xb + bo;
-  const geP = pm ? o.prop.line.gableEnd * W : null, ap = pm ? f(gb - geP - pm.pitch * (bR - bL) / 2) : X(st.ap ?? 1.667), pl = pm ? T(ct + pm.columns * 2 * hs) : Y(12) - sh;
+  const hs0 = pm ? X(11.5 / 2) - overP : X((st.span ?? 10.5) / 2), ROW = typeof o.cols === 'function' ? o.cols(2 * hs0, cw0, overP) : null, hs = ROW ? ROW.span / 2 : hs0, cw = ROW && ROW.w ? ROW.w : cw0, overQ = ROW && ROW.over != null ? ROW.over : overP, xa = c - hs, xb = c + hs, bo = pm ? overQ : X(st.beamOver ?? 0.5), bL = xa - bo, bR = xb + bo;
+  const geP = pm ? o.prop.line.gableEnd * W : null, ap = pm ? f(gb - geP - pm.pitch * (bR - bL) / 2) : X(st.ap ?? 1.667), pl = pm ? T(ct + pm.columns * 2 * hs0) : Y(12) - sh;
   const out = [];
   // the roof
   const ev = st.eave;
@@ -571,7 +571,7 @@ function structMuseum(s, o) {
     // g7ba: drawn by joins.js heldSlab, the one drawing of OVERHANG + HOLDS (the same path as before, byte for byte)
     out.push(require('./joins.js').heldSlab({ x0: bL, x1: bR, yFar: bt, yNear: by, left: { x: xa, w: cw, over: bo }, right: { x: xb, w: cw, over: bo }, dp, fr, k }));
   } else out.push(R(bL, bt, bR - bL, sh, { root: 'SLAB' }));
-  const n = typeof o.cols === 'function' ? o.cols(2 * hs, cw) : o.cols ?? 4, gp = (2 * hs - n * cw) / (n - 1), bat = st.batter || 0;
+  const n = ROW ? ROW.n : o.cols ?? 4, gp = (2 * hs - n * cw) / (n - 1), bat = st.batter || 0;
   for (let i = 0; i < n; i++) { const x = xa + i * (cw + gp);
     // THE BATTER (the widening rule): an outer post's OUTSIDE edge leans out toward the ground by st.batter px, as the
     // tree and the coupe's foot widen downward; its inside edge, an opening's side, stays upright
@@ -582,7 +582,7 @@ function structMuseum(s, o) {
   // the plinth
   const ft = st.foot;
   if (ft) {
-    const po = pm ? overP : X(ft.over), pL = xa - po, pR = xb + po, dp = pm ? stepP : ft.drop ?? (sh - 1), fr = pm ? stepP : ft.flare ?? 0.5, k = ft.k ?? 0.5;
+    const po = pm ? overQ : X(ft.over), pL = xa - po, pR = xb + po, dp = pm ? stepP : ft.drop ?? (sh - 1), fr = pm ? stepP : ft.flare ?? 0.5, k = ft.k ?? 0.5;
     // right shoulder from the end up into the outer post, then mirrored (the openings' floor stays the flat plinth top)
     out.push(require('./joins.js').heldSlab({ x0: pL, x1: pR, yFar: pl + sh, yNear: pl, left: { x: xa, w: cw, over: po }, right: { x: xb, w: cw, over: po }, dp, fr, k }));   // g7ba: joins.js
   } else out.push(R(xa - X(st.plOver ?? 0.5), pl, 2 * hs + 2 * X(st.plOver ?? 0.5), sh, { root: 'SLAB' }));
