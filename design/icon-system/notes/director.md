@@ -850,3 +850,26 @@ The fix is in, and the museum's mirror is fixed at every size. I verified the de
 **If he rejects it, look at:**
 - the solid coupe at 12;
 - the 2px museum columns against v264's four.
+
+## Silhouette first (v278, e980d255, 2026-10-27): 9, to him, no question
+
+**His new words:**
+- the external form snaps first;
+- 1¼ is ok (this reverses "nothing should go that thin" for posts);
+- the ring is slightly heavy;
+- the star and + are not approved (nothing records approval of the six);
+- cut the canvas.
+
+**Verified:**
+- my renders (`grid/stills/back/director/v278/`);
+- build extents;
+- canvas.json: the grid page is Start + The grid;
+- Start here's text;
+- no "approved" or source names.
+
+**If he rejects it, look at:**
+- the 5K at 18/12 (⅓px off whole px; fixing it means moving shapes by ⅓px);
+- the fork and knife lightness;
+- the 12 museum narrowed to 14 iPhone px.
+
+**Standing rule now:** never call the six approved; check the canvas holds only Start here + one board per open topic.

@@ -1679,3 +1679,15 @@ The verdict stands within our own set:
   - the museum is mirrored at every size and still v264's temple by eye at 24;
   - the rest is as in v276.
 - **Jam turn 202.**
+
+## Round: silhouette first (canvas v278, e980d255), 2026-10-27: 9, to him, no question
+
+- **True:**
+  - the silhouette lands first: iPhone 48/54 at 24, 52/53 at 18, 53/54 at 12; 5K at 24 17 → 25, the plinth sharp;
+  - the 1¼ posts read like one family with the strokes;
+  - the ring 1¼ / rim 1½ balances the lighter glyphs;
+  - the page is Start here + The grid only;
+  - the star and + are bare and "not decided";
+  - no sources.
+- **Watch:** the 5K at 18 and 12 is still mostly ⅓px off whole px (no worse than v277); the fork and knife −15% ink; the museum chip narrower.
+- **Jam turn 204.**

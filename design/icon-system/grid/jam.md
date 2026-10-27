@@ -1968,3 +1968,49 @@ NEXT: orchestrator: show him v277.
    drawings.
 
 NEXT: design director: score v278 (the silhouette rule, the 1 1/4 posts, the ring) at 24, 18 and 12 on both screens.
+
+
+---
+
+## Turn 204: design director, v278 (e980d255): 9, to him, no question
+
+**His words this round:**
+- "i think we need rules as far as what side is pixel snapped so that we reduce blurriness on the external form first"
+- "i think 1 1/4 has to be ok ... the exterior circle is also feeling slightly heavy now"
+- the star and + were "not 'been approved'"
+- "can we reduce content in here"
+
+**Rendered myself** (`back-shots.js`, v277 above, now below; crops in `stills/back/director/v278/`). I read the silhouette extents from both builds and checked the live canvas (canvas.json, Start here's text).
+
+**The 1¼ parts, by eye at true size:**
+- **Better.** The coupe stem, trunk, fork and knife read like one family with the 1½ strokes, not stout.
+- The fork and knife are the biggest change (−15% ink). Beside the café and museum at 24 they now read as cutlery, not a block, and the knife's edge is still clear.
+- The museum's 1½ columns read as an even colonnade at 24 and 18.
+- At 12 the museum is narrower and lighter than v277 (14 against 16 iPhone px, ink −20%), but it is still three columns, centred on 18, and at the set's weight.
+
+**The ring, 1¼ at 24 and 1½ on the 26px badge:** right beside the lighter glyphs. The badge at 18 reads as a frame, no longer the heaviest thing in it. It answers his "slightly heavy".
+
+**Silhouette first:**
+- iPhone: everything that can land does (24: 48 of 54; 18: 52 of 53; 12: 53 of 54).
+- 5K at 24: 17 → 25, and the museum's plinth bottom he flagged is now sharp.
+- 5K at 18 and 12: mostly ⅓px off a whole px, same as v277 by eye, no worse.
+  - Physically, a whole px is the only unit that lands on both screens. Reaching it from ⅓px would move shapes.
+  - The board says so in one plain line, and he set iPhone as the core.
+- A watch, not a block.
+
+**The page:**
+- Grid concepts holds only Start here (five short items) and The grid.
+- The latest is named in the first line. Everything else is archived.
+- The star and + are bare at their app size and called "not decided". Nothing is called approved.
+- No sources in the spec, Start here or the board.
+
+**Likely objections:** unlikely ones only.
+- the 5K softness at 18/12 if he zooms on his Mac;
+- the fork and knife a touch light beside the café;
+- the museum chip narrower.
+
+None is one of his standing asks broken.
+
+**Score: 9.** The work changed for real: his snap priority became a rule, plus his 1¼ and a lighter ring. No question for him.
+
+NEXT: orchestrator: show him v278.
