@@ -282,3 +282,6 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > (10-27) oh my god why the fuck are the brand and icon decisions not persistent we are building a SYSTEM
 > (10-27) no this is a bad way. create the SYSTEM to derive the icons. THEN create the icons. we are trying to get the SYSTEM to the right place so that the ICONS follow.
 > (10-27) bring back all of my decisions around source tooling, curvature, etc etc
+> (10-27) make that part of the SYSTEM
+> the system should be EVER PRESENT
+> all the decisions we make should be evolving the SYSTEM and we are testing these first six icons as a TEST OF THE SYSTEM

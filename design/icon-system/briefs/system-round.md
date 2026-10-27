@@ -9,6 +9,17 @@
 
 Earlier, still standing: "I think declarative is fine but I don't want it to be so specific…it needs to be a flexible system that outputs coherent consistent icons." · "the brand should be built into the root calls" · "ideally future ones come out perfect on first try" · "no i want the base grid to make great icons without extrawork" (meaning: no per-device refit; the system itself produces crisp icons for the iPhone) · "they should be drawn at the right size" / "yes 18 should be the master, detail should be adjusted for 24px and 12px".
 
+> make that part of the SYSTEM
+> the system should be EVER PRESENT
+> all the decisions we make should be evolving the SYSTEM and we are testing these first six icons as a TEST OF THE SYSTEM
+
+## What that means for how we work (standing)
+
+- The SYSTEM (`grid/THE-SYSTEM.md` + the engine) is the one place every decision lives. STANDING.md folds into it: each of his decisions is a rule of the system (in the spec and, where it can be, in code), not a separate list. Delete nothing; retire STANDING.md into the system and point to it.
+- Every decision he makes from now on changes the system first; icons change only because the system did.
+- The six (café, coupe, museum, tree, fork and knife; star and + as line marks) are a test of the system. A wrong icon is a finding about the system.
+- The system is ever present: "The system" board is always the first thing on the page, and every round shows the system and its current rules beside the test icons.
+
 ## Inputs (read all)
 
 - `design/icon-system/STANDING.md`: every standing decision, latest wins. This is the system's requirements list.
