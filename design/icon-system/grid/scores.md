@@ -1691,3 +1691,18 @@ The verdict stands within our own set:
   - no sources.
 - **Watch:** the 5K at 18 and 12 is still mostly ⅓px off whole px (no worse than v277); the fork and knife −15% ink; the museum chip narrower.
 - **Jam turn 204.**
+
+## Round: drawn at the size it ships (canvas v281, 0b32de45), 2026-10-27: 8, 9 after one board edit, with one question
+
+- **Context:** a third rejected 9 (v278/v280). I now judge at the shipped size first.
+- **True:**
+  - 18 in the ring is crisper and more legible than v280 on both screens;
+  - the museum is three free columns;
+  - 1⅓ strokes and rim read right;
+  - the 12 coupe is full;
+  - the + at 2px is fine;
+  - the star's grey is its diagonals.
+- **Block:** the board says "the size you approved on the boards". No approval is recorded.
+- **His call:** the glyph is 10–11px against the app's ~8px today.
+- **Question:** "In the app today the icons are about 8px across inside their ring; these are 10–11px, the size the boards have shown you. Keep them at 10–11px?"
+- **Jam turn 207.**
