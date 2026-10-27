@@ -276,3 +276,4 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > they should be drawn at the right size
 > (10-27) yes 18 should be the master, detail should be adjusted for 24px and 12px
 > (10-27, on v282) i want to see them in the app. i meant 3 counters in the museum, but maybe this works. easier to fit at that size with less detail. the coupe interior has really changed
+> (10-27, on v282) it's not acceptable that the fork tines and counters are different widths
