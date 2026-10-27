@@ -15,25 +15,21 @@ The drawings as of v264 ("Brand and Shopping", the round he called "ok this is a
 
 ## The rule he means ("one side should be pixel fitting")
 
-From the research (sources below): a 1.5px stroke keeps ONE side on the pixel grid (Shopify Polaris: "since the stroke has half a pixel, one side of the stroke should always be aligned with the pixel grid"); "Align the outer edge of shapes to pixel boundaries when possible" and don't align the inner edge (GitHub Octicons, 1.5px stroke at 16 and 24).
+A 1.5px stroke keeps one side on the pixel grid. The outer edges of shapes land on pixel boundaries; inner edges do not have to.
 
-## Leanings the orchestrator proposes to absorb (the owner asked; he may strike any; you own how they become rules)
+## Leanings to absorb (the owner may strike any; you own how they become rules)
 
-1. Outer edges of shapes and one side of each 1.5 stroke on the grid; inner edges, counters and cut-outs sized by eye (Octicons; Polaris even cuts 1.25 inside shapes).
-2. Alignment never at the cost of shape, curves or balance (Lucide: "Pixel alignment should not take precedence over the visual quality of the icon").
+1. Outer edges of shapes and one side of each 1.5 stroke on the grid; inner edges, counters and cut-outs sized by eye (they may be thinner than the stroke if they read).
+2. Alignment never at the cost of shape, curves or balance.
 3. Curves and diagonals aren't snapped; their extremes (a bowl's bottom, a side) may be.
-4. iPhone (3x) is the core output: "the grid" is what lands on its pixels by construction, not a refit pass. Say which unit that is and why (the old 1/3px lattice = one iPhone device pixel); the 5K (2x) is a check, not the target.
-5. Size-specific drawings where a size needs it (Octicons draws 16 and 24 separately; Mantia: "It is just as important to create additional detail in a large icon as it is to remove excess detail in a small icon"): at least the 12px filter chip, and the in-app 18px badge glyph, as their own standards.
-6. Optics over maths: overshoot, keylines per silhouette, weight judged by eye at true size on the target screen (Frere-Jones; Iconic: "Your eye balances mass, not bounding boxes").
-7. Brand through traits (Mantia: "Use elements of your brand like color, shape, weight, and style").
+4. iPhone (3x) is the core output: the grid is what lands on its pixels by construction, not a refit pass. Say which unit that is and why (the old 1/3px lattice = one iPhone device pixel); the 5K (2x) is a check, not the target.
+5. Size-specific drawings where a size needs it: at least the 12px filter chip and the in-app 18px badge glyph, as their own standards. Add detail at large sizes, remove it at small ones.
+6. Optics over maths: overshoot, keylines per silhouette, weight judged by eye at true size on the target screen.
+7. Brand through traits: colour, shape, weight, style.
 
 ## Carry-overs to answer on these drawings (his asks since v264 that are still open)
 
 Coupe: drink reads full. Museum and coupe counters readable (he floated 2px, then a 1px minimum; judge by eye, not by rule). Knife edge visibly sticks out at 24. Star: one drawing, row and tag, sized by its real context, never in a ring. +: centred, equal arms, same visual weight as the set, in its button. Museum: three columns "the most visually balanced"; keep its approved size.
-
-## Sources (for the designer only; never in the spec, board or notes: the owner wants "clean and simple directives only")
-
-Primer/Octicons https://primer.style/octicons/design-guidelines · Shopify Polaris https://polaris.shopify.com/design/icons/creating-icons · Lucide https://lucide.dev/contribute/icons/specification and /design-principles · Apple high-res https://developer.apple.com/library/ios/DOCUMENTATION/GraphicsAnimation/Conceptual/HighResolutionOSX/Optimizing/Optimizing.html · Material Symbols optical size https://developers.google.com/fonts/docs/material_symbols · Louie Mantia https://lmnt.me/blog/1024x1024.html, https://notes.jim-nielsen.com/n/2018-07-28-1227/ · Frere-Jones overshoot https://stockholmstypografiskagille.se/typonyheter/typeface-mechanics-001/ · Iconic https://iconic.iconbuddy.com/p/week-01-why-your-icons-look-off · Nucleo https://nucleoapp.com/ui-icons
 
 ## Deliver
 
