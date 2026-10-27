@@ -269,3 +269,4 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > (10-27) can we reduce content in here i have no idea what is the latest and it seems impossible for you to keep clear and up to date   (rule: the Grid concepts page holds only Start here + one board per open topic; superseded boards are archived the same round)
 > (10-27, on v278 "The grid") these seem way blown up on this view
 > i dont want images i want the actual svgs   (the board showed enlarged "one block per device pixel" PNGs; standing rule: boards show the real SVGs inline at true CSS size so his own screen renders them)
+> (10-27, on v280 "The grid", real SVGs at true size) now looks a lot worse somehow. and i dont want two cols in the museum i need three two reads as a bank
