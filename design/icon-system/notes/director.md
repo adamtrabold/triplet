@@ -795,3 +795,34 @@ Fresh blind read (`shopping/blind-read-1.md`):
 If he rejects it, the reason is the best signal yet of what he reads as "the right weight".
 
 **Pattern resolved this round:** two rounds of fixes came from rules (stroke-or-solid, the give order), not hand moves.
+
+## Back to the drawings (v275, 336a7144, 2026-10-27): 8, not to him
+
+**Context:** he turned down v269 and v274 (both my 9s); v274 "dont look nearly as good as before". He sent the set back to the v264 drawings with "one side should be pixel fitting", iPhone as the core output, size-specific standards fine, and directives only, no sources.
+
+**My calibration now:** v264 beside it at true size first, every shipped size (24, 18, and the 12 chip), then the numbers. Last round I never looked at the 12 chip closely; this round it's where both blocks are.
+
+**Verified:**
+- my own renders (`grid/stills/back/director/`);
+- build.json maxMove (the ⅙px claim is false at 24: 0.206 / 0.176 / 0.175);
+- the museum's x edges at 24 / 18 / 12 (columns 1½ / openings 2.08 at 24; ⅔ / 1⅓ at 12);
+- the coupe at 12 (cut 8.67 to 10.31 against a drink about 1.8 tall, in the 24 box);
+- no source names in THE-GRID.md or the board.
+
+**By eye:** at 24 it is the best this set has looked: v264, crisper.
+
+**Blocks:**
+1. coupe empty at 12;
+2. museum windows at 12 and 18, near it at 24;
+3. the false ⅙px claim;
+4. the spec carries history.
+
+**On the 18/12 strokes:** a size-specific standard (the 24's line scaled and rounded to the nearest iPhone pixel), reading v264's weight. Not a weight change for him.
+
+**What keeps blocking a 9:**
+- A rule applied uniformly (now "open the counter to the size's minimum") spends one of his standing asks at a size nobody looked at closely: the drink.
+- The museum keeps being a numbers fit, not a balance judged by eye.
+
+**Lesson:** score every shipped size by eye against his standing asks, not just the 24.
+
+**Next:** the designer fixes 1-4; I re-score at 12, 18 and 24 against v264. If they hold, a 9 with no question.

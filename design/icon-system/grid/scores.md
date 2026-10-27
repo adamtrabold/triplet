@@ -1644,3 +1644,18 @@ The verdict stands within our own set:
   - the roof is a touch flatter, in character.
 - **Risks, each unlikely:** small openings; a flatter roof; 5-9.5% darker.
 - **Jam turn 196.**
+
+## Round: back to the drawings (canvas v275, 336a7144), 2026-10-27: 8, not to him
+
+- **True:**
+  - at 24 it's v264 by eye and crisper on the iPhone;
+  - the knife's edge is visible; the coupe is full at 24; one smaller star; the + centred;
+  - the 5K is as sharp as v264;
+  - no source references.
+- **Blocks:**
+  - the coupe at 12 reads empty (the band is taller than the drink);
+  - the museum at 12 and 18 reads as a box with two windows;
+  - "at most ⅙px" is false at 24 (fork and knife 0.206);
+  - THE-GRID.md §4-6 are history, not directives.
+- **18/12 strokes:** a size-specific standard; they read v264's weight. Not his decision.
+- **Jam turn 198.**

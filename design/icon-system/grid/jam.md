@@ -1790,3 +1790,47 @@ Board "The grid" replaced in place (1200 × 2392); v274's archived as "Archive-T
 Phone stills `grid/stills/back/phone/back-1..2.png`. No question for him.
 
 NEXT: design director: score v275 at true size on the iPhone, v264 beside it, then to him.
+
+
+---
+
+## Turn 198: design director, scoring v275 "The grid" (back to the drawings, 336a7144)
+
+**Signal I scored against:** he turned down my last two 9s (v269, v274: "I'm bummed these dont look nearly as good as before"). So a 9 now means: looks as good as v264 to him by eye, and sharper on the iPhone. I put v264 and v275 side by side at true size.
+
+**Rendered myself:** `node src/back-shots.js` to my scratchpad, then enlarged with nearest-neighbour. Crops in `stills/back/director/` (`cmp-24-3x`, `cmp-24-2x`, `cmp-18-12-3x`, `cmp-12-big`, `cmp-btn`).
+
+**At 24 on the iPhone (the core):** this is v264 again, crisper.
+- Café, tree: the same drawings, sharper saucer and trunk.
+- Fork and knife: the knife's edge now shows; the tine gaps are clear.
+- Coupe: the drink reads full at 24 under a 1px band.
+- Star: smaller (his "way too big"), one drawing.
+- +: dead centre in its button, the set's weight.
+- On the 5K it is as sharp as v264.
+
+**Blocks:**
+1. **The coupe at 12 reads empty.** The band opened to the 12's counter minimum. Now the band is taller than the drink under it, and the bowl reads as an outline glass with a dark crescent (`cmp-12-big`). That is his "the drink looks empty", at the chip size.
+2. **The museum at 12 (and less so at 18) reads as a box with two windows, not a colonnade.** Its columns are ⅔px and the openings 1⅓px. At 24 it holds, but the openings (2.08) are wider than the columns (1½), so it is close to the same read. He asked for three columns because "that icon feels the most visually balanced". This one isn't yet, at the chip.
+3. **The board and spec say "each moves at most ⅙px". That isn't true at 24.** build.json gives maxMove 0.206 on the fork and knife, and 0.175 and 0.176 on the coupe and museum. Make the rule or the number true.
+4. **THE-GRID.md §4-6 are a changelog, not directives** (version numbers, what retired). He asked for "clean and simple directives only". Move the history to history.md. No source references anywhere: checked, clean.
+
+**The 18/12 strokes (1px, ⅔px):**
+- I read these as a size-specific standard, not a weight change. They are the 24's line shrunk with the icon and rounded to the nearest iPhone pixel.
+- By eye at 18, the row reads the same weight as v264's 18. The designer tried the heavier rounding and it read a size heavier.
+- "nothing should go that thin" was about posts thinner than the line within the 24. It does not apply here.
+- Not a question for him, as long as the board keeps saying it plainly.
+
+**Likely objections:**
+- the empty coupe in the chip (likely);
+- the museum chip reading as windows (likely);
+- otherwise none at 24.
+
+**Score: 8.** Fix 1-4, then a 9 with no question. The 24 is the best this set has looked. The work changed for real since v274: it is back to the drawings.
+
+**Fixes:**
+1. Coupe at 12: the drink must read as the larger dark mass under the rim. Whether by dropping the band at 12 (remove detail at small sizes) or another way is the designer's call. Judge it at 12 on 3x.
+2. Museum at 12 and 18: the columns must read as columns, and the openings no wider than the eye allows for a colonnade. At 24, check the column-to-opening balance against v264's temple. A column isn't a stroke, so it may be heavier than 1½ if that reads right.
+3. Make the ⅙px claim true, or restate it.
+4. THE-GRID.md: directives only, history out.
+
+NEXT: icon designer: fixes 1-4, re-shoot the 12 and 18 rows, then back to me.
