@@ -1610,3 +1610,24 @@ NEXT: icon designer (pixel shapes): edits 1-2, no drawing change. Then the orche
 No drawing changed. Question 1 now reads the director's wording exactly ("Museum: E (three columns, 9½ wide) or D (four columns with 1px openings, 10 wide)? Both are about 1px taller than approved."); the museum section leads with E, says both are ~1px taller (10.7 / 10.8 vs 9.6), and has no lean; the trade box gives the soft counts with E and with D. Board 940 × 2336; v270 archived (`Archive-G7bm-Sharp.dc.html`); Start item 6 matches. Stills `stills/pixel-shapes/r8/sharp-v271-1..3.png`, each opened at phone size.
 
 NEXT: orchestrator: show him v271.
+
+
+---
+
+## Turn 191: icon designer (systems + visual, new to the seat), THE grid (canvas v272)
+
+Brief `briefs/grid-round.md`; his newest line (via the coordinator): "I want them to be as sharp as possible and strokes to be 1.5px. If it's not a strike it doesn't have to be 1.5px! Just has to read the right weight".
+
+**One grid** (`grid/THE-GRID.md`, `src/the-grid.js`): 1px cells, 24 frame shown 1:1, the centre on a grid line. Shapes on lines; strokes 1½, one edge on a line and one on the half line. Solid 2 (every solid part: the only whole px at or over the 1½ floor), gap 1 (between parts), counter 1 or 2 across and ≥ 2 along (else the root grows a px), overhang 1, point may pass its box by ½. Class boxes in whole px: Square 10, Wide 11 × 9, Tall 8 × 11; marks: star 12 tall, + 13½. A centred row: the thing on the centre is even (odd count of 2px parts: 1px gaps; even count: 2px gaps). A centred stroke: centre on k + ¼ (the +, its frame centred in its button).
+
+**The six, generated** (engine law unchanged): café 11 × 9 (ear 5 → 6 so its counter isn't a dot), coupe 10 × 10 (rim 2, band 1, drink 3), museum 10 × 10.47 (three 2px columns, 1px openings; four can't fit: an even count needs 2px openings, 16 wide), tree 7.29 × 11.21 (tiers fixed, trunk 2), star 12.6 × 12, + 13½. **Check** (`src/grid-check.js`): 0 of 60 edges off the grid (approved 61 of 65); soft 5K 54 → 0, iPhone 53 → 6 (the +'s half-line edges). No named exceptions.
+
+**Costs, stated:** badge icons 5-32% more ink than approved (coupe most); museum 1px taller (slabs 1.04 → 2, explained in numbers on the board); tree tips 0.16 longer. Fair-check KNEEs at the museum's 1px bevel and the café's ear foot (join craft, open).
+
+**Retired:** the ⅓px lattice and fractional cuts, posts and slabs at the line, `PROP.px`, sums from the centre line, ¾ and 1½ bands, the ¼px offset, option menus.
+
+**His one question:** the coupe: drink 3 at 10 tall, or 9 tall with a drink of 2.
+
+Board "The grid" 1200 × 2397 (measured locally, frame 2398), after Start here; Now moved right (x 2120); "Sharp at 2x and 3x" archived (Archive page x 8820 y 210000); Start: a "New" line and item 6 replaced. Stills `grid/stills/the-grid/phone/grid-1..3.png`.
+
+NEXT: design director: score the grid and the six on v272 before the orchestrator shows him.

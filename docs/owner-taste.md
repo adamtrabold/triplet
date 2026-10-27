@@ -197,6 +197,12 @@ sources are the file where the quote is recorded.
 - **A drink must read full.** "for the coupe, a b and c are all terrible --
   the drink looks empty." (2026-10-26, same board; his long history on the
   liquid is in `design/icon-system/owner.md`).
+- **One grid; sharp first; strokes 1½, solids whole px.** "I need a grid and
+  visual system that creates coherent icons based on our rules"; "I want them
+  to be as sharp as possible and strokes to be 1.5px. If it's not a strike it
+  doesn't have to be 1.5px! Just has to read the right weight" (2026-10-26/27;
+  "strike" = stroke). With "nothing should go that thin" (no ink under 1½):
+  the spec is `design/icon-system/grid/THE-GRID.md`.
 
 ## Shadows / edges / lines
 

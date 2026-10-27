@@ -1,6 +1,8 @@
 # Sharp at 2x and 3x
 
-## Round 8 (10-26, canvas v270, edited v271): the owner's answer to v269. CURRENT
+**Superseded 10-27 by THE grid (`THE-GRID.md`, `src/the-grid.js`).** Rounds 1-8 below are history; their rules are retired or reconciled there (section 6).
+
+## Round 8 (10-26, canvas v270, edited v271): the owner's answer to v269. Superseded by THE grid
 
 **v271 (director turn 189, no drawing changed):** the museum lean is dropped and E (his "three cols") comes first; the board and question 1 say both options are about 1px taller than approved (E 10.7, D 10.8 vs 9.6; the slabs are now 2px). Soft counts in the trade box are given for both (with E: 5K 17, iPhone 23; with D: 5 / 15). Board 940 × 2336; v270 archived as `Archive-G7bm-Sharp.dc.html` (x 7800 y 210000); stills `stills/pixel-shapes/r8/sharp-v271-1..3.png`. The "Lean D" below is withdrawn.
 

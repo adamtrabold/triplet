@@ -1,3 +1,5 @@
+// RETIRED 10-27 by THE GRID (src/the-grid.js, grid/THE-GRID.md): its rules (slab 2 but posts 1 1/2, parts laid out from the
+// centre line by sums, PROP.px) never formed one grid. Kept to rebuild rounds 6-8; starMark() is still used by the-grid.js.
 // PIXEL SHAPES (10-26, after v262 and v264). The owner, on the five marks he put on v262's iPhone row:
 //   "this should be a shape not a line" (the saucer, the beam); "nothing should be this small" (the coupe's 3/4px band);
 //   "i think of the counters as shapes. they can go to (or be shortened to) a whole pixel"; "it is a hard pixel number wide,

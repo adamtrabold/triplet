@@ -1,5 +1,23 @@
 # Systems designer notes: icon system
 
+## THE grid (2026-10-27, jam turn 191, canvas v272; icon designer carrying systems + visual)
+
+- **Where:** one grid defined and built: `grid/THE-GRID.md` (the spec), `grid/src/the-grid.js` (GRID numbers, rule functions
+  whole/even/centred/row/counter/fits/place, the six), `grid/src/grid-check.js` (reads every edge; `--approved` for before),
+  `grid/src/the-grid-shots.js` (2x/3x rasters), `grid/src/the-grid-board.js` (board; blobs in `the-grid-board-blobs.json`).
+  Outlines `grid/svg/the-grid/` (+ build.json). Build: `node src/the-grid.js` (~1 min an icon, the star ~3).
+- **Decisions and why:** solid 2 = the only whole px >= the 1½ floor (his "nothing should go that thin" + "if it's not a
+  stroke it doesn't have to be 1.5"); gap 1 between parts, counter 1-2 across and >= 2 along (the café's 1 × 1 ear hole read
+  as a dot, so the ear grew 5 → 6); boxes = approved cuts to whole px (centred widths even); a point may pass by ½; centred
+  rows put an even thing on the centre (so three museum columns, not four); a centred 1½ stroke sits on k + ¼.
+- **Result:** 0 of 60 edges off the grid; soft 0 / 6. Ink up on the badge icons (coupe +32%), down on the marks.
+- **Tree:** built from `svg/g7/construction.json` nature parts (the approved roots) with the engine law; reproduces the
+  approved byte-near when the trunk is unchanged; a 2px trunk lengthens the tips 0.16 (tip round = share of its edge).
+- **Open:** his coupe question; fair-check KNEEs at the museum bevel (over 1 makes the capital curve longer) and the café's
+  ear foot; the app must show the badge glyph 1:1 (it's at 18px) and the + button centre on k + ¼; fork and knife, bed,
+  shopping not yet rewritten in the-grid.js.
+- **Next:** director scores v272; then him; then port the other icons into the-grid.js and the app build.
+
 ## Shopping, round 2 (2026-10-26, jam turn 8)
 
 - Round 1 failed the blind read (`shopping/blind-read-1.md`): K3 lampshade/toaster, J2 tap/pump, B1c reception.

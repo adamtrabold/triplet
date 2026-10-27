@@ -1,5 +1,17 @@
 # Visual designer notes: icon system
 
+## THE grid (2026-10-27, jam turn 191, canvas v272; icon designer carrying visual + systems)
+
+- **Board:** "The grid" (`Grid7TheGrid.dc.html`, 1200 × 2398, x 840 y 300, Grid concepts page, after Start here): the grid
+  drawn (cells, centre, ring, live, coin, class boxes) with each number and why; how each part lands; the museum on the grid
+  with every dimension; the six approved vs on the grid at 72 (grid beneath) and 24, with a size/ink/check table; the six
+  at true size per device pixel (2x and 3x, each shown 2 blocks per device px); retired; the one question. Copies in `grid/simplify/boards/`.
+  "Now" moved to x 2120; "Sharp at 2x and 3x" archived (Archive page x 8820 y 210000, title "g7bn ..."); Start item 6 replaced.
+- **Look:** at true size the set reads crisper and heavier; the coupe is the heaviest change (bowl 6 deep) and is his one
+  question; the museum reads as a solid block with three columns; the café's ear is a mug's ear now (counter 2 × 1).
+- **Phone stills:** `grid/stills/the-grid/phone/grid-1..3.png` (1500 wide), each opened.
+- **Open:** weight by his eye (badge icons darker, marks lighter); the KNEEs (see systems notes).
+
 ## Update (2026-10-26, round 8b, canvas v271; director turn 189's two edits)
 
 - Museum lean dropped; E (his literal "three cols") first; both stated as ~1px taller than approved (10.7 / 10.8 vs 9.6). Question 1 in the director's words. No drawing changed. v270 archived (`Archive-G7bm-Sharp.dc.html`). Next: the orchestrator shows him v271.

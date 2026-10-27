@@ -1,3 +1,6 @@
+// 10-27: THE GRID (src/the-grid.js, grid/THE-GRID.md) reconciles this table: every PROPORTION here stays and is taken to whole px
+// there; RETIRED in favour of GRID: the 1/3px lattice (lattice), the line as post and slab width (line.post, block.slab), the band
+// (line.band, 3/4px), the outline/open sizes in fractional px, and PROP.px (rounds 6-8).
 // g7az THE PROPORTIONS (owner, 10-24: "Yeah let's try for a ten also it's be best if the underlying shapes were proportionally
 // related to each other and the grid so they weren't just random."). ONE source of truth: picks7 (o.prop), boards7, construction.js
 // and the Construction board all read this table.
