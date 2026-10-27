@@ -1,5 +1,11 @@
 # Systems designer notes: icon system
 
+## Director fixes (2026-10-27, jam turn 199, canvas v276)
+
+- `one-side.js`: STANDARD[12].close (short counters drop their hole contour); every width whole iPhone pixels at 18 and 12
+  (`evenTie`, a tie within 1/50 px to the even count); an odd centred part moves the icon's centre ½ iPhone px (`shift`,
+  `sym` returned per size and stored in build.json); maxMove is per axis. `back-to-drawings.js` museum3 columns `pw = 2`.
+
 ## Back to the drawings (2026-10-27, jam turn 197, canvas v275)
 
 - **Structure:** `src/one-side.js` holds the rules (`land(d, {size, sym, symY})`, `report()`), `src/back-to-drawings.js`

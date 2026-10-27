@@ -20,11 +20,11 @@ const pair = (k, alt, lab = true) => lab ? `<div style="display:grid;grid-templa
 // the rules, as directives
 const RULES = [
   ['The grid is one iPhone pixel, ⅓px.', 'Each icon is built for the size it ships at, so it lands there by construction.'],
-  ['Outer edges on the grid.', 'Every straight outer edge and the extreme of every big curve. Each moves at most ⅙px.'],
+  ['Outer edges on the grid.', 'Straight outer edges and big curves\' extremes, to the nearest iPhone pixel: at most half a pixel (⅙px at 24).'],
   ['One side of every stroke on the grid: the outer side.', 'Strokes stay 1½px at 24. The inner side falls where the width puts it.'],
-  ['Inner edges, counters and cut-outs follow the drawing.', 'A counter is at least 1px. A short one opens by moving the stroke beside it, never the mass.'],
-  ['Centred stays centred. Curves, diagonals, points and rounds are never snapped.', 'They ride on the edges either side, so a curve keeps its shape and a join stays smooth.'],
-  ['Each size is its own standard.', '24 is the master. 18 (the badge in the app) and 12 (the filter chip): the stroke is the drawing\'s weight rounded to whole iPhone pixels (18: 1px, 12: ⅔px), and a centred stem takes an even count so both its sides land.'],
+  ['Inner edges, counters and cut-outs follow the drawing.', 'Counters at least 1px (⅔px at 12). A short one opens by moving the stroke, never the mass; at 12 it closes.'],
+  ['Centred stays centred. Curves, diagonals, points and rounds are never snapped.', 'They ride on the edges either side.'],
+  ['Each size is its own standard.', 'At 18 (the app\'s badge) and 12 (the chip) every width is whole iPhone pixels: stroke 1px and ⅔px, other parts rounded.'],
 ];
 const rules = RULES.map(([a, b], i) => `<div style="display:grid;grid-template-columns:26px 1fr;gap:6px;padding:6px 0;border-top:1px solid ${RULE}"><div style="font-size:19px;font-weight:700;color:${ORANGE}">${i + 1}</div><div style="font-size:17px;line-height:1.35"><b style="color:${NAVY}">${a}</b> <span style="color:${GREY}">${b}</span></div></div>`).join('');
 
@@ -32,8 +32,8 @@ const rules = RULES.map(([a, b], i) => `<div style="display:grid;grid-template-c
 const pct = k => { const v = CK[k].ink.pct; return `${v > 0 ? '+' : ''}${v}%`; };
 const CHANGED = [
   ['Café', 'The drawing as approved. Landed only.', pct('cafe-24')],
-  ['Coupe', 'The band opens ¾ → 1px by lifting the rim ¼px; the drink stays 2½. Landed.', pct('bar-24')],
-  ['Museum', 'Three columns at the line, two 2px openings (were four columns, ¾px openings). Same box, slabs, roof and capitals.', pct('museum-24')],
+  ['Coupe', 'The band opens ¾ → 1px by lifting the rim ¼px; the drink stays 2½. At 12 the band closes: a full glass.', pct('bar-24')],
+  ['Museum', 'Three 2px columns, two 1.4px openings (were four columns, ¾px openings): columns outweigh openings, as v264\'s temple did. Same box, slabs, roof and capitals.', pct('museum-24')],
   ['Tree', 'Unchanged. Landed.', pct('nature-24')],
   ['Fork and knife', 'Gaps between the tines 1px (were ¾). The knife\'s edge 1¼px past its handle (was ¾).', pct('restaurant-24')],
   ['Star', 'One drawing, 12px tall, in the row and on the tag. Bare, never in a ring.', pct('star-24')],
@@ -92,7 +92,7 @@ ${H2(7, 'Which edges land (information, not the goal)')}
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">${checkTable(24)}${checkTable(18)}</div>
 ${T('Stroke inner sides at 24 sit ½ an iPhone pixel off by design (1½px is 4½ iPhone pixels). The star has no straight edge; it is landed by its height.', { size: 15, color: GREY, m: '8px 0 0' })}
 ${H2(8, 'Retired')}
-${T('Whole-pixel parts, 2px solids, the box limits and the give order (v266 to v274). Kept from them: counters at least 1px, the knife\'s edge, one star.', { size: 16 })}
+${T('Whole-pixel parts everywhere, the box limits and the give order (v266 to v274). Kept from them: counters at least 1px, the knife\'s edge, one star.', { size: 16 })}
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":${W},"height":${process.env.BOARD_H || 2300}}}'>

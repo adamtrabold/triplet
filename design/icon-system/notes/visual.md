@@ -1,5 +1,11 @@
 # Visual designer notes: icon system
 
+## Director fixes (2026-10-27, jam turn 199, canvas v276)
+
+- Coupe at 12 a full glass (band closed); museum columns 2px at 24, whole iPhone pixels at 18 and 12: a colonnade at every size.
+  Moves measured per axis, at most half an iPhone pixel. THE-GRID.md directives only; history in `history.md`. v275 archived
+  (Archive page x 12400 y 210000). Stills re-shot to `back-1..2.png`, opened.
+
 ## Back to the drawings (2026-10-27, jam turn 197, canvas v275; icon designer carrying visual + systems, new to the seat)
 
 - **Look:** the v264 drawings, landed: at true size the same set, crisper on the iPhone; weight within 7% at 24. The museum now

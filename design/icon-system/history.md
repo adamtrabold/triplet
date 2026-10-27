@@ -131,3 +131,5 @@ One entry per moment the owner saw work or decided. At most 4 lines each, with t
 | All 13 concepts picked | c42639d |
 | Stroke 1.5px picked | 527251b |
 | Monoweight line picked | 0acb8f9 |
+
+- **10-27 · Back to the drawings (v275, v276):** after "I'm bummed these dont look nearly as good as before" on v274, the v264 drawings came back, landed on the iPhone's pixels (one side of every stroke, outer edges), with 18 and 12 as their own builds. Changed from v264: museum three 2px columns; coupe band 1px, closed at 12; fork gaps 1px, knife edge 1¼; one star 12 tall; + at 1½. Outer edges on the iPhone at 24: 38 of 42 land (v264: 6 of 41). The whole-pixel method of v266-v274 (2px solids everywhere, box limits, the give order) retired. Spec: `grid/THE-GRID.md`.

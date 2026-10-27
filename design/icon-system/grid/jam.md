@@ -1834,3 +1834,24 @@ NEXT: design director: score v275 at true size on the iPhone, v264 beside it, th
 4. THE-GRID.md: directives only, history out.
 
 NEXT: icon designer: fixes 1-4, re-shoot the 12 and 18 rows, then back to me.
+
+
+---
+
+## Turn 199: icon designer (visual + systems), director turn 198's four fixes (canvas v276)
+
+1. **Coupe at 12:** a counter under the 12's minimum now closes (the part goes solid) instead of opening. The band closes; the
+   glass reads full. 24 and 18 still open it (band 1px and 1⅓px under the rim).
+2. **Museum:** a column is a solid, not a stroke: columns 2px at 24 (openings 1.39), so the columns outweigh the openings as
+   v264's temple did, and the ink is v264's (−0.8%). At 18 and 12 every width is now whole iPhone pixels (strokes to the
+   standard, every other part its drawn width rounded, a tie to the even count): columns 4 and 3 iPhone px, openings 3.6 and 2.
+   The 12's middle column is odd, so the icon's centre moves half an iPhone pixel and stays symmetric about it. Columns read
+   as columns at 24, 18 and 12.
+3. **The move claim:** each move is now measured along its axis (the old figure was the diagonal of two). Every landing move is
+   at most half an iPhone pixel: 0.143-0.167 at 24 (⅙px), as the rule says. The rule is restated in those words.
+4. **THE-GRID.md:** directives only; the change list, check numbers and retired methods moved to `history.md`.
+
+Check at 24 unchanged in kind (outer 38 of 42 on the iPhone); at 12 outer 35 of 38, every stroke side and centred part lands.
+join-check clean at every size. Board in place (1200 × 2391), v275's archived. Stills re-shot to the same paths, opened.
+
+NEXT: design director: re-score v276 at 12 and 18 (and the museum at 24 beside v264).

@@ -14,11 +14,11 @@ const now = fs.readFileSync(path.join(ROOT, 'simplify', 'boards', 'Grid7Now.dc.h
 for (const m of now.matchAll(/<svg width="24" height="24" viewBox="0 0 24 24"[^>]*aria-label="([^"]+)"[^>]*><path fill="[^"]+" fill-rule="evenodd" d="([^"]+)"\/>/g)) if (!A[m[1]]) A[m[1]] = m[2];
 const { ink, capital, LINE } = MC;
 
-// THE MUSEUM, three columns. The v264 museum's numbers (beam 7.111..16.889, roof, gap 1, beam and plinth 1 1/2, columns 1 1/2 from
-// beam to plinth, overhang 1/2) with the middle column on the centre and the outer columns where v264's outer ones stood: two
-// openings of 2.14. Same box (9.78 x 9.62).
+// THE MUSEUM, three columns. The v264 museum's numbers (beam 7.111..16.889, roof, gap 1, beam and plinth 1 1/2, overhang 1/2)
+// with the middle column on the centre and the outer columns where v264's outer ones stood. A column is a solid, not a stroke:
+// 2px, so the columns outweigh the openings (1.39) as v264's temple did, and the ink is v264's. Same box (9.78 x 9.62).
 function museum3() {
-  const beam = [7.111, 16.889], bt = 10.976, bu = 12.476, pt = 15.31, pb = 16.81, pw = LINE, over = 0.5, step = 0.5;
+  const beam = [7.111, 16.889], bt = 10.976, bu = 12.476, pt = 15.31, pb = 16.81, pw = 2, over = 0.5, step = 0.5;
   const xs = [beam[0] + over, 12 - pw / 2, beam[1] - over - pw];
   const roots = [ink('slab', E.D('M7.111,9.97633v-1.2l4.889,-1.62933l4.889,1.62933v1.2z')),
     ink('slab', E.R(beam[0], bt, beam[1] - beam[0], bu - bt)), ink('slab', E.R(beam[0], pt, beam[1] - beam[0], pb - pt)),
@@ -72,7 +72,7 @@ if (require.main === module) {
     const t0 = Date.now(), [d0, sym, sizes, symY] = process.env.REUSE && all[n] ? [all[n].drawn, all[n].sym, Object.keys(all[n].sizes).map(Number), all[n].symY ?? undefined] : SET[n](), d = d0, rec = { drawn: d, sym, symY: symY ?? null, inkDrawn: +OS.ink(d).toFixed(1), before: rd(BEFORE[n]), inkBefore: +OS.ink(rd(BEFORE[n])).toFixed(1), sizes: {} };
     for (const size of sizes) {
       const L = OS.land(d, { size, sym, symY: symY ?? null });
-      rec.sizes[size] = { d: L.d, maxMove: +L.maxMove.toFixed(3), opened: L.opened, ink: +OS.ink(L.d).toFixed(1), check: { 3: OS.report(L.d, size, 3, sym, symY ?? null), 2: OS.report(L.d, size, 2, sym, symY ?? null) } };
+      rec.sizes[size] = { d: L.d, sym: L.sym, shift: L.shift, maxMove: +L.maxMove.toFixed(3), opened: L.opened, ink: +OS.ink(L.d).toFixed(1), check: { 3: OS.report(L.d, size, 3, L.sym, symY ?? null), 2: OS.report(L.d, size, 2, L.sym, symY ?? null) } };
       fs.writeFileSync(path.join(out, `${n}-${size}.svg`), `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill-rule="evenodd" d="${L.d}"/></svg>\n`);
     }
     all[n] = rec; fs.writeFileSync(jf, JSON.stringify(all));

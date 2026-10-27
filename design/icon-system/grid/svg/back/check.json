@@ -77,7 +77,7 @@
    "now": 53.3,
    "pct": -4
   },
-  "maxMove": 0.265,
+  "maxMove": 0.262,
   "opened": []
  },
  "cafe-18": {
@@ -158,7 +158,7 @@
    "now": 52.9,
    "pct": -4.7
   },
-  "maxMove": 0.22,
+  "maxMove": 0.184,
   "opened": []
  },
  "cafe-24": {
@@ -239,7 +239,7 @@
    "now": 55.6,
    "pct": 0.2
   },
-  "maxMove": 0.091,
+  "maxMove": 0.09,
   "opened": []
  },
  "bar-12": {
@@ -266,17 +266,9 @@
     7,
     7
    ],
-   "inner": [
-    3,
-    0
-   ],
    "centred": [
     2,
     2
-   ],
-   "stroke side": [
-    1,
-    1
    ]
   },
   "before2": {
@@ -300,33 +292,25 @@
   "after2": {
    "outer": [
     7,
-    0
-   ],
-   "inner": [
-    3,
-    0
+    1
    ],
    "centred": [
     2,
-    0
-   ],
-   "stroke side": [
-    1,
     0
    ]
   },
   "ink": {
    "v264": 45.5,
-   "now": 41.7,
-   "pct": -8.4
+   "now": 48.2,
+   "pct": 5.9
   },
-  "maxMove": 0.372,
+  "maxMove": 0.226,
   "opened": [
    {
     "ax": "y",
     "at": 9.396,
     "from": 0.917,
-    "to": 1.333
+    "to": 0
    }
   ]
  },
@@ -408,7 +392,7 @@
    "now": 46.6,
    "pct": 2.4
   },
-  "maxMove": 0.226,
+  "maxMove": 0.164,
   "opened": [
    {
     "ax": "y",
@@ -496,7 +480,7 @@
    "now": 45.3,
    "pct": -0.4
   },
-  "maxMove": 0.175,
+  "maxMove": 0.146,
   "opened": [
    {
     "ax": "y",
@@ -524,7 +508,7 @@
   "after3": {
    "outer": [
     12,
-    6
+    10
    ],
    "stroke side": [
     4,
@@ -556,11 +540,11 @@
   "after2": {
    "outer": [
     12,
-    1
+    2
    ],
    "stroke side": [
     4,
-    1
+    2
    ],
    "centred": [
     2,
@@ -573,10 +557,10 @@
   },
   "ink": {
    "v264": 65.7,
-   "now": 61.8,
-   "pct": -5.9
+   "now": 66.5,
+   "pct": 1.2
   },
-  "maxMove": 0.416,
+  "maxMove": 0.309,
   "opened": []
  },
  "museum-18": {
@@ -633,7 +617,7 @@
    ],
    "stroke side": [
     4,
-    0
+    2
    ],
    "centred": [
     2,
@@ -646,8 +630,8 @@
   },
   "ink": {
    "v264": 65.7,
-   "now": 59.7,
-   "pct": -9.1
+   "now": 62.5,
+   "pct": -4.9
   },
   "maxMove": 0.199,
   "opened": []
@@ -674,11 +658,11 @@
    ],
    "stroke side": [
     4,
-    0
+    2
    ],
    "centred": [
     2,
-    0
+    2
    ],
    "inner": [
     2,
@@ -710,7 +694,7 @@
    ],
    "centred": [
     2,
-    0
+    2
    ],
    "inner": [
     2,
@@ -719,10 +703,10 @@
   },
   "ink": {
    "v264": 65.7,
-   "now": 61.2,
-   "pct": -6.8
+   "now": 65.2,
+   "pct": -0.8
   },
-  "maxMove": 0.176,
+  "maxMove": 0.143,
   "opened": []
  },
  "nature-12": {
@@ -918,7 +902,7 @@
    "now": 55.3,
    "pct": 2
   },
-  "maxMove": 0.336,
+  "maxMove": 0.292,
   "opened": []
  },
  "restaurant-18": {
@@ -967,7 +951,7 @@
    "now": 57.3,
    "pct": 5.7
   },
-  "maxMove": 0.267,
+  "maxMove": 0.212,
   "opened": []
  },
  "restaurant-24": {
@@ -1016,7 +1000,7 @@
    "now": 57.5,
    "pct": 6.1
   },
-  "maxMove": 0.206,
+  "maxMove": 0.167,
   "opened": []
  },
  "star-24": {

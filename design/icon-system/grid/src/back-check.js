@@ -12,7 +12,7 @@ for (const [n, r] of Object.entries(B)) for (const [size, s] of Object.entries(r
   const row = {};
   for (const dpr of [3, 2]) {
     row[`before${dpr}`] = tally(OS.report(r.before, +size, dpr, r.sym, r.symY));
-    row[`after${dpr}`] = tally(OS.report(s.d, +size, dpr, r.sym, r.symY));
+    row[`after${dpr}`] = tally(OS.report(s.d, +size, dpr, s.sym ?? r.sym, r.symY));
   }
   const sc = { star: (20 / 24) ** 2, plus: 1.1 ** 2 }[n] || 1, ib = +(r.inkBefore * sc).toFixed(1);   // v264's marks were shown at their slot (star 20, + 26.4)
   row.ink = { v264: ib, now: s.ink, pct: +((s.ink / ib - 1) * 100).toFixed(1) };
