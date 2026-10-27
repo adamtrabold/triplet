@@ -280,3 +280,4 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > (10-27, on v282) and where did the bevel go on the museum exterior? why are these so different?
 > i feel like all of the guidance has been lost   (orchestrator rendered v264 beside the 18 masters: museum bevel gone; coupe band thick over a shallow drink, was thin over a deep one; fork tines ≠ gaps. The 18s were redrawn, not derived from v264.)
 > (10-27) oh my god why the fuck are the brand and icon decisions not persistent we are building a SYSTEM
+> (10-27) no this is a bad way. create the SYSTEM to derive the icons. THEN create the icons. we are trying to get the SYSTEM to the right place so that the ICONS follow.
