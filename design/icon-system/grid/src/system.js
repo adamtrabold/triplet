@@ -1,13 +1,13 @@
 // THE SYSTEM. The one place every decision lives: the decision points (SETTINGS), the sizes, the general rules, each icon's
-// declaration, the build, the checks. THE-SYSTEM.md and the board are written from this file, so they can't drift from it.
+// declaration (DECL: data, the only per-icon input), the build, the checks. THE-SYSTEM.md and the board are written from this file.
 //
-// The geometry kernel is the working system that drew v264, unchanged (system-v264.js proves it regenerates v264 exactly):
-// engine.js (union and cuts, the corner law, continuous-curvature fairing, tip landing, flares, mirror), picks7.js + proportions.js
-// (roots and proportions), laws7.js (the round table), joins.js (the capital), construction.js (class fit, centring), mix-curves.js
-// (roots by kind). This file only sets that kernel from the decision points and adds the rules decided since.
+// An icon is made by system-make.js from its declaration alone: the kinds of root (what a vessel, a loop, a cap, a slab, a post, a
+// gable, tiers, a row, a comb, a head, a blade is), how each root meets the one above it (cut, into, held, notch, tangent), the
+// layout (the spine top to bottom; columns side by side), then the class fit, optical centring, the roots landed on the iPhone grid,
+// the corner law with the cutter rack, continuous-curvature fairing and the mirror. Nothing in the build or the checks names an icon.
 //
-//   node system.js build <18|24|12> [ids]   one size per process (the kernel reads its thicknesses when it loads)
-//   node system.js check                     every automatic check on every built size; exit 1 on any failure
+//   node system.js build <18|24|12> [ids]   one size per process
+//   node system.js check                     every automatic check on every built size; exit 1 on any failure (blocks publishing)
 //   node system.js spec                      writes grid/THE-SYSTEM.md
 'use strict';
 const fs = require('fs'), path = require('path');
@@ -20,26 +20,28 @@ const SETTINGS = [
   { g: 'Purpose', items: [
     ['One set, one system', 'One harmonious, complete set and the rules that make every future icon right first time. The first six are a test of the system; a wrong icon is a finding about the system.', '10-21'],
     ['What it covers', 'Place icons, app and control icons, and the Home Screen icon.', '10-16'],
-    ['Rules, not drawings', 'Every decision changes the system; icons change only because the system did. No geometry outside an icon\'s declaration; no hand-placed points.', '10-27'],
+    ['Rules, not drawings', 'Every decision changes the system; icons change only because the system did. An icon\'s declaration is its only input; no hand-placed points.', '10-27'],
     ['Flexible, not specific', 'Rules are general: no rule names one icon. An icon is a short declaration of its roots, how they relate, joined or cut; the system supplies the rest.', '10-26'],
+    ['How it looks wins', 'What it looks like matters more than the letter of a rule.', '10-27'],
     ['The grid is the brand', 'The grid and the drawing method are specific to Triplet; how other systems size icons does not apply.', '10-20'],
   ] },
   { g: 'Sizes and the grid', items: [
     ['Master size', '18, drawn 1:1 in the 24px ring (the glyph about 10-11px across). 24 and 12 are their own variants with detail adjusted for the size, never a scaled copy.', '10-27'],
     ['Where each size ships', '18 in the 24 ring on pins and list rows; 24 in the 32 ring on the selected pin; 12 bare on filter chips.', '10-27'],
     ['The grid', 'One iPhone pixel, 1/3px. The system writes each size for the iPhone directly; there is no refit pass for any device.', '10-27'],
-    ['Snap priority', 'Silhouette first: an outer edge goes to a whole px when one is within 1/4px, else the nearest iPhone pixel. Then the outer side of each stroke (its width kept). Inner edges, counters, curves, diagonals, points and rounds stay as drawn. Landing never costs curvature: the roots land on the grid before any corner is rounded, so every round and join is built on landed roots; a curved root is never stretched, only scaled evenly to the size the grid gives its straight sides.', '10-27'],
+    ['Snap priority', 'Silhouette first: an outer edge goes to a whole px when one is within 1/4px, else the nearest iPhone pixel. Then the outer side of each stroke (its width kept). Inner edges, counters, curves, diagonals, points and rounds stay as drawn. The roots land on the grid before any corner is rounded, so every round and join is built on landed roots; a curved root is never stretched, only scaled evenly.', '10-27'],
     ['Centring', 'A centred part is exactly centred: an even count of iPhone pixels about the icon\'s centre. Vertical centring is optical, per icon.', '10-27'],
     ['Sharpness', 'As sharp as possible: core dimensions and core line landings are never fuzzy.', '10-26'],
     ['Scale and weight', 'Settled once for the set at the grid level: every icon the same optical size and weight; never negotiated icon by icon.', '10-20'],
-    ['The box', 'An icon is fitted to its class box (wide, square, tall) and never grows past its v264 size: each outer edge at most one iPhone pixel further out; a rule that needs room takes it from the icon\'s own proportions.', '10-27'],
+    ['The box', 'An icon is fitted to its class box (wide, square, tall) by the sides that scale, and never grows past its v264 size: each outer edge at most one iPhone pixel further out. A rule that needs room takes it from the icon\'s own proportions; the box never gives way.', '10-27'],
   ] },
   { g: 'Weight', items: [
     ['Stroke', 'A stroke is 1 1/2px at 18 (2 at 24, 1 at 12). Monoweight: an inner edge follows its outer edge.', '10-26'],
     ['Stroke at 18 on the grid', '1 1/2px, its outer side on the grid and its inner side half an iPhone pixel soft (1 1/3 was sharper both sides but read lighter than the set\'s weight).', '10-27', 'designer'],
-    ['Parts that are not strokes', 'Sized by eye to read at the stroke\'s weight; never under 1 1/4 at 18 (smaller sizes set their own minimum). Posts, columns, stems, trunks and tines: 1 1/3 at 18, 1 2/3 at 24, 1 at 12 (whole iPhone pixels).', '10-27'],
+    ['Parts that are not strokes', 'Sized by eye to read at the stroke\'s weight. Posts, columns, stems, trunks and tines: 1 1/3 at 18, 1 2/3 at 24, 1 at 12 (whole iPhone pixels). Never under 1 1/4 at 18.', '10-27'],
+    ['Thinnest part at 12', 'A row\'s parts may thin to 2/3px (two iPhone pixels) at 12 to keep the row\'s count; nothing else goes under 1px.', '10-27', 'designer'],
     ['Solids are shapes', 'A solid part (slab, cap, mass) is a shape, not a line: it reads by its shape, and a thin slab is never thinner at its ends than its middle.', '10-26'],
-    ['Same role, same width', 'Parts with the same role share one width. A comb (parts with slots cut between them) is one role: parts and slots one width, the size\'s part width if it fits its root, else the narrowest the size allows, else one part fewer.', '10-27'],
+    ['Same role, same width', 'Parts with the same role share one width. A comb (parts with slots cut between them) is one role: parts and slots one width.', '10-27'],
     ['The ring', '1 1/3px at 24 (4 iPhone pixels): whole pixels and a step lighter than the glyph\'s stroke.', '10-27', 'designer'],
   ] },
   { g: 'Construction', items: [
@@ -51,15 +53,17 @@ const SETTINGS = [
     ['Holes', 'A hole is its own proportional root shape that also makes the solid around it right, never a stroke offset.', '10-26'],
     ['Counters and gaps', 'Aim for whole pixels (1 or 2 at 18), but how it looks wins over the rule. At 12 a counter under 1px closes and the part goes solid.', '10-27'],
     ['Inner bands', 'A gap or band inside a form is no thicker than the stroke, and a fill it contains reads full.', '10-27'],
-    ['Rows', 'A row of repeated parts reads as its count of distinct parts. Its parts at the part width; its gaps equal, at least the counter minimum, on the grid when the row then still fits its root\'s span, else filling the span exactly (how it looks wins); where the count can\'t meet that, one part fewer (never below two).', '10-27'],
+    ['Rows', 'A row of repeated parts reads as its count of distinct parts. Parts at the part width, gaps equal and at least the counter minimum: on the grid when the row then fits inside its root\'s span, else filling the span exactly. If the gaps can\'t reach the minimum, the parts thin to the size\'s thinnest; only then one part fewer (never below two).', '10-27'],
+    ['Combs', 'A comb takes the room its box leaves: parts and slots at the part width if they fit, else at the narrowest the size allows (never under the counter minimum, since the slots share the width), else one part fewer (never below two).', '10-27'],
     ['Protrusions', 'A feature that has to read by sticking out (an edge, a step, a lip) clears a minimum visible protrusion: one whole pixel past what it sticks out from at 18 (1 1/3 at 24, 1 at 12), after the join\'s round.', '10-27'],
     ['No narrow passages', 'No passage that vanishes at small sizes.', '10-19'],
     ['Handles', 'A handle takes its rule from the root shape it is (a cup\'s ear is a loop around its counter).', '10-26'],
-    ['When rules meet', 'Continuous curvature first, then minimum widths, then same-role widths, then protrusions, then the grid, then the box (which may give way by up to one part).', '10-27', 'designer'],
+    ['When rules meet', 'Continuous curvature first, then minimum widths, then same-role widths, then protrusions, then the grid. The box always holds.', '10-27', 'designer'],
   ] },
   { g: 'Tooling and curvature', items: [
     ['Machined', 'Every round and join is what a cutting tool would leave, by how the part would really be machined smooth.', '10-26'],
-    ['Chamfer under an overhang', 'A post under a slab that runs past it meets it with a bevel (a chamfer, its edges broken); the bevel holds at every size.', '10-26'],
+    ['The cutter rack', 'Three cutters, 1/8, 1/4 and 1/2px. Every round is the one nearest what the corner asks: a post into a face the 1/2; a mass\'s corners the 1/2; a slab\'s or post\'s own corners the 1/4; tight inner corners and every cut the 1/8. A cutter too big for the corner\'s edges steps down.', '10-26'],
+    ['Chamfer under an overhang', 'A post under a slab that runs past it meets it with a bevel (a chamfer, its edges broken); the bevel holds at every size: the slab runs a third of a line past the post and its face drops a third of a line, at every size, on the landed roots.', '10-26'],
     ['Fillet into a face', 'A post into a face (curved or flat) meets it with a fillet: a flare, never an ink trap.', '10-26'],
     ['Tips', 'A point sharper than 75 degrees is broken, not milled; its round scales with its edge.', '10-21'],
     ['Every meeting rounded', 'Every meeting point is at least slightly round, some more; the radius varies with how the angle meets. One join pattern per corner type across all icons.', '10-22'],
@@ -68,7 +72,6 @@ const SETTINGS = [
     ['Continuous curvature', 'Joins are smooth and architectural: curvature is continuous through a join, with no humps or wobbles at the join or on the line leaving it.', '10-23'],
     ['Counters follow', 'A counter\'s curve follows the outside curve it sits in.', '10-22'],
     ['Humanist line', 'Loosened, humanist curves; restrained flares; every joint and flare architecturally sound.', '10-21'],
-    ['The cutter rack', 'open', '10-26', null, ['Build three cutters (1/8, 1/4, 1/2px) into the corner law (rounds move at most 0.04px)', 'Keep today\'s round table']],
   ] },
   { g: 'Brand', items: [
     ['Direction', 'Built and constructed; clarity first; whimsy wanted; craft matters most; warmth from subtle rounding and other sources; hand-made is never ruled out.', '10-15'],
@@ -86,146 +89,146 @@ const SETTINGS = [
   { g: 'Subjects (each the test of the rules)', items: [
     ['Categories', '11 pins (Restaurant, Café, Bar, Venue, Museum, Landmark, Attraction, Park, Nature, Shopping, Hotel) plus Neighbourhood and Street. Visited does not change.', '10-16'],
     ['Subjects', 'Café cup and saucer; Bar a coupe on a long stem, its bowl shallow and wider at the bottom; Museum a column front, flat base, separated gable; Nature a conifer, indented branches with light swoops; Restaurant fork and knife; Landmark the Nordic loop; Attraction a Ferris wheel; Park a bench; Venue a curtain; Hotel a bed; Neighbourhood city blocks; Street a walker.', '10-21'],
+    ['Museum columns', 'Three counters (four columns): two columns read as a bank.', '10-27'],
     ['Shopping', 'open', '10-26', null, ['None of the proposed icons work; the bag may be one step too common']],
-    ['Museum at 18', 'Four columns, three counters, by the row rule; at 12 three columns (detail removed). Three columns at 18 read as two windows in a bank.', '10-27', 'designer'],
   ] },
 ];
 
 // ---------------------------------------------------------------------------------------------------------------------------
-// THE SIZES. k: how the size's px relate to the master's (the kernel draws in the 24 frame; a size shows that frame at 24 k px).
-// Widths are px AT THAT SIZE (whole iPhone pixels where the grid allows), so in the kernel's frame units they are px / k.
+// THE SIZES. k: how the size's px relate to the master's (the drawing frame is 24 units; a size shows that frame at 24 k px).
+// Widths are px AT THAT SIZE (whole iPhone pixels where the grid allows); in the frame's units they are px / k.
 const SIZES = {
   18: { k: 1, frame: 24, stroke: 1.5, part: 4 / 3, min: 1.25, gap: 1, band: 1, counter: 1, protrude: 1, close: false },
   24: { k: 4 / 3, frame: 32, stroke: 2, part: 5 / 3, min: 5 / 3, gap: 4 / 3, band: 4 / 3, counter: 4 / 3, protrude: 4 / 3, close: false },
-  12: { k: 2 / 3, frame: 16, stroke: 1, part: 1, min: 1, gap: 1, band: 1, counter: 1, protrude: 1, close: true },
+  12: { k: 2 / 3, frame: 16, stroke: 1, part: 1, min: 2 / 3, gap: 1, band: 1, counter: 1, protrude: 1, close: true },
 };
-const IPX = 1 / 3, toIpx = v => Math.round(v / IPX);
+const IPX = 1 / 3;
 const RING = { 18: 4 / 3, 24: 5 / 3 };   // the ring's width in px: the 24 ring (around the 18) and the 32 ring (around the 24)
+// a line mark is one drawing, landed in its own app box (the class sets it): the star in the row's 18px box, the + at 14px across
+const MARK = { outline: { frame: 18, std: { stroke: 4, centred: 4, counter: 3 } }, open: { frame: 28, std: { stroke: 6, centred: 6, counter: 3 } } };
 
 // ---------------------------------------------------------------------------------------------------------------------------
-// THE GENERAL RULES (each names no icon)
-// A ROW: n parts of one width and the gaps between them, across the span its root sets. In order of preference:
-//   1. parts at the size's part width, gaps equal on the iPhone grid (at least the counter minimum), the row centred on a whole
-//      px, each end within one iPhone pixel of the root's (the box);
-//   2. the same parts with equal gaps that fill the root's span exactly, off the grid if they must (how it looks wins);
-//   3. one part fewer (never below two).
-// A part that can't sit centred on the grid takes one more iPhone pixel (all of them: one role).
-function row({ span, w, n, min, grid }) {
-  for (let m = n; m >= 2; m--) {
-    for (const wv of [w, w + grid]) {
-      const raw = (span - m * wv) / (m - 1);
-      for (let j = Math.ceil((min - 1e-9) / grid); j * grid <= raw + grid + 1e-9; j++) {
-        const g = j * grid, tot = m * wv + (m - 1) * g, q = tot / (2 * grid);
-        if (Math.abs(q - Math.round(q)) < 1e-6 && Math.abs(tot - span) <= 2 * grid + 1e-9) return { n: m, w: wv, gap: g, span: tot, grid: true };
-      }
+// THE GENERAL RULES (each names no icon; all widths in one unit)
+// A ROW: n parts and the equal gaps between them, across the span its root sets. In order: parts at the part width, gaps on the
+// grid (a whole count of grid steps, at least the counter minimum), the row centred on the grid and inside the span by at most one
+// grid step a side; else equal gaps filling the span exactly. Neither: the parts thin, a grid step at a time, to the size's thinnest.
+// Only then one part fewer (never below two).
+function row({ span, w, wMin, n, min, grid }) {
+  const widths = []; for (let wv = w; wv >= wMin - 1e-9; wv -= grid) widths.push(wv); if (widths[widths.length - 1] > wMin + 1e-9) widths.push(wMin);
+  for (let m = n; m >= 2; m--) for (const wv of widths) {
+    for (let j = Math.ceil((min - 1e-9) / grid); ; j++) {
+      const g = j * grid, tot = m * wv + (m - 1) * g; if (tot > span + 1e-9) break;
+      const q = tot / (2 * grid); if (Math.abs(q - Math.round(q)) < 1e-6 && span - tot <= 2 * grid + 1e-9) return { n: m, w: wv, gap: g, span: tot, grid: true };
     }
-    const g = (span - m * w) / (m - 1);
-    if (g >= min - 1e-9) return { n: m, w, gap: g, span, grid: false };
+    const g = (span - m * wv) / (m - 1); if (g >= min - 1e-9) return { n: m, w: wv, gap: g, span, grid: false };
   }
-  return { n: 2, w, gap: span - 2 * w, span, grid: false };
+  return { n: 2, w: wMin, gap: span - 2 * wMin, span, grid: false };
 }
-// A COMB: parts and the slots cut between them are one role, so one width. The size's part width if the comb fits its root's span
-// (each end within one iPhone pixel); else the narrowest width the size allows, if that fits; else one part fewer (never below two).
-function comb({ n, w, wMin, span, grid }) {
+// A COMB: parts and the slots cut between them are one role, so one width, across the room its box leaves. The part width if it
+// fits; else the narrowest the size allows (wMin: never under the counter minimum, the slots share it); else one part fewer.
+function comb({ n, w, wMin, span }) {
   for (let m = n; m >= 2; m--) {
     const k = 2 * m - 1;
-    if (k * w <= span + 2 * grid + 1e-9) return { n: m, w, slot: w, span: k * w };
-    const wf = Math.max(wMin, span / k);
-    if (k * wf <= span + 2 * grid + 1e-9) return { n: m, w: wf, slot: wf, span: k * wf };
+    if (k * w <= span + 1e-9) return { n: m, w, slot: w, span: k * w };
+    if (k * wMin <= span + 1e-9) return { n: m, w: wMin, slot: wMin, span: k * wMin };
   }
   return { n: 2, w: wMin, slot: wMin, span: 3 * wMin };
 }
-// a protrusion: past what it sticks out from by the size's minimum
-const protrusion = (base, Z) => base + Z.protrude;
 
 // ---------------------------------------------------------------------------------------------------------------------------
-// THE DECLARATIONS. roots, how they relate, joined or cut; the kernel's root call and the rules it takes. Nothing else.
+// THE DECLARATIONS: data, the only per-icon input. spine: the roots top to bottom; each names its kind, its size as a share of a
+// parent (w of 'of', else of the box), and how it meets the root above it (join). The board and THE-SYSTEM.md print them from here.
+//   joins: cut (rests on it, a cut apart) · into (a post into a face: a fillet) · held (posts under a slab that runs past them: the
+//   chamfer) · the loop meets its vessel's wall in one tangent curve; tiers notch into each other.
 const DECL = {
-  cafe: { cls: 'wide', roots: 'vessel (the cup, as deep as wide) + loop (the ear, 4/5 of the depth) | rests on | cap (the saucer, 1 4/5 of the cup)', joins: 'cup into ear: one tangent curve; cup on saucer: cut', kernel: 'cafe' },
-  bar: { cls: 'square', roots: 'vessel (the bowl, an ellipse 4/5 as tall as wide, cut 1/5 above its centre) + post (the stem, half the bowl\'s depth) + cap (the foot, 4/5 of the bowl) - band (inner band under the rim)', joins: 'stem into bowl and foot: fillets', kernel: 'bar' },
-  museum: { cls: 'wide', roots: 'gable (pitch 1/3) | rests on | slab (the beam) + row of posts (the columns, 1/3 of the colonnade tall) + slab (the plinth)', joins: 'columns under the overhanging beam and plinth: chamfers (the capital); gable on beam: cut', kernel: 'museum', rows: { posts: 4 } },
-  nature: { cls: 'tall', roots: 'three gables stacked (the tiers, notched 3/5 of the tier above) + post (the trunk)', joins: 'tiers into each other: notches; trunk into the bottom tier: fillet; tips broken', kernel: 'nature' },
-  restaurant: { cls: 'tall', roots: 'comb of 3 posts (the tines) into a cap (the head, a half ellipse) + post (the handle) | cut | edge (the blade, a quarter ellipse) + post (the knife\'s handle)', joins: 'tines into head and head into handle: fillets; blade into handle: fillet', kernel: 'restaurant', rows: { tines: 3 }, protrudes: ['blade'] },
-  star: { cls: 'line mark', roots: 'star (five points, inner radius 0.47) - star (the counter, the same star smaller)', joins: 'tips broken; valleys rounded wide', kernel: 'star' },
-  plus: { cls: 'line mark', roots: 'two posts crossed (the arms, equal)', joins: 'the crossing: a small round', kernel: 'plus' },
+  cafe: { name: 'Café', cls: 'wide', spine: [
+    { id: 'cup', kind: 'vessel', w: 5 / 9, of: 'saucer', deep: 1 },
+    { id: 'ear', kind: 'loop', of: 'cup', at: 'right', h: 4 / 5 },
+    { id: 'saucer', kind: 'cap', w: 1, face: 'down', join: 'cut' },
+  ] },
+  bar: { name: 'Bar', cls: 'square', spine: [
+    { id: 'bowl', kind: 'vessel', w: 1, rimCut: 1 / 5, band: true },
+    { id: 'stem', kind: 'post', join: 'into', show: 1 / 2, showOf: 'bowl' },
+    { id: 'foot', kind: 'cap', w: 4 / 5, of: 'bowl', measure: 'ellipse', face: 'up', join: 'into' },
+  ] },
+  museum: { name: 'Museum', cls: 'square', spine: [
+    { id: 'roof', kind: 'gable', of: 'beam', pitch: 1 / 3, ends: 4 / 5 },
+    { id: 'beam', kind: 'slab', w: 1, join: 'cut' },
+    { id: 'columns', kind: 'row', n: 4, h: 1 / 3, join: 'held' },
+    { id: 'plinth', kind: 'slab', of: 'beam', join: 'held' },
+  ] },
+  nature: { name: 'Nature', cls: 'tall', spine: [
+    { id: 'tiers', kind: 'tiers', w: 1, heights: [4.83, 3, 3.33], widths: [2.8, 4.1, 5.3], notch: 3 / 5 },
+    { id: 'trunk', kind: 'post', join: 'into', show: 'stroke' },
+  ] },
+  restaurant: { name: 'Restaurant', cls: 'tall', spine: [
+    { side: [
+      [{ id: 'tines', kind: 'comb', n: 3, h: 1 / 4 }, { id: 'head', kind: 'head', join: 'into' }, { id: 'handle', kind: 'post', join: 'into' }],
+      [{ id: 'blade', kind: 'blade' }, { id: 'grip', kind: 'post', join: 'into' }],
+    ], join: 'cut' },
+  ] },
+  park: { name: 'Park', cls: 'wide', spine: [
+    { id: 'back', kind: 'slab', w: 1 },
+    { id: 'rails', kind: 'row', n: 2, h: 1 / 6, join: 'held' },
+    { id: 'seat', kind: 'slab', of: 'back', join: 'held' },
+    { id: 'legs', kind: 'row', n: 2, h: 1 / 4, join: 'held' },
+  ] },
+  star: { name: 'Star', cls: 'outline', spine: [{ id: 'star', kind: 'star', points: 5, ri: 0.47 }] },
+  plus: { name: '+', cls: 'open', spine: [{ id: 'arms', kind: 'cross' }] },
 };
-const ORDER = ['cafe', 'bar', 'museum', 'nature', 'restaurant', 'star', 'plus'];
+const ORDER = ['cafe', 'bar', 'museum', 'nature', 'restaurant', 'park', 'star', 'plus'];
+
+// a declaration in words, written from its data (so the words can't drift from what builds)
+const FR = v => { const T = [[1 / 6, '1/6'], [1 / 5, '1/5'], [1 / 4, '1/4'], [1 / 3, '1/3'], [2 / 5, '2/5'], [1 / 2, '1/2'], [3 / 5, '3/5'], [2 / 3, '2/3'], [3 / 4, '3/4'], [4 / 5, '4/5'], [5 / 9, '5/9'], [5 / 6, '5/6'], [1, 'all']]; const m = T.find(([x]) => Math.abs(v - x) < 1e-6); return m ? m[1] : String(+v.toFixed(2)); };
+function say(r) {
+  if (r.side) return r.side.map(sp => sp.map(say).join(', ')).join(' | cut | ');
+  const of = r.of ? ` of the ${r.of}` : '', J = { cut: 'rests on the part above, a cut apart: ', into: 'into the part above: ', held: 'held under the part above (chamfer): ' }[r.join] || '';
+  const K = {
+    vessel: () => `${r.id}: a vessel ${FR(r.w)}${r.of ? of : ' of the box'} wide, ${r.deep != null ? `as deep as ${r.deep === 1 ? 'it is wide' : FR(r.deep) + ' of its width'}` : `its rim cutting the ellipse ${FR(r.rimCut)} above its centre`}${r.band ? ', a band under the rim' : ''}`,
+    loop: () => `${r.id}: a loop on the ${r.of}'s ${r.at} wall, ${FR(r.h)} of its depth`,
+    cap: () => `${r.id}: a cap ${FR(r.w)}${r.of ? of : ' of the box'}${r.measure === 'ellipse' ? ' (its ellipse)' : ''}, curve ${r.face === 'up' ? 'on top' : 'underneath'}`,
+    slab: () => `${r.id}: a slab${r.of ? ` as wide as the ${r.of}` : ` ${FR(r.w ?? 1)} of the box`}`,
+    gable: () => `${r.id}: a gable over the ${r.of}, pitch ${FR(r.pitch)}, ends ${FR(r.ends)} of a line`,
+    row: () => `${r.id}: a row of ${r.n} posts, ${FR(r.h)} of the row's span tall`,
+    tiers: () => `${r.id}: ${r.heights.length} gables stacked, heights ${r.heights.join(' : ')}, widths ${r.widths.join(' : ')}, notched ${FR(r.notch)}`,
+    post: () => `${r.id}: a post${r.show === 'stroke' ? ' showing a stroke' : r.show != null ? ` showing ${FR(r.show)} of the ${r.showOf}'s depth` : ' to the bottom'}`,
+    comb: () => `${r.id}: a comb of ${r.n}, ${FR(r.h)} of the height`,
+    head: () => `${r.id}: a half ellipse under it`,
+    blade: () => `${r.id}: a blade (a quarter ellipse) past its handle`,
+    star: () => `${r.id}: a star of ${r.points} points (inner radius ${r.ri}), its counter the star moved in`,
+    cross: () => `${r.id}: two equal posts crossed`,
+  };
+  return J + K[r.kind]();
+}
+const words = decl => decl.spine.map(say).join('; ');
 
 // ---------------------------------------------------------------------------------------------------------------------------
 // THE BUILD (one size per process)
-function setKernel(size) {
-  const Z = SIZES[size], k = Z.k, line = 1.5;
-  const { PROP } = require('./proportions.js');
-  PROP.line.post = Z.part / k / line;   // posts, columns, stems, trunks: the size's part width
-  PROP.line.band = Z.band / k / line;   // an inner band: the size's band (no thicker than the stroke)
-  PROP.line.cut = Z.gap / k / line;     // a cut between resting parts: the size's gap
-  return { Z, PROP };
-}
-function restaurantDecl(Z) {
-  const E = require('./engine.js'), M = require('./mix-curves.js'), u = 1 / Z.k, K = 0.5523;
-  const top = 6.5, bot = 17.5, w = Z.part * u, cutW = Z.gap * u;
-  // the comb across the head's root span (the head is three lines and two half-line slots wide), the blade past its handle
-  const C = comb({ n: DECL.restaurant.rows.tines, w, wMin: Z.min * u, span: 3 * 1.5 + 2 * 0.75, grid: IPX * u }), fw = C.span, kw = protrusion(w, { protrude: Z.protrude * u });
-  const x0 = 12 - (fw + cutW + kw) / 2, fcx = x0 + fw / 2, hc = top + 3.0, roots = [];
-  for (let i = 0; i < C.n; i++) roots.push(M.ink('post', E.R(x0 + i * 2 * C.w, top, C.w, hc - 0.1 - top)));
-  // a line running into an ellipse at its widest point: the ellipse's bend there (rx / ry^2) stays under the fair limit (0.35), so
-  // the join reads as one line; 1.05 as tall as wide where that already holds
-  { const rx = fw / 2, ry = Math.max(1.05 * rx, Math.sqrt(rx / 0.33)); roots.push(M.ink('mass', E.D(`M${fcx - rx} ${hc - 0.3}V${hc}C${fcx - rx} ${hc + ry * K} ${fcx - rx * K} ${hc + ry} ${fcx} ${hc + ry}C${fcx + rx * K} ${hc + ry} ${fcx + rx} ${hc + ry * K} ${fcx + rx} ${hc}V${hc - 0.3}Z`))); }
-  { const hb = hc + Math.max(1.05 * fw / 2, Math.sqrt(fw / 2 / 0.33)) - 0.4; roots.push(M.ink('post', E.R(fcx - w / 2, hb, w, bot - hb))); }
-  const ks = x0 + fw + cutW, ke = top + 6, ry = ke - top;
-  roots.push(M.ink('mass', E.D(`M${ks} ${top}C${ks + kw * K} ${top} ${ks + kw} ${ke - ry * K} ${ks + kw} ${ke}H${ks}Z`)));
-  roots.push(M.ink('post', E.R(ks, ke - 0.2, w, bot - ke + 0.2)));
-  return { icon: { roots, cuts: [] }, meta: { tines: C.n, tine: C.w * Z.k, slot: C.slot * Z.k, blade: kw * Z.k, protrude: (kw - w) * Z.k, x0, fw, ks, kw } };
+let paperOK = null;
+function v264Box(id) {   // the icon's v264 size, the box it never grows past (frame units)
+  const f = path.join(OUT, 'v264', `${id}.svg`); if (!fs.existsSync(f)) return null;
+  const paper = require(path.join(process.env.TOOLS, 'node_modules/paper/dist/paper-core.js')); if (!paperOK) { paper.setup(new paper.Size(100, 100)); paperOK = 1; }
+  const it = new paper.CompoundPath(fs.readFileSync(f, 'utf8').match(/ d="([^"]+)"/)[1]), b = it.bounds; it.remove();
+  return { x0: b.x, x1: b.x + b.width, y0: b.y, y1: b.y + b.height, w: b.width, h: b.height };
 }
 function build(size, ids) {
-  const { Z } = setKernel(size), u = 1 / Z.k;
-  const all = {};
-  const SL = require('./system-land.js');
-  global.SYSTEM_PRIMS = (prims, sym) => { const out = SL.landPrims(prims, sym, { size: Z.frame, std: { stroke: null, counter: 0 } }); if (process.env.DUMP) fs.writeFileSync(process.env.DUMP, JSON.stringify({ prims: require('./engine.js').parts(prims), out })); return out; };
+  const Z = SIZES[size], Mk = require('./system-make.js'), SL = require('./system-land.js'), OS = require('./one-side.js');
   for (const id of ids) {
-    const t0 = Date.now(); let d, sym = 12, meta = {};
-    if (id === 'restaurant') {
-      const M = require('./mix-curves.js'), R = restaurantDecl(Z);
-      M.ICONS.__sys = () => R.icon; d = M.buildIcon('__sys').d; sym = null; meta = R.meta;
-    } else if (id === 'star' || id === 'plus') {
-      d = require('./construction.js').mark(id).d;
+    const decl = DECL[id], line = MARK[decl.cls], t0 = Date.now();
+    if (line && size !== 18) continue;   // a line mark is one drawing, at its app size
+    let d, sym, meta;
+    if (line) {
+      const R = Mk.mark(decl), L = OS.land(R.d, { size: line.frame, sym: R.sym, std: line.std });
+      d = L.d; sym = R.sym; meta = { ...R.meta, frame: line.frame, landing: 'outline' }; var drawn = R.d;
     } else {
-      if (id === 'museum') {
-        // the row rule on the colonnade, live inside the kernel's layout: the span its beam sets, posts at the part width
-        meta = {};
-        global.SYSTEM_O = { cols: (span, w, over) => { const R = row({ span, w, n: DECL.museum.rows.posts, min: Z.counter * u, grid: IPX * u });
-          const n = process.env.ROW_N ? +process.env.ROW_N : R.n, Q0 = n === R.n ? R : row({ span, w, n, min: Z.counter * u, grid: IPX * u });
-          // the overhang past the outer column is a protrusion: on the grid it rounds up, never down (rounded down it reads as a knee)
-          const Q = { ...Q0, over: Math.ceil(over / (IPX * u) - 1e-6) * IPX * u };
-          Object.assign(meta, { cols: Q.n, onGrid: Q.grid, overPx: +(Q.over * Z.k).toFixed(3), ruleCols: R.n, gapPx: +(Q.gap * Z.k).toFixed(3), spanPx: +(Q.span * Z.k).toFixed(3), rootSpanPx: +(span * Z.k).toFixed(3) }); return Q; } };
-      }
-      const C = require('./construction.js');
-      // a row sets its width in px, so the class fit would rescale everything else to chase it: a row icon keeps the size the
-      // system fits it to with the row as its root drew it (the first, plain build), and only the row changes
-      if (id === 'museum') { const keep = global.SYSTEM_O; global.SYSTEM_O = {}; const f = C.shaped(id); global.SYSTEM_O = keep; d = C.shaped(id, { fit: { s: f.s, classFrom: f.classFrom } }).d; }
-      else d = C.shaped(id).d;
-      global.SYSTEM_O = {};
-      if (id === 'cafe') sym = null;
+      const R = Mk.make(decl, Z, module.exports, { v264: v264Box(id), land: (prims, s_) => SL.landPrims(prims, s_, { size: Z.frame, std: { stroke: null, counter: 0 } }) });
+      d = R.d; sym = R.sym; meta = { ...R.meta, landing: 'roots' }; drawn = R.d;
+      if (Z.close) { const c = SL.closeSmall(d, Z.counter / Z.k); d = c.d; meta.closed = c.closed; meta.landing = 'roots; small counters closed'; }
     }
-    // widths are the size's own (set in the kernel above), so the landing keeps every width and only places edges
-    const L = landAt(size, id, d, sym, meta);
-    all[id] = { size, d: L.d, drawn: d, sym, meta, maxMove: L.maxMove, opened: L.opened, s: (Date.now() - t0) / 1000 };
-    write(size, id, all[id]);
-    console.log(size, id, `${all[id].s.toFixed(0)}s`, JSON.stringify(meta));
+    const B = { size, d, drawn, sym, meta, s: (Date.now() - t0) / 1000 };
+    write(size, id, B);
+    console.log(size, id, `${B.s.toFixed(0)}s`, JSON.stringify(meta));
   }
-}
-function landAt(size, id, d, sym, meta) {
-  const Z = SIZES[size], OS = require('./one-side.js');
-    // line marks are one drawing each, landed at their own app size: the star in the row's 18px box, the + at 14px across (28 frame)
-    const MARK = { star: { frame: 18, std: { stroke: 4, centred: 4, counter: 3 } }, plus: { frame: 28, std: { stroke: 6, centred: 6, counter: 3 } } };
-    // shaped icons: the roots were landed before the corner law (system-land.js landPrims), so the outline is final; at 12 a
-    // counter under the minimum closes. Line marks: one drawing each, landed at their own app size.
-    const L = MARK[id] ? require('./one-side.js').land(d, { size: MARK[id].frame, sym, std: MARK[id].std }) : { d, maxMove: 0, opened: [] };
-    if (Z.close && !MARK[id]) { const c = require('./system-land.js').closeSmall(d, Z.counter / Z.k); L.d = c.d; L.opened = c.closed; }
-    L.how = MARK[id] ? 'outline' : Z.close ? 'roots; small counters closed' : 'roots';
-    if (MARK[id]) meta.frame = MARK[id].frame;
-    meta.landing = L.how;
-  return L;
 }
 function write(size, id, B) {
   const dir = path.join(OUT, String(size)), V = process.env.VARIANT || '', f = (B.meta && B.meta.frame) || SIZES[size].frame;
@@ -233,17 +236,11 @@ function write(size, id, B) {
   fs.writeFileSync(path.join(dir, `${id}${V}.svg`), `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="${f}" height="${f}"><path fill-rule="evenodd" d="${B.d}"/></svg>\n`);
   fs.writeFileSync(path.join(dir, `${id}${V}.json`), JSON.stringify(B));
 }
-// re-land what the kernel drew (no rebuild): when only a landing setting changed
-function reland(size, ids) {
-  for (const id of ids) { const f = path.join(OUT, String(size), `${id}${process.env.VARIANT || ''}.json`); if (!fs.existsSync(f)) continue;
-    const B = JSON.parse(fs.readFileSync(f, 'utf8')), L = landAt(size, id, B.drawn, B.sym, B.meta); write(size, id, { ...B, d: L.d, maxMove: L.maxMove, opened: L.opened }); console.log('landed', size, id); }
-}
 
-module.exports = { SETTINGS, SIZES, DECL, ORDER, RING, row, comb, protrusion, OUT };
+module.exports = { SETTINGS, SIZES, DECL, ORDER, RING, MARK, IPX, row, comb, words, say, OUT };
 if (require.main === module) {
   const [cmd, a, b] = process.argv.slice(2);
   if (cmd === 'build') build(+a, b ? b.split(',') : ORDER);
-  else if (cmd === 'land') reland(+a, b ? b.split(',') : ORDER);
   else if (cmd === 'check') process.exitCode = require('./system-check.js').run() ? 0 : 1;
   else if (cmd === 'spec') require('./system-spec.js').write();
   else console.log('node system.js build <18|24|12> [ids] | check | spec');

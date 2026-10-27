@@ -15,18 +15,19 @@ function md() {
     }
     L.push('');
   }
-  L.push('## The sizes', '', '| Size | Stroke | Parts | Gaps and cuts | Inner band | Counter minimum | Protrusion |', '|---|---|---|---|---|---|---|');
-  for (const [s, Z] of Object.entries(S.SIZES)) L.push(`| ${s} | ${fr(Z.stroke)} | ${fr(Z.part)} | ${fr(Z.gap)} | ${s === '12' ? 'closes' : fr(Z.band)} | ${fr(Z.counter)}${Z.close ? ', smaller closes' : ''} | ${fr(Z.protrude)} |`);
+  L.push('## The sizes', '', '| Size | Stroke | Parts | Thinnest part | Gaps and cuts | Inner band | Counter minimum | Protrusion |', '|---|---|---|---|---|---|---|---|');
+  for (const [s, Z] of Object.entries(S.SIZES)) L.push(`| ${s} | ${fr(Z.stroke)} | ${fr(Z.part)} | ${fr(Z.min)} | ${fr(Z.gap)} | ${s === '12' ? 'closes' : fr(Z.band)} | ${fr(Z.counter)}${Z.close ? ', smaller closes' : ''} | ${fr(Z.protrude)} |`);
   L.push('', 'Widths are px at that size, on whole iPhone pixels except the 1½ stroke at 18. The ring: 1⅓ at 24, 1⅔ at 32.', '',
     '## How an icon is made', '',
-    '1. Declare it: its roots, how they relate, joined or cut (below). Nothing else.',
-    '2. The system fits it to its class box, sets every width from the size, rounds every corner by the machined rule and the round table, fairs every join to continuous curvature, mirrors it if it is symmetric and centres it optically.',
-    '3. It lands on the iPhone grid by the snap priority, at each size it ships.',
-    '4. The checks run; any failure stops it.', '', '## The declarations', '');
-  for (const id of S.ORDER) { const d = S.DECL[id]; L.push(`- **${id}** (${d.cls}): ${d.roots}. Joins: ${d.joins}.`); }
-  L.push('', '## Build and check', '', '- `node src/system.js build 18` (and 24, 12): writes `svg/system/<size>/<icon>.svg`.',
+    '1. Declare it (below): its roots top to bottom, each a kind of root, its size a share of a parent, and how it meets the root above it (rests on, a cut apart; into, a fillet; held under an overhang, a chamfer; a loop on a wall, one tangent curve; tiers notched). The declaration is data and the only per-icon input.',
+    '2. The system lays the roots out by those relations, fits the icon to its class box by the sides that scale (never past its v264 size), and centres it optically within the box.',
+    '3. Straight widths and overhangs land on the iPhone grid before anything is drawn on them; the roots land by the snap priority; a row or a comb lands as one.',
+    '4. Every corner takes a cutter from the rack, every join is faired to continuous curvature, a symmetric icon is mirrored.',
+    '5. The checks run on every size; any failure stops it.', '', '## The declarations', '');
+  for (const id of S.ORDER) { const d = S.DECL[id]; L.push(`- **${d.name}** (${d.cls}): ${S.words(d)}.`); }
+  L.push('', '## Build and check', '', '- `node src/system.js build 18` (and 24, 12): writes `svg/system/<size>/<icon>.svg` (one process per size; any icon list).',
     '- `node src/system.js check`: every automatic check; exit 1 blocks publishing. Eye checks print after.',
-    '- `node src/system-v264.js`: proves the kernel still regenerates v264.', '- `node src/system.js spec`: rewrites this file.', '');
+    '- `node src/system.js spec`: rewrites this file. `src/system-make.js` is the maker (kinds, joins, layout, pipeline); nothing in it names an icon.', '');
   return L.join('\n');
 }
 module.exports = { write: () => fs.writeFileSync(path.join(__dirname, '..', 'THE-SYSTEM.md'), md()), md };
