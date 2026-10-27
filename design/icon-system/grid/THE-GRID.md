@@ -32,8 +32,9 @@ Code: `src/one-side.js` (the rules), `src/back-to-drawings.js` (the set), `src/b
 7. **Never snap curves, diagonals, points or corner rounds.** They ride on the edges either side of them, so curves keep their
    shape and joins stay smooth.
 8. **Give each size its own widths.** At 18 and 12 every width is whole iPhone pixels: the stroke at the size's standard, every
-   other part its drawn width rounded, a tie to the even count. A centred stroke takes the nearest even count. If a centred
-   part is still odd, move the icon's centre half an iPhone pixel and place its frame on that centre.
+   other part its drawn width rounded, a tie to the even count. A centred part always takes an even count, so both its sides
+   land: a centred stroke the nearest even count; any other centred part, an odd count goes up one, and everything either side
+   of it moves out half an iPhone pixel so the openings beside it keep their width. Never move the centre.
 9. **Draw a stroke only for a line in the thing** (a rim, a handle, a slab, an outline). A part that carries or stands (a column,
    a post, a stem) is a solid: give it the width that reads right beside its openings.
 10. **Judge weight by eye at true size on the iPhone.** Every size reads as the same weight as the 24.

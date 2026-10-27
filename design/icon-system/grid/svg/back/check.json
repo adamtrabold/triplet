@@ -507,14 +507,18 @@
   },
   "after3": {
    "outer": [
-    12,
-    10
+    11,
+    11
    ],
    "stroke side": [
     4,
     4
    ],
    "centred": [
+    2,
+    2
+   ],
+   "outer (free post)": [
     2,
     2
    ],
@@ -539,16 +543,20 @@
   },
   "after2": {
    "outer": [
-    12,
-    2
+    11,
+    0
    ],
    "stroke side": [
     4,
-    2
+    1
    ],
    "centred": [
     2,
     0
+   ],
+   "outer (free post)": [
+    2,
+    1
    ],
    "inner": [
     2,
@@ -557,8 +565,8 @@
   },
   "ink": {
    "v264": 65.7,
-   "now": 66.5,
-   "pct": 1.2
+   "now": 71.5,
+   "pct": 8.8
   },
   "maxMove": 0.309,
   "opened": []
@@ -581,7 +589,7 @@
   "after3": {
    "outer": [
     11,
-    9
+    11
    ],
    "stroke side": [
     4,
@@ -630,8 +638,8 @@
   },
   "ink": {
    "v264": 65.7,
-   "now": 62.5,
-   "pct": -4.9
+   "now": 62.4,
+   "pct": -5
   },
   "maxMove": 0.199,
   "opened": []
@@ -654,7 +662,7 @@
   "after3": {
    "outer": [
     12,
-    11
+    12
    ],
    "stroke side": [
     4,
@@ -686,7 +694,7 @@
   "after2": {
    "outer": [
     12,
-    7
+    8
    ],
    "stroke side": [
     4,
@@ -703,8 +711,8 @@
   },
   "ink": {
    "v264": 65.7,
-   "now": 65.2,
-   "pct": -0.8
+   "now": 65.6,
+   "pct": -0.2
   },
   "maxMove": 0.143,
   "opened": []

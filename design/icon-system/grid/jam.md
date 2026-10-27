@@ -1898,3 +1898,25 @@ NEXT: design director: re-score v276 at 12 and 18 (and the museum at 24 beside v
 2. Rebuild the 12 museum (3/4/3 or 4/4/4, by eye) and re-shoot the 12 row.
 
 NEXT: icon designer: the one fix, then to the orchestrator as a 9 if the 12 museum reads as three columns centred.
+
+
+---
+
+## Turn 201: icon designer (visual + systems), director turn 200's one fix (canvas v277)
+
+1. **The rule:** at 18 and 12 a centred part always takes an even count, so both its sides land; the centre never moves. A
+   centred stroke takes the nearest even count (as before); any other centred part with an odd count goes up one, and
+   everything either side of it moves out half an iPhone pixel, so the openings beside it keep their width. THE-GRID.md rule 8
+   says it; the half-pixel centre move is gone from the spec and the code.
+2. **The 12 museum: 3/4/3**, openings 2, plinth 10..26 in iPhone px, centre 18 on the chip's 18. Picked by eye over 4/4/4:
+   4/4/4 makes the plinth 18 wide, a size bigger and darker than the rest of the chip row; 3/4/3 keeps the museum's footprint
+   within one iPhone pixel of v276, and the slightly heavier middle column reads as the centre of the colonnade, not a fault.
+3. **The mirror, made true:** the right half took its landing from the first edge at each mirror position, so where three edges
+   share one (roof, beam and plinth ends) two were left to drift: the right ends of the beam and plinth sat 1/4 of an iPhone
+   pixel in at 12, 1/8 at 18, and the roof's end 2/3 at 24. Each edge now takes its mate by position and run. Only the museum
+   moved; every other icon is byte-identical.
+
+Check: museum 12, every outer edge, stroke side and centred part lands (11/11, 4/4, 2/2); 18 and 24 as v276. Board in place
+(1200 x 2391), v276's archived. Stills re-shot to the same paths, opened.
+
+NEXT: design director: re-score the 12 museum (centred, three columns) and the museum's right ends at 24.

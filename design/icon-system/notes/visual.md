@@ -1,5 +1,17 @@
 # Visual designer notes: icon system
 
+## Centred parts even (2026-10-27, jam turn 201, canvas v277)
+
+- Rule 8: at 18 and 12 a centred part always takes an even count; never move the centre (`one-side.js`: an odd centred solid
+  grows one iPhone px and pushes each side out half a px). 12 museum 3/4/3, openings 2, plinth 10..26, centre 18 (4/4/4 read
+  a size bigger). Mirror fix: each right edge takes its mate by position and run (the museum's right ends were 1/4 to 2/3
+  iPhone px off). Only the museum changed. v276 archived (Archive page x 13680 y 210000). New board images uploaded
+  (`src/back-board-blobs.json`).
+- Run (from `grid/`): `REUSE=1 node src/back-to-drawings.js`, `node src/back-check.js`, `node src/back-shots.js stills/back/raw`,
+  `python3 -I src/back-board-imgs.py stills/back/raw stills/back/board`, `BOARD_H=2391 node src/back-board.js <out> src/back-board-blobs.json`
+  (no blobs arg for a local copy), `node src/back-board-shot.js <local> <still prefix>`.
+- Open: the director's re-score.
+
 ## Director fixes (2026-10-27, jam turn 199, canvas v276)
 
 - Coupe at 12 a full glass (band closed); museum columns 2px at 24, whole iPhone pixels at 18 and 12: a colonnade at every size.

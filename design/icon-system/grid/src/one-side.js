@@ -15,8 +15,8 @@
 //      stroke beside it outward (its width kept), never the mass. At 12 a short one closes: the part goes solid.
 //   6. SIZE STANDARDS: at 18 and 12 every part's width is whole iPhone pixels. A stroke (drawn 1.2-1.8) is the drawing's weight
 //      rounded to the nearest pixel (18: 3, 12: 2); every other part is its drawn width rounded, a tie to the even count. A stroke
-//      on the centre line takes the nearest even count. When a centred part's count is still odd, the icon's centre moves half an
-//      iPhone pixel so it lands; the icon stays symmetric about that centre and its frame is placed on it. 24 keeps every width.
+//      on the centre line takes the nearest even count; any other centred part, an odd count goes up one. So both sides of a
+//      centred part land and the centre never moves. 24 keeps every width.
 //
 //   const { land, report } = require('./one-side.js');
 //   land(d, { size: 24, sym: 12 }) -> { d, ... }        report(d, size, dpr) -> every core edge with its kind and how far it sits off
@@ -141,11 +141,11 @@ function openAxis(list, stems, isOut, ax, min, strokeU, close = false, closed = 
 function landAxis(list, stems, used, isOut, ax, k, sym, strokeU, centredU, kW = null) {
   const snap = v => Math.round(v * k) / k, ctl = [], kinds = [];
   const solidW = w => kW ? evenTie(w * kW) / kW : w;
-  const put = (e, n, kind) => { ctl.push({ o: e.pos, n, pri: (e.hi - e.lo) + (kind === 'kept' ? 0 : 100), cis: [e.ci] }); kinds.push({ pos: e.pos, kind }); };
+  const put = (e, n, kind) => { ctl.push({ o: e.pos, n, pri: (e.hi - e.lo) + (kind === 'kept' ? 0 : 100), cis: [e.ci], e }); kinds.push({ pos: e.pos, kind }); };
   const C = sym != null ? sym : null, left = v => C == null || v < C - 1e-3, onAxis = (a, b) => C != null && Math.abs(a + b - 2 * C) < 0.02;
   for (const s of stems) {
     const a = list[s.i], b = list[s.j], W = strokeU && isStroke(s.w) ? strokeU : solidW(s.w);
-    if (onAxis(a.pos, b.pos)) { const Wc = centredU && isStroke(s.w) ? centredU : W; put(a, C - Wc / 2, 'centred'); put(b, C + Wc / 2, 'centred'); continue; }
+    if (onAxis(a.pos, b.pos)) { const Wc = centredU && isStroke(s.w) ? centredU : kW ? evenUp(W * kW) / kW : W; put(a, C - Wc / 2, 'centred'); put(b, C + Wc / 2, 'centred'); continue; }
     if (!left(b.pos)) continue;   // the right half is the left's mirror
     const oa = facesOut(a, ax, isOut), ob = facesOut(b, ax, isOut);
     let lo, hi;
@@ -160,7 +160,8 @@ function landAxis(list, stems, used, isOut, ax, k, sym, strokeU, centredU, kW = 
   list.forEach((e, i) => { if (used.has(i) || !left(e.pos)) return; if (facesOut(e, ax, isOut)) put(e, snap(e.pos), 'outer'); else put(e, e.pos, 'kept'); });
   if (C != null) {   // mirror the left half's controls onto the right
     const L = [...ctl];
-    for (const c of L) { const mate = list.find(e => Math.abs(e.pos - (2 * C - c.o)) < 0.02 && e.pos > C + 1e-3); if (!mate) continue; ctl.push({ o: mate.pos, n: 2 * C - c.n, pri: c.pri, cis: [mate.ci] }); const kd = kinds.find(q => Math.abs(q.pos - c.o) < 1e-6); kinds.push({ pos: mate.pos, kind: kd ? kd.kind : 'outer' }); }
+    // each left edge's mate: the edge at its mirror position whose run matches it best (several edges can share a position)
+    for (const c of L) { const near = (e, f) => Math.abs(e.lo - f.lo) + Math.abs(e.hi - f.hi), mate = list.filter(e => Math.abs(e.pos - (2 * C - c.o)) < 0.02 && e.pos > C + 1e-3).sort((p, q) => near(p, c.e) - near(q, c.e))[0]; if (!mate) continue; ctl.push({ o: mate.pos, n: 2 * C - c.n, pri: c.pri, cis: [mate.ci] }); const kd = kinds.find(q => Math.abs(q.pos - c.o) < 1e-6); kinds.push({ pos: mate.pos, kind: kd ? kd.kind : 'outer' }); }
   }
   return { m: mapper(ctl), kinds };
 }
@@ -171,12 +172,15 @@ function land(d0, { size = 24, sym = null, symY = null } = {}) {
   const centredU = std.stroke ? 2 * Math.round(1.5 * k / 2) / k : null;
   let d = d0, opened = [], shift = 0;
   if (strokeU) {
-    // a part on the centre line whose whole-pixel width is odd: the icon's centre moves half an iPhone pixel, so that part lands
-    // and the icon stays symmetric about its new centre (the frame is placed on the icon's centre, as the + is in its button)
+    // a centred solid whose whole-pixel count is odd grows one iPhone pixel; everything either side of it moves out half a pixel,
+    // so the openings beside it keep their width and the centre never moves
     if (sym != null) { const E = findEdges(d), { stems } = pairStems(E.x);
-      for (const s of stems) { const a = E.x[s.i], b = E.x[s.j]; if (Math.abs(a.pos + b.pos - 2 * sym) > 0.02) continue;
-        const n = isStroke(s.w) ? centredU * k : evenTie(s.w * k); if (Math.round(n) % 2) shift = 0.5 / k; }
-      if (shift) { const id = { forC: () => ({ map: v => v, slope: () => 1 }) }; d = apply(d, { forC: () => ({ map: v => v + shift, slope: () => 1 }) }, id).d; sym += shift; } }
+      for (const s of stems) { const a = E.x[s.i], b = E.x[s.j]; if (Math.abs(a.pos + b.pos - 2 * sym) > 0.02 || isStroke(s.w)) continue;
+        if (Math.round(evenTie(s.w * k)) % 2 === 0) continue;
+        const h = 0.5 / k, A = a.pos, Bp = b.pos, sc = (Bp - A + 2 * h) / (Bp - A);
+        const map = v => v <= A ? v - h : v >= Bp ? v + h : A - h + (v - A) * sc, slope = v => v > A && v < Bp ? sc : 1;
+        const id = { forC: () => ({ map: v => v, slope: () => 1 }) };
+        d = apply(d, { forC: () => ({ map, slope }) }, id).d; shift = h; break; } }
     // rule 8: the size's widths first (strokes to the standard, every other part to whole iPhone pixels), nothing moved to the grid yet
     const E = findEdges(d), isOut = outside(d), mx = landAxis(E.x, ...stemsOf(E.x), isOut, 'x', 1e6, sym, strokeU, centredU, k), my = landAxis(E.y, ...stemsOf(E.y), isOut, 'y', 1e6, symY, strokeU, centredU, k);
     d = apply(d, mx.m, my.m).d;
@@ -191,6 +195,7 @@ function land(d0, { size = 24, sym = null, symY = null } = {}) {
   const r = apply(d, mx.m, my.m);
   return { d: r.d, maxMove: r.maxMove, opened, shift, sym, size, k };
 }
+const evenUp = n => { const r = Math.round(n); return r % 2 ? r + 1 : r; };   // a centred part: an odd count goes up one, so both sides land and the centre never moves
 const evenTie = v => { const f = Math.floor(v), r = v - f; return Math.abs(r - 0.5) < 0.02 ? (f % 2 ? f + 1 : f) : Math.round(v); };   // a tie (within 1/50 of a pixel) goes to the even count
 function stemsOf(list) { const { stems, used } = pairStems(list); return [stems, used]; }
 
