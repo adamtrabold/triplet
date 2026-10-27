@@ -3,8 +3,8 @@
 ## Drawn at the size it ships (2026-10-27, jam turn 206, canvas v281)
 
 - Owner: 18 is the master, 24 and 12 drawn from it with detail adjusted. THE-GRID.md rewritten as the sizes table + 10 rules.
-- Reading of "18": the app's badge is 24px with the glyph's 18 box at 3, 3. The icon is drawn in badge px at v264's size
-  (10-11px across), not 11 units x 3/4 (~8px, what v280's 18 and the app's scaling gave).
+- Reading of "18": the app's badge is 24px with the glyph's 18 box at 3, 3. The icon is drawn in badge px at the size the boards have shown
+  (10-11px across; no approval recorded, asked: "Keep them at 10-11px?"), not 11 units x 3/4 (~8px, what v280's 18 and the app's scaling gave).
 - Build: `src/right-size.js` (SIZES: 18 = frame 24, 24 = frame 32, 12 = frame 16; a per-size `std` passed to `one-side.js`
   `land(d, { size, sym, std })`, which now takes `std.centred` and `std.solidMin`). Drawings: v280's `drawn` for cafe, bar,
   nature, restaurant; the museum `museumOpen` (three 1 1/3 columns, open ends, 2px openings; ~150s to build); the star, v280's

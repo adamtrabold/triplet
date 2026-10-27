@@ -2035,8 +2035,8 @@ NEXT: design director: re-score v280 on a phone and the 5K at 100% zoom.
 
 Owner: "they should be drawn at the right size"; "yes 18 should be the master, detail should be adjusted for 24px and 12px".
 
-1. **18 is the master**, drawn 1:1 in the 24px badge (the glyph's 18 box at 3, 3). The icon keeps the size he approved on the
-   boards, 10-11px across; v280's 18 (the 24 drawing scaled 3/4) had shrunk it to ~8px. Strokes, posts, columns and the badge
+1. **18 is the master**, drawn 1:1 in the 24px badge (the glyph's 18 box at 3, 3). The icon is 10-11px across, the size the boards
+   have shown (no approval of a size is recorded; asked on the board: "Keep them at 10-11px?"); v280's 18 (the 24 drawing scaled 3/4) had shrunk it to ~8px. Strokes, posts, columns and the badge
    rim all 1 1/3px (4 iPhone px): the whole-pixel width nearest 1 1/2, between his 1 1/4 and the 1 1/2 he called heavy.
 2. **24 (selected pin, 32 badge):** drawn from 18 at 2px strokes (6 iPhone px, lands on both screens); the coupe's band opens to
    1 1/3. **12 (chips):** 1px strokes (3), centred parts 1 1/3 (an even count); the coupe's band closes, a full glass. The icon at
