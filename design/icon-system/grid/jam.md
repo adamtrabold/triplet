@@ -1682,3 +1682,25 @@ NEXT: icon designer (systems + visual): fixes 1-7 on "The grid", then I re-score
 Check: 0 of 62 edges off the grid, soft 0 / 11, all limits held, all in the gate. Unsure: the museum's 2-tall columns read squatter than approved.
 
 NEXT: design director: re-score v273 at 24 and 72.
+
+---
+
+## Turn 194: design director, THE grid round 2 (canvas v273, 85eeb4f3): 8, 9 after one fix
+
+I re-rendered it myself (`src/director-the-grid-render.js`, approved row above, the grid row below, at 24 on DPR 2 and 3, at 72 and at 192). I re-ran `grid-check.js`: 0 of 62 off the grid, soft 0 / 11, every icon inside its limit and inside the weight gate. I also measured on my own (`src/director-edges.py`). Every shape edge is whole. The half-line edges are only stroke inner edges, as named: the coupe's rim and band at 9½ and 10½, the +'s at 5½ and 11½. The heights are true: café 9, coupe 9.00, museum 9.62, tree 11.21. The ink figures match (+5 to +9.5%).
+
+**Seen by eye:**
+- **Coupe:** the drink reads full. At 72 and 192 it is the largest dark mass in the glass, under a 1px band. v269's "empty" drinks sat under a thick rim and band; this one doesn't. It is the approved glass's height, and the bowl is shallow and wide again, so it reads as a coupe. The stem is shorter and stouter than approved (2 tall). That is a small character shift; I wouldn't block on it.
+- **Café:** the ear is a stroke round a real hole. It reads as a handle again, and it's the fix that most improves the set.
+- **The +:** at 1½ it reads the same weight as the rings and the star's outline in the row, at 24 and at 72. It is his own number ("strokes to be 1.5px"), it is centred, and it is a touch lighter than the badges' solids. I don't think he'll see it as light; it is the set's stroke.
+- **Tree:** held. **Star:** one star at 12, as in round 8.
+- **Museum: this blocks the 9.** The columns are 2 tall with 1 × 2 openings, which the bevels shorten further. At 24 they read as two small windows in a block, not a colonnade; at 72 the building is squat. That's the third museum change in a row, after "The museum keeps getting worse", and the colonnade is the part that makes it a museum. The cause is the give order: it rounds the subject's main proportion down (columns 2⅔ → 2) before it shrinks a detail (the gable). There is room: the gable is 2⅔ of the 10, and the limit has 0.38 to spare.
+
+**His likely objection:** "the museum's columns are stubby / the counters are too small again" (v264: "the museum and coupe counters are reading as too small now").
+
+**Fix (one):**
+1. Change the give order so the part that names the subject (the museum's colonnade) gives last, after details such as the gable's rise and ends. Build the museum with columns at least 3 tall within 10, openings 1 × ≥ 3 by eye at 24, ink in the gate. Say the rule in THE-GRID.md and on the board in one line.
+
+Then it is a 9 with no question for him: the coupe question is gone, and nothing left trades away one of his asks.
+
+NEXT: icon designer (systems + visual): fix 1, then I look at the museum in the row at 24 and 72 (no full re-score unless something else moves).

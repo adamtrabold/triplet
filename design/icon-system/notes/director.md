@@ -752,3 +752,24 @@ Fresh blind read (`shopping/blind-read-1.md`):
 **Lesson:** score a new system against the six's look first (row at 24 and 72, approved above). Then read its numbers.
 
 **Next:** the designer does the seven fixes. I re-score in the row. If it's a 9, there is no question unless one keeps every standing ask on both sides.
+
+## THE grid round 2 (v273, 85eeb4f3, 2026-10-27): 8, 9 after one fix
+
+**Verified:**
+- the check gives 0 of 62 off the grid;
+- my own edge parse: shape edges are whole, and the half lines are only on stroke inner edges (the coupe's 9½ and 10½, the +);
+- all six are inside their limits, with ink at +5 to +9.5%.
+
+**By eye:**
+- **Coupe:** the drink reads full. It is the largest dark mass under a 1px band, the glass is back to shallow and 9 tall, and the stem is a touch short and stout (not blocking).
+- **Café:** the ear is a handle again.
+- **The +:** at 1½ it reads as the set's stroke (his own number).
+- **Tree:** held.
+
+**Block:** the museum's columns are 2 tall, so it reads squat with tiny windows. That would be its third change after "keeps getting worse". The cause is the give order: it rounds the subject's main proportion down before it shrinks a detail.
+
+**Fix:** the naming part gives last. Columns ≥ 3 within 10, with the gable giving.
+
+**What changed since v272:** real changes. The stroke-or-solid test fixed the weight, the coupe and the café in one move, so this is a system fix, not patches.
+
+**Next:** the museum fix, then a look in the row. If it holds, a 9 with no question for him.

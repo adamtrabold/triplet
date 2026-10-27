@@ -1622,3 +1622,15 @@ The verdict stands within our own set:
   - the one question offers the empty drink;
   - the spec is missing stroke-vs-solid, the give-order and other sizes.
 - **Jam turn 192**, seven fixes.
+
+## Round: THE grid round 2 (canvas v273, 85eeb4f3), 2026-10-27: 8, 9 after one fix
+
+- **True (my check and my own measure):**
+  - 0 of 62 off the grid; half-line edges only on stroke inner edges;
+  - every icon inside its limit and within ±10% ink;
+  - coupe 9 tall, drink 2½, reads full by eye;
+  - the café ear is a handle again;
+  - the + at 1½ reads the set's stroke weight.
+- **Blocks:** the museum's columns are 2 tall (1 × 2 openings), so it reads squat. The cause: the give order rounds the colonnade down before it shrinks the gable.
+- **Fix:** the subject's naming part gives last; columns ≥ 3 within 10.
+- **Jam turn 194.**
