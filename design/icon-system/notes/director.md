@@ -893,3 +893,36 @@ The fix is in, and the museum's mirror is fixed at every size. I verified the de
 **Open, his call:** 10–11px against the app's ~8px.
 
 **Next:** the one edit, then to him with the question.
+
+## THE SYSTEM (v283, 3ea36124, 2026-10-27): 6, not to him
+
+**Context:** he turned down four of my 9s (v269, v274, v278, v282). His ask now is a SYSTEM that derives the icons ("dont be defining shit based on singular icons"), with the six as its test, judged by eye at the app size.
+
+**Verified:**
+- my renders (scratchpad `dir283/`, app cells, DPR 3 and 2);
+- `system.js check` (110 pass / 3 fail, exit 1);
+- the code (`system.js`, `system-check.js`, `construction.js` → `picks7.js` DRAW per icon);
+- canvas.json (Start + The system, 2325 tall);
+- the rack's history (`signatures.md`, owner.md 10-26, my v264 9).
+
+**Findings:**
+- The declarations are prose labels.
+- Geometry is still per-icon (picks7 functions; the fork's hand numbers in `system.js`), with `id ===` branches in the build and the checks. The board claims the opposite.
+- "Museum at 18" and the box give-way are rules for one icon or two. The give-way breaks his v264-bounds setting.
+- The rack is decided (his machined method); it is not his to re-decide.
+- The museum's bevel is a step at 18, and the 12 museum has two counters.
+
+**By eye:**
+- café, coupe and tree are fine;
+- fork and knife are better;
+- the museum is a temple but has lost its bevel and is wider.
+
+**Standing calibration:**
+- Read the code behind any "the system makes it" claim before scoring.
+- A declaration counts only if the engine consumes it.
+- An exception that exists to pass a check is a rule for one icon.
+- The gate failing means not publishable, whatever the board says.
+
+**What keeps blocking a 9:** asks get met with settings and exceptions, not engine changes, and the board's claims run ahead of the code.
+
+**Next:** generic declarations (data), the rack in, the box held, the curvature fixed so the bevel returns. Rescore by eye at 18 in the ring first, then 24 and 12. Prove it with a new icon from a declaration alone.

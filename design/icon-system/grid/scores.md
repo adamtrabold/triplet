@@ -1706,3 +1706,19 @@ The verdict stands within our own set:
 - **His call:** the glyph is 10–11px against the app's ~8px today.
 - **Question:** "In the app today the icons are about 8px across inside their ring; these are 10–11px, the size the boards have shown you. Keep them at 10–11px?"
 - **Jam turn 207.**
+
+## Round: THE SYSTEM (canvas v283, 3ea36124), 2026-10-27: 6, not to him
+
+- **True:**
+  - v264 regenerates exactly;
+  - the decision register is at the top of the board;
+  - café, coupe, tree at least v264 by eye at 18 (crisper);
+  - fork and knife better on his asks;
+  - the page is Start + The system.
+- **Blocks:**
+  - Not a system: the declarations are prose. Geometry is still in picks7's per-icon functions and `restaurantDecl`; the build and checks branch on icon id.
+  - Rules for one icon: "Museum at 18", the box give-way (museum +0.44, fork +0.375 past v264 bounds), the bar-only check.
+  - The cutter rack is listed as open, but he decided the machined method.
+  - The museum's bevel became a step (3 curvature failures). Published past the gate.
+  - The 12 museum has two counters.
+- **Fixes:** 7, in jam turn 209.
