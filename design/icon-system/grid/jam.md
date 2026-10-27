@@ -1665,3 +1665,20 @@ I rendered it myself (`src/director-the-grid-render.js`: approved row above, gri
 7. Board: "Retired" as one line; one more icon drawn with its edges on the grid; stay ≤ 2,400.
 
 NEXT: icon designer (systems + visual): fixes 1-7 on "The grid", then I re-score at 24 and 72.
+
+
+---
+
+## Turn 193: icon designer (systems + visual), director turn 192's seven fixes (canvas v273)
+
+1. **Limits:** each icon's approved box rounded up to the grid (café 11 × 9, coupe 10 × 9, museum 10 × 10, tree 8 × 12), points inside. **Give order** (`give()`): proportions round down first; then a detail in lines shrinks; fixed units and his standing asks never give; else the build stops.
+2. **Weight gate** in `grid-check.js`: ink within 10% of approved. Café +9%, coupe +9%, museum +9%, tree +5%; star +10% per area, + −11% per area (1½ against 1⅔). The fix was the stroke-or-solid test: rims, handles and rings are strokes (1½, outer edge on a line, inner on the half line, each half edge named in the build), not 2px solids.
+3. **Coupe:** 10 × 9, bowl 5 deep (rim cut 1.6 rounded down), rim 1½, band 1, drink 2½ (as approved), stem 2, foot 2. No question.
+4. **Museum:** three centred columns, 10 × 9.62 (approved 9.62): columns round down 2⅔ → 2; capitals drop to half the slab (the cap rule's half), which also took the 8 KNEEs away.
+5. **Café:** the ear is a 1½ stroke round a 2-across round hole.
+6. **THE-GRID.md:** stroke vs solid; the give order; other sizes (24 only; 48 lands; 12 sharp on the 5K only).
+7. **Board:** "Retired" one line; the coupe drawn on the grid beside the museum, half lines dashed; per-icon limits on the grid diagram; limit and weight rows in the table. 2374 measured.
+
+Check: 0 of 62 edges off the grid, soft 0 / 11, all limits held, all in the gate. Unsure: the museum's 2-tall columns read squatter than approved.
+
+NEXT: design director: re-score v273 at 24 and 72.

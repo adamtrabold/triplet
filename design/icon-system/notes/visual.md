@@ -1,5 +1,12 @@
 # Visual designer notes: icon system
 
+## THE grid, round 2 (2026-10-27, jam turn 193, canvas v273)
+
+- Board updated in place (1200 × 2374): coupe drawn on the grid beside the museum (half lines dashed), limits per icon on the
+  grid diagram, limit and weight rows, Retired as one line, no question. Start item 6 now asks whether this is the grid.
+- By eye at 24 and 72 the set now sits at the approved size and near its weight; the café's ear reads as a handle again; the
+  coupe is shallow. The museum's columns are squatter (2 tall). Stills re-shot to the same paths, each opened.
+
 ## THE grid (2026-10-27, jam turn 191, canvas v272; icon designer carrying visual + systems)
 
 - **Board:** "The grid" (`Grid7TheGrid.dc.html`, 1200 × 2398, x 840 y 300, Grid concepts page, after Start here): the grid

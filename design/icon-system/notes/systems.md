@@ -1,5 +1,13 @@
 # Systems designer notes: icon system
 
+## THE grid, round 2 (2026-10-27, jam turn 193, canvas v273; director turn 192 scored v272 a 6)
+
+- **Why:** the six had grown and darkened (limit = class box; every part 2px). Fixes: limits = approved box rounded up;
+  give order (round down, then details); weight gate ±10%; stroke-or-solid test (rims, handles, rings are 1½ strokes; their
+  inner half-line edges are named in `meta.half` and the check accepts only those); capitals drop to half the slab.
+- **Result:** 0 of 62 off; soft 0 / 11; café +9%, coupe +9% (10 × 9, drink 2½), museum +9% (10 × 9.62, columns 2), tree +5%.
+- **Open:** museum columns 2 tall (squat); the + 11% lighter per area by his 1½ rule.
+
 ## THE grid (2026-10-27, jam turn 191, canvas v272; icon designer carrying systems + visual)
 
 - **Where:** one grid defined and built: `grid/THE-GRID.md` (the spec), `grid/src/the-grid.js` (GRID numbers, rule functions
