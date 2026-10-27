@@ -773,3 +773,25 @@ Fresh blind read (`shopping/blind-read-1.md`):
 **What changed since v272:** real changes. The stroke-or-solid test fixed the weight, the coupe and the café in one move, so this is a system fix, not patches.
 
 **Next:** the museum fix, then a look in the row. If it holds, a 9 with no question for him.
+
+## THE grid round 3 (v274, f3759e4e, 2026-10-27): 9, to him, no question
+
+**The change:** the give order now shrinks the subject last (roof ends by ½, then the peak, then other sizes, then the columns).
+
+**The museum, verified:**
+- 10 × 9.97, columns 3 tall, openings 1 × 3, the middle column 11..13, ink +9.4%; 0 of 59 off the grid.
+- By eye it reads as a colonnade again.
+- The 1px openings follow his latest number (v269), and 2px won't fit in 10.
+- fair-check shows 8 at the capitals, invisible at 24, 72 and 192.
+
+**The board:** 1200 × 2374. The phone stills are at the same text scale as before.
+
+**Watch when he answers:**
+- the opening size;
+- the flatter roof;
+- the coupe's short stem;
+- the set 5-9.5% darker.
+
+If he rejects it, the reason is the best signal yet of what he reads as "the right weight".
+
+**Pattern resolved this round:** two rounds of fixes came from rules (stroke-or-solid, the give order), not hand moves.

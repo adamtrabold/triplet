@@ -1724,3 +1724,39 @@ Café, coupe, tree, star, + byte-identical to v273. fair-check museum 8 (the 4 a
 round, not visible). Board 1200 × 2374; v273 archived as "Archive-TheGrid-v273".
 
 NEXT: design director: the museum in the row at 24 and 72.
+
+---
+
+## Turn 196: design director, THE grid round 3 (canvas v274, f3759e4e): 9. To him, no question
+
+**What I checked:**
+- I re-ran `grid-check.js`: 0 of 59 off the grid, and the 11 half-line edges are all named stroke inner edges. Every icon is inside its limit and within ±10% ink.
+- My own edge parse of the museum: roof base 9, beam 10..12, columns 12..15, plinth 15..17; columns 8..10, 11..13 and 14..16, with the middle one on the centre. Height 9.97, width 10, ink +9.4%.
+- Renders at 24 (DPR 2, 3), 72 and 192 (`stills/the-grid/director/v274/`), approved row above.
+
+**Museum, by eye:**
+- It reads as a colonnade again at 24 and 72: three columns, two clear openings, nearer the approved temple than v272 or v273.
+- **The 1px openings:** they read as openings, not dots, at 24 on both screens (3 × 9 device px on an iPhone).
+  - His v264 "maybe they could go up to 2px?" was a question.
+  - His later v269 words set the number: "three cols with a 1px minimum counter space".
+  - A 2px opening would need 12 wide, over the limit. I'm not putting that back to him.
+- **The roof:** ends ½ and a 1½ peak still read as a pediment. Beside the approved roof it is a touch flatter, but in character, and the gap above the beam keeps it a separate part.
+- fair-check shows 8 at the capitals. I can't see them at 24, 72 or 192, so I don't count them against the score.
+
+**The rest:** unchanged from v273 and still true. The coupe's drink reads full, the café's ear is a handle, the + at 1½ is the set's stroke, the tree is held, and there is one star.
+
+**The board:**
+- 2,374 tall, under the cap.
+- At 1200 wide, the 1500px stills carry about 17px body text. That's the same scale as the v269 to v271 phone stills, and readable with a pinch. Fine.
+- Section 3 now shows both constructions on the grid, and the give order is one line.
+
+**His likely objections (each unlikely):**
+- "the openings are small": answered by his own 1px;
+- "the roof is flatter": slight;
+- the six are 5 to 9.5% darker: inside the gate, and they read as one family.
+
+**Score: 9.** The work changed: the colonnade is restored by a rule, not by hand.
+
+**Question for him:** none. Show v274 as the grid and the six built on it.
+
+NEXT: orchestrator: show him v274 (no question).

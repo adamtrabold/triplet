@@ -1634,3 +1634,13 @@ The verdict stands within our own set:
 - **Blocks:** the museum's columns are 2 tall (1 × 2 openings), so it reads squat. The cause: the give order rounds the colonnade down before it shrinks the gable.
 - **Fix:** the subject's naming part gives last; columns ≥ 3 within 10.
 - **Jam turn 194.**
+
+## Round: THE grid round 3 (canvas v274, f3759e4e), 2026-10-27: 9, to him, no question
+
+- **True:**
+  - 0 of 59 off the grid; every half-line edge is a named stroke edge;
+  - all six inside their limits and within ±10% ink;
+  - the museum is three centred columns, 3 tall, openings 1 × 3 (his v269 "1px minimum counter space"), 10 × 9.97; it reads as a colonnade at 24 and 72;
+  - the roof is a touch flatter, in character.
+- **Risks, each unlikely:** small openings; a flatter roof; 5-9.5% darker.
+- **Jam turn 196.**
