@@ -3,7 +3,8 @@
 The one pixel grid every Triplet icon is drawn on, and the rules that put each kind of part on it. A new icon follows these
 rules and nothing else; every number in it is a grid value, a whole px, or a proportion taken to the grid.
 Code (the one source of truth): `src/the-grid.js` (`GRID`, the rule functions, the six). Check: `src/grid-check.js`.
-Board: "The grid" (canvas v273, Grid concepts page, after Start here). Written 10-27; round 2 the same day (director turn 192).
+Board: "The grid" (canvas v274, Grid concepts page, after Start here). Written 10-27; round 2 the same day (director turn 192);
+round 3 (director turn 194): the give order shrinks the subject last (museum columns 3).
 
 Owner, verbatim: "Why is there no grid!!! This whole fucking exercise has been about creating a system and grid!! For
 days!" · "We talked about doing the counters 1 or 2 px I am so tired of this back and forth. I need a grid and visual system
@@ -54,10 +55,15 @@ every badge icon inside the gate (table below).
    middle part on the centre); an even count takes 2px gaps (the middle gap on it).
 8. **Protrusion, overhang**: whole px, ≥ 1.
 9. **Proportions** (`proportions.js`, all kept): each result goes to the nearest whole px (`whole()`, `even()` for centred widths).
-10. **The give order** (`give()`), when the icon then passes its limit: (1) the proportions round DOWN instead of to the nearest
-    (each part a little smaller, none lost); (2) only then does a detail measured in lines (a gable's ends, a step) shrink to 0.
-    The fixed units (stroke, solid, gap, counter) and his standing asks (the drink, centring, the tree) never give. If nothing
-    fits, the build stops and says by how much: the grid is not bent.
+10. **The give order** (`give()`, round 3): **the part that makes the icon what it is shrinks last.** Each part sized by a
+    proportion is named with a role and starts at the nearest whole px; past the limit they give one step at a time, first
+    fit wins: (1) DETAIL, a part in lines that only finishes another (a gable's ends, a step): down by ½, never under ½ (at 0 a
+    roof's eave is an acute point the rounds eat); (2) PEAK, a point (an apex): its rise takes what the limit has left (a point
+    has no edge to land), never under 1; (3) BODY, any other proportion: rounds DOWN instead of to the nearest (the coupe's rim
+    cut 1.6 → 1); (4) SUBJECT, the part that names it (the museum's colonnade): rounds down last, never under its floor (a
+    colonnade's 1-across openings at least 3 long, `GRID.subjectLong`: at 2 they read as two windows in a block). The fixed
+    units (stroke, solid, gap, counter) and his standing asks (the drink, centring, the tree) are not parts and never give.
+    If nothing fits, the build stops and says by how much: the grid is not bent. The weight gate is checked after.
 11. **Placement** (`place()`): whole px only. Up or down to the optical centre (the engine's opticalY); a symmetric icon on
     the centre line; a lopsided one (the cup) to the whole px nearest its optical centre.
 12. **A centred stroke**: its centre on a quarter line (k + ¼), so each edge is on a line or a half line. The + is drawn so
@@ -74,8 +80,14 @@ Three 2px columns, 1px openings: 2 + 1 + 2 + 1 + 2 = 8; beam and plinth pass it 
 11..13, on the centre. Four can't: an even count puts an opening on the centre, so openings 2: 4 × 2 + 3 × 2 + 2 = 16.
 
 Height, held at 10: plinth 2, beam 2 and gap 1 are fixed units. To the nearest px the columns (⅓ of the colonnade: 2⅔ → 3) and
-the gable (ends 1.2 → 1, rise 1⅔ to a point) make 10⅔: over. The give order rounds the proportions down: columns 2. Total
-9⅔ to the apex point; it reads **9.62** tall after the apex's round (approved 9.62). Width 10 (approved 9.78).
+the roof (ends 1.2 → 1, peak 1⅔ to a point) make 10⅔: over by ⅔. The colonnade is the SUBJECT (it makes it a museum), so by the
+give order it gives last and the roof gives first: its ends (a DETAIL) 1 → ½ (10⅙), then its peak (a PEAK, a point) takes what
+is left, 1⅔ → 1½ (pitch ⅓ → 3⁄10): **10** to the apex point. **Columns 3, openings 1 × 3**; it reads **9.97** tall after the
+apex's round (limit 10, approved 9.62). Width 10 (approved 9.78). Ink 68.9 (+9.4%).
+
+Round 3 (director turn 194) measured the other ways and the gate ruled them out: ends kept at 1 and the peak flattened to 1 fits
+10 but is +13% ink; ends to 0 (a plain triangle) is +1% but its eaves are 18° points the engine's rounds eat, so the roof reads
+as a lens. Hence the detail's floor of ½ and the order ends → peak.
 
 ## 4. The six (built by `node src/the-grid.js`, outlines `svg/the-grid/`)
 
@@ -83,7 +95,7 @@ the gable (ends 1.2 → 1, rise 1⅔ to a point) make 10⅔: over. The give orde
 |---|---|---|---|---|---|
 | Café | 10.77 × 8.5, 56.5 | **11 × 9**, 61.5 | 11 × 9 | +9% | saucer 11 (9/5 of the 6 cup), crown 2, ends 1, gap 1; cup 6 square; ear 4/5 → 5 tall, a stroke 1½ round a 2-across hole |
 | Coupe | 9.78 × 8.67, 44.8 | **10 × 9**, 49.0 | 10 × 9 | +9% | bowl ellipse 10 × 8; rim cut ⅕ of 8 = 1.6, to fit rounded down to 1: bowl 5 deep; rim 1½ (stroke), band 1, drink 2½ (as approved); stem 2 × 2; foot 6, crown 2 |
-| Museum | 9.78 × 9.62, 63.0 | **10 × 9.62**, 68.7 | 10 × 10 | +9% | above; capitals drop to half the slab |
+| Museum | 9.78 × 9.62, 63.0 | **10 × 9.97**, 68.9 | 10 × 10 | +9% | above: columns 3 (the subject, given last), roof ends ½, peak 1½; capitals drop to half the slab |
 | Tree | 6.98 × 11.46, 34.3 | **7.29 × 11.21**, 35.9 | 8 × 12 | +5% | tiers as approved; trunk 1¼ → 2 (11..13), shows 2 under the bottom tier's lowest point (on a line); tips 0.16 longer (the tip round is a share of its edge) |
 | Star | 14.07 × 13.39 on screen, 58 | **12.6 × 12**, 51 | its slot | +10% per area | one star (round 8), outline 1½, top tip on a line |
 | + | 13.2 × 13.2 on screen, 41 | **13½ × 13½**, 38 | its slot | −11% per area | stroke 1½ (approved 1⅔: his "strokes to be 1.5px") on its quarter line |
@@ -100,9 +112,10 @@ inner edge. Marks: lines or half lines. Then the size against the limit and the 
 | | edges | off the grid | soft 5K / iPhone | limits | weight |
 |---|---|---|---|---|---|
 | approved six | 65 | 61 | 54 / 53 | | |
-| on the grid | 62 | **0** | **0 / 11** (every one a stroke's inner edge on a half line) | all held | all within 10% |
+| on the grid | 59 | **0** | **0 / 11** (every one a stroke's inner edge on a half line) | all held | all within 10% |
 
-Also: join-check 0 everywhere; fair-check café 3 (as round 1: at the ear), museum 4 (the capitals' TAILs, as approved).
+Also: join-check 0 everywhere; fair-check café 3 (as round 1: at the ear), museum 8 (the capitals' 4 TAILs, as approved, and
+a KNEE and DIP at each ½ eave: a 0.2px corner round on a ½ run, not visible at 24 or 72).
 
 ## 6. Retired (history, not commandment)
 
@@ -113,6 +126,8 @@ Also: join-check 0 everywhere; fair-check café 3 (as round 1: at the ear), muse
 - Sums from the centre line (`pixel-shapes.js museum()`), which put museum E's edges on quarter px.
 - Bands of ¾ and 1½; the ¼px offset; options per icon (A/B/C, D/E).
 - Round 1 of this grid (v272): class boxes as the size limit, and every part a 2px solid (rims and handles too): the icons grew and darkened 16-32%.
+- Round 2's give order (v273: every proportion rounds down first, details only after): it shrank the museum's columns to 2
+  before the roof gave anything.
 - Kept: every proportion in `proportions.js`, the cap rule, the vessel ellipse, the joins, the rounds table, the transitions.
 `pixel-shapes.js`, `whole-grid.js` and the construction path (`construction.js`, class fit) stay for history and rebuilding old
 boards; new icons are written in `the-grid.js`.
@@ -122,7 +137,8 @@ boards; new icons are written in `the-grid.js`.
 1. Take its limit (the approved or agreed box, rounded up). 2. Name its roots and the widest (it takes the limit's width).
 3. Sort each part: stroke or solid (the pen-line test). 4. Every size is a proportion of a root through `whole()` / `even()`;
 every stroke `GRID.stroke`, every solid `GRID.solid` or more, every space `GRID.gap`, every hole `counter()`; name each
-half-line edge a stroke makes. 5. Rows through `row()`, centred parts through `centred()`, heights through `give()`.
+half-line edge a stroke makes. 5. Rows through `row()`, centred parts through `centred()`, heights through `give()`
+with each proportioned part named DETAIL, PEAK, BODY or SUBJECT (one subject: the part that makes it what it is).
 6. `place()`, `build()`, then `grid-check.js`: 0 off the grid, within the limit and the weight gate, or a rule is missing here
 (add it, don't nudge the icon).
 
@@ -130,7 +146,7 @@ half-line edge a stroke makes. 5. Rows through `row()`, centred parts through `c
 
 - Judged by eye, the set reads as one weight to us (opinion): the badge icons +5 to +9%, the star about the same per area,
   the + 11% lighter per area (his 1½). The owner's eye decides.
-- The museum's columns are 2 tall (2 × 2 with 1 × 2 openings): squatter than approved (1¼ × 2.6). It is what the give order
-  leaves at 10 tall; 3 tall needs 10⅔.
+- The museum (round 3): columns 3 tall, openings 1 × 3, 9.97 tall within 10, roof pitch 3⁄10 (approved ⅓), ink +9.4% (the
+  top of the gate). Approved was 9.62; it is ⅓ taller, inside the limit.
 - The app: show the badge glyph 1:1 (24 box at 24px) and put the + button's centre on k + ¼.
 - Not yet in `the-grid.js`: fork and knife, bed, shopping.

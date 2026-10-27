@@ -40,6 +40,8 @@ const GRID = {
   gap: 1,             // GAP: the space between two parts (a cut, an opening between columns, the coupe's band): 1
   counter: [1, 2],    // COUNTER: a hole inside one part: what its root leaves, 1 or 2 across
   counterLong: 2,     // ... a 1-across counter is at least 2 along (1 x 1 reads as a dot); a 2-across one may be shorter
+  subjectLong: 3,     // ... and where the 1-across openings ARE the subject (a colonnade's), at least 3 along: at 2 they read as
+                      // two small windows in a block (director turn 194). The give order shrinks the subject last (give())
   over: 1,            // OVERHANG / PROTRUSION: anything that reads by sticking out does so by a whole px, at least 1
   bevel: 0.5,         // a capital: past its last post a slab drops to half its height (the cap rule: 2 -> 1), and the post flares ½
                       // into it; drop and flare are one curve (no straight edge to land)
@@ -69,13 +71,33 @@ function row(n, part = S) { const gap = n % 2 ? G : 2, w = n * part + (n - 1) * 
 function counter(outer, walls) { const c = outer - walls; must(c >= GRID.counter[0] - EPS && c <= GRID.counter[1] + EPS && onLine(c), `counter ${c} not 1 or 2`); return c; }
 // the size limit: the approved box rounded up to the grid
 const limit = (name, sym) => { const [w, h] = GRID.approved[name]; return { w: sym ? 2 * Math.ceil(w / 2 - EPS) : Math.ceil(w - EPS), h: Math.ceil(h - EPS) }; };
-// THE GIVE ORDER, when an icon's proportions can't fit its limit: try(o) builds the stack for a set of gives and returns its height;
-// 1. the proportions round DOWN instead of to the nearest (each part a little smaller, none lost); 2. only then a detail measured in
-// lines (a gable's ends, a step) shrinks to 0. The fixed units (stroke, solid, gap, counter) and his standing asks (the drink,
-// centring, the tree) never give. The first try that fits wins; if none fits, the build stops and says by how much.
-function give(name, h, tries) {
-  for (const o of tries) { const H = h(o); if (H <= limit(name).h + 1e-6) return { ...o, H }; }
-  throw new Error(`THE GRID: ${name} can't fit ${limit(name).h} tall`);
+// THE GIVE ORDER (round 3, director turn 194: "the part that names the subject gives last"). Every part an icon sizes by a proportion
+// is named with its ROLE and starts at the nearest whole px (whole()). When the stack h(v) passes the icon's limit, the parts give
+// in this order, one step at a time, and the first step that fits wins:
+//   1. DETAIL: a part measured in lines that only finishes another (a roof's upright ends, a step): down by the half line (½, the
+//      grid's smallest step), never below ½ (at 0 a roof's eave is an acute point the rounds eat: it reads as a lens, measured r3).
+//   2. PEAK: a point (an apex): its rise takes what the limit has left (a point has no edge to land, so it may be any length),
+//      never below its floor. The roof comes down; it stays a roof.
+//   3. BODY: a proportion of a part that isn't the subject (the coupe's rim cut): rounds DOWN instead of to the nearest.
+//   4. SUBJECT: the part that makes the icon what it is (the museum's colonnade): rounds down LAST, never below its floor.
+// The fixed units (stroke, solid, gap, counter) and his standing asks (the drink, centring, the tree) are not parts: they never give.
+// If nothing fits, the build stops and says by how much: the grid is not bent. (The weight gate is checked after, by grid-check.)
+const ROLES = ['detail', 'peak', 'body', 'subject'];
+function give(name, parts, h) {
+  const lim = limit(name).h, gave = [];
+  const v = Object.fromEntries(Object.entries(parts).map(([k, p]) => [k, p.role === 'peak' ? p.v : whole(p.v)]));
+  const fits = () => h(v) <= lim + 1e-6, done = () => ({ ...v, H: h(v), gave: gave.join('; ') || undefined });
+  const set = (k, p, to) => { v[k] = to; gave.push(`${p.name} ${fx(p.v)} -> ${fx(to)} (${p.role})`); };
+  for (const role of ROLES) for (const [k, p] of Object.entries(parts)) {
+    if (p.role !== role) continue;
+    const floor = p.floor != null ? p.floor : role === 'detail' ? GRID.unit / 2 : 0;
+    if (role === 'detail') while (!fits() && v[k] - GRID.unit / 2 >= floor - EPS) set(k, p, v[k] - GRID.unit / 2);
+    else if (role === 'peak') { if (!fits()) set(k, p, Math.max(floor, v[k] - (h(v) - lim))); }
+    else if (!fits() && down(p.v) < v[k] && down(p.v) >= floor) set(k, p, down(p.v));
+    if (fits()) return done();
+  }
+  if (fits()) return done();
+  throw new Error(`THE GRID: ${name} can't fit ${lim} tall: ${fx(h(v) - lim)} over after every give`);
 }
 // the cap rule: a slab cut by one ellipse, its ends at capEnd of its crown: the ellipse is 1/sqrt(1 - e^2) of the slab's width
 const capOver = (h, end) => 1 / Math.sqrt(1 - (end / h) ** 2);
@@ -106,7 +128,7 @@ function cafe() {
   const depth = cupW * PROP.cup.depth;                     // the cup is square: 6
   const earH = whole(PROP.cup.ear * depth);                // the ear is 4/5 of the cup's depth: 4.8 -> 5
   const hole = counter(earH, 2 * L);                       // its counter: 5 - two strokes = 2 across (a round hole)
-  const H = give('cafe', () => depth + G + S, [{}]).H;     // cup, the gap, the saucer's crown: 9
+  const H = give('cafe', {}, () => depth + G + S).H;       // cup, the gap, the saucer's crown: 9 (nothing has to give)
   // the ear's outside: a half circle after the shortest straight run that puts its far extreme on a line
   const R_ = earH / 2, ri = hole / 2, run = Math.ceil(R_) - R_;
   const top = 0, l = 0, r = l + cupW, mid = (l + r) / 2, rx = cupW / 2, ry = GRID.vessel * rx, bot = top + depth, cy = bot - ry;
@@ -129,7 +151,8 @@ function bar() {
   const stem = S, foot = S;                                                  // the stem shows a solid, 2; the foot's crown 2
   // the rim cuts the ellipse 1/5 of its height above its centre (1.6): to the nearest (2), or, to fit (the give), down (1)
   const rimCut = PROP.coupe.rimCut * 2 * ry;
-  const g = give('bar', o => o.rise + ry + stem + foot, [{ rise: whole(rimCut) }, { rise: down(rimCut), gave: 'rim cut 1.6 rounded down, not up' }]);
+  // the subject is the drink (a standing ask, fixed at 2½ below); the rim cut is BODY, so it gives: 2 + 4 + 2 + 2 = 10 over -> 1: 9
+  const g = give('bar', { rise: { v: rimCut, role: 'body', name: 'rim cut' } }, o => o.rise + ry + stem + foot);
   const rise = g.rise, depth = rise + ry;                                    // bowl 5 deep
   const drink = depth - L - G; must(drink >= 2.5 - EPS, `the drink ${drink} is under the approved 2 1/2`);   // 5 - 1½ - 1 = 2½
   const footW = even(2 * rx * PROP.coupe.foot / capOver(S, GRID.capEnd * S));   // the foot's ellipse 4/5 of the bowl's: 6.93 -> 6
@@ -154,13 +177,17 @@ function museum() {
   const cols = row(3);                                       // three 2px columns, 1px openings: 8 wide, the middle column on 11..13
   const width = cols.w + 2 * GRID.over; must(width <= lim.w, `museum ${width} wider than ${lim.w}`);   // + 1 each side: 10
   const colsP = PROP.museum.columns * cols.w;                // columns 1/3 of the colonnade: 2 2/3
-  const rise = PROP.museum.pitch * width / 2;                // the roof rises 1/3 of its run: 1 2/3 (to a point: free)
+  const riseP = PROP.museum.pitch * width / 2;               // the roof rises 1/3 of its run: 1 2/3 (to a point: free)
   const endsP = PROP.line.gableEnd * L;                      // the gable's upright ends: 4/5 of a line, 1.2
-  const g = give('museum', o => S + o.colH + S + G + o.gEnd + rise, [
-    { colH: whole(colsP), gEnd: whole(endsP) },                                                 // 2 + 3 + 2 + 1 + 1 + 1 2/3 = 10 2/3: over
-    { colH: down(colsP), gEnd: down(endsP), gave: 'proportions rounded down: columns 2 2/3 -> 2 (not 3)' },   // 9 2/3: fits
-    { colH: down(colsP), gEnd: 0, gave: 'columns down, and the gable\'s ends 1 -> 0' }]);
-  const colH = g.colH, gEnd = g.gEnd;
+  // the colonnade is the SUBJECT (it makes it a museum): it gives last, never below GRID.subjectLong. The roof gives first.
+  // nearest: plinth 2 + columns 3 + beam 2 + gap 1 + ends 1 + peak 1 2/3 = 10 2/3, over by 2/3. The ends (DETAIL) give ½: 10 1/6;
+  // the peak (PEAK) takes what is left: 1 2/3 -> 1 1/2 (pitch 1/3 -> 3/10): 10, fits. The columns keep 3.
+  const g = give('museum', {
+    gEnd: { v: endsP, role: 'detail', name: 'gable ends' },
+    rise: { v: riseP, role: 'peak', name: 'roof peak', floor: GRID.unit },
+    colH: { v: colsP, role: 'subject', name: 'columns', floor: GRID.subjectLong },
+  }, o => S + o.colH + S + G + o.gEnd + o.rise);
+  const colH = g.colH, gEnd = g.gEnd, rise = g.rise;
   const [bL, bR] = centred(width), base = 0, plT = base - S, ct = plT - colH, bt = ct - S, gb = bt - G, ap = gb - gEnd - rise;
   const xa = cols.xs[0], xb = cols.xs[2] + S;
   const roots = [ink('slab', gEnd ? E.P([bL, gb], [bL, gb - gEnd], [C, ap], [bR, gb - gEnd], [bR, gb]) : E.P([bL, gb], [C, ap], [bR, gb]))];

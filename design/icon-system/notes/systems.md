@@ -1,5 +1,16 @@
 # Systems designer notes: icon system
 
+## THE grid, round 3 (2026-10-27, jam turn 195, canvas v274; director turn 194 scored v273 8, 9 after one fix)
+
+- **Why:** v273's give order rounded every proportion down before any detail gave, so the museum's columns (the subject) went
+  2⅔ → 2 and read as two windows in a block. Fix as a rule: `give(name, parts, h)` with roles DETAIL (½ steps, floor ½) →
+  PEAK (a point takes what is left, floor 1) → BODY (round down) → SUBJECT (round down last, floor; `GRID.subjectLong` 3).
+- **Result:** museum columns 3, openings 1 × 3, 10 × 9.97, roof ends ½, peak 1½ (pitch 3/10), ink +9.4%. Others unchanged
+  (byte-identical). Check 0 of 59 off; soft 0 / 11.
+- **Measured and rejected:** ends 1 + peak 1 = +13% ink (gate); ends 0 = +1% but the triangle's eaves are eaten (lens).
+- **Open:** museum ink sits near the top of the gate; fair-check flags the ½ eaves (0.2px round, invisible). Next: director
+  looks at the museum in the row; then him.
+
 ## THE grid, round 2 (2026-10-27, jam turn 193, canvas v273; director turn 192 scored v272 a 6)
 
 - **Why:** the six had grown and darkened (limit = class box; every part 2px). Fixes: limits = approved box rounded up;

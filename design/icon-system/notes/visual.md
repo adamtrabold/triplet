@@ -1,5 +1,12 @@
 # Visual designer notes: icon system
 
+## THE grid, round 3 (2026-10-27, jam turn 195, canvas v274)
+
+- Museum: columns 3 tall read as a colonnade again at 24 (3x) and 72; the roof is lower (ends ½, peak 1½) and still reads as a
+  pediment. Seen by eye: ends 0 made the roof a lens (rounds eat 18° eaves), so the detail floor is ½.
+- Board updated in place (1200 × 2374): give-order line, the museum diagram (columns 3, roof 2), the museum paragraph; v273
+  archived. Phone stills `grid/stills/the-grid/phone/grid-r3-1..3.png`, each opened.
+
 ## THE grid, round 2 (2026-10-27, jam turn 193, canvas v273)
 
 - Board updated in place (1200 × 2374): coupe drawn on the grid beside the museum (half lines dashed), limits per icon on the

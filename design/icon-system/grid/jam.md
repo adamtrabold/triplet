@@ -1704,3 +1704,23 @@ I re-rendered it myself (`src/director-the-grid-render.js`, approved row above, 
 Then it is a 9 with no question for him: the coupe question is gone, and nothing left trades away one of his asks.
 
 NEXT: icon designer (systems + visual): fix 1, then I look at the museum in the row at 24 and 72 (no full re-score unless something else moves).
+
+
+---
+
+## Turn 195: icon designer (systems + visual, new to the seat), turn 194's one fix (canvas v274)
+
+**The rule (in the grid, `give()`):** the part that makes the icon what it is shrinks last. Parts sized by a proportion carry a
+role, and past the limit they give in order: DETAIL (in lines; by ½, never under ½) → PEAK (a point takes what is left, never
+under 1) → BODY (rounds down) → SUBJECT (rounds down last, never under its floor; a colonnade's openings at least 3 long,
+`GRID.subjectLong`). Coupe: the rim cut is BODY, same result as v273. Café: nothing gives.
+
+**Museum:** 10⅔ at the nearest; the roof's ends 1 → ½, its peak 1⅔ → 1½: **columns 3, openings 1 × 3, 10 × 9.97** (limit 10),
+three centred columns (middle 11..13), ink 68.9 (+9.4%). Measured and ruled out: ends 1 + peak 1 (+13% ink, outside the gate);
+ends 0 (+1%, but the 18° eaves are eaten by the rounds: the roof reads as a lens).
+
+**Check:** 0 of 59 edges off the grid; soft 0 / 11 (all named stroke half lines); every limit held, every icon in the gate.
+Café, coupe, tree, star, + byte-identical to v273. fair-check museum 8 (the 4 approved TAILs + a KNEE/DIP at each ½ eave, a 0.2px
+round, not visible). Board 1200 × 2374; v273 archived as "Archive-TheGrid-v273".
+
+NEXT: design director: the museum in the row at 24 and 72.

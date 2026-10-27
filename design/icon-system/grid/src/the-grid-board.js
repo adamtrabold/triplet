@@ -74,7 +74,7 @@ const PARTS = [
   ['Curve', 'its extremes (a bowl\'s bottom, an ellipse\'s side, a tier\'s lowest point) on lines; where a straight cut meets it, the corner sits on the curve.'],
   ['Point · diagonal', 'tips, apexes, roof slopes and the small rounds at corners are free: no edge to land.'],
   ['A row of equal parts', 'centred, the thing on the centre is even: 2px parts in an odd count take 1px gaps, an even count 2px gaps.'],
-  ['The give order', 'if the proportions pass the limit, they round down instead of to the nearest (columns 2⅔ → 2, the rim cut 1.6 → 1); only then does a detail in lines shrink (a gable\'s ends). Strokes, solids, gaps, counters, the drink and centring never give.'],
+  ['The give order', 'past the limit: a detail first (a gable\'s ends, by ½), a peak next (it takes what\'s left), then proportions round down (rim cut 1.6 → 1); <b>the subject last</b> (the columns, never under 3). Fixed units, the drink and centring never give.'],
   ['Placement', 'whole px only: up or down to the optical centre; symmetric icons on the centre line; the cup by its optical centre.'],
   ['A centred stroke', 'its centre on a quarter line (k + ¼), each edge on a line or a half line; the +\'s frame centre is its button\'s centre.'],
   ['Other sizes', 'only 24 at 1:1 is defined; 48 lands too. At 12 (the chip) lines fall on half px: sharp on the 5K only.'],
@@ -92,7 +92,7 @@ function onGrid(n, xs, ys, label, extra = '') {
   return svg(340, 307, '5 5 15.5 14', s, label);
 }
 const museumDiagram = () => onGrid('museum', [[7, 8, '1'], [8, 10, '2'], [10, 11, '1'], [11, 13, '2'], [13, 14, '1'], [14, 16, '2'], [16, 17, '1']],
-  [[15, 17, 'plinth 2'], [13, 15, 'columns 2'], [11, 13, 'beam 2'], [10, 11, 'gap 1'], [B.museum.box.y0, 10, 'gable 2⅔']], 'the museum drawn on the grid with every part measured');
+  [[15, 17, 'plinth 2'], [12, 15, 'columns 3'], [10, 12, 'beam 2'], [9, 10, 'gap 1'], [B.museum.box.y0, 9, 'roof 2']], 'the museum drawn on the grid with every part measured');
 function coupeDiagram() {
   const y0 = B.bar.box.y0, half = (B.bar.meta.half || []).map(h => `<line x1="5" y1="${h.pos}" x2="20.5" y2="${h.pos}" stroke="${ORANGE}" stroke-width="0.05" stroke-dasharray="0.25 0.15"/>`).join('');
   return onGrid('bar', [[11, 13, 'stem 2']], [[y0, y0 + 1.5, 'rim 1½'], [y0 + 1.5, y0 + 2.5, 'band 1'], [y0 + 2.5, y0 + 5, 'drink 2½'], [y0 + 5, y0 + 7, 'stem 2'], [y0 + 7, y0 + 9, 'foot 2']], 'the coupe drawn on the grid with every part measured; dashed: the half lines its rim stroke makes', half);
@@ -162,7 +162,7 @@ ${partsList()}
 ${H2(3, 'Your museum question, and the coupe, on the grid')}
 <div style="display:grid;grid-template-columns:340px 340px 1fr;gap:20px;align-items:start">${museumDiagram()}${coupeDiagram()}<div>
 ${T(`<b>Museum.</b> 2 + 1 + 2 + 1 + 2 = 8, and 1 past each side: <b>10</b>. The middle column sits 11..13. Four can't: an even count puts a 2px opening on the centre, 16 wide.`, { size: 15 })}
-${T(`<b>Height, held at 10:</b> plinth, beam (2 each) and gap (1) are fixed. To the nearest px the columns (⅓ of 8: 2⅔ → 3) and gable (ends 1, rise 1⅔) make 10⅔, so by the give order they round down: columns 2. It reads ${fx(B.museum.box.y1 - B.museum.box.y0)} tall (approved 9.62).`, { size: 15 })}
+${T(`<b>Height, held at 10:</b> plinth, beam (2 each) and gap (1) are fixed. To the nearest px the columns (⅓ of 8: 2⅔ → 3) and roof (ends 1, peak 1⅔) make 10⅔. The columns make it a museum, so they give last: the roof's ends go to ½ and its peak takes what's left (1½). <b>Columns 3, openings 1 × 3.</b> It reads ${fx(B.museum.box.y1 - B.museum.box.y0)} tall (limit 10).`, { size: 15 })}
 ${T(`<b>Coupe, 9 tall:</b> rim 1½ (a stroke), band 1, drink 2½ (as approved), bowl 10 × 5, stem 2, foot 2. To fit, the rim cut (1.6) rounds down to 1. Dashed: the rim's half lines.`, { size: 15 })}
 </div></div>
 ${H2(4, 'The six, built on the grid')}
