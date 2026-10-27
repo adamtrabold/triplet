@@ -141,13 +141,13 @@ function openAxis(list, stems, isOut, ax, min, strokeU, close = false, closed = 
 }
 
 // ---- rules 1-3 and 6: land
-function landAxis(list, stems, used, isOut, ax, k, sym, strokeU, centredU, kW = null, wk = null) {
+function landAxis(list, stems, used, isOut, ax, k, sym, strokeU, centredU, kW = null, wk = null, minW = 0) {
   const snap = v => Math.round(v * k) / k, ctl = [], kinds = [];
   // THE SILHOUETTE FIRST: an edge facing outside goes to the nearest whole px when that is within WHOLE_REACH (it lands on the
   // iPhone and on the 5K), else to the nearest iPhone pixel. wk = px per unit (null: iPhone pixels only)
   const whole = v => wk ? Math.round(v * wk) / wk : null, onWhole = v => wk != null && Math.abs(v * wk - Math.round(v * wk)) <= WHOLE_REACH + EPS;
   const snapOut = v => onWhole(v) ? whole(v) : snap(v);
-  const solidW = w => kW ? evenTie(w * kW) / kW : w;
+  const solidW = w => kW ? Math.max(evenTie(w * kW), minW) / kW : w;   // minW: no part thinner than the size's floor (iPhone px)
   const put = (e, n, kind) => { ctl.push({ o: e.pos, n, pri: (e.hi - e.lo) + (kind === 'kept' ? 0 : 100), cis: [e.ci], e }); kinds.push({ pos: e.pos, kind }); };
   const C = sym != null ? sym : null, left = v => C == null || v < C - 1e-3, onAxis = (a, b) => C != null && Math.abs(a + b - 2 * C) < 0.02;
   for (const s of stems) {
@@ -179,10 +179,11 @@ function landAxis(list, stems, used, isOut, ax, k, sym, strokeU, centredU, kW = 
   return { m: mapper(ctl), kinds };
 }
 
-function land(d0, { size = 24, sym = null, symY = null } = {}) {
-  const std = STANDARD[size] || { stroke: null, counter: 3 }, k = size / 24 * DPR, strokeU = std.stroke ? std.stroke / k : null;
+// std (optional): a size's own standard { stroke, centred, counter, solidMin, close } in iPhone px, in place of STANDARD[size]
+function land(d0, { size = 24, sym = null, symY = null, std: stdIn = null } = {}) {
+  const std = stdIn || STANDARD[size] || { stroke: null, counter: 3 }, k = size / 24 * DPR, strokeU = std.stroke ? std.stroke / k : null;
   // a stroke centred on the icon's axis takes an even number of iPhone pixels, so both its sides land
-  const centredU = std.stroke ? 2 * Math.round(1.5 * k / 2) / k : null;
+  const centredU = std.centred ? std.centred / k : std.stroke ? 2 * Math.round(1.5 * k / 2) / k : null, minW = std.solidMin || 0;
   let d = d0, opened = [], shift = 0;
   if (strokeU) {
     // a centred solid whose whole-pixel count is odd grows one iPhone pixel; everything either side of it moves out half a pixel,
@@ -195,7 +196,7 @@ function land(d0, { size = 24, sym = null, symY = null } = {}) {
         const id = { forC: () => ({ map: v => v, slope: () => 1 }) };
         d = apply(d, { forC: () => ({ map, slope }) }, id).d; shift = h; break; } }
     // rule 8: the size's widths first (strokes to the standard, every other part to whole iPhone pixels), nothing moved to the grid yet
-    const E = findEdges(d), isOut = outside(d), mx = landAxis(E.x, ...stemsOf(E.x), isOut, 'x', 1e6, sym, strokeU, centredU, k), my = landAxis(E.y, ...stemsOf(E.y), isOut, 'y', 1e6, symY, strokeU, centredU, k);
+    const E = findEdges(d), isOut = outside(d), mx = landAxis(E.x, ...stemsOf(E.x), isOut, 'x', 1e6, sym, strokeU, centredU, k, null, minW), my = landAxis(E.y, ...stemsOf(E.y), isOut, 'y', 1e6, symY, strokeU, centredU, k, null, minW);
     d = apply(d, mx.m, my.m).d;
   }
   // rule 5: counters under the size's minimum open (24, 18) or close (12: the part goes solid)

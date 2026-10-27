@@ -1,5 +1,24 @@
 # Visual designer notes: icon system
 
+## Drawn at the size it ships (2026-10-27, jam turn 206, canvas v281)
+
+- Owner: 18 is the master, 24 and 12 drawn from it with detail adjusted. THE-GRID.md rewritten as the sizes table + 10 rules.
+- Reading of "18": the app's badge is 24px with the glyph's 18 box at 3, 3. The icon is drawn in badge px at v264's size
+  (10-11px across), not 11 units x 3/4 (~8px, what v280's 18 and the app's scaling gave).
+- Build: `src/right-size.js` (SIZES: 18 = frame 24, 24 = frame 32, 12 = frame 16; a per-size `std` passed to `one-side.js`
+  `land(d, { size, sym, std })`, which now takes `std.centred` and `std.solidMin`). Drawings: v280's `drawn` for cafe, bar,
+  nature, restaurant; the museum `museumOpen` (three 1 1/3 columns, open ends, 2px openings; ~150s to build); the star, v280's
+  drawing 1:1 in an 18 box; the + by paper.js in the 60 box. Outputs `svg/right/<n>-<size>.svg` (viewBox = the box), `build.json`.
+- Widths: 18 strokes/posts/rim 1 1/3; 24 strokes 2, rim 2; 12 strokes 1, centred 1 1/3; + 2.
+- Check: `node src/right-grey.js <raw.json>`, then `python3 -I src/right-grey.py <raw.json> svg/right/grey.json`. Grey (2-98%)
+  v280 -> now, iPhone/5K: 18 20/46 -> 17/36; 24 21/32 -> 12/31; 12 30/61 -> 20/50; star unchanged 35/46; + 22/52 -> 2/4.
+- Board: `src/right-board.js <out>` (cells from `src/right-cells.js`; `LOCAL=<html>` writes a plain local copy; `BOARD_H`).
+  Local look sheet `src/right-sheet.js`. Stills `grid/stills/right/right-1..2.png` (3x, 1500 wide), opened.
+- Canvas v281: The grid replaced, v280 archived (Archive x 23500 y 210000), Start here lines updated. Copy in `grid/simplify/boards/`.
+- Open: his read at 18 on the phone; the star and + undecided; at 24 no new detail was invented beyond the wider counters (a
+  real added detail, e.g. the museum's capitals, would close the open ends); the index.html build later (glyph boxes 1:1, rim
+  1 1/3, the selected glyph 24 not 23).
+
 ## Real SVGs on the board (2026-10-27, jam turn 205, canvas v280)
 
 - Standing rule (owner): boards show the real SVGs inline at true CSS size, drawn by the viewer's screen; a larger view is the

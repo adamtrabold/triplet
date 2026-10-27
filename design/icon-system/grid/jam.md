@@ -2027,3 +2027,28 @@ Rules, what changed and the silhouette table kept. 1200 x 1488. v278's board arc
 Standing rule: boards show real SVGs at true size.
 
 NEXT: design director: re-score v280 on a phone and the 5K at 100% zoom.
+
+
+---
+
+## Turn 206: icon designer (visual + systems), drawn at the size it ships (canvas v281)
+
+Owner: "they should be drawn at the right size"; "yes 18 should be the master, detail should be adjusted for 24px and 12px".
+
+1. **18 is the master**, drawn 1:1 in the 24px badge (the glyph's 18 box at 3, 3). The icon keeps the size he approved on the
+   boards, 10-11px across; v280's 18 (the 24 drawing scaled 3/4) had shrunk it to ~8px. Strokes, posts, columns and the badge
+   rim all 1 1/3px (4 iPhone px): the whole-pixel width nearest 1 1/2, between his 1 1/4 and the 1 1/2 he called heavy.
+2. **24 (selected pin, 32 badge):** drawn from 18 at 2px strokes (6 iPhone px, lands on both screens); the coupe's band opens to
+   1 1/3. **12 (chips):** 1px strokes (3), centred parts 1 1/3 (an even count); the coupe's band closes, a full glass. The icon at
+   12 is ~7px (v280: 5.5).
+3. **The museum:** three 1 1/3 columns, two 2px openings, beam and plinth running a full px past the outer columns (open ends), no
+   capitals. The outer columns stand free, so it reads as three columns, not a block with two windows, at 18 and 12. One answer.
+4. **The star:** one drawing, 18 box, 12 tall, outline 1 1/3, top and feet on whole px. All diagonals, so no other edge can land.
+   **The +:** 1:1 in its 60px button, 14 across, 2px strokes centred on 30: every edge on a whole px.
+5. **Grey share** (device px between 2% and 98% ink / inked px, glyph only, iPhone / 5K), v280 -> now: 18 badge 20/46 -> 17/36;
+   24 selected 21/32 -> 12/31; 12 chip 30/61 -> 20/50; star 35/46 -> 35/46; + 22/52 -> 2/4.
+6. Board "The grid" rebuilt (1200 x 1830, real SVGs at true size; a x5 vector view, labelled); v280's board archived (x 23500,
+   y 210000); Start here's two lines updated. Not in index.html: the build will place the 18/24/12 boxes 1:1, the badge rim
+   1 1/3 (rows, pins) and the selected pin's glyph at 24 (today 23, at a half-px offset: `g = field - 4` with rim 2.5).
+
+NEXT: orchestrator: show him v281.
