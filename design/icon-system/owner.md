@@ -270,3 +270,4 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > (10-27, on v278 "The grid") these seem way blown up on this view
 > i dont want images i want the actual svgs   (the board showed enlarged "one block per device pixel" PNGs; standing rule: boards show the real SVGs inline at true CSS size so his own screen renders them)
 > (10-27, on v280 "The grid", real SVGs at true size) now looks a lot worse somehow. and i dont want two cols in the museum i need three two reads as a bank
+> (10-27, on v280) the now rows all look more crispy/blurry   (orchestrator measured the board's real SVGs: grey share at 24, v277 → now: iPhone 27% → 29%, 5K 40% → 43%. Cause: 1¼px widths (ring, stems, trunk, tines) are not whole iPhone pixels (1¼ = 3¾ device px) so both their edges land soft)
