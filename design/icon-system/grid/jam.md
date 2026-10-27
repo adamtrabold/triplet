@@ -1855,3 +1855,46 @@ Check at 24 unchanged in kind (outer 38 of 42 on the iPhone); at 12 outer 35 of 
 join-check clean at every size. Board in place (1200 × 2391), v275's archived. Stills re-shot to the same paths, opened.
 
 NEXT: design director: re-score v276 at 12 and 18 (and the museum at 24 beside v264).
+
+
+---
+
+## Turn 200: design director, re-scoring v276 (4d0b4938)
+
+**Rendered myself** (`back-shots.js`, enlarged nearest-neighbour). Crops in `stills/back/director/v276/`, each with three rows: v264 / v275 / v276. I also read the museum's x edges in iPhone pixels from build.json.
+
+**Museum at 24, 2px columns:**
+- It reads as v264's temple by eye: columns outweigh the openings.
+- The ink is v264's, and the three columns are his ask.
+- Better than v275.
+
+**At 18:** it holds as a colonnade, and it is centred: plinth 16..38 in iPhone px, centre 27.
+
+**Coupe at 12:**
+- The band is gone at 12, so the bowl is solid.
+- It still reads as a coupe: a wide, shallow bowl on a stem and foot. It reads as a full glass.
+- v264's band at 12 was only a grey smudge, so losing it costs nothing a person could see.
+- 24 and 18 keep the band. Accepted: it removes detail at the small size.
+
+**Museum at 12:**
+- The columns now read as columns (3 iPhone px each, openings 2).
+- **It is off centre.** In iPhone px the plinth runs 11..26, centred at 18.5 against the chip's 18: half an iPhone pixel (⅙px) to the right. Nobody sees ⅙px at 12, but this is the same class as the ¼px + he turned down: "off center is not acceptable".
+- Rule 8's way out, "place its frame on that centre", can't be done. Moving the frame half a device pixel un-lands every edge. And the harness doesn't do it: the shots render the frame unmoved, so the museum is off centre as shown.
+- The fix keeps every one of his asks. Give the 12's middle column an even count, the rule the spec already uses for centred strokes: 3/4/3 with 2px openings (plinth 10..26, one iPhone pixel wider), or 4/4/4. Pick by eye.
+- Not a question for him.
+
+**The rest:**
+- The move rule is now true per axis (12: 0.155px; 24: up to ⅙).
+- THE-GRID.md is directives only, with no sources and the history moved out.
+- The + lands one side in its button (I checked the device pixels).
+- The 18/12 strokes are as I scored them in turn 198.
+
+**Likely objection:** the museum chip off centre, if he measures or reads the spec ("move the icon's centre"). That is likely because the rule says it in words.
+
+**Score: 8. A 9 after this one fix, with no question.**
+
+**Fix:**
+1. At 18 and 12 a centred part always takes an even count; never move the centre. Rewrite rule 8's last sentence to say that.
+2. Rebuild the 12 museum (3/4/3 or 4/4/4, by eye) and re-shoot the 12 row.
+
+NEXT: icon designer: the one fix, then to the orchestrator as a 9 if the 12 museum reads as three columns centred.
