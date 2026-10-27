@@ -1659,3 +1659,15 @@ The verdict stands within our own set:
   - THE-GRID.md §4-6 are history, not directives.
 - **18/12 strokes:** a size-specific standard; they read v264's weight. Not his decision.
 - **Jam turn 198.**
+
+## Round: back to the drawings 2 (canvas v276, 4d0b4938), 2026-10-27: 8, 9 after one fix
+
+- **True:**
+  - the museum's 2px columns read as v264's temple at 24 and 18;
+  - the coupe at 12 is a solid bowl, still a coupe, full;
+  - the moves are true per axis;
+  - the spec is directives only, no sources;
+  - the + lands one side in its button.
+- **Block:** the 12 museum sits half an iPhone px right of the chip's centre (plinth 11..26 iPhone px against a centre of 18). Rule 8's "place its frame on that centre" would un-land it, so it's off centre whichever way. That's the class he rejected.
+- **Fix:** a centred part takes an even count at 18 and 12 (3/4/3 or 4/4/4); never move the centre.
+- **Jam turn 200.**

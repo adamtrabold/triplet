@@ -826,3 +826,19 @@ If he rejects it, the reason is the best signal yet of what he reads as "the rig
 **Lesson:** score every shipped size by eye against his standing asks, not just the 24.
 
 **Next:** the designer fixes 1-4; I re-score at 12, 18 and 24 against v264. If they hold, a 9 with no question.
+
+## Back to the drawings 2 (v276, 4d0b4938): 8, 9 after one fix
+
+**Fixed:**
+- The museum's columns are 2px solids at 24: v264's temple by eye, three columns, v264's ink. It holds and is centred at 18.
+- The coupe at 12 is solid: it reads as a coupe and as full.
+- The move rule is true per axis.
+- The spec is directives only.
+
+**Block:** the 12 museum is half an iPhone px off the chip's centre. Its middle column is odd, so the designer moved the centre. Invisible, but it is the off-centre class he rejected. "Place its frame on that centre" is physically impossible without un-landing the icon, and the shots don't do it.
+
+**Fix:** a centred part takes an even count at 18 and 12, never move the centre (3/4/3 or 4/4/4 at 12, by eye).
+
+**Lesson:** read the centre of every size in device pixels, not just the 24. A rule that "moves the centre" is the off-centre the owner already rejected, whatever size it happens at.
+
+**Next:** the one fix, then a 9 with no question.
