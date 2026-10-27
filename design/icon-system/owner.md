@@ -259,3 +259,4 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > (10-26, on the orchestrator's "two grids that never agreed") Why is there no grid!!! This whole fucking exercise has been about creating a system and grid!! For days! I am livid
 > (10-26, answering "which grid unit?") We talked about doing the counters 1 or 2 px I am so tired of this back and forth. I need a grid and visual system that creates coherent icons based on our rules
 > (10-26, during the grid round) I want them to be as sharp as possible and strokes to be 1.5px. If it's not a strike it doesn't have to be 1.5px! Just has to read the right weight   ("strike" = stroke)
+> (10-27, on v274 "The grid", a director 9) I'm bummed these dont look nearly as good as before   (second 9 in a row he turned down: v269, v274; loop stuck rule)
