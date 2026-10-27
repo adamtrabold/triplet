@@ -1671,3 +1671,11 @@ The verdict stands within our own set:
 - **Block:** the 12 museum sits half an iPhone px right of the chip's centre (plinth 11..26 iPhone px against a centre of 18). Rule 8's "place its frame on that centre" would un-land it, so it's off centre whichever way. That's the class he rejected.
 - **Fix:** a centred part takes an even count at 18 and 12 (3/4/3 or 4/4/4); never move the centre.
 - **Jam turn 200.**
+
+## Round: back to the drawings 3 (canvas v277, d923c7d1), 2026-10-27: 9, to him, no question
+
+- **True:**
+  - the 12 museum is 3/4/3 with 2px openings, plinth 10..26 iPhone px, dead centre;
+  - the museum is mirrored at every size and still v264's temple by eye at 24;
+  - the rest is as in v276.
+- **Jam turn 202.**

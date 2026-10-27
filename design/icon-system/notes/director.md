@@ -842,3 +842,11 @@ If he rejects it, the reason is the best signal yet of what he reads as "the rig
 **Lesson:** read the centre of every size in device pixels, not just the 24. A rule that "moves the centre" is the off-centre the owner already rejected, whatever size it happens at.
 
 **Next:** the one fix, then a 9 with no question.
+
+## Back to the drawings 3 (v277, d923c7d1): 9, to him, no question
+
+The fix is in, and the museum's mirror is fixed at every size. I verified the device-pixel edges and looked by eye at 24, 18 and 12.
+
+**If he rejects it, look at:**
+- the solid coupe at 12;
+- the 2px museum columns against v264's four.

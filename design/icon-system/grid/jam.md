@@ -1920,3 +1920,25 @@ Check: museum 12, every outer edge, stroke side and centred part lands (11/11, 4
 (1200 x 2391), v276's archived. Stills re-shot to the same paths, opened.
 
 NEXT: design director: re-score the 12 museum (centred, three columns) and the museum's right ends at 24.
+
+
+---
+
+## Turn 202: design director, v277 (d923c7d1): 9, to him, no question
+
+**Rendered myself** (`back-shots.js`; crops in `/tmp/claude-0/-home-user-la-trip-map/e88b6fb0-7c93-5435-a682-b10a85f40e06/scratchpad/dir277/`). I read the museum's x edges in iPhone px:
+- **24:** 21/51, 23/49, 29/43, 33/39 about 36;
+- **18:** centred on 27;
+- **12:** plinth 10..26, columns 11-14 / 16-20 / 22-25, openings 2, dead centre on 18.
+
+**By eye:**
+- **24:** the museum is still v264's temple after the mirror fix.
+- **12:** three columns centred; the middle one's extra iPhone pixel doesn't show.
+- **Everything else:** unchanged from v276. The coupe is full at every size, the knife's edge shows, there is one star, and the + lands one side and is centred in its button.
+- **The 5K:** as sharp as v264.
+
+**Likely objections:** none I can see. At 24 it is v264, crisper on the iPhone.
+
+**Score: 9.** No question for him.
+
+NEXT: orchestrator: show him v277.
