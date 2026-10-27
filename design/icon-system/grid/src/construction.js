@@ -26,7 +26,7 @@ const VESSEL_ROOT = { bowlRoot: 7 / 8, bowlWide: true, bowlSplit: 'even', cupRoo
 // the cap's ends at half its height, every vessel's ellipse 4/5, the cup, coupe and museum by their ratios, thicknesses in lines
 const { PROP, capOver } = require('./proportions.js'), LN = k => +(k * W).toFixed(10), CAP_P = { root: 'ellipse', ry: 1, over: capOver(PROP.cap.end) };
 const O = { droop: 0.5, bow: -0.2, dome: true, ...COUPE_B, ...P7.VESSEL_SIDE, post: 1.25, starTip: 0.0877, plate: 0.5, colW: 1.25, struct: { ...STRUCT, ...JOINS }, bandH: 5 / 6, dome: 0.5, cap: CAP_RULE, capPlate: CAP_RULE, ...VESSEL_ROOT,
-  prop: PROP, cap: CAP_P, capPlate: CAP_P, post: LN(PROP.line.post), colW: LN(PROP.line.post), droop: PROP.line.droop, bow: PROP.line.bow };
+  prop: PROP, cap: CAP_P, capPlate: CAP_P, post: LN(PROP.line.post), colW: LN(PROP.line.post), droop: PROP.line.droop, bow: PROP.line.bow , ...(global.SYSTEM_O || {}) };   // THE SYSTEM (system.js): a size's settings, when it builds
 const HUMAN_V = { flare: 0.5, mass: 0.6, end: 0.3, tipShare: 0.0877 };
 // g7ba: the law from the one table (PROP.rounds; src/rounds-check.js proves it answers as HUMAN(HUMAN_V) and the star's law did)
 const LAW = fromTable(PROP.rounds.shaped), LINE_LAW = fromTable(PROP.rounds.line), FK = 11 / 12;

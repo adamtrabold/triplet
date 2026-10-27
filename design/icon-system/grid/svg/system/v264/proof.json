@@ -1,0 +1,58 @@
+{
+ "cafe": {
+  "ref": "svg/placement/cafe.svg",
+  "same": true,
+  "points": 158,
+  "maxPoint": 0,
+  "hausdorff": 0,
+  "sameAt7dp": true
+ },
+ "bar": {
+  "ref": "svg/post-line/bar.svg",
+  "same": true,
+  "points": 198,
+  "maxPoint": 0,
+  "hausdorff": 0,
+  "sameAt7dp": true
+ },
+ "museum": {
+  "ref": "svg/post-line/museum.svg",
+  "same": true,
+  "points": 309,
+  "maxPoint": 0,
+  "hausdorff": 0,
+  "sameAt7dp": true
+ },
+ "nature": {
+  "ref": "svg/post-line/nature.svg",
+  "same": true,
+  "points": 220,
+  "maxPoint": 0,
+  "hausdorff": 0,
+  "sameAt7dp": true
+ },
+ "restaurant": {
+  "ref": "svg/post-line/restaurant.svg",
+  "same": true,
+  "points": 254,
+  "maxPoint": 0,
+  "hausdorff": 0,
+  "sameAt7dp": true
+ },
+ "star": {
+  "ref": "svg/placement/star.svg",
+  "same": true,
+  "points": 262,
+  "maxPoint": 0,
+  "hausdorff": 0,
+  "sameAt7dp": true
+ },
+ "plus": {
+  "ref": "svg/placement/plus.svg",
+  "same": true,
+  "points": 157,
+  "maxPoint": 0,
+  "hausdorff": 0,
+  "sameAt7dp": true
+ }
+}

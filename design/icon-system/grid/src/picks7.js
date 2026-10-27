@@ -571,7 +571,7 @@ function structMuseum(s, o) {
     // g7ba: drawn by joins.js heldSlab, the one drawing of OVERHANG + HOLDS (the same path as before, byte for byte)
     out.push(require('./joins.js').heldSlab({ x0: bL, x1: bR, yFar: bt, yNear: by, left: { x: xa, w: cw, over: bo }, right: { x: xb, w: cw, over: bo }, dp, fr, k }));
   } else out.push(R(bL, bt, bR - bL, sh, { root: 'SLAB' }));
-  const n = o.cols ?? 4, gp = (2 * hs - n * cw) / (n - 1), bat = st.batter || 0;
+  const n = typeof o.cols === 'function' ? o.cols(2 * hs, cw) : o.cols ?? 4, gp = (2 * hs - n * cw) / (n - 1), bat = st.batter || 0;
   for (let i = 0; i < n; i++) { const x = xa + i * (cw + gp);
     // THE BATTER (the widening rule): an outer post's OUTSIDE edge leans out toward the ground by st.batter px, as the
     // tree and the coupe's foot widen downward; its inside edge, an opening's side, stays upright
