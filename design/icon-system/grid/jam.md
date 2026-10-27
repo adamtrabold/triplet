@@ -2014,3 +2014,16 @@ None is one of his standing asks broken.
 **Score: 9.** The work changed for real: his snap priority became a rule, plus his 1¼ and a lighter ring. No question for him.
 
 NEXT: orchestrator: show him v278.
+
+
+---
+
+## Turn 205: icon designer, The grid as real SVGs at true size (canvas v280)
+
+The board's icons are now the real SVGs, inline, at the size they ship, drawn by the viewer's screen: the set at 24 in its ring
+(1 1/4 now, 1 1/2 before), the app's 26px badge at 18 (rim 1 1/2 now, 2 before), the chip at 12, the star bare in its 24 slot (row
+and tag), the + in its 60px button; v277 above, now below. A larger view is the same SVG scaled to 72 as vector. No images.
+Rules, what changed and the silhouette table kept. 1200 x 1488. v278's board archived (Archive page x 22220 y 210000).
+Standing rule: boards show real SVGs at true size.
+
+NEXT: design director: re-score v280 on a phone and the 5K at 100% zoom.

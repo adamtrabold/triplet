@@ -56,3 +56,4 @@ Code: `src/one-side.js` (the rules), `src/back-to-drawings.js` (the set), `src/b
 3. Build it with `land(d, { size, sym })` at 24, 18 and 12 (marks at 24 only).
 4. Look at it at true size on the iPhone and the 5K (`src/back-shots.js`) beside the set. Run `src/back-check.js` to see which
    edges land, the silhouette on its own. The check is information, not the goal.
+5. Show it on a board as the real SVG at its true size, never as an image; a larger view is the same SVG scaled as vector.

@@ -1,5 +1,11 @@
 # Visual designer notes: icon system
 
+## Real SVGs on the board (2026-10-27, jam turn 205, canvas v280)
+
+- Standing rule (owner): boards show the real SVGs inline at true CSS size, drawn by the viewer's screen; a larger view is the
+  same SVG scaled as vector, labelled; never a raster of an icon. `src/back-board.js` builds it from `svg/back/build.json` and
+  `v277.json` (no blobs; `back-shots.js` and the PNG rows are for local checks only). v278 archived at x 22220.
+
 ## Silhouette first (2026-10-27, jam turn 203, canvas v278)
 
 - Rule: silhouette edges to a whole px within 1/4px (lands on both screens), else the iPhone pixel; two outer sides: one lands
