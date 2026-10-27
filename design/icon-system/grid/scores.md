@@ -1607,3 +1607,18 @@ The verdict stands within our own set:
   - say that D and E are both about 1px taller than approved (question 1 says "as approved" and "approved height");
   - drop the museum lean, or put E first (he wrote "three cols").
 - **Jam turn 189.**
+
+## Round: THE grid (canvas v272, 379eac42), 2026-10-27: 6, not to him
+
+- **True:**
+  - one grid with one check (0 of 60 off, verified independently);
+  - the museum centred and its construction drawn;
+  - the tree held.
+- **Blocks:**
+  - the size limit moved to the class box (coupe 8.7 → 10, museum 9.6 → 10.5, after his "why is it getting taller?");
+  - the coupe reads as a goblet (a fixed point broken);
+  - ink +16/19/32% against "read the right weight";
+  - the café ear is a slit;
+  - the one question offers the empty drink;
+  - the spec is missing stroke-vs-solid, the give-order and other sizes.
+- **Jam turn 192**, seven fixes.

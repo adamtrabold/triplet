@@ -726,3 +726,29 @@ Fresh blind read (`shopping/blind-read-1.md`):
 **Next:** those two edits, then show him (four questions in jam 189).
 
 **Shopping:** waiting on his four answers (Shopping jam 10).
+
+## THE grid round (v272, commit 379eac42, 2026-10-27): 6, not to him
+
+**Context:** he is livid that days of "a system and grid" produced no grid. Previous directors passed 9s he rejected (v269, v271). His newest line: "I want them to be as sharp as possible and strokes to be 1.5px. If it's not a strike it doesn't have to be 1.5px! Just has to read the right weight".
+
+**Verified myself:**
+- `grid-check.js` gives 0 of 60 off the grid, soft 0 / 6.
+- I parsed the straight runs myself (`grid/src/director-edges.py`): all shape edges are whole, and the +'s edges are on halves.
+- Renders: `grid/src/director-the-grid-render.js`, stills `grid/stills/the-grid/director/`.
+- The star has no straight edge, so the check says nothing about it.
+
+**Real progress:** one grid, one spec, one check; the museum's construction is drawn and centred; the tree is held.
+
+**Blocks (jam 192):**
+1. The size limit became the class box, not each icon's approved size. The coupe is +1.3 tall and the museum +0.85, both against the brief's "limit, not an outcome" and his "why is it getting taller?".
+2. The coupe reads as a goblet.
+3. "Solid = 2 everywhere" makes the badges 16-32% darker and the 1½ marks read light. His test is now "read the right weight".
+4. The café ear has become a slit.
+5. The one question offers the empty drink (turn-189 lesson).
+6. The spec lacks a stroke-vs-solid rule, a give-order, and other sizes.
+
+**What keeps blocking a 9 (across rounds 174-192):** each round solves the newest constraint (sharp edges, now the grid) by spending one of his standing asks: size, the drink, weight, the fixed points. Then it hands him the bill as a question. A grid that passes its check but changes the approved look is a check passing, not an answer.
+
+**Lesson:** score a new system against the six's look first (row at 24 and 72, approved above). Then read its numbers.
+
+**Next:** the designer does the seven fixes. I re-score in the row. If it's a 9, there is no question unless one keeps every standing ask on both sides.

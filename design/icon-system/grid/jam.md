@@ -1631,3 +1631,37 @@ Brief `briefs/grid-round.md`; his newest line (via the coordinator): "I want the
 Board "The grid" 1200 × 2397 (measured locally, frame 2398), after Start here; Now moved right (x 2120); "Sharp at 2x and 3x" archived (Archive page x 8820 y 210000); Start: a "New" line and item 6 replaced. Stills `grid/stills/the-grid/phone/grid-1..3.png`.
 
 NEXT: design director: score the grid and the six on v272 before the orchestrator shows him.
+
+---
+
+## Turn 192: design director, THE grid (canvas v272): 6. Not to him.
+
+I rendered it myself (`src/director-the-grid-render.js`: approved row above, grid row below, at 24 on DPR 2 and 3 and at 72; stills `stills/the-grid/director/`). I ran `grid-check.js` (0 of 60 off, soft 0 / 6) and measured every straight run on my own from the outlines (`src/director-edges.py`). **The claims are true:** every shape edge is whole (café 8, 14, 15 | 7, 8, 18; museum 9, 10, 12, 15, 17 | 7, 8, 10, 11, 13, 14, 16, 17; coupe 7, 9, 10, 17 | 9, 11, 13, 15; tree 18 | 11, 13), and the +'s edges are 5½, 11½, 13, 19. The museum is centred: the middle column is 11..13. The star has no straight run, so the check proves nothing about it (that's fine, but don't count it as "0 off").
+
+**What's right:** there is one grid now, written down, with one check, and the museum's construction (section 3) is the first board that answers his question with the grid drawn. The tree is unchanged, as it should be. The board is under the cap (2,397).
+
+**What's wrong (by eye, at 24 and 72):**
+1. **The size limit was moved, not held.** The brief: "the approved width/height of each of the six is a limit, not an outcome." The board makes the class box (10) the limit, so the coupe grows 8.7 → 10 tall and the museum 9.6 → 10.5 (again). His last museum words were "Why is it getting taller?". The answer on the board is an explanation, but the museum is still taller.
+2. **The coupe is no longer "Coupe, after" (a fixed point).** A 6-deep bowl on a 2px stem with a 2px foot reads as a goblet or a trophy at 72, not a shallow coupe. Ink +32%.
+3. **The weight.** At 24 the grid row is visibly darker than approved: café +16%, museum +19%, coupe +32%. Beside them the 1½ + and the 12px star now read light. His line is "just has to read the right weight". "Solid = 2 everywhere" is a rule that ignores weight, and his newest words make weight the test.
+4. **The café's ear** closes to a 1 × 2 slit. It reads as a notch in a block, not a handle (approved: a round hole).
+5. **The one question breaks a standing ask.** "Drink 2, less than approved" is the empty drink he called "terrible". Per turn 189, a 9 can't offer that. The other side breaks a fixed point and the size. A system that leaves him only two bad answers hasn't solved it.
+6. **THE-GRID.md has gaps for a new icon:**
+   - when a part is a stroke and when it is a solid (his own question: "when is an icon outlined vs not");
+   - which part gives when the box can't hold the proportions;
+   - what happens off 24 (the 12px chip, the selected pin), or a plain line saying that only 24 is defined;
+   - the "box wins" rule is written, but the coupe shows it didn't.
+7. **The board:** cut "Retired" to one line. In section 4 the grids under the icons at 72 are too faint to read as his grid; draw one badge icon's edges landing (as the museum does), or make the cells legible.
+
+**His likely objections:** "the museum is taller again"; "that's not the coupe"; "they're heavier/blockier"; "the cup has no handle"; "why am I picking an empty drink again"; maybe the ¼px button ("off center"), though it is centred in its circle.
+
+**Fixes (one answer each, no options):**
+1. Each icon's limit is its approved box to whole px: café 11 × 9, coupe 10 × 9, museum 10 × 10 to the apex (the apex's ½ allowance counted inside). Write which part gives first when it can't hold, as a rule in THE-GRID.md.
+2. Add a weight rule with a gate: each icon reads the approved weight. Ink within ±10% of approved, and checked by eye in the six's row at 24, beside the 1½ +. Solid parts follow it: 2 is a thickness the grid allows, not a quota, and parts shorten or open up to hold the ink.
+3. Coupe: the "Coupe, after" shape (shallow, wide bowl, slender stem), ≤ 9 tall, drink reading full by eye (≥ the approved 2½). Drop the question unless both sides keep the drink and the size.
+4. Museum: three centred columns at ≤ 10 to the apex, ink within the gate.
+5. Café: the ear's hole reads as a handle at 24 (a counter at its 2 across, within the box).
+6. THE-GRID.md: the stroke-vs-solid rule, the give-order, and other sizes (or "24 only").
+7. Board: "Retired" as one line; one more icon drawn with its edges on the grid; stay ≤ 2,400.
+
+NEXT: icon designer (systems + visual): fixes 1-7 on "The grid", then I re-score at 24 and 72.
