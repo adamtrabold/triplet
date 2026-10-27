@@ -274,3 +274,4 @@ Ticked: Café = cup and saucer · Bar = coupe on a long stem · Museum = column 
 > (10-27) but wait why am i seeing htem at 24, 18, and 12... what is the size they actually are? that's all i care about   (in the app: place glyphs 18px in a 24px ring on pins and rows; 24 in a 32 ring only on the selected pin; 12 on filter chips; row star in an 18px box)
 > why would we have a 24px master size if the icons are only ever 18?
 > they should be drawn at the right size
+> (10-27) yes 18 should be the master, detail should be adjusted for 24px and 12px
