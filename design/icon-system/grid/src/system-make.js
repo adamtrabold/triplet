@@ -223,13 +223,8 @@ function layout(decl, s, Z, S, room, gdx = null) {
           // a half ellipse under what runs into it, as wide: as tall as the fair limit lets a line run into it at its widest point
           const rx = wc / 2, ry = Math.max(1.05 * rx, Math.sqrt(rx / FAIR_K)), cx = x + rx;
           prims.push({ withGroup: 'comb', ...E.D(`M${f(cx - rx)} ${f(yy - 0.3)}V${f(yy)}C${f(cx - rx)} ${f(yy + ry * K)} ${f(cx - rx * K)} ${f(yy + ry)} ${f(cx)} ${f(yy + ry)}C${f(cx + rx * K)} ${f(yy + ry)} ${f(cx + rx)} ${f(yy + ry * K)} ${f(cx + rx)} ${f(yy)}V${f(yy - 0.3)}Z`), root: 'ELLIPSE' });
-          // THE SLOTS' DEPTH: a comb is held by its root as posts by a slab, so the slots cut into the head until what is left
-          // under them is one line (the stroke, a slab's thickness), measured under the outer slots, where the head is shallowest
-          if (C && sp[j - 1] && sp[j - 1].kind === 'comb' && C.n > 1) {
-            const a = rx - C.w, left = ry * Math.sqrt(Math.max(0, 1 - (a / rx) ** 2)), deep = Math.max(0, left - t.stroke);
-            const cm = meta.combs[meta.combs.length - 1]; if (cm) { cm.slotDepth = +(((yy - topF) + deep) * k).toFixed(3); cm.past = +(deep * k).toFixed(3); cm.bridge = +((left - deep) * k).toFixed(3); }
-            if (deep > 0) prims.forEach(p => { if (p.group === 'comb') { p.slotDeep = deep; p.slotMeta = cm; } });   // cut once the comb has landed (asOne)
-          }
+          // THE SLOTS (cut once the comb has landed, in asOne): they follow the head's curve, see the comb depth rule there
+          if (C && sp[j - 1] && sp[j - 1].kind === 'comb' && C.n > 1) { const cm = meta.combs[meta.combs.length - 1]; prims.forEach(p => { if (p.group === 'comb') { p.slotDeep = true; p.slotMeta = cm; } }); }
           yy += ry; headBot = yy; head = { rx, ry };
         } else if (r.kind === 'blade') {
           // a straight spine, its edge a quarter ellipse, down to where the column beside it ends its head (else half the height);
@@ -357,15 +352,32 @@ function asOne(before, after, Z) {
     it.scale(sx, sy, new paper.Point(a.x, a.y)); it.translate(new paper.Point(b.x - a.x, b.y - a.y));
     out[i] = { ...after[i], d: it.pathData, how: 'moved with its root' }; it.remove();
   });
-  // a comb's slots cut on past its tines into its root, between the tines as they landed, to the depth the comb rule set
-  const tn = before.map((q, i) => q.slotDeep ? i : -1).filter(i => i >= 0);
-  if (tn.length > 1) {
-    // the slot's floor is an outer edge: it lands on the nearest iPhone pixel line
-    const T = tn.map(i => bb(out[i].d)).sort((a, b) => a.x - b.x), deep = before[tn[0]].slotDeep, cm = before[tn[0]].slotMeta, g = (1 / 3) / Z.k;
-    const yb = Math.max(...T.map(b => b.y + b.height)), yRaw = yb + 0.1 + deep, yF = Math.round(yRaw / g) * g;   // the nearest grid line
-    if (cm) { const dk = (yRaw - yF) * Z.k; cm.slotDepth = +(cm.slotDepth - dk).toFixed(3); cm.past = +(cm.past - dk).toFixed(3); cm.bridge = +(cm.bridge + dk).toFixed(3); }
-    for (let j = 0; j + 1 < T.length; j++) { const x0 = T[j].x + T[j].width, x1 = T[j + 1].x;
-      out.push({ t: 'D', d: `M${f5(x0)} ${f5(yb - 0.3)}H${f5(x1)}V${f5(yF)}H${f5(x0)}Z`, cut: true, root: 'SLOT', how: 'the comb\'s slot, cut on into its root' }); }
+  // A COMB'S SLOTS cut on past its tines into the root it runs into (a head), between the tines as they landed. A cut into a curved
+  // root follows the curve, moved in by the wall, and the wall is the tine's own width, so the outer tine runs on round the head as
+  // one even band. It follows the curve while the curve is a side, until it has turned half a right angle (the chamfer's 45
+  // degrees); there it is a floor, and a floor runs flat, on the nearest iPhone pixel line, never leaving less than a line under it.
+  // The curve is the round moved in (one arc, so the engine eases it in from the straight side with no step in curvature).
+  const tn = before.map((q, i) => q.slotDeep ? i : -1).filter(i => i >= 0), hi = before.findIndex(q => q.withGroup === 'comb' && q.root === 'ELLIPSE');
+  if (tn.length > 1 && hi >= 0) {
+    const T = tn.map(i => bb(out[i].d)).sort((a, b) => a.x - b.x), cm = before[tn[0]].slotMeta, g = (1 / 3) / Z.k, line = Z.stroke / Z.k;
+    const H = bb(out[hi].d), cx = H.x + H.width / 2, cy = H.y + 0.3, rx = H.width / 2, ry = H.y + H.height - cy, wall = T[0].width;
+    const yb = Math.max(...T.map(b => b.y + b.height)), bot = H.y + H.height, ri = rx - wall;
+    const capY = Math.min(Math.round((cy + ri * Math.SQRT1_2) / g) * g, Math.floor((bot - line) / g + 1e-6) * g);
+    const inner = new paper.Path.Circle({ center: [cx, cy], radius: ri, insert: false });
+    let deepest = yb;
+    for (let j = 0; j + 1 < T.length; j++) {
+      const x0 = T[j].x + T[j].width, x1 = T[j + 1].x;
+      const box = new paper.Path.Rectangle({ from: [x0, yb - 0.3], to: [x1, capY], insert: false });
+      const above = new paper.Path.Rectangle({ from: [x0, yb - 0.3], to: [x1, cy], insert: false });
+      // the curve moved in must be at least a pixel round to be followed; tighter, it would kink (curvature first): the cut stays square
+      const room = ri * Z.k >= 1 - 1e-6 ? inner.unite(above, { insert: false }) : box.clone({ insert: false }), cutP = box.intersect(room, { insert: false });
+      deepest = Math.max(deepest, cutP.bounds.y + cutP.bounds.height);
+      out.push({ t: 'D', d: cutP.pathData, cut: true, root: 'SLOT', how: 'the comb\'s slot, following its root\'s curve to 45 degrees, then flat' });
+      [box, above, room, cutP].forEach(q => q.remove());
+    }
+    inner.remove();
+    const tineTop = Math.min(...T.map(b => b.y));
+    if (cm) { cm.slotDepth = +((deepest - tineTop) * Z.k).toFixed(3); cm.past = +((deepest - cy) * Z.k).toFixed(3); cm.bridge = +((bot - deepest) * Z.k).toFixed(3); cm.wall = +(wall * Z.k).toFixed(3); cm.follows = ri * Z.k >= 1 - 1e-6; cm.curvePx = +(ri * Z.k).toFixed(3); }
   }
   return out;
 }

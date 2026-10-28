@@ -74,7 +74,7 @@ function checkOne(size, id, B) {
     add('Same role, same width', [...tw, ...sw].length >= 3 && sameW([...tw, ...sw]), `parts ${tw.join(', ')}; slots ${sw.join(', ')}`);
   }
   // COMB DEPTH: what is left under the slots is one line
-  for (const cb of M.combs || []) if (cb.bridge != null) add('Comb depth', Math.abs(cb.bridge - Z.stroke) <= 1 / 6 + 0.02, `slots ${cb.slotDepth}px deep (${cb.past}px into the root); left under the outer slots: ${cb.bridge}px (the line ${Z.stroke}px, the floor on the grid)`);
+  for (const cb of M.combs || []) if (cb.bridge != null) add('Comb depth', cb.bridge >= Z.stroke - 1 / 6 - 0.02 && (!cb.follows || Math.abs(cb.wall - cb.w) < 0.02), `slots ${cb.slotDepth}px deep at most (${cb.past}px into the root), following its curve with a ${cb.wall}px wall; left under the deepest: ${cb.bridge}px (at least the line, ${Z.stroke}px)`);
   // POINTS: every apex's crest reads a fifth of the line on screen
   if (M.apex) { const want = (mark ? 1.5 : Z.stroke) / 5; add('Points', M.apex.crestPx != null && M.apex.crestPx >= 0.9 * want - 0.005, `${M.apex.n} apex corner${M.apex.n > 1 ? 's' : ''}: crest ${M.apex.crestPx}px on screen, a fifth of the line ${+want.toFixed(3)}px${M.apex.scale !== 1 ? ` (round x${M.apex.scale})` : ' (as drawn)'}`); }
   // PROTRUSIONS: the outline's extreme past the nearest long straight face under it
