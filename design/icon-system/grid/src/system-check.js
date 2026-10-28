@@ -70,7 +70,7 @@ function checkOne(size, id, B) {
     const op = spans(d, 'y', () => true), top = bx.y0, yMid = top + 1.2 / k;
     const row = spans(d, 'x', e => e.lo < yMid && e.hi > yMid).filter(s => s.a < bx.x0 + cb.span / k + 0.2 + (bx.x0 - bx.x0));
     const tines = row.filter(s => s.b <= bx.x0 + cb.span / k + 0.05), tw = tines.filter(s => s.kind === 'solid').map(s => px(s.w)), sw = tines.filter(s => s.kind === 'gap').map(s => px(s.w));
-    add('Combs', tw.length === cb.n, `${tw.length} parts measured; declared ${cb.declared}${cb.n !== cb.declared ? `, the rule gave ${cb.n} (the room the box leaves: ${cb.room}px)` : ''}`);
+    add('Combs', tw.length === cb.n, `${tw.length} parts measured; declared ${cb.declared}${cb.n !== cb.declared ? `, the rule gave ${cb.n} (the room the box leaves: ${cb.room}px)` : ''}${cb.thinned ? `, parts and slots thinned to ${cb.w}px to keep the count` : ''}`);
     add('Same role, same width', [...tw, ...sw].length >= 3 && sameW([...tw, ...sw]), `parts ${tw.join(', ')}; slots ${sw.join(', ')}`);
   }
   // PROTRUSIONS: the outline's extreme past the nearest long straight face under it

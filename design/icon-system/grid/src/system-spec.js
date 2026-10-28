@@ -24,7 +24,7 @@ function md() {
     '3. Straight widths and overhangs land on the iPhone grid before anything is drawn on them; the roots land by the snap priority; a row or a comb lands as one.',
     '4. Every corner takes a cutter from the rack, every join is faired to continuous curvature, a symmetric icon is mirrored.',
     '5. The checks run on every size; any failure stops it.', '', '## The declarations', '');
-  for (const id of S.ORDER) { const d = S.DECL[id]; L.push(`- **${d.name}** (${d.cls}): ${S.words(d)}.`); }
+  for (const id of S.ORDER) { const d = S.DECL[id]; L.push(`- **${d.name}** (${d.cls}${d.proof ? "; the system's proof: built from a declaration with no new code, not a set member" : ""}): ${S.words(d)}.`); }
   L.push('', '## Build and check', '', '- `node src/system.js build 18` (and 24, 12): writes `svg/system/<size>/<icon>.svg` (one process per size; any icon list).',
     '- `node src/system.js check`: every automatic check; exit 1 blocks publishing. Eye checks print after.',
     '- `node src/system.js spec`: rewrites this file. `src/system-make.js` is the maker (kinds, joins, layout, pipeline); nothing in it names an icon.', '');

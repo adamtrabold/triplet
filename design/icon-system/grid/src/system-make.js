@@ -208,8 +208,8 @@ function layout(decl, s, Z, S, room, gdx = null) {
     const others = fixed.reduce((a, w) => a + (w || 0), 0) + (cols.length - 1) * t.cut;
     let C = null;
     if (combCol >= 0) { const cr = cols[combCol].find(q => q.kind === 'comb');
-      C = S.comb({ n: cr.n, w: t.part, wMin: Math.max(t.min, t.counter), span: room - others });
-      fixed[combCol] = C.span; meta.combs.push({ id: cr.id, declared: cr.n, n: C.n, w: +(C.w * k).toFixed(3), slot: +(C.slot * k).toFixed(3), span: +(C.span * k).toFixed(3), room: +((room - others) * k).toFixed(3) }); }
+      C = S.comb({ n: cr.n, w: t.part, wMin: t.min, span: room - others, grid: t.grid });
+      fixed[combCol] = C.span; meta.combs.push({ id: cr.id, declared: cr.n, n: C.n, w: +(C.w * k).toFixed(3), slot: +(C.slot * k).toFixed(3), span: +(C.span * k).toFixed(3), room: +((room - others) * k).toFixed(3), thinned: C.thinned }); }
     const total = fixed.reduce((a, w) => a + w, 0) + (cols.length - 1) * t.cut;
     let x = 6 * u - total / 2, headBot = null;
     cols.forEach((sp, ci) => {

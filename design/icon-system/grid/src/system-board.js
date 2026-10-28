@@ -58,21 +58,22 @@ function icons(check) {
     if (d.cls === 'outline') set = [v ? cell(bare(v, 18, `${n} v264`), 'v264, 18 box') : '', cell(bare(b18.d, 18, `${n}, the system`), 'system, 18 box'), cell(bare(b18.d, 18, `${n}, the system, 3x`, 3), 'the same SVG 3x')];
     else if (d.cls === 'open') set = [v ? cell(plusBtn(v, `${n} v264`), 'v264') : '', cell(plusBtn(b18.d, `${n}, the system`), 'system, 60 button'), cell(bare(b18.d, 28, `${n}, the system, 2x`, 2), 'the same SVG 2x')];
     else { const b24 = B(24, id), b12 = B(12, id);
-      set = [v ? cell(badge(v, 24, 4 / 3, `${n} v264`), 'v264 at 18') : cell(empty(24), 'new'), cell(badge(b18.d, 24, 4 / 3, `${n} 18`), '18, the master'),
+      set = [v ? cell(badge(v, 24, 4 / 3, `${n} v264`), 'v264 at 18') : cell(empty(24), 'no v264'), cell(badge(b18.d, 24, 4 / 3, `${n} 18`), '18, the master'),
         cell(b24 ? badge(b24.d, 32, 5 / 3, `${n} 24`) : empty(32), '24, selected'), cell(b12 ? bare(b12.d, 16, `${n} 12`) : empty(16), '12, chip'),
         v ? cell(badge(v, 24, 4 / 3, `${n} v264, 3x`, 3), 'v264, 3x') : '', cell(badge(b18.d, 24, 4 / 3, `${n} 18, 3x`, 3), '18, the same SVG 3x')]; }
     const r = res(id), fails = r.flatMap(x => x.checks.filter(c => !c.ok).map(c => `${c.point} at ${x.size}`)), h = r.find(x => x.size === 18);
     const status = !check ? '' : fails.length ? `<span style="color:${C.deep};font-weight:700">Fails: ${esc(fails.join('; '))}</span>` : `<span style="color:${C.moss};font-weight:700">Every check passes</span> (${r.map(x => x.size).join(', ')})`;
-    const dist = h && h.v264 ? ` · ${h.v264.hausdorffPx}px from v264 at 18 at most` : v ? '' : ' · new: built from its declaration with no new code';
+    const dist = h && h.v264 ? ` · ${h.v264.hausdorffPx}px from v264 at 18 at most` : '';
     return `<div style="display:grid;grid-template-columns:420px 1fr;gap:22px;padding:10px 0;border-top:1px solid ${C.rule};align-items:center">
-<div><div style="font-size:18px;font-weight:700;color:${C.navy}">${esc(n)} <span style="font-weight:400;font-size:13px;color:${C.grey}">${esc(d.cls)}</span></div>
+<div>${d.proof ? `<div style="display:inline-block;font-size:12px;letter-spacing:.1em;font-weight:700;text-transform:uppercase;color:${C.paper};background:${C.navy};padding:2px 7px;border-radius:3px;margin-bottom:4px">The system's proof</div>` : ''}<div style="font-size:18px;font-weight:700;color:${C.navy}">${esc(n)} <span style="font-weight:400;font-size:13px;color:${C.grey}">${esc(d.cls)}</span></div>
+${d.proof ? `<div style="font-size:13.5px;line-height:1.35;margin-top:3px;color:${C.ink}">An icon built from a declaration with no new code: the test that the system makes new icons. Not a Park drawing for review.</div>` : ''}
 <div style="font-size:12.5px;line-height:1.35;margin-top:3px;font-family:ui-monospace,Menlo,monospace;color:${C.ink}">${esc(S.words(d))}</div>
 <div style="font-size:12.5px;line-height:1.35;margin-top:5px">${status}<span style="color:${C.grey}">${dist}</span></div></div>
 <div style="display:flex;gap:22px;align-items:flex-end">${set.join('')}</div></div>`;
   }).join('');
 }
 function row() {
-  const ids = S.ORDER.filter(id => !S.MARK[S.DECL[id].cls]);
+  const ids = S.ORDER.filter(id => !S.MARK[S.DECL[id].cls] && !S.DECL[id].proof);   // the set; a proof is not a member
   const line = (f, t) => `<div style="display:flex;gap:14px;align-items:center"><div style="width:120px;font-size:13px;color:${C.grey}">${t}</div>${ids.map(f).join('')}</div>`;
   return `<div style="display:flex;flex-direction:column;gap:10px">${line(id => V(id) ? badge(V(id), 24, 4 / 3, `${NAME(id)} v264`) : empty(24), 'v264')}${line(id => B(18, id) ? badge(B(18, id).d, 24, 4 / 3, `${NAME(id)} 18`) : empty(24), 'the system, 18')}</div>`;
 }

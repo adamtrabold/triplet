@@ -39,7 +39,7 @@ const SETTINGS = [
     ['Stroke', 'A stroke is 1 1/2px at 18 (2 at 24, 1 at 12). Monoweight: an inner edge follows its outer edge.', '10-26'],
     ['Stroke at 18 on the grid', '1 1/2px, its outer side on the grid and its inner side half an iPhone pixel soft (1 1/3 was sharper both sides but read lighter than the set\'s weight).', '10-27', 'designer'],
     ['Parts that are not strokes', 'Sized by eye to read at the stroke\'s weight. Posts, columns, stems, trunks and tines: 1 1/3 at 18, 1 2/3 at 24, 1 at 12 (whole iPhone pixels). Never under 1 1/4 at 18.', '10-27'],
-    ['Thinnest part at 12', 'A row\'s parts may thin to 2/3px (two iPhone pixels) at 12 to keep the row\'s count; nothing else goes under 1px.', '10-27', 'designer'],
+    ['Thinnest part at 12', 'A row\'s or a comb\'s parts (and a comb\'s slots, which share their width) may thin to 2/3px (two iPhone pixels) at 12 to keep the count; nothing else goes under 1px.', '10-28', 'designer'],
     ['Solids are shapes', 'A solid part (slab, cap, mass) is a shape, not a line: it reads by its shape, and a thin slab is never thinner at its ends than its middle.', '10-26'],
     ['Same role, same width', 'Parts with the same role share one width. A comb (parts with slots cut between them) is one role: parts and slots one width.', '10-27'],
     ['The ring', '1 1/3px at 24 (4 iPhone pixels): whole pixels and a step lighter than the glyph\'s stroke.', '10-27', 'designer'],
@@ -54,7 +54,7 @@ const SETTINGS = [
     ['Counters and gaps', 'Aim for whole pixels (1 or 2 at 18), but how it looks wins over the rule. At 12 a counter under 1px closes and the part goes solid.', '10-27'],
     ['Inner bands', 'A gap or band inside a form is no thicker than the stroke, and a fill it contains reads full.', '10-27'],
     ['Rows', 'A row of repeated parts reads as its count of distinct parts. Parts at the part width, gaps equal and at least the counter minimum: on the grid when the row then fits inside its root\'s span (exactly, under a slab that holds it: the overhang is the chamfer\'s), else filling the span exactly. If the gaps can\'t reach the minimum, the parts thin to the size\'s thinnest; only then one part fewer (never below two).', '10-27'],
-    ['Combs', 'A comb takes the room its box leaves: parts and slots at the part width if they fit, else at the narrowest the size allows (never under the counter minimum, since the slots share the width), else one part fewer (never below two).', '10-27'],
+    ['Combs', 'A comb keeps its count first, as a row does: across the room its box leaves, parts and slots one width, the part width if they fit, else thinner a grid step at a time to the size\'s thinnest; only then one part fewer (never below two).', '10-28'],
     ['Protrusions', 'A feature that has to read by sticking out (an edge, a step, a lip) clears a minimum visible protrusion: one whole pixel past what it sticks out from at 18 (1 1/3 at 24, 1 at 12), after the join\'s round.', '10-27'],
     ['No narrow passages', 'No passage that vanishes at small sizes.', '10-19'],
     ['Handles', 'A handle takes its rule from the root shape it is (a cup\'s ear is a loop around its counter).', '10-26'],
@@ -115,8 +115,14 @@ const MARK = { outline: { frame: 18, std: { stroke: 4, centred: 4, counter: 3 } 
 // grid (a whole count of grid steps, at least the counter minimum), the row centred on the grid and inside the span by at most one
 // grid step a side (exactly the span under a held slab: the overhang is the chamfer's); else equal gaps filling the span exactly. Neither: the parts thin, a grid step at a time, to the size's thinnest.
 // Only then one part fewer (never below two).
-function row({ span, w, wMin, n, min, grid, exact = false }) {   // exact: the row spans its root's span exactly (the overhang is the chamfer's)
+// COUNT FIRST (rows and combs alike): the widths a part may take, widest first: the part width, then a grid step at a time down
+// to the size's thinnest. Every width is tried before a part is lost.
+function thinning(w, wMin, grid) {
   const widths = []; for (let wv = w; wv >= wMin - 1e-9; wv -= grid) widths.push(wv); if (widths[widths.length - 1] > wMin + 1e-9) widths.push(wMin);
+  return widths;
+}
+function row({ span, w, wMin, n, min, grid, exact = false }) {   // exact: the row spans its root's span exactly (the overhang is the chamfer's)
+  const widths = thinning(w, wMin, grid);
   for (let m = n; m >= 2; m--) for (const wv of widths) {
     for (let j = Math.ceil((min - 1e-9) / grid); ; j++) {
       const g = j * grid, tot = m * wv + (m - 1) * g; if (tot > span + 1e-9) break;
@@ -126,13 +132,14 @@ function row({ span, w, wMin, n, min, grid, exact = false }) {   // exact: the r
   }
   return { n: 2, w: wMin, gap: span - 2 * wMin, span, grid: false };
 }
-// A COMB: parts and the slots cut between them are one role, so one width, across the room its box leaves. The part width if it
-// fits; else the narrowest the size allows (wMin: never under the counter minimum, the slots share it); else one part fewer.
-function comb({ n, w, wMin, span }) {
+// A COMB: parts and the slots cut between them are one role, so one width, across the room its box leaves. Count first, as a row:
+// the part width if it fits; else thinner, a grid step at a time, to the size's thinnest (parts and slots together); only then one
+// part fewer (never below two).
+function comb({ n, w, wMin, span, grid }) {
+  const widths = thinning(w, wMin, grid);
   for (let m = n; m >= 2; m--) {
     const k = 2 * m - 1;
-    if (k * w <= span + 1e-9) return { n: m, w, slot: w, span: k * w };
-    if (k * wMin <= span + 1e-9) return { n: m, w: wMin, slot: wMin, span: k * wMin };
+    for (const wv of widths) if (k * wv <= span + 1e-9) return { n: m, w: wv, slot: wv, span: k * wv, thinned: wv < w - 1e-9 };
   }
   return { n: 2, w: wMin, slot: wMin, span: 3 * wMin };
 }
@@ -169,7 +176,7 @@ const DECL = {
       [{ id: 'blade', kind: 'blade' }, { id: 'grip', kind: 'post', join: 'into' }],
     ], join: 'cut' },
   ] },
-  park: { name: 'Park', cls: 'wide', spine: [
+  park: { name: 'Bench', proof: true, cls: 'wide', spine: [   // proof: a test of the system (made from a declaration, no new code), not a set member
     { id: 'back', kind: 'slab', w: 1 },
     { id: 'rails', kind: 'row', n: 2, h: 1 / 6, join: 'held' },
     { id: 'seat', kind: 'slab', of: 'back', join: 'held' },
@@ -178,7 +185,7 @@ const DECL = {
   star: { name: 'Star', cls: 'outline', spine: [{ id: 'star', kind: 'star', points: 5, ri: 0.47 }] },
   plus: { name: '+', cls: 'open', spine: [{ id: 'arms', kind: 'cross' }] },
 };
-const ORDER = ['cafe', 'bar', 'museum', 'nature', 'restaurant', 'park', 'star', 'plus'];
+const ORDER = ['cafe', 'bar', 'museum', 'nature', 'restaurant', 'star', 'plus', 'park'];
 
 // a declaration in words, written from its data (so the words can't drift from what builds)
 const FR = v => { const T = [[1 / 6, '1/6'], [1 / 5, '1/5'], [1 / 4, '1/4'], [1 / 3, '1/3'], [2 / 5, '2/5'], [1 / 2, '1/2'], [3 / 5, '3/5'], [2 / 3, '2/3'], [3 / 4, '3/4'], [4 / 5, '4/5'], [5 / 9, '5/9'], [5 / 6, '5/6'], [1, 'all']]; const m = T.find(([x]) => Math.abs(v - x) < 1e-6); return m ? m[1] : String(+v.toFixed(2)); };
