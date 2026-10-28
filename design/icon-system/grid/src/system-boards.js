@@ -3,12 +3,12 @@
 // the centre, and at 6x the roots outlined), and "Rules" (every decision point, its setting and date, grouped; the open decisions;
 // each icon's declaration). Written from system.js, the build (svg/system/<size>) and the roots (system-roots.js), so they
 // regenerate with the system and never drift from it.
-//   node system-boards.js <out dir>        writes <out>/{Icons,IconsGrid,Rules}.html (to measure) and, with BOARD_H_<NAME>=<px>,
-//                                           the canvas files <out>/Grid7{Icons,IconsGrid,Rules}.dc.html at that height
+//   node system-boards.js <out dir>        writes <out>/{Icons,IconsGrid,SystemRules}.html (to measure) and, with BOARD_H_<NAME>=<px>,
+//                                           the canvas files <out>/Grid7{Icons,IconsGrid,SystemRules}.dc.html at that height
 'use strict';
 const fs = require('fs'), path = require('path');
 const S = require('./system.js'), P7 = require('./picks7.js');
-const C = { navy: '#12293F', paper: '#FAF5EA', tile: '#F2EBDD', orange: '#EE7434', deep: '#A8400C', grey: '#5A564C', rule: '#D8CEBA', ink: '#1A1A18', ask: '#FBE9DD', moss: '#547326', lattice: '#C9BBA0', whole: '#8C7B5E', key: '#2F6FA8' };
+const C = { navy: '#12293F', paper: '#FAF5EA', tile: '#F2EBDD', orange: '#EE7434', deep: '#A8400C', grey: '#5A564C', rule: '#D8CEBA', ink: '#1A1A18', ask: '#FBE9DD', moss: '#547326', lattice: '#C9BBA0', whole: '#A39274', key: '#2F6FA8' };
 const FONT = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&amp;display=swap">';
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 const J = f => fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : null;
@@ -42,7 +42,7 @@ function button(d, scale, label, over = '') {
 // (u = 24 / px units per screen px). Widths are in units too, so they scale with the canvas zoom and resolve when zoomed in.
 function gridOver(px, scale, { id, size, roots, mark } = {}) {
   const u = 24 / px, big = scale > 1, css = w => w / scale * u;   // a width in CSS px at this view, in the drawing's units
-  const lw = css(big ? 0.4 : 0.045), ww = css(big ? 0.9 : 0.11);
+  const lw = css(big ? 0.4 : 0.045), ww = css(big ? 0.7 : 0.11);
   const lines = [];
   for (let i = 0; i <= 3 * px; i++) { const v = (i / 3) * u, whole = i % 3 === 0;
     if (whole) continue;
@@ -64,7 +64,7 @@ function gridOver(px, scale, { id, size, roots, mark } = {}) {
   keys += `<path d="M12 ${f(12 - cl)}V${f(12 + cl)}M${f(12 - cl)} 12H${f(12 + cl)}" stroke="${C.deep}" stroke-width="${f(css(big ? 1.4 : 0.22))}"/>`;
   // the construction: the roots as the system landed them, outlined (a root that cuts dashed)
   let rs = '';
-  if (big && roots) rs = roots.map(r => `<path d="${r.d}" fill="none" stroke="${C.orange}" stroke-width="${f(css(1.25))}"${r.cut ? ` stroke-dasharray="${f(css(4))} ${f(css(3))}"` : ''}/>`).join('');
+  if (big && roots) rs = roots.map(r => `<path d="${r.d}" fill="none" stroke="${C.orange}" stroke-width="${f(css(1))}"${r.cut ? ` stroke-dasharray="${f(css(4))} ${f(css(3))}"` : ''}/>`).join('');
   return { under: lat + whole, top: keys + rs };
 }
 const f = v => +(+v).toFixed(4);
@@ -121,7 +121,7 @@ function gridBoard() {
   const legend = `<div style="display:flex;flex-wrap:wrap;gap:10px 28px;margin:0 0 16px">
 ${legendItem(sw(C.lattice, 1.2), 'iPhone pixel, ⅓px')}${legendItem(sw(C.whole, 1.6), 'whole pixel')}
 ${legendItem(sw(C.key, 1.6, 'stroke-dasharray="5 3"'), 'class box (the keyline the icon is fitted to)')}${legendItem(sw(C.key, 1.4, 'stroke-opacity=".6"'), 'coin, Ø12 (every class box has its area)')}
-${legendItem(sw(C.deep, 1.6), 'centre')}${legendItem(sw(C.orange, 1.6), 'roots, as landed (dashed: a cut)')}</div>`;
+${legendItem(sw(C.deep, 1.6), 'centre')}${legendItem(sw(C.orange, 1.6), 'roots, outlined (dashed: a root cut away)')}</div>`;
   return shell(W_ICONS, 'Icon system', 'Icons on the grid', `The same icons with the grid under each. At app size the grid is at true scale (zoom in to see the iPhone pixels); at ${BIG}x one iPhone pixel is 2px, and the roots each icon is built from are outlined.`, legend + table(true));
 }
 
@@ -198,7 +198,7 @@ module.exports = { iconsBoard, gridBoard, rulesBoard, W_ICONS };
 if (require.main === module) {
   const out = process.argv[2]; fs.mkdirSync(out, { recursive: true });
   const check = J(path.join(S.OUT, 'check.json')), R = rulesBoard();
-  const boards = { Icons: ['Icons', iconsBoard(check), W_ICONS], IconsGrid: ['Icons on the grid', gridBoard(), W_ICONS], Rules: ['Rules', R.html, R.W] };
+  const boards = { Icons: ['Icons', iconsBoard(check), W_ICONS], IconsGrid: ['Icons on the grid', gridBoard(), W_ICONS], SystemRules: ['Rules', R.html, R.W] };
   for (const [k, [t, body, w]] of Object.entries(boards)) {
     fs.writeFileSync(path.join(out, `${k}.html`), `<!doctype html><html><head><meta charset="utf-8">${FONT}</head><body style="margin:0">${body}</body></html>`);
     const h = process.env[`BOARD_H_${k.toUpperCase()}`];
