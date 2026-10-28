@@ -2,7 +2,18 @@
 
 Branch: `claude/city-place-creation-workflow-vcblfw`. Nothing built; `index.html` untouched.
 
-## v6: how Remove is reached (2026-10-28, latest) -- READ THIS FIRST
+## v7: the hold reveals a claim stub (2026-10-28, latest) -- READ THIS FIRST
+
+Owner: likes the hold, wants it to reveal a Remove button with brand whimsy; no header for a picked
+city; faded signposts read as hidden but must be tappable. Spec `concepts/v7-the-hold-reveals.md`
+(A claim stub, recommended; B due-date stamp; C matchbook, not drawn). Stills `stills/v7/1..3`
+(`stills/v7/stills.js`). Every picked-city frame now fades the other boards (the coordinator caught
+v6's sheet 1 not doing so). Caption check: the stub was first drawn tucked under the Plans row; it
+now lifts above it.
+Open: (1) claim stub vs stamp; (2) is the perforation-then-tear timing (500ms + spring) right, to be
+tuned in a motion prototype; (3) signed out: stub reading SIGN IN, OK?
+
+## v6: how Remove is reached (2026-10-28) -- history
 
 Owner approved v5's filter; header taps in All places do nothing; the eye stays; other signposts show
 when one city is picked, "maybe they should look hidden in some way?"; removal "needs more
