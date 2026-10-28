@@ -33,7 +33,7 @@ const SETTINGS = [
     ['Centring', 'A centred part is exactly centred: an even count of iPhone pixels about the icon\'s centre. Vertical centring is optical, per icon.', '10-27'],
     ['Sharpness', 'As sharp as possible: core dimensions and core line landings are never fuzzy.', '10-26'],
     ['Scale and weight', 'Settled once for the set at the grid level: every icon the same optical size and weight; never negotiated icon by icon.', '10-20'],
-    ['The box', 'An icon is fitted to its class box (wide, square, tall) by the sides that scale, and never grows past its v264 size: each outer edge at most one iPhone pixel further out. A rule that needs room takes it from the icon\'s own proportions; the box never gives way.', '10-27'],
+    ['The box', 'An icon is fitted to its class box (wide, square, tall) by the sides that scale, and never grows past its v264 size: each outer edge at most one iPhone pixel past where v264\'s lands on the grid. A rule that needs room takes it from the icon\'s own proportions; the box never gives way.', '10-27'],
   ] },
   { g: 'Weight', items: [
     ['Stroke', 'A stroke is 1 1/2px at 18 (2 at 24, 1 at 12). Monoweight: an inner edge follows its outer edge.', '10-26'],
@@ -205,11 +205,15 @@ const words = decl => decl.spine.map(say).join('; ');
 // ---------------------------------------------------------------------------------------------------------------------------
 // THE BUILD (one size per process)
 let paperOK = null;
-function v264Box(id) {   // the icon's v264 size, the box it never grows past (frame units)
+// the icon's v264 size, the box it never grows past, as the grid lands it at this size (v264's edges were never on the grid:
+// each goes to its nearest iPhone pixel, as any drawing's would), in frame units
+function v264Box(id, size) {
   const f = path.join(OUT, 'v264', `${id}.svg`); if (!fs.existsSync(f)) return null;
   const paper = require(path.join(process.env.TOOLS, 'node_modules/paper/dist/paper-core.js')); if (!paperOK) { paper.setup(new paper.Size(100, 100)); paperOK = 1; }
   const it = new paper.CompoundPath(fs.readFileSync(f, 'utf8').match(/ d="([^"]+)"/)[1]), b = it.bounds; it.remove();
-  return { x0: b.x, x1: b.x + b.width, y0: b.y, y1: b.y + b.height, w: b.width, h: b.height };
+  const q = 3 * SIZES[size].k, lo = v => Math.round(v * q - 1e-6) / q, hi = v => Math.round(v * q + 1e-6) / q;   // a tie goes outward
+  const x0 = lo(b.x), x1 = hi(b.x + b.width), y0 = lo(b.y), y1 = hi(b.y + b.height);
+  return { x0, x1, y0, y1, w: x1 - x0, h: y1 - y0 };
 }
 function build(size, ids) {
   const Z = SIZES[size], Mk = require('./system-make.js'), SL = require('./system-land.js'), OS = require('./one-side.js');
@@ -221,7 +225,7 @@ function build(size, ids) {
       const R = Mk.mark(decl), L = OS.land(R.d, { size: line.frame, sym: R.sym, std: line.std });
       d = L.d; sym = R.sym; meta = { ...R.meta, frame: line.frame, landing: 'outline' }; var drawn = R.d;
     } else {
-      const R = Mk.make(decl, Z, module.exports, { v264: v264Box(id), land: (prims, s_) => SL.landPrims(prims, s_, { size: Z.frame, std: { stroke: null, counter: 0 } }) });
+      const R = Mk.make(decl, Z, module.exports, { v264: v264Box(id, size), land: (prims, s_) => SL.landPrims(prims, s_, { size: Z.frame, std: { stroke: null, counter: 0 } }) });
       d = R.d; sym = R.sym; meta = { ...R.meta, landing: 'roots' }; drawn = R.d;
       if (Z.close) { const c = SL.closeSmall(d, Z.counter / Z.k); d = c.d; meta.closed = c.closed; meta.landing = 'roots; small counters closed'; }
     }
@@ -237,7 +241,7 @@ function write(size, id, B) {
   fs.writeFileSync(path.join(dir, `${id}${V}.json`), JSON.stringify(B));
 }
 
-module.exports = { SETTINGS, SIZES, DECL, ORDER, RING, MARK, IPX, row, comb, words, say, OUT };
+module.exports = { SETTINGS, SIZES, DECL, ORDER, RING, MARK, IPX, row, comb, words, say, OUT, v264Box };
 if (require.main === module) {
   const [cmd, a, b] = process.argv.slice(2);
   if (cmd === 'build') build(+a, b ? b.split(',') : ORDER);

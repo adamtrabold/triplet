@@ -135,6 +135,8 @@ function landPrims(prims, sym, opts) {
     const choose = (s0, s1, p0, p1, a0, a1, ext) => (s0 && !s1) ? a0 : (s1 && !s0) ? p1 + a1 - ext - (p0) : wholePx(p0 + a0) ? a0 : wholePx(p1 + a1) ? p1 + a1 - ext - p0 : a0;
     if (tx == null) tx = choose(side.left, side.right, b.left, b.right, dx0, dx1, w2);
     if (ty == null) ty = choose(side.top, side.bottom, b.top, b.bottom, dy0, dy1, h2);
+    // a root centred on the icon's axis stays centred (it is mirrored after; a tip moved off the axis comes back doubled)
+    if (sym != null && Math.abs(b.left + b.right - 2 * sym) < 2e-3) tx = sym - (b.left + w2 / 2);
     it3.translate(new paper.Point(tx, ty)); const o = it3.pathData; it3.remove();
     return { t: 'D', d: o, cut: !!q.cut, root: q.root, also: q.also, how: 'scaled evenly ' + k.toFixed(4) };
   });

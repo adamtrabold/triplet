@@ -174,6 +174,9 @@ function layout(decl, s, Z, S, room, gdx = null) {
       const w = wOf(r.id); R = { held: true, topF, prims: [], box: { x0: cx - w / 2, x1: cx + w / 2, top: topF / u, bot: (topF + t.stroke) / u } };
     } else R = KINDS[r.kind](r, { cx, w: wOf(r.id), top: topF / u, topF }, t, u);
     R.r = r; R.depth = R.depth ?? (R.box.bot - R.box.top); placed[r.id] = R; out.push(R);
+    // what lands with what: a root's own counters (a band) and a loop with its counter move with the root they are cut in or sit on
+    if (R.prims[0]) R.prims[0] = { ...R.prims[0], rid: r.id };
+    R.prims = R.prims.map((p, j) => r.kind === 'loop' ? { ...p, withRoot: r.of } : j > 0 && p.cut ? { ...p, withRoot: r.id } : p);
     if (r.kind === 'loop') meta.loops.push({ id: r.id }); else prev = R;
     if (R.prims.some(p => p.role === 'band')) meta.bands.push({ id: r.id, band: t.band * k, stroke: Z.stroke });
   }
@@ -183,7 +186,7 @@ function layout(decl, s, Z, S, room, gdx = null) {
     const over = OVER, slabW = (slab.box.x1 - slab.box.x0) * u, span = slabW - 2 * over;
     const Rw = S.row({ span, w: t.part, wMin: t.min, n: r.n, min: t.counter, grid: t.grid });
     const pl = T3(topF + r.h * rawSpan(slab)), xa = 6 * u - Rw.span / 2, gp = Rw.n > 1 ? (Rw.span - Rw.n * Rw.w) / (Rw.n - 1) : 0, posts = [];
-    for (let j = 0; j < Rw.n; j++) posts.push(E.R(xa + j * (Rw.w + gp), topF - 0.01, Rw.w, pl - topF + 0.02, { root: 'POST', role: 'row' }));
+    for (let j = 0; j < Rw.n; j++) posts.push(E.R(xa + j * (Rw.w + gp), topF - 0.01, Rw.w, pl - topF + 0.02, { root: 'POST', role: 'row', group: r.id }));
     const ov = (slabW - Rw.span) / 2;
     meta.rows.push({ id: r.id, declared: r.n, n: Rw.n, w: +(Rw.w * k).toFixed(3), gap: +(gp * k).toFixed(3), onGrid: Rw.grid, span: +(Rw.span * k).toFixed(3), rootSpan: +(span * k).toFixed(3), over: +(ov * k).toFixed(3), thinned: Rw.w < t.part - 1e-9, closed: !!(next && next.join === 'held'), hPx: +((pl - topF) * k).toFixed(3) });
     return { prims: posts, box: { x0: xa / u, x1: (xa + Rw.span) / u, top: topF / u, bot: pl / u }, row: { xa, w: Rw.w, span: Rw.span, over: ov } };
@@ -207,7 +210,7 @@ function layout(decl, s, Z, S, room, gdx = null) {
       sp.forEach((r, j) => {
         if (r.kind === 'comb') {   // the tines, one width with the slots between them
           const hc = topF + r.h * H * u;
-          for (let q = 0; q < C.n; q++) prims.push(E.R(x + q * 2 * C.w, topF, C.w, hc - 0.1 - topF, { root: 'POST', role: 'comb' }));
+          for (let q = 0; q < C.n; q++) prims.push(E.R(x + q * 2 * C.w, topF, C.w, hc - 0.1 - topF, { root: 'POST', role: 'comb', group: 'comb' }));
           yy = hc;
         } else if (r.kind === 'head') {
           // a half ellipse under what runs into it, as wide: as tall as the fair limit lets a line run into it at its widest point
@@ -264,7 +267,7 @@ const opticalY = m => m.box.cy - 0.5 * Math.max(0, m.box.cy - m.cy);
 
 function make(decl, Z, S, opts = {}) {
   const apex = decl.spine.some(r => r.kind === 'gable' || r.kind === 'tiers') ? APEX : 0;
-  const law = rack(LAW, Z.k), bopts = { law, tightHoles: true, ease: EASE, join: JOIN10 }, fast = { ...bopts, join: { ...JOIN10, fair: false } };
+  const law = rack(LAW, 1), bopts = { law, tightHoles: true, ease: EASE, join: JOIN10 }, fast = { ...bopts, join: { ...JOIN10, fair: false } };
   // the box: never past the icon's v264 size by more than one iPhone pixel a side (opts.v264: its bounds), else the class's cut
   let cls = decl.cls.toUpperCase();
   const room = () => opts.v264 ? opts.v264.w + 2 / 3 / Z.k : KEY[cls][0] * FK;
@@ -307,12 +310,24 @@ function make(decl, Z, S, opts = {}) {
 function asOne(before, after, Z) {
   const paper = require(path.join(process.env.TOOLS, 'node_modules/paper/dist/paper-core.js')), bb = d => { const it = new paper.CompoundPath(d), b = it.bounds; it.remove(); return b; };
   const out = after.slice();
-  for (const role of ['row', 'comb']) {
-    const idx = before.map((q, i) => q.role === role ? i : -1).filter(i => i >= 0); if (idx.length < 2) continue;
+  const groups = [...new Set(before.filter(q => q.group).map(q => q.group))];
+  for (const gid of groups) {
+    const idx = before.map((q, i) => q.group === gid ? i : -1).filter(i => i >= 0); if (idx.length < 2) continue;
+    const role = before[idx[0]].role;
     const B = idx.map(i => bb(after[i].d)), w0 = before[idx[0]].w, x0 = Math.min(...B.map(b => b.x)), x1 = Math.max(...B.map(b => b.x + b.width)), n = idx.length;
     const w = w0, gap = role === 'comb' ? w : (x1 - x0 - n * w) / (n - 1);
     idx.forEach((i, j) => { const b = B[j], x = x0 + j * (w + gap); out[i] = { ...after[i], d: `M${f5(x)} ${f5(b.y)}H${f5(x + w)}V${f5(b.y + b.height)}H${f5(x)}Z`, how: 'landed as one ' + role }; });
   }
+  // a counter cut in a root (an inner band), and a loop on a root with its counter, move with that root: the same scale and move the
+  // landing gave the root
+  before.forEach((q, i) => {
+    if (!q.withRoot) return;
+    const pi = before.findIndex(p => p.rid === q.withRoot); if (pi < 0) return;
+    const a = bb(E.parts([before[pi]])[0].d), b = bb(after[pi].d), sx = b.width / a.width, sy = b.height / a.height;
+    const it = new paper.CompoundPath(E.parts([q])[0].d);
+    it.scale(sx, sy, new paper.Point(a.x, a.y)); it.translate(new paper.Point(b.x - a.x, b.y - a.y));
+    out[i] = { ...after[i], d: it.pathData, how: 'moved with its root' }; it.remove();
+  });
   return out;
 }
 
