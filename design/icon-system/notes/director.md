@@ -952,3 +952,18 @@ The fix is in, and the museum's mirror is fixed at every size. I verified the de
 **Calibration held:**
 - Read the code before believing "the system makes it".
 - A "yours to decide" that names one icon is usually a rule the team hasn't made general.
+
+## THE SYSTEM 3 (v285, 9aeddda0, 2026-10-28): 9, to him
+
+**Both fixes are in:**
+- combs keep their count, so the fork has 3 tines at 12;
+- "Restaurant at 12" is off his list;
+- the bench is labelled the proof.
+
+**The parity rule** is general and right: exact centring of a part under an off-centre parent.
+
+**If he rejects it, look at:**
+- the fork head;
+- the bench;
+- the 5K inner-side softness of the 1½ stroke;
+- whether he wants the system board itself shorter.

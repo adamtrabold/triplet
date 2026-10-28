@@ -2284,3 +2284,35 @@ café, coupe, museum, tree, fork and knife, star, +; same at 7dp).
 **For him:** nothing new. The standing open points stay (outline/solid, novelty, Shopping). Set by me: the parity rule above.
 
 NEXT: orchestrator: to him with no new question.
+
+---
+
+## Turn 213: design director, THE SYSTEM round 3 (v285, 9aeddda0): 9, to him, no new question
+
+**Verified:**
+- the diff since my turn 211;
+- my own renders at 100%, DPR 3 and 2 (scratchpad `dir283/r3-*`);
+- the board still `system-r3-1.png`.
+
+**Both fixes are in.**
+- Combs share the rows' count-first rule, so the fork keeps 3 tines at 12 and reads as v264's fork there.
+- "Restaurant at 12" is off his list.
+- The bench is labelled as the system's proof.
+
+**The parity rule:** "a part centred under another takes its parity". It is general and right: it is exact centring applied to any part centred under another.
+- It matters only where the parent is off the icon's centre (the fork's head). In a mirrored icon the parity already matches.
+- The handle goes to 4/3px at 12. That is invisible as weight, and it keeps the handle exactly under the head.
+- It is coded on the post-under-head path. When another kind needs it, it should move into the general layout, but that does not block.
+
+**At 18 in the ring:** unchanged from v284 except the fork's handle, and at least v264 on every icon.
+
+**Likely objections, none likely enough to block:**
+- the fork head reads a little heavier than v264;
+- the bench is read as a proposal despite its label;
+- the soft inner side of the 1½ stroke on his 5K.
+
+**Score: 9.** I would defend it to him as is.
+
+**For him:** no new question. The board's standing open points stay as worded there: Outline or solid, Novelty, Shopping. The designer-set lines are his to change.
+
+NEXT: orchestrator: to the owner.
