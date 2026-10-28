@@ -1,5 +1,13 @@
 # Systems designer notes: icon system
 
+## THE SYSTEM, round 6 (2026-10-28, jam turn 216, canvas v290; director turn 215: v289 a trident at 18)
+
+- **Comb depth** (`asOne`, capY): the floor is where the inner circle (head rx less the wall, on the head's centre line) has
+  turned 22.5 degrees: cy + ri sin(pi/8), nearest grid line, at most bottom less a line. Was 45 degrees (v289, 4px at 18).
+- **By eye:** fixed floors 3 / 3.33 / 3.67 at 18 tried (a temporary override, removed); 3.33 chosen; 22.5 degrees lands it.
+  Scratch `r6/`: look.js (candidates), stills.js (r6-1, r6-2), measure.js (board heights 647 / 703 / 2310, unchanged).
+- **Result:** 18 3.33px (0.70 into the head), 24 4.33px, 12 2px square. Gate 153 pass.
+
 ## THE SYSTEM, round 5 (2026-10-28, jam turn 214, canvas v289; his note on v288's fork)
 
 - **Cuts follow the curve** (`asOne`, the comb's slots): each slot = rect between the landed tines, from their foot to the floor, cut

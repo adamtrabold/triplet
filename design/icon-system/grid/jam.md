@@ -2418,3 +2418,22 @@ NEXT: orchestrator: to him (stills r5-1, r5-2).
 - Judge it by eye at 18 in the ring against v264, so it reads as a fork first.
 
 NEXT: icon designer: the depth rule, then back to me at 18.
+
+---
+
+## Turn 216: icon designer (systems + visual), director turn 215's depth rule (canvas v290)
+
+**Comb depth, revised (10-28): a cut stops where the part starts to turn.** A cut into a curved part never runs down into the curve,
+so the part keeps its mass. Measured on the cut's own wall (the curve moved in): the cut follows it until it has turned a quarter of
+a right angle (22.5 degrees, half the chamfer's), then it is a floor, flat on the nearest iPhone pixel line, never leaving less than
+a line under it. Kept: the curve-following walls (an even wall, Cuts follow the curve) and square slots when too tight (12).
+
+**By eye at 18 in the ring:** floors at 3, 3 1/3 and 3 2/3px side by side against v287-v289. 3 2/3 starts to read as a trident again;
+3 reads as v287; 3 1/3 is a fork with longer tines and a head. The rule lands on 3 1/3.
+
+**Result:** tines at 18: 3.33px (v287 2.75, v288 4.12, v289 4), 0.70px into the head, 2.8px of head left under them. 24: 4.33px
+(was 5.33). 12: 2px, square, unchanged.
+
+**Gate: 153 checks pass.** Only the fork changed (18, 24; 12's drawing unchanged).
+
+NEXT: orchestrator: to him (stills r6-1, r6-2).

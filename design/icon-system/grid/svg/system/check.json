@@ -183,7 +183,7 @@
     {
      "point": "Snap priority",
      "ok": true,
-     "detail": "7 of 7 core outer edges on the iPhone grid; parts with both sides outside: 10 of 10 sides landed"
+     "detail": "8 of 8 core outer edges on the iPhone grid; parts with both sides outside: 10 of 10 sides landed"
     },
     {
      "point": "Parts that are not strokes",
@@ -213,7 +213,7 @@
     {
      "point": "Comb depth",
      "ok": true,
-     "detail": "slots 4px deep at most (1.367px into the root), following its curve with a 1.333px wall; left under the deepest: 2.133px (at least the line, 1.5px)"
+     "detail": "slots 3.333px deep at most (0.7px into the root), following its curve with a 1.333px wall; left under the deepest: 2.8px (at least the line, 1.5px)"
     },
     {
      "point": "Protrusions",
@@ -227,7 +227,7 @@
     }
    ],
    "v264": {
-    "hausdorffPx": 1.659
+    "hausdorffPx": 1.189
    }
   },
   {
@@ -548,7 +548,7 @@
     {
      "point": "Snap priority",
      "ok": true,
-     "detail": "6 of 6 core outer edges on the iPhone grid; parts with both sides outside: 10 of 10 sides landed"
+     "detail": "8 of 8 core outer edges on the iPhone grid; parts with both sides outside: 10 of 10 sides landed"
     },
     {
      "point": "Parts that are not strokes",
@@ -578,7 +578,7 @@
     {
      "point": "Comb depth",
      "ok": true,
-     "detail": "slots 5.333px deep at most (1.933px into the root), following its curve with a 1.667px wall; left under the deepest: 2.441px (at least the line, 2px)"
+     "detail": "slots 4.333px deep at most (0.933px into the root), following its curve with a 1.667px wall; left under the deepest: 3.441px (at least the line, 2px)"
     },
     {
      "point": "Protrusions",
@@ -592,7 +592,7 @@
     }
    ],
    "v264": {
-    "hausdorffPx": 2.164
+    "hausdorffPx": 1.335
    }
   },
   {
