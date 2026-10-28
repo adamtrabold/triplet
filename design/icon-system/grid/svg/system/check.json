@@ -183,7 +183,7 @@
     {
      "point": "Snap priority",
      "ok": true,
-     "detail": "8 of 8 core outer edges on the iPhone grid; parts with both sides outside: 10 of 10 sides landed"
+     "detail": "7 of 7 core outer edges on the iPhone grid; parts with both sides outside: 10 of 10 sides landed"
     },
     {
      "point": "Parts that are not strokes",
@@ -213,7 +213,7 @@
     {
      "point": "Comb depth",
      "ok": true,
-     "detail": "slots 4.124px deep (1.374px into the root); left under the outer slots: 1.426px (the line 1.5px, the floor on the grid)"
+     "detail": "slots 4px deep at most (1.367px into the root), following its curve with a 1.333px wall; left under the deepest: 2.133px (at least the line, 1.5px)"
     },
     {
      "point": "Protrusions",
@@ -227,7 +227,7 @@
     }
    ],
    "v264": {
-    "hausdorffPx": 1.653
+    "hausdorffPx": 1.659
    }
   },
   {
@@ -548,7 +548,7 @@
     {
      "point": "Snap priority",
      "ok": true,
-     "detail": "8 of 8 core outer edges on the iPhone grid; parts with both sides outside: 10 of 10 sides landed"
+     "detail": "6 of 6 core outer edges on the iPhone grid; parts with both sides outside: 10 of 10 sides landed"
     },
     {
      "point": "Parts that are not strokes",
@@ -578,7 +578,7 @@
     {
      "point": "Comb depth",
      "ok": true,
-     "detail": "slots 5.254px deep (1.587px into the root); left under the outer slots: 1.913px (the line 2px, the floor on the grid)"
+     "detail": "slots 5.333px deep at most (1.933px into the root), following its curve with a 1.667px wall; left under the deepest: 2.441px (at least the line, 2px)"
     },
     {
      "point": "Protrusions",
@@ -592,7 +592,7 @@
     }
    ],
    "v264": {
-    "hausdorffPx": 1.847
+    "hausdorffPx": 2.164
    }
   },
   {
@@ -865,7 +865,7 @@
     {
      "point": "Comb depth",
      "ok": true,
-     "detail": "slots 2.302px deep (0.469px into the root); left under the outer slots: 0.999px (the line 1px, the floor on the grid)"
+     "detail": "slots 2px deep at most (0.467px into the root), square: its curve moved in (1px) no rounder than a line; left under the deepest: 1.165px (at least the line, 1px)"
     },
     {
      "point": "Protrusions",

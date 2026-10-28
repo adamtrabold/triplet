@@ -46,7 +46,7 @@ A change to any icon is a change here first. Open points are still to be set; th
 - **Inner bands:** A gap or band inside a form is no thicker than the stroke, and a fill it contains reads full. [10-27]
 - **Rows:** A row of repeated parts reads as its count of distinct parts. Parts at the part width, gaps equal and at least the counter minimum: on the grid when the row then fits inside its root's span (exactly, under a slab that holds it: the overhang is the chamfer's), else filling the span exactly. If the gaps can't reach the minimum, the parts thin to the size's thinnest; only then one part fewer (never below two). [10-27]
 - **Combs:** A comb keeps its count first, as a row does: across the room its box leaves, parts and slots one width, the part width if they fit, else thinner a grid step at a time to the size's thinnest; only then one part fewer (never below two). [10-28]
-- **Comb depth:** A comb is held by its root as posts by a slab: its slots cut on past the comb's straight sides into the root until what is left under them is one line (a slab's thickness), measured under the outer slots, where the root is shallowest. [10-28] *(set by the designer; yours to change)*
+- **Comb depth:** A comb's slots cut on into the curved root they run into and follow its curve (Cuts follow the curve) while the curve is a side: until it has turned half a right angle (45 degrees, the chamfer's). There the cut is a floor and runs flat, on the nearest iPhone pixel line, never leaving less than a line under it. Followed all the way down, the slots became a trident: too deep. [10-28] *(set by the designer; yours to change)*
 - **Protrusions:** A feature that has to read by sticking out (an edge, a step, a lip) clears a minimum visible protrusion: one whole pixel past what it sticks out from at 18 (1 1/3 at 24, 1 at 12), after the join's round. [10-27]
 - **No narrow passages:** No passage that vanishes at small sizes. [10-19]
 - **Handles:** A handle takes its rule from the root shape it is (a cup's ear is a loop around its counter). [10-26]
@@ -66,6 +66,7 @@ A change to any icon is a change here first. Open points are still to be set; th
 - **Whole curves:** A curved edge is drawn whole from one circle or ellipse, never one arc per point. [10-23]
 - **Continuous curvature:** Joins are smooth and architectural: curvature is continuous through a join, with no humps or wobbles at the join or on the line leaving it. [10-23]
 - **Counters follow:** A counter's curve follows the outside curve it sits in. [10-22]
+- **Cuts follow the curve:** Where a slot or a counter is cut into a curved part, its inner edges follow the outer curve, moved in by the wall, so the wall left round it is one even thickness: the wall is the width of the part it continues (a comb's outer tine runs on round its head as one band). A curve moved in to no rounder than a line is not followed (it would kink: curvature first); the cut stays square (the fork at 12). [10-28]
 - **Humanist line:** Loosened, humanist curves; restrained flares; every joint and flare architecturally sound. [10-21]
 
 ## Brand

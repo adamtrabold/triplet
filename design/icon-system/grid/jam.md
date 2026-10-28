@@ -2372,3 +2372,25 @@ NEXT: orchestrator: to him (stills r4-1, r4-2).
 **Likely objection:** the star point could read a hair blunt next to the knife tip. Not likely enough to block.
 
 **Score: 9.** No new question.
+
+---
+
+## Turn 214: icon designer (systems + visual), his v288 note on the fork (canvas v289)
+
+His words: "fork tines now either feel too deep or the tine needs to follow the exterior curve more in the interior left/right. looks
+weird how do we make sure the system does that when it gets so tight."
+
+**Cuts follow the curve (new decision point, 10-28).** Where a slot or a counter is cut into a curved part, its inner edges follow
+the outer curve, moved in by the wall, so the wall left around it is one even thickness. The wall is the width of the part it
+continues, so the fork's outer tine runs on round the head as one band. The curve is the outer round moved in, one arc, so the engine
+eases it in from the straight side with no step in curvature. When it gets tight: a curve moved in to no rounder than a line is not
+followed, because it kinks (curvature first). The cut stays square, and that is the fork at 12.
+
+**Comb depth, revised (and the cap, decided by eye).** Followed all the way down, the slots became a trident: too deep. Cap: the cut
+follows the curve while the curve is a side, until it has turned half a right angle (45 degrees, the chamfer's angle). There it
+becomes a floor and runs flat on the nearest iPhone pixel line, never leaving less than a line under it. At 18: slots 4px, 1.37px
+into the head (v288's depth), the outer corners now on the curve with a 4/3px wall. At 24: 5.33px. At 12: 2px, square.
+
+**Gate: 153 checks pass.** The fork at 18 is 1.66px from v264 at most (the deeper slots, by design).
+
+NEXT: orchestrator: to him (stills r5-1, r5-2).

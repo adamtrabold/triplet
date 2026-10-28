@@ -1,5 +1,15 @@
 # Systems designer notes: icon system
 
+## THE SYSTEM, round 5 (2026-10-28, jam turn 214, canvas v289; his note on v288's fork)
+
+- **Cuts follow the curve** (`asOne`, the comb's slots): each slot = rect between the landed tines, from their foot to the floor, cut
+  by (a circle of the head's rx less the wall, centred on the head's centre line) united with the part above that line. Wall = tine
+  width. Floor = where the circle has turned 45 degrees, on the nearest grid line, and at most bottom less a line. The circle, not an
+  inner ellipse: an inner ellipse has no constant curvature, so the engine's arcEase skipped it and left a JUMP at the tangent.
+  Not followed when ri on screen <= the line (12: 1px): square, else 2 KNEE faults at 12.
+- **Tried and rejected:** following the curve all the way down (a trident, slots 4.67px at 18).
+- **Gate:** 153 checks pass. Scratch `r3/`: proto5.js (the cap variants drawn by eye), crop5.js (r5-2), final5.sh.
+
 ## THE SYSTEM, round 4 (2026-10-28, jam turn 213, canvas v288; his notes on v287: tine length, the star's points)
 
 - **Comb depth** (`system-make.js` head branch + `asOne`): slots cut on into the head until one line is left under the outer slots;

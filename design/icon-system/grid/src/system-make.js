@@ -369,15 +369,15 @@ function asOne(before, after, Z) {
       const x0 = T[j].x + T[j].width, x1 = T[j + 1].x;
       const box = new paper.Path.Rectangle({ from: [x0, yb - 0.3], to: [x1, capY], insert: false });
       const above = new paper.Path.Rectangle({ from: [x0, yb - 0.3], to: [x1, cy], insert: false });
-      // the curve moved in must be at least a pixel round to be followed; tighter, it would kink (curvature first): the cut stays square
-      const room = ri * Z.k >= 1 - 1e-6 ? inner.unite(above, { insert: false }) : box.clone({ insert: false }), cutP = box.intersect(room, { insert: false });
+      // the curve moved in must be rounder than a line to be followed; tighter, it kinks (curvature first): the cut stays square
+      const room = ri * Z.k > Z.stroke + 1e-6 ? inner.unite(above, { insert: false }) : box.clone({ insert: false }), cutP = box.intersect(room, { insert: false });
       deepest = Math.max(deepest, cutP.bounds.y + cutP.bounds.height);
       out.push({ t: 'D', d: cutP.pathData, cut: true, root: 'SLOT', how: 'the comb\'s slot, following its root\'s curve to 45 degrees, then flat' });
       [box, above, room, cutP].forEach(q => q.remove());
     }
     inner.remove();
     const tineTop = Math.min(...T.map(b => b.y));
-    if (cm) { cm.slotDepth = +((deepest - tineTop) * Z.k).toFixed(3); cm.past = +((deepest - cy) * Z.k).toFixed(3); cm.bridge = +((bot - deepest) * Z.k).toFixed(3); cm.wall = +(wall * Z.k).toFixed(3); cm.follows = ri * Z.k >= 1 - 1e-6; cm.curvePx = +(ri * Z.k).toFixed(3); }
+    if (cm) { cm.slotDepth = +((deepest - tineTop) * Z.k).toFixed(3); cm.past = +((deepest - cy) * Z.k).toFixed(3); cm.bridge = +((bot - deepest) * Z.k).toFixed(3); cm.wall = +(wall * Z.k).toFixed(3); cm.follows = ri * Z.k > Z.stroke + 1e-6; cm.curvePx = +(ri * Z.k).toFixed(3); }
   }
   return out;
 }

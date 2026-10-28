@@ -75,7 +75,7 @@ const SETTINGS = [
     ['Whole curves', 'A curved edge is drawn whole from one circle or ellipse, never one arc per point.', '10-23'],
     ['Continuous curvature', 'Joins are smooth and architectural: curvature is continuous through a join, with no humps or wobbles at the join or on the line leaving it.', '10-23'],
     ['Counters follow', 'A counter\'s curve follows the outside curve it sits in.', '10-22'],
-    ['Cuts follow the curve', 'Where a slot or a counter is cut into a curved part, its inner edges follow the outer curve, moved in by the wall, so the wall left round it is one even thickness: the wall is the width of the part it continues (a comb\'s outer tine runs on round its head as one band). A curve moved in to under a pixel round is not followed (it would kink: curvature first); the cut stays square (the fork at 12).', '10-28'],
+    ['Cuts follow the curve', 'Where a slot or a counter is cut into a curved part, its inner edges follow the outer curve, moved in by the wall, so the wall left round it is one even thickness: the wall is the width of the part it continues (a comb\'s outer tine runs on round its head as one band). A curve moved in to no rounder than a line is not followed (it would kink: curvature first); the cut stays square (the fork at 12).', '10-28'],
     ['Humanist line', 'Loosened, humanist curves; restrained flares; every joint and flare architecturally sound.', '10-21'],
   ] },
   { g: 'Brand', items: [
