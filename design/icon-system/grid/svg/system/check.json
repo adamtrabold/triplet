@@ -252,12 +252,12 @@
     {
      "point": "Same role, same width",
      "ok": true,
-     "detail": "counters 6; parts between them none"
+     "detail": "counters 7.333; parts between them none"
     },
     {
      "point": "Chamfer under an overhang",
      "ok": true,
-     "detail": "the slab runs 1px past the outer post; the bevel joins them"
+     "detail": "the slab runs 0.667px past the outer post; the bevel joins them"
     },
     {
      "point": "Rows",
@@ -582,7 +582,7 @@
     {
      "point": "Snap priority",
      "ok": true,
-     "detail": "12 of 12 core outer edges on the iPhone grid; parts with both sides outside: 4 of 4 sides landed"
+     "detail": "10 of 10 core outer edges on the iPhone grid; parts with both sides outside: 4 of 4 sides landed"
     },
     {
      "point": "Parts that are not strokes",
@@ -602,12 +602,12 @@
     {
      "point": "Same role, same width",
      "ok": true,
-     "detail": "counters 9.333; parts between them none"
+     "detail": "counters 10; parts between them none"
     },
     {
      "point": "Chamfer under an overhang",
      "ok": true,
-     "detail": "the slab runs 1px past the outer post; the bevel joins them"
+     "detail": "the slab runs 0.667px past the outer post; the bevel joins them"
     },
     {
      "point": "Rows",
@@ -621,8 +621,8 @@
     },
     {
      "point": "Continuous curvature",
-     "ok": false,
-     "detail": "2 curvature faults (none allowed)"
+     "ok": true,
+     "detail": "0 curvature faults (none allowed)"
     }
    ],
    "v264": null
@@ -654,11 +654,11 @@
     {
      "point": "Continuous curvature",
      "ok": true,
-     "detail": "0 curvature faults (v264: 1)"
+     "detail": "1 curvature faults (v264: 1)"
     }
    ],
    "v264": {
-    "hausdorffPx": 1.522
+    "hausdorffPx": 1.463
    }
   },
   {
@@ -859,7 +859,7 @@
     {
      "point": "Snap priority",
      "ok": true,
-     "detail": "8 of 8 core outer edges on the iPhone grid; parts with both sides outside: 4 of 4 sides landed"
+     "detail": "10 of 10 core outer edges on the iPhone grid; parts with both sides outside: 4 of 4 sides landed"
     },
     {
      "point": "Parts that are not strokes",
@@ -879,12 +879,12 @@
     {
      "point": "Same role, same width",
      "ok": true,
-     "detail": "counters 4; parts between them none"
+     "detail": "counters 4.667; parts between them none"
     },
     {
      "point": "Chamfer under an overhang",
      "ok": true,
-     "detail": "the slab runs 0.667px past the outer post; the bevel joins them"
+     "detail": "the slab runs 0.333px past the outer post; the bevel joins them"
     },
     {
      "point": "Rows",
@@ -914,5 +914,5 @@
   "The star and + read as the set's weight",
   "Each size reads as the same icon as the 18"
  ],
- "ok": false
+ "ok": true
 }

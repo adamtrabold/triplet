@@ -125,11 +125,17 @@ const KINDS = {
 // chamfer at 45 degrees, as a chamfer cutter leaves it: from the slab's end, half the overhang above its near face, down to the
 // post's outside face, half the overhang below it, so the cut rises as far as it runs. Its two edges turn 45 degrees (a shallower
 // turn reads as a knee in one line) and the corner law breaks them with the rack's cutters.
-function chamfered({ x0, x1, yFar, yNear, left, right, dp }) {
-  // dp: the chamfer's size (the rule's overhang); a slab that runs further past its post runs on flat, a half chamfer thinner
-  const dir = Math.sign(yNear - yFar), yd = yNear - dir * dp / 2, yf = yNear + dir * dp / 2, xr = right.x + dp, xl = left.x - dp;
-  let s = `M${f(x0)} ${f(yFar)}H${f(x1)}V${f(yd)}${x1 - xr > 1e-6 ? `H${f(xr)}` : ''}L${f(right.x)} ${f(yf)}H${f(right.x - right.w / 2)}V${f(yNear)}H${f(left.x + left.w / 2)}V${f(yf)}H${f(left.x)}L${f(Math.max(x0, xl))} ${f(yd)}${xl - x0 > 1e-6 ? `H${f(x0)}` : ''}Z`;   // the lip reaches half into the post, never to its inner face
-  return { ...E.D(s), root: 'SLAB', role: 'chamfer' };
+function chamfered({ x0, x1, yT, yB, top = null, bot = null }) {
+  // top / bot: the row holding that face { l: its left post's outside face, r: its right post's, w: a post's width, c: the chamfer
+  // (the rule's overhang; a slab that runs further past its post runs on flat, half a chamfer thinner) }, or null (a plain face)
+  const P = [];
+  if (top) { const { l, r, w, c } = top, yd = yT + c / 2, yf = yT - c / 2;
+    P.push([x0, yd]); if (l - c - x0 > 1e-6) P.push([l - c, yd]); P.push([l, yf], [l + w / 2, yf], [l + w / 2, yT], [r - w / 2, yT], [r - w / 2, yf], [r, yf]); if (x1 - r - c > 1e-6) P.push([r + c, yd]); P.push([x1, yd]); }
+  else P.push([x0, yT], [x1, yT]);
+  if (bot) { const { l, r, w, c } = bot, yd = yB - c / 2, yf = yB + c / 2;
+    P.push([x1, yd]); if (x1 - r - c > 1e-6) P.push([r + c, yd]); P.push([r, yf], [r - w / 2, yf], [r - w / 2, yB], [l + w / 2, yB], [l + w / 2, yf], [l, yf]); if (l - c - x0 > 1e-6) P.push([l - c, yd]); P.push([x0, yd]); }
+  else P.push([x1, yB], [x0, yB]);
+  return { ...E.D('M' + P.map(([x, y]) => `${f(x)} ${f(y)}`).join('L') + 'Z'), root: 'SLAB', role: 'chamfer' };
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------
@@ -185,7 +191,7 @@ function layout(decl, s, Z, S, room, gdx = null) {
   // chamfer's); the posts stand h of the row's span tall, to the lattice
   function rowUnder(r, topF, slab, next) {
     const over = OVER, slabW = (slab.box.x1 - slab.box.x0) * u, span = slabW - 2 * over;
-    const Rw = S.row({ span, w: t.part, wMin: t.min, n: r.n, min: t.counter, grid: t.grid });
+    const Rw = S.row({ span, w: t.part, wMin: t.min, n: r.n, min: t.counter, grid: t.grid, exact: true });
     const pl = T3(topF + r.h * rawSpan(slab)), xa = 6 * u - Rw.span / 2, gp = Rw.n > 1 ? (Rw.span - Rw.n * Rw.w) / (Rw.n - 1) : 0, posts = [];
     for (let j = 0; j < Rw.n; j++) posts.push(E.R(xa + j * (Rw.w + gp), topF - 0.01, Rw.w, pl - topF + 0.02, { root: 'POST', role: 'row', group: r.id }));
     const ov = (slabW - Rw.span) / 2;
@@ -243,9 +249,9 @@ function layout(decl, s, Z, S, room, gdx = null) {
     const up = out[i + 1] && out[i + 1].row ? out[i + 1] : null, dn = out[i - 1] && out[i - 1].row ? out[i - 1] : null, rowR = up || dn;
     const x0 = R.box.x0 * u, x1 = R.box.x1 * u, by = R.topF + t.stroke;
     if (!rowR) { R.prims = [E.R(x0, R.topF, x1 - x0, t.stroke, { root: 'SLAB' })]; return; }
-    const Rr = rowR.row, dp = Math.min(Rr.over, OVER), left = { over: Rr.over, w: Rr.w, x: Rr.xa }, right = { over: Rr.over, w: Rr.w, x: Rr.xa + Rr.span };
-    R.prims = [up ? chamfered({ x0, x1, yFar: R.topF, yNear: by, left, right, dp }) : chamfered({ x0, x1, yFar: by, yNear: R.topF, left, right, dp })];
-    meta.chamfers.push({ id: R.r.id, over: +(Rr.over * k).toFixed(3), drop: +(dp * k).toFixed(3) });
+    const face = Q => Q ? { l: Q.row.xa, r: Q.row.xa + Q.row.span, w: Q.row.w, c: Math.min(Q.row.over, OVER) } : null;
+    R.prims = [chamfered({ x0, x1, yT: R.topF, yB: by, top: face(dn), bot: face(up) })];   // the row above holds the top face, the row below the bottom
+    meta.chamfers.push({ id: R.r.id, over: +(rowR.row.over * k).toFixed(3), size: +(Math.min(rowR.row.over, OVER) * k).toFixed(3) });
   });
   let prims = out.flatMap(R => R.prims);
   // an asymmetric group (it carries a loop) resting on a base: its ink centre over the base's centre

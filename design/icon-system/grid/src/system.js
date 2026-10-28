@@ -53,7 +53,7 @@ const SETTINGS = [
     ['Holes', 'A hole is its own proportional root shape that also makes the solid around it right, never a stroke offset.', '10-26'],
     ['Counters and gaps', 'Aim for whole pixels (1 or 2 at 18), but how it looks wins over the rule. At 12 a counter under 1px closes and the part goes solid.', '10-27'],
     ['Inner bands', 'A gap or band inside a form is no thicker than the stroke, and a fill it contains reads full.', '10-27'],
-    ['Rows', 'A row of repeated parts reads as its count of distinct parts. Parts at the part width, gaps equal and at least the counter minimum: on the grid when the row then fits inside its root\'s span, else filling the span exactly. If the gaps can\'t reach the minimum, the parts thin to the size\'s thinnest; only then one part fewer (never below two).', '10-27'],
+    ['Rows', 'A row of repeated parts reads as its count of distinct parts. Parts at the part width, gaps equal and at least the counter minimum: on the grid when the row then fits inside its root\'s span (exactly, under a slab that holds it: the overhang is the chamfer\'s), else filling the span exactly. If the gaps can\'t reach the minimum, the parts thin to the size\'s thinnest; only then one part fewer (never below two).', '10-27'],
     ['Combs', 'A comb takes the room its box leaves: parts and slots at the part width if they fit, else at the narrowest the size allows (never under the counter minimum, since the slots share the width), else one part fewer (never below two).', '10-27'],
     ['Protrusions', 'A feature that has to read by sticking out (an edge, a step, a lip) clears a minimum visible protrusion: one whole pixel past what it sticks out from at 18 (1 1/3 at 24, 1 at 12), after the join\'s round.', '10-27'],
     ['No narrow passages', 'No passage that vanishes at small sizes.', '10-19'],
@@ -111,14 +111,14 @@ const MARK = { outline: { frame: 18, std: { stroke: 4, centred: 4, counter: 3 } 
 // THE GENERAL RULES (each names no icon; all widths in one unit)
 // A ROW: n parts and the equal gaps between them, across the span its root sets. In order: parts at the part width, gaps on the
 // grid (a whole count of grid steps, at least the counter minimum), the row centred on the grid and inside the span by at most one
-// grid step a side; else equal gaps filling the span exactly. Neither: the parts thin, a grid step at a time, to the size's thinnest.
+// grid step a side (exactly the span under a held slab: the overhang is the chamfer's); else equal gaps filling the span exactly. Neither: the parts thin, a grid step at a time, to the size's thinnest.
 // Only then one part fewer (never below two).
-function row({ span, w, wMin, n, min, grid }) {
+function row({ span, w, wMin, n, min, grid, exact = false }) {   // exact: the row spans its root's span exactly (the overhang is the chamfer's)
   const widths = []; for (let wv = w; wv >= wMin - 1e-9; wv -= grid) widths.push(wv); if (widths[widths.length - 1] > wMin + 1e-9) widths.push(wMin);
   for (let m = n; m >= 2; m--) for (const wv of widths) {
     for (let j = Math.ceil((min - 1e-9) / grid); ; j++) {
       const g = j * grid, tot = m * wv + (m - 1) * g; if (tot > span + 1e-9) break;
-      const q = tot / (2 * grid); if (Math.abs(q - Math.round(q)) < 1e-6 && span - tot <= 2 * grid + 1e-9) return { n: m, w: wv, gap: g, span: tot, grid: true };
+      const q = tot / (2 * grid); if (Math.abs(q - Math.round(q)) < 1e-6 && span - tot <= (exact ? 1e-6 : 2 * grid + 1e-9)) return { n: m, w: wv, gap: g, span: tot, grid: true };
     }
     const g = (span - m * wv) / (m - 1); if (g >= min - 1e-9) return { n: m, w: wv, gap: g, span, grid: false };
   }
@@ -182,15 +182,15 @@ const ORDER = ['cafe', 'bar', 'museum', 'nature', 'restaurant', 'park', 'star', 
 const FR = v => { const T = [[1 / 6, '1/6'], [1 / 5, '1/5'], [1 / 4, '1/4'], [1 / 3, '1/3'], [2 / 5, '2/5'], [1 / 2, '1/2'], [3 / 5, '3/5'], [2 / 3, '2/3'], [3 / 4, '3/4'], [4 / 5, '4/5'], [5 / 9, '5/9'], [5 / 6, '5/6'], [1, 'all']]; const m = T.find(([x]) => Math.abs(v - x) < 1e-6); return m ? m[1] : String(+v.toFixed(2)); };
 function say(r) {
   if (r.side) return r.side.map(sp => sp.map(say).join(', ')).join(' | cut | ');
-  const of = r.of ? ` of the ${r.of}` : '', J = { cut: 'rests on the part above, a cut apart: ', into: 'into the part above: ', held: 'held under the part above (chamfer): ' }[r.join] || '';
+  const wt = (r.w == null || r.w === 1) ? (r.of ? `as wide as the ${r.of}` : 'the box\'s full width') : `${FR(r.w)} of the ${r.of || 'box'}`, J = { cut: 'rests on the part above, a cut apart: ', into: 'into the part above: ', held: 'held under the part above (chamfer): ' }[r.join] || '';
   const K = {
-    vessel: () => `${r.id}: a vessel ${FR(r.w)}${r.of ? of : ' of the box'} wide, ${r.deep != null ? `as deep as ${r.deep === 1 ? 'it is wide' : FR(r.deep) + ' of its width'}` : `its rim cutting the ellipse ${FR(r.rimCut)} above its centre`}${r.band ? ', a band under the rim' : ''}`,
+    vessel: () => `${r.id}: a vessel ${wt}${r.w != null && r.w !== 1 ? ' wide' : ''}, ${r.deep != null ? `as deep as ${r.deep === 1 ? 'it is wide' : FR(r.deep) + ' of its width'}` : `its rim cutting the ellipse ${FR(r.rimCut)} above its centre`}${r.band ? ', a band under the rim' : ''}`,
     loop: () => `${r.id}: a loop on the ${r.of}'s ${r.at} wall, ${FR(r.h)} of its depth`,
-    cap: () => `${r.id}: a cap ${FR(r.w)}${r.of ? of : ' of the box'}${r.measure === 'ellipse' ? ' (its ellipse)' : ''}, curve ${r.face === 'up' ? 'on top' : 'underneath'}`,
-    slab: () => `${r.id}: a slab${r.of ? ` as wide as the ${r.of}` : ` ${FR(r.w ?? 1)} of the box`}`,
+    cap: () => `${r.id}: a cap ${wt}${r.measure === 'ellipse' ? ' (its ellipse)' : ''}, curve ${r.face === 'up' ? 'on top' : 'underneath'}`,
+    slab: () => `${r.id}: a slab ${wt}`,
     gable: () => `${r.id}: a gable over the ${r.of}, pitch ${FR(r.pitch)}, ends ${FR(r.ends)} of a line`,
     row: () => `${r.id}: a row of ${r.n} posts, ${FR(r.h)} of the row's span tall`,
-    tiers: () => `${r.id}: ${r.heights.length} gables stacked, heights ${r.heights.join(' : ')}, widths ${r.widths.join(' : ')}, notched ${FR(r.notch)}`,
+    tiers: () => `${r.id}: ${r.heights.length} gables stacked, the bottom ${wt}, heights ${r.heights.join(' : ')}, widths ${r.widths.join(' : ')}, notched ${FR(r.notch)}`,
     post: () => `${r.id}: a post${r.show === 'stroke' ? ' showing a stroke' : r.show != null ? ` showing ${FR(r.show)} of the ${r.showOf}'s depth` : ' to the bottom'}`,
     comb: () => `${r.id}: a comb of ${r.n}, ${FR(r.h)} of the height`,
     head: () => `${r.id}: a half ellipse under it`,
