@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
-"""Throwaway icon preview: index.html with the new grid drawings swapped in, 1:1.
+"""Throwaway icon preview: index.html with the system's drawings swapped in, at their shipped size.
 
     python3 design/icon-system/preview/build.py        (from the repo root)
 
-Reads ../../../index.html and ../grid/svg/right/*.svg; writes ./index.html.
+Reads ../../../index.html and ../grid/svg/system/{18,24,12}/*.svg (THE-SYSTEM.md); writes ./index.html.
+Each system SVG is used exactly as written: its viewBox and its own width/height (18 -> the whole
+24 badge box, 24 -> the whole 32 badge box, 12 -> a 16 box centred on the chip's 12 slot, star 18,
++ 28 centred in the 60 button). Rings per THE-SYSTEM.md: 1 1/3 at 24, 1 2/3 at 32.
 Nothing else in the app changes, except what an Artifact needs to run:
   - leaflet.css is inlined (Artifacts load stylesheets only from Google Fonts);
   - the playground reads a snapshot of the public tables baked in at build time
@@ -14,8 +17,8 @@ import json, os, re, sys, urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..'))
-SVG = os.path.join(HERE, '..', 'grid', 'svg', 'right')
-CATS = ['cafe', 'bar', 'museum', 'nature', 'restaurant']
+SVG = os.path.join(HERE, '..', 'grid', 'svg', 'system')
+SIZES = ('12', '18', '24')
 SUPABASE_URL = 'https://jgvckilmltimabfdvaly.supabase.co'
 TABLES = ['locations', 'neighborhood_shapes', 'cities', 'plans', 'plan_stops']
 
@@ -31,52 +34,68 @@ def sub(old, new, count=1):
     out = out.replace(old, new)
 
 
-def d_of(name):
-    s = open(os.path.join(SVG, name + '.svg'), encoding='utf-8').read()
-    return re.search(r'\sd="([^"]*)"', s).group(1)
+def read_svg(size, name):
+    s = open(os.path.join(SVG, size, name + '.svg'), encoding='utf-8').read()
+    vb = re.search(r'viewBox="([^"]*)"', s).group(1)
+    w = float(re.search(r'\swidth="([^"]*)"', s).group(1))
+    d = re.search(r'\sd="([^"]*)"', s).group(1)
+    return vb, w, d
 
 
-def symbol(sym_id, box, d):
-    return (f'<symbol id="{sym_id}" viewBox="0 0 {box} {box}"><path fill="currentColor" '
+def symbol(sym_id, vb, d):
+    return (f'<symbol id="{sym_id}" viewBox="{vb}"><path fill="currentColor" '
             f'fill-rule="evenodd" stroke="none" d="{d}"/></symbol>')
 
 
-# 1. The new drawings as symbols, each in its own box (1:1, never scaled).
-syms = [symbol(f'n-{c}-{s}', s, d_of(f'{c}-{s}')) for c in CATS for s in (12, 18, 24)]
-syms.append(symbol('n-star-18', 18, d_of('star-18')))
-anchor = '    <symbol id="g-restaurant"'
-sub(anchor, '    <!-- ICON PREVIEW: design/icon-system/grid/svg/right/, 1:1 -->\n    ' + '\n    '.join(syms) + '\n' + anchor)
+# 1. Every category icon present at all three sizes (variants like museum-d5 skipped), plus star and +.
+def names(s):
+    return {f[:-4] for f in os.listdir(os.path.join(SVG, s)) if f.endswith('.svg')}
 
-# 2. Chips: the 12 drawing in a 12 box.
+
+CATS = sorted(n for n in names('18') & names('24') & names('12') if '-' not in n)
+syms, W = [], {}
+for c in CATS:
+    for s in SIZES:
+        vb, w, d = read_svg(s, c)
+        syms.append(symbol(f'n-{c}-{s}', vb, d))
+        W[(c, s)] = w
+star_vb, star_w, star_d = read_svg('18', 'star')
+plus_vb, plus_w, plus_d = read_svg('18', 'plus')
+syms.append(symbol('n-star', star_vb, star_d))
+for c in CATS:   # the code below places 18 at 24px, 24 at 32px, 12 at 16px
+    assert (W[(c, '18')], W[(c, '24')], W[(c, '12')]) == (24, 32, 16), (c, W)
+assert star_w == 18 and star_vb == '0 0 24 24', star_vb
+anchor = '    <symbol id="g-restaurant"'
+sub(anchor, '    <!-- ICON PREVIEW: design/icon-system/grid/svg/system/ -->\n    ' + '\n    '.join(syms) + '\n' + anchor)
+
+# 2. Chips: the 12 drawing, its 16 box centred on the chip's 12 slot.
 sub("    function glyphHtml(category, size) {\n",
     "    const PREVIEW_ICONS = new Set(" + json.dumps(CATS) + ");   // ICON PREVIEW\n"
     "    function glyphHtml(category, size) {\n"
-    "      if (size === 12 && PREVIEW_ICONS.has(category)) return `<svg width=\"12\" height=\"12\" viewBox=\"0 0 12 12\" aria-hidden=\"true\"><use href=\"#n-${category}-12\"/></svg>`;\n")
+    "      if (size === 12 && PREVIEW_ICONS.has(category)) return `<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" style=\"display:block;margin:-2px;overflow:visible\" aria-hidden=\"true\"><use href=\"#n-${category}-12\"/></svg>`;\n")
 
-# 3. Badges: THE-GRID.md rims (24 ring 4/3px, 32 ring 2px) on every glyph badge at those sizes;
-#    a new drawing's own box placed 1:1 (18 at 3,3 in the 24; 24 at 4,4 in the 32).
+# 3. Badges: THE-SYSTEM.md rims (24 ring 4/3px, 32 ring 5/3px) on every glyph badge at those sizes;
+#    a system drawing fills the badge's own box (18 at 24px, 24 at 32px).
 sub("      const rim  = opts.rim || 2;\n",
-    "      const gridRim = opts.glyph !== false && (size === 24 || size === 32);   // ICON PREVIEW: THE-GRID.md rims\n"
-    "      const rim  = gridRim ? (size === 24 ? 4 / 3 : 2) : (opts.rim || 2);\n")
+    "      const gridRim = opts.glyph !== false && (size === 24 || size === 32);   // ICON PREVIEW: THE-SYSTEM.md rims\n"
+    "      const rim  = gridRim ? (size === 24 ? 4 / 3 : 5 / 3) : (opts.rim || 2);\n")
 sub("      if (opts.glyph !== false) {\n",
     "      if (opts.glyph !== false && PREVIEW_ICONS.has(category) && (size === 24 || size === 32)) {   // ICON PREVIEW\n"
-    "        const g = size === 24 ? 18 : 24, o = (size - g) / 2;\n"
-    "        glyph = `<svg class=\"badge-glyph\" x=\"${o}\" y=\"${o}\" width=\"${g}\" height=\"${g}\" viewBox=\"0 0 ${g} ${g}\" style=\"color:${mark}\"><use href=\"#n-${category}-${g}\"/></svg>`;\n"
+    "        glyph = `<svg class=\"badge-glyph\" x=\"0\" y=\"0\" width=\"${size}\" height=\"${size}\" viewBox=\"0 0 24 24\" style=\"color:${mark}\"><use href=\"#n-${category}-${size === 24 ? 18 : 24}\"/></svg>`;\n"
     "      } else if (opts.glyph !== false) {\n")
 
-# 4. The star: the 18 drawing, bare, 1:1 in the row's 18 box and on the tag (18 inside its 20 slot).
+# 4. The star: one drawing, bare, at 18 in the row's 18 box and on the tag (18 inside its 20 slot).
 #    The drawing is the outline itself, so the old CSS keyline stroke is off (stroke="none" on the path).
 sub("'<svg class=\"row-star\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><use href=\"#g-star\"/></svg>'",
-    "'<svg class=\"row-star\" viewBox=\"0 0 18 18\" aria-hidden=\"true\"><use href=\"#n-star-18\"/></svg>'")
+    "'<svg class=\"row-star\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><use href=\"#n-star\"/></svg>'")
 sub("`<svg class=\"tag-star${loc.starred ? '' : ' is-open'}\" viewBox=\"-1 -1 26 26\" aria-hidden=\"true\"><use href=\"#g-star${loc.starred ? '' : '-open'}\"/></svg>`",
-    "`<svg class=\"tag-star${loc.starred ? '' : ' is-open'}\" viewBox=\"0 0 18 18\" style=\"width:18px;height:18px;margin:1px\" aria-hidden=\"true\"><use href=\"#n-star-18\"/></svg>`")
+    "`<svg class=\"tag-star${loc.starred ? '' : ' is-open'}\" viewBox=\"0 0 24 24\" style=\"width:18px;height:18px;margin:1px\" aria-hidden=\"true\"><use href=\"#n-star\"/></svg>`")
 
-# 5. The +: the 60 drawing 1:1 in the 60px button.
-plus = d_of('plus-60')
+# 5. The +: its own box (28px), centred in the 60px button.
 old_plus = '<svg width="26.4" height="26.4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8182" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>'
-new_plus = f'<svg class="n-plus" width="60" height="60" viewBox="0 0 60 60" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="{plus}"/></svg>'
+new_plus = f'<svg class="n-plus" width="{plus_w:g}" height="{plus_w:g}" viewBox="{plus_vb}" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="{plus_d}"/></svg>'
 sub(old_plus, new_plus, 2)   # first paint + setAddBtnGlyph()
-sub('</style>', '    #floatingAddBtn svg.n-plus { width: 60px; height: 60px; flex: none; }   /* ICON PREVIEW */\n  </style>')
+sub('</style>', f'    #floatingAddBtn svg.n-plus {{ width: {plus_w:g}px; height: {plus_w:g}px; flex: none; }}   /* ICON PREVIEW */\n  </style>')
 
 # --- Artifact plumbing (no visual change) ---
 css_link = '<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />'
