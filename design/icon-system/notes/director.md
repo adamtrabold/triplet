@@ -967,3 +967,15 @@ The fix is in, and the museum's mirror is fixed at every size. I verified the de
 - the bench;
 - the 5K inner-side softness of the 1½ stroke;
 - whether he wants the system board itself shorter.
+
+## v288 (1243c70b, 2026-10-28): 9
+
+He called v287 "awesome". He asked for longer tines "unless there is real logic", and for star points a touch rounder, like the tree top.
+
+**Rules made:**
+- slots are cut until one line is left;
+- an apex crest is a fifth of a line.
+
+Both are general. Only the fork and the star changed.
+
+**If he rejects it, look at:** the star now a hair blunt beside the knife tip.

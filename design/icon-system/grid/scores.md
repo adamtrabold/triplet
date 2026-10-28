@@ -1749,3 +1749,10 @@ The verdict stands within our own set:
   - the bench;
   - the 1½ stroke's soft inner side on the 5K.
 - **Jam turn 213.**
+
+## Round: his v287 notes (canvas v288, 1243c70b), 2026-10-28: 9, to him
+
+- **The tine rule** (slots cut until one line is left) is general and sound. Tines 2.75 → 4.12 at 18.
+- **The apex rule** (mirrored points: crest ⅕ line, curvature first) is general. The star's crest now matches the tree top's; the tips are unchanged.
+- **Only the fork and star SVGs changed.** The gate passes, 153 checks.
+- **Jam turn 214.**
