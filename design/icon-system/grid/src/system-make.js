@@ -126,8 +126,9 @@ const KINDS = {
 // post's outside face, half the overhang below it, so the cut rises as far as it runs. Its two edges turn 45 degrees (a shallower
 // turn reads as a knee in one line) and the corner law breaks them with the rack's cutters.
 function chamfered({ x0, x1, yFar, yNear, left, right, dp }) {
-  const dir = Math.sign(yNear - yFar), yd = yNear - dir * dp / 2, yf = yNear + dir * dp / 2;
-  let s = `M${f(x0)} ${f(yFar)}H${f(x1)}V${f(yd)}L${f(right.x)} ${f(yf)}H${f(right.x - right.w / 2)}V${f(yNear)}H${f(left.x + left.w / 2)}V${f(yf)}H${f(left.x)}L${f(x0)} ${f(yd)}Z`;   // the lip reaches half into the post, never to its inner face
+  // dp: the chamfer's size (the rule's overhang); a slab that runs further past its post runs on flat, a half chamfer thinner
+  const dir = Math.sign(yNear - yFar), yd = yNear - dir * dp / 2, yf = yNear + dir * dp / 2, xr = right.x + dp, xl = left.x - dp;
+  let s = `M${f(x0)} ${f(yFar)}H${f(x1)}V${f(yd)}${x1 - xr > 1e-6 ? `H${f(xr)}` : ''}L${f(right.x)} ${f(yf)}H${f(right.x - right.w / 2)}V${f(yNear)}H${f(left.x + left.w / 2)}V${f(yf)}H${f(left.x)}L${f(Math.max(x0, xl))} ${f(yd)}${xl - x0 > 1e-6 ? `H${f(x0)}` : ''}Z`;   // the lip reaches half into the post, never to its inner face
   return { ...E.D(s), root: 'SLAB', role: 'chamfer' };
 }
 
@@ -215,7 +216,7 @@ function layout(decl, s, Z, S, room, gdx = null) {
         } else if (r.kind === 'head') {
           // a half ellipse under what runs into it, as wide: as tall as the fair limit lets a line run into it at its widest point
           const rx = wc / 2, ry = Math.max(1.05 * rx, Math.sqrt(rx / FAIR_K)), cx = x + rx;
-          prims.push({ ...E.D(`M${f(cx - rx)} ${f(yy - 0.3)}V${f(yy)}C${f(cx - rx)} ${f(yy + ry * K)} ${f(cx - rx * K)} ${f(yy + ry)} ${f(cx)} ${f(yy + ry)}C${f(cx + rx * K)} ${f(yy + ry)} ${f(cx + rx)} ${f(yy + ry * K)} ${f(cx + rx)} ${f(yy)}V${f(yy - 0.3)}Z`), root: 'ELLIPSE' });
+          prims.push({ withGroup: 'comb', ...E.D(`M${f(cx - rx)} ${f(yy - 0.3)}V${f(yy)}C${f(cx - rx)} ${f(yy + ry * K)} ${f(cx - rx * K)} ${f(yy + ry)} ${f(cx)} ${f(yy + ry)}C${f(cx + rx * K)} ${f(yy + ry)} ${f(cx + rx)} ${f(yy + ry * K)} ${f(cx + rx)} ${f(yy)}V${f(yy - 0.3)}Z`), root: 'ELLIPSE' });
           yy += ry; headBot = yy;
         } else if (r.kind === 'blade') {
           // a straight spine, its edge a quarter ellipse, down to where the column beside it ends its head (else half the height);
@@ -242,7 +243,7 @@ function layout(decl, s, Z, S, room, gdx = null) {
     const up = out[i + 1] && out[i + 1].row ? out[i + 1] : null, dn = out[i - 1] && out[i - 1].row ? out[i - 1] : null, rowR = up || dn;
     const x0 = R.box.x0 * u, x1 = R.box.x1 * u, by = R.topF + t.stroke;
     if (!rowR) { R.prims = [E.R(x0, R.topF, x1 - x0, t.stroke, { root: 'SLAB' })]; return; }
-    const Rr = rowR.row, dp = Rr.over, left = { over: Rr.over, w: Rr.w, x: Rr.xa }, right = { over: Rr.over, w: Rr.w, x: Rr.xa + Rr.span };
+    const Rr = rowR.row, dp = Math.min(Rr.over, OVER), left = { over: Rr.over, w: Rr.w, x: Rr.xa }, right = { over: Rr.over, w: Rr.w, x: Rr.xa + Rr.span };
     R.prims = [up ? chamfered({ x0, x1, yFar: R.topF, yNear: by, left, right, dp }) : chamfered({ x0, x1, yFar: by, yNear: R.topF, left, right, dp })];
     meta.chamfers.push({ id: R.r.id, over: +(Rr.over * k).toFixed(3), drop: +(dp * k).toFixed(3) });
   });
@@ -318,6 +319,16 @@ function asOne(before, after, Z) {
     const w = w0, gap = role === 'comb' ? w : (x1 - x0 - n * w) / (n - 1);
     idx.forEach((i, j) => { const b = B[j], x = x0 + j * (w + gap); out[i] = { ...after[i], d: `M${f5(x)} ${f5(b.y)}H${f5(x + w)}V${f5(b.y + b.height)}H${f5(x)}Z`, how: 'landed as one ' + role }; });
   }
+  // a root drawn on a comb's width (its head) moves across with the comb as it landed (its own landing kept up and down)
+  before.forEach((q, i) => {
+    if (!q.withGroup) return;
+    const idx = before.map((p, j) => p.group === q.withGroup ? j : -1).filter(j => j >= 0); if (!idx.length) return;
+    const span = L => { const B = L.map(d => bb(d)); return [Math.min(...B.map(b => b.x)), Math.max(...B.map(b => b.x + b.width))]; };
+    const [a0, a1] = span(idx.map(j => E.parts([before[j]])[0].d)), [b0, b1] = span(idx.map(j => out[j].d)), sx = (b1 - b0) / (a1 - a0);
+    const own = bb(E.parts([q])[0].d), landed = bb(after[i].d), it = new paper.CompoundPath(E.parts([q])[0].d);
+    it.scale(sx, landed.height / own.height, new paper.Point(a0, own.y)); it.translate(new paper.Point(b0 - a0, landed.y - own.y));
+    out[i] = { ...after[i], d: it.pathData, how: 'moved with its comb' }; it.remove();
+  });
   // a counter cut in a root (an inner band), and a loop on a root with its counter, move with that root: the same scale and move the
   // landing gave the root
   before.forEach((q, i) => {

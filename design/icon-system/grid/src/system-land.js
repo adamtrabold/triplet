@@ -126,8 +126,11 @@ function landPrims(prims, sym, opts) {
       return true; })();
     if (!curved || safe || (side.left && side.right && side.top && side.bottom)) { it3.remove(); return { t: 'D', d: mapD(parts[i].d), cut: !!q.cut, root: q.root, also: q.also, how: 'mapped' }; }
     let k = 1, tx, ty;
-    if (side.top && side.bottom) { k = (b.height + dy1 - dy0) / b.height; ty = dy0; }
-    else if (side.left && side.right) { k = (b.width + dx1 - dx0) / b.width; tx = dx0; }
+    // a curved root's straight sides land by the snap priority themselves (a whole px within 1/4px, else the nearest iPhone pixel):
+    // a short straight side can be too short for the union's map to see it as an edge
+    const q3 = opts.size / 24, snapS = v => { const p = v * q3, w = Math.round(p); return (Math.abs(p - w) <= 0.25 + 1e-9 ? w : Math.round(p * 3) / 3) / q3 - v; };
+    if (side.top && side.bottom) { const a0 = snapS(b.top), a1 = snapS(b.bottom); k = (b.height + a1 - a0) / b.height; ty = a0; }
+    else if (side.left && side.right) { const a0 = snapS(b.left), a1 = snapS(b.right); k = (b.width + a1 - a0) / b.width; tx = a0; }
     it3.scale(k, new paper.Point(b.left, b.top));
     const w2 = b.width * k, h2 = b.height * k;
     const kk = opts.size / 24, wholePx = v => Math.abs(v * kk - Math.round(v * kk)) < 1e-6;   // whole px at this size
