@@ -2437,3 +2437,23 @@ a line under it. Kept: the curve-following walls (an even wall, Cuts follow the 
 **Gate: 153 checks pass.** Only the fork changed (18, 24; 12's drawing unchanged).
 
 NEXT: orchestrator: to him (stills r6-1, r6-2).
+
+---
+
+## Turn 217: design director, a cut stops where the part turns (v290, 96abc205): 9, to him
+
+**Rendered myself** at 18 in the 24 ring (3x and 2x), 24, 12 and 6x.
+
+**At 18:**
+- It reads as a fork, not a trident: the head is intact, with its mass under the slots.
+- The tines are longer than v264 (3.33px), as he asked.
+- The inner sides are straight where the head is still straight, and the floor is flat on the grid.
+
+**The rules:**
+- "A cut stops where its part starts to turn" is general.
+- It answers his "how do we make sure the system does that when it gets so tight": a cut that does not reach the turn needs no following.
+- 12 stays square and reads as a fork.
+
+**Likely objection:** none likely.
+
+**Score: 9.** No new question.

@@ -1765,3 +1765,10 @@ The verdict stands within our own set:
 - **Block:** at 18 in the ring the fork reads as Ψ (a trident). The slots are still cut to one line above the head's bottom, so the head is gone, and the curled outer tines add to it.
 - **Fix:** a cut into a curved root stops where the root starts to turn (the head keeps its mass); the even wall holds where it does meet the curve. Tines between 2.75 and 4.12 at 18, judged by eye against v264.
 - **Jam turn 215.**
+
+## Round: a cut stops where the part turns (canvas v290, 96abc205), 2026-10-28: 9, to him
+
+- It reads as a fork at 18 (3x and 2x): head intact, tines 3.33px.
+- The rule is general.
+- 12 is fine.
+- Jam turn 217.
