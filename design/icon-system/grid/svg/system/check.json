@@ -182,8 +182,8 @@
    "checks": [
     {
      "point": "Snap priority",
-     "ok": false,
-     "detail": "6 of 8 core outer edges on the iPhone grid; parts with both sides outside: 10 of 10 sides landed"
+     "ok": true,
+     "detail": "8 of 8 core outer edges on the iPhone grid; parts with both sides outside: 10 of 10 sides landed"
     },
     {
      "point": "Parts that are not strokes",
@@ -213,7 +213,7 @@
     {
      "point": "Comb depth",
      "ok": true,
-     "detail": "slots 4.05px deep (1.3px into the root); left under the outer slots: 1.5px, the line 1.5px"
+     "detail": "slots 4.124px deep (1.374px into the root); left under the outer slots: 1.426px (the line 1.5px, the floor on the grid)"
     },
     {
      "point": "Protrusions",
@@ -227,7 +227,7 @@
     }
    ],
    "v264": {
-    "hausdorffPx": 1.641
+    "hausdorffPx": 1.653
    }
   },
   {
@@ -257,16 +257,16 @@
     {
      "point": "Points",
      "ok": true,
-     "detail": "5 apex corners: crest 0.3px on screen, a fifth of the line 0.3px (round x1.75)"
+     "detail": "5 apex corners: crest 0.284px on screen, a fifth of the line 0.3px (round x1.703)"
     },
     {
      "point": "Continuous curvature",
-     "ok": false,
-     "detail": "9 curvature faults (v264: 0)"
+     "ok": true,
+     "detail": "0 curvature faults (v264: 0)"
     }
    ],
    "v264": {
-    "hausdorffPx": 0.264
+    "hausdorffPx": 0.294
    }
   },
   {
@@ -547,8 +547,8 @@
    "checks": [
     {
      "point": "Snap priority",
-     "ok": false,
-     "detail": "6 of 8 core outer edges on the iPhone grid; parts with both sides outside: 10 of 10 sides landed"
+     "ok": true,
+     "detail": "8 of 8 core outer edges on the iPhone grid; parts with both sides outside: 10 of 10 sides landed"
     },
     {
      "point": "Parts that are not strokes",
@@ -578,7 +578,7 @@
     {
      "point": "Comb depth",
      "ok": true,
-     "detail": "slots 5.167px deep (1.5px into the root); left under the outer slots: 2px, the line 2px"
+     "detail": "slots 5.254px deep (1.587px into the root); left under the outer slots: 1.913px (the line 2px, the floor on the grid)"
     },
     {
      "point": "Protrusions",
@@ -592,7 +592,7 @@
     }
    ],
    "v264": {
-    "hausdorffPx": 1.764
+    "hausdorffPx": 1.847
    }
   },
   {
@@ -865,7 +865,7 @@
     {
      "point": "Comb depth",
      "ok": true,
-     "detail": "slots 2.301px deep (0.468px into the root); left under the outer slots: 1px, the line 1px"
+     "detail": "slots 2.302px deep (0.469px into the root); left under the outer slots: 0.999px (the line 1px, the floor on the grid)"
     },
     {
      "point": "Protrusions",
@@ -879,7 +879,7 @@
     }
    ],
    "v264": {
-    "hausdorffPx": 0.708
+    "hausdorffPx": 0.709
    }
   },
   {
@@ -949,5 +949,5 @@
   "The star and + read as the set's weight",
   "Each size reads as the same icon as the 18"
  ],
- "ok": false
+ "ok": true
 }

@@ -2316,3 +2316,34 @@ NEXT: orchestrator: to him with no new question.
 **For him:** no new question. The board's standing open points stay as worded there: Outline or solid, Novelty, Shopping. The designer-set lines are his to change.
 
 NEXT: orchestrator: to the owner.
+
+---
+
+## Turn 213: icon designer (systems + visual), his v287 notes: tine length and the star's points (canvas v288)
+
+His words: "the fork tines could be longer? e.g. the cut could go deeper on the interior. unless there is real logic behind why they
+are the size they are. fwiw i'd like there to be." · "i also wish the star exterior points were ever so slightly rounder" · "visually
+it seems sharper than other corners" · "look at the tree vs the top of the star ... the branches are super sharp and slightly round,
+which is good in this case ... but the corners of the star feel like they should be more aligned with the top of the tree".
+
+**Comb depth (new decision point, 10-28).** Before: no logic; the slots stopped where the comb's straight sides end (the declared
+1/4 of the height). Now: a comb is held by its root as posts by a slab, so its slots cut on into the root until what is left under
+them is one line (a slab's thickness), measured under the outer slots where the root is shallowest; the floor lands on the nearest
+iPhone pixel line. Tines at 18: 2.75 -> 4.12px (1.37px into the head, 1.43px left under); 24: 5.25px; 12: 2.30px. Checked
+("Comb depth") at every size.
+
+**Points (replaces Tips, 10-28).** Measured on screen: the tree's top crest 0.29px, its eaves 0.06-0.15px, the star's points 0.11px,
+the knife's tip 0.07px. The star is drawn with the same tip round as the tree's top, but its straight sides meet the round and leave a
+third of the crest; the tree's curved sides ease in and keep most of it. One rule now: a point is an apex when its two sides mirror
+each other (a gable's or tier's top, a star's points) and reads by its crest, a fifth of the line on screen at every size, however its
+sides arrive, as far as continuous curvature allows; a point whose sides differ is a tip (an eave, a blade's tip) and keeps the tip
+rule, so it stays sharp. Result: the star's points 0.28px (round x1.70; at x1.75 the landing put a kink in the counter, so curvature
+first stopped it there), the tree's top already 0.29 and left as drawn, eaves and the knife unchanged. Checked ("Points").
+
+**I didn't take "a sharper corner, a bigger round" for every corner.** His eaves are the sharpest corners in the set and he wants them
+sharp, so the angle alone can't be the rule; the sides decide it.
+
+**Gate: `node src/system.js check` passes, 153 checks.** Fork and knife from v264 at 18: 1.65px (the deeper slots, by design). The
+star moved 0.29px at most.
+
+NEXT: orchestrator: to him (stills r4-1, r4-2).

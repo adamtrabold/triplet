@@ -1,5 +1,20 @@
 # Systems designer notes: icon system
 
+## THE SYSTEM, round 4 (2026-10-28, jam turn 213, canvas v288; his notes on v287: tine length, the star's points)
+
+- **Comb depth** (`system-make.js` head branch + `asOne`): slots cut on into the head until one line is left under the outer slots;
+  the cut is added after the comb lands (between the landed tines), its floor on the nearest iPhone pixel line; meta.combs gets
+  slotDepth / past / bridge; check "Comb depth" (bridge within 1/6px of the line). 18: 4.12px slots, 1.43px left.
+- **Points** (`apexBuild`, `isApex`, `crestAt`): apex = convex, under 75 degrees, its two edges equal length (within 3%); crest
+  measured on the built outline; the apex round is scaled by bisection until the crest reads 1/5 line (within a tenth), and for a line
+  mark (`mark(decl, { land })`) only as far as the landed outline stays fault-free (x1.75 kinked the star's counter after
+  one-side landing; x1.70 is clean). Tips (unequal edges) untouched. make() runs apexBuild on its final build: the tree's top already
+  0.29/0.386/0.193 at 18/24/12, left as drawn. Check "Points".
+- **Why not "acute = rounder" for every corner** (the coordinator's first framing): the eaves are the most acute corners and he wants
+  them sharp; the measured difference between the tree's top and the star was how the sides arrive, not the angle.
+- **Gate:** 153 checks pass. Scratch `r3/`: crests.js, nose.js (crest and nose widths on screen), crop4.js (r4-2 still), measure.js.
+- **Open (his):** outline/solid; novelty; Shopping. Mine to change: Comb depth (a line), the apex crest (1/5 line), parity, chamfer.
+
 ## THE SYSTEM, round 3 (2026-10-28, jam turn 212, canvas v285; director turn 211 scored v284 8, 9 after two fixes)
 
 - **Done:** combs keep their count the way rows do (one `thinning()` helper, count first: part width, thinner a grid step at a time
