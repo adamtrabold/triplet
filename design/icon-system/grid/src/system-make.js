@@ -227,8 +227,8 @@ function layout(decl, s, Z, S, room, gdx = null) {
           // under them is one line (the stroke, a slab's thickness), measured under the outer slots, where the head is shallowest
           if (C && sp[j - 1] && sp[j - 1].kind === 'comb' && C.n > 1) {
             const a = rx - C.w, left = ry * Math.sqrt(Math.max(0, 1 - (a / rx) ** 2)), deep = Math.max(0, left - t.stroke);
-            if (deep > 0) prims.forEach(p => { if (p.group === 'comb') p.slotDeep = deep; });   // cut once the comb has landed (asOne)
             const cm = meta.combs[meta.combs.length - 1]; if (cm) { cm.slotDepth = +(((yy - topF) + deep) * k).toFixed(3); cm.past = +(deep * k).toFixed(3); cm.bridge = +((left - deep) * k).toFixed(3); }
+            if (deep > 0) prims.forEach(p => { if (p.group === 'comb') { p.slotDeep = deep; p.slotMeta = cm; } });   // cut once the comb has landed (asOne)
           }
           yy += ry; headBot = yy; head = { rx, ry };
         } else if (r.kind === 'blade') {
@@ -360,22 +360,27 @@ function asOne(before, after, Z) {
   // a comb's slots cut on past its tines into its root, between the tines as they landed, to the depth the comb rule set
   const tn = before.map((q, i) => q.slotDeep ? i : -1).filter(i => i >= 0);
   if (tn.length > 1) {
-    const T = tn.map(i => bb(out[i].d)).sort((a, b) => a.x - b.x), deep = before[tn[0]].slotDeep;
-    for (let j = 0; j + 1 < T.length; j++) { const x0 = T[j].x + T[j].width, x1 = T[j + 1].x, yb = Math.max(T[j].y + T[j].height, T[j + 1].y + T[j + 1].height);
-      out.push({ t: 'D', d: `M${f5(x0)} ${f5(yb - 0.3)}H${f5(x1)}V${f5(yb + 0.1 + deep)}H${f5(x0)}Z`, cut: true, root: 'SLOT', how: 'the comb\'s slot, cut on into its root' }); }
+    // the slot's floor is an outer edge: it lands on the nearest iPhone pixel line
+    const T = tn.map(i => bb(out[i].d)).sort((a, b) => a.x - b.x), deep = before[tn[0]].slotDeep, cm = before[tn[0]].slotMeta, g = (1 / 3) / Z.k;
+    const yb = Math.max(...T.map(b => b.y + b.height)), yRaw = yb + 0.1 + deep, yF = Math.round(yRaw / g) * g;   // the nearest grid line
+    if (cm) { const dk = (yRaw - yF) * Z.k; cm.slotDepth = +(cm.slotDepth - dk).toFixed(3); cm.past = +(cm.past - dk).toFixed(3); cm.bridge = +(cm.bridge + dk).toFixed(3); }
+    for (let j = 0; j + 1 < T.length; j++) { const x0 = T[j].x + T[j].width, x1 = T[j + 1].x;
+      out.push({ t: 'D', d: `M${f5(x0)} ${f5(yb - 0.3)}H${f5(x1)}V${f5(yF)}H${f5(x0)}Z`, cut: true, root: 'SLOT', how: 'the comb\'s slot, cut on into its root' }); }
   }
   return out;
 }
 
 // LINE MARKS: one root of a kind (star, cross), drawn in its own app box; the class sets its size (outline: the counter at least
 // 2 1/2 lines across; open: the arms span the coin)
-function mark(decl) {
+function mark(decl, opts = {}) {   // opts.land: { size, std } the line class's landing (system.js MARK), for curvature first
   const root = decl.spine[0], W = P7.W;
   if (root.kind === 'star') {
     const OUTLINE_HOLE = PROP.line.outlineCounter, rc0 = (OUTLINE_HOLE * W / 2 + (W / 2) / Math.sin(3 * Math.PI / 10)) / P7.STAR.ri, rc = rc0 * 24 / 20 / 9.6;
     const prims = P7.star(20, rc, W, 'root'), law = scaled(LINE_LAW, 24 / 20);
     // shown in its 18px box: 3/4px a unit; the line 1 1/2px on screen
-    const AB = apexBuild(prims, { law, ease: EASE, tightHoles: true, join: JOIN10 }, 18 / 24, 1.5), d0 = AB.d, m = measure(d0), dy = E.placeOffset(12 - opticalY(m));
+    const ok = opts.land ? (() => { const OS = require('./one-side.js'), fair = require('./fair-check.js'), jn = require('./join-check.js');
+      return d => { const dl = shiftD(d, E.placeOffset(12 - opticalY(measure(d)))), L = OS.land(dl, { size: opts.land.frame, sym: 12, std: opts.land.std }).d; return fair.check(L).length + jn.check(L).length === 0; }; })() : null;
+    const AB = apexBuild(prims, { law, ease: EASE, tightHoles: true, join: JOIN10 }, 18 / 24, 1.5, ok), d0 = AB.d, m = measure(d0), dy = E.placeOffset(12 - opticalY(m));
     return { d: shiftD(d0, dy), sym: 12, meta: { cls: 'OUTLINE', apex: AB.apex }, prims, dy };
   }
   const sc = KEY.OPEN[0] / 14, prims = P7.plus(26.4, sc, 5 / 3), law = scaled(LINE_LAW, 24 / 26.4);
@@ -398,7 +403,7 @@ function crestAt(d, pt) {   // the smallest radius of curvature within a unit of
   cp.remove(); return best;
 }
 // build with every apex sized by its crest: pxPerUnit converts the drawing to screen px; line: the line on screen (px)
-function apexBuild(prims, bopts, pxPerUnit, line) {
+function apexBuild(prims, bopts, pxPerUnit, line, ok = null) {   // ok(d): curvature first: a larger round that lands with a fault is too far
   const want = APEX_CREST * line / pxPerUnit, base = bopts.law;
   const at = m => {
     const seen = [];
@@ -410,7 +415,7 @@ function apexBuild(prims, bopts, pxPerUnit, line) {
   // an apex that already reads a fifth of a line (or none) is left as drawn; else its round grows until its crest does
   if (A.n && A.crest != null && A.crest < 0.9 * want) {
     let lo = 1, hi = 4;
-    for (let i = 0; i < 7; i++) { const mid = (lo + hi) / 2, B = at(mid); if (B.crest != null && B.crest < want) lo = mid; else hi = mid; }
+    for (let i = 0; i < 7; i++) { const mid = (lo + hi) / 2, B = at(mid); if (B.crest != null && B.crest < want && (!ok || ok(B.R.d))) lo = mid; else hi = mid; }
     m = lo; A = at(m);
   }
   return { ...A.R, apex: A.n ? { n: A.n, crestPx: A.crest != null ? +(A.crest * pxPerUnit).toFixed(3) : null, wantPx: +(want * pxPerUnit).toFixed(3), scale: +m.toFixed(3) } : null };

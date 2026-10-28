@@ -69,7 +69,7 @@ const SETTINGS = [
     ['Chamfer angle', '45 degrees: the cut rises as far as it runs, half above the post and half into it (a steeper cut turns under 30 degrees at its edges and reads as a knee). At 18 the third of a line lands at 2/3px.', '10-28', 'designer'],
     ['The rack at 24 and 12', 'The cutters are set at 18 and scale with the drawing at 24 and 12, so every size is the same icon.', '10-28', 'designer'],
     ['Fillet into a face', 'A post into a face (curved or flat) meets it with a fillet: a flare, never an ink trap.', '10-26'],
-    ['Points', 'A point sharper than 75 degrees is broken, not milled, and is one of two kinds, told by its sides. An apex (its two sides mirror each other: a gable\'s or tier\'s top, a star\'s points) reads by its crest, the radius at its nose on screen: a fifth of the line at every size (0.3px at 18), however its sides arrive; straight sides meeting a round leave a smaller crest than curved sides easing in, so its round grows until the crest reads a fifth of a line. A tip (its sides differ: a tier\'s eave, a blade\'s tip) keeps the tip rule: its round scales with its edge, so it stays sharp.', '10-28'],
+    ['Points', 'A point sharper than 75 degrees is broken, not milled, and is one of two kinds, told by its sides. An apex (its two sides mirror each other: a gable\'s or tier\'s top, a star\'s points) reads by its crest, the radius at its nose on screen: a fifth of the line at every size (0.3px at 18), however its sides arrive; straight sides meeting a round leave a smaller crest than curved sides easing in, so its round grows until the crest reads a fifth of a line (within a tenth), as far as continuous curvature allows. A tip (its sides differ: a tier\'s eave, a blade\'s tip) keeps the tip rule: its round scales with its edge, so it stays sharp.', '10-28'],
     ['Every meeting rounded', 'Every meeting point is at least slightly round, some more; the radius varies with how the angle meets. One join pattern per corner type across all icons.', '10-22'],
     ['Inner corners', 'Tight inner corners are rounded less than outer corners; inner joins are never over-rounded.', '10-21'],
     ['Whole curves', 'A curved edge is drawn whole from one circle or ellipse, never one arc per point.', '10-23'],
@@ -233,7 +233,7 @@ function build(size, ids) {
     if (line && size !== 18) continue;   // a line mark is one drawing, at its app size
     let d, sym, meta;
     if (line) {
-      const R = Mk.mark(decl), L = OS.land(R.d, { size: line.frame, sym: R.sym, std: line.std });
+      const R = Mk.mark(decl, { land: line }), L = OS.land(R.d, { size: line.frame, sym: R.sym, std: line.std });
       d = L.d; sym = R.sym; meta = { ...R.meta, frame: line.frame, landing: 'outline' }; var drawn = R.d;
     } else {
       const R = Mk.make(decl, Z, module.exports, { v264: v264Box(id, size), land: (prims, s_) => SL.landPrims(prims, s_, { size: Z.frame, std: { stroke: null, counter: 0 } }) });

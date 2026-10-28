@@ -162,6 +162,11 @@
      "detail": "0 counters"
     },
     {
+     "point": "Points",
+     "ok": true,
+     "detail": "2 apex corners: crest 0.29px on screen, a fifth of the line 0.3px (as drawn)"
+    },
+    {
      "point": "Continuous curvature",
      "ok": true,
      "detail": "0 curvature faults (v264: 0)"
@@ -177,8 +182,8 @@
    "checks": [
     {
      "point": "Snap priority",
-     "ok": true,
-     "detail": "8 of 8 core outer edges on the iPhone grid; parts with both sides outside: 10 of 10 sides landed"
+     "ok": false,
+     "detail": "6 of 8 core outer edges on the iPhone grid; parts with both sides outside: 10 of 10 sides landed"
     },
     {
      "point": "Parts that are not strokes",
@@ -206,6 +211,11 @@
      "detail": "parts 1.333, 1.333, 1.333; slots 1.333, 1.333"
     },
     {
+     "point": "Comb depth",
+     "ok": true,
+     "detail": "slots 4.05px deep (1.3px into the root); left under the outer slots: 1.5px, the line 1.5px"
+    },
+    {
      "point": "Protrusions",
      "ok": true,
      "detail": "stands 0.999px past what it sticks out from (minimum 1)"
@@ -217,7 +227,7 @@
     }
    ],
    "v264": {
-    "hausdorffPx": 0.716
+    "hausdorffPx": 1.641
    }
   },
   {
@@ -245,13 +255,18 @@
      "detail": "1 counters"
     },
     {
-     "point": "Continuous curvature",
+     "point": "Points",
      "ok": true,
-     "detail": "0 curvature faults (v264: 0)"
+     "detail": "5 apex corners: crest 0.3px on screen, a fifth of the line 0.3px (round x1.75)"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": false,
+     "detail": "9 curvature faults (v264: 0)"
     }
    ],
    "v264": {
-    "hausdorffPx": 0
+    "hausdorffPx": 0.264
    }
   },
   {
@@ -512,6 +527,11 @@
      "detail": "0 counters"
     },
     {
+     "point": "Points",
+     "ok": true,
+     "detail": "2 apex corners: crest 0.386px on screen, a fifth of the line 0.4px (as drawn)"
+    },
+    {
      "point": "Continuous curvature",
      "ok": true,
      "detail": "0 curvature faults (v264: 0)"
@@ -527,8 +547,8 @@
    "checks": [
     {
      "point": "Snap priority",
-     "ok": true,
-     "detail": "8 of 8 core outer edges on the iPhone grid; parts with both sides outside: 10 of 10 sides landed"
+     "ok": false,
+     "detail": "6 of 8 core outer edges on the iPhone grid; parts with both sides outside: 10 of 10 sides landed"
     },
     {
      "point": "Parts that are not strokes",
@@ -556,6 +576,11 @@
      "detail": "parts 1.667, 1.667, 1.667; slots 1.667, 1.667"
     },
     {
+     "point": "Comb depth",
+     "ok": true,
+     "detail": "slots 5.167px deep (1.5px into the root); left under the outer slots: 2px, the line 2px"
+    },
+    {
      "point": "Protrusions",
      "ok": true,
      "detail": "stands 1.332px past what it sticks out from (minimum 1.33)"
@@ -567,7 +592,7 @@
     }
    ],
    "v264": {
-    "hausdorffPx": 0.878
+    "hausdorffPx": 1.764
    }
   },
   {
@@ -789,6 +814,11 @@
      "detail": "0 counters"
     },
     {
+     "point": "Points",
+     "ok": true,
+     "detail": "2 apex corners: crest 0.193px on screen, a fifth of the line 0.2px (as drawn)"
+    },
+    {
      "point": "Continuous curvature",
      "ok": true,
      "detail": "0 curvature faults (v264: 0)"
@@ -805,7 +835,7 @@
     {
      "point": "Snap priority",
      "ok": true,
-     "detail": "5 of 5 core outer edges on the iPhone grid; parts with both sides outside: 10 of 10 sides landed"
+     "detail": "7 of 7 core outer edges on the iPhone grid; parts with both sides outside: 10 of 10 sides landed"
     },
     {
      "point": "Parts that are not strokes",
@@ -833,6 +863,11 @@
      "detail": "parts 0.667, 0.667, 0.667; slots 0.667, 0.667"
     },
     {
+     "point": "Comb depth",
+     "ok": true,
+     "detail": "slots 2.301px deep (0.468px into the root); left under the outer slots: 1px, the line 1px"
+    },
+    {
      "point": "Protrusions",
      "ok": true,
      "detail": "stands 0.997px past what it sticks out from (minimum 1)"
@@ -844,7 +879,7 @@
     }
    ],
    "v264": {
-    "hausdorffPx": 0.684
+    "hausdorffPx": 0.708
    }
   },
   {
@@ -914,5 +949,5 @@
   "The star and + read as the set's weight",
   "Each size reads as the same icon as the 18"
  ],
- "ok": true
+ "ok": false
 }

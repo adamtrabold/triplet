@@ -11,7 +11,7 @@ for (const id of ids) {
   const decl = S.DECL[id], line = S.MARK[decl.cls];
   if (line && size !== 18) continue;
   let R, prims;
-  if (line) { R = Mk.mark(decl); prims = R.prims ? E.xform(R.prims, 1, 0, 0, 0, R.dy || 0) : []; }
+  if (line) { R = Mk.mark(decl, { land: line }); prims = R.prims ? E.xform(R.prims, 1, 0, 0, 0, R.dy || 0) : []; }
   else { R = Mk.make(decl, Z, S, { v264: S.v264Box(id, size), land: (p, s_) => SL.landPrims(p, s_, { size: Z.frame, std: { stroke: null, counter: 0 } }) }); prims = R.prims; }
   const parts = E.parts(prims).map((p, i) => ({ d: p.d, cut: p.cut, role: prims[i].role || null, id: prims[i].rid || prims[i].id || null }));
   fs.writeFileSync(path.join(dir, `${id}.json`), JSON.stringify({ size, d: R.d, roots: parts }));
