@@ -2,7 +2,18 @@
 
 Branch: `claude/city-place-creation-workflow-vcblfw`. Nothing built; `index.html` untouched.
 
-## v5: a picked city filters (2026-10-28, latest) -- READ THIS FIRST
+## v6: how Remove is reached (2026-10-28, latest) -- READ THIS FIRST
+
+Owner approved v5's filter; header taps in All places do nothing; the eye stays; other signposts show
+when one city is picked, "maybe they should look hidden in some way?"; removal "needs more
+exploration", semi-hidden, no visible button. Spec `concepts/v6-how-to-remove.md` (options A hold in
+the title menu, B hold the header, C filter panel block, D swipe a menu row; recommend A). Stills
+`stills/v6/1-hold-a-city-in-the-menu.png`, `2-other-signposts.png` (`stills/v6/stills.js`). Caption
+check: S1's list had other cities' district/street rows; fixed so it holds Malmö only.
+Open: (1) A's 500ms hold OK? (2) the one-time "Hold a city to remove it" caption, or nothing?
+(3) the faded signpost look.
+
+## v5: a picked city filters (2026-10-28) -- history (Remove placement superseded by v6)
 
 Owner: "Why would Stockholm be shown if Malmö is selected" ... "yeah that's weird". Spec
 `concepts/v5-a-city-means-that-city.md`; stills `stills/v5/1-a-city-means-that-city.png`,
