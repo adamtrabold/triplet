@@ -2,7 +2,20 @@
 
 Branch: `claude/city-place-creation-workflow-vcblfw`. Nothing built; `index.html` untouched.
 
-## v4: New city + Remove city (2026-10-28, latest) -- READ THIS FIRST
+## v5: a picked city filters (2026-10-28, latest) -- READ THIS FIRST
+
+Owner: "Why would Stockholm be shown if Malmö is selected" ... "yeah that's weird". Spec
+`concepts/v5-a-city-means-that-city.md`; stills `stills/v5/1-a-city-means-that-city.png`,
+`2-remove-city.png` (`stills/v5/stills.js`; the filter is simulated in the design layer by hiding
+the other cities and dropping their headers). Decisions: picking a city filters list + map; All
+places keeps sections + eye; Remove city = the quiet last line of a single city's list; v4's New city
+stays. Caption check: F2 scrolled so the hidden Stockholm shows; F3/F4 put the foot after the
+district/street rows and scroll the whole confirm into view.
+Open: (1) tapping a section name in All places: filter to that city (as drawn in the spec) or just
+scroll? (2) in a single city zoomed out, show other cities' signposts as a way to jump? (3) does the
+eye still earn its place now that a city can be picked?
+
+## v4: New city + Remove city (2026-10-28) -- history (Remove placement superseded by v5)
 
 Owner on v3: "I don't like a because there should Be the ability to create a city without a stop. I
 think there should be a remove city but it shouldn't be a front and center control". v3's A is out.
