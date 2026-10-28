@@ -223,6 +223,13 @@ function layout(decl, s, Z, S, room, gdx = null) {
           // a half ellipse under what runs into it, as wide: as tall as the fair limit lets a line run into it at its widest point
           const rx = wc / 2, ry = Math.max(1.05 * rx, Math.sqrt(rx / FAIR_K)), cx = x + rx;
           prims.push({ withGroup: 'comb', ...E.D(`M${f(cx - rx)} ${f(yy - 0.3)}V${f(yy)}C${f(cx - rx)} ${f(yy + ry * K)} ${f(cx - rx * K)} ${f(yy + ry)} ${f(cx)} ${f(yy + ry)}C${f(cx + rx * K)} ${f(yy + ry)} ${f(cx + rx)} ${f(yy + ry * K)} ${f(cx + rx)} ${f(yy)}V${f(yy - 0.3)}Z`), root: 'ELLIPSE' });
+          // THE SLOTS' DEPTH: a comb is held by its root as posts by a slab, so the slots cut into the head until what is left
+          // under them is one line (the stroke, a slab's thickness), measured under the outer slots, where the head is shallowest
+          if (C && sp[j - 1] && sp[j - 1].kind === 'comb' && C.n > 1) {
+            const a = rx - C.w, left = ry * Math.sqrt(Math.max(0, 1 - (a / rx) ** 2)), deep = Math.max(0, left - t.stroke);
+            if (deep > 0) prims.forEach(p => { if (p.group === 'comb') p.slotDeep = deep; });   // cut once the comb has landed (asOne)
+            const cm = meta.combs[meta.combs.length - 1]; if (cm) { cm.slotDepth = +(((yy - topF) + deep) * k).toFixed(3); cm.past = +(deep * k).toFixed(3); cm.bridge = +((left - deep) * k).toFixed(3); }
+          }
           yy += ry; headBot = yy; head = { rx, ry };
         } else if (r.kind === 'blade') {
           // a straight spine, its edge a quarter ellipse, down to where the column beside it ends its head (else half the height);
@@ -313,7 +320,7 @@ function make(decl, Z, S, opts = {}) {
   let prims = E.xform(prims0, 1, 0, 0, ox + tx, ty);
   // LAND the roots on the iPhone grid before any corner is rounded; a row or a comb lands as one (below)
   if (opts.land) prims = asOne(prims, opts.land(prims, sym), Z);
-  const d = E.build(prims, { ...bopts, sym }).d;
+  const AB = apexBuild(prims, { ...bopts, sym }, Z.k, Z.stroke), d = AB.d; if (AB.apex) meta.apex = AB.apex;
   return { d, s, sym: sym ?? null, meta: { ...meta, cls, s: +s.toFixed(4), fitBy: gW && gH ? 'both sides' : gW ? 'width' : 'height' }, prims };
 }
 
@@ -350,6 +357,13 @@ function asOne(before, after, Z) {
     it.scale(sx, sy, new paper.Point(a.x, a.y)); it.translate(new paper.Point(b.x - a.x, b.y - a.y));
     out[i] = { ...after[i], d: it.pathData, how: 'moved with its root' }; it.remove();
   });
+  // a comb's slots cut on past its tines into its root, between the tines as they landed, to the depth the comb rule set
+  const tn = before.map((q, i) => q.slotDeep ? i : -1).filter(i => i >= 0);
+  if (tn.length > 1) {
+    const T = tn.map(i => bb(out[i].d)).sort((a, b) => a.x - b.x), deep = before[tn[0]].slotDeep;
+    for (let j = 0; j + 1 < T.length; j++) { const x0 = T[j].x + T[j].width, x1 = T[j + 1].x, yb = Math.max(T[j].y + T[j].height, T[j + 1].y + T[j + 1].height);
+      out.push({ t: 'D', d: `M${f5(x0)} ${f5(yb - 0.3)}H${f5(x1)}V${f5(yb + 0.1 + deep)}H${f5(x0)}Z`, cut: true, root: 'SLOT', how: 'the comb\'s slot, cut on into its root' }); }
+  }
   return out;
 }
 
@@ -360,8 +374,9 @@ function mark(decl) {
   if (root.kind === 'star') {
     const OUTLINE_HOLE = PROP.line.outlineCounter, rc0 = (OUTLINE_HOLE * W / 2 + (W / 2) / Math.sin(3 * Math.PI / 10)) / P7.STAR.ri, rc = rc0 * 24 / 20 / 9.6;
     const prims = P7.star(20, rc, W, 'root'), law = scaled(LINE_LAW, 24 / 20);
-    const d0 = E.build(prims, { law, ease: EASE, tightHoles: true, join: JOIN10 }).d, m = measure(d0), dy = E.placeOffset(12 - opticalY(m));
-    return { d: shiftD(d0, dy), sym: 12, meta: { cls: 'OUTLINE' }, prims, dy };
+    // shown in its 18px box: 3/4px a unit; the line 1 1/2px on screen
+    const AB = apexBuild(prims, { law, ease: EASE, tightHoles: true, join: JOIN10 }, 18 / 24, 1.5), d0 = AB.d, m = measure(d0), dy = E.placeOffset(12 - opticalY(m));
+    return { d: shiftD(d0, dy), sym: 12, meta: { cls: 'OUTLINE', apex: AB.apex }, prims, dy };
   }
   const sc = KEY.OPEN[0] / 14, prims = P7.plus(26.4, sc, 5 / 3), law = scaled(LINE_LAW, 24 / 26.4);
   const d0 = E.build(prims, { law, ease: EASE, join: JOIN10 }).d, m = measure(d0), dy = E.placeOffset(12 - opticalY(m));
@@ -369,4 +384,35 @@ function mark(decl) {
 }
 const shiftD = (d, dy) => { let k = 0; return d.replace(/[MLCZ]|-?\d*\.?\d+(?:e-?\d+)?/g, t => { if (/[MLCZ]/.test(t)) { k = 0; return t; } const v = (k++ % 2) ? (+t + dy).toFixed(7).replace(/\.?0+$/, '').replace(/^-0$/, '0') : t; return v; }).replace(/([0-9])(-)/g, '$1 $2'); };
 
-module.exports = { make, mark, layout, KINDS, RACK, rack };
+// POINTS (10-28). A point (a convex corner under 75 degrees) is one of two kinds, told by its two sides:
+//   an APEX: its sides mirror each other (a gable's or a tier's top, a star's points). It reads by its CREST, the radius at its
+//     nose on screen, a fifth of the line at every size (0.3px at 18), however its sides arrive: straight sides that meet a round
+//     leave a smaller crest than curved sides easing in, so the round is sized until the crest reads a fifth of a line.
+//   a TIP: its sides differ (a tier's eave, a blade's tip). The tip rule: broken by its edge, not milled; its round scales with it.
+const APEX_CREST = 1 / 5, APEX_SYM = 0.03;
+const isApex = c => c.convex && !c.hole && c.angle < 75 && Math.abs(c.lin - c.lout) <= APEX_SYM * Math.max(c.lin, c.lout);
+function crestAt(d, pt) {   // the smallest radius of curvature within a unit of the corner's point (its nose), in drawing units
+  const paper = require(path.join(process.env.TOOLS, 'node_modules/paper/dist/paper-core.js'));
+  const cp = new paper.CompoundPath(d), P = new paper.Point(pt[0], pt[1]); let best = Infinity;
+  for (const p of (cp.children.length ? cp.children : [cp])) for (let o = 0; o < p.length; o += 0.005) { const q = p.getPointAt(o); if (q.getDistance(P) < 1.5) { const K = Math.abs(p.getCurvatureAt(o)); if (K > 1e-6) best = Math.min(best, 1 / K); } }
+  cp.remove(); return best;
+}
+// build with every apex sized by its crest: pxPerUnit converts the drawing to screen px; line: the line on screen (px)
+function apexBuild(prims, bopts, pxPerUnit, line) {
+  const want = APEX_CREST * line / pxPerUnit, base = bopts.law;
+  const at = m => {
+    const seen = [];
+    const law = c => { const r = base(c); if (isApex(c) && typeof r === 'number') { if (!seen.some(q => Math.hypot(q[0] - c.pt[0], q[1] - c.pt[1]) < 0.3)) seen.push(c.pt.slice()); return r * m; } return r; };
+    const R = E.build(prims, { ...bopts, law }), cr = seen.map(pt => crestAt(R.d, pt)).filter(Number.isFinite);
+    return { R, n: seen.length, crest: cr.length ? Math.min(...cr) : null };
+  };
+  let m = 1, A = at(1);
+  // an apex that already reads a fifth of a line (or none) is left as drawn; else its round grows until its crest does
+  if (A.n && A.crest != null && A.crest < 0.9 * want) {
+    let lo = 1, hi = 4;
+    for (let i = 0; i < 7; i++) { const mid = (lo + hi) / 2, B = at(mid); if (B.crest != null && B.crest < want) lo = mid; else hi = mid; }
+    m = lo; A = at(m);
+  }
+  return { ...A.R, apex: A.n ? { n: A.n, crestPx: A.crest != null ? +(A.crest * pxPerUnit).toFixed(3) : null, wantPx: +(want * pxPerUnit).toFixed(3), scale: +m.toFixed(3) } : null };
+}
+module.exports = { make, mark, layout, KINDS, RACK, rack, apexBuild, crestAt, isApex };
