@@ -361,11 +361,11 @@ function mark(decl) {
     const OUTLINE_HOLE = PROP.line.outlineCounter, rc0 = (OUTLINE_HOLE * W / 2 + (W / 2) / Math.sin(3 * Math.PI / 10)) / P7.STAR.ri, rc = rc0 * 24 / 20 / 9.6;
     const prims = P7.star(20, rc, W, 'root'), law = scaled(LINE_LAW, 24 / 20);
     const d0 = E.build(prims, { law, ease: EASE, tightHoles: true, join: JOIN10 }).d, m = measure(d0), dy = E.placeOffset(12 - opticalY(m));
-    return { d: shiftD(d0, dy), sym: 12, meta: { cls: 'OUTLINE' } };
+    return { d: shiftD(d0, dy), sym: 12, meta: { cls: 'OUTLINE' }, prims, dy };
   }
   const sc = KEY.OPEN[0] / 14, prims = P7.plus(26.4, sc, 5 / 3), law = scaled(LINE_LAW, 24 / 26.4);
   const d0 = E.build(prims, { law, ease: EASE, join: JOIN10 }).d, m = measure(d0), dy = E.placeOffset(12 - opticalY(m));
-  return { d: shiftD(d0, dy), sym: 12, meta: { cls: 'OPEN' } };
+  return { d: shiftD(d0, dy), sym: 12, meta: { cls: 'OPEN' }, prims, dy };
 }
 const shiftD = (d, dy) => { let k = 0; return d.replace(/[MLCZ]|-?\d*\.?\d+(?:e-?\d+)?/g, t => { if (/[MLCZ]/.test(t)) { k = 0; return t; } const v = (k++ % 2) ? (+t + dy).toFixed(7).replace(/\.?0+$/, '').replace(/^-0$/, '0') : t; return v; }).replace(/([0-9])(-)/g, '$1 $2'); };
 
