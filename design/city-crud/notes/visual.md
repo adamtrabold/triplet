@@ -2,7 +2,21 @@
 
 Branch: `claude/city-place-creation-workflow-vcblfw`. Nothing built; `index.html` untouched.
 
-## v3: Delete city reopened (2026-10-23, latest) -- READ THIS FIRST
+## v4: New city + Remove city (2026-10-28, latest) -- READ THIS FIRST
+
+Owner on v3: "I don't like a because there should Be the ability to create a city without a stop. I
+think there should be a remove city but it shouldn't be a front and center control". v3's A is out.
+- Spec: `concepts/v4-new-and-remove.md`. Stills: `stills/v4/1-new-city.png`, `2-remove-city.png`
+  (`stills/v4/stills.js`, on the v2 build 908dd0c).
+- Decisions: New city = a title-menu row that becomes the built Find a city line; Remove… only on a
+  hidden city's header (hide first); confirm moves places (default only when a city is within 70 km)
+  or removes them; any city a person chose is `auto_added = false` and survives cleanup.
+- Caption check: fixed N2 (menu widened so the result lines aren't cut) and R2 (confirm tightened so
+  CANCEL / REMOVE are on screen); R1's caption trimmed to what the frame shows.
+- Open: (1) Is "hide first, then Remove…" the right amount of hidden? (2) Should Remove offer
+  "remove the places too" at all? (3) New city in the title menu only, or also on the + / add tag?
+
+## v3: Delete city reopened (2026-10-23) -- history
 
 Owner: "Idk about delete city though — brainstorm better options". Everything else in v2 stands and
 is being built (a builder pushes to this branch too; don't touch `notes/builder.md`).
