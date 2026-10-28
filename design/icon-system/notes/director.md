@@ -979,3 +979,13 @@ He called v287 "awesome". He asked for longer tines "unless there is real logic"
 Both are general. Only the fork and the star changed.
 
 **If he rejects it, look at:** the star now a hair blunt beside the knife tip.
+
+## v289 (2a268046, 2026-10-28): 8
+
+**The rule:** "cuts follow the curve" is general and right.
+
+**The block:** the fork reads as a trident (Ψ) at 18, because the slots are still too deep.
+
+**Fix:** a cut stops where its curved root starts to turn.
+
+**Lesson:** when he names two options ("too deep OR follow the curve"), check the one not taken at true size.

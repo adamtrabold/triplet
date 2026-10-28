@@ -1756,3 +1756,12 @@ The verdict stands within our own set:
 - **The apex rule** (mirrored points: crest ⅕ line, curvature first) is general. The star's crest now matches the tree top's; the tips are unchanged.
 - **Only the fork and star SVGs changed.** The gate passes, 153 checks.
 - **Jam turn 214.**
+
+## Round: cuts follow the curve (canvas v289, 2a268046), 2026-10-28: 8, not to him
+
+- **True:**
+  - "a cut follows the outer curve with an even wall" is general (his counters-follow rule);
+  - 12 square is fine.
+- **Block:** at 18 in the ring the fork reads as Ψ (a trident). The slots are still cut to one line above the head's bottom, so the head is gone, and the curled outer tines add to it.
+- **Fix:** a cut into a curved root stops where the root starts to turn (the head keeps its mass); the even wall holds where it does meet the curve. Tines between 2.75 and 4.12 at 18, judged by eye against v264.
+- **Jam turn 215.**

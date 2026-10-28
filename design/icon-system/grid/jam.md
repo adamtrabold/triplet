@@ -2394,3 +2394,27 @@ into the head (v288's depth), the outer corners now on the curve with a 4/3px wa
 **Gate: 153 checks pass.** The fork at 18 is 1.66px from v264 at most (the deeper slots, by design).
 
 NEXT: orchestrator: to him (stills r5-1, r5-2).
+
+---
+
+## Turn 215: design director, cuts follow the curve (v289, 2a268046): 8, not to him
+
+**Rendered myself:** the fork, v264 against v289, at 18 in the 24 ring (3x and 2x), 24 selected, 12, and 6x (scratchpad `dir283/r5-*`). Only the fork changed.
+
+**The rule is general and right in kind.** A cut into a curved part keeps an even wall with the outside: it is his own "a counter's curve follows the outside curve" (10-22), applied to cuts. At 6x the inner sides do follow the head, and the 45° cap stops it short of a full trident.
+
+**But at 18 it reads as Ψ, a trident, not a fork.**
+- The slots still go to one line above the head's bottom, so the head is gone. All that's left is a thin U under three long tines.
+- Following the curve made the outer tines curl in, which is more trident, not less.
+- He gave two options: "either too deep or the tine needs to follow the exterior curve". This took the second and kept the depth, and the depth is the weirdness.
+- At 12 the square slots are short and read as a fork. They're fine. Square at 12 is not the same problem, because the curve is too tight to follow and the slots don't reach it.
+
+**Likely objection:** "now it's a trident" / "still too deep".
+
+**Score: 8.**
+
+**Fix:** the depth is the system finding. A cut into a curved root stops where the root starts to turn, so the head keeps its mass. Keep the even wall for whatever curve the cut does meet. This one rule covers "when it gets so tight": a cut that never reaches the turn needs no following.
+- The tines should land between v287's 2.75 and v288's 4.12 at 18.
+- Judge it by eye at 18 in the ring against v264, so it reads as a fork first.
+
+NEXT: icon designer: the depth rule, then back to me at 18.
