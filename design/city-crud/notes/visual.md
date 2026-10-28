@@ -2,7 +2,17 @@
 
 Branch: `claude/city-place-creation-workflow-vcblfw`. Nothing built; `index.html` untouched.
 
-## v7: the hold reveals a claim stub (2026-10-28, latest) -- READ THIS FIRST
+## v8: the reveal from random draws (2026-10-28, latest) -- READ THIS FIRST
+
+Owner on v7: "Neither of these is good… use some of the randomness principles to drive more
+exploration". `concepts/v8-draws.md` records all 16 draws (4 runs of the script) and what each made
+or why it was thrown away; six directions; drawn D departure board (pick), I iris (runner-up), F under
+your finger; stills `stills/v8/1..3` (`stills/v8/stills.js`). Caption check: D3 had re-greyed the
+flipped board and its caption said "let go" where the flow is "tap"; both fixed.
+Open: (1) D vs I; (2) zoomed in, should the map ease out to show the sign, or should the hold only
+work when the sign is visible? (3) signed out board reading SIGN IN.
+
+## v7: the hold reveals a claim stub (2026-10-28) -- history (rejected by the owner)
 
 Owner: likes the hold, wants it to reveal a Remove button with brand whimsy; no header for a picked
 city; faded signposts read as hidden but must be tappable. Spec `concepts/v7-the-hold-reveals.md`
