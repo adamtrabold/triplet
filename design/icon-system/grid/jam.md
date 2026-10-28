@@ -2347,3 +2347,28 @@ sharp, so the angle alone can't be the rule; the sides decide it.
 star moved 0.29px at most.
 
 NEXT: orchestrator: to him (stills r4-1, r4-2).
+
+---
+
+## Turn 214: design director, his v287 notes (v288, 1243c70b): 9, to him
+
+**Verified:**
+- the code diff;
+- the SVG diff since v285: only the fork (18, 24, 12) and the star changed; the tree, museum and the rest are unchanged;
+- the designer's 6x and 40x crops.
+
+**The tines:** "slots cut into the head until one line is left under them" is real logic. It is the same reasoning as a slab: what holds the tines is one line thick, and it names no icon.
+- Tines 2.75 → 4.12px at 18.
+- It reads as a fork with longer tines.
+- The bridge is the stroke, not heavy.
+
+**The points:**
+- An apex (two mirrored sides, under 75°) reads by its crest, a fifth of a line, with curvature first.
+- A tip (unequal sides) keeps the tip rule.
+- The rule is general, told by geometry, and it doesn't catch the museum's roof (too wide an angle).
+- At 40x the star's point now has the tree top's crest. The tree's flanks curve into it and the star's are straight, which is the shapes, not the round. At 18 the star reads as one family with the tree, a touch softer than before.
+- The tree's tips are unchanged, as he likes them.
+
+**Likely objection:** the star point could read a hair blunt next to the knife tip. Not likely enough to block.
+
+**Score: 9.** No new question.
