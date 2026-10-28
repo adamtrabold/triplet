@@ -211,7 +211,7 @@ function layout(decl, s, Z, S, room, gdx = null) {
       C = S.comb({ n: cr.n, w: t.part, wMin: t.min, span: room - others, grid: t.grid });
       fixed[combCol] = C.span; meta.combs.push({ id: cr.id, declared: cr.n, n: C.n, w: +(C.w * k).toFixed(3), slot: +(C.slot * k).toFixed(3), span: +(C.span * k).toFixed(3), room: +((room - others) * k).toFixed(3), thinned: C.thinned }); }
     const total = fixed.reduce((a, w) => a + w, 0) + (cols.length - 1) * t.cut;
-    let x = 6 * u - total / 2, headBot = null;
+    let x = 6 * u - total / 2, headBot = null, head = null;
     cols.forEach((sp, ci) => {
       const wc = fixed[ci]; let yy = topF;
       sp.forEach((r, j) => {
@@ -223,7 +223,7 @@ function layout(decl, s, Z, S, room, gdx = null) {
           // a half ellipse under what runs into it, as wide: as tall as the fair limit lets a line run into it at its widest point
           const rx = wc / 2, ry = Math.max(1.05 * rx, Math.sqrt(rx / FAIR_K)), cx = x + rx;
           prims.push({ withGroup: 'comb', ...E.D(`M${f(cx - rx)} ${f(yy - 0.3)}V${f(yy)}C${f(cx - rx)} ${f(yy + ry * K)} ${f(cx - rx * K)} ${f(yy + ry)} ${f(cx)} ${f(yy + ry)}C${f(cx + rx * K)} ${f(yy + ry)} ${f(cx + rx)} ${f(yy + ry * K)} ${f(cx + rx)} ${f(yy)}V${f(yy - 0.3)}Z`), root: 'ELLIPSE' });
-          yy += ry; headBot = yy;
+          yy += ry; headBot = yy; head = { rx, ry };
         } else if (r.kind === 'blade') {
           // a straight spine, its edge a quarter ellipse, down to where the column beside it ends its head (else half the height);
           // it stands past its handle by the protrusion
@@ -232,8 +232,13 @@ function layout(decl, s, Z, S, room, gdx = null) {
           meta.protrusions.push({ id: r.id, past: +((wc - t.part) * k).toFixed(3), min: Z.protrude });
           yy = ke;
         } else if (r.kind === 'post') {   // a handle: under its head's centre (or flush with the spine above), to the bottom
-          const afterHead = sp[j - 1] && sp[j - 1].kind === 'head', ov = afterHead ? 0.4 : 0.2;
-          prims.push(E.R(afterHead ? x + wc / 2 - t.part / 2 : x, yy - ov, t.part, botF - yy + ov, { root: 'POST' }));
+          // centred under a head it takes the head's parity (one iPhone pixel wider when they differ), so it stays exactly centred
+          // it runs into the head past where the head's curve crosses its sides
+          const afterHead = sp[j - 1] && sp[j - 1].kind === 'head';
+          const pw = afterHead && (Math.round(wc / t.grid) - Math.round(t.part / t.grid)) % 2 ? t.part + t.grid : t.part;
+          const ov = afterHead ? 0.4 + head.ry * (1 - Math.sqrt(Math.max(0, 1 - (pw / 2 / head.rx) ** 2))) : 0.2;
+          if (pw !== t.part) meta.parity = (meta.parity || []).concat({ id: r.id, w: +(pw * k).toFixed(3) });
+          prims.push(E.R(afterHead ? x + wc / 2 - pw / 2 : x, yy - ov, pw, botF - yy + ov, { root: 'POST' }));
           yy = botF;
         }
       });

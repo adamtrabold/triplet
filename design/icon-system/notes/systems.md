@@ -1,5 +1,20 @@
 # Systems designer notes: icon system
 
+## THE SYSTEM, round 3 (2026-10-28, jam turn 212, canvas v285; director turn 211 scored v284 8, 9 after two fixes)
+
+- **Done:** combs keep their count the way rows do (one `thinning()` helper, count first: part width, thinner a grid step at a time
+  to the size's thinnest, then one part fewer); the fork keeps 3 tines at 12 (parts and slots 2/3px). "Restaurant at 12" left the
+  board on its own (no declared count was lost). The bench: DECL `park` is now `name: 'Bench', proof: true`; the board labels it
+  "The system's proof", puts it last, keeps it out of the row; the spec says so.
+- **Found by the gate, fixed as rules:** parity: a part centred under another takes its parity, one iPhone pixel wider when they
+  differ (designer setting "Centred under a part"; meta.parity records it; at 12 the fork handle is 4/3px against the knife grip's
+  1px, worth an eye). A post into a head runs in past the head's curve at its sides (overlap from the ellipse), which removed a spur.
+- **v264 proof:** re-run complete, all seven byte-identical (max 0, same at 7dp). `svg/system/v264/proof.json` unchanged.
+- **Gate:** 146 checks pass. Scratch: session scratchpad `r3/` (batch.sh, faults.js, zoom.js, stills.js, canvas-pub.py).
+- **Open (his):** outline/solid; novelty; Shopping. Mine to change: parity rule, 45 degree chamfer, rack scaling, thinnest at 12.
+- **Next (director, not blocking):** fold `tiers`, `head`, `blade` into the vocabulary as fractions of a parent when the next icon
+  needs them (the tree still carries raw heights and widths).
+
 ## THE SYSTEM, round 2 (2026-10-28, jam turn 210, canvas v284; director turn 209 scored v283 a 6)
 
 - **Where:** `grid/src/system.js` (SETTINGS, SIZES, the rules `row`/`comb`, DECL as data, `words()`, `v264Box()`, the build),

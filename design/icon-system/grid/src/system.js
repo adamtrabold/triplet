@@ -31,6 +31,7 @@ const SETTINGS = [
     ['The grid', 'One iPhone pixel, 1/3px. The system writes each size for the iPhone directly; there is no refit pass for any device.', '10-27'],
     ['Snap priority', 'Silhouette first: an outer edge goes to a whole px when one is within 1/4px, else the nearest iPhone pixel. Then the outer side of each stroke (its width kept). Inner edges, counters, curves, diagonals, points and rounds stay as drawn. The roots land on the grid before any corner is rounded, so every round and join is built on landed roots; a curved root is never stretched, only scaled evenly.', '10-27'],
     ['Centring', 'A centred part is exactly centred: an even count of iPhone pixels about the icon\'s centre. Vertical centring is optical, per icon.', '10-27'],
+    ['Centred under a part', 'A part centred under another takes its parity, one iPhone pixel wider when they differ, so it stays exactly centred.', '10-28', 'designer'],
     ['Sharpness', 'As sharp as possible: core dimensions and core line landings are never fuzzy.', '10-26'],
     ['Scale and weight', 'Settled once for the set at the grid level: every icon the same optical size and weight; never negotiated icon by icon.', '10-20'],
     ['The box', 'An icon is fitted to its class box (wide, square, tall) by the sides that scale, and never grows past its v264 size: each outer edge at most one iPhone pixel past where v264\'s lands on the grid. A rule that needs room takes it from the icon\'s own proportions; the box never gives way.', '10-27'],

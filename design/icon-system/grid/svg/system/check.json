@@ -222,63 +222,6 @@
   },
   {
    "size": 18,
-   "id": "park",
-   "checks": [
-    {
-     "point": "Centring",
-     "ok": true,
-     "detail": "centre 0px off"
-    },
-    {
-     "point": "Snap priority",
-     "ok": true,
-     "detail": "8 of 8 core outer edges on the iPhone grid; parts with both sides outside: 4 of 4 sides landed"
-    },
-    {
-     "point": "Parts that are not strokes",
-     "ok": true,
-     "detail": "every straight solid at least 1.25px"
-    },
-    {
-     "point": "Counters and gaps",
-     "ok": true,
-     "detail": "1 counters"
-    },
-    {
-     "point": "Rows",
-     "ok": true,
-     "detail": "2 parts and 1 counters measured; declared 2 (gaps on the grid)"
-    },
-    {
-     "point": "Same role, same width",
-     "ok": true,
-     "detail": "counters 7.333; parts between them none"
-    },
-    {
-     "point": "Chamfer under an overhang",
-     "ok": true,
-     "detail": "the slab runs 0.667px past the outer post; the bevel joins them"
-    },
-    {
-     "point": "Rows",
-     "ok": true,
-     "detail": "2 parts measured across the foot; declared 2"
-    },
-    {
-     "point": "Same role, same width",
-     "ok": true,
-     "detail": "parts 1.333, 1.333"
-    },
-    {
-     "point": "Continuous curvature",
-     "ok": true,
-     "detail": "0 curvature faults (none allowed)"
-    }
-   ],
-   "v264": null
-  },
-  {
-   "size": 18,
    "id": "star",
    "checks": [
     {
@@ -349,6 +292,63 @@
    "v264": {
     "hausdorffPx": 0.4
    }
+  },
+  {
+   "size": 18,
+   "id": "park",
+   "checks": [
+    {
+     "point": "Centring",
+     "ok": true,
+     "detail": "centre 0px off"
+    },
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "8 of 8 core outer edges on the iPhone grid; parts with both sides outside: 4 of 4 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 1.25px"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "1 counters"
+    },
+    {
+     "point": "Rows",
+     "ok": true,
+     "detail": "2 parts and 1 counters measured; declared 2 (gaps on the grid)"
+    },
+    {
+     "point": "Same role, same width",
+     "ok": true,
+     "detail": "counters 7.333; parts between them none"
+    },
+    {
+     "point": "Chamfer under an overhang",
+     "ok": true,
+     "detail": "the slab runs 0.667px past the outer post; the bevel joins them"
+    },
+    {
+     "point": "Rows",
+     "ok": true,
+     "detail": "2 parts measured across the foot; declared 2"
+    },
+    {
+     "point": "Same role, same width",
+     "ok": true,
+     "detail": "parts 1.333, 1.333"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "0 curvature faults (none allowed)"
+    }
+   ],
+   "v264": null
   },
   {
    "size": 24,
@@ -805,7 +805,7 @@
     {
      "point": "Snap priority",
      "ok": true,
-     "detail": "4 of 4 core outer edges on the iPhone grid; parts with both sides outside: 8 of 8 sides landed"
+     "detail": "5 of 5 core outer edges on the iPhone grid; parts with both sides outside: 10 of 10 sides landed"
     },
     {
      "point": "Parts that are not strokes",
@@ -815,7 +815,7 @@
     {
      "point": "The box",
      "ok": true,
-     "detail": "outer edges against v264 landed at this size: left 0, right -0.003, top -0.19, bottom +0.333"
+     "detail": "outer edges against v264 landed at this size: left 0, right -0.003, top -0.098, bottom +0.333"
     },
     {
      "point": "Counters and gaps",
@@ -825,12 +825,12 @@
     {
      "point": "Combs",
      "ok": true,
-     "detail": "2 parts measured; declared 3, the rule gave 2 (the room the box leaves: 3.667px)"
+     "detail": "3 parts measured; declared 3, parts and slots thinned to 0.667px to keep the count"
     },
     {
      "point": "Same role, same width",
      "ok": true,
-     "detail": "parts 1, 1; slots 1"
+     "detail": "parts 0.667, 0.667, 0.667; slots 0.667, 0.667"
     },
     {
      "point": "Protrusions",
@@ -844,7 +844,7 @@
     }
    ],
    "v264": {
-    "hausdorffPx": 0.895
+    "hausdorffPx": 0.684
    }
   },
   {

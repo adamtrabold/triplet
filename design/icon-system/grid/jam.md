@@ -2254,3 +2254,33 @@ NEXT: design director: score round 2, at 18 in the ring first.
 **Changed since my last score:** yes, a real rework. Every one of my fixes 1-6 is in, and the board top is short.
 
 NEXT: icon designer: fixes 1-2, then to him with no new question (the standing open points stay).
+
+---
+
+## Turn 212: icon designer (systems + visual), director turn 211's two fixes (canvas v285)
+
+**1. Combs keep their count, as rows do.** One count-first rule now serves both (`thinning()` in `src/system.js`): the part width,
+then a grid step at a time to the size's thinnest, and only then one part fewer. A comb's parts and slots thin together (one role).
+At 12 the fork keeps three tines: parts and slots 2/3px, 3 1/3px of comb in the 3.667px the box leaves. 18 and 24 are unchanged
+(byte-identical outlines). "Restaurant at 12" is gone from Needs you: the board's list of declared counts a rule could not keep is
+empty. Settings changed: Combs; Thinnest part at 12 (now rows and combs, slots included).
+
+**What the gate found on the way (system fixes, no icon named):**
+- The thinner comb made the fork's head 10 iPhone pixels wide over a 3-pixel handle: an odd part can't sit exactly centred under an
+  even one, so the handle sat 1/6px off and its join failed continuous curvature. New setting (mine, his to change): **a part centred
+  under another takes its parity, one iPhone pixel wider when they differ.** At 12 the fork's handle is 4/3px.
+- A post running into a head now runs in past where the head's curve crosses its sides (it stopped short of a wider post's edge and
+  left a spur). Outlines at 18 and 24 unchanged.
+
+**2. The bench is labelled the system's proof** ("an icon built from a declaration with no new code ... not a Park drawing for
+review"), named Bench, last on the board, and left out of the row (it isn't a member of the set). THE-SYSTEM.md says the same.
+
+**v264 proof re-run, finished:** all seven regenerated from the kernel are byte-identical to the v264 files (max point diff 0 for
+café, coupe, museum, tree, fork and knife, star, +; same at 7dp).
+
+**Gate: `node src/system.js check` passes, 146 checks, exit 0.** Closeness to v264 at 18 unchanged (café 0.32, coupe 0.19, museum
+0.25, tree 0.11, fork and knife 0.72, star 0, + 0.4); fork and knife at 12: 0.68.
+
+**For him:** nothing new. The standing open points stay (outline/solid, novelty, Shopping). Set by me: the parity rule above.
+
+NEXT: orchestrator: to him with no new question.

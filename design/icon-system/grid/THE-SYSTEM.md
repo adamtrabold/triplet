@@ -19,6 +19,7 @@ A change to any icon is a change here first. Open points are still to be set; th
 - **The grid:** One iPhone pixel, 1/3px. The system writes each size for the iPhone directly; there is no refit pass for any device. [10-27]
 - **Snap priority:** Silhouette first: an outer edge goes to a whole px when one is within 1/4px, else the nearest iPhone pixel. Then the outer side of each stroke (its width kept). Inner edges, counters, curves, diagonals, points and rounds stay as drawn. The roots land on the grid before any corner is rounded, so every round and join is built on landed roots; a curved root is never stretched, only scaled evenly. [10-27]
 - **Centring:** A centred part is exactly centred: an even count of iPhone pixels about the icon's centre. Vertical centring is optical, per icon. [10-27]
+- **Centred under a part:** A part centred under another takes its parity, one iPhone pixel wider when they differ, so it stays exactly centred. [10-28] *(set by the designer; yours to change)*
 - **Sharpness:** As sharp as possible: core dimensions and core line landings are never fuzzy. [10-26]
 - **Scale and weight:** Settled once for the set at the grid level: every icon the same optical size and weight; never negotiated icon by icon. [10-20]
 - **The box:** An icon is fitted to its class box (wide, square, tall) by the sides that scale, and never grows past its v264 size: each outer edge at most one iPhone pixel past where v264's lands on the grid. A rule that needs room takes it from the icon's own proportions; the box never gives way. [10-27]
@@ -28,7 +29,7 @@ A change to any icon is a change here first. Open points are still to be set; th
 - **Stroke:** A stroke is 1 1/2px at 18 (2 at 24, 1 at 12). Monoweight: an inner edge follows its outer edge. [10-26]
 - **Stroke at 18 on the grid:** 1 1/2px, its outer side on the grid and its inner side half an iPhone pixel soft (1 1/3 was sharper both sides but read lighter than the set's weight). [10-27] *(set by the designer; yours to change)*
 - **Parts that are not strokes:** Sized by eye to read at the stroke's weight. Posts, columns, stems, trunks and tines: 1 1/3 at 18, 1 2/3 at 24, 1 at 12 (whole iPhone pixels). Never under 1 1/4 at 18. [10-27]
-- **Thinnest part at 12:** A row's parts may thin to 2/3px (two iPhone pixels) at 12 to keep the row's count; nothing else goes under 1px. [10-27] *(set by the designer; yours to change)*
+- **Thinnest part at 12:** A row's or a comb's parts (and a comb's slots, which share their width) may thin to 2/3px (two iPhone pixels) at 12 to keep the count; nothing else goes under 1px. [10-28] *(set by the designer; yours to change)*
 - **Solids are shapes:** A solid part (slab, cap, mass) is a shape, not a line: it reads by its shape, and a thin slab is never thinner at its ends than its middle. [10-26]
 - **Same role, same width:** Parts with the same role share one width. A comb (parts with slots cut between them) is one role: parts and slots one width. [10-27]
 - **The ring:** 1 1/3px at 24 (4 iPhone pixels): whole pixels and a step lighter than the glyph's stroke. [10-27] *(set by the designer; yours to change)*
@@ -44,7 +45,7 @@ A change to any icon is a change here first. Open points are still to be set; th
 - **Counters and gaps:** Aim for whole pixels (1 or 2 at 18), but how it looks wins over the rule. At 12 a counter under 1px closes and the part goes solid. [10-27]
 - **Inner bands:** A gap or band inside a form is no thicker than the stroke, and a fill it contains reads full. [10-27]
 - **Rows:** A row of repeated parts reads as its count of distinct parts. Parts at the part width, gaps equal and at least the counter minimum: on the grid when the row then fits inside its root's span (exactly, under a slab that holds it: the overhang is the chamfer's), else filling the span exactly. If the gaps can't reach the minimum, the parts thin to the size's thinnest; only then one part fewer (never below two). [10-27]
-- **Combs:** A comb takes the room its box leaves: parts and slots at the part width if they fit, else at the narrowest the size allows (never under the counter minimum, since the slots share the width), else one part fewer (never below two). [10-27]
+- **Combs:** A comb keeps its count first, as a row does: across the room its box leaves, parts and slots one width, the part width if they fit, else thinner a grid step at a time to the size's thinnest; only then one part fewer (never below two). [10-28]
 - **Protrusions:** A feature that has to read by sticking out (an edge, a step, a lip) clears a minimum visible protrusion: one whole pixel past what it sticks out from at 18 (1 1/3 at 24, 1 at 12), after the join's round. [10-27]
 - **No narrow passages:** No passage that vanishes at small sizes. [10-19]
 - **Handles:** A handle takes its rule from the root shape it is (a cup's ear is a loop around its counter). [10-26]
@@ -113,9 +114,9 @@ Widths are px at that size, on whole iPhone pixels except the 1½ stroke at 18. 
 - **Museum** (square): roof: a gable over the beam, pitch 1/3, ends 4/5 of a line; rests on the part above, a cut apart: beam: a slab the box's full width; held under the part above (chamfer): columns: a row of 4 posts, 1/3 of the row's span tall; held under the part above (chamfer): plinth: a slab as wide as the beam.
 - **Nature** (tall): tiers: 3 gables stacked, the bottom the box's full width, heights 4.83 : 3 : 3.33, widths 2.8 : 4.1 : 5.3, notched 3/5; into the part above: trunk: a post showing a stroke.
 - **Restaurant** (tall): tines: a comb of 3, 1/4 of the height, into the part above: head: a half ellipse under it, into the part above: handle: a post to the bottom | cut | blade: a blade (a quarter ellipse) past its handle, into the part above: grip: a post to the bottom.
-- **Park** (wide): back: a slab the box's full width; held under the part above (chamfer): rails: a row of 2 posts, 1/6 of the row's span tall; held under the part above (chamfer): seat: a slab as wide as the back; held under the part above (chamfer): legs: a row of 2 posts, 1/4 of the row's span tall.
 - **Star** (outline): star: a star of 5 points (inner radius 0.47), its counter the star moved in.
 - **+** (open): arms: two equal posts crossed.
+- **Bench** (wide; the system's proof: built from a declaration with no new code, not a set member): back: a slab the box's full width; held under the part above (chamfer): rails: a row of 2 posts, 1/6 of the row's span tall; held under the part above (chamfer): seat: a slab as wide as the back; held under the part above (chamfer): legs: a row of 2 posts, 1/4 of the row's span tall.
 
 ## Build and check
 
