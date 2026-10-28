@@ -2172,3 +2172,42 @@ NEXT: design director: score the system and its test; the three curvature failur
 **What keeps blocking a 9:** each of his asks gets met by adding a setting or an exception (a give-way, an icon-named setting, a per-icon branch) instead of changing the engine. The board then claims more than the code does. This round is the first that measured itself honestly; the next must make the claim true.
 
 NEXT: icon designer (systems): fixes 1-6, then 7. Rescored at 18 in the ring first.
+
+
+---
+
+## Turn 210: icon designer (systems + visual, new to the seat), director turn 209's seven fixes (canvas v284)
+
+**A declaration now drives the geometry.** `DECL` in `src/system.js` is data: each icon's roots top to bottom, each a kind, sized as a
+share of a parent, and how it meets the root above (cut, into, held, tangent, notched). One generic maker, `src/system-make.js`, turns it
+into roots by kind (vessel, loop, cap, slab, post, gable, tiers, row, comb, head, blade), lays them out by the relations, and runs the
+pipeline (class fit, optical centring within the box, landing, the corner law with the rack, fairing, mirror). picks7's DRAW functions
+and `restaurantDecl` are no longer called by the system (picks7 stays only as the v264 kernel, untouched, and as the library of root
+curves). No `id ===` anywhere in build, landing, checks, spec or board. Proof: the bench (Park) is a new declaration with no new code
+and passes every check at 18, 24 and 12.
+
+**The fixes, each as a general rule:**
+1. Declarations as data (above). The words on the board and in THE-SYSTEM.md are written from the data.
+2. "Museum at 18" deleted; the count is the declaration's (`row, n: 4`). At 12 the row rule thins a row's parts (to 2/3px) before it
+   loses one, so the museum keeps three counters. The subject line now reads "Museum columns: three counters (four columns)".
+3. The box give-way deleted; one box rule: never more than one iPhone pixel past v264 as the grid lands it. Placement is clamped by the
+   box; a comb takes the room the box leaves.
+4. The rack built: every round is 1/8, 1/4 or 1/2 px (nearest on the doubling scale, stepping down where the edges are short), set at 18
+   and scaled at 24 and 12. Tips keep the tip rule; the tree's trunk is unchanged.
+5. Curvature: the museum's capital is a straight 45 degree chamfer ("a bevel, a chamfer, its edges broken"), half above the post, half
+   into it, its size the rule's overhang landed. The old curve was replaced by the engine's rounds anyway and left a line-end round on
+   the knee limit at every size. Museum: 0 curvature faults at 18, 24 and 12 (v264: 4). Other system fixes the gate found: widths and
+   overhangs land before anything is drawn on them; a row or comb lands as one; a band, a loop and its counter land with their root; a
+   head lands with its comb; a centred root stays centred (the tree's tip at 12); a curved root's straight sides land themselves; a slab
+   held from both faces is chamfered on both.
+6. Checks read the build's record (rows, combs, bands, protrusions, chamfers, class), never a name.
+7. Board: "Needs you" first (his open points, what a rule couldn't keep, what I set), the system in six lines, the row, then each
+   declaration beside its output with v264. 1200 x 2133.
+
+**Gate: `node src/system.js check` passes, 146 checks, exit 0.** Closeness to v264 at 18 (max point distance, px): cafe 0.32, coupe
+0.19, museum 0.25, tree 0.11, fork and knife 0.72 (tines = slots 1 1/3, by design), star 0, + 0.4.
+
+**For him (on the board):** the fork at 12 has room for two tines inside its box (three need 5px of comb, the box leaves 3.7): keep
+two, or let the 12 box grow. Set by me: the 45 degree chamfer; the rack scaling at 24/12; the thinnest part at 12 (2/3).
+
+NEXT: design director: score round 2, at 18 in the ring first.

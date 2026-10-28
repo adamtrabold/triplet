@@ -43,7 +43,7 @@ A change to any icon is a change here first. Open points are still to be set; th
 - **Holes:** A hole is its own proportional root shape that also makes the solid around it right, never a stroke offset. [10-26]
 - **Counters and gaps:** Aim for whole pixels (1 or 2 at 18), but how it looks wins over the rule. At 12 a counter under 1px closes and the part goes solid. [10-27]
 - **Inner bands:** A gap or band inside a form is no thicker than the stroke, and a fill it contains reads full. [10-27]
-- **Rows:** A row of repeated parts reads as its count of distinct parts. Parts at the part width, gaps equal and at least the counter minimum: on the grid when the row then fits inside its root's span, else filling the span exactly. If the gaps can't reach the minimum, the parts thin to the size's thinnest; only then one part fewer (never below two). [10-27]
+- **Rows:** A row of repeated parts reads as its count of distinct parts. Parts at the part width, gaps equal and at least the counter minimum: on the grid when the row then fits inside its root's span (exactly, under a slab that holds it: the overhang is the chamfer's), else filling the span exactly. If the gaps can't reach the minimum, the parts thin to the size's thinnest; only then one part fewer (never below two). [10-27]
 - **Combs:** A comb takes the room its box leaves: parts and slots at the part width if they fit, else at the narrowest the size allows (never under the counter minimum, since the slots share the width), else one part fewer (never below two). [10-27]
 - **Protrusions:** A feature that has to read by sticking out (an edge, a step, a lip) clears a minimum visible protrusion: one whole pixel past what it sticks out from at 18 (1 1/3 at 24, 1 at 12), after the join's round. [10-27]
 - **No narrow passages:** No passage that vanishes at small sizes. [10-19]
@@ -55,6 +55,8 @@ A change to any icon is a change here first. Open points are still to be set; th
 - **Machined:** Every round and join is what a cutting tool would leave, by how the part would really be machined smooth. [10-26]
 - **The cutter rack:** Three cutters, 1/8, 1/4 and 1/2px. Every round is the one nearest what the corner asks: a post into a face the 1/2; a mass's corners the 1/2; a slab's or post's own corners the 1/4; tight inner corners and every cut the 1/8. A cutter too big for the corner's edges steps down. [10-26]
 - **Chamfer under an overhang:** A post under a slab that runs past it meets it with a bevel (a chamfer, its edges broken); the bevel holds at every size: the slab runs a third of a line past the post and its face drops a third of a line, at every size, on the landed roots. [10-26]
+- **Chamfer angle:** 45 degrees: the cut rises as far as it runs, half above the post and half into it (a steeper cut turns under 30 degrees at its edges and reads as a knee). At 18 the third of a line lands at 2/3px. [10-28] *(set by the designer; yours to change)*
+- **The rack at 24 and 12:** The cutters are set at 18 and scale with the drawing at 24 and 12, so every size is the same icon. [10-28] *(set by the designer; yours to change)*
 - **Fillet into a face:** A post into a face (curved or flat) meets it with a fillet: a flare, never an ink trap. [10-26]
 - **Tips:** A point sharper than 75 degrees is broken, not milled; its round scales with its edge. [10-21]
 - **Every meeting rounded:** Every meeting point is at least slightly round, some more; the radius varies with how the angle meets. One join pattern per corner type across all icons. [10-22]

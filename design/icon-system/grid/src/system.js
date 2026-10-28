@@ -64,6 +64,8 @@ const SETTINGS = [
     ['Machined', 'Every round and join is what a cutting tool would leave, by how the part would really be machined smooth.', '10-26'],
     ['The cutter rack', 'Three cutters, 1/8, 1/4 and 1/2px. Every round is the one nearest what the corner asks: a post into a face the 1/2; a mass\'s corners the 1/2; a slab\'s or post\'s own corners the 1/4; tight inner corners and every cut the 1/8. A cutter too big for the corner\'s edges steps down.', '10-26'],
     ['Chamfer under an overhang', 'A post under a slab that runs past it meets it with a bevel (a chamfer, its edges broken); the bevel holds at every size: the slab runs a third of a line past the post and its face drops a third of a line, at every size, on the landed roots.', '10-26'],
+    ['Chamfer angle', '45 degrees: the cut rises as far as it runs, half above the post and half into it (a steeper cut turns under 30 degrees at its edges and reads as a knee). At 18 the third of a line lands at 2/3px.', '10-28', 'designer'],
+    ['The rack at 24 and 12', 'The cutters are set at 18 and scale with the drawing at 24 and 12, so every size is the same icon.', '10-28', 'designer'],
     ['Fillet into a face', 'A post into a face (curved or flat) meets it with a fillet: a flare, never an ink trap.', '10-26'],
     ['Tips', 'A point sharper than 75 degrees is broken, not milled; its round scales with its edge.', '10-21'],
     ['Every meeting rounded', 'Every meeting point is at least slightly round, some more; the radius varies with how the angle meets. One join pattern per corner type across all icons.', '10-22'],

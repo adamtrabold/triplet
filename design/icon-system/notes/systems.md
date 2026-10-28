@@ -1,5 +1,29 @@
 # Systems designer notes: icon system
 
+## THE SYSTEM, round 2 (2026-10-28, jam turn 210, canvas v284; director turn 209 scored v283 a 6)
+
+- **Where:** `grid/src/system.js` (SETTINGS, SIZES, the rules `row`/`comb`, DECL as data, `words()`, `v264Box()`, the build),
+  `grid/src/system-make.js` (the maker: KINDS, the rack, `chamfered()`, `layout()`, `make()`, `mark()`, `asOne()` landing groups),
+  `system-land.js` (landPrims; now: a centred root stays centred; a curved root's straight sides land by the snap priority),
+  `system-check.js` (reads meta: rows, combs, bands, protrusions, chamfers; box against v264 as landed), `system-board.js`,
+  `system-spec.js`. Build one process per icon per size (`node src/system.js build <size> <id>`, 2-6 min each, run 4 in parallel; needs
+  TOOLS=<dir with node_modules/paper>). Scratch scripts in the session scratchpad `r2/` (buildall.sh, batch2.sh, faults.js, look.js,
+  stills.js, canvas-pub.py).
+- **How a declaration drives geometry (museum):** `roof: gable of beam, pitch 1/3, ends 4/5` | cut | `beam: slab, w 1` | held |
+  `columns: row n 4, h 1/3` | held | `plinth: slab of beam`. The maker lands the beam's width and the 1/3-line overhang (18: 2/3px),
+  runs the row rule across the span left (posts 4/3, gaps filling it: 1.11px), draws both slabs with the 45 degree chamfer.
+- **Decisions and why:** chamfer straight at 45 degrees (the v264 curve was eaten by the engine's rounds and left a line-end round right
+  at the KNEE limit; a 63 degree cut turns under 30 degrees and fails KINK); chamfer size = the rule's overhang, never the row's slack;
+  rows under a held slab fill their span exactly; the rack scales with the drawing at 24/12 (in px it exposed short off-grid straights at
+  24); box = v264 landed at the size, ties outward (v264's edges were never on the grid; this gives the fork tines = slots at 4/3); the
+  class fit uses only the sides that scale (the fork's width is all fixed widths); the fit's last test uses the full law (the fast build's
+  knife tip poked up 0.25 and shrank the fork); widths land on the final drawing only (landing inside the fit stepped the museum down).
+- **Open (his):** fork at 12, two tines or a bigger 12 box; outline/solid; novelty; Shopping. Mine to change: 45 degree chamfer, rack
+  scaling, thinnest part at 12, plus the earlier ones (stroke 1 1/2 at 18, ring, star, +, rule order).
+- **Known:** the bench is a proof icon, not a design proposal. The cafe at 12 closes its ear's counter (under 1px, by rule), as v283.
+  `system-v264.js` was not re-run: the kernel files are untouched since 0b4d345e.
+- **Next:** the director's score; then him.
+
 ## THE SYSTEM (2026-10-27, jam turn 208; icon designer carrying systems + visual)
 
 - **Where:** `grid/src/system.js` is the system: SETTINGS (every decision point: name, setting, date; open ones with choices; `designer`

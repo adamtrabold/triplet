@@ -1,5 +1,15 @@
 # Visual designer notes: icon system
 
+## THE SYSTEM, round 2 (2026-10-28, jam turn 210, canvas v284)
+
+- By eye at 18 in the ring: cafe, coupe, tree are v264. The museum is v264's temple with four columns, three even counters and a crisp 45
+  degree chamfer at each capital that reads as a machined bevel, not a step; the same at 24; at 12 the columns thin to 2/3px and the
+  three counters hold (a colonnade, not a bank). Fork: tines = slots 1 1/3, the edge stands 1px; it sits a touch lower (optical centring,
+  clamped by the box). The bench reads as a bench seen from the front; a proof, not a proposal.
+- Board: "Needs you" at the top (two boxes), six rule lines, the row, then each declaration (monospace, written from the data) with v264,
+  18, 24, 12 and 3x. Stills: scratchpad `system-r2-1.png` (top, 2x) and `system-r2-2.png` (icons, 3x).
+- Open: his read on the 45 degree chamfer and the fork at 12.
+
 ## Stopped: system first (2026-10-27, after v282; WIP, nothing published)
 
 - Owner: "create the SYSTEM to derive the icons. THEN create the icons." This batch (fork tines = gaps, coupe interior back, museum
