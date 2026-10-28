@@ -1736,3 +1736,16 @@ The verdict stands within our own set:
   1. The comb keeps its count like a row (fork 3 tines at 12, ⅔px parts and slots); delete "Restaurant at 12" from his list. It is a single-icon question and a contradiction in the system.
   2. Label the bench as the system's proof, not a Park drawing.
 - **Next round, not blocking:** the tiers / head / blade kinds and the tree's raw numbers, into fractions.
+
+## Round: THE SYSTEM 3 (canvas v285, 9aeddda0), 2026-10-28: 9, to him, no new question
+
+- **Both fixes are in:**
+  - combs keep their count, so the fork has 3 tines at 12;
+  - "Restaurant at 12" is off his list;
+  - the bench is labelled the proof.
+- **The parity rule** (a part centred under another takes its parity) is general and right: exact centring. The fork's handle is 4/3px at 12.
+- **Watch if he rejects it:**
+  - the fork head against v264;
+  - the bench;
+  - the 1½ stroke's soft inner side on the 5K.
+- **Jam turn 213.**
