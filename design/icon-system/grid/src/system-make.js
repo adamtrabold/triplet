@@ -354,15 +354,17 @@ function asOne(before, after, Z) {
   });
   // A COMB'S SLOTS cut on past its tines into the root it runs into (a head), between the tines as they landed. A cut into a curved
   // root follows the curve, moved in by the wall, and the wall is the tine's own width, so the outer tine runs on round the head as
-  // one even band. It follows the curve while the curve is a side, until it has turned half a right angle (the chamfer's 45
-  // degrees); there it is a floor, and a floor runs flat, on the nearest iPhone pixel line, never leaving less than a line under it.
+  // one even band. A cut stops where the part starts to turn (its curve moved in has turned 22.5 degrees, half the chamfer's 45);
+  // there it is a floor, and a floor runs flat, on the nearest iPhone pixel line, never leaving less than a line under it.
   // The curve is the round moved in (one arc, so the engine eases it in from the straight side with no step in curvature).
   const tn = before.map((q, i) => q.slotDeep ? i : -1).filter(i => i >= 0), hi = before.findIndex(q => q.withGroup === 'comb' && q.root === 'ELLIPSE');
   if (tn.length > 1 && hi >= 0) {
     const T = tn.map(i => bb(out[i].d)).sort((a, b) => a.x - b.x), cm = before[tn[0]].slotMeta, g = (1 / 3) / Z.k, line = Z.stroke / Z.k;
     const H = bb(out[hi].d), cx = H.x + H.width / 2, cy = H.y + 0.3, rx = H.width / 2, ry = H.y + H.height - cy, wall = T[0].width;
     const yb = Math.max(...T.map(b => b.y + b.height)), bot = H.y + H.height, ri = rx - wall;
-    const capY = Math.min(Math.round((cy + ri * Math.SQRT1_2) / g) * g, Math.floor((bot - line) / g + 1e-6) * g);
+    // the cut stops where the part starts to turn: its curve moved in has turned a quarter of a right angle (22.5 degrees, half
+    // the chamfer's); it never runs down into the turn, so the part keeps its mass
+    const capY = Math.min(Math.round((cy + ri * Math.sin(Math.PI / 8)) / g) * g, Math.floor((bot - line) / g + 1e-6) * g);
     const inner = new paper.Path.Circle({ center: [cx, cy], radius: ri, insert: false });
     let deepest = yb;
     for (let j = 0; j + 1 < T.length; j++) {
@@ -372,7 +374,7 @@ function asOne(before, after, Z) {
       // the curve moved in must be rounder than a line to be followed; tighter, it kinks (curvature first): the cut stays square
       const room = ri * Z.k > Z.stroke + 1e-6 ? inner.unite(above, { insert: false }) : box.clone({ insert: false }), cutP = box.intersect(room, { insert: false });
       deepest = Math.max(deepest, cutP.bounds.y + cutP.bounds.height);
-      out.push({ t: 'D', d: cutP.pathData, cut: true, root: 'SLOT', how: 'the comb\'s slot, following its root\'s curve to 45 degrees, then flat' });
+      out.push({ t: 'D', d: cutP.pathData, cut: true, root: 'SLOT', how: 'the comb\'s slot, following its root\'s curve until the root starts to turn (22.5 degrees), then flat' });
       [box, above, room, cutP].forEach(q => q.remove());
     }
     inner.remove();
