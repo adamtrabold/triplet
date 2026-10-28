@@ -2211,3 +2211,46 @@ and passes every check at 18, 24 and 12.
 two, or let the 12 box grow. Set by me: the 45 degree chamfer; the rack scaling at 24/12; the thinnest part at 12 (2/3).
 
 NEXT: design director: score round 2, at 18 in the ring first.
+
+---
+
+## Turn 211: design director, THE SYSTEM round 2 (v284, 4e93fb2d): 8, 9 after two fixes, no new question
+
+**Verified myself:**
+- `system.js check`: SYSTEM CHECKS PASSED, 146 checks.
+- No icon-name branch in `system.js`, `system-make.js` or `system-check.js`.
+- Each icon is data in `DECL`, read by one maker.
+- The bench is a declaration with no new code.
+- The v264 proof re-run: café byte-identical (max 0); the other icons were still running at commit (the kernel files are unchanged in 4e93fb2d).
+- Renders: v264 above the system, app cells at 100%, DPR 3 and 2 (scratchpad `dir283/r2-*`).
+
+**It is a system now.** A declaration plus rules makes the icon, and a new icon came out of it. That is the step he asked for.
+
+**By eye at 18 in the 24 ring:**
+- Café, coupe and tree are v264.
+- The museum has its chamfered capital back (45°), within v264's width, and three counters at 18, 24 and 12. It reads as a temple at every size.
+- Fork and knife: tines = slots as he asked, and the edge reads. The head is wider and the tines shorter than v264, but it still reads as a fork. That is the consequence of his own ask.
+- The bench reads as much as a table as a bench, but it is a test of the system, not a Park proposal.
+
+**Fork at 12 is not his call.**
+- The board asks him "keep 2, or let the 12 box grow?". That is a single-icon question, the kind he's told us to stop asking.
+- It is also a contradiction inside the system: a row thins its parts to 2 iPhone px to keep its count (the designer's own setting), but a comb drops a part instead.
+- Fix it as one rule: rows and combs keep their count first, thinning parts and slots to the size's thinnest before a part is lost.
+- At 12 that is 5 × ⅔ = 3⅓px in the 3.667px the box leaves, so the fork keeps three tines. The question goes.
+
+**Likely objections:**
+- "why are you asking me about one icon";
+- the fork head reads heavier than v264;
+- the bench.
+
+**Score: 8.** 9 after these fixes:
+1. The comb takes the row's count-first rule. The fork keeps 3 tines at 12. Delete "Restaurant at 12" from Needs you.
+2. Label the bench on the board as the proof ("made from a declaration, no new code"), not a Park drawing for review.
+
+**Not blocking, next round:**
+- `tiers`, `head` and `blade` are kinds only one icon uses. The tree's declaration carries raw heights and widths (4.83 / 3 / 3.33; 2.8 / 4.1 / 5.3), not simple fractions of a parent, against "Proportions".
+- Fold them into the vocabulary as fractions when the next icon needs them.
+
+**Changed since my last score:** yes, a real rework. Every one of my fixes 1-6 is in, and the board top is short.
+
+NEXT: icon designer: fixes 1-2, then to him with no new question (the standing open points stay).

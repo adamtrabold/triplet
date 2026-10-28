@@ -1722,3 +1722,17 @@ The verdict stands within our own set:
   - The museum's bevel became a step (3 curvature failures). Published past the gate.
   - The 12 museum has two counters.
 - **Fixes:** 7, in jam turn 209.
+
+## Round: THE SYSTEM 2 (canvas v284, 4e93fb2d), 2026-10-28: 8, 9 after two fixes, no new question
+
+- **True:**
+  - the gate passes (146, re-run);
+  - every icon is data read by one maker, with no icon-name branches;
+  - the bench comes from a declaration alone;
+  - the museum's chamfer is back, with 3 counters at every size, inside v264's width;
+  - café, coupe and tree are v264 by eye at 18 (3x and 2x);
+  - the board top is short.
+- **Fixes:**
+  1. The comb keeps its count like a row (fork 3 tines at 12, ⅔px parts and slots); delete "Restaurant at 12" from his list. It is a single-icon question and a contradiction in the system.
+  2. Label the bench as the system's proof, not a Park drawing.
+- **Next round, not blocking:** the tiers / head / blade kinds and the tree's raw numbers, into fractions.

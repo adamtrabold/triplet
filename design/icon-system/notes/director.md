@@ -926,3 +926,29 @@ The fix is in, and the museum's mirror is fixed at every size. I verified the de
 **What keeps blocking a 9:** asks get met with settings and exceptions, not engine changes, and the board's claims run ahead of the code.
 
 **Next:** generic declarations (data), the rack in, the box held, the curvature fixed so the bevel returns. Rescore by eye at 18 in the ring first, then 24 and 12. Prove it with a new icon from a declaration alone.
+
+## THE SYSTEM 2 (v284, 4e93fb2d, 2026-10-28): 8, 9 after two fixes
+
+**What changed:** the system is now real. `DECL` is data, one maker (`system-make.js`) reads it, nothing branches on icon names, and the bench came from a declaration alone. The gate passes (146, my re-run).
+
+**By eye:**
+- The museum's chamfer is back, with 3 counters at 18, 24 and 12.
+- Café, coupe and tree match v264.
+- The fork's head is wider and its tines shorter, but it reads.
+
+**Blocks:**
+- "Restaurant at 12" is put to him as a decision. It is really a comb/row inconsistency: rows thin to keep their count, combs drop a part. That is a team rule; fix it so the fork keeps 3 tines.
+- The bench needs labelling as the proof.
+
+**Watch:**
+- the fork head against v264;
+- the tree's raw numbers and the one-icon kinds (tiers, head, blade), against "Proportions".
+
+**If he rejects the next 9, look at:**
+- the fork;
+- the bench being read as a proposal;
+- whether the 18 stroke's soft inner side reads blurry on his 5K.
+
+**Calibration held:**
+- Read the code before believing "the system makes it".
+- A "yours to decide" that names one icon is usually a rule the team hasn't made general.
