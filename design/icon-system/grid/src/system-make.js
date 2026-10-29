@@ -171,6 +171,7 @@ function layout(decl, s, Z, S, room, gdx = null) {
     if (r.kind === 'post') {
       // a post: into the face above by a stroke and into the root below by half its stroke (a fillet each end), showing what its
       // declaration says (a share of a root's depth, or a stroke under the root above), or to the box's bottom
+      // (a post showing a share of its root, or a stroke, is never longer than what it holds: What carries the read leaves it)
       const show = r.show === 'stroke' ? t.stroke : r.show != null ? r.show * placed[r.showOf].depth * u : null;
       const end = show == null ? H * u : topF + show, botF = next ? end + t.stroke / 2 : end;
       R = KINDS.post(r, { cx, topF: topF - (prev ? t.stroke : 0), botF }, t, u); R.box.bot = end / u;
@@ -216,7 +217,15 @@ function layout(decl, s, Z, S, room, gdx = null) {
       const wc = fixed[ci]; let yy = topF;
       sp.forEach((r, j) => {
         if (r.kind === 'comb') {   // the tines, one width with the slots between them
-          const hc = topF + r.h * H * u;
+          // a plain part under it (a post to the bottom) gives up the size's read share of its length to the comb
+          let hc = topF + r.h * H * u;
+          const hd = sp[j + 1] && sp[j + 1].kind === 'head', rxh = wc / 2, ryh = hd ? Math.max(1.05 * rxh, Math.sqrt(rxh / FAIR_K)) : 0;
+          if (sp.slice(j + 1).some(q => q.kind === 'post' && q.show == null)) {
+            const plain = botF - hc - ryh, held = hc - topF + ryh, need = plain > held + 1e-6;
+            const give = process.env.READ12 != null ? Z.read * plain : need ? (plain - held) / 2 : 0;
+            meta.read = (meta.read || []).concat({ id: r.id, plain: +(plain * k).toFixed(3), held: +(held * k).toFixed(3), need, took: +(give * k).toFixed(3) });
+            hc += give;
+          }
           for (let q = 0; q < C.n; q++) prims.push(E.R(x + q * 2 * C.w, topF, C.w, hc - 0.1 - topF, { root: 'POST', role: 'comb', group: 'comb' }));
           yy = hc;
         } else if (r.kind === 'head') {

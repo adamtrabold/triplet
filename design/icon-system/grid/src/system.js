@@ -105,8 +105,11 @@ const SETTINGS = [
 const SIZES = {
   18: { k: 1, frame: 24, stroke: 1.5, part: 4 / 3, min: 1.25, gap: 1, band: 1, counter: 1, protrude: 1, close: false },
   24: { k: 4 / 3, frame: 32, stroke: 2, part: 5 / 3, min: 5 / 3, gap: 4 / 3, band: 4 / 3, counter: 4 / 3, protrude: 4 / 3, close: false },
-  12: { k: 2 / 3, frame: 16, stroke: 1, part: 1, min: 2 / 3, gap: 1, band: 1, counter: 1, protrude: 1, close: true },
+  12: { k: 2 / 3, frame: 16, stroke: 1, part: 1, min: 2 / 3, gap: 1, band: 1, counter: 1, protrude: 1, close: true, read: 1 / 3 },
 };
+// read: the share of its length a plain part gives up to the identifying parts it holds at that size (What carries the read)
+if (process.env.READ12 != null) SIZES[12].read = +process.env.READ12;
+if (process.env.READ24 != null) SIZES[24].read = +process.env.READ24;
 const IPX = 1 / 3;
 const RING = { 18: 4 / 3, 24: 5 / 3 };   // the ring's width in px: the 24 ring (around the 18) and the 32 ring (around the 24)
 // a line mark is one drawing, landed in its own app box (the class sets it): the star in the row's 18px box, the + at 14px across
