@@ -2,7 +2,18 @@
 
 Branch: `claude/city-place-creation-workflow-vcblfw`. Nothing built; `index.html` untouched.
 
-## v8: the reveal from random draws (2026-10-28, latest) -- READ THIS FIRST
+## v9: a swipe flips the row (2026-10-29, latest) -- READ THIS FIRST
+
+Owner: "The departure board is interesting. What if all that was triggered by a swipe or
+something". Spec `concepts/v9-swipe-to-flip.md`: R swipe the dropdown row left (pick; the row is the
+board, any zoom, the signpost turns too when visible), S flick the signpost (drawn), T swipe the list
+title (not drawn). Stills `stills/v9/1..2` (`stills/v9/stills.js`); motion prototype
+`proto/swipe-flap.html`. Caption check: R1's mid-flap drawing didn't read and the trail sat under the
+menu; R1 now shows the swipe itself (pressed row, finger, dashed path).
+Open: (1) left or right swipe for R (left = visit on list rows); (2) the 48px threshold and flap
+timing, to be felt on a phone; (3) should the signpost turn too, or only the row?
+
+## v8: the reveal from random draws (2026-10-28) -- history
 
 Owner on v7: "Neither of these is good… use some of the randomness principles to drive more
 exploration". `concepts/v8-draws.md` records all 16 draws (4 runs of the script) and what each made
