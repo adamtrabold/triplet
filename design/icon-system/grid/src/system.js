@@ -32,7 +32,8 @@ const SETTINGS = [
     ['Snap priority', 'Silhouette first: an outer edge goes to a whole px when one is within 1/4px, else the nearest iPhone pixel. Then the outer side of each stroke (its width kept). Inner edges, counters, curves, diagonals, points and rounds stay as drawn. The roots land on the grid before any corner is rounded, so every round and join is built on landed roots; a curved root is never stretched, only scaled evenly.', '10-27'],
     ['Centring', 'A centred part is exactly centred: an even count of iPhone pixels about the icon\'s centre. Vertical centring is optical, per icon.', '10-27'],
     ['Centred under a part', 'A part centred under another takes its parity, one iPhone pixel wider when they differ, so it stays exactly centred.', '10-28', 'designer'],
-    ['Sharpness', 'As sharp as possible: core dimensions and core line landings are never fuzzy.', '10-26'],
+    ['What carries the read', 'A size keeps the 18\'s proportions; they change only where that is needed for the icon to read. The test: a plain part (a post to the bottom: a handle, a grip) against the parts it holds, which carry the read (tines and their head; a blade beside them follows). Where a size\'s fixed widths have made the plain part longer, against what it holds, than at 18 by more than an eighth, it gives height back to them until the 18\'s proportion returns; otherwise nothing changes. A post that shows a share of its root, or a stroke, keeps its proportion already.', '10-29', 'designer'],
+    ['Sharpness','As sharp as possible: core dimensions and core line landings are never fuzzy.', '10-26'],
     ['Scale and weight', 'Settled once for the set at the grid level: every icon the same optical size and weight; never negotiated icon by icon.', '10-20'],
     ['The box', 'An icon is fitted to its class box (wide, square, tall) by the sides that scale, and never grows past its v264 size: each outer edge at most one iPhone pixel past where v264\'s lands on the grid. A rule that needs room takes it from the icon\'s own proportions; the box never gives way.', '10-27'],
   ] },
@@ -105,11 +106,11 @@ const SETTINGS = [
 const SIZES = {
   18: { k: 1, frame: 24, stroke: 1.5, part: 4 / 3, min: 1.25, gap: 1, band: 1, counter: 1, protrude: 1, close: false },
   24: { k: 4 / 3, frame: 32, stroke: 2, part: 5 / 3, min: 5 / 3, gap: 4 / 3, band: 4 / 3, counter: 4 / 3, protrude: 4 / 3, close: false },
-  12: { k: 2 / 3, frame: 16, stroke: 1, part: 1, min: 2 / 3, gap: 1, band: 1, counter: 1, protrude: 1, close: true, read: 1 / 3 },
+  12: { k: 2 / 3, frame: 16, stroke: 1, part: 1, min: 2 / 3, gap: 1, band: 1, counter: 1, protrude: 1, close: true },
 };
-// read: the share of its length a plain part gives up to the identifying parts it holds at that size (What carries the read)
-if (process.env.READ12 != null) SIZES[12].read = +process.env.READ12;
-if (process.env.READ24 != null) SIZES[24].read = +process.env.READ24;
+// WHAT CARRIES THE READ: a size keeps the master's proportion of a plain part (a post to the bottom: a handle, a grip) to what it
+// holds; only when the size has drifted it more than READ_DRIFT toward the plain part does the plain part give height back
+const READ_DRIFT = 1 / 8;
 const IPX = 1 / 3;
 const RING = { 18: 4 / 3, 24: 5 / 3 };   // the ring's width in px: the 24 ring (around the 18) and the 32 ring (around the 24)
 // a line mark is one drawing, landed in its own app box (the class sets it): the star in the row's 18px box, the + at 14px across
@@ -240,7 +241,10 @@ function build(size, ids) {
       const R = Mk.mark(decl, { land: line }), L = OS.land(R.d, { size: line.frame, sym: R.sym, std: line.std });
       d = L.d; sym = R.sym; meta = { ...R.meta, frame: line.frame, landing: 'outline' }; var drawn = R.d;
     } else {
-      const R = Mk.make(decl, Z, module.exports, { v264: v264Box(id, size), land: (prims, s_) => SL.landPrims(prims, s_, { size: Z.frame, std: { stroke: null, counter: 0 } }) });
+      // the master's proportions (the 18 as built), for What carries the read
+      const mf = path.join(OUT, '18', `${id}.json`), master = size !== 18 && fs.existsSync(mf) ? JSON.parse(fs.readFileSync(mf, 'utf8')).meta.read || null : null;
+      if (size !== 18 && !fs.existsSync(mf)) console.error(`${id}: build the 18 first (the master's proportions)`);
+      const R = Mk.make(decl, { ...Z, master, drift: READ_DRIFT }, module.exports, { v264: v264Box(id, size), land: (prims, s_) => SL.landPrims(prims, s_, { size: Z.frame, std: { stroke: null, counter: 0 } }) });
       d = R.d; sym = R.sym; meta = { ...R.meta, landing: 'roots' }; drawn = R.d;
       if (Z.close) { const c = SL.closeSmall(d, Z.counter / Z.k); d = c.d; meta.closed = c.closed; meta.landing = 'roots; small counters closed'; }
     }

@@ -217,13 +217,15 @@ function layout(decl, s, Z, S, room, gdx = null) {
       const wc = fixed[ci]; let yy = topF;
       sp.forEach((r, j) => {
         if (r.kind === 'comb') {   // the tines, one width with the slots between them
-          // a plain part under it (a post to the bottom) gives up the size's read share of its length to the comb
+          // WHAT CARRIES THE READ: a plain part under it (a post to the bottom) keeps the master's proportion to what it holds; where
+          // this size has drifted it past the master's by more than the drift, the plain part gives height back until they match
           let hc = topF + r.h * H * u;
           const hd = sp[j + 1] && sp[j + 1].kind === 'head', rxh = wc / 2, ryh = hd ? Math.max(1.05 * rxh, Math.sqrt(rxh / FAIR_K)) : 0;
           if (sp.slice(j + 1).some(q => q.kind === 'post' && q.show == null)) {
-            const plain = botF - hc - ryh, held = hc - topF + ryh, need = plain > held + 1e-6;
-            const give = process.env.READ12 != null ? Z.read * plain : need ? (plain - held) / 2 : 0;
-            meta.read = (meta.read || []).concat({ id: r.id, plain: +(plain * k).toFixed(3), held: +(held * k).toFixed(3), need, took: +(give * k).toFixed(3) });
+            const plain = botF - hc - ryh, held = hc - topF + ryh, ratio = plain / held, M = (Z.master || []).find(q => q.id === r.id);
+            const want = M ? M.ratio : null, need = want != null && ratio > want * (1 + (Z.drift || 0)) + 1e-9;
+            const give = need ? plain - (plain + held) * want / (1 + want) : 0;
+            meta.read = (meta.read || []).concat({ id: r.id, ratio: +ratio.toFixed(3), master: want, need, took: +(give * k).toFixed(3), now: +((plain - give) / (held + give)).toFixed(3) });
             hc += give;
           }
           for (let q = 0; q < C.n; q++) prims.push(E.R(x + q * 2 * C.w, topF, C.w, hc - 0.1 - topF, { root: 'POST', role: 'comb', group: 'comb' }));

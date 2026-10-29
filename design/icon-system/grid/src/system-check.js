@@ -73,6 +73,8 @@ function checkOne(size, id, B) {
     add('Combs', tw.length === cb.n, `${tw.length} parts measured; declared ${cb.declared}${cb.n !== cb.declared ? `, the rule gave ${cb.n} (the room the box leaves: ${cb.room}px)` : ''}${cb.thinned ? `, parts and slots thinned to ${cb.w}px to keep the count` : ''}`);
     add('Same role, same width', [...tw, ...sw].length >= 3 && sameW([...tw, ...sw]), `parts ${tw.join(', ')}; slots ${sw.join(', ')}`);
   }
+  // WHAT CARRIES THE READ: a plain part keeps the master's proportion to what it holds (within the drift)
+  for (const rd of M.read || []) if (rd.master != null) add('What carries the read', rd.now <= rd.master * (1 + 1 / 8) + 0.005, `plain part to what it holds ${rd.ratio}${rd.need ? `, drifted past the 18's ${rd.master}: it gave back ${rd.took}px, now ${rd.now}` : ` (the 18's ${rd.master}): proportions kept`}`);
   // COMB DEPTH: what is left under the slots is one line
   for (const cb of M.combs || []) if (cb.bridge != null) add('Comb depth', cb.bridge >= Z.stroke - 1 / 6 - 0.02 && (!cb.follows || Math.abs(cb.wall - cb.w) < 0.02), `slots ${cb.slotDepth}px deep at most (${cb.past}px into the root), ${cb.follows ? `following its curve with a ${cb.wall}px wall` : `square: its curve moved in (${cb.curvePx}px) no rounder than a line`}; left under the deepest: ${cb.bridge}px (at least the line, ${Z.stroke}px)`);
   // POINTS: every apex's crest reads a fifth of the line on screen

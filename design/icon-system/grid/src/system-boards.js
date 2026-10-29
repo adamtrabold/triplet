@@ -131,6 +131,7 @@ const GROUPS = [
   ['Purpose', ['One set, one system', 'What it covers', 'Rules, not drawings', 'Flexible, not specific', 'How it looks wins', 'The grid is the brand']],
   ['Size and grid', ['Master size', 'Where each size ships', 'The grid', 'Scale and weight', 'The box']],
   ['Snapping', ['Snap priority', 'Centring', 'Centred under a part', 'Sharpness']],
+  ['Size variants', ['What carries the read']],
   ['Weight', ['Stroke', 'Stroke at 18 on the grid', 'Parts that are not strokes', 'Thinnest part at 12', 'Solids are shapes', 'Same role, same width', 'The ring']],
   ['Construction', ['Roots', 'Proportions', 'Aligned roots', 'Brand in the roots', 'Few points', 'Holes', 'Handles', 'Protrusions', 'No narrow passages', 'When rules meet']],
   ['Tooling', ['Machined', 'The cutter rack', 'The rack at 24 and 12', 'Chamfer under an overhang', 'Chamfer angle', 'Fillet into a face', 'Points', 'Every meeting rounded', 'Inner corners']],

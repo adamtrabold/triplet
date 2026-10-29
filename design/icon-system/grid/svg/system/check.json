@@ -576,6 +576,11 @@
      "detail": "parts 1.667, 1.667, 1.667; slots 1.667, 1.667"
     },
     {
+     "point": "What carries the read",
+     "ok": true,
+     "detail": "plain part to what it holds 0.824 (the 18's 0.76): proportions kept"
+    },
+    {
      "point": "Comb depth",
      "ok": true,
      "detail": "slots 4.333px deep at most (0.933px into the root), following its curve with a 1.667px wall; left under the deepest: 3.441px (at least the line, 2px)"
@@ -845,7 +850,7 @@
     {
      "point": "The box",
      "ok": true,
-     "detail": "outer edges against v264 landed at this size: left 0, right -0.003, top -0.098, bottom +0.333"
+     "detail": "outer edges against v264 landed at this size: left 0, right -0.003, top 0, bottom +0.333"
     },
     {
      "point": "Counters and gaps",
@@ -863,9 +868,14 @@
      "detail": "parts 0.667, 0.667, 0.667; slots 0.667, 0.667"
     },
     {
+     "point": "What carries the read",
+     "ok": true,
+     "detail": "plain part to what it holds 0.999, drifted past the 18's 0.76: it gave back 0.498px, now 0.76"
+    },
+    {
      "point": "Comb depth",
      "ok": true,
-     "detail": "slots 2px deep at most (0.467px into the root), square: its curve moved in (1px) no rounder than a line; left under the deepest: 1.165px (at least the line, 1px)"
+     "detail": "slots 3px deep at most (0.467px into the root), square: its curve moved in (1px) no rounder than a line; left under the deepest: 1.165px (at least the line, 1px)"
     },
     {
      "point": "Protrusions",
@@ -879,7 +889,7 @@
     }
    ],
    "v264": {
-    "hausdorffPx": 0.709
+    "hausdorffPx": 1.239
    }
   },
   {

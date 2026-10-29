@@ -2457,3 +2457,29 @@ NEXT: orchestrator: to him (stills r6-1, r6-2).
 **Likely objection:** none likely.
 
 **Score: 9.** No new question.
+
+---
+
+## Turn 217: icon designer (systems + visual), his note on the 12 (canvas v291)
+
+His words: "I feel like at 12px the fork tines and knife blade could be longer" · "Eg not as much of a handle" · "It isn't a
+requirement at that size but it is an option" · "Only change the proportions if necessary".
+
+**What carries the read (new decision point, 10-29).** A size keeps the 18's proportions. The test for "necessary": a plain part
+(a post to the bottom: a handle, a grip) measured against the parts it holds, which carry the read (tines and their head; a blade
+beside them follows the head). Where a size's fixed widths have made the plain part longer, against what it holds, than at 18 by
+more than an eighth, it gives height back until the 18's proportion returns. Otherwise nothing changes. A post that shows a share of
+its root (the coupe's stem) or a stroke (the trunk) keeps its proportion already.
+
+**Why the drift:** tines, slots and the head's width are fixed px widths, so at 12 the fork's top is relatively short and the
+handle relatively long: handle to fork 1.00 at 12 against 0.76 at 18. 24: 0.82, inside the eighth, unchanged.
+
+**By eye:** fixed shares tried (a handle giving 1/4, 1/3, 1/2): 1/2 a stub; a coupe with a shorter stem read as an anvil (and
+needs nothing by the test). The 18's proportion back is between "before" and 1/4 and reads as a fork with a knife.
+
+**Result at 12:** fork and knife only: handle and grip give 0.5px to the tines and blade; slots 2 -> 3px. Café, coupe, museum,
+tree, bench unchanged (the coupe rebuilt byte-identical). 18 and 24 unchanged.
+
+**Gate: 155 checks pass** (new check "What carries the read" at 12 and 24).
+
+NEXT: orchestrator: to him (stills r7-1, r7-2).

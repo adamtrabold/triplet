@@ -1,5 +1,13 @@
 # Systems designer notes: icon system
 
+## THE SYSTEM, round 7 (2026-10-29, jam turn 217, canvas v291; his note: longer tines and blade at 12, only if necessary)
+
+- **What carries the read** (`columns()` comb branch; system.js passes the 18's built meta.read as Z.master, READ_DRIFT 1/8):
+  plain = post to the bottom under a comb + head; ratio plain/held vs the 18's; if over by more than 1/8, the comb's height takes
+  back exactly enough to restore it (the blade follows headBot). Build order matters: 18 before 12/24 (an error prints otherwise).
+- 12: ratio 0.999 -> 0.76, 0.498px given, slots 3px. 24: 0.824, kept. Check "What carries the read". Gate 155.
+- Rejected: a fixed per-size share (forced on every icon; the coupe read as an anvil). Scratch `r7/`: look12.js, stills.js, idx.py.
+
 ## THE SYSTEM, round 6 (2026-10-28, jam turn 216, canvas v290; director turn 215: v289 a trident at 18)
 
 - **Comb depth** (`asOne`, capY): the floor is where the inner circle (head rx less the wall, on the head's centre line) has
