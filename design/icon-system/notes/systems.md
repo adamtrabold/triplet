@@ -1,5 +1,39 @@
 # Systems designer notes: icon system
 
+## THE SYSTEM, one shot round 2: the director's eight fixes (2026-10-30, jam turn 221)
+
+- **1 Round loops:** "Loops off a short straight" deleted. New rule "A loop off a short straight": the loop stays round; where its
+  straight is shorter than its counter is wide, the loop's outer circle grows to sqrt(ro^2 + ri^2) so it runs on to the corner the
+  straight meets (that corner becomes a fillet onto a curve, which the engine's leaned flare already handles); its counter is a circle
+  on its centre (ri). Wall 0.07px thicker at 18. 0 faults at 18/24/12. Tried first and dropped: an arcEase retry with a shorter
+  ramp (JUMPs gone, 8 SHELFs at the concave corners), plus a lean onto the short straight (20 faults). engine.js unchanged.
+- **2 Stride:** splay takes `lean: [ahead, behind]`; walker body 6 degrees, legs 26 ahead and 38 behind (each hip turn at least 30:
+  under 30 is a KINK; 36 gave 29.6 and failed). **Posts end square** (new rule): every splay's foot is square to its post, its lower
+  corner on the bottom line (the flat foot made a 74 degree tip: the 24/12 KNEEs). No arms.
+- **3 Diamond size:** the diamond class is now centred and fitted by its reach about the centre that minimises it (`reachOf`: p = x+y,
+  q = x-y, the half-spans), not about the box centre. Walker s 7.77 -> 8.2. The keyline (sqrt(72 pi)/2 x 11/12) is unchanged: the
+  diamond badge's free room is tighter than the ring's, so the target stays the coin's area. Eye check by the bed and bag: the walker
+  reads at the set's size; the city blocks fill their diamond.
+- **4 City blocks:** `blocks` vocabulary: cols/rows as counts or width shares, `avenue` ('c1'/'r1', `wide` cuts), `open` blocks,
+  `diagonal` street, `clip: 'diamond'`. Declared: cols 2:3:2, rows 3:2, avenue after row 1, turned 45. Six previews compared at
+  true size (scratch `o2/pb.js`). Blind read low-medium (first read "a district or neighbourhood"; also a QR code). Not yet medium.
+- **5 Detail at 12** (new rule, SIZES[12].detail false): a slot that only shows a part behind a face closes at 12 (the bag's slots).
+- **6 Spokes count as a row** (new rule): declared count while every gap (largest circle between two spokes inside the ring) clears
+  the counter minimum; else thinner a grid step at a time to the thinnest; then one fewer, down to two; under two, none. Turn is a
+  share of the step (`turn: 1/2`). 18: 3 spokes at 1.25px, gap 1.02; 24: 3. Before thinning came in, 18 dropped to 2 (an X: read
+  as "prohibited").
+- **7 One band split** into "Parts that run on" (legs from a body) and "Posts from one point" (the pin); the knot's band is the
+  knot kind's own drawing, no rule.
+- **8 The gate in code:** `system-boards.js` runs `system-check.run()` fresh and exits 1 (writes nothing) on any failure, and
+  refuses a check.json that doesn't record a pass. `system-check` now fails a shipped size that isn't built (was a silent skip).
+- **Approved icons:** rebuilt as variants and compared byte for byte: 18 cafe, museum, restaurant; 24 park, cafe; 12 bar,
+  restaurant, nature: all identical. (Only new kinds and the diamond path changed; JOIN10 and engine.js untouched.)
+- **Blind read** (`grid/blind-read-oneshot2.md`): bed, bag high; Ferris wheel medium; walker medium (was low); curtain
+  medium-low; city blocks low-medium (was low); Nordic loop low (the round ⌘ is the Command key glyph itself).
+- **Open:** the Nordic loop's identity vs the Command key (round loops are what the key shows; a subject question for him);
+  city blocks still under medium; curtain softened in the reader's eye (unchanged drawing).
+- Scratch: session scratchpad `o2/` (q.js quick build at a fixed s, qz.js zoom, pb.js block previews, lanes.sh, ver.sh, blindkit.js).
+
 ## THE SYSTEM, one shot: the rest of the set (2026-10-30, canvas v293)
 
 - **Owner:** "i want to see the rest of the icons we need built with these principles now"; "i think shopping needs more execution
