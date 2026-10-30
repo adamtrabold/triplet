@@ -35,6 +35,7 @@ const SETTINGS = [
     ['What carries the read', 'A size keeps the 18\'s proportions, changing them only where the icon needs it to read. The test: a plain part (a post to the bottom: a handle, a grip) against the parts it holds, which carry the read (tines and head; a blade beside them follows). Where the size\'s fixed widths have made it longer against them than at 18 by more than an eighth, it gives height back until the 18\'s proportion returns. A post showing a share of its root, or a stroke, keeps its proportion already.', '10-29', 'designer'],
     ['Sharpness', 'As sharp as possible: core dimensions and core line landings are never fuzzy.', '10-26'],
     ['Scale and weight', 'Settled once for the set at the grid level: every icon the same optical size and weight; never negotiated icon by icon.', '10-20'],
+    ['Shapes in a diamond', 'A shape (Neighbourhood, Street) sits in a diamond badge, so its class box is a diamond of the coin\'s area: the drawing is fitted by how far its ink reaches across the diamond, not by its width and height.', '10-30', 'designer'],
     ['The box', 'An icon is fitted to its class box (wide, square, tall) by the sides that scale, and never grows past its v264 size: each outer edge at most one iPhone pixel past where v264\'s lands on the grid. A rule that needs room takes it from the icon\'s own proportions; the box never gives way.', '10-27'],
   ] },
   { g: 'Weight', items: [
@@ -61,6 +62,7 @@ const SETTINGS = [
     ['Protrusions', 'A feature that has to read by sticking out (an edge, a step, a lip) clears a minimum visible protrusion: one whole pixel past what it sticks out from at 18 (1 1/3 at 24, 1 at 12), after the join\'s round.', '10-27'],
     ['No narrow passages', 'No passage that vanishes at small sizes.', '10-19'],
     ['Handles', 'A handle takes its rule from the root shape it is (a cup\'s ear is a loop around its counter).', '10-26'],
+    ['A handle on a face', 'A loop on a top face stands on it as a half circle, its feet a share of the face apart. A loop that runs on behind a face shows through it: past a band of the line, its legs go on into the face as slots of the loop\'s own width, ending round.', '10-30', 'designer'],
     ['When rules meet', 'Continuous curvature first, then minimum widths, then same-role widths, then protrusions, then the grid. The box always holds.', '10-27', 'designer'],
   ] },
   { g: 'Tooling and curvature', items: [
@@ -96,7 +98,7 @@ const SETTINGS = [
     ['Categories', '11 pins (Restaurant, Café, Bar, Venue, Museum, Landmark, Attraction, Park, Nature, Shopping, Hotel) plus Neighbourhood and Street. Visited does not change.', '10-16'],
     ['Subjects', 'Café cup and saucer; Bar a coupe on a long stem, its bowl shallow and wider at the bottom; Museum a column front, flat base, separated gable; Nature a conifer, indented branches with light swoops; Restaurant fork and knife; Landmark the Nordic loop; Attraction a Ferris wheel; Park a bench; Venue a curtain; Hotel a bed; Neighbourhood city blocks; Street a walker.', '10-21'],
     ['Museum columns', 'Three counters (four columns): two columns read as a bank.', '10-27'],
-    ['Shopping', 'open', '10-26', null, ['None of the proposed icons work; the bag may be one step too common']],
+    ['Shopping', 'A bag. The subject stays; the job is execution: the handle rule, counters and roots make it read as a bag, not a padlock or a fuel can.', '10-30'],
   ] },
 ];
 
@@ -183,16 +185,48 @@ const DECL = {
       [{ id: 'blade', kind: 'blade' }, { id: 'grip', kind: 'post', join: 'into' }],
     ], join: 'cut' },
   ] },
-  park: { name: 'Bench', proof: true, cls: 'wide', spine: [   // proof: a test of the system (made from a declaration, no new code), not a set member
+  park: { name: 'Park', cls: 'wide', spine: [
     { id: 'back', kind: 'slab', w: 1 },
     { id: 'rails', kind: 'row', n: 2, h: 1 / 6, join: 'held' },
     { id: 'seat', kind: 'slab', of: 'back', join: 'held' },
     { id: 'legs', kind: 'row', n: 2, h: 1 / 4, join: 'held' },
   ] },
+  landmark: { name: 'Landmark', cls: 'square', spine: [
+    { id: 'loops', kind: 'knot', w: 1, square: 1 / 3 },
+  ] },
+  attraction: { name: 'Attraction', cls: 'square', spine: [
+    { id: 'rim', kind: 'ring', w: 1 },
+    { id: 'spokes', kind: 'spokes', of: 'rim', n: 3, turn: 30 },
+    { id: 'legs', kind: 'splay', of: 'rim', lean: 30, past: 1 / 6 },
+  ] },
+  venue: { name: 'Venue', cls: 'square', spine: [
+    { id: 'rail', kind: 'slab', w: 1 },
+    { id: 'drapes', kind: 'drape', tie: 3 / 5, join: 'cut' },
+  ] },
+  hotel: { name: 'Hotel', cls: 'wide', spine: [
+    { id: 'pillow', kind: 'block', w: 1 / 3, of: 'mattress', at: 'left', deep: 1 / 2 },
+    { id: 'mattress', kind: 'slab', w: 1, lines: 2, join: 'cut' },
+    { id: 'foot', kind: 'post', of: 'mattress', at: 'right', h: 1 / 5, join: 'into' },
+    { id: 'head', kind: 'post', of: 'mattress', at: 'left', rise: true, join: 'into' },
+  ] },
+  shopping: { name: 'Shopping', cls: 'tall', spine: [
+    { id: 'body', kind: 'block', w: 1, deep: 1 },
+    { id: 'handle', kind: 'loop', of: 'body', at: 'top', span: 3 / 5, into: 1 / 4 },
+  ] },
+  neighbourhood: { name: 'Neighbourhood', shape: true, cls: 'diamond', spine: [
+    { id: 'blocks', kind: 'blocks', w: 1, cols: 3, rows: 3, turn: 45 },
+  ] },
+  street: { name: 'Street', shape: true, cls: 'diamond', spine: [
+    { id: 'head', kind: 'disc', w: 1 / 5 },
+    { id: 'body', kind: 'post', lean: 12, show: 1 / 3, join: 'cut' },
+    { id: 'arms', kind: 'splay', of: 'body', from: 1 / 6, lean: 35, reach: 1 / 4 },
+    { id: 'legs', kind: 'splay', of: 'body', from: 1, lean: 22, to: 'bottom' },
+  ] },
   star: { name: 'Star', cls: 'outline', spine: [{ id: 'star', kind: 'star', points: 5, ri: 0.47 }] },
   plus: { name: '+', cls: 'open', spine: [{ id: 'arms', kind: 'cross' }] },
 };
-const ORDER = ['cafe', 'bar', 'museum', 'nature', 'restaurant', 'star', 'plus', 'park'];
+const ORDER = ['cafe', 'bar', 'museum', 'nature', 'restaurant', 'park', 'landmark', 'attraction', 'venue', 'hotel', 'shopping', 'neighbourhood', 'street', 'star', 'plus'];
+const NEW = ['landmark', 'attraction', 'venue', 'hotel', 'shopping', 'neighbourhood', 'street'];   // 10-30: one shot from the system
 
 // a declaration in words, written from its data (so the words can't drift from what builds)
 const FR = v => { const T = [[1 / 6, '1/6'], [1 / 5, '1/5'], [1 / 4, '1/4'], [1 / 3, '1/3'], [2 / 5, '2/5'], [1 / 2, '1/2'], [3 / 5, '3/5'], [2 / 3, '2/3'], [3 / 4, '3/4'], [4 / 5, '4/5'], [5 / 9, '5/9'], [5 / 6, '5/6'], [1, 'all']]; const m = T.find(([x]) => Math.abs(v - x) < 1e-6); return m ? m[1] : String(+v.toFixed(2)); };
@@ -201,13 +235,21 @@ function say(r) {
   const wt = (r.w == null || r.w === 1) ? (r.of ? `as wide as the ${r.of}` : 'the box\'s full width') : `${FR(r.w)} of the ${r.of || 'box'}`, J = { cut: 'rests on the part above, a cut apart: ', into: 'into the part above: ', held: 'held under the part above (chamfer): ' }[r.join] || '';
   const K = {
     vessel: () => `${r.id}: a vessel ${wt}${r.w != null && r.w !== 1 ? ' wide' : ''}, ${r.deep != null ? `as deep as ${r.deep === 1 ? 'it is wide' : FR(r.deep) + ' of its width'}` : `its rim cutting the ellipse ${FR(r.rimCut)} above its centre`}${r.band ? ', a band under the rim' : ''}`,
-    loop: () => `${r.id}: a loop on the ${r.of}'s ${r.at} wall, ${FR(r.h)} of its depth`,
+    loop: () => r.at === 'top' ? `${r.id}: a loop on the ${r.of}'s top, ${FR(r.span)} of its width${r.into ? `, showing through it as slots ${FR(r.into)} of its depth` : ''}` : `${r.id}: a loop on the ${r.of}'s ${r.at} wall, ${FR(r.h)} of its depth`,
     cap: () => `${r.id}: a cap ${wt}${r.measure === 'ellipse' ? ' (its ellipse)' : ''}, curve ${r.face === 'up' ? 'on top' : 'underneath'}`,
-    slab: () => `${r.id}: a slab ${wt}`,
+    slab: () => `${r.id}: a slab ${wt}${r.lines > 1 ? `, ${r.lines} lines thick` : ''}`,
+    block: () => `${r.id}: a block ${wt}${r.w != null && r.w !== 1 ? ' wide' : ''}, ${(r.deep ?? 1) === 1 ? "as deep as it is wide" : `as deep as ${FR(r.deep)} of its width`}${r.at ? `, at the ${r.of}'s ${r.at} end` : ''}`,
+    ring: () => `${r.id}: a ring ${wt}`,
+    disc: () => `${r.id}: a disc ${wt}`,
+    spokes: () => `${r.id}: ${r.n} posts crossed through the ${r.of}'s centre, wall to wall${r.turn ? `, turned ${r.turn} degrees` : ''}`,
+    splay: () => `${r.id}: two posts from the ${r.of}'s ${r.from == null ? 'centre' : r.from === 1 ? 'foot' : FR(r.from) + ' down'}, ${r.lean} degrees off upright each way, ${r.to === 'bottom' ? 'to the bottom' : r.past != null ? `${FR(r.past)} of its height past it` : `${FR(r.reach)} of the height long`}`,
+    knot: () => `${r.id}: a square ${FR(r.square)} of the span, each side running on into a loop round its corner`,
+    drape: () => `${r.id}: two drapes a cut apart, each a quarter ellipse to ${FR(r.tie)} of the height, then a post to the bottom`,
+    blocks: () => `${r.id}: ${r.cols} by ${r.rows} blocks a cut apart${r.turn ? `, turned ${r.turn} degrees` : ''}`,
     gable: () => `${r.id}: a gable over the ${r.of}, pitch ${FR(r.pitch)}, ends ${FR(r.ends)} of a line`,
     row: () => `${r.id}: a row of ${r.n} posts, ${FR(r.h)} of the row's span tall`,
     tiers: () => `${r.id}: ${r.heights.length} gables stacked, the bottom ${wt}, heights ${r.heights.join(' : ')}, widths ${r.widths.join(' : ')}, notched ${FR(r.notch)}`,
-    post: () => `${r.id}: a post${r.show === 'stroke' ? ' showing a stroke' : r.show != null ? ` showing ${FR(r.show)} of the ${r.showOf}'s depth` : ' to the bottom'}`,
+    post: () => r.at ? `${r.id}: a post at the ${r.of}'s ${r.at} end${r.rise ? ', a line over the top' : ''}, ${r.h != null ? `${FR(r.h)} of its width below it` : 'to the bottom'}` : r.lean != null ? `${r.id}: a post leaning ${r.lean} degrees, ${FR(r.show)} of the height` : `${r.id}: a post${r.show === 'stroke' ? ' showing a stroke' : r.show != null ? ` showing ${FR(r.show)} of the ${r.showOf}'s depth` : ' to the bottom'}`,
     comb: () => `${r.id}: a comb of ${r.n}, ${FR(r.h)} of the height`,
     head: () => `${r.id}: a half ellipse under it`,
     blade: () => `${r.id}: a blade (a quarter ellipse) past its handle`,
@@ -260,7 +302,7 @@ function write(size, id, B) {
   fs.writeFileSync(path.join(dir, `${id}${V}.json`), JSON.stringify(B));
 }
 
-module.exports = { SETTINGS, SIZES, DECL, ORDER, RING, MARK, IPX, row, comb, words, say, OUT, v264Box };
+module.exports = { SETTINGS, SIZES, DECL, ORDER, NEW, RING, MARK, IPX, row, comb, words, say, OUT, v264Box };
 if (require.main === module) {
   const [cmd, a, b] = process.argv.slice(2);
   if (cmd === 'build') build(+a, b ? b.split(',') : ORDER);

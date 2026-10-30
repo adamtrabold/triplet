@@ -18,7 +18,10 @@ const { PROP, capOver } = require('./proportions.js');
 const { measure } = require('./optics.js');
 const { fromTable, scaled } = require('./laws7.js');
 const f = v => +v.toFixed(3), f5 = v => +v.toFixed(5), T3 = v => Math.round(v * 3) / 3, K = 0.5523;
-const { ELL_ARC, CAP, KEY, APEX } = P7;
+const { ELL_ARC, CAP, APEX } = P7;
+// the class boxes; DIAMOND (10-30): a shape's badge is a diamond, so its class box is a diamond of the coin's area (diagonals
+// sqrt(2 x 36 pi)); a drawing in it is fitted by how far its ink reaches across the diamond (|x| + |y| about its centre)
+const KEY = { ...P7.KEY, DIAMOND: [Math.sqrt(72 * Math.PI), Math.sqrt(72 * Math.PI)] };
 const CAP_P = { root: 'ellipse', ry: 1, over: capOver(PROP.cap.end) };   // the cap rule: a slab cut by one ellipse its full height
 const E15 = 8 * Math.PI / 180;   // an ellipse running on from a straight wall: its first 8 degrees its own cubic (the engine eases it in)
 const FAIR_K = 0.33;
@@ -75,6 +78,16 @@ const KINDS = {
   // a loop (a handle): a band of the stroke round a counter, its back a half circle, on its parent's wall at the parent's top; its
   // counter a circle on the loop's own centre (the loop's radius less the stroke), run on to the wall as a slot (PROP.line.slot)
   loop(r, at, t, u, P) {
+    if (r.at === 'top') {
+      // a loop on a top face: its feet span of the face apart, its back a half circle on the face; a loop that runs on behind a face
+      // shows through it (into): past a band of the line, its legs go on as slots of its own width, into of the face's depth, ending round
+      const W = t.stroke, b = P.box, c = (b.x0 + b.x1) / 2 * u, yT = b.top * u, Ro = r.span * (b.x1 - b.x0) * u / 2, Ri = Ro - W, n = v => f5(v);
+      const arc = (R_, a, z) => `C${n(c + a * R_)} ${n(yT - R_ * K)} ${n(c + a * R_ * K)} ${n(yT - R_)} ${n(c)} ${n(yT - R_)}C${n(c + z * R_ * K)} ${n(yT - R_)} ${n(c + z * R_)} ${n(yT - R_ * K)} ${n(c + z * R_)} ${n(yT)}`;
+      const prims = [E.D(`M${n(c - Ro)} ${n(yT + 0.3)}V${n(yT)}${arc(Ro, -1, 1)}V${n(yT + 0.3)}H${n(c + Ri)}V${n(yT)}${arc(Ri, 1, -1)}V${n(yT + 0.3)}Z`, { root: 'LOOP' })];
+      if (r.into) for (const sg of [-1, 1]) { const xs = c + sg * (Ro - W / 2), y0 = yT + W, y1 = y0 + r.into * P.depth * u, h = W / 2;
+        prims.push(E.cut(E.D(`M${n(xs - h)} ${n(y0)}H${n(xs + h)}V${n(y1 - h)}C${n(xs + h)} ${n(y1 - h + h * K)} ${n(xs + h * K)} ${n(y1)} ${n(xs)} ${n(y1)}C${n(xs - h * K)} ${n(y1)} ${n(xs - h)} ${n(y1 - h + h * K)} ${n(xs - h)} ${n(y1 - h)}Z`, { root: 'SLOT', role: 'counter' }))); }
+      return { prims, box: { x0: (c - Ro) / u, x1: (c + Ro) / u, top: (yT - Ro) / u, bot: b.top } };
+    }
     const X = v => f(v * u), W = t.stroke / u, top = P.box.top, side = r.at === 'left' ? -1 : 1, wall = side > 0 ? P.box.x1 : P.box.x0;
     const eb = top + r.h * P.depth, R_ = (eb - top) / 2, eR = wall + side * (PROP.line.slot * W + R_), ex = eR - side * R_, inW = wall - side * W / 2;
     const s = side, xs = v => X(v);
@@ -91,8 +104,8 @@ const KINDS = {
     return { prims: [{ ...CAP(x0, x1, yb, h, CAP_P, up), root: 'CAP' }], box: { x0: at.cx - we / 2, x1: at.cx + we / 2, top: yTop / u, bot: (yTop + h) / u }, frame: true };
   },
   slab(r, at, t, u) {
-    const x0 = at.cx - at.w / 2, x1 = at.cx + at.w / 2;
-    return { prims: [E.R(x0 * u, at.topF, (x1 - x0) * u, t.stroke, { root: 'SLAB' })], box: { x0, x1, top: at.topF / u, bot: (at.topF + t.stroke) / u }, slab: true, frame: true };
+    const x0 = at.cx - at.w / 2, x1 = at.cx + at.w / 2, h = t.stroke * (r.lines || 1);   // lines: its thickness, a count of the line
+    return { prims: [E.R(x0 * u, at.topF, (x1 - x0) * u, h, { root: 'SLAB' })], box: { x0, x1, top: at.topF / u, bot: (at.topF + h) / u }, slab: true, frame: true };
   },
   // a gable: a triangle on a flat base, its ends upright (ends: a share of the stroke), rising pitch of its half run to the apex
   gable(r, at, t, u) {
@@ -118,6 +131,87 @@ const KINDS = {
   post(r, at, t, u) {
     const w = t.part, x0 = at.cx * u - w / 2;
     return { prims: [E.R(x0, at.topF, w, at.botF - at.topF, { root: 'POST' })], box: { x0: x0 / u, x1: (x0 + w) / u, top: at.topF / u, bot: at.botF / u }, frame: true };
+  },
+  // ---- 10-30: the roots the rest of the set needed. Each is general (a kind of part, never an icon); C: what the layout knows
+  // (placed roots, the box's height H, the root above, the icon's top and bottom so far, widths by id, end posts declared)
+  // a block: a mass, w of its parent wide and deep of its own width deep, its corners a mass's; at the left or right end of the
+  // root it names (of), beside an end post there a cut apart
+  block(r, at, t, u, C) {
+    const w = at.w * u, h = (r.deep ?? 1) * w; let x0 = at.cx * u - w / 2;
+    if (r.at && r.of) { const ow = C.wOf(r.of) * u, oc = at.cx * u, inset = C.endPost(r.of, r.at) ? t.part + t.cut : 0;
+      x0 = r.at === 'left' ? oc - ow / 2 + inset : oc + ow / 2 - inset - w; }
+    return { prims: [E.R(x0, at.topF, w, h, { root: 'BLOCK' })], box: { x0: x0 / u, x1: (x0 + w) / u, top: at.topF / u, bot: (at.topF + h) / u }, asym: !!r.at };
+  },
+  // a ring: a circle of the stroke round a round counter, w across its outside
+  ring(r, at, t, u) {
+    const D = at.w * u, R0 = D / 2 - t.stroke / 2, c = at.cx * u, cy = at.topF + D / 2;
+    return { prims: [{ ...E.O(c, cy, R0, t.stroke), root: 'CIRCLE' }], box: { x0: at.cx - at.w / 2, x1: at.cx + at.w / 2, top: at.topF / u, bot: (at.topF + D) / u }, centre: [c, cy], radius: R0 };
+  },
+  // a disc: a solid circle, w across
+  disc(r, at, t, u) {
+    const D = at.w * u, c = at.cx * u, cy = at.topF + D / 2;
+    return { prims: [{ ...E.C(c, cy, D / 2), root: 'CIRCLE' }], box: { x0: at.cx - at.w / 2, x1: at.cx + at.w / 2, top: at.topF / u, bot: (at.topF + D) / u }, centre: [c, cy], radius: D / 2 };
+  },
+  // spokes: n posts crossed through the centre of the ring they name, wall to wall, the first turned `turn` degrees off upright
+  spokes(r, at, t, u, C) {
+    const P = C.placed[r.of], [c, cy] = P.centre, L = P.radius, prims = [];
+    for (let i = 0; i < r.n; i++) { const a = ((r.turn || 0) + i * 180 / r.n) * Math.PI / 180, dx = Math.sin(a) * L, dy = -Math.cos(a) * L;
+      prims.push({ ...E.B([c - dx, cy - dy], [c + dx, cy + dy], t.part), root: 'POST', role: 'spoke' }); }
+    return { prims, box: { ...P.box }, noStack: true };
+  },
+  // a splay: two posts from one point of the root they name (its centre; or a share of the way down a post), leaning `lean`
+  // degrees off upright to either side, each with a flat foot: down to the box's bottom (to), `past` of that root's height
+  // below it, or `reach` of the box's height below the point
+  splay(r, at, t, u, C) {
+    const P = C.placed[r.of], [ox, oy] = r.from != null && P.axis ? [P.axis[0][0] + (P.axis[1][0] - P.axis[0][0]) * r.from, P.axis[0][1] + (P.axis[1][1] - P.axis[0][1]) * r.from] : P.centre;
+    const yb = r.to === 'bottom' ? C.H * u : r.past != null ? P.box.bot * u + r.past * (P.box.bot - P.box.top) * u : oy + r.reach * C.H * u;
+    const a = r.lean * Math.PI / 180, hw = t.part / 2 / Math.cos(a), run = (yb - oy) * Math.tan(a), prims = [];
+    for (const sg of [-1, 1]) { const xb = ox + sg * run; prims.push({ ...E.P([ox - hw, oy], [ox + hw, oy], [xb + hw, yb], [xb - hw, yb]), root: 'POST', role: 'splay' }); }
+    return { prims, box: { x0: (ox - run - hw) / u, x1: (ox + run + hw) / u, top: oy / u, bot: yb / u }, noStack: true };
+  },
+  // a knot: a square, `square` of the span (its width less a line) between its lines' centres; each side runs on past its corners
+  // and turns, as one band of the stroke, into a loop round the corner (a three-quarter ring tangent to both sides)
+  knot(r, at, t, u) {
+    const W = t.stroke, Wd = at.w * u, span = Wd - W, side = r.square * span, a = side / 2, rr = (span - side) / 4, c = at.cx * u, cy = at.topF + Wd / 2, L = a + rr, prims = [];
+    for (const sg of [-1, 1]) {
+      prims.push(E.R(c + sg * a - W / 2, cy - L, W, 2 * L, { root: 'POST', role: 'knot' }));
+      prims.push(E.R(c - L, cy + sg * a - W / 2, 2 * L, W, { root: 'POST', role: 'knot' }));
+    }
+    for (const sx of [-1, 1]) for (const sy of [-1, 1]) { const phi = Math.atan2(sy, sx) * 180 / Math.PI;
+      prims.push({ ...E.A(c + sx * L, cy + sy * L, rr, W, phi - 135, phi + 135), root: 'LOOP' }); }
+    return { prims, box: { x0: at.cx - at.w / 2, x1: at.cx + at.w / 2, top: at.topF / u, bot: (at.topF + Wd) / u } };
+  },
+  // a drape and its mirror (a cut apart down the middle), hung under the root above from its middle out to its ends: each edge a
+  // quarter ellipse centred on that root's lower corner, `tie` of the height left below it; there it falls as a post to the bottom
+  drape(r, at, t, u, C) {
+    const P = C.prev, x0 = P.box.x0 * u, x1 = P.box.x1 * u, top = at.topF, H = C.H * u, ry = r.tie * (H - top), rx = (x1 - x0) / 2 - t.cut / 2, prims = [];
+    for (const sg of [-1, 1]) { const xo = sg < 0 ? x0 : x1, A = ELL_ARC(xo, top, rx, ry, sg < 0 ? 0 : Math.PI, Math.PI / 2), q = v => `${f5(v[0])} ${f5(v[1])}`;
+      prims.push({ ...E.D(`M${f5(xo)} ${f5(top)}H${f5(xo - sg * rx)}C${q(A[1])} ${q(A[2])} ${q(A[3])}Z`), root: 'ELLIPSE', role: 'drape' });
+      prims.push(E.R(sg < 0 ? x0 : x1 - t.part, top, t.part, H - top, { root: 'POST', role: 'fall' })); }
+    return { prims, box: { x0: x0 / u, x1: x1 / u, top: top / u, bot: H / u } };
+  },
+  // blocks: cols x rows blocks, a cut apart (the streets), a square w across, turned `turn` degrees about its centre
+  blocks(r, at, t, u) {
+    const G = at.w * u, c = at.cx * u, cy = at.topF + G / 2, bw = (G - (r.cols - 1) * t.cut) / r.cols, bh = (G - (r.rows - 1) * t.cut) / r.rows, a = (r.turn || 0) * Math.PI / 180, co = Math.cos(a), si = Math.sin(a);
+    const rot = (x, y) => [c + (x - c) * co - (y - cy) * si, cy + (x - c) * si + (y - cy) * co], prims = [];
+    for (let i = 0; i < r.cols; i++) for (let j = 0; j < r.rows; j++) { const x = c - G / 2 + i * (bw + t.cut), y = cy - G / 2 + j * (bh + t.cut);
+      prims.push({ ...E.P(rot(x, y), rot(x + bw, y), rot(x + bw, y + bh), rot(x, y + bh)), root: 'BLOCK', role: 'block' }); }
+    const hx = G / 2 * (Math.abs(co) + Math.abs(si));
+    return { prims, box: { x0: (c - hx) / u, x1: (c + hx) / u, top: (cy - hx) / u, bot: (cy + hx) / u } };
+  },
+  // an end post: a post flush with one end of the root it names, into it; from that root's top (or, rise, a line over the icon's
+  // top) down `h` of that root's width below it, else to the icon's bottom
+  endPost(r, at, t, u, C) {
+    const P = C.placed[r.of], x0 = r.at === 'left' ? P.box.x0 * u : P.box.x1 * u - t.part, y0 = r.rise ? C.top * u - t.stroke : P.box.top * u;
+    const y1 = r.h != null ? P.box.bot * u + r.h * (P.box.x1 - P.box.x0) * u : C.bot * u;
+    return { prims: [E.R(x0, y0, t.part, y1 - y0, { root: 'POST' })], box: { x0: x0 / u, x1: (x0 + t.part) / u, top: y0 / u, bot: y1 / u }, asym: true, noStack: true };
+  },
+  // a leaning post: from under the root above (a cut apart from its edge, along the post), `show` of the box's height long,
+  // leaning `lean` degrees: its top ahead, its foot behind
+  lean(r, at, t, u, C) {
+    const P = C.prev, [hx, hy] = P.centre, a = r.lean * Math.PI / 180, dx = -Math.sin(a), dy = Math.cos(a), g = P.radius + t.cut, len = r.show * C.H * u;
+    const p0 = [hx + dx * g, hy + dy * g], p1 = [p0[0] + dx * len, p0[1] + dy * len];
+    return { prims: [{ ...E.B(p0, p1, t.part), root: 'POST' }], box: { x0: Math.min(p0[0], p1[0]) / u, x1: Math.max(p0[0], p1[0]) / u, top: p0[1] / u, bot: p1[1] / u }, axis: [p0, p1], asym: true };
   },
 };
 
@@ -150,7 +244,8 @@ function layout(decl, s, Z, S, room, gdx = null) {
   // the group that rests on a base: the roots above the first root that rests (cut) once a loop has come
   const iRest = decl.spine.findIndex((r, i) => r.join === 'cut' && decl.spine.slice(0, i).some(q => q.kind === 'loop')), inGroup = i => iRest > 0 && i < iRest;
   const byId = {}; const walk = L => L.forEach(r => r.side ? r.side.forEach(walk) : (byId[r.id] = r)); walk(decl.spine);
-  const symmetric0 = !decl.spine.some(r => r.side || r.kind === 'loop');
+  const asymRoot = r => r.side || (r.kind === 'loop' && r.at !== 'top') || r.at === 'left' || r.at === 'right' || r.lean != null;
+  const symmetric0 = !decl.spine.some(asymRoot);
   // LANDED BEFORE IT IS DRAWN: in a symmetric icon (its centre on a whole px) a straight root's width lands by the snap priority
   // (its ends to a whole px within 1/4px, else the nearest iPhone pixel), and an overhang lands on the grid, so a bevel or a join
   // drawn on them is drawn whole and the landing never stretches it
@@ -161,14 +256,19 @@ function layout(decl, s, Z, S, room, gdx = null) {
   // a row's height is a share of the span as drawn (its root's proportion); landing moves edges only
   const rawSpan = slab => { const was = LANDING.on; LANDING.on = false; const w = wOf(slab.r.id) * u; LANDING.on = was; return w - 2 * PROP.joins.over * t.stroke; };
   const placed = {}, out = [];   // out: every placed root in spine order (R: { r, prims, box (units), ... })
-  let prev = null;
+  let prev = null, yTop = null, yBot = null;
+  const ctx = { placed, H, get prev() { return prev; }, get top() { return yTop; }, get bot() { return yBot; }, wOf: id => wOf(id),
+    endPost: (of, side) => decl.spine.some(q => q.kind === 'post' && q.of === of && q.at === side) };
   const below = (r, prevR) => !prevR ? 0 : r.join === 'cut' ? Math.ceil((prevR.box.bot * u + t.cut) * 3 - 1e-6) / 3 : prevR.box.bot * u;
   for (let i = 0; i < decl.spine.length; i++) {
     const r = decl.spine[i], next = decl.spine[i + 1];
     if (r.side) { const G = columns(r, prev ? prev.box.bot : 0); out.push(G); prev = G; continue; }
     const topF = below(r, prev), cx = 6 + (gdx != null && inGroup(i) ? gdx / u : 0);
     let R;
-    if (r.kind === 'post') {
+    if (r.kind === 'post' && r.at) R = KINDS.endPost(r, {}, t, u, ctx);
+    else if (r.kind === 'post' && r.lean != null) R = KINDS.lean(r, {}, t, u, ctx);
+    else if (['spokes', 'splay', 'drape', 'block', 'ring', 'disc', 'knot', 'blocks'].includes(r.kind)) R = KINDS[r.kind](r, { cx, w: ['spokes', 'splay', 'drape'].includes(r.kind) ? 0 : wOf(r.id), top: topF / u, topF }, t, u, ctx);
+    else if (r.kind === 'post') {
       // a post: into the face above by a stroke and into the root below by half its stroke (a fillet each end), showing what its
       // declaration says (a share of a root's depth, or a stroke under the root above), or to the box's bottom
       // (a post showing a share of its root, or a stroke, is never longer than what it holds: What carries the read leaves it)
@@ -185,7 +285,8 @@ function layout(decl, s, Z, S, room, gdx = null) {
     // what lands with what: a root's own counters (a band) and a loop with its counter move with the root they are cut in or sit on
     if (R.prims[0]) R.prims[0] = { ...R.prims[0], rid: r.id };
     R.prims = R.prims.map((p, j) => r.kind === 'loop' ? { ...p, withRoot: r.of } : j > 0 && p.cut ? { ...p, withRoot: r.id } : p);
-    if (r.kind === 'loop') meta.loops.push({ id: r.id }); else prev = R;
+    yTop = yTop == null ? R.box.top : Math.min(yTop, R.box.top); yBot = yBot == null ? R.box.bot : Math.max(yBot, R.box.bot);
+    if (r.kind === 'loop') meta.loops.push({ id: r.id }); else if (!R.noStack) prev = R;
     if (R.prims.some(p => p.role === 'band')) meta.bands.push({ id: r.id, band: t.band * k, stroke: Z.stroke });
   }
   // a ROW of posts under a held slab: the row rule across the slab's width less its overhang (a third of a line each side, the
@@ -278,7 +379,7 @@ function layout(decl, s, Z, S, room, gdx = null) {
     const grp = out.slice(0, iBase).flatMap(R => R.prims), m = measure(E.build(grp).d);
     return layout(decl, s, Z, S, room, s / 2 - m.cx);
   }
-  const symmetric = !out.some(R => R.r.kind === 'loop' || R.r.side);
+  const symmetric = !out.some(R => asymRoot(R.r) || R.asym);
   return { prims, meta, symmetric };
 }
 
@@ -306,12 +407,18 @@ function make(decl, Z, S, opts = {}) {
   const cut = c => [KEY[c][0] * FK, (KEY[c][1] + apex) * FK];
   const fitK = (b, c) => { const [kw, bh] = cut(c); return Math.min(gW ? kw / (b.x1 - b.x0) : Infinity, gH ? bh / (b.y1 - b.y0) : Infinity); };
   // THE CLASS by the drawing's proportion at its fitted size (as v264: px parts don't scale, so a drawing reads squatter small)
-  if (gW && gH) { const c0 = cls; let s_ = 12; for (let i = 0; i < 4; i++) s_ *= fitK(bx(s_), c0);
+  const diamond = cls === 'DIAMOND';
+  if (gW && gH && !diamond) { const c0 = cls; let s_ = 12; for (let i = 0; i < 4; i++) s_ *= fitK(bx(s_), c0);
     const b = bx(s_), a = (b.x1 - b.x0) / (b.y1 - b.y0); let bd = 1e9;
     for (const c of ['WIDE', 'SQUARE', 'TALL']) { const dd = Math.abs(Math.log(a / (KEY[c][0] / (KEY[c][1] + apex)))); if (dd < bd) { bd = dd; cls = c; } } }
   const [kw, bh] = cut(cls);
-  let s = 12; for (let i = 0; i < 6; i++) { const b = measure(E.build(dr(s), i < 4 ? fast : bopts).d).box; s *= fitK(b, cls); if (process.env.FITDBG) console.error("fit", i, s, b); }
-  { const fits = (s_, full) => { const b = full ? measure(E.build(dr(s_), bopts).d).box : bx(s_); return { ok: (!gW || b.x1 - b.x0 <= kw + 1e-3) && (!gH || b.y1 - b.y0 <= bh + 1e-3), touch: (gW && Math.abs(b.x1 - b.x0 - kw) < 5e-3) || (gH && Math.abs(b.y1 - b.y0 - bh) < 5e-3) }; };
+  let s = 12;
+  if (diamond) {   // a diamond class box: the largest size whose ink reaches no further across the diamond than its half diagonal
+    const Lc = KEY.DIAMOND[0] / 2 * FK, reach = (s_, o) => measure(E.build(dr(s_), o).d).l1;
+    for (let i = 0; i < 6; i++) s *= Lc / reach(s, i < 4 ? fast : bopts);
+    if (reach(s, bopts) > Lc + 1e-3) { let lo = s * 0.9, hi = s; for (let i = 0; i < 20; i++) { const m = (lo + hi) / 2; if (reach(m, bopts) <= Lc + 1e-3) lo = m; else hi = m; } s = lo; }
+  } else { for (let i = 0; i < 6; i++) { const b = measure(E.build(dr(s), i < 4 ? fast : bopts).d).box; s *= fitK(b, cls); if (process.env.FITDBG) console.error("fit", i, s, b); } }
+  if (!diamond) { const fits = (s_, full) => { const b = full ? measure(E.build(dr(s_), bopts).d).box : bx(s_); return { ok: (!gW || b.x1 - b.x0 <= kw + 1e-3) && (!gH || b.y1 - b.y0 <= bh + 1e-3), touch: (gW && Math.abs(b.x1 - b.x0 - kw) < 5e-3) || (gH && Math.abs(b.y1 - b.y0 - bh) < 5e-3) }; };
     const f0 = fits(s, true); if (!(f0.ok && f0.touch)) { let lo = f0.ok ? s : s * 0.9, hi = f0.ok ? s * 1.1 : s; for (let i = 0; i < 24; i++) { const m = (lo + hi) / 2; if (fits(m).ok) lo = m; else hi = m; } s = lo; } }
   { const cs = E.clearSteps(dr, s); if (cs.s !== s) s = cs.s; }
   // PLACE: optically centred (x by the box and the ink centre together; y by the optical rule), offsets to 1/1000
@@ -327,7 +434,7 @@ function make(decl, Z, S, opts = {}) {
   // LAND the roots on the iPhone grid before any corner is rounded; a row or a comb lands as one (below)
   if (opts.land) prims = asOne(prims, opts.land(prims, sym), Z);
   const AB = apexBuild(prims, { ...bopts, sym }, Z.k, Z.stroke), d = AB.d; if (AB.apex) meta.apex = AB.apex;
-  return { d, s, sym: sym ?? null, meta: { ...meta, cls, s: +s.toFixed(4), fitBy: gW && gH ? 'both sides' : gW ? 'width' : 'height' }, prims };
+  return { d, s, sym: sym ?? null, meta: { ...meta, cls, s: +s.toFixed(4), fitBy: diamond ? 'the diamond' : gW && gH ? 'both sides' : gW ? 'width' : 'height' }, prims };
 }
 
 // A ROW OR A COMB LANDS AS ONE: its outer sides where the grid put them, its parts at their one width and the spaces between them

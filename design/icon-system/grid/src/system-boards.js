@@ -15,8 +15,9 @@ const J = f => fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : null;
 const B = (size, id) => J(path.join(S.OUT, String(size), `${id}.json`));
 const ROOTS = (size, id) => J(path.join(S.OUT, 'roots', String(size), `${id}.json`));
 // what each drawing is (the owner's names for them); the category it serves is the declaration's name
-const LABEL = { cafe: 'Café', bar: 'Coupe', museum: 'Museum', nature: 'Tree', restaurant: 'Fork and knife', park: 'Bench', star: 'Star', plus: '+' };
-const CAT = id => S.MARK[S.DECL[id].cls] ? (id === 'star' ? 'line mark' : 'line mark') : S.DECL[id].proof ? 'the system\'s proof' : S.DECL[id].name;
+const LABEL = { cafe: 'Café', bar: 'Coupe', museum: 'Museum', nature: 'Tree', restaurant: 'Fork and knife', park: 'Bench', landmark: 'Nordic loop', attraction: 'Ferris wheel', venue: 'Curtain', hotel: 'Bed', shopping: 'Bag', neighbourhood: 'City blocks', street: 'Walker', star: 'Star', plus: '+' };
+const CAT = id => S.MARK[S.DECL[id].cls] ? 'line mark' : S.DECL[id].shape ? `${S.DECL[id].name} · shape` : S.DECL[id].name;
+const DIAMOND = Math.sqrt(72 * Math.PI);   // the diamond class box's diagonal (system-make KEY.DIAMOND)
 const BIG = 6;   // the larger view: the same SVG at 6x (one iPhone pixel = 2 CSS px)
 
 // ---------------------------------------------------------------------------------------------------------------------------
@@ -27,6 +28,11 @@ const RING = { 24: 4 / 3, 32: 5 / 3 };   // the ring's width in px (system.js RI
 function ringed(d, px, scale, label, over = '') {
   const u = RING[px] * 24 / px;
   return `<svg width="${px * scale}" height="${px * scale}" viewBox="0 0 24 24" role="img" aria-label="${esc(label)}" style="display:block;overflow:visible"><circle cx="12" cy="12" r="${12 - u / 2}" fill="${C.tile}"${over ? '' : ` stroke="${C.navy}" stroke-width="${u}"`}/>${over ? over.under + `<circle cx="12" cy="12" r="${12 - u / 2}" fill="none" stroke="${C.navy}" stroke-width="${u}" stroke-opacity=".78"/>` : ''}<path fill="${C.navy}" fill-rule="evenodd" d="${d}"${over ? ' fill-opacity=".78"' : ''}/>${over ? over.top : ''}</svg>`;
+}
+// a shape's badge: the diamond, its rim as the ring's
+function diamond(d, px, scale, label, over = '') {
+  const u = RING[px] * 24 / px, h = u / 2, pts = `12,${f(h * Math.SQRT2)} ${f(24 - h * Math.SQRT2)},12 12,${f(24 - h * Math.SQRT2)} ${f(h * Math.SQRT2)},12`;
+  return `<svg width="${px * scale}" height="${px * scale}" viewBox="0 0 24 24" role="img" aria-label="${esc(label)}" style="display:block;overflow:visible"><polygon points="${pts}" fill="${C.tile}"${over ? '' : ` stroke="${C.navy}" stroke-width="${u}" stroke-linejoin="round"`}/>${over ? over.under + `<polygon points="${pts}" fill="none" stroke="${C.navy}" stroke-width="${u}" stroke-linejoin="round" stroke-opacity=".78"/>` : ''}<path fill="${C.navy}" fill-rule="evenodd" d="${d}"${over ? ' fill-opacity=".78"' : ''}/>${over ? over.top : ''}</svg>`;
 }
 function bare(d, px, scale, label, over = '', bg = 'none') {
   return `<svg width="${px * scale}" height="${px * scale}" viewBox="0 0 24 24" role="img" aria-label="${esc(label)}" style="display:block;overflow:visible;background:${bg}">${over ? over.under : ''}<path fill="${C.navy}" fill-rule="evenodd" d="${d}"${over ? ' fill-opacity=".78"' : ''}/>${over ? over.top : ''}</svg>`;
@@ -56,8 +62,9 @@ function gridOver(px, scale, { id, size, roots, mark } = {}) {
   if (!mark) {
     const b = B(size, id), cls = (b && b.meta && b.meta.cls) || S.DECL[id].cls.toUpperCase(), K = P7.KEY[cls] || P7.KEY.SQUARE, FK = 11 / 12;
     const apex = (b && S.DECL[id].spine.some(r => r.kind === 'gable' || r.kind === 'tiers')) ? P7.APEX : 0;
-    const w = K[0] * FK, h = (K[1] + apex) * FK;
-    keys += `<rect x="${f(12 - w / 2)}" y="${f(12 - h / 2)}" width="${f(w)}" height="${f(h)}" fill="none" stroke="${C.key}" stroke-width="${f(kw)}" ${dash}/>`;
+    const w = K[0] * FK, h = (K[1] + apex) * FK, hd = DIAMOND / 2 * FK;
+    keys += cls === 'DIAMOND' ? `<polygon points="12,${f(12 - hd)} ${f(12 + hd)},12 12,${f(12 + hd)} ${f(12 - hd)},12" fill="none" stroke="${C.key}" stroke-width="${f(kw)}" ${dash}/>`
+      : `<rect x="${f(12 - w / 2)}" y="${f(12 - h / 2)}" width="${f(w)}" height="${f(h)}" fill="none" stroke="${C.key}" stroke-width="${f(kw)}" ${dash}/>`;
     keys += `<circle cx="12" cy="12" r="6" fill="none" stroke="${C.key}" stroke-width="${f(kw * 0.8)}" stroke-opacity=".6"/>`;
   }
   const cl = 1.5;
@@ -82,20 +89,23 @@ function views(id, grid) {
   if (d.cls === 'open') return [
     button(b18.d, 1, `${n}, in the 60 button`, G(28, 1, { mark: true })), none('one drawing, every size'), '',
     bare(b18.d, 28, BIG, `${n}, ${BIG}x`, G(28, BIG, { mark: true, roots: R && R.roots }))];
+  const badge = d.shape ? diamond : ringed, in_ = d.shape ? 'diamond' : 'ring';
   return [
-    ringed(b18.d, 24, 1, `${n}, 18 in the 24 ring`, G(24, 1, { size: 18 })),
-    b24 ? ringed(b24.d, 32, 1, `${n}, 24 in the 32 ring`, G(32, 1, { size: 24 })) : '',
+    badge(b18.d, 24, 1, `${n}, 18 in the 24 ${in_}`, G(24, 1, { size: 18 })),
+    b24 ? badge(b24.d, 32, 1, `${n}, 24 in the 32 ${in_}`, G(32, 1, { size: 24 })) : '',
     b12 ? bare(b12.d, 16, 1, `${n}, 12 on a chip`, G(16, 1, { size: 12 })) : '',
-    ringed(b18.d, 24, BIG, `${n}, 18 at ${BIG}x`, G(24, BIG, { size: 18, roots: R && R.roots }))];
+    badge(b18.d, 24, BIG, `${n}, 18 at ${BIG}x`, G(24, BIG, { size: 18, roots: R && R.roots }))];
 }
 const ROWS = [
-  ['App size', '18 in the 24 ring (pins, rows) · star bare · + in its button'],
-  ['Selected', '24 in the 32 ring'],
+  ['App size', '18 in the 24 ring (pins, rows) · a shape in the 24 diamond · star bare · + in its button'],
+  ['Selected', '24 in the 32 ring (or diamond)'],
   ['Chip', '12'],
   [`${BIG}x`, 'the 18 drawn larger: the same SVG'],
 ];
-function table(grid) {
-  const cols = S.ORDER.map(id => ({ id, v: views(id, grid) }));
+const PER = 8;   // columns per band: the set wraps onto a second band
+function table(grid) { const out = []; for (let i = 0; i < S.ORDER.length; i += PER) out.push(band(S.ORDER.slice(i, i + PER), grid)); return out.join(`<div style="height:26px"></div>`); }
+function band(ids, grid) {
+  const cols = ids.map(id => ({ id, v: views(id, grid) }));
   const head = `<div style="width:${LABW}px"></div>` + cols.map(c => `<div style="width:${COLW}px;text-align:center"><div style="font-size:19px;font-weight:700;color:${C.navy}">${esc(LABEL[c.id])}</div>${CAT(c.id) !== LABEL[c.id] ? `<div style="font-size:12.5px;color:${C.grey};margin-top:2px">${esc(CAT(c.id))}</div>` : '<div style="font-size:12.5px;margin-top:2px">&#160;</div>'}</div>`).join('');
   const rowH = [40, 48, 30, null];
   const rows = ROWS.map(([t, sub], ri) => `<div style="display:flex;gap:${GAP}px;align-items:center;padding:${ri === 3 ? 18 : 12}px 0;border-top:1px solid ${C.rule}">
@@ -103,7 +113,7 @@ function table(grid) {
 ${cols.map(c => `<div style="width:${COLW}px;flex:none;display:flex;justify-content:center;align-items:center;${rowH[ri] ? `height:${rowH[ri] * (ri === 0 && c.id === 'plus' ? 1.6 : 1)}px` : ''}">${c.v[ri] || ''}</div>`).join('')}</div>`).join('');
   return `<div style="display:flex;gap:${GAP}px;align-items:flex-end;padding-bottom:10px">${head}</div>${rows}`;
 }
-const W_ICONS = 36 * 2 + LABW + S.ORDER.length * (COLW + GAP);
+const W_ICONS = 36 * 2 + LABW + PER * (COLW + GAP);
 function shell(W, kicker, title, lede, body) {
   return `<div style="width:${W}px;box-sizing:border-box;padding:30px 36px 32px;background:${C.paper};font-family:Archivo,Arial,sans-serif;color:${C.ink}">
 <div style="font-size:14px;letter-spacing:.12em;font-weight:700;color:${C.deep};text-transform:uppercase">${kicker}</div>
@@ -129,11 +139,11 @@ ${legendItem(sw(C.deep, 1.6), 'centre')}${legendItem(sw(C.orange, 1.6), 'roots, 
 // RULES: every decision point, grouped, its setting and date; open decisions with their choices; the sizes; each declaration
 const GROUPS = [
   ['Purpose', ['One set, one system', 'What it covers', 'Rules, not drawings', 'Flexible, not specific', 'How it looks wins', 'The grid is the brand']],
-  ['Size and grid', ['Master size', 'Where each size ships', 'The grid', 'Scale and weight', 'The box']],
+  ['Size and grid', ['Master size', 'Where each size ships', 'The grid', 'Scale and weight', 'Shapes in a diamond', 'The box']],
   ['Snapping', ['Snap priority', 'Centring', 'Centred under a part', 'Sharpness']],
   ['Size variants', ['What carries the read']],
   ['Weight', ['Stroke', 'Stroke at 18 on the grid', 'Parts that are not strokes', 'Thinnest part at 12', 'Solids are shapes', 'Same role, same width', 'The ring']],
-  ['Construction', ['Roots', 'Proportions', 'Aligned roots', 'Brand in the roots', 'Few points', 'Holes', 'Handles', 'Protrusions', 'No narrow passages', 'When rules meet']],
+  ['Construction', ['Roots', 'Proportions', 'Aligned roots', 'Brand in the roots', 'Few points', 'Holes', 'Handles', 'A handle on a face', 'Protrusions', 'No narrow passages', 'When rules meet']],
   ['Tooling', ['Machined', 'The cutter rack', 'The rack at 24 and 12', 'Chamfer under an overhang', 'Chamfer angle', 'Fillet into a face', 'Points', 'Every meeting rounded', 'Inner corners']],
   ['Curvature', ['Whole curves', 'Continuous curvature', 'Counters follow', 'Cuts follow the curve', 'Humanist line']],
   ['Counters and rows', ['Counters and gaps', 'Inner bands', 'Rows', 'Combs', 'Comb depth']],
