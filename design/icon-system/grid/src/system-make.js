@@ -166,11 +166,14 @@ const KINDS = {
   splay(r, at, t, u, C) {
     const P = C.placed[r.of], [ox, oy] = r.from != null && P.axis ? [P.axis[0][0] + (P.axis[1][0] - P.axis[0][0]) * r.from, P.axis[0][1] + (P.axis[1][1] - P.axis[0][1]) * r.from] : P.centre;
     const yb = r.to === 'bottom' ? C.H * u : r.past != null ? P.box.bot * u + r.past * (P.box.bot - P.box.top) * u : oy + r.reach * C.H * u;
-    // the posts meet in a pin: a disc a line across on the point, so their ends (square to each post) sit inside the joint
-    const a = r.lean * Math.PI / 180, hw = t.part / 2 / Math.cos(a), run = (yb - oy) * Math.tan(a), parts = [E.C(ox, oy, t.stroke / 2)], h = t.part / 2;
+    // from a centre the posts meet in a pin (a disc a line across on the point, their square ends inside it); from a post's foot
+    // they are one root with that post (one band: the grid moves them together, and the joint is the corners the rack cuts)
+    const foot = r.from != null && P.axis, a = r.lean * Math.PI / 180, hw = t.part / 2 / Math.cos(a), run = (yb - oy) * Math.tan(a), h = t.part / 2;
+    const parts = foot ? P.prims.slice() : [E.C(ox, oy, t.stroke / 2)];
     for (const sg of [-1, 1]) { const xb = ox + sg * run, dx = sg * Math.sin(a), dy = Math.cos(a), nx = dy * h, ny = -dx * h;
       parts.push(E.P([ox - nx, oy - ny], [ox + nx, oy + ny], [xb + hw, yb], [xb - hw, yb])); }
-    const prims = [E.D(E.build(parts).d, { root: 'POST', also: 'CIRCLE', role: 'splay' })];
+    const prims = [E.D(E.build(parts).d, { root: 'POST', also: foot ? null : 'CIRCLE', role: 'splay' })];
+    if (foot) P.prims = [];
     return { prims, box: { x0: (ox - run - hw) / u, x1: (ox + run + hw) / u, top: oy / u, bot: yb / u }, noStack: true };
   },
   // a knot: a square, `square` of the span (its width less a line) between its lines' centres; each side runs on past its corners
@@ -191,11 +194,12 @@ const KINDS = {
     // one band: its straights and loops are one root, so the grid moves it whole
     return { prims: [E.D(E.build(prims).d, { root: 'LOOP', also: 'POST' })], box: { x0: at.cx - at.w / 2, x1: at.cx + at.w / 2, top: at.topF / u, bot: (at.topF + Wd) / u } };
   },
-  // a drape and its mirror (a cut apart down the middle), hung under the root above from its middle out to its ends: each edge a
-  // quarter ellipse centred on that root's lower corner, `tie` of the height left below it; there it falls as a post to the bottom
+  // a drape and its mirror (a cut apart down the middle), hung under the root above from its middle out to its ends, where it falls
+  // as a post to the bottom: its edge a quarter ellipse centred on the fall's inner face at the top, `tie` of the height left below
+  // it, so the edge meets the fall square (a corner the rack cuts), never running level into it
   drape(r, at, t, u, C) {
-    const P = C.prev, x0 = P.box.x0 * u, x1 = P.box.x1 * u, top = at.topF, H = C.H * u, ry = r.tie * (H - top), rx = (x1 - x0) / 2 - t.cut / 2, prims = [];
-    for (const sg of [-1, 1]) { const xo = sg < 0 ? x0 : x1, A = ELL_ARC(xo, top, rx, ry, sg < 0 ? 0 : Math.PI, Math.PI / 2), q = v => `${f5(v[0])} ${f5(v[1])}`;
+    const P = C.prev, x0 = P.box.x0 * u, x1 = P.box.x1 * u, top = at.topF, H = C.H * u, ry = r.tie * (H - top), rx = (x1 - x0) / 2 - t.cut / 2 - t.part, prims = [];
+    for (const sg of [-1, 1]) { const xo = sg < 0 ? x0 + t.part : x1 - t.part, A = ELL_ARC(xo, top, rx, ry, sg < 0 ? 0 : Math.PI, Math.PI / 2), q = v => `${f5(v[0])} ${f5(v[1])}`;
       prims.push({ ...E.D(`M${f5(xo)} ${f5(top)}H${f5(xo - sg * rx)}C${q(A[1])} ${q(A[2])} ${q(A[3])}Z`), root: 'ELLIPSE', role: 'drape' });
       prims.push(E.R(sg < 0 ? x0 : x1 - t.part, top, t.part, H - top, { root: 'POST', role: 'fall' })); }
     return { prims, box: { x0: x0 / u, x1: x1 / u, top: top / u, bot: H / u } };

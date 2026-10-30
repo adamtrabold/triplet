@@ -30,6 +30,8 @@ const SETTINGS = [
     ['Where each size ships', '18 in the 24 ring on pins and list rows; 24 in the 32 ring on the selected pin; 12 bare on filter chips.', '10-27'],
     ['The grid', 'One iPhone pixel, 1/3px. The system writes each size for the iPhone directly; there is no refit pass for any device.', '10-27'],
     ['Snap priority', 'Silhouette first: an outer edge goes to a whole px when one is within 1/4px, else the nearest iPhone pixel. Then the outer side of each stroke (its width kept). Inner edges, counters, curves, diagonals, points and rounds stay as drawn; but a point or curve drawn level with an outer edge goes to the line that edge landed on (its other end stays landed). The roots land on the grid before any corner is rounded, so every round and join is built on landed roots; otherwise a curved root is never stretched, only scaled evenly.', '10-29'],
+    ['Curved parts on the grid', 'A curved part drawn on a root (a loop, a handle, spokes) moves with it on the grid and is never stretched: on a straight root the grid stretched, it takes the root\'s scale across, evenly. A curved root with no straight side on its box (a knot) lands its outermost straights.', '10-30', 'designer'],
+    ['Turned parts', 'Parts turned off the grid (blocks on the diagonal) are drawn whole and centred, never mirrored: the mirror\'s seam would cut a round on the axis in two.', '10-30', 'designer'],
     ['Centring', 'A centred part is exactly centred: an even count of iPhone pixels about the icon\'s centre. Vertical centring is optical, per icon.', '10-27'],
     ['Centred under a part', 'A part centred under another takes its parity, one iPhone pixel wider when they differ, so it stays exactly centred.', '10-28', 'designer'],
     ['What carries the read', 'A size keeps the 18\'s proportions, changing them only where the icon needs it to read. The test: a plain part (a post to the bottom: a handle, a grip) against the parts it holds, which carry the read (tines and head; a blade beside them follows). Where the size\'s fixed widths have made it longer against them than at 18 by more than an eighth, it gives height back until the 18\'s proportion returns. A post showing a share of its root, or a stroke, keeps its proportion already.', '10-29', 'designer'],
@@ -62,6 +64,8 @@ const SETTINGS = [
     ['Protrusions', 'A feature that has to read by sticking out (an edge, a step, a lip) clears a minimum visible protrusion: one whole pixel past what it sticks out from at 18 (1 1/3 at 24, 1 at 12), after the join\'s round.', '10-27'],
     ['No narrow passages', 'No passage that vanishes at small sizes.', '10-19'],
     ['Handles', 'A handle takes its rule from the root shape it is (a cup\'s ear is a loop around its counter).', '10-26'],
+    ['One band', 'A band that runs on into loops (a knot), and posts splayed from a post\'s foot, are one root: the grid moves them together and the joints are corners the rack cuts. Posts splayed from a centre meet in a pin, a disc a line across on the point.', '10-30', 'designer'],
+    ['Loops off a short straight', 'A loop that runs on from a straight too short to ease into (a knot\'s loop off its square) is drawn square, so every join is a corner: a round loop there steps in curvature.', '10-30', 'designer'],
     ['A handle on a face', 'A loop on a top face stands on it as a half circle, its feet a share of the face apart. A loop that runs on behind a face shows through it: past a band of the line, its legs go on into the face as slots of the loop\'s own width, ending round.', '10-30', 'designer'],
     ['When rules meet', 'Continuous curvature first, then minimum widths, then same-role widths, then protrusions, then the grid. The box always holds.', '10-27', 'designer'],
   ] },
@@ -192,7 +196,7 @@ const DECL = {
     { id: 'legs', kind: 'row', n: 2, h: 1 / 4, join: 'held' },
   ] },
   landmark: { name: 'Landmark', cls: 'square', spine: [
-    { id: 'loops', kind: 'knot', w: 1, square: 1 / 3, loop: 'square' },
+    { id: 'loops', kind: 'knot', w: 1, square: 3 / 8, loop: 'square' },
   ] },
   attraction: { name: 'Attraction', cls: 'square', spine: [
     { id: 'rim', kind: 'ring', w: 1 },
@@ -218,8 +222,8 @@ const DECL = {
   ] },
   street: { name: 'Street', shape: true, cls: 'diamond', spine: [
     { id: 'head', kind: 'disc', w: 1 / 4 },
-    { id: 'body', kind: 'post', lean: 12, show: 1 / 3, join: 'cut' },
-    { id: 'legs', kind: 'splay', of: 'body', from: 1, lean: 25, to: 'bottom' },
+    { id: 'body', kind: 'post', lean: 16, show: 1 / 4, join: 'cut' },
+    { id: 'legs', kind: 'splay', of: 'body', from: 1, lean: 16, to: 'bottom' },
   ] },
   star: { name: 'Star', cls: 'outline', spine: [{ id: 'star', kind: 'star', points: 5, ri: 0.47 }] },
   plus: { name: '+', cls: 'open', spine: [{ id: 'arms', kind: 'cross' }] },
@@ -228,7 +232,7 @@ const ORDER = ['cafe', 'bar', 'museum', 'nature', 'restaurant', 'park', 'landmar
 const NEW = ['landmark', 'attraction', 'venue', 'hotel', 'shopping', 'neighbourhood', 'street'];   // 10-30: one shot from the system
 
 // a declaration in words, written from its data (so the words can't drift from what builds)
-const FR = v => { const T = [[1 / 6, '1/6'], [1 / 5, '1/5'], [1 / 4, '1/4'], [1 / 3, '1/3'], [2 / 5, '2/5'], [1 / 2, '1/2'], [3 / 5, '3/5'], [2 / 3, '2/3'], [3 / 4, '3/4'], [4 / 5, '4/5'], [5 / 9, '5/9'], [5 / 6, '5/6'], [1, 'all']]; const m = T.find(([x]) => Math.abs(v - x) < 1e-6); return m ? m[1] : String(+v.toFixed(2)); };
+const FR = v => { const T = [[1 / 8, '1/8'], [1 / 6, '1/6'], [1 / 5, '1/5'], [1 / 4, '1/4'], [1 / 3, '1/3'], [3 / 8, '3/8'], [2 / 5, '2/5'], [1 / 2, '1/2'], [3 / 5, '3/5'], [2 / 3, '2/3'], [3 / 4, '3/4'], [4 / 5, '4/5'], [5 / 9, '5/9'], [5 / 6, '5/6'], [1, 'all']]; const m = T.find(([x]) => Math.abs(v - x) < 1e-6); return m ? m[1] : String(+v.toFixed(2)); };
 function say(r) {
   if (r.side) return r.side.map(sp => sp.map(say).join(', ')).join(' | cut | ');
   const wt = (r.w == null || r.w === 1) ? (r.of ? `as wide as the ${r.of}` : 'the box\'s full width') : `${FR(r.w)} of the ${r.of || 'box'}`, J = { cut: 'rests on the part above, a cut apart: ', into: 'into the part above: ', held: 'held under the part above (chamfer): ' }[r.join] || '';
