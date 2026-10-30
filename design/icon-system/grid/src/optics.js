@@ -24,6 +24,8 @@ function measure(d) {
     A += s * m.a; X += s * m.a * m.cx; Y += s * m.a * m.cy;
     for (const [x, y] of p) { x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x); y1 = Math.max(y1, y); }
   });
-  return { area: A, cx: X / A, cy: Y / A, box: { x0, y0, x1, y1, cx: (x0 + x1) / 2, cy: (y0 + y1) / 2 } };
+  // l1: how far the ink reaches across a diamond about the box's centre (the largest |x| + |y|), for a diamond class box
+  const bcx = (x0 + x1) / 2, bcy = (y0 + y1) / 2; let l1 = 0; ps.forEach(p => { for (const [x, y] of p) l1 = Math.max(l1, Math.abs(x - bcx) + Math.abs(y - bcy)); });
+  return { area: A, cx: X / A, cy: Y / A, box: { x0, y0, x1, y1, cx: bcx, cy: bcy }, l1 };
 }
 module.exports = { measure };
