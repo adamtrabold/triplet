@@ -251,10 +251,7 @@ function corners(item, law, info, opts = {}) {
         const dQ = farSmooth ? arc.length : arc.length / 2;   // to the arc's middle: its own, or past a smooth node into its other piece
         // the edge's room: what the corner at its far end (if any) leaves of it
         const eFar = arcOut ? cs[(i - 1 + n) % n] : cs[(i + 1) % n], room = edge.length - (eFar && !eFar.arcEase ? (eFar.d || 0) * 1.6 + 0.05 : edge.length / 2);
-        let sol = arcEase(edge, arc, arcOut, dQ, { ...opts.join, room });
-        // 10-30: a drawn arc whose step in bend is a fault (over the check's JUMP_MIN) on a straight too short for the even ramp
-        // (a knot's loop off its square's side) takes a ramp half as long, which starts that much nearer the node
-        if (!sol && Math.abs(kin - kout) > 0.35) sol = arcEase(edge, arc, arcOut, dQ, { ...opts.join, room, arcRamp: (opts.join.arcRamp ?? 0.5) / 2 });
+        const sol = arcEase(edge, arc, arcOut, dQ, { ...opts.join, room });
         if (opts.join.log) opts.join.log.push(sol ? 'arcEase' : 'noArcEase');
         if (!sol) continue;
         cs[i] = { arcEase: true, sSpan: true, jrSol: sol.sol, dIn: arcOut ? sol.a : dQ, dOut: arcOut ? dQ : sol.a, turn: 0, ang: 0, d: 0, P0: cout.point1, shift: sol.shift };

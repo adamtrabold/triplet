@@ -81,8 +81,8 @@ const KINDS = {
     if (r.at === 'top') {
       // a loop on a top face: its feet span of the face apart, its back a half circle on the face; a loop that runs on behind a face
       // shows through it (into): past a band of the line, its legs go on as slots of its own width, into of the face's depth, ending round
-      // its legs stand a line tall (rise), so its round eases in from a straight and the foot meets the face as a corner
-      const W = t.stroke, b = P.box, c = (b.x0 + b.x1) / 2 * u, yF = b.top * u, yT = yF - (r.rise ?? 1) * W, Ro = r.span * (b.x1 - b.x0) * u / 2, Ri = Ro - W, n = v => f5(v);
+      // rise: its back may stand on legs (a share of the line); with none its half circle stands on the face
+      const W = t.stroke, b = P.box, c = (b.x0 + b.x1) / 2 * u, yF = b.top * u, yT = yF - (r.rise ?? 0) * W, Ro = r.span * (b.x1 - b.x0) * u / 2, Ri = Ro - W, n = v => f5(v);
       const arc = (R_, a, z) => `C${n(c + a * R_)} ${n(yT - R_ * K)} ${n(c + a * R_ * K)} ${n(yT - R_)} ${n(c)} ${n(yT - R_)}C${n(c + z * R_ * K)} ${n(yT - R_)} ${n(c + z * R_)} ${n(yT - R_ * K)} ${n(c + z * R_)} ${n(yT)}`;
       const prims = [E.D(`M${n(c - Ro)} ${n(yF + 0.3)}V${n(yT)}${arc(Ro, -1, 1)}V${n(yF + 0.3)}H${n(c + Ri)}V${n(yT)}${arc(Ri, 1, -1)}V${n(yF + 0.3)}Z`, { root: 'LOOP' })];
       if (r.into) for (const sg of [-1, 1]) { const xs = c + sg * (Ro - W / 2), y0 = yT + W, y1 = y0 + r.into * P.depth * u, h = W / 2;
@@ -166,9 +166,11 @@ const KINDS = {
   splay(r, at, t, u, C) {
     const P = C.placed[r.of], [ox, oy] = r.from != null && P.axis ? [P.axis[0][0] + (P.axis[1][0] - P.axis[0][0]) * r.from, P.axis[0][1] + (P.axis[1][1] - P.axis[0][1]) * r.from] : P.centre;
     const yb = r.to === 'bottom' ? C.H * u : r.past != null ? P.box.bot * u + r.past * (P.box.bot - P.box.top) * u : oy + r.reach * C.H * u;
-    const a = r.lean * Math.PI / 180, hw = t.part / 2 / Math.cos(a), run = (yb - oy) * Math.tan(a), prims = [], h = t.part / 2;
-    for (const sg of [-1, 1]) { const xb = ox + sg * run, dx = sg * Math.sin(a), dy = Math.cos(a), tx = ox - dx * h, ty = oy - dy * h, nx = dy * h, ny = -dx * h;
-      prims.push({ ...E.P([tx - nx, ty - ny], [tx + nx, ty + ny], [xb + hw, yb], [xb - hw, yb]), root: 'POST', role: 'splay' }); }
+    // the posts meet in a pin: a disc a line across on the point, so their ends (square to each post) sit inside the joint
+    const a = r.lean * Math.PI / 180, hw = t.part / 2 / Math.cos(a), run = (yb - oy) * Math.tan(a), parts = [E.C(ox, oy, t.stroke / 2)], h = t.part / 2;
+    for (const sg of [-1, 1]) { const xb = ox + sg * run, dx = sg * Math.sin(a), dy = Math.cos(a), nx = dy * h, ny = -dx * h;
+      parts.push(E.P([ox - nx, oy - ny], [ox + nx, oy + ny], [xb + hw, yb], [xb - hw, yb])); }
+    const prims = [E.D(E.build(parts).d, { root: 'POST', also: 'CIRCLE', role: 'splay' })];
     return { prims, box: { x0: (ox - run - hw) / u, x1: (ox + run + hw) / u, top: oy / u, bot: yb / u }, noStack: true };
   },
   // a knot: a square, `square` of the span (its width less a line) between its lines' centres; each side runs on past its corners
@@ -179,8 +181,13 @@ const KINDS = {
       prims.push(E.R(c + sg * a - W / 2, cy - L, W, 2 * L, { root: 'POST', role: 'knot' }));
       prims.push(E.R(c - L, cy + sg * a - W / 2, 2 * L, W, { root: 'POST', role: 'knot' }));
     }
-    for (const sx of [-1, 1]) for (const sy of [-1, 1]) { const phi = Math.atan2(sy, sx) * 180 / Math.PI;
-      prims.push({ ...E.A(c + sx * L, cy + sy * L, rr, W, phi - 135, phi + 135), root: 'LOOP' }); }
+    // a round loop: a three-quarter ring tangent to both sides; a square loop (loop: 'square'): the sides run on and turn square
+    // round a square counter, so every join is a corner the rack cuts
+    const holes = [];
+    for (const sx of [-1, 1]) for (const sy of [-1, 1]) { const phi = Math.atan2(sy, sx) * 180 / Math.PI, lx = c + sx * L, ly = cy + sy * L;
+      if (r.loop === 'square') { prims.push(E.R(lx - rr - W / 2, ly - rr - W / 2, 2 * rr + W, 2 * rr + W)); holes.push(E.cut(E.R(lx - rr + W / 2, ly - rr + W / 2, 2 * rr - W, 2 * rr - W))); }
+      else prims.push({ ...E.A(lx, ly, rr, W, phi - 135, phi + 135), root: 'LOOP' }); }
+    prims.push(...holes);
     // one band: its straights and loops are one root, so the grid moves it whole
     return { prims: [E.D(E.build(prims).d, { root: 'LOOP', also: 'POST' })], box: { x0: at.cx - at.w / 2, x1: at.cx + at.w / 2, top: at.topF / u, bot: (at.topF + Wd) / u } };
   },
@@ -289,7 +296,8 @@ function layout(decl, s, Z, S, room, gdx = null) {
     R.r = r; R.depth = R.depth ?? (R.box.bot - R.box.top); placed[r.id] = R; out.push(R);
     // what lands with what: a root's own counters (a band) and a loop with its counter move with the root they are cut in or sit on
     if (R.prims[0]) R.prims[0] = { ...R.prims[0], rid: r.id };
-    R.prims = R.prims.map((p, j) => r.kind === 'loop' || r.kind === 'splay' || r.kind === 'spokes' ? { ...p, withRoot: r.of } : j > 0 && p.cut ? { ...p, withRoot: r.id } : p);
+    // a part drawn from a curved root (a loop on its wall, spokes or a splay from a ring's centre) moves with that root on the grid
+    R.prims = R.prims.map((p, j) => r.kind === 'loop' || ((r.kind === 'splay' || r.kind === 'spokes') && placed[r.of] && placed[r.of].centre) ? { ...p, withRoot: r.of } : j > 0 && p.cut ? { ...p, withRoot: r.id } : p);
     yTop = yTop == null ? R.box.top : Math.min(yTop, R.box.top); yBot = yBot == null ? R.box.bot : Math.max(yBot, R.box.bot);
     if (r.kind === 'loop') meta.loops.push({ id: r.id }); else if (!R.noStack) prev = R;
     if (R.prims.some(p => p.role === 'band')) meta.bands.push({ id: r.id, band: t.band * k, stroke: Z.stroke });
@@ -470,7 +478,10 @@ function asOne(before, after, Z) {
   before.forEach((q, i) => {
     if (!q.withRoot) return;
     const pi = before.findIndex(p => p.rid === q.withRoot); if (pi < 0) return;
-    const a = bb(E.parts([before[pi]])[0].d), b = bb(after[pi].d), sx = b.width / a.width, sy = b.height / a.height;
+    let a = bb(E.parts([before[pi]])[0].d), b = bb(after[pi].d), sx = b.width / a.width, sy = b.height / a.height;
+    // a curved part is never stretched: on a root the grid stretched (a straight root takes the map), it takes the root's scale
+    // across, evenly (10-30)
+    if (Math.abs(sx - sy) > 1e-6 && /[cC]/.test(E.parts([q])[0].d)) sy = sx;
     const it = new paper.CompoundPath(E.parts([q])[0].d);
     it.scale(sx, sy, new paper.Point(a.x, a.y)); it.translate(new paper.Point(b.x - a.x, b.y - a.y));
     out[i] = { ...after[i], d: it.pathData, how: 'moved with its root' }; it.remove();

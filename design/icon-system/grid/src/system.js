@@ -192,7 +192,7 @@ const DECL = {
     { id: 'legs', kind: 'row', n: 2, h: 1 / 4, join: 'held' },
   ] },
   landmark: { name: 'Landmark', cls: 'square', spine: [
-    { id: 'loops', kind: 'knot', w: 1, square: 1 / 3 },
+    { id: 'loops', kind: 'knot', w: 1, square: 1 / 3, loop: 'square' },
   ] },
   attraction: { name: 'Attraction', cls: 'square', spine: [
     { id: 'rim', kind: 'ring', w: 1 },
@@ -211,7 +211,7 @@ const DECL = {
   ] },
   shopping: { name: 'Shopping', cls: 'tall', spine: [
     { id: 'body', kind: 'block', w: 1, deep: 1 },
-    { id: 'handle', kind: 'loop', of: 'body', at: 'top', span: 2 / 3, into: 1 / 4 },
+    { id: 'handle', kind: 'loop', of: 'body', at: 'top', span: 2 / 3, rise: 0, into: 1 / 4 },
   ] },
   neighbourhood: { name: 'Neighbourhood', shape: true, cls: 'diamond', spine: [
     { id: 'blocks', kind: 'blocks', w: 1, cols: 3, rows: 3, turn: 45 },
@@ -219,7 +219,6 @@ const DECL = {
   street: { name: 'Street', shape: true, cls: 'diamond', spine: [
     { id: 'head', kind: 'disc', w: 1 / 4 },
     { id: 'body', kind: 'post', lean: 12, show: 1 / 3, join: 'cut' },
-    { id: 'arms', kind: 'splay', of: 'body', from: 1 / 5, lean: 40, reach: 1 / 5 },
     { id: 'legs', kind: 'splay', of: 'body', from: 1, lean: 25, to: 'bottom' },
   ] },
   star: { name: 'Star', cls: 'outline', spine: [{ id: 'star', kind: 'star', points: 5, ri: 0.47 }] },
@@ -235,7 +234,7 @@ function say(r) {
   const wt = (r.w == null || r.w === 1) ? (r.of ? `as wide as the ${r.of}` : 'the box\'s full width') : `${FR(r.w)} of the ${r.of || 'box'}`, J = { cut: 'rests on the part above, a cut apart: ', into: 'into the part above: ', held: 'held under the part above (chamfer): ' }[r.join] || '';
   const K = {
     vessel: () => `${r.id}: a vessel ${wt}${r.w != null && r.w !== 1 ? ' wide' : ''}, ${r.deep != null ? `as deep as ${r.deep === 1 ? 'it is wide' : FR(r.deep) + ' of its width'}` : `its rim cutting the ellipse ${FR(r.rimCut)} above its centre`}${r.band ? ', a band under the rim' : ''}`,
-    loop: () => r.at === 'top' ? `${r.id}: a loop on the ${r.of}'s top, ${FR(r.span)} of its width, its back a half circle on legs a line tall${r.into ? `, showing through it as slots ${FR(r.into)} of its depth` : ''}` : `${r.id}: a loop on the ${r.of}'s ${r.at} wall, ${FR(r.h)} of its depth`,
+    loop: () => r.at === 'top' ? `${r.id}: a loop on the ${r.of}'s top, ${FR(r.span)} of its width, its back a half circle${r.rise ? ` on legs ${FR(r.rise)} of a line tall` : ' on the face'}${r.into ? `, showing through it as slots ${FR(r.into)} of its depth` : ''}` : `${r.id}: a loop on the ${r.of}'s ${r.at} wall, ${FR(r.h)} of its depth`,
     cap: () => `${r.id}: a cap ${wt}${r.measure === 'ellipse' ? ' (its ellipse)' : ''}, curve ${r.face === 'up' ? 'on top' : 'underneath'}`,
     slab: () => `${r.id}: a slab ${wt}${r.lines > 1 ? `, ${r.lines} lines thick` : ''}`,
     block: () => `${r.id}: a block ${wt}${r.w != null && r.w !== 1 ? ' wide' : ''}, ${(r.deep ?? 1) === 1 ? "as deep as it is wide" : `as deep as ${FR(r.deep)} of its width`}${r.at ? `, at the ${r.of}'s ${r.at} end` : ''}`,
@@ -243,7 +242,7 @@ function say(r) {
     disc: () => `${r.id}: a disc ${wt}`,
     spokes: () => `${r.id}: ${r.n} posts crossed through the ${r.of}'s centre, wall to wall${r.turn ? `, turned ${r.turn} degrees` : ''}`,
     splay: () => `${r.id}: two posts from the ${r.of}'s ${r.from == null ? 'centre' : r.from === 1 ? 'foot' : FR(r.from) + ' down'}, ${r.lean} degrees off upright each way, ${r.to === 'bottom' ? 'to the bottom' : r.past != null ? `${FR(r.past)} of its height past it` : `${FR(r.reach)} of the height long`}`,
-    knot: () => `${r.id}: a square ${FR(r.square)} of the span, each side running on into a loop round its corner`,
+    knot: () => `${r.id}: a square ${FR(r.square)} of the span, each side running on into a ${r.loop === 'square' ? 'square ' : ''}loop round its corner`,
     drape: () => `${r.id}: two drapes a cut apart, each a quarter ellipse to ${FR(r.tie)} of the height, then a post to the bottom`,
     blocks: () => `${r.id}: ${r.cols} by ${r.rows} blocks a cut apart${r.turn ? `, turned ${r.turn} degrees` : ''}`,
     gable: () => `${r.id}: a gable over the ${r.of}, pitch ${FR(r.pitch)}, ends ${FR(r.ends)} of a line`,

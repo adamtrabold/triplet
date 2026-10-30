@@ -129,6 +129,23 @@ function landPrims(prims, sym, opts) {
     // a curved root's straight sides land by the snap priority themselves (a whole px within 1/4px, else the nearest iPhone pixel):
     // a short straight side can be too short for the union's map to see it as an edge
     const q3 = opts.size / 24, snapS = v => { const p = v * q3, w = Math.round(p); return (Math.abs(p - w) <= 0.25 + 1e-9 ? w : Math.round(p * 3) / 3) / q3 - v; };
+    // 10-30: a curved root with no straight side on its outline's box (a band that turns into loops at every end: a knot) lands
+    // its outermost straights instead: the even scale that lands the pair across (about the axis when it is centred on it), then
+    // the move that lands the first one down
+    if (!side.left && !side.right && !side.top && !side.bottom) {
+      const xs = [], ys = [];
+      for (const k3 of kids3) for (const cv of k3.curves) { if (!cv.isStraight()) continue; const a = cv.point1, z = cv.point2;
+        if (Math.abs(a.x - z.x) < 2e-3 && Math.abs(a.y - z.y) > 0.3) xs.push(a.x); if (Math.abs(a.y - z.y) < 2e-3 && Math.abs(a.x - z.x) > 0.3) ys.push(a.y); }
+      if (xs.length > 1 && ys.length > 1) {
+        const lx = Math.min(...xs), hx = Math.max(...xs), ly = Math.min(...ys), mid = sym != null && Math.abs(b.left + b.right - 2 * sym) < 2e-3 ? sym : null;
+        const lxL = lx + snapS(lx), hxL = hx + snapS(hx); k = mid != null ? (mid - lxL) / (mid - lx) : (hxL - lxL) / (hx - lx);
+        it3.scale(k, new paper.Point(b.left, b.top));
+        const ly2 = b.top + (ly - b.top) * k, lx2 = b.left + (lx - b.left) * k; ty = ly2 + snapS(ly2) - ly2; tx = lxL - lx2;
+        if (mid != null) tx = mid - (b.left + b.width * k / 2);
+        it3.translate(new paper.Point(tx, ty)); const o = it3.pathData; it3.remove();
+        return { t: 'D', d: o, cut: !!q.cut, root: q.root, also: q.also, how: 'scaled evenly to its straights ' + k.toFixed(4) };
+      }
+    }
     if (side.top && side.bottom) { const a0 = snapS(b.top), a1 = snapS(b.bottom); k = (b.height + a1 - a0) / b.height; ty = a0; }
     else if (side.left && side.right) { const a0 = snapS(b.left), a1 = snapS(b.right); k = (b.width + a1 - a0) / b.width; tx = a0; }
     it3.scale(k, new paper.Point(b.left, b.top));
