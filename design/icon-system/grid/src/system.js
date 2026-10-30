@@ -227,7 +227,7 @@ const DECL = {
   street: { name: 'Street', shape: true, cls: 'diamond', spine: [
     { id: 'head', kind: 'disc', w: 1 / 4 },
     { id: 'body', kind: 'post', lean: 6, show: 1 / 4, join: 'cut' },
-    { id: 'legs', kind: 'splay', of: 'body', from: 1, lean: [24, 36], to: 'bottom' },
+    { id: 'legs', kind: 'splay', of: 'body', from: 1, lean: [26, 38], to: 'bottom' },
   ] },
   star: { name: 'Star', cls: 'outline', spine: [{ id: 'star', kind: 'star', points: 5, ri: 0.47 }] },
   plus: { name: '+', cls: 'open', spine: [{ id: 'arms', kind: 'cross' }] },
