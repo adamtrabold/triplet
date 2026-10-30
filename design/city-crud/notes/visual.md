@@ -2,7 +2,19 @@
 
 Branch: `claude/city-place-creation-workflow-vcblfw`. Nothing built; `index.html` untouched.
 
-## v9: a swipe flips the row (2026-10-29, latest) -- READ THIS FIRST
+## v10: sideways reveal (2026-10-30, latest) -- READ THIS FIRST
+
+Owner: "the swipe should follow standard convention and bring in/reveal from the left rather than
+the top"; "The signpost can still flip over alongside the swipe". Spec `concepts/v10-swipe-reveal.md`:
+swipe left, the signpost-shaped REMOVE board slides in from the trailing edge with the finger, settles
+past halfway; the signpost turns over at the same moment. Prototype `proto/swipe-flap.html` updated in
+place (with a signpost); real-touch checks in Chromium (mid-drag 30/70/110px, settle, spring-back).
+Strip `stills/v10/1-R-swipe-reveal.png`. Prototype fix: the first version slid the row's name off
+screen; now the name stays and the board slides over the row's end.
+Open: (1) left (iOS trailing, chosen) vs the owner's literal "from the left" (rightward swipe);
+(2) does the open board covering the tally bother?
+
+## v9: a swipe flips the row (2026-10-29) -- history (flap replaced by v10)
 
 Owner: "The departure board is interesting. What if all that was triggered by a swipe or
 something". Spec `concepts/v9-swipe-to-flip.md`: R swipe the dropdown row left (pick; the row is the
