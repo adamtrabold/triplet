@@ -77,6 +77,8 @@ function checkOne(size, id, B) {
   if (decl.spine.some(r => r.side)) { const P = d.split(/(?=M)/).map(box), outer = P.filter(b => !P.some(o => o !== b && o.x0 <= b.x0 + 1e-6 && o.x1 >= b.x1 - 1e-6 && o.y0 <= b.y0 + 1e-6 && o.y1 >= b.y1 - 1e-6));
     const tops = outer.map(b => px(b.y0)), bots = outer.map(b => px(b.y1));
     add('Snap priority', Math.max(...tops) - Math.min(...tops) < 1 / 6 && Math.max(...bots) - Math.min(...bots) < 1 / 6, `drawn level, landed level (within half an iPhone pixel): tops ${tops.join(', ')}; bottoms ${bots.join(', ')}`); }
+  // SPOKES COUNT AS A ROW: the count the rule kept clears the counter minimum between every two
+  for (const sp of M.spokes || []) add('Spokes count as a row', sp.n === 0 || sp.gap >= sp.min - 0.02, `${sp.n} of ${sp.declared} declared${sp.n ? `, gaps ${sp.gap}px (minimum ${sp.min})` : `: none clears the minimum, the ring stays open (${sp.gap}px across)`}`);
   // WHAT CARRIES THE READ: a plain part keeps the master's proportion to what it holds (within the drift)
   for (const rd of M.read || []) if (rd.master != null) add('What carries the read', rd.now <= rd.master * (1 + 1 / 8) + 0.005, `plain part to what it holds ${rd.ratio}${rd.need ? `, drifted past the 18's ${rd.master}: it gave back ${rd.took}px, now ${rd.now}` : ` (the 18's ${rd.master}): proportions kept`}`);
   // COMB DEPTH: what is left under the slots is one line
@@ -99,11 +101,14 @@ function checkOne(size, id, B) {
 const EYE = ['Every icon the same optical size and weight in the row, at 18 on the phone', 'Vertical centring reads right, per icon',
   'Loosened, humanist curves; flares restrained and sound; no hump or wobble leaving a join', 'The museum reads as a museum, not a bank; its bevel reads as a bevel',
   'The coupe\'s drink reads full', 'The star and + read as the set\'s weight', 'Each size reads as the same icon as the 18',
-  'The bag reads as a bag, not a padlock or a fuel can', 'The shapes in their diamonds read at the set\'s size and say what they are (a blind read)'];
+  'The bag reads as a bag, not a padlock or a fuel can', 'The shapes in their diamonds read at the set\'s size and say what they are (a blind read)',
+  'At 12 nothing reads as something else (no eyes, no blob)', 'The Nordic loop\'s loops read round'];
 function run(ids = S.ORDER) {
   const out = { results: [], eye: EYE }; let ok = true;
   for (const size of [18, 24, 12]) for (const id of ids) {
-    const f = path.join(S.OUT, String(size), `${id}.json`); if (!fs.existsSync(f)) continue;
+    const f = path.join(S.OUT, String(size), `${id}.json`);
+    // a size the icon ships at and that isn't built is a failure, never a skip (a line mark is one drawing, at 18)
+    if (!fs.existsSync(f)) { if (size === 18 || !S.MARK[S.DECL[id].cls]) { ok = false; console.log(`FAIL  ${size} ${id.padEnd(10)} Built: not built`); } continue; }
     const r = checkOne(size, id, JSON.parse(fs.readFileSync(f, 'utf8'))); out.results.push(r);
     for (const c of r.checks) { if (!c.ok) ok = false; console.log(`${c.ok ? 'pass' : 'FAIL'}  ${size} ${id.padEnd(10)} ${c.point}: ${c.detail}`); }
     if (r.v264) console.log(`      ${size} ${id.padEnd(10)} v264: ${r.v264.hausdorffPx}px at most`);

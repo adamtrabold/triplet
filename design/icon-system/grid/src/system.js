@@ -37,7 +37,7 @@ const SETTINGS = [
     ['What carries the read', 'A size keeps the 18\'s proportions, changing them only where the icon needs it to read. The test: a plain part (a post to the bottom: a handle, a grip) against the parts it holds, which carry the read (tines and head; a blade beside them follows). Where the size\'s fixed widths have made it longer against them than at 18 by more than an eighth, it gives height back until the 18\'s proportion returns. A post showing a share of its root, or a stroke, keeps its proportion already.', '10-29', 'designer'],
     ['Sharpness', 'As sharp as possible: core dimensions and core line landings are never fuzzy.', '10-26'],
     ['Scale and weight', 'Settled once for the set at the grid level: every icon the same optical size and weight; never negotiated icon by icon.', '10-20'],
-    ['Shapes in a diamond', 'A shape (Neighbourhood, Street) sits in a diamond badge, so its class box is a diamond of the coin\'s area: the drawing is fitted by how far its ink reaches across the diamond, not by its width and height.', '10-30', 'designer'],
+    ['Shapes in a diamond', 'A shape (Neighbourhood, Street) sits in a diamond badge, so its class box is a diamond of the coin\'s area: the drawing is fitted by how far its ink reaches across the diamond, not by its width and height, and centred by its reach (the centre that brings its farthest ink least far across), so a shape with a wide foot or a high head takes the diamond\'s room as the set takes the ring\'s.', '10-30', 'designer'],
     ['The box', 'An icon is fitted to its class box (wide, square, tall) by the sides that scale, and never grows past its v264 size: each outer edge at most one iPhone pixel past where v264\'s lands on the grid. A rule that needs room takes it from the icon\'s own proportions; the box never gives way.', '10-27'],
   ] },
   { g: 'Weight', items: [
@@ -57,6 +57,7 @@ const SETTINGS = [
     ['Few points', 'Minimal bezier points, perfect architecture.', '10-16'],
     ['Holes', 'A hole is its own proportional root shape that also makes the solid around it right, never a stroke offset.', '10-26'],
     ['Counters and gaps', 'Aim for whole pixels (1 or 2 at 18), but how it looks wins over the rule. At 12 a counter under 1px closes and the part goes solid.', '10-27'],
+    ['Detail at 12', 'At 12 a cut that only shows a part running on behind a face (a handle\'s slots) closes, and the face reads whole: a count of small holes there reads as something else (eyes).', '10-30', 'designer'],
     ['Inner bands', 'A gap or band inside a form is no thicker than the stroke, and a fill it contains reads full.', '10-27'],
     ['Rows', 'A row of repeated parts reads as its count of distinct parts. Parts at the part width, gaps equal and at least the counter minimum: on the grid when the row then fits inside its root\'s span (exactly, under a slab that holds it: the overhang is the chamfer\'s), else filling the span exactly. If the gaps can\'t reach the minimum, the parts thin to the size\'s thinnest; only then one part fewer (never below two).', '10-27'],
     ['Combs', 'A comb keeps its count first, as a row does: across the room its box leaves, parts and slots one width, the part width if they fit, else thinner a grid step at a time to the size\'s thinnest; only then one part fewer (never below two).', '10-28'],
@@ -64,8 +65,11 @@ const SETTINGS = [
     ['Protrusions', 'A feature that has to read by sticking out (an edge, a step, a lip) clears a minimum visible protrusion: one whole pixel past what it sticks out from at 18 (1 1/3 at 24, 1 at 12), after the join\'s round.', '10-27'],
     ['No narrow passages', 'No passage that vanishes at small sizes.', '10-19'],
     ['Handles', 'A handle takes its rule from the root shape it is (a cup\'s ear is a loop around its counter).', '10-26'],
-    ['One band', 'A band that runs on into loops (a knot), and posts splayed from a post\'s foot, are one root: the grid moves them together and the joints are corners the rack cuts. Posts splayed from a centre meet in a pin, a disc a line across on the point.', '10-30', 'designer'],
-    ['Loops off a short straight', 'A loop that runs on from a straight too short to ease into (a knot\'s loop off its square) is drawn square, so every join is a corner: a round loop there steps in curvature.', '10-30', 'designer'],
+    ['A loop off a short straight', 'A loop stays round. Where the straight it runs on from is too short to ease into (shorter than its own counter is wide), the loop takes the straight in: its outer curve runs on to the corner that straight meets, so that corner is the join (a fillet onto a curve) and nothing steps in curvature; its counter is a circle on its own centre.', '10-30', 'designer'],
+    ['Parts that run on', 'Posts that run on from another post (legs from a body) are one root with it: the grid moves them together, and where they part is a corner the rack cuts.', '10-30', 'designer'],
+    ['Posts from one point', 'Posts splayed or crossed through one point meet in a pin: a disc a line across on the point.', '10-30', 'designer'],
+    ['Posts end square', 'A post ends square to itself, leaning or not; a leaning post stands on its lower corner (a flat cut across it would leave a tip on its outer side).', '10-30', 'designer'],
+    ['Spokes count as a row', 'Spokes through a ring keep their declared count only while every gap between them clears the counter minimum (the gap: the largest circle it holds inside the ring); else one fewer, down to two; under two, none, and the ring stays open. Their turn is a share of the step between them, so a lowered count stays evenly turned.', '10-30', 'designer'],
     ['A handle on a face', 'A loop on a top face stands on it as a half circle, its feet a share of the face apart. A loop that runs on behind a face shows through it: past a band of the line, its legs go on into the face as slots of the loop\'s own width, ending round.', '10-30', 'designer'],
     ['When rules meet', 'Continuous curvature first, then minimum widths, then same-role widths, then protrusions, then the grid. The box always holds.', '10-27', 'designer'],
   ] },
@@ -112,7 +116,7 @@ const SETTINGS = [
 const SIZES = {
   18: { k: 1, frame: 24, stroke: 1.5, part: 4 / 3, min: 1.25, gap: 1, band: 1, counter: 1, protrude: 1, close: false },
   24: { k: 4 / 3, frame: 32, stroke: 2, part: 5 / 3, min: 5 / 3, gap: 4 / 3, band: 4 / 3, counter: 4 / 3, protrude: 4 / 3, close: false },
-  12: { k: 2 / 3, frame: 16, stroke: 1, part: 1, min: 2 / 3, gap: 1, band: 1, counter: 1, protrude: 1, close: true },
+  12: { k: 2 / 3, frame: 16, stroke: 1, part: 1, min: 2 / 3, gap: 1, band: 1, counter: 1, protrude: 1, close: true, detail: false },
 };
 // WHAT CARRIES THE READ: a size keeps the master's proportion of a plain part (a post to the bottom: a handle, a grip) to what it
 // holds; only when the size has drifted it more than READ_DRIFT toward the plain part does the plain part give height back
@@ -196,11 +200,11 @@ const DECL = {
     { id: 'legs', kind: 'row', n: 2, h: 1 / 4, join: 'held' },
   ] },
   landmark: { name: 'Landmark', cls: 'square', spine: [
-    { id: 'loops', kind: 'knot', w: 1, square: 3 / 8, loop: 'square' },
+    { id: 'loops', kind: 'knot', w: 1, square: 3 / 8 },
   ] },
   attraction: { name: 'Attraction', cls: 'square', spine: [
     { id: 'rim', kind: 'ring', w: 1 },
-    { id: 'spokes', kind: 'spokes', of: 'rim', n: 3, turn: 30 },
+    { id: 'spokes', kind: 'spokes', of: 'rim', n: 3, turn: 1 / 2 },
     { id: 'legs', kind: 'splay', of: 'rim', lean: 30, past: 1 / 6 },
   ] },
   venue: { name: 'Venue', cls: 'square', spine: [
@@ -218,12 +222,12 @@ const DECL = {
     { id: 'handle', kind: 'loop', of: 'body', at: 'top', span: 2 / 3, rise: 0, into: 1 / 4 },
   ] },
   neighbourhood: { name: 'Neighbourhood', shape: true, cls: 'diamond', spine: [
-    { id: 'blocks', kind: 'blocks', w: 1, cols: 3, rows: 3, turn: 45 },
+    { id: 'blocks', kind: 'blocks', w: 1, cols: [3, 2, 3], rows: [2, 3, 2], avenue: 'c1', open: [[2, 0]], turn: 45 },
   ] },
   street: { name: 'Street', shape: true, cls: 'diamond', spine: [
     { id: 'head', kind: 'disc', w: 1 / 4 },
-    { id: 'body', kind: 'post', lean: 16, show: 1 / 4, join: 'cut' },
-    { id: 'legs', kind: 'splay', of: 'body', from: 1, lean: 16, to: 'bottom' },
+    { id: 'body', kind: 'post', lean: 6, show: 1 / 4, join: 'cut' },
+    { id: 'legs', kind: 'splay', of: 'body', from: 1, lean: [24, 36], to: 'bottom' },
   ] },
   star: { name: 'Star', cls: 'outline', spine: [{ id: 'star', kind: 'star', points: 5, ri: 0.47 }] },
   plus: { name: '+', cls: 'open', spine: [{ id: 'arms', kind: 'cross' }] },
@@ -244,11 +248,11 @@ function say(r) {
     block: () => `${r.id}: a block ${wt}${r.w != null && r.w !== 1 ? ' wide' : ''}, ${(r.deep ?? 1) === 1 ? "as deep as it is wide" : `as deep as ${FR(r.deep)} of its width`}${r.at ? `, at the ${r.of}'s ${r.at} end` : ''}`,
     ring: () => `${r.id}: a ring ${wt}`,
     disc: () => `${r.id}: a disc ${wt}`,
-    spokes: () => `${r.id}: ${r.n} posts crossed through the ${r.of}'s centre, wall to wall${r.turn ? `, turned ${r.turn} degrees` : ''}`,
-    splay: () => `${r.id}: two posts from the ${r.of}'s ${r.from == null ? 'centre' : r.from === 1 ? 'foot' : FR(r.from) + ' down'}, ${r.lean} degrees off upright each way, ${r.to === 'bottom' ? 'to the bottom' : r.past != null ? `${FR(r.past)} of its height past it` : `${FR(r.reach)} of the height long`}`,
+    spokes: () => `${r.id}: ${r.n} posts crossed through the ${r.of}'s centre, wall to wall, counted as a row${r.turn ? `, turned ${FR(r.turn)} of a step` : ''}`,
+    splay: () => `${r.id}: two posts from the ${r.of}'s ${r.from == null ? 'centre' : r.from === 1 ? 'foot' : FR(r.from) + ' down'}, ${Array.isArray(r.lean) ? `in stride, ${r.lean[0]} degrees ahead and ${r.lean[1]} behind` : `${r.lean} degrees off upright each way`}, ${r.to === 'bottom' ? 'to the bottom' : r.past != null ? `${FR(r.past)} of its height past it` : `${FR(r.reach)} of the height long`}`,
     knot: () => `${r.id}: a square ${FR(r.square)} of the span, each side running on into a ${r.loop === 'square' ? 'square ' : ''}loop round its corner`,
     drape: () => `${r.id}: two drapes a cut apart, each a quarter ellipse to ${FR(r.tie)} of the height, then a post to the bottom`,
-    blocks: () => `${r.id}: ${r.cols} by ${r.rows} blocks a cut apart${r.turn ? `, turned ${r.turn} degrees` : ''}`,
+    blocks: () => { const L = v => Array.isArray(v) ? `${v.length} (widths ${v.join(' : ')})` : v; return `${r.id}: a plan of ${L(r.cols)} by ${L(r.rows)} blocks, streets a cut wide${r.avenue ? `, one avenue ${r.wide || 2} cuts wide after ${r.avenue[0] === 'c' ? 'column' : 'row'} ${r.avenue.slice(1)}` : ''}${r.open ? `, ${r.open.length} block${r.open.length > 1 ? 's' : ''} left open (a square)` : ''}${r.turn ? `, turned ${r.turn} degrees` : ''}`; },
     gable: () => `${r.id}: a gable over the ${r.of}, pitch ${FR(r.pitch)}, ends ${FR(r.ends)} of a line`,
     row: () => `${r.id}: a row of ${r.n} posts, ${FR(r.h)} of the row's span tall`,
     tiers: () => `${r.id}: ${r.heights.length} gables stacked, the bottom ${wt}, heights ${r.heights.join(' : ')}, widths ${r.widths.join(' : ')}, notched ${FR(r.notch)}`,

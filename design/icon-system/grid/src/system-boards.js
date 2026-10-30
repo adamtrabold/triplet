@@ -144,10 +144,10 @@ const GROUPS = [
   ['Snapping', ['Snap priority', 'Curved parts on the grid', 'Turned parts', 'Centring', 'Centred under a part', 'Sharpness']],
   ['Size variants', ['What carries the read']],
   ['Weight', ['Stroke', 'Stroke at 18 on the grid', 'Parts that are not strokes', 'Thinnest part at 12', 'Solids are shapes', 'Same role, same width', 'The ring']],
-  ['Construction', ['Roots', 'Proportions', 'Aligned roots', 'Brand in the roots', 'Few points', 'Holes', 'Handles', 'A handle on a face', 'One band', 'Loops off a short straight', 'Protrusions', 'No narrow passages', 'When rules meet']],
+  ['Construction', ['Roots', 'Proportions', 'Aligned roots', 'Brand in the roots', 'Few points', 'Holes', 'Handles', 'A handle on a face', 'A loop off a short straight', 'Parts that run on', 'Posts from one point', 'Posts end square', 'Spokes count as a row', 'Protrusions', 'No narrow passages', 'When rules meet']],
   ['Tooling', ['Machined', 'The cutter rack', 'The rack at 24 and 12', 'Chamfer under an overhang', 'Chamfer angle', 'Fillet into a face', 'Points', 'Every meeting rounded', 'Inner corners']],
   ['Curvature', ['Whole curves', 'Continuous curvature', 'Counters follow', 'Cuts follow the curve', 'Humanist line']],
-  ['Counters and rows', ['Counters and gaps', 'Inner bands', 'Rows', 'Combs', 'Comb depth']],
+  ['Counters and rows', ['Counters and gaps', 'Detail at 12', 'Inner bands', 'Rows', 'Combs', 'Comb depth']],
   ['Brand', ['Direction', 'Three filters', 'Ring and alone', 'Never', 'Outline or solid', 'Novelty']],
   ['Line marks', ['Star and +', 'Star', '+']],
   ['Subjects', ['Categories', 'Subjects', 'Museum columns', 'Shopping']],
@@ -208,8 +208,13 @@ renderVals() { return {}; }
 }
 module.exports = { iconsBoard, gridBoard, rulesBoard, W_ICONS };
 if (require.main === module) {
+  // THE GATE (10-30): the boards are written only from a build that passes every automatic check, run here, fresh, on every
+  // built size; any failure refuses to write anything (exit 1), so a failing build can never reach the canvas
+  const gate = require('./system-check.js').run();
+  if (!gate) { console.error('system-boards: the system checks fail; nothing written, nothing to publish'); process.exit(1); }
   const out = process.argv[2]; fs.mkdirSync(out, { recursive: true });
   const check = J(path.join(S.OUT, 'check.json')), R = rulesBoard();
+  if (!check || !check.ok) { console.error('system-boards: check.json does not record a pass'); process.exit(1); }
   const boards = { Icons: ['Icons', iconsBoard(check), W_ICONS], IconsGrid: ['Icons on the grid', gridBoard(), W_ICONS], SystemRules: ['Rules', R.html, R.W] };
   for (const [k, [t, body, w]] of Object.entries(boards)) {
     fs.writeFileSync(path.join(out, `${k}.html`), `<!doctype html><html><head><meta charset="utf-8">${FONT}</head><body style="margin:0">${body}</body></html>`);
