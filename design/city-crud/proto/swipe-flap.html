@@ -38,7 +38,10 @@
   .board { position:absolute; top:0; bottom:0; left:0; width:var(--open); display:flex; align-items:center; justify-content:center; padding-left:12px; box-sizing:border-box;
     background:var(--navy); color:var(--paper); clip-path:polygon(12px 0, 100% 0, 100% 100%, 12px 100%, 0 50%);
     font-stretch:75%; text-transform:uppercase; font-weight:700; font-size:12px; letter-spacing:.12em; border:none; }
-  .row.settle .front, .row.settle .clip { transition:transform 220ms cubic-bezier(.2,1.2,.4,1), width 220ms cubic-bezier(.2,1.2,.4,1); }
+  /* SNAP (owner: "the swipe should snap some"): open lands fast with a small overshoot (~6px past the
+     detent, back in one beat); close is quicker and plain, no bounce. */
+  .row.settle.to-open .front, .row.settle.to-open .clip { transition:transform 240ms cubic-bezier(.25,1.45,.45,1), width 240ms cubic-bezier(.25,1.45,.45,1); }
+  .row.settle.to-shut .front, .row.settle.to-shut .clip { transition:transform 160ms cubic-bezier(.4,0,.2,1), width 160ms cubic-bezier(.4,0,.2,1); }
   @media (prefers-reduced-motion: reduce) { .row.settle .front, .row.settle .clip, .sign .s { transition:none; } }
   .confirm { padding:10px 12px 12px; border-bottom:1px solid var(--hair); font-size:14px; line-height:20px; color:var(--ink); }
   .confirm[hidden] { display:none; }
@@ -69,35 +72,49 @@
     cf.querySelector('[data-x]').onclick = () => setOpen(r, false);
     r.querySelector('.board').onclick = e => { e.stopPropagation(); cf.hidden = false; };
     r.querySelector('.front').onclick = () => { if (r.dataset.open === '1') setOpen(r, false); else closeAll(); };
-    let x0 = null, y0 = null, base = 0, locked = null;
-    r.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; base = r.dataset.open === '1' ? -OPEN : 0; locked = null; r.classList.remove('settle'); }, { passive: true });
+    let x0 = null, y0 = null, base = 0, locked = null, trail = [];
+    r.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; base = r.dataset.open === '1' ? -OPEN : 0; locked = null; trail = []; r.classList.remove('settle', 'to-open', 'to-shut'); }, { passive: true });
     r.addEventListener('touchmove', e => {
       if (x0 == null) return;
       const dx = e.touches[0].clientX - x0, dy = e.touches[0].clientY - y0;
       if (!locked && Math.hypot(dx, dy) > 10) locked = Math.abs(dx) > 2 * Math.abs(dy) ? 'x' : 'y';   // axis lock: the menu still scrolls
-      if (locked === 'x') { if (e.cancelable) e.preventDefault(); setDrag(r, base + dx); }
+      if (locked === 'x') { if (e.cancelable) e.preventDefault(); setDrag(r, base + dx, true); }
+      const now = performance.now(); trail.push([now, e.touches[0].clientX]); while (trail.length > 2 && now - trail[0][0] > VEL_WINDOW) trail.shift();
     }, { passive: false });
     r.addEventListener('touchend', () => {
-      if (locked === 'x') { const cur = parseFloat(r.dataset.dx || 0); setOpen(r, cur < -OPEN / 2); }
+      if (locked === 'x') {
+        const cur = parseFloat(r.dataset.dx || 0);
+        // velocity over the last VEL_WINDOW ms (px/ms, negative = leftward)
+        const v = trail.length > 1 ? (trail[trail.length - 1][1] - trail[0][1]) / Math.max(1, trail[trail.length - 1][0] - trail[0][0]) : 0;
+        // a flick decides on its own, from any position; otherwise 40% of the way decides, measured
+        // from where the drag began (opening: 40% out; closing from open: 40% back)
+        const open = Math.abs(v) >= FLICK_V ? v < 0 : base === 0 ? cur < -OPEN * OPEN_AT : cur < -OPEN * (1 - OPEN_AT);
+        r.dataset.lastV = v.toFixed(2); setOpen(r, open);
+      }
       x0 = null; locked = null;
     });
   });
   // the row follows the finger; past the board's width it resists (rubber band)
-  function setDrag(r, x) {
+  const FLICK_V = 0.25, VEL_WINDOW = 80, OPEN_AT = 0.4, RUBBER = 0.2;
+  function setDrag(r, x, dragging) {
     if (x > 0) x = 0;
-    if (x < -OPEN) x = -OPEN - (-x - OPEN) * 0.3;
+    // the detent: past the open width the board resists hard, and a tick marks the moment you reach it
+    if (dragging) { const past = x <= -OPEN; if (past && r.dataset.atDetent !== '1' && navigator.vibrate) navigator.vibrate(6); r.dataset.atDetent = past ? '1' : ''; }
+    if (x < -OPEN) x = -OPEN - (-x - OPEN) * RUBBER;
     r.dataset.dx = x;
     // the row's name never moves (so you always see which city); only the board slides in over its end
     r.querySelector('.front').style.transform = `translateX(${Math.max(x, -16) * 0.5}px)`;
     r.querySelector('.clip').style.width = `${-x}px`;
-    signs[r.dataset.name].classList.toggle('flipped', x < -OPEN / 2);   // the signpost turns as the reveal passes halfway
+    signs[r.dataset.name].classList.toggle('flipped', x < -OPEN * OPEN_AT);   // the signpost turns where the reveal would open
   }
   function setOpen(r, open) {
     if (open) closeAll(r);
-    r.classList.add('settle'); setDrag(r, open ? -OPEN : 0);
+    r.classList.remove('to-open', 'to-shut'); r.classList.add('settle', open ? 'to-open' : 'to-shut'); setDrag(r, open ? -OPEN : 0);
+    const was = r.dataset.open === '1';
     r.dataset.open = open ? '1' : '';
     if (!open) r.nextElementSibling.hidden = true;
-    if (open && navigator.vibrate) navigator.vibrate(8);
+    // the landing tick: when the board lands open (at the settle's end), never on a close
+    if (open && !was && navigator.vibrate) setTimeout(() => navigator.vibrate(10), 170);
   }
   function closeAll(except) { menu.querySelectorAll('.row').forEach(o => { if (o !== except && o.dataset.open === '1') setOpen(o, false); }); }
 </script></body></html>

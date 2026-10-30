@@ -30,6 +30,32 @@ the left rather than the top"; then "The signpost can still flip over alongside 
   back at once. **VoiceOver:** "Remove {city}" custom action on the row. **Keyboard:**
   Shift+Delete. **Signed out:** the board reads SIGN IN.
 
+## The snap (owner on the prototype: "the swipe should snap some")
+- **Flick decides first:** release velocity, measured over the last 80ms of movement. If it's
+  ≥ 0.25 px/ms, the flick's direction wins from any position: a quick 40px flick left opens, and a
+  quick flick right on an open row closes.
+- **Otherwise position decides, at 40% of the travel from where the drag began.** Opening: past 53px
+  of 132. Closing from open: dragged back more than 53px.
+- **Open lands with a snap:** 240ms, `cubic-bezier(.25,1.45,.45,1)`, overshooting about 5px past the
+  132px open width and back in one beat. Measured widths every 40ms after release: 73, 127, 138,
+  137, 133, 132.
+- **Close is quick and plain:** 160ms, `cubic-bezier(.4,0,.2,1)`, no bounce.
+- **Detent at the open width:** past 132px the drag resists hard (0.2× the finger, was 0.3), with a
+  6ms tick the moment you reach the detent.
+- **Landing tick:** 10ms when the board lands open (at about 170ms into the settle); none on close.
+  On iOS this ticks only through `hapticTap()`'s path, so swipes may be silent there (CLAUDE.md
+  "iOS haptics").
+- **The signpost** turns at the same 40% line the reveal opens at.
+- **Reduced motion:** no transitions; it jumps straight to open or shut.
+- **Checked in Chromium** with real touch drags (CDP), all seven cases correct:
+  - fast 40px flick left: opens
+  - slow 40px left: stays shut
+  - slow 60px left: opens
+  - long 160px drag: rubber-bands, lands open
+  - fast 40px flick right on open: closes
+  - slow 30px right on open: stays open
+  - slow 70px right on open: closes
+
 ## Prototype
 `design/city-crud/proto/swipe-flap.html` (same path, updated in place): five city rows plus a
 signpost. Swipe a row left; the board tracks your finger, settles open past halfway, and that city's
