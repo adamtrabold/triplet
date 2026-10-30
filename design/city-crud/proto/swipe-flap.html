@@ -17,7 +17,7 @@
   .post .boards { position:relative; left:2px; display:flex; flex-direction:column; gap:10px; padding:0 0 18px; }
   .post::after { content:''; position:absolute; left:-3px; bottom:-4px; width:8px; height:8px; border-radius:50%; background:var(--navy); }
   .sign { position:relative; height:30px; width:150px; perspective:300px; }
-  .sign .s { position:absolute; inset:0; display:flex; align-items:center; padding:0 22px 0 10px; backface-visibility:hidden; transition:transform 260ms cubic-bezier(.2,1.3,.4,1);
+  .sign .s { position:absolute; inset:0; display:flex; align-items:center; padding:0 22px 0 10px; backface-visibility:hidden; transition:transform 140ms cubic-bezier(.3,1.35,.5,1);   /* v11: was 260ms (owner: "sign flip is a bit slow") */
     font-stretch:75%; text-transform:uppercase; font-weight:700; font-size:12px; letter-spacing:.08em; color:var(--navy);
     clip-path:polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%); background:var(--navy); }
   .sign .s span { position:absolute; inset:1.5px 1.5px 1.5px 0; clip-path:inherit; background:var(--paper-raised); }
@@ -51,7 +51,8 @@
   .btn.go { box-shadow:inset 0 0 0 1px var(--hair); color:var(--ink-2); }
 </style></head>
 <body><div class="wrap">
-  <div><p class="note">Swipe a city row to the left. Its REMOVE board slides in from the right; the signpost turns too. Tap the board for the confirm; swipe right or tap another row to close.</p>
+  <div><p class="note">Swipe a city row to the left. Its REMOVE board slides in from the right; the signpost turns too. Tap the board, or the turned sign, for the confirm; swipe right or tap another row to close.</p>
+    <p class="note" style="margin-top:-4px">Sign says: <button class="btn" data-word="0" style="padding:4px 8px;box-shadow:inset 0 0 0 1px var(--navy)">Cancelled</button> <button class="btn" data-word="1" style="padding:4px 8px">Change of plans</button> <button class="btn" data-word="2" style="padding:4px 8px">See you soon?</button></p>
     <div class="post"><div class="boards" id="boards"></div></div></div>
   <div class="menu" id="menu"><div class="cap">Places</div></div>
 </div>
@@ -61,14 +62,17 @@
   const signs = {};
   cities.forEach(([n, c]) => {
     const s = document.createElement('div'); s.className = 'sign' + (n === 'Malmö' ? '' : ' dim');
-    s.innerHTML = `<div class="s front"><span></span><b>${n} <small style="font-size:10px">${c}</small></b></div><div class="s back"><b>Remove</b></div>`;
+    s.innerHTML = `<div class="s front"><span></span><b>${n} <small style="font-size:10px">${c}</small></b></div><div class="s back"><b class="word">Cancelled</b></div>`;
+    // tapping the turned sign opens the same confirm (only while it's turned, i.e. while its row is open)
+    s.addEventListener('click', () => { if (s.classList.contains('flipped')) { const row = [...menu.querySelectorAll('.row')].find(x => x.dataset.name === n); row.nextElementSibling.hidden = false; } });
+    s.style.cursor = 'pointer';
     boards.appendChild(s); signs[n] = s;
     const r = document.createElement('div'); r.className = 'row'; r.dataset.name = n;
     r.setAttribute('role', 'button'); r.setAttribute('aria-label', `${n}, ${c}. Actions available: remove ${n}`);
     r.innerHTML = `<div class="clip"><button class="board" aria-label="Remove ${n}">Remove</button></div><div class="front">◉ ${n} <small>${c}</small></div>`;
     menu.appendChild(r);
     const cf = document.createElement('div'); cf.className = 'confirm'; cf.hidden = true;
-    cf.innerHTML = `Remove ${n} from your cities? Its ${c} places move to a city you pick, or are removed too.<div class="acts"><button class="btn" data-x>Cancel</button><button class="btn go">Remove</button></div>`;
+    cf.innerHTML = `Remove ${n} from your cities? Its ${c} places move to a city you pick, or are removed too.<div class="acts"><button class="btn" data-x>Keep ${n}</button><button class="btn go">Remove</button></div>`;
     menu.appendChild(cf);
     cf.querySelector('[data-x]').onclick = () => setOpen(r, false);
     r.querySelector('.board').onclick = e => { e.stopPropagation(); cf.hidden = false; };
@@ -117,5 +121,12 @@
     // the landing tick: when the board lands open (at the settle's end), never on a close
     if (open && !was && navigator.vibrate) setTimeout(() => navigator.vibrate(10), 170);
   }
+  // the top-3 toggle: the sign's words
+  const WORDS = ['Cancelled', 'Change of plans', 'See you soon?'];
+  document.querySelectorAll('[data-word]').forEach(b => b.onclick = () => {
+    document.querySelectorAll('[data-word]').forEach(o => o.style.boxShadow = 'none');
+    b.style.boxShadow = 'inset 0 0 0 1px var(--navy)';
+    document.querySelectorAll('.sign .word').forEach(w => w.textContent = WORDS[+b.dataset.word]);
+  });
   function closeAll(except) { menu.querySelectorAll('.row').forEach(o => { if (o !== except && o.dataset.open === '1') setOpen(o, false); }); }
 </script></body></html>
