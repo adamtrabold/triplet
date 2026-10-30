@@ -159,12 +159,14 @@ const KINDS = {
   // as the largest circle it holds inside the ring), else one fewer, down to two; under two, none (the ring stays open). The
   // turn is a share of the step between spokes, so a count the rule lowers stays evenly turned
   spokes(r, at, t, u, C) {
-    const P = C.placed[r.of], [c, cy] = P.centre, L = P.radius, Ri = L - t.stroke / 2, h = t.part / 2, prims = [];
-    const gapOf = m => { const ph = Math.PI / (2 * m), rho = (Ri + h) / (1 + Math.sin(ph)); return 2 * (Ri - rho); };
-    let n = 0; for (let m = r.n; m >= 2; m--) if (gapOf(m) >= t.counter - 1e-9) { n = m; break; }
+    const P = C.placed[r.of], [c, cy] = P.centre, L = P.radius, Ri = L - t.stroke / 2, prims = [];
+    const gapOf = (m, w) => { const ph = Math.PI / (2 * m), rho = (Ri + w / 2) / (1 + Math.sin(ph)); return 2 * (Ri - rho); };
+    // count first, as a row: the part width, then thinner a grid step at a time to the size's thinnest, then one fewer
+    const widths = []; for (let w = t.part; w >= t.min - 1e-9; w -= t.grid) widths.push(w); if (widths[widths.length - 1] > t.min + 1e-9) widths.push(t.min);
+    let n = 0, sw = t.part; out: for (let m = r.n; m >= 2; m--) for (const w of widths) if (gapOf(m, w) >= t.counter - 1e-9) { n = m; sw = w; break out; }
     for (let i = 0; i < n; i++) { const a = ((r.turn || 0) + i) * Math.PI / n, dx = Math.sin(a) * L, dy = -Math.cos(a) * L;
-      prims.push({ ...E.B([c - dx, cy - dy], [c + dx, cy + dy], t.part), root: 'POST', role: 'spoke' }); }
-    return { prims, box: { ...P.box }, noStack: true, spokes: { id: r.id, declared: r.n, n, gap: n ? gapOf(n) : 2 * Ri } };
+      prims.push({ ...E.B([c - dx, cy - dy], [c + dx, cy + dy], sw), root: 'POST', role: 'spoke' }); }
+    return { prims, box: { ...P.box }, noStack: true, spokes: { id: r.id, declared: r.n, n, gap: n ? gapOf(n, sw) : 2 * Ri, w: +(sw).toFixed(4) } };
   },
   // a splay: two posts from one point of the root they name (its centre; or a share of the way down a post), each leaning off
   // upright by its own lean (lean: one for both, mirrored; or [ahead, behind], a stride, ahead being the way the root they run
@@ -321,7 +323,7 @@ function layout(decl, s, Z, S, room, gdx = null) {
       const w = wOf(r.id); R = { held: true, topF, prims: [], box: { x0: cx - w / 2, x1: cx + w / 2, top: topF / u, bot: (topF + t.stroke) / u } };
     } else R = KINDS[r.kind](r, { cx, w: wOf(r.id), top: topF / u, topF }, t, u);
     R.r = r; R.depth = R.depth ?? (R.box.bot - R.box.top); placed[r.id] = R; out.push(R);
-    if (R.spokes) (meta.spokes = meta.spokes || []).push({ ...R.spokes, gap: +(R.spokes.gap * k).toFixed(3), min: Z.counter });
+    if (R.spokes) (meta.spokes = meta.spokes || []).push({ ...R.spokes, gap: +(R.spokes.gap * k).toFixed(3), w: +(R.spokes.w * k).toFixed(3), min: Z.counter });
     // what lands with what: a root's own counters (a band) and a loop with its counter move with the root they are cut in or sit on
     if (R.prims[0]) R.prims[0] = { ...R.prims[0], rid: r.id };
     // a part drawn from a curved root (a loop on its wall, spokes or a splay from a ring's centre) moves with that root on the grid

@@ -69,7 +69,7 @@ const SETTINGS = [
     ['Parts that run on', 'Posts that run on from another post (legs from a body) are one root with it: the grid moves them together, and where they part is a corner the rack cuts.', '10-30', 'designer'],
     ['Posts from one point', 'Posts splayed or crossed through one point meet in a pin: a disc a line across on the point.', '10-30', 'designer'],
     ['Posts end square', 'A post ends square to itself, leaning or not; a leaning post stands on its lower corner (a flat cut across it would leave a tip on its outer side).', '10-30', 'designer'],
-    ['Spokes count as a row', 'Spokes through a ring keep their declared count only while every gap between them clears the counter minimum (the gap: the largest circle it holds inside the ring); else one fewer, down to two; under two, none, and the ring stays open. Their turn is a share of the step between them, so a lowered count stays evenly turned.', '10-30', 'designer'],
+    ['Spokes count as a row', 'Spokes through a ring keep their declared count only while every gap between them clears the counter minimum (the gap: the largest circle it holds inside the ring); else, as a row\'s parts do, they thin a grid step at a time to the size\'s thinnest; only then one fewer, down to two; under two, none, and the ring stays open. Their turn is a share of the step between them, so a lowered count stays evenly turned.', '10-30', 'designer'],
     ['A handle on a face', 'A loop on a top face stands on it as a half circle, its feet a share of the face apart. A loop that runs on behind a face shows through it: past a band of the line, its legs go on into the face as slots of the loop\'s own width, ending round.', '10-30', 'designer'],
     ['When rules meet', 'Continuous curvature first, then minimum widths, then same-role widths, then protrusions, then the grid. The box always holds.', '10-27', 'designer'],
   ] },
@@ -222,7 +222,7 @@ const DECL = {
     { id: 'handle', kind: 'loop', of: 'body', at: 'top', span: 2 / 3, rise: 0, into: 1 / 4 },
   ] },
   neighbourhood: { name: 'Neighbourhood', shape: true, cls: 'diamond', spine: [
-    { id: 'blocks', kind: 'blocks', w: 1, cols: [3, 2, 3], rows: [2, 3, 2], avenue: 'c1', open: [[2, 0]], turn: 45 },
+    { id: 'blocks', kind: 'blocks', w: 1, cols: [2, 3, 2], rows: [3, 2], avenue: 'r1', turn: 45 },
   ] },
   street: { name: 'Street', shape: true, cls: 'diamond', spine: [
     { id: 'head', kind: 'disc', w: 1 / 4 },
