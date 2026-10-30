@@ -1,5 +1,31 @@
 # Systems designer notes: icon system
 
+## THE SYSTEM, one shot: the rest of the set (2026-10-30, canvas CANVAS_V)
+
+- **Owner:** "i want to see the rest of the icons we need built with these principles now"; "i think shopping needs more execution
+  guidance than conceptual change. one shot them all." Done as declarations only (system.js DECL); every new shape is a general kind
+  in system-make.js KINDS, none names an icon.
+- **New kinds:** block (a mass, w and deep, at a root's end), ring, disc, spokes (n posts crossed through a ring's centre, turn),
+  splay (two posts from a point, lean, to the bottom / past / reach; a pin from a centre, one band with a post from its foot),
+  knot (a square, its sides running on into loops; loop 'square'), drape (a quarter ellipse hung from a slab's middle to the fall's
+  inner face, then a post to the bottom; mirrored a cut apart), blocks (cols x rows a cut apart, turned), end post (a post flush with
+  a root's end, rise a line over the top, h below it or to the bottom), leaning post (from under a disc, a cut apart along the post),
+  loop at 'top' (half circle on the face, span; into: slots of its own width through the face past a band of the line, ending round),
+  slab lines (thickness in lines).
+- **New class:** DIAMOND (shapes): the class box is a diamond of the coin's area; the fit is by the ink's reach |x|+|y| (optics l1).
+- **Rules added (designer settings, his to change):** Shapes in a diamond; A handle on a face; One band; Loops off a short straight;
+  Curved parts on the grid; Turned parts. Shopping set to "a bag; execution".
+- **Engine-level changes (general):** asOne: a curved part moving with a stretched straight root takes its scale across, evenly.
+  landPrims: a curved root with no straight side on its box lands its outermost straights (the knot). Blocks turned off the grid are
+  not mirrored (symD cut the axis corner rounds: 6 KNEEs). engine.js unchanged (an arcEase retry was tried for round loops and made
+  36 faults; reverted).
+- **Tried and dropped:** round ⌘ loops (16 faults: line-to-arc JUMPs on a 0.63 straight, too short to ease; the rack can't help);
+  a bag handle on legs (read as a padlock, and the arch went ogee); the walker with arms (a dress); square share 2/5 (no ⌘ left);
+  a Ferris X on 45-degree legs (a sawhorse); shallow hip turns (KINK: under 30 degrees is a knee), so the body and the back leg are
+  one line (both 16 degrees).
+- **Bench:** now Park, a set member (no longer "the proof").
+- Scratch: session scratchpad `os/` (b.sh builds, prev.js quick union preview, zoom.js, spot.js, stills.js, blindkit.js).
+
 ## THE SYSTEM, round 8 (2026-10-30, jam turn 218, canvas v292; knife shorter than the fork at 12)
 
 - **Cause:** landing: tines' straight top snaps, the blade's curved top stays as drawn; the optical-centring offset decides the
