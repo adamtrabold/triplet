@@ -1,6 +1,6 @@
 # Systems designer notes: icon system
 
-## THE SYSTEM, one shot: the rest of the set (2026-10-30, canvas CANVAS_V)
+## THE SYSTEM, one shot: the rest of the set (2026-10-30, canvas v293)
 
 - **Owner:** "i want to see the rest of the icons we need built with these principles now"; "i think shopping needs more execution
   guidance than conceptual change. one shot them all." Done as declarations only (system.js DECL); every new shape is a general kind
@@ -23,6 +23,13 @@
   a bag handle on legs (read as a padlock, and the arch went ogee); the walker with arms (a dress); square share 2/5 (no ⌘ left);
   a Ferris X on 45-degree legs (a sawhorse); shallow hip turns (KINK: under 30 degrees is a knee), so the body and the back leg are
   one line (both 16 degrees).
+- **Gate (247 pass, 4 fail, all Continuous curvature):** 24 Nordic loop (2 KNEEs: the notch floor between the top loops, two
+  rounds nearly meeting); 24 Ferris wheel (1 KNEE); 24 walker (2 KNEEs at the feet: the outer foot corner is 74 degrees, a tip by
+  the tip rule); 12 walker (2 KNEEs + a SHOULDER in the crotch). Every 18 passes; every approved icon is byte-identical at 18/24/12.
+  Proposed fixes (not done): the rack steps down for two rounds that share a short floor (general); a splay's foot square to its
+  post, or the tip threshold read against the foot (general). 12 Ferris closes its counters by rule (a disc on legs): an eye check.
+- **Blind read** (`grid/blind-read-oneshot.md`): bed, bag, high; Ferris medium-high; ⌘ medium (the Mac key); curtain medium;
+  walker low (an italic "i"); city blocks low (a waffle, an apps grid). The diamonds read as their own category but not what.
 - **Bench:** now Park, a set member (no longer "the proof").
 - Scratch: session scratchpad `os/` (b.sh builds, prev.js quick union preview, zoom.js, spot.js, stills.js, blindkit.js).
 

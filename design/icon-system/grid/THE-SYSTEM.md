@@ -18,11 +18,14 @@ A change to any icon is a change here first. Open points are still to be set; th
 - **Where each size ships:** 18 in the 24 ring on pins and list rows; 24 in the 32 ring on the selected pin; 12 bare on filter chips. [10-27]
 - **The grid:** One iPhone pixel, 1/3px. The system writes each size for the iPhone directly; there is no refit pass for any device. [10-27]
 - **Snap priority:** Silhouette first: an outer edge goes to a whole px when one is within 1/4px, else the nearest iPhone pixel. Then the outer side of each stroke (its width kept). Inner edges, counters, curves, diagonals, points and rounds stay as drawn; but a point or curve drawn level with an outer edge goes to the line that edge landed on (its other end stays landed). The roots land on the grid before any corner is rounded, so every round and join is built on landed roots; otherwise a curved root is never stretched, only scaled evenly. [10-29]
+- **Curved parts on the grid:** A curved part drawn on a root (a loop, a handle, spokes) moves with it on the grid and is never stretched: on a straight root the grid stretched, it takes the root's scale across, evenly. A curved root with no straight side on its box (a knot) lands its outermost straights. [10-30] *(set by the designer; yours to change)*
+- **Turned parts:** Parts turned off the grid (blocks on the diagonal) are drawn whole and centred, never mirrored: the mirror's seam would cut a round on the axis in two. [10-30] *(set by the designer; yours to change)*
 - **Centring:** A centred part is exactly centred: an even count of iPhone pixels about the icon's centre. Vertical centring is optical, per icon. [10-27]
 - **Centred under a part:** A part centred under another takes its parity, one iPhone pixel wider when they differ, so it stays exactly centred. [10-28] *(set by the designer; yours to change)*
 - **What carries the read:** A size keeps the 18's proportions, changing them only where the icon needs it to read. The test: a plain part (a post to the bottom: a handle, a grip) against the parts it holds, which carry the read (tines and head; a blade beside them follows). Where the size's fixed widths have made it longer against them than at 18 by more than an eighth, it gives height back until the 18's proportion returns. A post showing a share of its root, or a stroke, keeps its proportion already. [10-29] *(set by the designer; yours to change)*
 - **Sharpness:** As sharp as possible: core dimensions and core line landings are never fuzzy. [10-26]
 - **Scale and weight:** Settled once for the set at the grid level: every icon the same optical size and weight; never negotiated icon by icon. [10-20]
+- **Shapes in a diamond:** A shape (Neighbourhood, Street) sits in a diamond badge, so its class box is a diamond of the coin's area: the drawing is fitted by how far its ink reaches across the diamond, not by its width and height. [10-30] *(set by the designer; yours to change)*
 - **The box:** An icon is fitted to its class box (wide, square, tall) by the sides that scale, and never grows past its v264 size: each outer edge at most one iPhone pixel past where v264's lands on the grid. A rule that needs room takes it from the icon's own proportions; the box never gives way. [10-27]
 
 ## Weight
@@ -51,6 +54,9 @@ A change to any icon is a change here first. Open points are still to be set; th
 - **Protrusions:** A feature that has to read by sticking out (an edge, a step, a lip) clears a minimum visible protrusion: one whole pixel past what it sticks out from at 18 (1 1/3 at 24, 1 at 12), after the join's round. [10-27]
 - **No narrow passages:** No passage that vanishes at small sizes. [10-19]
 - **Handles:** A handle takes its rule from the root shape it is (a cup's ear is a loop around its counter). [10-26]
+- **One band:** A band that runs on into loops (a knot), and posts splayed from a post's foot, are one root: the grid moves them together and the joints are corners the rack cuts. Posts splayed from a centre meet in a pin, a disc a line across on the point. [10-30] *(set by the designer; yours to change)*
+- **Loops off a short straight:** A loop that runs on from a straight too short to ease into (a knot's loop off its square) is drawn square, so every join is a corner: a round loop there steps in curvature. [10-30] *(set by the designer; yours to change)*
+- **A handle on a face:** A loop on a top face stands on it as a half circle, its feet a share of the face apart. A loop that runs on behind a face shows through it: past a band of the line, its legs go on into the face as slots of the loop's own width, ending round. [10-30] *(set by the designer; yours to change)*
 - **When rules meet:** Continuous curvature first, then minimum widths, then same-role widths, then protrusions, then the grid. The box always holds. [10-27] *(set by the designer; yours to change)*
 
 ## Tooling and curvature
@@ -90,7 +96,7 @@ A change to any icon is a change here first. Open points are still to be set; th
 - **Categories:** 11 pins (Restaurant, Café, Bar, Venue, Museum, Landmark, Attraction, Park, Nature, Shopping, Hotel) plus Neighbourhood and Street. Visited does not change. [10-16]
 - **Subjects:** Café cup and saucer; Bar a coupe on a long stem, its bowl shallow and wider at the bottom; Museum a column front, flat base, separated gable; Nature a conifer, indented branches with light swoops; Restaurant fork and knife; Landmark the Nordic loop; Attraction a Ferris wheel; Park a bench; Venue a curtain; Hotel a bed; Neighbourhood city blocks; Street a walker. [10-21]
 - **Museum columns:** Three counters (four columns): two columns read as a bank. [10-27]
-- **Shopping:** open. Choices: (1) None of the proposed icons work; the bag may be one step too common. [10-26]
+- **Shopping:** A bag. The subject stays; the job is execution: the handle rule, counters and roots make it read as a bag, not a padlock or a fuel can. [10-30]
 
 ## The sizes
 
@@ -117,9 +123,16 @@ Widths are px at that size, on whole iPhone pixels except the 1½ stroke at 18. 
 - **Museum** (square): roof: a gable over the beam, pitch 1/3, ends 4/5 of a line; rests on the part above, a cut apart: beam: a slab the box's full width; held under the part above (chamfer): columns: a row of 4 posts, 1/3 of the row's span tall; held under the part above (chamfer): plinth: a slab as wide as the beam.
 - **Nature** (tall): tiers: 3 gables stacked, the bottom the box's full width, heights 4.83 : 3 : 3.33, widths 2.8 : 4.1 : 5.3, notched 3/5; into the part above: trunk: a post showing a stroke.
 - **Restaurant** (tall): tines: a comb of 3, 1/4 of the height, into the part above: head: a half ellipse under it, into the part above: handle: a post to the bottom | cut | blade: a blade (a quarter ellipse) past its handle, into the part above: grip: a post to the bottom.
+- **Park** (wide): back: a slab the box's full width; held under the part above (chamfer): rails: a row of 2 posts, 1/6 of the row's span tall; held under the part above (chamfer): seat: a slab as wide as the back; held under the part above (chamfer): legs: a row of 2 posts, 1/4 of the row's span tall.
+- **Landmark** (square): loops: a square 3/8 of the span, each side running on into a square loop round its corner.
+- **Attraction** (square): rim: a ring the box's full width; spokes: 3 posts crossed through the rim's centre, wall to wall, turned 30 degrees; legs: two posts from the rim's centre, 30 degrees off upright each way, 1/6 of its height past it.
+- **Venue** (square): rail: a slab the box's full width; rests on the part above, a cut apart: drapes: two drapes a cut apart, each a quarter ellipse to 3/5 of the height, then a post to the bottom.
+- **Hotel** (wide): pillow: a block 1/3 of the mattress wide, as deep as 1/2 of its width, at the mattress's left end; rests on the part above, a cut apart: mattress: a slab the box's full width, 2 lines thick; into the part above: foot: a post at the mattress's right end, 1/5 of its width below it; into the part above: head: a post at the mattress's left end, a line over the top, to the bottom.
+- **Shopping** (tall): body: a block the box's full width, as deep as it is wide; handle: a loop on the body's top, 2/3 of its width, its back a half circle on the face, showing through it as slots 1/4 of its depth.
+- **Neighbourhood** (diamond; a shape, in its diamond badge): blocks: 3 by 3 blocks a cut apart, turned 45 degrees.
+- **Street** (diamond; a shape, in its diamond badge): head: a disc 1/4 of the box; rests on the part above, a cut apart: body: a post leaning 16 degrees, 1/4 of the height; legs: two posts from the body's foot, 16 degrees off upright each way, to the bottom.
 - **Star** (outline): star: a star of 5 points (inner radius 0.47), its counter the star moved in.
 - **+** (open): arms: two equal posts crossed.
-- **Bench** (wide; the system's proof: built from a declaration with no new code, not a set member): back: a slab the box's full width; held under the part above (chamfer): rails: a row of 2 posts, 1/6 of the row's span tall; held under the part above (chamfer): seat: a slab as wide as the back; held under the part above (chamfer): legs: a row of 2 posts, 1/4 of the row's span tall.
 
 ## Build and check
 

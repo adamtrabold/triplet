@@ -237,6 +237,267 @@
   },
   {
    "size": 18,
+   "id": "park",
+   "checks": [
+    {
+     "point": "Centring",
+     "ok": true,
+     "detail": "centre 0px off"
+    },
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "8 of 8 core outer edges on the iPhone grid; parts with both sides outside: 4 of 4 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 1.25px"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "1 counters"
+    },
+    {
+     "point": "Rows",
+     "ok": true,
+     "detail": "2 parts and 1 counters measured; declared 2 (gaps on the grid)"
+    },
+    {
+     "point": "Same role, same width",
+     "ok": true,
+     "detail": "counters 7.333; parts between them none"
+    },
+    {
+     "point": "Chamfer under an overhang",
+     "ok": true,
+     "detail": "the slab runs 0.667px past the outer post; the bevel joins them"
+    },
+    {
+     "point": "Rows",
+     "ok": true,
+     "detail": "2 parts measured across the foot; declared 2"
+    },
+    {
+     "point": "Same role, same width",
+     "ok": true,
+     "detail": "parts 1.333, 1.333"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "0 curvature faults (none allowed)"
+    }
+   ],
+   "v264": null
+  },
+  {
+   "size": 18,
+   "id": "landmark",
+   "checks": [
+    {
+     "point": "Centring",
+     "ok": true,
+     "detail": "centre 0px off"
+    },
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "20 of 20 core outer edges on the iPhone grid; parts with both sides outside: 0 of 0 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 1.25px"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "5 counters"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "0 curvature faults (none allowed)"
+    }
+   ],
+   "v264": null
+  },
+  {
+   "size": 18,
+   "id": "attraction",
+   "checks": [
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "0 of 0 core outer edges on the iPhone grid; parts with both sides outside: 0 of 0 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 1.25px"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "6 counters"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "0 curvature faults (none allowed)"
+    }
+   ],
+   "v264": null
+  },
+  {
+   "size": 18,
+   "id": "venue",
+   "checks": [
+    {
+     "point": "Centring",
+     "ok": true,
+     "detail": "centre 0px off"
+    },
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "6 of 6 core outer edges on the iPhone grid; parts with both sides outside: 5 of 6 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 1.25px"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "2 counters"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "0 curvature faults (none allowed)"
+    }
+   ],
+   "v264": null
+  },
+  {
+   "size": 18,
+   "id": "hotel",
+   "checks": [
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "4 of 4 core outer edges on the iPhone grid; parts with both sides outside: 8 of 10 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 1.25px"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "1 counters"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "0 curvature faults (none allowed)"
+    }
+   ],
+   "v264": null
+  },
+  {
+   "size": 18,
+   "id": "shopping",
+   "checks": [
+    {
+     "point": "Centring",
+     "ok": true,
+     "detail": "centre 0px off"
+    },
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "5 of 5 core outer edges on the iPhone grid; parts with both sides outside: 0 of 0 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 1.25px"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "3 counters"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "0 curvature faults (none allowed)"
+    }
+   ],
+   "v264": null
+  },
+  {
+   "size": 18,
+   "id": "neighbourhood",
+   "checks": [
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "0 of 0 core outer edges on the iPhone grid; parts with both sides outside: 0 of 0 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 1.25px"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "8 counters"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "0 curvature faults (none allowed)"
+    }
+   ],
+   "v264": null
+  },
+  {
+   "size": 18,
+   "id": "street",
+   "checks": [
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "0 of 0 core outer edges on the iPhone grid; parts with both sides outside: 0 of 0 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 1.25px"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "1 counters"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "0 curvature faults (none allowed)"
+    }
+   ],
+   "v264": null
+  },
+  {
+   "size": 18,
    "id": "star",
    "checks": [
     {
@@ -312,63 +573,6 @@
    "v264": {
     "hausdorffPx": 0.4
    }
-  },
-  {
-   "size": 18,
-   "id": "park",
-   "checks": [
-    {
-     "point": "Centring",
-     "ok": true,
-     "detail": "centre 0px off"
-    },
-    {
-     "point": "Snap priority",
-     "ok": true,
-     "detail": "8 of 8 core outer edges on the iPhone grid; parts with both sides outside: 4 of 4 sides landed"
-    },
-    {
-     "point": "Parts that are not strokes",
-     "ok": true,
-     "detail": "every straight solid at least 1.25px"
-    },
-    {
-     "point": "Counters and gaps",
-     "ok": true,
-     "detail": "1 counters"
-    },
-    {
-     "point": "Rows",
-     "ok": true,
-     "detail": "2 parts and 1 counters measured; declared 2 (gaps on the grid)"
-    },
-    {
-     "point": "Same role, same width",
-     "ok": true,
-     "detail": "counters 7.333; parts between them none"
-    },
-    {
-     "point": "Chamfer under an overhang",
-     "ok": true,
-     "detail": "the slab runs 0.667px past the outer post; the bevel joins them"
-    },
-    {
-     "point": "Rows",
-     "ok": true,
-     "detail": "2 parts measured across the foot; declared 2"
-    },
-    {
-     "point": "Same role, same width",
-     "ok": true,
-     "detail": "parts 1.333, 1.333"
-    },
-    {
-     "point": "Continuous curvature",
-     "ok": true,
-     "detail": "0 curvature faults (none allowed)"
-    }
-   ],
-   "v264": null
   },
   {
    "size": 24,
@@ -663,6 +867,210 @@
      "point": "Continuous curvature",
      "ok": true,
      "detail": "0 curvature faults (none allowed)"
+    }
+   ],
+   "v264": null
+  },
+  {
+   "size": 24,
+   "id": "landmark",
+   "checks": [
+    {
+     "point": "Centring",
+     "ok": true,
+     "detail": "centre 0px off"
+    },
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "19 of 19 core outer edges on the iPhone grid; parts with both sides outside: 0 of 0 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 1.67px"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "5 counters"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": false,
+     "detail": "2 curvature faults (none allowed)"
+    }
+   ],
+   "v264": null
+  },
+  {
+   "size": 24,
+   "id": "attraction",
+   "checks": [
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "0 of 0 core outer edges on the iPhone grid; parts with both sides outside: 0 of 0 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 1.67px"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "6 counters"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": false,
+     "detail": "1 curvature faults (none allowed)"
+    }
+   ],
+   "v264": null
+  },
+  {
+   "size": 24,
+   "id": "venue",
+   "checks": [
+    {
+     "point": "Centring",
+     "ok": true,
+     "detail": "centre 0px off"
+    },
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "6 of 6 core outer edges on the iPhone grid; parts with both sides outside: 6 of 6 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 1.67px"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "2 counters"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "0 curvature faults (none allowed)"
+    }
+   ],
+   "v264": null
+  },
+  {
+   "size": 24,
+   "id": "hotel",
+   "checks": [
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "4 of 4 core outer edges on the iPhone grid; parts with both sides outside: 9 of 10 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 1.67px"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "1 counters"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "0 curvature faults (none allowed)"
+    }
+   ],
+   "v264": null
+  },
+  {
+   "size": 24,
+   "id": "shopping",
+   "checks": [
+    {
+     "point": "Centring",
+     "ok": true,
+     "detail": "centre 0px off"
+    },
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "5 of 5 core outer edges on the iPhone grid; parts with both sides outside: 0 of 0 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 1.67px"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "3 counters"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "0 curvature faults (none allowed)"
+    }
+   ],
+   "v264": null
+  },
+  {
+   "size": 24,
+   "id": "neighbourhood",
+   "checks": [
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "0 of 0 core outer edges on the iPhone grid; parts with both sides outside: 0 of 0 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 1.67px"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "8 counters"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "0 curvature faults (none allowed)"
+    }
+   ],
+   "v264": null
+  },
+  {
+   "size": 24,
+   "id": "street",
+   "checks": [
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "0 of 0 core outer edges on the iPhone grid; parts with both sides outside: 0 of 0 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 1.67px"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "1 counters"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": false,
+     "detail": "2 curvature faults (none allowed)"
     }
    ],
    "v264": null
@@ -963,6 +1371,210 @@
     }
    ],
    "v264": null
+  },
+  {
+   "size": 12,
+   "id": "landmark",
+   "checks": [
+    {
+     "point": "Centring",
+     "ok": true,
+     "detail": "centre 0px off"
+    },
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "20 of 20 core outer edges on the iPhone grid; parts with both sides outside: 0 of 0 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 0.67px"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "1 counters"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "0 curvature faults (none allowed)"
+    }
+   ],
+   "v264": null
+  },
+  {
+   "size": 12,
+   "id": "attraction",
+   "checks": [
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "0 of 0 core outer edges on the iPhone grid; parts with both sides outside: 0 of 0 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 0.67px"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "0 counters"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "0 curvature faults (none allowed)"
+    }
+   ],
+   "v264": null
+  },
+  {
+   "size": 12,
+   "id": "venue",
+   "checks": [
+    {
+     "point": "Centring",
+     "ok": true,
+     "detail": "centre 0px off"
+    },
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "6 of 6 core outer edges on the iPhone grid; parts with both sides outside: 6 of 6 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 0.67px"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "2 counters"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "0 curvature faults (none allowed)"
+    }
+   ],
+   "v264": null
+  },
+  {
+   "size": 12,
+   "id": "hotel",
+   "checks": [
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "4 of 4 core outer edges on the iPhone grid; parts with both sides outside: 7 of 9 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 0.67px"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "1 counters"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "0 curvature faults (none allowed)"
+    }
+   ],
+   "v264": null
+  },
+  {
+   "size": 12,
+   "id": "shopping",
+   "checks": [
+    {
+     "point": "Centring",
+     "ok": true,
+     "detail": "centre 0px off"
+    },
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "6 of 6 core outer edges on the iPhone grid; parts with both sides outside: 0 of 0 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 0.67px"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "2 counters"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "0 curvature faults (none allowed)"
+    }
+   ],
+   "v264": null
+  },
+  {
+   "size": 12,
+   "id": "neighbourhood",
+   "checks": [
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "0 of 0 core outer edges on the iPhone grid; parts with both sides outside: 0 of 0 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 0.67px"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "8 counters"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": true,
+     "detail": "0 curvature faults (none allowed)"
+    }
+   ],
+   "v264": null
+  },
+  {
+   "size": 12,
+   "id": "street",
+   "checks": [
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "0 of 0 core outer edges on the iPhone grid; parts with both sides outside: 0 of 0 sides landed"
+    },
+    {
+     "point": "Parts that are not strokes",
+     "ok": true,
+     "detail": "every straight solid at least 0.67px"
+    },
+    {
+     "point": "Counters and gaps",
+     "ok": true,
+     "detail": "1 counters"
+    },
+    {
+     "point": "Continuous curvature",
+     "ok": false,
+     "detail": "3 curvature faults (none allowed)"
+    }
+   ],
+   "v264": null
   }
  ],
  "eye": [
@@ -972,7 +1584,9 @@
   "The museum reads as a museum, not a bank; its bevel reads as a bevel",
   "The coupe's drink reads full",
   "The star and + read as the set's weight",
-  "Each size reads as the same icon as the 18"
+  "Each size reads as the same icon as the 18",
+  "The bag reads as a bag, not a padlock or a fuel can",
+  "The shapes in their diamonds read at the set's size and say what they are (a blind read)"
  ],
- "ok": true
+ "ok": false
 }

@@ -98,7 +98,8 @@ function checkOne(size, id, B) {
 }
 const EYE = ['Every icon the same optical size and weight in the row, at 18 on the phone', 'Vertical centring reads right, per icon',
   'Loosened, humanist curves; flares restrained and sound; no hump or wobble leaving a join', 'The museum reads as a museum, not a bank; its bevel reads as a bevel',
-  'The coupe\'s drink reads full', 'The star and + read as the set\'s weight', 'Each size reads as the same icon as the 18'];
+  'The coupe\'s drink reads full', 'The star and + read as the set\'s weight', 'Each size reads as the same icon as the 18',
+  'The bag reads as a bag, not a padlock or a fuel can', 'The shapes in their diamonds read at the set\'s size and say what they are (a blind read)'];
 function run(ids = S.ORDER) {
   const out = { results: [], eye: EYE }; let ok = true;
   for (const size of [18, 24, 12]) for (const id of ids) {

@@ -122,7 +122,8 @@ function shell(W, kicker, title, lede, body) {
 ${body}</div>`;
 }
 function iconsBoard(check) {
-  const ok = check ? (check.ok ? `<b style="color:${C.moss}">Every check passes at 18, 24 and 12.</b>` : `<b style="color:${C.deep}">Checks fail: not ready.</b>`) : '';
+  const fails = check && !check.ok ? check.results.flatMap(r => r.checks.filter(c => !c.ok).map(c => `${LABEL[r.id] || r.id} at ${r.size} (${c.point.toLowerCase()})`)) : [];
+  const ok = check ? (check.ok ? `<b style="color:${C.moss}">Every check passes at 18, 24 and 12.</b>` : `<b style="color:${C.deep}">Checks fail: ${esc([...new Set(fails)].join('; '))}.</b>`) : '';
   return shell(W_ICONS, 'Icon system', 'Icons', `Every icon the system makes, as the app shows them, then the same SVG at ${BIG}x. ${ok}`, table(false));
 }
 function legendItem(svg, t) { return `<div style="display:flex;align-items:center;gap:8px;font-size:14px">${svg}<span>${t}</span></div>`; }
@@ -169,9 +170,9 @@ function rulesBoard() {
   const td = 'padding:4px 10px;border-bottom:1px solid ' + C.rule;
   const sizes = `<table style="border-collapse:collapse;font-size:14px;margin:0 0 6px"><tr><th style="${td};text-align:left">Size</th>${cols.map(c => `<th style="${td};text-align:left;font-weight:700">${c[0]}</th>`).join('')}</tr>${[12, 18, 24].map(s => `<tr><td style="${td};font-weight:700">${s}</td>${cols.map(c => `<td style="${td}">${fr(S.SIZES[s][c[1]])}${c[1] === 'counter' && S.SIZES[s].close ? ', smaller closes' : ''}</td>`).join('')}</tr>`).join('')}</table><div style="font-size:13px;color:${C.grey};margin-bottom:16px">px at that size. Ring: 1⅓ at 24, 1⅔ at 32.</div>`;
   const decls = S.ORDER.map(id => `<li style="margin:0 0 7px;break-inside:avoid"><b style="color:${C.navy}">${esc(LABEL[id])}</b> <span style="color:${C.grey}">(${esc(S.DECL[id].cls)})</span>: <span style="font-family:ui-monospace,Menlo,monospace;font-size:12.5px">${esc(S.words(S.DECL[id]))}</span></li>`).join('');
-  const W = 1600;
+  const W = 2100;
   const body = `${openBox}
-<div style="column-count:3;column-gap:34px;font-size:14px;line-height:1.38">${groups}</div>
+<div style="column-count:4;column-gap:30px;font-size:14px;line-height:1.38">${groups}</div>
 <div style="display:grid;grid-template-columns:auto 1fr;gap:34px;margin-top:16px;padding-top:14px;border-top:1px solid ${C.rule};align-items:start">
 <div><div style="font-size:13px;letter-spacing:.1em;font-weight:700;color:${C.grey};text-transform:uppercase;margin-bottom:6px">The sizes</div>${sizes}</div>
 <div><div style="font-size:13px;letter-spacing:.1em;font-weight:700;color:${C.grey};text-transform:uppercase;margin-bottom:6px">Each icon's declaration (its only input)</div><ul style="margin:0;padding:0;list-style:none;font-size:14px;line-height:1.38">${decls}</ul></div></div>`;

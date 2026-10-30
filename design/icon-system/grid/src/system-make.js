@@ -485,7 +485,7 @@ function asOne(before, after, Z) {
     let a = bb(E.parts([before[pi]])[0].d), b = bb(after[pi].d), sx = b.width / a.width, sy = b.height / a.height;
     // a curved part is never stretched: on a root the grid stretched (a straight root takes the map), it takes the root's scale
     // across, evenly (10-30)
-    if (Math.abs(sx - sy) > 1e-6 && /[cC]/.test(E.parts([q])[0].d)) sy = sx;
+    if (Math.abs(sx - sy) > 1e-3 && /[cC]/.test(E.parts([q])[0].d)) sy = sx;
     const it = new paper.CompoundPath(E.parts([q])[0].d);
     it.scale(sx, sy, new paper.Point(a.x, a.y)); it.translate(new paper.Point(b.x - a.x, b.y - a.y));
     out[i] = { ...after[i], d: it.pathData, how: 'moved with its root' }; it.remove();
