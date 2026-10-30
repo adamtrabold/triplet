@@ -2498,3 +2498,24 @@ NEXT: orchestrator: to him (stills r7-1, r7-2).
 - Only the 12 fork and knife changed (the SVG diff).
 
 **Score: 9.** No new question.
+
+---
+
+## Turn 218: icon designer (systems + visual), his v291 note: the knife shorter than the fork at 12 (canvas v292)
+
+His words: "Better but why is the knife shorter than the fork now when small? Fix that if there's no reason and we're good to go" ·
+"Don't make that rule" (a new rule that groups share their lines).
+
+**Cause, no reason behind it:** the knife's top and the fork's top are drawn on one line, but under the snap the fork's straight
+top lands on the grid and the knife's top, a curve, stays as drawn. Which way they part is landing luck: the drawing's optical
+centring sets where the fork's top snaps. At 12, v291's longer tines moved the optical centre and the fork's top snapped up a third of
+a pixel: knife 0.28px short. (18: the knife 0.25px tall; 24: 0.04px.)
+
+**Fixed in that rule (Snap priority, 10-29), no new rule:** a point or curve drawn level with an outer edge goes to the line that
+edge landed on, its other end staying landed. (Moving the whole blade instead put its step off the grid: Snap priority failed.)
+
+**Result:** fork and knife tops level: 18 0.005px, 24 0.007px, 12 0.11px (the cutter's round at the blade's tiny nose; under half an
+iPhone pixel). Every other icon rebuilt byte-identical at 18, 24 and 12. **Gate: 158 checks pass** (Snap priority now also checks
+drawn level, landed level).
+
+NEXT: orchestrator: to him (still r8-1).

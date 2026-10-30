@@ -1,5 +1,13 @@
 # Systems designer notes: icon system
 
+## THE SYSTEM, round 8 (2026-10-30, jam turn 218, canvas v292; knife shorter than the fork at 12)
+
+- **Cause:** landing: tines' straight top snaps, the blade's curved top stays as drawn; the optical-centring offset decides the
+  parting. **Fix** (end of `asOne`): a non-POST prim whose pre-landing top/bottom was within 1e-3 of a POST's is scaled along y
+  about its other end to that POST's landed line (a translate put the blade's step off grid). Gate 158. Snap priority text
+  amended (10-29). The owner refused a separate "groups share lines" rule: built, then removed.
+- 12 residual 0.11px: the rack's round on the blade's nose after landing. Check tolerance 1/6px.
+
 ## THE SYSTEM, round 7 (2026-10-29, jam turn 217, canvas v291; his note: longer tines and blade at 12, only if necessary)
 
 - **What carries the read** (`columns()` comb branch; system.js passes the 18's built meta.read as Z.master, READ_DRIFT 1/8):

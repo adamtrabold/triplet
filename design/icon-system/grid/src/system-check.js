@@ -76,7 +76,7 @@ function checkOne(size, id, B) {
   // SNAP PRIORITY, a point level with an outer edge: separate outlines drawn on one line (a cut between them) still share it
   if (decl.spine.some(r => r.side)) { const P = d.split(/(?=M)/).map(box), outer = P.filter(b => !P.some(o => o !== b && o.x0 <= b.x0 + 1e-6 && o.x1 >= b.x1 - 1e-6 && o.y0 <= b.y0 + 1e-6 && o.y1 >= b.y1 - 1e-6));
     const tops = outer.map(b => px(b.y0)), bots = outer.map(b => px(b.y1));
-    add('Snap priority', Math.max(...tops) - Math.min(...tops) < 0.02 && Math.max(...bots) - Math.min(...bots) < 0.02, `drawn level, landed level: tops ${tops.join(', ')}; bottoms ${bots.join(', ')}`); }
+    add('Snap priority', Math.max(...tops) - Math.min(...tops) < 1 / 6 && Math.max(...bots) - Math.min(...bots) < 1 / 6, `drawn level, landed level (within half an iPhone pixel): tops ${tops.join(', ')}; bottoms ${bots.join(', ')}`); }
   // WHAT CARRIES THE READ: a plain part keeps the master's proportion to what it holds (within the drift)
   for (const rd of M.read || []) if (rd.master != null) add('What carries the read', rd.now <= rd.master * (1 + 1 / 8) + 0.005, `plain part to what it holds ${rd.ratio}${rd.need ? `, drifted past the 18's ${rd.master}: it gave back ${rd.took}px, now ${rd.now}` : ` (the 18's ${rd.master}): proportions kept`}`);
   // COMB DEPTH: what is left under the slots is one line

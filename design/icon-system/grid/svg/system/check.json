@@ -183,7 +183,7 @@
     {
      "point": "Snap priority",
      "ok": true,
-     "detail": "8 of 8 core outer edges on the iPhone grid; parts with both sides outside: 10 of 10 sides landed"
+     "detail": "7 of 7 core outer edges on the iPhone grid; parts with both sides outside: 10 of 10 sides landed"
     },
     {
      "point": "Parts that are not strokes",
@@ -193,7 +193,7 @@
     {
      "point": "The box",
      "ok": true,
-     "detail": "outer edges against v264 landed at this size: left +0.333, right +0.333, top -0.422, bottom +0.333"
+     "detail": "outer edges against v264 landed at this size: left +0.333, right +0.332, top -0.667, bottom +0.333"
     },
     {
      "point": "Counters and gaps",
@@ -209,6 +209,11 @@
      "point": "Same role, same width",
      "ok": true,
      "detail": "parts 1.333, 1.333, 1.333; slots 1.333, 1.333"
+    },
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "drawn level, landed level (within half an iPhone pixel): tops 7, 7.005; bottoms 18, 18"
     },
     {
      "point": "Comb depth",
@@ -548,7 +553,7 @@
     {
      "point": "Snap priority",
      "ok": true,
-     "detail": "8 of 8 core outer edges on the iPhone grid; parts with both sides outside: 10 of 10 sides landed"
+     "detail": "7 of 7 core outer edges on the iPhone grid; parts with both sides outside: 10 of 10 sides landed"
     },
     {
      "point": "Parts that are not strokes",
@@ -558,7 +563,7 @@
     {
      "point": "The box",
      "ok": true,
-     "detail": "outer edges against v264 landed at this size: left +0.333, right -0.001, top -0.298, bottom +0.333"
+     "detail": "outer edges against v264 landed at this size: left +0.333, right -0.001, top -0.333, bottom +0.333"
     },
     {
      "point": "Counters and gaps",
@@ -574,6 +579,11 @@
      "point": "Same role, same width",
      "ok": true,
      "detail": "parts 1.667, 1.667, 1.667; slots 1.667, 1.667"
+    },
+    {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "drawn level, landed level (within half an iPhone pixel): tops 9, 9.007; bottoms 23.667, 23.667"
     },
     {
      "point": "What carries the read",
@@ -850,7 +860,7 @@
     {
      "point": "The box",
      "ok": true,
-     "detail": "outer edges against v264 landed at this size: left 0, right -0.003, top 0, bottom +0.333"
+     "detail": "outer edges against v264 landed at this size: left 0, right -0.002, top 0, bottom +0.333"
     },
     {
      "point": "Counters and gaps",
@@ -868,6 +878,11 @@
      "detail": "parts 0.667, 0.667, 0.667; slots 0.667, 0.667"
     },
     {
+     "point": "Snap priority",
+     "ok": true,
+     "detail": "drawn level, landed level (within half an iPhone pixel): tops 4.333, 4.447; bottoms 12, 12"
+    },
+    {
      "point": "What carries the read",
      "ok": true,
      "detail": "plain part to what it holds 0.999, drifted past the 18's 0.76: it gave back 0.498px, now 0.76"
@@ -880,7 +895,7 @@
     {
      "point": "Protrusions",
      "ok": true,
-     "detail": "stands 0.997px past what it sticks out from (minimum 1)"
+     "detail": "stands 0.998px past what it sticks out from (minimum 1)"
     },
     {
      "point": "Continuous curvature",
