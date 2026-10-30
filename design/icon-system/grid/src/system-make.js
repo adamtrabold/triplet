@@ -81,9 +81,10 @@ const KINDS = {
     if (r.at === 'top') {
       // a loop on a top face: its feet span of the face apart, its back a half circle on the face; a loop that runs on behind a face
       // shows through it (into): past a band of the line, its legs go on as slots of its own width, into of the face's depth, ending round
-      const W = t.stroke, b = P.box, c = (b.x0 + b.x1) / 2 * u, yT = b.top * u, Ro = r.span * (b.x1 - b.x0) * u / 2, Ri = Ro - W, n = v => f5(v);
+      // its legs stand a line tall (rise), so its round eases in from a straight and the foot meets the face as a corner
+      const W = t.stroke, b = P.box, c = (b.x0 + b.x1) / 2 * u, yF = b.top * u, yT = yF - (r.rise ?? 1) * W, Ro = r.span * (b.x1 - b.x0) * u / 2, Ri = Ro - W, n = v => f5(v);
       const arc = (R_, a, z) => `C${n(c + a * R_)} ${n(yT - R_ * K)} ${n(c + a * R_ * K)} ${n(yT - R_)} ${n(c)} ${n(yT - R_)}C${n(c + z * R_ * K)} ${n(yT - R_)} ${n(c + z * R_)} ${n(yT - R_ * K)} ${n(c + z * R_)} ${n(yT)}`;
-      const prims = [E.D(`M${n(c - Ro)} ${n(yT + 0.3)}V${n(yT)}${arc(Ro, -1, 1)}V${n(yT + 0.3)}H${n(c + Ri)}V${n(yT)}${arc(Ri, 1, -1)}V${n(yT + 0.3)}Z`, { root: 'LOOP' })];
+      const prims = [E.D(`M${n(c - Ro)} ${n(yF + 0.3)}V${n(yT)}${arc(Ro, -1, 1)}V${n(yF + 0.3)}H${n(c + Ri)}V${n(yT)}${arc(Ri, 1, -1)}V${n(yF + 0.3)}Z`, { root: 'LOOP' })];
       if (r.into) for (const sg of [-1, 1]) { const xs = c + sg * (Ro - W / 2), y0 = yT + W, y1 = y0 + r.into * P.depth * u, h = W / 2;
         prims.push(E.cut(E.D(`M${n(xs - h)} ${n(y0)}H${n(xs + h)}V${n(y1 - h)}C${n(xs + h)} ${n(y1 - h + h * K)} ${n(xs + h * K)} ${n(y1)} ${n(xs)} ${n(y1)}C${n(xs - h * K)} ${n(y1)} ${n(xs - h)} ${n(y1 - h + h * K)} ${n(xs - h)} ${n(y1 - h)}Z`, { root: 'SLOT', role: 'counter' }))); }
       return { prims, box: { x0: (c - Ro) / u, x1: (c + Ro) / u, top: (yT - Ro) / u, bot: b.top } };
@@ -165,8 +166,9 @@ const KINDS = {
   splay(r, at, t, u, C) {
     const P = C.placed[r.of], [ox, oy] = r.from != null && P.axis ? [P.axis[0][0] + (P.axis[1][0] - P.axis[0][0]) * r.from, P.axis[0][1] + (P.axis[1][1] - P.axis[0][1]) * r.from] : P.centre;
     const yb = r.to === 'bottom' ? C.H * u : r.past != null ? P.box.bot * u + r.past * (P.box.bot - P.box.top) * u : oy + r.reach * C.H * u;
-    const a = r.lean * Math.PI / 180, hw = t.part / 2 / Math.cos(a), run = (yb - oy) * Math.tan(a), prims = [];
-    for (const sg of [-1, 1]) { const xb = ox + sg * run; prims.push({ ...E.P([ox - hw, oy], [ox + hw, oy], [xb + hw, yb], [xb - hw, yb]), root: 'POST', role: 'splay' }); }
+    const a = r.lean * Math.PI / 180, hw = t.part / 2 / Math.cos(a), run = (yb - oy) * Math.tan(a), prims = [], h = t.part / 2;
+    for (const sg of [-1, 1]) { const xb = ox + sg * run, dx = sg * Math.sin(a), dy = Math.cos(a), tx = ox - dx * h, ty = oy - dy * h, nx = dy * h, ny = -dx * h;
+      prims.push({ ...E.P([tx - nx, ty - ny], [tx + nx, ty + ny], [xb + hw, yb], [xb - hw, yb]), root: 'POST', role: 'splay' }); }
     return { prims, box: { x0: (ox - run - hw) / u, x1: (ox + run + hw) / u, top: oy / u, bot: yb / u }, noStack: true };
   },
   // a knot: a square, `square` of the span (its width less a line) between its lines' centres; each side runs on past its corners
@@ -179,7 +181,8 @@ const KINDS = {
     }
     for (const sx of [-1, 1]) for (const sy of [-1, 1]) { const phi = Math.atan2(sy, sx) * 180 / Math.PI;
       prims.push({ ...E.A(c + sx * L, cy + sy * L, rr, W, phi - 135, phi + 135), root: 'LOOP' }); }
-    return { prims, box: { x0: at.cx - at.w / 2, x1: at.cx + at.w / 2, top: at.topF / u, bot: (at.topF + Wd) / u } };
+    // one band: its straights and loops are one root, so the grid moves it whole
+    return { prims: [E.D(E.build(prims).d, { root: 'LOOP', also: 'POST' })], box: { x0: at.cx - at.w / 2, x1: at.cx + at.w / 2, top: at.topF / u, bot: (at.topF + Wd) / u } };
   },
   // a drape and its mirror (a cut apart down the middle), hung under the root above from its middle out to its ends: each edge a
   // quarter ellipse centred on that root's lower corner, `tie` of the height left below it; there it falls as a post to the bottom
@@ -244,7 +247,9 @@ function layout(decl, s, Z, S, room, gdx = null) {
   // the group that rests on a base: the roots above the first root that rests (cut) once a loop has come
   const iRest = decl.spine.findIndex((r, i) => r.join === 'cut' && decl.spine.slice(0, i).some(q => q.kind === 'loop')), inGroup = i => iRest > 0 && i < iRest;
   const byId = {}; const walk = L => L.forEach(r => r.side ? r.side.forEach(walk) : (byId[r.id] = r)); walk(decl.spine);
-  const asymRoot = r => r.side || (r.kind === 'loop' && r.at !== 'top') || r.at === 'left' || r.at === 'right' || r.lean != null;
+  // not mirrored: a root off the middle (a loop on a wall, a group beside another, an end post, a lean), and blocks turned off the
+  // grid (its corners fall on the axis, where the mirror's seam would cut a round in two); a turned root is drawn whole, centred
+  const asymRoot = r => r.side || (r.kind === 'loop' && r.at !== 'top') || r.at === 'left' || r.at === 'right' || r.lean != null || (r.kind === 'blocks' && !!r.turn);
   const symmetric0 = !decl.spine.some(asymRoot);
   // LANDED BEFORE IT IS DRAWN: in a symmetric icon (its centre on a whole px) a straight root's width lands by the snap priority
   // (its ends to a whole px within 1/4px, else the nearest iPhone pixel), and an overhang lands on the grid, so a bevel or a join
@@ -284,7 +289,7 @@ function layout(decl, s, Z, S, room, gdx = null) {
     R.r = r; R.depth = R.depth ?? (R.box.bot - R.box.top); placed[r.id] = R; out.push(R);
     // what lands with what: a root's own counters (a band) and a loop with its counter move with the root they are cut in or sit on
     if (R.prims[0]) R.prims[0] = { ...R.prims[0], rid: r.id };
-    R.prims = R.prims.map((p, j) => r.kind === 'loop' ? { ...p, withRoot: r.of } : j > 0 && p.cut ? { ...p, withRoot: r.id } : p);
+    R.prims = R.prims.map((p, j) => r.kind === 'loop' || r.kind === 'splay' || r.kind === 'spokes' ? { ...p, withRoot: r.of } : j > 0 && p.cut ? { ...p, withRoot: r.id } : p);
     yTop = yTop == null ? R.box.top : Math.min(yTop, R.box.top); yBot = yBot == null ? R.box.bot : Math.max(yBot, R.box.bot);
     if (r.kind === 'loop') meta.loops.push({ id: r.id }); else if (!R.noStack) prev = R;
     if (R.prims.some(p => p.role === 'band')) meta.bands.push({ id: r.id, band: t.band * k, stroke: Z.stroke });

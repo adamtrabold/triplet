@@ -211,16 +211,16 @@ const DECL = {
   ] },
   shopping: { name: 'Shopping', cls: 'tall', spine: [
     { id: 'body', kind: 'block', w: 1, deep: 1 },
-    { id: 'handle', kind: 'loop', of: 'body', at: 'top', span: 3 / 5, into: 1 / 4 },
+    { id: 'handle', kind: 'loop', of: 'body', at: 'top', span: 2 / 3, into: 1 / 4 },
   ] },
   neighbourhood: { name: 'Neighbourhood', shape: true, cls: 'diamond', spine: [
     { id: 'blocks', kind: 'blocks', w: 1, cols: 3, rows: 3, turn: 45 },
   ] },
   street: { name: 'Street', shape: true, cls: 'diamond', spine: [
-    { id: 'head', kind: 'disc', w: 1 / 5 },
+    { id: 'head', kind: 'disc', w: 1 / 4 },
     { id: 'body', kind: 'post', lean: 12, show: 1 / 3, join: 'cut' },
-    { id: 'arms', kind: 'splay', of: 'body', from: 1 / 6, lean: 35, reach: 1 / 4 },
-    { id: 'legs', kind: 'splay', of: 'body', from: 1, lean: 22, to: 'bottom' },
+    { id: 'arms', kind: 'splay', of: 'body', from: 1 / 5, lean: 40, reach: 1 / 5 },
+    { id: 'legs', kind: 'splay', of: 'body', from: 1, lean: 25, to: 'bottom' },
   ] },
   star: { name: 'Star', cls: 'outline', spine: [{ id: 'star', kind: 'star', points: 5, ri: 0.47 }] },
   plus: { name: '+', cls: 'open', spine: [{ id: 'arms', kind: 'cross' }] },
@@ -235,7 +235,7 @@ function say(r) {
   const wt = (r.w == null || r.w === 1) ? (r.of ? `as wide as the ${r.of}` : 'the box\'s full width') : `${FR(r.w)} of the ${r.of || 'box'}`, J = { cut: 'rests on the part above, a cut apart: ', into: 'into the part above: ', held: 'held under the part above (chamfer): ' }[r.join] || '';
   const K = {
     vessel: () => `${r.id}: a vessel ${wt}${r.w != null && r.w !== 1 ? ' wide' : ''}, ${r.deep != null ? `as deep as ${r.deep === 1 ? 'it is wide' : FR(r.deep) + ' of its width'}` : `its rim cutting the ellipse ${FR(r.rimCut)} above its centre`}${r.band ? ', a band under the rim' : ''}`,
-    loop: () => r.at === 'top' ? `${r.id}: a loop on the ${r.of}'s top, ${FR(r.span)} of its width${r.into ? `, showing through it as slots ${FR(r.into)} of its depth` : ''}` : `${r.id}: a loop on the ${r.of}'s ${r.at} wall, ${FR(r.h)} of its depth`,
+    loop: () => r.at === 'top' ? `${r.id}: a loop on the ${r.of}'s top, ${FR(r.span)} of its width, its back a half circle on legs a line tall${r.into ? `, showing through it as slots ${FR(r.into)} of its depth` : ''}` : `${r.id}: a loop on the ${r.of}'s ${r.at} wall, ${FR(r.h)} of its depth`,
     cap: () => `${r.id}: a cap ${wt}${r.measure === 'ellipse' ? ' (its ellipse)' : ''}, curve ${r.face === 'up' ? 'on top' : 'underneath'}`,
     slab: () => `${r.id}: a slab ${wt}${r.lines > 1 ? `, ${r.lines} lines thick` : ''}`,
     block: () => `${r.id}: a block ${wt}${r.w != null && r.w !== 1 ? ' wide' : ''}, ${(r.deep ?? 1) === 1 ? "as deep as it is wide" : `as deep as ${FR(r.deep)} of its width`}${r.at ? `, at the ${r.of}'s ${r.at} end` : ''}`,
