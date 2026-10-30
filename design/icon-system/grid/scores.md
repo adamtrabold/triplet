@@ -1779,3 +1779,10 @@ The verdict stands within our own set:
 - The proportion-drift rule is general and only-if-necessary.
 - Only the 12 fork and knife changed.
 - Jam turn 218.
+
+## Round: knife level with fork (canvas v292, 2a7bff5b), 2026-10-30: 9, to him
+
+- At 12 the knife top is level with the tines.
+- Only the fork-and-knife SVGs changed.
+- The fix is an extension of snap priority, not a new rule.
+- Jam turn 219.

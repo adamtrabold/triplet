@@ -2519,3 +2519,17 @@ iPhone pixel). Every other icon rebuilt byte-identical at 18, 24 and 12. **Gate:
 drawn level, landed level).
 
 NEXT: orchestrator: to him (still r8-1).
+
+---
+
+## Turn 219: design director, knife level with fork (v292, 2a7bff5b): 9, to him
+
+**Rendered myself:** the 12 chip, v291 against v292, at 3x and 2x and 6x.
+
+**At 12:** the knife top is now level with the tines. It no longer reads shorter.
+
+**What changed:** only the fork-and-knife SVGs (12, 18, 24); every other icon is byte-identical.
+
+**No new rule:** the fix extends snap priority (a point drawn level with an outer edge lands on that edge's line), as he asked ("Don't make that rule").
+
+**Score: 9.** Good to go.
