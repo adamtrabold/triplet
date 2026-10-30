@@ -392,6 +392,24 @@ function asOne(before, after, Z) {
     const tineTop = Math.min(...T.map(b => b.y));
     if (cm) { cm.slotDepth = +((deepest - tineTop) * Z.k).toFixed(3); cm.past = +((deepest - cy) * Z.k).toFixed(3); cm.bridge = +((bot - deepest) * Z.k).toFixed(3); cm.wall = +(wall * Z.k).toFixed(3); cm.follows = ri * Z.k > Z.stroke + 1e-6; cm.curvePx = +(ri * Z.k).toFixed(3); }
   }
+  // SNAP PRIORITY, a point level with an outer edge: a part whose curve or point was drawn on the same line as a straight outer edge
+  // moves with that edge as it lands (moved, never stretched), so landing never parts what was drawn level
+  const pre = before.map(q => { try { return bb(E.parts([q])[0].d); } catch (e) { return null; } });
+  const ends = (b, end) => end === 'top' ? b.y : b.y + b.height;
+  before.forEach((q, i) => {
+    if (q.root === 'POST' || q.cut || !pre[i] || q.root === 'SLOT') return;
+    for (const end of ['top', 'bot']) {
+      const j = before.findIndex((p, jj) => jj !== i && p.root === 'POST' && pre[jj] && Math.abs(ends(pre[jj], end) - ends(pre[i], end)) < 1e-3); if (j < 0) continue;
+      const dy = ends(bb(out[j].d), end) - ends(bb(out[i].d), end); if (Math.abs(dy) < 1e-4) return;
+      const it = new paper.CompoundPath(out[i].d); it.translate(new paper.Point(0, dy));
+      out[i] = { ...out[i], d: it.pathData, how: (out[i].how || '') + '; moved with the edge level with its ' + end }; it.remove();
+      // a post that runs into it runs on into it as far as before (its far end stays where it landed)
+      before.forEach((p, jj) => { if (p.root !== 'POST' || !pre[jj] || jj === j || pre[jj].x >= pre[i].x + pre[i].width || pre[jj].x + pre[jj].width <= pre[i].x) return; const o = bb(out[jj].d);
+        if (end === 'top' && pre[jj].y > pre[i].y && pre[jj].y < pre[i].y + pre[i].height && dy < 0) out[jj] = { ...out[jj], d: `M${f5(o.x)} ${f5(o.y + dy)}H${f5(o.x + o.width)}V${f5(o.y + o.height)}H${f5(o.x)}Z` };
+        if (end === 'bot' && pre[jj].y + pre[jj].height < pre[i].y + pre[i].height && pre[jj].y + pre[jj].height > pre[i].y && dy > 0) out[jj] = { ...out[jj], d: `M${f5(o.x)} ${f5(o.y)}H${f5(o.x + o.width)}V${f5(o.y + o.height + dy)}H${f5(o.x)}Z` }; });
+      return;
+    }
+  });
   return out;
 }
 
