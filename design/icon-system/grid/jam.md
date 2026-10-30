@@ -2483,3 +2483,18 @@ tree, bench unchanged (the coupe rebuilt byte-identical). 18 and 24 unchanged.
 **Gate: 155 checks pass** (new check "What carries the read" at 12 and 24).
 
 NEXT: orchestrator: to him (stills r7-1, r7-2).
+
+---
+
+## Turn 218: design director, his 12 note (v291, 7590c96f): 9, to him
+
+**Rendered myself:** the 12 chip, v290 against v291, at true size (3x and 2x) and 6x.
+
+**At 12:** both the tines and the knife blade are longer and the handles shorter. The fork still reads, and the slots are 3px.
+
+**The rule:**
+- A size keeps the 18 proportions, and only a part that has drifted more than an eighth gives height back.
+- It is general and only-if-necessary, as he asked.
+- Only the 12 fork and knife changed (the SVG diff).
+
+**Score: 9.** No new question.

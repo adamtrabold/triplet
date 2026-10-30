@@ -1772,3 +1772,10 @@ The verdict stands within our own set:
 - The rule is general.
 - 12 is fine.
 - Jam turn 217.
+
+## Round: his 12 note (canvas v291, 7590c96f), 2026-10-29: 9, to him
+
+- At 12 the tines and blade are longer and the handles shorter.
+- The proportion-drift rule is general and only-if-necessary.
+- Only the 12 fork and knife changed.
+- Jam turn 218.
