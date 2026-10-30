@@ -35,7 +35,8 @@
   .front small { font-size:11px; color:var(--ink-2); font-weight:600; }
   /* the reveal: the city's own board, point leading, sliding in from the right edge under the row */
   .clip { position:absolute; top:4px; bottom:4px; right:0; width:0; z-index:3; overflow:hidden; filter:drop-shadow(-2px 1px 2px rgba(26,26,24,.12)); }
-  .board { position:absolute; top:0; bottom:0; left:0; width:var(--open); display:flex; align-items:center; justify-content:center; padding-left:12px; box-sizing:border-box;
+  /* past the open width the board fills the clip, so only its left (point) edge stretches; never a gap at the right */
+  .board { position:absolute; top:0; bottom:0; left:0; width:max(var(--open), 100%); display:flex; align-items:center; justify-content:center; padding-left:12px; box-sizing:border-box;
     background:var(--navy); color:var(--paper); clip-path:polygon(12px 0, 100% 0, 100% 100%, 12px 100%, 0 50%);
     font-stretch:75%; text-transform:uppercase; font-weight:700; font-size:12px; letter-spacing:.12em; border:none; }
   /* SNAP (owner: "the swipe should snap some"): open lands fast with a small overshoot (~6px past the
