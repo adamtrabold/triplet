@@ -304,7 +304,7 @@
     {
      "point": "Snap priority",
      "ok": true,
-     "detail": "20 of 20 core outer edges on the iPhone grid; parts with both sides outside: 0 of 0 sides landed"
+     "detail": "4 of 4 core outer edges on the iPhone grid; parts with both sides outside: 0 of 0 sides landed"
     },
     {
      "point": "Parts that are not strokes",
@@ -342,6 +342,11 @@
      "point": "Counters and gaps",
      "ok": true,
      "detail": "6 counters"
+    },
+    {
+     "point": "Spokes count as a row",
+     "ok": true,
+     "detail": "3 of 3 declared, gaps 1.019px (minimum 1)"
     },
     {
      "point": "Continuous curvature",
@@ -459,7 +464,7 @@
     {
      "point": "Counters and gaps",
      "ok": true,
-     "detail": "8 counters"
+     "detail": "5 counters"
     },
     {
      "point": "Continuous curvature",
@@ -883,7 +888,7 @@
     {
      "point": "Snap priority",
      "ok": true,
-     "detail": "19 of 19 core outer edges on the iPhone grid; parts with both sides outside: 0 of 0 sides landed"
+     "detail": "4 of 4 core outer edges on the iPhone grid; parts with both sides outside: 0 of 0 sides landed"
     },
     {
      "point": "Parts that are not strokes",
@@ -897,8 +902,8 @@
     },
     {
      "point": "Continuous curvature",
-     "ok": false,
-     "detail": "2 curvature faults (none allowed)"
+     "ok": true,
+     "detail": "0 curvature faults (none allowed)"
     }
    ],
    "v264": null
@@ -923,9 +928,14 @@
      "detail": "6 counters"
     },
     {
+     "point": "Spokes count as a row",
+     "ok": true,
+     "detail": "3 of 3 declared, gaps 1.358px (minimum 1.3333333333333333)"
+    },
+    {
      "point": "Continuous curvature",
-     "ok": false,
-     "detail": "1 curvature faults (none allowed)"
+     "ok": true,
+     "detail": "0 curvature faults (none allowed)"
     }
    ],
    "v264": null
@@ -1038,7 +1048,7 @@
     {
      "point": "Counters and gaps",
      "ok": true,
-     "detail": "8 counters"
+     "detail": "5 counters"
     },
     {
      "point": "Continuous curvature",
@@ -1069,8 +1079,8 @@
     },
     {
      "point": "Continuous curvature",
-     "ok": false,
-     "detail": "2 curvature faults (none allowed)"
+     "ok": true,
+     "detail": "0 curvature faults (none allowed)"
     }
    ],
    "v264": null
@@ -1384,7 +1394,7 @@
     {
      "point": "Snap priority",
      "ok": true,
-     "detail": "20 of 20 core outer edges on the iPhone grid; parts with both sides outside: 0 of 0 sides landed"
+     "detail": "6 of 6 core outer edges on the iPhone grid; parts with both sides outside: 0 of 0 sides landed"
     },
     {
      "point": "Parts that are not strokes",
@@ -1421,7 +1431,12 @@
     {
      "point": "Counters and gaps",
      "ok": true,
-     "detail": "0 counters"
+     "detail": "1 counters"
+    },
+    {
+     "point": "Spokes count as a row",
+     "ok": true,
+     "detail": "0 of 3 declared: none clears the minimum, the ring stays open (3.704px across)"
     },
     {
      "point": "Continuous curvature",
@@ -1512,7 +1527,7 @@
     {
      "point": "Counters and gaps",
      "ok": true,
-     "detail": "2 counters"
+     "detail": "0 counters"
     },
     {
      "point": "Continuous curvature",
@@ -1539,7 +1554,7 @@
     {
      "point": "Counters and gaps",
      "ok": true,
-     "detail": "8 counters"
+     "detail": "5 counters"
     },
     {
      "point": "Continuous curvature",
@@ -1570,8 +1585,8 @@
     },
     {
      "point": "Continuous curvature",
-     "ok": false,
-     "detail": "3 curvature faults (none allowed)"
+     "ok": true,
+     "detail": "0 curvature faults (none allowed)"
     }
    ],
    "v264": null
@@ -1586,7 +1601,9 @@
   "The star and + read as the set's weight",
   "Each size reads as the same icon as the 18",
   "The bag reads as a bag, not a padlock or a fuel can",
-  "The shapes in their diamonds read at the set's size and say what they are (a blind read)"
+  "The shapes in their diamonds read at the set's size and say what they are (a blind read)",
+  "At 12 nothing reads as something else (no eyes, no blob)",
+  "The Nordic loop's loops read round"
  ],
- "ok": false
+ "ok": true
 }

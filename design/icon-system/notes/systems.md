@@ -1,6 +1,6 @@
 # Systems designer notes: icon system
 
-## THE SYSTEM, one shot round 2: the director's eight fixes (2026-10-30, jam turn 221)
+## THE SYSTEM, one shot round 2: the director's eight fixes (2026-10-30, jam turn 221, canvas v294)
 
 - **1 Round loops:** "Loops off a short straight" deleted. New rule "A loop off a short straight": the loop stays round; where its
   straight is shorter than its counter is wide, the loop's outer circle grows to sqrt(ro^2 + ri^2) so it runs on to the corner the

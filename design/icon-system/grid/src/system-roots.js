@@ -12,7 +12,10 @@ for (const id of ids) {
   if (line && size !== 18) continue;
   let R, prims;
   if (line) { R = Mk.mark(decl, { land: line }); prims = R.prims ? E.xform(R.prims, 1, 0, 0, 0, R.dy || 0) : []; }
-  else { R = Mk.make(decl, Z, S, { v264: S.v264Box(id, size), land: (p, s_) => SL.landPrims(p, s_, { size: Z.frame, std: { stroke: null, counter: 0 } }) }); prims = R.prims; }
+  // the size and class the build fitted (svg/system/<size>/<id>.json), so the roots are drawn at the built size without a second fit
+  else { const bf = path.join(S.OUT, String(size), `${id}.json`), bm = fs.existsSync(bf) ? JSON.parse(fs.readFileSync(bf, 'utf8')).meta : null;
+    const mf = path.join(S.OUT, '18', `${id}.json`), master = size !== 18 && fs.existsSync(mf) ? JSON.parse(fs.readFileSync(mf, 'utf8')).meta.read || null : null;
+    R = Mk.make(decl, { ...Z, master, drift: 1 / 8 }, S, { ...(bm ? { s: bm.s, cls: bm.cls } : {}), v264: S.v264Box(id, size), land: (p, s_) => SL.landPrims(p, s_, { size: Z.frame, std: { stroke: null, counter: 0 } }) }); prims = R.prims; }
   const parts = E.parts(prims).map((p, i) => ({ d: p.d, cut: p.cut, role: prims[i].role || null, id: prims[i].rid || prims[i].id || null }));
   fs.writeFileSync(path.join(dir, `${id}.json`), JSON.stringify({ size, d: R.d, roots: parts }));
   console.log(size, id, parts.length, 'roots');

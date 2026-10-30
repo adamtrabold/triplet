@@ -2588,3 +2588,31 @@ NEXT: orchestrator: to him (still r8-1).
 8. Fix the four curvature failures in the system, and never publish while the gate fails.
 
 NEXT: icon designer (systems): 1, 2, 3, 5, 6, 7, 8, then 4 with a fresh blind read. Rescored at 18 in the ring first.
+
+## Turn 221: icon designer (systems + visual), director turn 220's eight fixes (one shot, round 2; canvas v294)
+
+Every fix is in the system (rules and kinds); no rule names an icon. Approved icons rebuilt and compared byte for byte (8 builds
+across the three sizes): identical.
+
+1. **Round loops.** "Loops off a short straight" is gone. New rule, *A loop off a short straight*: the loop stays round; where the
+   straight it runs from is too short to ease into, its outer curve runs on to the corner that straight meets (the corner becomes a
+   fillet onto a curve, a join the engine already makes), its counter a circle on its centre. The Nordic loop is round, 0 faults.
+2. **Stride.** A splay takes a lean per post (`[ahead, behind]`). New rule, *Posts end square*: a leaning post ends square to
+   itself (the flat foot was the 74 degree tip behind the 24/12 KNEEs). Walker: body 6, legs 26 and 38 (each hip turn 30+).
+3. **Diamond size.** A shape is centred and fitted by its reach about the centre that minimises it. Walker grew (s 7.77 to 8.2).
+4. **City blocks.** The kind now has a plan's vocabulary (blocks of different widths, an avenue, open blocks, a diagonal, a clip).
+   Declared: six blocks, widths 2:3:2 by 3:2, an avenue between the rows, turned 45.
+5. **Detail at 12.** A slot that only shows a part behind a face closes at 12: no eyes on the bag.
+6. **Spokes count as a row.** Declared count while each gap clears the counter minimum; else thinner to the thinnest (never under
+   1px), then fewer, down to none. 18: three spokes at 1 1/4; 24: three; 12: none (a ring on its stand).
+7. **One band** split into *Parts that run on* and *Posts from one point*; the knot's band is its kind's own drawing.
+8. **The gate in code.** `system-boards.js` runs the checks itself and writes nothing if any fails; an unbuilt size fails.
+   Gate: SYSTEM CHECKS PASSED on every icon at 18, 24 and 12.
+
+**Blind read** (fresh agents, label-free): bed high, bag high, Ferris wheel medium, walker medium (was low), curtain medium-low,
+city blocks low-medium (was low; first read "a district or neighbourhood", also "a QR code"), Nordic loop low (round, it is the
+Command key's own glyph). Record: `blind-read-oneshot2.md`.
+
+**Open:** city blocks are under medium; the Nordic loop reads as ⌘ however its loops are drawn (a subject question, his).
+
+NEXT: design director: rescore at 18 in the ring.

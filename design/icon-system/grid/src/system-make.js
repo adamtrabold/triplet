@@ -161,8 +161,9 @@ const KINDS = {
   spokes(r, at, t, u, C) {
     const P = C.placed[r.of], [c, cy] = P.centre, L = P.radius, Ri = L - t.stroke / 2, prims = [];
     const gapOf = (m, w) => { const ph = Math.PI / (2 * m), rho = (Ri + w / 2) / (1 + Math.sin(ph)); return 2 * (Ri - rho); };
-    // count first, as a row: the part width, then thinner a grid step at a time to the size's thinnest, then one fewer
-    const widths = []; for (let w = t.part; w >= t.min - 1e-9; w -= t.grid) widths.push(w); if (widths[widths.length - 1] > t.min + 1e-9) widths.push(t.min);
+    // count first, as a row: the part width, then thinner a grid step at a time to the size's thinnest (never under 1px: the 2/3
+    // at 12 is a row's or a comb's, parts side by side), then one fewer
+    const wMin = Math.max(t.min, 3 * t.grid), widths = []; for (let w = t.part; w >= wMin - 1e-9; w -= t.grid) widths.push(w); if (widths[widths.length - 1] > wMin + 1e-9) widths.push(wMin);
     let n = 0, sw = t.part; out: for (let m = r.n; m >= 2; m--) for (const w of widths) if (gapOf(m, w) >= t.counter - 1e-9) { n = m; sw = w; break out; }
     for (let i = 0; i < n; i++) { const a = ((r.turn || 0) + i) * Math.PI / n, dx = Math.sin(a) * L, dy = -Math.cos(a) * L;
       prims.push({ ...E.B([c - dx, cy - dy], [c + dx, cy + dy], sw), root: 'POST', role: 'spoke' }); }
