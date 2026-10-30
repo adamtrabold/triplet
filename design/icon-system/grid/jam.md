@@ -2533,3 +2533,58 @@ NEXT: orchestrator: to him (still r8-1).
 **No new rule:** the fix extends snap priority (a point drawn level with an outer edge lands on that edge's line), as he asked ("Don't make that rule").
 
 **Score: 9.** Good to go.
+
+---
+
+## Turn 220: design director, the rest of the set one-shot (v293, 163dac34): 6, not to him
+
+**Rendered myself:** the approved row, then the seven new icons at 18 in the 24 ring (shapes in the diamond), 24 selected, 12 chip, at 3x and 2x, plus 6x (scratchpad `dir283/r9-*`). The approved icons are unchanged.
+
+**By eye at 18, beside the approved set:**
+
+| Icon | Score | Why |
+|---|---|---|
+| Hotel (bed) | 8 | Reads at once. The pillow is a little detached. |
+| Shopping (bag) | 8 | A bag at 18 and 24, not a padlock or a can. But at 12 the two slots read as eyes: a ghost. |
+| Venue (curtain) | 7 | Reads as a stage curtain. Good at 24. |
+| Attraction (Ferris wheel) | 7 | Reads as a wheel on legs, but the spokes fill in at 18, and at 12 it is a blob. |
+| Landmark (Nordic loop) | 5 | Square loops make it the ⌘ key. The Nordic loop's identity is its round loops. |
+| Neighbourhood (city blocks) | 4 | Nine equal diamonds read as a waffle or a grid of dots, not a city. |
+| Street (walker) | 4 | Reads as an "i": small in its diamond, thin, no stride. |
+
+**The six rules:**
+- **General:** "curved parts on the grid", "turned parts" and "shapes in a diamond" (a real app badge; fitting by reach is right).
+- **General but mixed:** "one band" stacks three unrelated things (a knot's band, posts splayed from a foot, a pin). Split it into rules that each stand alone, or drop what only one icon uses.
+- **A handle on a face:** general, and the bag shows it works.
+- **A single-icon rule in disguise:** "loops off a short straight are drawn square". It exists to dodge one icon's curvature failure, and it changes his subject. He has said "dont be defining shit based on singular icons".
+
+**The departures are system findings, not declaration choices:**
+- **Square loops:** the fairing can't ease a curve off a short straight. Fix the fairing (or let the loop take its tangent from the corner), not the subject.
+- **The walker's straight back leg:** the splay kind can't draw two legs in stride. Fix the kind.
+
+**The gate:** four builds fail curvature, and they were published anyway. This is the second time; the rule is that a failing gate blocks publishing.
+
+**The low blind reads:**
+- Walker and city blocks are where the set fails its subjects.
+- Both shapes also come out smaller than the set's optical size in the diamond. That breaks his "every icon the same optical size and weight", and it is a system fault.
+
+**Likely objections:**
+- "that's the command key";
+- "what is the i";
+- "a waffle";
+- the 12 bag as a face;
+- failures on the board.
+
+**Score: 6 for the round.** Bed, bag and curtain hold up; three of seven do not read; one rule is a single-icon escape.
+
+**Fixes (system level):**
+1. Delete "loops off a short straight". The fairing eases a loop off a short straight with continuous curvature (or the knot's root gives the straight the length it needs), so the Nordic loop has round loops.
+2. The splay kind draws two legs in stride (each its own lean), so the walker strides. Give him arms only if the declaration asks.
+3. Shapes in the diamond reach the set's optical size: check it the way the circle class is checked, by eye beside the bed and bag.
+4. City blocks: the declaration must carry what makes a plan read as a city (his subject is "city blocks"). The system gives the vocabulary, not a uniform grid. Re-run the blind read: medium or better before it reaches him.
+5. The 12 detail rule: a count or slot that reads as something else at 12 closes or drops, by the existing close-small and row count rules (the Ferris wheel's spokes, the bag's slots).
+6. The Ferris wheel's spokes take their count from the row rule at each size, so they read as spokes at 18.
+7. Split "one band" into separately general rules, or cut what only one icon uses.
+8. Fix the four curvature failures in the system, and never publish while the gate fails.
+
+NEXT: icon designer (systems): 1, 2, 3, 5, 6, 7, 8, then 4 with a fresh blind read. Rescored at 18 in the ring first.

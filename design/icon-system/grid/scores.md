@@ -1786,3 +1786,21 @@ The verdict stands within our own set:
 - Only the fork-and-knife SVGs changed.
 - The fix is an extension of snap priority, not a new rule.
 - Jam turn 219.
+
+## Round: the rest of the set one-shot (canvas v293, 163dac34), 2026-10-30: 6, not to him
+
+- **Per icon at 18 in the ring:**
+  - bed 8;
+  - bag 8 (a ghost face at 12);
+  - curtain 7;
+  - Ferris wheel 7 (spokes fill in; a blob at 12);
+  - Nordic loop 5 (square loops = the ⌘ key);
+  - city blocks 4 (a waffle);
+  - walker 4 (an "i").
+- **Rules:**
+  - "loops off a short straight → square" is a single-icon escape, and it changes his subject;
+  - "one band" mixes three things;
+  - the rest are general.
+- **System findings:** the fairing can't ease off a short straight; the splay kind can't stride; the diamond class falls short of the set's optical size.
+- **Process:** published with 4 curvature failures (the second time).
+- **Fixes:** 8, in jam turn 220.

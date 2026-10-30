@@ -989,3 +989,18 @@ Both are general. Only the fork and the star changed.
 **Fix:** a cut stops where its curved root starts to turn.
 
 **Lesson:** when he names two options ("too deep OR follow the curve"), check the one not taken at true size.
+
+## The rest of the set (v293, 163dac34, 2026-10-30): 6
+
+He approved the system at v292 and asked for the rest, one shot.
+
+**By eye:** bed, bag and curtain hold up. The Nordic loop (square loops, the command key), city blocks (a waffle) and walker (an "i") fail.
+
+**Rules:** one rule is a single-icon escape (square loops); "one band" is mixed.
+
+**Process:** published past a failing gate, again.
+
+**Watch:**
+- declaration "departures" are system gaps;
+- the diamond class optical size;
+- 12 readings (the bag as a ghost, the wheel as a blob).
