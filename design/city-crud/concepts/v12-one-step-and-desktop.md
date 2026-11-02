@@ -63,3 +63,16 @@ needs to work on desktop somehow"
   - Shift+Backspace on a focused row: opens the picker with focus on its nearest city
 
 Still: `stills/v12/1-one-step-confirm.png`.
+
+## The stretch, bounded (owner: "that stretch in the places list is insane")
+- **Before:** past the 132px open width the board followed 0.2× the finger with no limit. With a
+  trackpad, wheel momentum kept adding distance, so the board could grow across the whole row.
+- **Now:** a small give that eases toward a hard stop: `give = 12 × (1 − e^(−over/40))`. The board
+  maxes out at **144px**. Its first ~20px of over-drag gives ~5px, and it's nearly flat by 100px.
+- **Wheel:** the accumulator is clamped to 120px past open, so momentum can't bank distance, and
+  pulling back answers immediately.
+- **Checked in Chromium:**
+  - a 300px touch drag reads 136 / 142 / 143 / 143.8px at 150 / 200 / 250 / 300px of finger
+  - a 2,400px wheel swipe peaks at 143.4px
+  - 80px of wheel back answers at once (139.6px)
+  - both settle back to 132px

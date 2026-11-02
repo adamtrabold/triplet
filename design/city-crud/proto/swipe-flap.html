@@ -107,7 +107,8 @@
       if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;   // vertical: the menu scrolls
       e.preventDefault();
       if (wt == null) { wbase = r.dataset.open === '1' ? -OPEN : 0; wx = 0; r.classList.remove('settle', 'to-open', 'to-shut'); }
-      wx -= e.deltaX; setDrag(r, wbase + wx, true);
+      // the accumulator is clamped too, so trackpad momentum can't bank distance (pulling back answers at once)
+      wx = Math.max(-OPEN - 120 - wbase, Math.min(-wbase, wx - e.deltaX)); setDrag(r, wbase + wx, true);
       clearTimeout(wt); wt = setTimeout(() => { const cur = parseFloat(r.dataset.dx || 0); setOpen(r, wbase === 0 ? cur < -OPEN * OPEN_AT : cur < -OPEN * (1 - OPEN_AT)); wt = null; }, 120);
     }, { passive: false });
     r.querySelector('.front').onclick = () => { if (r.dataset.open === '1') setOpen(r, false); else closeAll(); };
@@ -134,12 +135,14 @@
     });
   });
   // the row follows the finger; past the board's width it resists (rubber band)
-  const FLICK_V = 0.25, VEL_WINDOW = 80, OPEN_AT = 0.4, RUBBER = 0.2;
+  // v12 fix (owner: "that stretch in the places list is insane"): past the open width the board gives
+  // a little and stops, an exponential ease toward MAX_GIVE (12px), never more. Board max 144px.
+  const FLICK_V = 0.25, VEL_WINDOW = 80, OPEN_AT = 0.4, MAX_GIVE = 12, GIVE_K = 40;
   function setDrag(r, x, dragging) {
     if (x > 0) x = 0;
     // the detent: past the open width the board resists hard, and a tick marks the moment you reach it
     if (dragging) { const past = x <= -OPEN; if (past && r.dataset.atDetent !== '1' && navigator.vibrate) navigator.vibrate(6); r.dataset.atDetent = past ? '1' : ''; }
-    if (x < -OPEN) x = -OPEN - (-x - OPEN) * RUBBER;
+    if (x < -OPEN) x = -OPEN - MAX_GIVE * (1 - Math.exp((x + OPEN) / GIVE_K));
     r.dataset.dx = x;
     // the row's name never moves (so you always see which city); only the board slides in over its end
     r.querySelector('.front').style.transform = `translateX(${Math.max(x, -16) * 0.5}px)`;
