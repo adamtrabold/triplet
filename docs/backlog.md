@@ -336,6 +336,12 @@ pick/redirect before building anything.
 
 ## Known minor bugs / follow-ups
 
+- **Add tag: an auto-set TYPE carries over to a later pick with no tag match** (reviewer,
+  categories build, 2026-10-30). Since Other is gone, a pick the OSM table doesn't know (or an
+  address hit) leaves TYPE as it was. Repro: + , pick a street (TYPE auto-sets Street), then type
+  an address and pick it: TYPE stays Street. Owner/UX call (reset to the default? keep?), not
+  fixed here.
+
 - **Categories follow-ups (2026-10-30, after the locked-list migration):**
   (1) the owner fetches 9 shapes in the browser (Neighborhood: Freetown Christiania, Nyboder,
   Gamla Stan, Fashion District; Street: Hornstull Strand, Klapparstígur, Ravnsborggade, Sankt

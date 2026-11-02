@@ -44,9 +44,9 @@ const { W } = P;
   // B. the OSM pair -> TYPE table
   const map = await ev(() => [['leisure', 'sports_centre'], ['amenity', 'cafe'], ['shop', 'bakery'], ['place', 'suburb'], ['place', 'neighbourhood'], ['highway', 'pedestrian'], ['highway', 'bus_stop'], ['tourism', 'viewpoint'], ['amenity', 'bank'], ['', ''], ['natural', 'waterfall'], ['shop', 'books'], ['amenity', 'place_of_worship'], ['tourism', 'hostel'], ['aeroway', 'aerodrome'],
     ['water', 'lake'], ['natural', 'hot_spring'], ['leisure', 'resort'], ['leisure', 'beach_resort'], ['amenity', 'public_bath'], ['leisure', 'sauna'], ['building', 'yes']].map(([k, v]) => osmToType(k, v)));
-  ok('B1 the table (jam Turn 11 + water, hot springs, resorts, baths)', JSON.stringify(map) === JSON.stringify(['attraction', 'cafe', 'cafe', 'district', 'district', 'street', null, 'nature', null, null, 'nature', 'shopping', 'attraction', 'hotel', 'other',
+  ok('B1 the table (categories 2026-10-30: place_of_worship -> landmark, airports no row)', JSON.stringify(map) === JSON.stringify(['attraction', 'cafe', 'cafe', 'neighborhood', 'neighborhood', 'street', null, 'nature', null, null, 'nature', 'shopping', 'landmark', 'hotel', null,
     'nature', 'nature', 'attraction', 'attraction', 'attraction', 'attraction', null]), map);
-  ok('B2 boundary=administrative below city level -> district', await ev(() => osmToType('boundary', 'administrative', 'neighbourhood') === 'district' && osmToType('boundary', 'administrative', 'city') === null));
+  ok('B2 boundary=administrative below city level -> neighborhood', await ev(() => osmToType('boundary', 'administrative', 'neighbourhood') === 'neighborhood' && osmToType('boundary', 'administrative', 'city') === null));
 
   // C. a pick: the map jumps under the wash, the pin stands on the place, TYPE detected, city guessed
   await P.typeName(page, 'Sundhöllin'); await P.pick(page, 0);
@@ -69,7 +69,7 @@ const { W } = P;
 
   // D. hand picks win; editing NAME keeps the pick (and City and TYPE); the typed name is saved
   await P.tap(page, '#addTypeBtn');
-  ok('D1 TYPE menu: caption Type, 11 rows, the check on Attraction', await ev(() => { const m = document.getElementById('addTypeMenu'); return !m.hidden && m.querySelector('.menu-cap').textContent === 'Type' && m.querySelectorAll('.menu-row').length === 11 && m.querySelector('[aria-checked="true"]').dataset.type === 'attraction'; }));
+  ok('D1 TYPE menu: caption Type, 13 rows, the check on Attraction', await ev(() => { const m = document.getElementById('addTypeMenu'); return !m.hidden && m.querySelector('.menu-cap').textContent === 'Type' && m.querySelectorAll('.menu-row').length === 13 && m.querySelector('[aria-checked="true"]').dataset.type === 'attraction'; }));
   ok('D2 the menu opens 6px under its trigger, left-aligned, sliding up only as far as the list bar needs', await ev(() => { const t = document.getElementById('addTypeBtn').getBoundingClientRect(), el = document.getElementById('addTypeMenu'), m = el.getBoundingClientRect();
     const floor = Math.min(innerHeight, document.getElementById('locations').getBoundingClientRect().top) - 8, want = Math.max(addOpenArea().top, Math.min(t.bottom + 6, floor - el.scrollHeight - 2));
     return Math.abs(m.left - t.left) < 0.5 && Math.abs(m.top - want) <= 1; }), await ev(() => [document.getElementById('addTypeBtn').getBoundingClientRect().bottom, document.getElementById('addTypeMenu').getBoundingClientRect().top]));
@@ -97,13 +97,13 @@ const { W } = P;
   await P.openAdd(page); await P.typeName(page, 'Laugavegur 18, Reykjavík');
   ok('W1 an unnamed address hit is named from its street and number ("Laugavegur 18"), never "18"', await ev(() => { const n = [...document.querySelectorAll('#addResults .add-res-name')].map(e => e.textContent); return n.includes('Laugavegur 18') && !n.includes('18'); }));
   await ev(() => { const i = [...document.querySelectorAll('#addResults .add-res-name')].findIndex(e => e.textContent === 'Laugavegur 18'); document.querySelectorAll('#addResults .add-res')[i].click(); }); await W(400);
-  ok('W2 ... the pick: name Laugavegur 18, TYPE Other (not Street, not the old default)', await ev(() => document.getElementById('nameInput').value === 'Laugavegur 18' && addDraft.type === 'other'), await ev(() => [document.getElementById('nameInput').value, addDraft.type]));
+  ok('W2 ... the pick: name Laugavegur 18, TYPE left as it was (Other is gone, 2026-10-30: the untouched default, not Street)', await ev(() => document.getElementById('nameInput').value === 'Laugavegur 18' && addDraft.type === ADD_TYPE_DEFAULT), await ev(() => [document.getElementById('nameInput').value, addDraft.type]));
   await P.typeName(page, 'Vesterbrogade 10');
   ok('W3 "Vesterbrogade 10" rows read "Vesterbrogade 10"', await ev(() => [...document.querySelectorAll('#addResults .add-res-name')].every(e => e.textContent === 'Vesterbrogade 10')));
   await P.typeName(page, 'Grettisgata 20');
   await ev(() => { const i = [...document.querySelectorAll('#addResults .add-res')].findIndex(r => /^Grettisgata$/.test(r.querySelector('.add-res-name').textContent)); document.querySelectorAll('#addResults .add-res')[i].click(); }); await W(400);
-  ok('W4 a street found for a typed house number is not auto-typed Street', await ev(() => addDraft.type !== 'street' && addDraft.type === 'other'), await ev(() => addDraft.type));
-  ok('W5 a pick the table doesn\'t know resets an untouched TYPE to Other', await ev(() => { const r = { name: 'X', class: 'office', type: 'company', lat: '64.14', lon: '-21.94', address: {} }; return osmToType('office', 'company') === null; }) && await ev(() => addDraft.type === 'other'));
+  ok('W4 a street found for a typed house number is not auto-typed Street', await ev(() => addDraft.type !== 'street' && addDraft.type === ADD_TYPE_DEFAULT), await ev(() => addDraft.type));
+  ok('W5 a pick the table doesn\'t know leaves an untouched TYPE as it was', await ev(() => { const r = { name: 'X', class: 'office', type: 'company', lat: '64.14', lon: '-21.94', address: {} }; return osmToType('office', 'company') === null; }) && await ev(() => addDraft.type === ADD_TYPE_DEFAULT));
   await reset();
   ok('W6 the real town, not an admin unit', await ev(() => townOf({ city: 'Malmö kommun', town: 'Limhamn' }) === 'Limhamn' && townOf({ city: 'Reykjavik' }) === 'Reykjavik' && townOf({ municipality: 'Grindavíkurbær' }) === '' && townOf({ town: 'Town of Red Hook', village: 'Village of Tivoli' }) === 'Tivoli' /* p3 check: the admin prefix stripped, most specific first */));
   await reset();
@@ -138,7 +138,7 @@ const { W } = P;
   const order = f.ins.map(x => x[0]);
   ok('F3 ADD made the city first, then inserted', JSON.stringify(order) === JSON.stringify(['cities', 'locations']), order);
   const row = (f.ins.find(x => x[0] === 'locations') || [0, [{}]])[1][0];
-  ok('F4 the insert: city jonkoping, visited + starred, category, notes, short address', row.city === 'jonkoping' && row.visited === true && row.starred === true && row.category === 'attraction' && row.notes === 'Castle grounds.' && row.short_address === 'Slottsgatan 2 · Kålgården', row);
+  ok('F4 the insert: city jonkoping, visited + starred, category, notes, short address', row.city === 'jonkoping' && row.visited === true && row.starred === true && row.category === 'museum' && row.notes === 'Castle grounds.' && row.short_address === 'Slottsgatan 2 · Kålgården', row);
   ok('F5 the tag closed; the city is in CITIES', !f.open && !!f.city, f);
   await W(800);
   ok('F6 the new place\'s own tag opened', await ev(() => tagOpenNow() && map._popup.getContent().includes('Jönköpings läns museum')));
@@ -161,16 +161,16 @@ const { W } = P;
   // H. a neighbourhood -> District: the shape flow (outline from the pick's own OSM object)
   await P.openAdd(page); await P.typeName(page, 'Sund');
   await ev(() => { const i = [...document.querySelectorAll('#addResults .add-res')].findIndex(r => /District · Reykjavik/.test(r.textContent)); document.querySelectorAll('#addResults .add-res')[i].click(); }); await W(400);
-  ok('H1 Sund (boundary=administrative, neighbourhood) -> District; the address line says where ("Reykjavik, Iceland"), never a sentence', await ev(() => addDraft.type === 'district' && document.getElementById('addAddr').textContent === 'Reykjavik, Iceland'), await ev(() => document.getElementById('addAddr').textContent));
+  ok('H1 Sund (boundary=administrative, neighbourhood) -> District; the address line says where ("Reykjavik, Iceland"), never a sentence', await ev(() => addDraft.type === 'neighborhood' && document.getElementById('addAddr').textContent === 'Reykjavik, Iceland'), await ev(() => document.getElementById('addAddr').textContent));
   ok('H1d a District hangs from the same 28px close disc as a place (add-tag-close: no dot, no badge)', await ev(() => { const p = document.getElementById('addPin'); return getComputedStyle(p, '::after').width === '28px' && !p.children.length; }));
   await W(300);
   ok('H1b the District\'s outline shows before ADD (TypeDetected)', await ev(() => !!addOutlineLayer && map.hasLayer(addOutlineLayer) && addOutlineLayer.getLatLngs()[0].length > 10));
   await ev(() => { document.getElementById('addTypeBtn').click(); document.querySelector('#addTypeMenu [data-type="cafe"]').click(); });
-  ok('H1c TYPE off District: the outline goes; back on: it returns', await ev(() => !addOutlineLayer) && await ev(() => { document.getElementById('addTypeBtn').click(); document.querySelector('#addTypeMenu [data-type="district"]').click(); return !!addOutlineLayer; }));
+  ok('H1c TYPE off District: the outline goes; back on: it returns', await ev(() => !addOutlineLayer) && await ev(() => { document.getElementById('addTypeBtn').click(); document.querySelector('#addTypeMenu [data-type="neighborhood"]').click(); return !!addOutlineLayer; }));
   await ev(() => { window.__ins = []; document.querySelector('#addStub .popup-visited').click(); }); await W(500);
   await ev(() => document.getElementById('submitBtn').click()); await W(1500);
   const h = await ev(() => window.__ins.find(x => x[0] === 'neighborhood_shapes'));
-  ok('H2 the shape insert: type district, the looked-up outline, visited true, city reykjavik', !!h && h[1][0].type === 'district' && h[1][0].geometry.length > 10 && h[1][0].visited === true && h[1][0].city === 'reykjavik', h && { ...h[1][0], geometry: h[1][0].geometry.length });
+  ok('H2 the shape insert: type neighborhood, the looked-up outline, visited true, city reykjavik', !!h && h[1][0].type === 'neighborhood' && h[1][0].geometry.length > 10 && h[1][0].visited === true && h[1][0].city === 'reykjavik', h && { ...h[1][0], geometry: h[1][0].geometry.length });
   ok('H3 the outline came from one Nominatim lookup by OSM id (at the pick), reused at ADD', o.requests.filter(u => u.includes('/lookup') && u.includes('R2583102')).length === 1);
   await ev(() => map.closePopup()); await W(400);
 
@@ -228,7 +228,7 @@ const { W } = P;
     await P.tap(page, '#addTypeBtn');
     const fit = await ev(() => { const m = document.getElementById('addTypeMenu').getBoundingClientRect(), sheet = document.getElementById('locations').getBoundingClientRect().top;
       return { top: m.top, bottom: m.bottom, ceil: addOpenArea().top, floor: Math.min(innerHeight, sheet) - 8, scrolls: document.getElementById('addTypeMenu').scrollHeight > document.getElementById('addTypeMenu').clientHeight + 1 }; });
-    ok(`N3 the TYPE menu sits between the top controls and 8px above the list bar at ${w}x${h}${w === 390 ? ', all 11 rows, no scroll' : ''}`, fit.top >= fit.ceil - 0.5 && fit.bottom <= fit.floor + 0.5 && (w !== 390 || !fit.scrolls), fit);
+    ok(`N3 the TYPE menu sits between the top controls and 8px above the list bar at ${w}x${h}${w === 390 ? ', all 13 rows, no scroll' : ''}`, fit.top >= fit.ceil - 0.5 && fit.bottom <= fit.floor + 0.5 && (w !== 390 || !fit.scrolls), fit);
     await ev(() => closeAddMenus(false)); await W(150);
   }
   await page.setViewportSize({ width: 390, height: 844 }); await W(400);

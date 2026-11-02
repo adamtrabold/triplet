@@ -27,8 +27,9 @@ update public.neighborhood_shapes s set
   where b.id = s.id;
 -- any shape added after the migration as 'neighborhood' goes back to the old key too
 update public.neighborhood_shapes set type = 'district' where type = 'neighborhood';
--- pins added after the migration under a new key have no old category; the old code
--- shows them with the `other` ink. Listed here so nothing is silently changed:
+-- pins added after the migration under a new key have no old category, and the old code
+-- HIDES them (no filter chip for an unknown key: filtered out of the list and the map).
+-- Re-category them by hand; list them first so nothing is silently changed:
 --   select id, name, category from public.locations
 --   where category in ('venue','museum','landmark','park','neighborhood');
 alter table public.neighborhood_shapes add constraint neighborhood_shapes_type_check
