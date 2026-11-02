@@ -349,6 +349,11 @@
      "detail": "3 of 3 declared, gaps 1.019px (minimum 1)"
     },
     {
+     "point": "Openings between radiating parts",
+     "ok": true,
+     "detail": "6 openings as built hold 1.007, 1, 0.996, 1.005, 1, 1.003px (minimum 1)"
+    },
+    {
      "point": "Continuous curvature",
      "ok": true,
      "detail": "0 curvature faults (none allowed)"
@@ -379,6 +384,11 @@
      "point": "Counters and gaps",
      "ok": true,
      "detail": "2 counters"
+    },
+    {
+     "point": "A part that must read",
+     "ok": true,
+     "detail": "the tie stands 1px past its fall (minimum 1)"
     },
     {
      "point": "Continuous curvature",
@@ -933,6 +943,11 @@
      "detail": "3 of 3 declared, gaps 1.358px (minimum 1.3333333333333333)"
     },
     {
+     "point": "Openings between radiating parts",
+     "ok": true,
+     "detail": "6 openings as built hold 1.357, 1.346, 1.353, 1.345, 1.352, 1.342px (minimum 1.33)"
+    },
+    {
      "point": "Continuous curvature",
      "ok": true,
      "detail": "0 curvature faults (none allowed)"
@@ -963,6 +978,11 @@
      "point": "Counters and gaps",
      "ok": true,
      "detail": "2 counters"
+    },
+    {
+     "point": "A part that must read",
+     "ok": true,
+     "detail": "the tie stands 1.333px past its fall (minimum 1.33)"
     },
     {
      "point": "Continuous curvature",
@@ -1458,7 +1478,7 @@
     {
      "point": "Snap priority",
      "ok": true,
-     "detail": "6 of 6 core outer edges on the iPhone grid; parts with both sides outside: 6 of 6 sides landed"
+     "detail": "8 of 8 core outer edges on the iPhone grid; parts with both sides outside: 6 of 6 sides landed"
     },
     {
      "point": "Parts that are not strokes",
@@ -1469,6 +1489,11 @@
      "point": "Counters and gaps",
      "ok": true,
      "detail": "2 counters"
+    },
+    {
+     "point": "A part that must read",
+     "ok": true,
+     "detail": "the tie stands 1px past its fall (minimum 1)"
     },
     {
      "point": "Continuous curvature",

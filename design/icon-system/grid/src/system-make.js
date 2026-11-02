@@ -208,14 +208,16 @@ const KINDS = {
     // (Parts that run on): the grid moves them together, and the joints are corners the rack cuts
     const foot = r.from != null && P.axis, h = (foot ? t.lean : t.part) / 2, ahead = P.axis ? Math.sign(P.axis[0][0] - P.axis[1][0]) || 1 : 1;
     const leans = Array.isArray(r.lean) ? r.lean : [r.lean, r.lean];
-    // OPENINGS BETWEEN RADIATING PARTS (11-02): posts from a ring's centre never cross the ring's openings (that is the spokes'
-    // room): they start in the rim's band, and the hub is only where the spokes cross (no pin)
+    // OPENINGS BETWEEN RADIATING PARTS (11-02): posts from a ring's centre never crowd the ring's openings: inside the ring (to the
+    // middle of its rim's band) they are no wider than the spokes there, so the openings are the spokes' alone
     const inRing = !foot && P.r && P.r.kind === 'ring', l0 = inRing ? P.radius : 0;
-    const parts = foot ? P.prims.slice() : inRing ? [] : [E.C(ox, oy, t.stroke / 2)];
+    const SP = inRing ? Object.values(C.placed).find(q => q.spokes && q.spokes.of === r.of && q.spokes.n > 0) : null, hIn = SP ? Math.min(h, SP.spokes.w / 2) : h;
+    const parts = foot ? P.prims.slice() : [E.C(ox, oy, t.stroke / 2)];
     let x0 = ox, x1 = ox;
     for (const sg of [-1, 1]) { const a = leans[sg === ahead ? 0 : 1] * Math.PI / 180, dx = sg * Math.sin(a), dy = Math.cos(a), nx = dy * h, ny = -dx * h;
       const ey = yb - h * Math.sin(a), l = (ey - oy) / dy, ex = ox + dx * l, sx = ox + dx * l0, sy = oy + dy * l0;
-      parts.push(E.P([sx - nx, sy - ny], [sx + nx, sy + ny], [ex + nx, ey + ny], [ex - nx, ey - ny]));
+      if (hIn < h - 1e-9) { const mx = dy * hIn, my = -dx * hIn; parts.push(E.P([ox - mx, oy - my], [ox + mx, oy + my], [sx + mx, sy + my], [sx - mx, sy - my])); parts.push(E.P([sx - nx, sy - ny], [sx + nx, sy + ny], [ex + nx, ey + ny], [ex - nx, ey - ny])); }
+      else parts.push(E.P([ox - nx, oy - ny], [ox + nx, oy + ny], [ex + nx, ey + ny], [ex - nx, ey - ny]));
       x0 = Math.min(x0, ex - Math.abs(nx)); x1 = Math.max(x1, ex + Math.abs(nx)); }
     const prims = [E.D(E.build(parts).d, { root: 'POST', also: foot ? null : 'CIRCLE', role: 'splay' })];
     if (foot) P.prims = [];
@@ -582,18 +584,8 @@ function make(decl, Z, S, opts = {}) {
   const sym = symmetric ? ox + tx + s / 2 : undefined;
   let prims = E.xform(prims0, 1, 0, 0, ox + tx, ty);
   // LAND the roots on the iPhone grid before any corner is rounded; a row or a comb lands as one (below)
-  const ringAt = (meta.spokes || []).filter(sp => sp.n > 0).map(sp => prims.findIndex(p => p.rid === sp.of)).filter(i => i >= 0);
   if (opts.land) prims = asOne(prims, opts.land(prims, sym), Z);
-  // OPENINGS BETWEEN RADIATING PARTS (11-02): the openings between spokes in a ring are counters with no length to run, so the rounds
-  // must not fill them: every corner round such an opening is a cut and takes the rack's smallest cutter (as every cut does), and
-  // the counter minimum is what the opening holds as built
-  let olaw = bopts.law;
-  if (ringAt.length) { const paper = require(path.join(process.env.TOOLS, 'node_modules/paper/dist/paper-core.js'));
-    const rings = ringAt.map(i => { const it = new paper.CompoundPath(E.parts([prims[i]])[0].d), b = it.bounds; it.remove(); return { cx: b.x + b.width / 2, cy: b.y + b.height / 2, ri: b.width / 2 - Z.stroke / Z.k }; });
-    const base = bopts.law;
-    olaw = c => process.env.OPEN_CUT !== '0' && c.hole && rings.some(g => Math.hypot(c.pt[0] - g.cx, c.pt[1] - g.cy) < g.ri - 1e-3) ? RACK[0] : base(c);
-    meta.openings = { cutter: RACK[0] }; }
-  const AB = apexBuild(prims, { ...bopts, law: olaw, sym }, Z.k, Z.stroke), d = AB.d; if (AB.apex) meta.apex = AB.apex;
+  const AB = apexBuild(prims, { ...bopts, sym }, Z.k, Z.stroke), d = AB.d; if (AB.apex) meta.apex = AB.apex;
   return { d, s, sym: sym ?? null, meta: { ...meta, cls, s: +s.toFixed(4), fitBy: diamond ? 'the diamond' : gW && gH ? 'both sides' : gW ? 'width' : 'height' }, prims };
 }
 
