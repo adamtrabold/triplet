@@ -1,0 +1,14 @@
+{
+  "cats": [
+    ["landmark", "Landmark", [["lm-needle", "the needle"], ["lm-camera", "the camera"]]],
+    ["attraction", "Attraction", [["at-bunting", "bunting"], ["at-wheel4", "the wheel, standing"], ["attraction", "control: one-shot wheel"]]],
+    ["venue", "Venue", [["vn-stage", "curtain at the stage lip"], ["venue", "control: the curtain"]]],
+    ["hotel", "Hotel", [["ht-nofoot", "bed, no foot"], ["ht-board", "bed, foot board"]]],
+    ["shopping", "Shopping", [["shopping", "control: the bag"], ["sh-carrier", "the carrier"]]],
+    ["park", "Park", [["pk-picnic", "picnic table"], ["pk-swing", "the swing"]]],
+    ["neighbourhood", "Neighborhood", [["nb-kvarter", "the kvarter"], ["nb-roofs", "roofs as the badge"], ["nb-windows", "lit windows", 1]]],
+    ["street", "Street", [["street", "control: the walker"], ["st-lamp", "one lamp"], ["st-lamps", "lamps receding"]]]
+  ],
+  "pick": [["landmark", "lm-camera"], ["attraction", "at-wheel4"], ["venue", "venue"], ["hotel", "ht-nofoot"], ["shopping", "shopping"], ["park", "pk-picnic"], ["neighbourhood", "nb-roofs"], ["street", "st-lamp"]],
+  "mixOrder": [0, 8, 1, 9, 4, 2, 10, 5, 3, 11, 6, 12, 7]
+}

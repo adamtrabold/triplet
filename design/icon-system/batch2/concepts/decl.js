@@ -17,8 +17,8 @@ const D = SYS.DECL;
 const C = {
   // ---- Landmark
   'lm-needle': S('Landmark: the needle on its plinth', 'tall', [
-    { id: 'tip', kind: 'gable', of: 'shaft', pitch: 1.6, ends: 0 },
-    { id: 'shaft', kind: 'slab', w: 1 / 2, of: 'base', lines: 5 },
+    { id: 'tip', kind: 'gable', of: 'shaft', pitch: 3 / 4, ends: 0 },   // visual 11-02: 1.6 read as a pencil; a low pyramidion
+    { id: 'shaft', kind: 'slab', w: 1 / 2, of: 'base', lines: 6 },
     { id: 'base', kind: 'slab', w: 1, lines: 2, join: 'cut' }]),
   'lm-camera': S('Landmark: the camera', 'wide', [
     { id: 'finder', kind: 'block', w: 1 / 3, of: 'body', deep: 1 / 3 },
@@ -26,9 +26,7 @@ const C = {
   // ---- Attraction
   'at-bunting': S('Attraction: bunting between two poles', 'square', [
     { id: 'line', kind: 'slab', w: 1 },
-    { side: [[{ id: 'flag1', kind: 'gable', face: 'down', pitch: 2.4, ends: 0 }], [{ id: 'flag2', kind: 'gable', face: 'down', pitch: 2.4, ends: 0 }], [{ id: 'flag3', kind: 'gable', face: 'down', pitch: 2.4, ends: 0 }]], widths: [3, 4, 3], w: 3 / 4 },
-    { id: 'poleL', kind: 'post', of: 'line', at: 'left', h: 5 / 6 },
-    { id: 'poleR', kind: 'post', of: 'line', at: 'right', h: 5 / 6 }]),
+    { side: [[{ id: 'flag1', kind: 'gable', face: 'down', pitch: 2.4, ends: 0 }], [{ id: 'flag2', kind: 'gable', face: 'down', pitch: 2.4, ends: 0 }], [{ id: 'flag3', kind: 'gable', face: 'down', pitch: 2.4, ends: 0 }]], widths: [3, 4, 3], w: 3 / 4, join: 'cut' }]),   // visual 11-02: no poles (they made a frame: a valance), pennants a cut under the line
   'at-wheel4': S('Attraction: the wheel, 4 spokes, standing', 'square', [
     { id: 'rim', kind: 'ring', w: 1 },
     { id: 'spokes', kind: 'spokes', of: 'rim', n: 4, turn: 0 },
@@ -64,12 +62,11 @@ const C = {
   'pk-swing': S('Park: the swing', 'square', [
     { id: 'bar', kind: 'slab', w: 1 },
     { id: 'frame', kind: 'splay', of: 'bar', from: 'ends', lean: 12, to: 'bottom' },
-    { id: 'ropes', kind: 'row', n: 2, w: 2 / 5, h: 1 / 2, join: 'held' },
-    { id: 'seat', kind: 'slab', w: 2 / 5, of: 'bar', join: 'held' }]),
+    { id: 'ropes', kind: 'row', n: 2, w: 1 / 4, h: 2 / 3, join: 'held' },   // visual 11-02: 2/5 read as a stool; a small seat, long ropes
+    { id: 'seat', kind: 'slab', w: 1 / 4, of: 'bar', join: 'held' }]),
   // ---- Neighbourhood (shapes, in the diamond)
   'nb-kvarter': S('Neighborhood: the kvarter, three uneven houses on one base', 'diamond', [
-    { side: [house(1, 1, 1 / 2), house(2, 2 / 3, 2 / 3), house(3, 6 / 5, 1 / 3)], widths: [3, 4, 3] },
-    { id: 'base', kind: 'slab', w: 1, join: 'cut' }], { shape: true }),
+    { side: [house(1, 1, 1 / 2), house(2, 2 / 3, 2 / 3), house(3, 6 / 5, 1 / 3)], widths: [3, 4, 3] }], { shape: true }),   // visual 11-02: no base (it read as a separate bar)
   'nb-roofs': S('Neighborhood: two roofs at the diamond\'s own pitch', 'diamond', [
     { side: [house(1, 1, 1 / 3), house(2, 1, 1 / 3)] }], { shape: true }),
   'nb-windows': S('Neighborhood: the lit windows', 'diamond', [
