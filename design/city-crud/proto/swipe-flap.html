@@ -188,5 +188,14 @@
     slip.querySelector('button').onclick = () => { r.hidden = false; signs[n].hidden = false; setOpen(r, false); slip.hidden = true; };
     undo = setTimeout(() => { slip.hidden = true; }, 6000);
   }
+  // A swipe anywhere over a row's band counts, edges included: if the browser hands the wheel event to
+  // something other than the row (a border, the menu, the page), pass it to the row under the pointer.
+  document.addEventListener('wheel', e => {
+    if (e.target.closest && e.target.closest('.row')) return;
+    const r = [...menu.querySelectorAll('.row')].find(o => { if (o.hidden) return false; const b = o.getBoundingClientRect(); return e.clientX >= b.left && e.clientX <= b.right && e.clientY >= b.top - 1 && e.clientY <= b.bottom + 1; });
+    if (!r) return;
+    e.preventDefault();
+    r.dispatchEvent(new WheelEvent('wheel', { deltaX: e.deltaX, deltaY: e.deltaY, deltaMode: e.deltaMode, clientX: e.clientX, clientY: e.clientY, cancelable: true }));
+  }, { passive: false });
   function closeAll(except) { menu.querySelectorAll('.row').forEach(o => { if (o !== except && o.dataset.open === '1') setOpen(o, false); }); }
 </script></body></html>
