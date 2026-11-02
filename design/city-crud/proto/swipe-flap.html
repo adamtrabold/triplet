@@ -102,13 +102,18 @@
     r.addEventListener('keydown', e => { if (e.shiftKey && (e.key === 'Delete' || e.key === 'Backspace')) { e.preventDefault(); setOpen(r, true); showConfirm(r); } });
     // trackpad two-finger horizontal swipe (wheel deltaX): the board tracks it; ~120ms after the last
     // event it settles by the same 40% rule. Natural scrolling: fingers left = deltaX > 0.
-    let wx = 0, wt = null, wbase = 0;
+    let wx = 0, wt = null, wbase = 0, wlock = null;
     r.addEventListener('wheel', e => {
       if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;   // vertical: the menu scrolls
       e.preventDefault();
+      // after a snap, swallow the trackpad's momentum tail until it goes quiet (it would otherwise hold the board at the edge)
+      if (wlock) { clearTimeout(wlock); wlock = setTimeout(() => { wlock = null; }, 160); return; }
       if (wt == null) { wbase = r.dataset.open === '1' ? -OPEN : 0; wx = 0; r.classList.remove('settle', 'to-open', 'to-shut'); }
       // the accumulator is clamped too, so trackpad momentum can't bank distance (pulling back answers at once)
       wx = Math.max(-OPEN - 120 - wbase, Math.min(-wbase, wx - e.deltaX)); setDrag(r, wbase + wx, true);
+      // reaching an edge snaps at once: open at the open width (or past it), shut at zero
+      const at = wbase + wx, snap = at <= -OPEN ? true : (wbase !== 0 && at >= 0) ? false : null;
+      if (snap !== null) { clearTimeout(wt); wt = null; setOpen(r, snap); wlock = setTimeout(() => { wlock = null; }, 160); return; }
       clearTimeout(wt); wt = setTimeout(() => { const cur = parseFloat(r.dataset.dx || 0); setOpen(r, wbase === 0 ? cur < -OPEN * OPEN_AT : cur < -OPEN * (1 - OPEN_AT)); wt = null; }, 120);
     }, { passive: false });
     r.querySelector('.front').onclick = () => { if (r.dataset.open === '1') setOpen(r, false); else closeAll(); };
