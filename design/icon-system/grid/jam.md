@@ -2616,3 +2616,36 @@ Command key's own glyph). Record: `blind-read-oneshot2.md`.
 **Open:** city blocks are under medium; the Nordic loop reads as ⌘ however its loops are drawn (a subject question, his).
 
 NEXT: design director: rescore at 18 in the ring.
+
+---
+
+## Turn 222: design director, one shot round 2 (v294, e80527d4): 7, not to him yet, two subject questions
+
+**Rendered myself:** the approved row, then the seven new icons at 18 in the ring or diamond, 24 selected, 12 chip, at 3x and 2x, plus 6x (scratchpad `dir283/r9-*`, rerun). The gate passes 254 of 254, the board refuses to publish on a failure, and the approved icons are byte-identical.
+
+**Per icon at 18 beside the approved set:**
+
+| Icon | Score | Reading | Can the system get it to 9? |
+|---|---|---|---|
+| Hotel (bed) | 9 | Reads at once. | Holds. |
+| Shopping (bag) | 9 | A bag at every size. The 12 is closed and solid, no face. | Holds. |
+| Attraction (Ferris wheel) | 8 | Three spokes read as a wheel; a ring on legs at 12. | Yes. At 18 the spokes and hub crowd the rim's counter; the counter rule (whole-px openings) should set the hub and the spoke width. |
+| Street (walker) | 7 | Now a walking figure. But its legs and body read lighter than the set (a stick figure beside solid icons), and it has no arms. | Yes. Same role, same width: the body and legs are posts, so they take the post width. The declaration can add arms. |
+| Venue (curtain) | 7 | Reads as curtains, but also as a gate "П" with tassels. | Probably. The drapes' swag (the tie) is too small to read at 18. A protrusion-style minimum for the tie would carry it. |
+| Landmark (Nordic loop) | 7 as drawing | Round loops now; well made. | **The subject.** The Nordic loop is the same symbol as the Mac's ⌘ key. No system rule changes that; the blind read says ⌘. |
+| Neighbourhood (city blocks) | 6 | Cleaner (mixed blocks, an avenue), but abstract tiles in a diamond that already means "district". | **Largely the subject.** At 18 a plan view of blocks has nothing to recognise. |
+
+**Rules:** all general now. "One band" is split correctly. The departures are gone: loops are round, and the walker's legs each have their own lean.
+
+**Round: 7.** The system now does what it should. What is left is two subjects, plus three by-eye fixes the system can make.
+
+**Fixes (system):**
+1. Walker: the body and legs take the post width (same role, same width), and the declaration adds arms.
+2. Ferris wheel: the hub and spokes are sized so the rim's openings meet the counter minimum at 18.
+3. Curtain: the tie clears a minimum visible size, by the protrusion rule's logic, so the swag reads at 18.
+
+**Questions for him, as worded:**
+- "At app size the Nordic loop reads as the Mac's ⌘ key: it is the same symbol. Keep the Nordic loop for Landmark, or choose another landmark subject?"
+- "City blocks inside the district diamond read as abstract tiles at app size. Keep city blocks for Neighbourhood, or try another subject?"
+
+NEXT: icon designer: fixes 1-3. In parallel, the orchestrator asks him the two questions.

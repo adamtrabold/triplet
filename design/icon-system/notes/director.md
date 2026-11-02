@@ -1004,3 +1004,9 @@ He approved the system at v292 and asked for the rest, one shot.
 - declaration "departures" are system gaps;
 - the diamond class optical size;
 - 12 readings (the bag as a ghost, the wheel as a blob).
+
+## One shot 2 (v294, 2026-11-02): 7
+
+**System now sound:** the gate blocks publishing, and the departures are gone.
+
+**Left:** two subjects (Nordic loop = the command key; city blocks abstract), which are questions for him. Three system fixes: walker weight, Ferris hub/spokes, curtain tie.

@@ -1804,3 +1804,18 @@ The verdict stands within our own set:
 - **System findings:** the fairing can't ease off a short straight; the splay kind can't stride; the diamond class falls short of the set's optical size.
 - **Process:** published with 4 curvature failures (the second time).
 - **Fixes:** 8, in jam turn 220.
+
+## Round: one shot 2 (canvas v294, e80527d4), 2026-11-02: 7, two subject questions
+
+- **Per icon:**
+  - bed 9;
+  - bag 9;
+  - Ferris wheel 8;
+  - walker 7 (lighter than the set, no arms);
+  - curtain 7 (the tie too small);
+  - Nordic loop 7 (reads as the command key: the subject);
+  - city blocks 6 (abstract: largely the subject).
+- **Gate:** passes 254; publishing is blocked on failure.
+- **Fixes:** 3 system fixes.
+- **Questions for him:** 2 (Landmark, Neighbourhood subjects).
+- **Jam turn 222.**
