@@ -27,6 +27,42 @@ async function open(browser, opts = {}) {
     return route.fulfill({ contentType: 'application/json', body: fs.readFileSync(f, 'utf8') });
   });
   await page.evaluate(() => {
+    // city-crud v2b: places by id (update().in() / delete().in(), recorded in __upd / __pdel), and a
+    // cities table answer (window.__CITIES_TABLE, rows as the DB holds them) for fetchCities()
+    window.__pdel = [];
+    const prev0 = supabaseClient.from.bind(supabaseClient);
+    supabaseClient.from = t => {
+      const b = prev0(t);
+      const ok = () => ({ then(res) { return Promise.resolve({ data: null, error: null }).then(res); } });
+      const fail = () => ({ then(res) { return Promise.resolve({ data: null, error: { message: 'stub failure', code: 'X' } }).then(res); } });
+      if (t === 'cities' && window.__CITIES_TABLE) {
+        b.select = () => ({ then(res) { return Promise.resolve({ data: window.__CITIES_TABLE.map(r => ({ ...r })), error: null }).then(res); } });
+        const ins = b.insert;
+        b.insert = r => { const out = ins(r); (Array.isArray(r) ? r : [r]).forEach(x => { if (!window.__CITIES_TABLE.some(y => y.id === x.id)) window.__CITIES_TABLE.push({ ...x }); }); return out; };
+        b.delete = () => ({ eq(k, v) { window.__del.push(['cities', v]); if (window.__failNext === 'cities-delete') { window.__failNext = null; return fail(); } window.__CITIES_TABLE = window.__CITIES_TABLE.filter(r => r[k] !== v); return ok(); } });
+        return b;
+      }
+      if (!['locations', 'neighborhood_shapes'].includes(t)) return b;
+      const store = () => t === 'locations' ? window.__ROWS : window.__SHAPES;
+      const up = b.update;
+      b.update = o => {
+        const u = up(o);
+        return { eq: (k, v) => u.eq(k, v), in(k, ids) {
+          if (window.__failNext === t + '-update') { window.__failNext = null; return fail(); }
+          window.__upd.push([t, JSON.parse(JSON.stringify(o)), [k, ids.slice()]]);
+          store().forEach(r => { if (ids.map(String).includes(String(r[k]))) Object.assign(r, o); });
+          return ok(); } };
+      };
+      b.delete = () => ({ in(k, ids) {
+        if (window.__failNext === t + '-delete') { window.__failNext = null; return fail(); }
+        window.__pdel.push([t, ids.slice()]);
+        const keep = store().filter(r => !ids.map(String).includes(String(r[k])));
+        if (t === 'locations') window.__ROWS = keep; else window.__SHAPES = keep;
+        return ok(); }, eq(k, v) { return this.in(k, [v]); } });
+      return b;
+    };
+  });
+  await page.evaluate(() => {
     const prev = supabaseClient.from.bind(supabaseClient);
     supabaseClient.from = t => {
       const b = prev(t);

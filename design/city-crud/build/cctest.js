@@ -221,6 +221,219 @@ const PA = [39.95, -75.40];   // the map over south-east Pennsylvania: no city o
   ok('K3 375x667: the Hanging Tag\'s city menu with results stays on screen, the search line and a result in view', k3.inView && k3.findIn && k3.resIn, k3);
   ok('K4 no page errors', o.errors.length === 0, o.errors);
   await page.context().close();
+
+  // ================================================================ v2b (city-crud v4-v12)
+  o = await L.open(b, { file, storage: { 'gh.plans': '1', 'triplet.reorderHint': '1' } }); page = o.page;
+  const menuOpen = async () => { if (await ev(() => document.getElementById('titleMenu').hidden)) { await P.tap(page, '#titleBtn'); await W(250); } };
+  const rowSel = id => `#titleMenu .menu-city[data-city="${id}"]`;
+  // a menu row may sit under the sticky Plans row: scroll it into view first, as a person would
+  const tapIn = async sel => { await ev(sel => { const e = document.querySelector(sel), m = document.getElementById('titleMenu'), foot = m.querySelector('.menu-row[data-kind]'); e.scrollIntoView({ block: 'nearest' }); const er = e.getBoundingClientRect(), fr = foot.getBoundingClientRect(); if (er.bottom > fr.top) m.scrollTop += er.bottom - fr.top; }, sel); await W(100); await P.tap(page, sel); };
+  const rowState = id => ev(id => { const r = document.querySelector(`#titleMenu .menu-city[data-city="${id}"]`); return r && { open: r.dataset.open === '1', w: parseFloat(r.querySelector('.rm-clip').style.width || '0'), name: r.querySelector('.menu-lab').getBoundingClientRect().left }; }, id);
+  const cdp = await page.context().newCDPSession(page);
+  // a touch drag: from (x0, y) by dx in n steps, ms apart
+  const drag = async (x0, y, dx, n, ms) => {
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: x0, y }] });
+    for (let i = 1; i <= n; i++) { await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: x0 + dx * i / n, y }] }); await W(ms); }
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] }); await W(420);
+  };
+  const rowPt = id => ev(id => { const b = document.querySelector(`#titleMenu .menu-city[data-city="${id}"]`).getBoundingClientRect(); return { x: b.left + b.width * 0.7, y: b.top + b.height / 2, l: b.left, r: b.right }; }, id);
+
+  // V. a picked city filters; All places keeps sections + the eye; faded signposts
+  const v1 = await ev(() => ({ picked: citySelection, heads: document.querySelectorAll('#locationsList .sec-head').length, rows: [...document.querySelectorAll('#locationsList .location-card')].map(e => rowItem(e.dataset.id || 'shape:' + e.dataset.shapeId).city),
+    pins: [...markersById.values()].map(m => m.loc.city), title: document.querySelector('#titleBtn .h-name').textContent }));
+  ok('V1 Reykjavík picked: the list and the map hold Reykjavík only; no header for it; the title names it', v1.picked === 'reykjavik' && v1.heads === 0 && v1.rows.length > 20 && v1.rows.every(c => c === 'reykjavik') && v1.pins.every(c => c === 'reykjavik') && v1.title === 'Reykjavík', v1);
+  await ev(() => { hiddenCities.clear(); hiddenCities.add('la'); persistHiddenCities(); setActiveCity(ALL_CITIES, { frame: false }); }); await W(500);
+  const v2 = await ev(() => { const h = [...document.querySelectorAll('#locationsList .sec-head')]; return { heads: h.map(e => e.dataset.city), btn: h.some(e => e.querySelector('button.sec-name')), eyes: h.every(e => !!e.querySelector('.sec-eye')), la: h.find(e => e.dataset.city === 'la').classList.contains('is-hidden') }; });
+  ok('V2 All places: one section per city with its eye (LA hidden: its greyed header); the header names are headings, not buttons', v2.heads.join() === 'la,reykjavik,copenhagen,malmo,stockholm' && !v2.btn && v2.eyes && v2.la, v2);
+  const v3c = await ev(() => map.getCenter());
+  await P.tap(page, '.sec-head[data-city="copenhagen"] .sec-name'); await W(900);
+  ok('V3 tapping a header\'s name in All places does nothing', await ev(c => citySelection === ALL_CITIES && Math.abs(map.getCenter().lat - c.lat) < 1e-6, v3c));
+  await ev(() => { setActiveCity('malmo', { frame: false }); map.setView([58, -2], 3, { animate: false }); }); await W(900);
+  const v4 = await ev(() => [...document.querySelectorAll('#map .sp-board')].map(b => { const ln = b.querySelector('.sp-line'), sh = b.querySelector('.sp-shadow'), lab = b.querySelector('.sp-lab');
+    return { id: b.dataset.cityBadge, faded: b.classList.contains('is-faded'), dash: getComputedStyle(ln).strokeDasharray, stroke: getComputedStyle(ln).stroke, shadow: getComputedStyle(sh).display, color: getComputedStyle(lab).color, fill: getComputedStyle(b.querySelector('.sp-fill')).fill }; }));
+  const vm = v4.find(x => x.id === 'malmo'), vo = v4.filter(x => x.id !== 'malmo');
+  ok('V4 Malmö picked, zoomed out: Malmö\'s board solid; the other cities\' boards faded (dashed --ink-2 rule, no navy shadow, grey label, opaque paper face)', vm && !vm.faded && vm.shadow !== 'none' && vo.length >= 3 && vo.every(x => x.faded && x.dash !== 'none' && x.stroke === 'rgb(90, 86, 76)' && x.shadow === 'none' && x.color === 'rgb(90, 86, 76)' && /rgb\(250, 245, 234\)/.test(x.fill)), v4);
+  await ev(() => { const bd = document.querySelector('#map .sp-board[data-city-badge="stockholm"]'); bd.click(); }); await W(1500);
+  ok('V5 a faded board is tappable: it picks that city (Stockholm)', await ev(() => citySelection === 'stockholm' && document.querySelector('#titleBtn .h-name').textContent === 'Stockholm'));
+  await ev(() => { setActiveCity(ALL_CITIES, { frame: false }); map.setView([58, -2], 3, { animate: false }); }); await W(900);
+  ok('V6 All places zoomed out: no faded boards', await ev(() => document.querySelectorAll('#map .sp-board').length >= 3 && !document.querySelector('#map .sp-board.is-faded')));
+
+  // N. New city: the title menu's row becomes Find a city; you land in the new, empty city
+  await ev(() => map.setView([40.3, -75.4], 7, { animate: false })); await W(400);   // results rank nearest the map's centre
+  await menuOpen();
+  const n1 = await ev(() => [...document.querySelectorAll('#titleMenu .menu-row')].map(r => r.textContent.trim()));
+  ok('N1 the Places side: your cities, then "+ New city", then the quiet Plans row', n1[n1.length - 2] === 'New city' && /^Plans/.test(n1[n1.length - 1]) && n1.slice(1, 6).every(t => /\d+$/.test(t)), n1);
+  await tapIn('#titleMenu [data-act="newcity"]');
+  ok('N2 tapping it turns the row into the Find a city line, focused (the menu stays open)', await ev(() => !document.getElementById('titleMenu').hidden && document.activeElement && document.activeElement.classList.contains('menu-find-in') && !document.querySelector('#titleMenu [data-act="newcity"]')));
+  await L.findCity(page, 'titleMenu', 'Philadelphia');
+  await ev(() => { window.__ins = []; window.__del = []; document.querySelector('#titleMenu .menu-res').click(); }); await W(1500);
+  const n3 = await ev(() => ({ ins: window.__ins.map(x => [x[0], x[1][0].id, x[1][0].auto_added]), picked: citySelection, title: document.querySelector('#titleBtn .h-name').textContent, n: document.querySelector('#titleBtn .tally').textContent,
+    heads: document.querySelectorAll('#locationsList .sec-head').length, empty: getComputedStyle(document.getElementById('locationsEmpty')).display, txt: document.getElementById('locationsEmpty').textContent.trim(), menu: document.getElementById('titleMenu').hidden, c: map.getCenter() }));
+  ok('N3 a pick makes the city (kept: auto_added false) and lands in it: "Philadelphia 0", no header, the empty note, the map on it', JSON.stringify(n3.ins) === '[["cities","philadelphia",false]]' && n3.picked === 'philadelphia' && n3.title === 'Philadelphia' && n3.n === '0' && n3.heads === 0 && n3.empty === 'block' && n3.txt === 'Nothing here yet. Tap + to add a place; it’s yours until you remove it.' && n3.menu && Math.abs(n3.c.lat - 39.95) < 0.1, n3);
+  await ev(() => cleanupOrphanCities()); await W(300);
+  ok('N4 an empty city you made is kept by the cleanup (it\'s yours until you remove it); it\'s in the menu with 0', await ev(() => !!CITIES.philadelphia && !window.__del.length) && await (async () => { await menuOpen(); return ev(() => !!document.querySelector('#titleMenu .menu-city[data-city="philadelphia"]')); })());
+  await tapIn('#titleMenu [data-act="newcity"]'); await L.findCity(page, 'titleMenu', 'Reykjavik');
+  await ev(() => { window.__ins = []; document.querySelector('#titleMenu .menu-res').click(); }); await W(1200);
+  ok('N5 a pick that is one of your cities just goes to it (no new city)', await ev(() => citySelection === 'reykjavik' && !window.__ins.length));
+  await ev(() => { setActiveCity(ALL_CITIES, { frame: false }); map.setView([58, -2], 3, { animate: false }); }); await W(800);
+
+  // R. remove by touch: the approved prototype's seven snap cases, the detent, the sign
+  await menuOpen();
+  let q = await rowPt('copenhagen');
+  const nm0 = (await rowState('copenhagen')).name;
+  await drag(q.x, q.y, -40, 4, 8);
+  ok('R1 a fast 40px flick left opens (velocity ≥ 0.25 px/ms decides)', (await rowState('copenhagen')).open);
+  await drag(q.x, q.y, 40, 4, 8);
+  ok('R2 a fast 40px flick right on an open row closes', !(await rowState('copenhagen')).open);
+  await drag(q.x, q.y, -40, 20, 24);
+  ok('R3 a slow 40px drag left stays shut (under 40% of 132)', !(await rowState('copenhagen')).open);
+  await drag(q.x, q.y, -60, 24, 24);
+  const r4 = await rowState('copenhagen');
+  ok('R4 a slow 60px drag left opens (past 40%), landing at 132px; the city\'s name never moves', r4.open && Math.abs(r4.w - 132) < 0.5 && Math.abs(r4.name - nm0) < 0.5, r4);
+  await drag(q.x, q.y, 30, 15, 24);
+  ok('R5 a slow 30px drag right on an open row stays open', (await rowState('copenhagen')).open);
+  await drag(q.x, q.y, 70, 25, 24);
+  ok('R6 a slow 70px drag right on an open row closes', !(await rowState('copenhagen')).open);
+  // the over-drag: a long drag gives at most 12px past the open width
+  await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: q.x, y: q.y }] });
+  const widths = [];
+  for (let i = 1; i <= 30; i++) { await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: q.x - 10 * i, y: q.y }] }); await W(16); if (i % 5 === 0) widths.push((await rowState('copenhagen')).w); }
+  const turnedMid = await ev(() => { const bd = document.querySelector('#map .sp-board[data-city-badge="copenhagen"]'); return !!bd && bd.classList.contains('is-turned'); });
+  await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] }); await W(500);
+  ok('R7 a 300px drag: the board gives a little past 132 and stops (≤ 144px), then lands at 132', widths.every(w => w <= 144.01) && widths[widths.length - 1] > 140 && Math.abs((await rowState('copenhagen')).w - 132) < 0.5, widths);
+  const sign = await ev(() => { const bd = document.querySelector('#map .sp-board[data-city-badge="copenhagen"]'), back = bd && bd.querySelector('.sp-back'), cs = back && getComputedStyle(back);
+    return bd && { turned: bd.classList.contains('is-turned'), word: back.textContent, dur: cs.transitionDuration, ease: cs.transitionTimingFunction, wide: back.getBoundingClientRect().width >= bd.getBoundingClientRect().width - 0.5 }; });
+  ok('R8 the city\'s signpost turns over while its row is open: SEE YOU SOON? on navy, a 480ms turn (cubic-bezier(.45,.05,.25,1.12)); it turned mid-drag past 40%', turnedMid && sign && sign.turned && sign.word === 'See you soon?' && sign.dur === '0.48s' && sign.ease === 'cubic-bezier(0.45, 0.05, 0.25, 1.12)' && sign.wide, sign);
+  // the turned sign is tappable through the menu's scrim: it opens the picker
+  const sp = await ev(() => { const b = document.querySelector('#map .sp-board[data-city-badge="copenhagen"] .sp-back').getBoundingClientRect(); return { x: b.left + b.width / 2, y: b.top + b.height / 2 }; });
+  await page.touchscreen.tap(sp.x, sp.y); await W(400);
+  ok('R9 tapping the turned sign opens the picker (the menu stays open)', await ev(() => !document.getElementById('titleMenu').hidden && !!document.querySelector('#titleMenu .rm-pick[data-pick="copenhagen"]')));
+  const pk = await ev(() => { const p = document.querySelector('#titleMenu .rm-pick'); return { q: p.querySelector('.rm-q').textContent, rows: [...p.querySelectorAll('.rm-dest')].map(b => b.textContent.trim()), focus: document.activeElement && document.activeElement.textContent.trim() }; });
+  ok('R10 the one-step picker: "Remove Copenhagen. Move its 23 places to:", the other cities nearest first with distances, then "Remove the 23 places too", then "Keep Copenhagen"; focus on the nearest', pk.q === 'Remove Copenhagen. Move its 23 places to:' && /^Malmö≈ \d+ km$/.test(pk.rows[0]) && /^Stockholm≈/.test(pk.rows[1]) && /^Reykjavík≈ 2,\d{3} km$/.test(pk.rows[2]) && pk.rows.some(t => /^Philadelphia≈/.test(t)) && pk.rows[pk.rows.length - 2] === 'Remove the 23 places too' && pk.rows[pk.rows.length - 1] === 'Keep Copenhagen' && /^Malmö/.test(pk.focus), pk);
+  await ev(() => document.querySelector('#titleMenu [data-rm-keep]').click()); await W(400);
+  ok('R11 Keep closes the picker and the board; the sign turns back', await ev(() => !document.querySelector('#titleMenu .rm-pick') && document.querySelector('#titleMenu .menu-city[data-city="copenhagen"]').dataset.open !== '1' && !document.querySelector('#map .sp-board.is-turned')));
+  // right-click; Shift+Delete; the screen reader's action
+  await ev(() => document.querySelector('#titleMenu .menu-city[data-city="malmo"] .menu-row').dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, cancelable: true, button: 2 }))); await W(400);
+  ok('R12 right-click (control-click) on a row opens the same reveal', (await rowState('malmo')).open);
+  await ev(() => { rmCloseAll(); const r = document.querySelector('#titleMenu .menu-city[data-city="stockholm"] .menu-row'); r.focus(); }); await W(300);
+  await page.keyboard.press('Shift+Delete'); await W(400);
+  ok('R13 Shift+Delete on a focused row: straight to the picker, focus on the nearest city', await ev(() => !!document.querySelector('#titleMenu .rm-pick[data-pick="stockholm"]') && /^(Copenhagen|Malmö)/.test(document.activeElement.textContent.trim())));
+  await ev(() => document.querySelector('#titleMenu [data-rm-keep]').click()); await W(300);
+  const sr = await ev(() => { const b = document.querySelector('#titleMenu .menu-city[data-city="malmo"] .rm-sr'); return { t: b.textContent, role: b.getAttribute('role'), cls: getComputedStyle(b).position, boardHidden: b.parentElement.querySelector('.rm-clip').getAttribute('aria-hidden') }; });
+  await ev(() => document.querySelector('#titleMenu .menu-city[data-city="malmo"] .rm-sr').click()); await W(400);
+  ok('R14 VoiceOver: each row is followed by its own "Remove {city}" action (visually hidden); it opens the picker; the visual board is hidden from it', sr.t === 'Remove Malmö' && sr.role === 'menuitem' && sr.cls === 'absolute' && sr.boardHidden === 'true' && await ev(() => !!document.querySelector('#titleMenu .rm-pick[data-pick="malmo"]')), sr);
+
+  // P. the commit: move (written at once, Undo moves them home), held remove-too, seeds, safety
+  await ev(() => { window.__upd = []; window.__ins = []; window.__del = []; window.__pdel = []; window.__CITIES_TABLE = Object.keys(CITIES).map(id => ({ id, label: CITIES[id].label, center_lat: CITIES[id].center[0], center_lng: CITIES[id].center[1], zoom: CITIES[id].zoom, geocode_suffix: CITIES[id].geocodeSuffix || '', countrycodes: CITIES[id].countrycodes || '', viewbox: CITIES[id].viewbox, auto_added: false })); });
+  await ev(() => document.querySelector('#titleMenu [data-rm-keep]').click()); await W(300);
+  await ev(() => rmShowPicker('copenhagen')); await W(300);
+  const cph = await ev(() => locations.filter(l => l.city === 'copenhagen').map(l => l.id).concat(neighborhoodShapes.filter(n => n.city === 'copenhagen').map(n => 'shape:' + n.id)));
+  await ev(() => document.querySelector('#titleMenu .rm-dest[data-rm-to="malmo"]').click()); await W(1200);
+  const p1 = await ev(ids => ({ upd: window.__upd.map(u => [u[0], u[1].city, u[2]]), del: window.__del, gone: !CITIES.copenhagen, menu: document.getElementById('titleMenu').hidden, slip: !document.getElementById('planSlip').hidden && document.getElementById('planSlip').textContent,
+    moved: ids.every(k => (rowItem(k) || {}).city === 'malmo'), server: window.__ROWS.filter(r => r.city === 'copenhagen').length }), cph);
+  ok('P1 one tap on Malmö: its places are filed under Malmö (one update per table, by city) and Copenhagen is removed; the menu closes; the slip: "Copenhagen removed. Its places are in Malmö." with Undo', JSON.stringify(p1.upd) === JSON.stringify([['locations', 'malmo', ['city', 'copenhagen']], ['neighborhood_shapes', 'malmo', ['city', 'copenhagen']]]) && p1.del.some(d => d[1] === 'copenhagen') && p1.gone && p1.menu && /^Copenhagen removed\. Its places are in Malmö\.Undo$/i.test(p1.slip) && p1.moved && p1.server === 0, p1);
+  await ev(() => { window.__upd = []; window.__ins = []; document.querySelector('#planSlip button').click(); }); await W(1200);
+  const p2 = await ev(ids => ({ ins: window.__ins.map(x => [x[0], x[1][0].id, x[1][0].auto_added]), upd: window.__upd.map(u => [u[0], u[1].city, u[2][0], u[2][1].length]), back: !!CITIES.copenhagen, home: ids.every(k => (rowItem(k) || {}).city === 'copenhagen') }), cph);
+  ok('P2 Undo: the city row back first, then its places moved home (by id); everything as it was', p2.ins.length === 1 && p2.ins[0][1] === 'copenhagen' && p2.upd.length === 2 && p2.upd.every(u => u[1] === 'copenhagen' && u[2] === 'id') && p2.back && p2.home, p2);
+  // remove the places too: held; Undo writes nothing; the poll can't bring them back
+  await menuOpen(); await ev(() => rmShowPicker('stockholm')); await W(300);
+  const sto = await ev(() => ({ locs: locations.filter(l => l.city === 'stockholm').map(l => l.id), stops: rmStopsIn('stockholm') }));
+  await ev(() => { window.__pdel = []; window.__del = []; document.querySelector('#titleMenu .rm-dest.is-too').click(); }); await W(500);
+  const p3 = await ev(ids => ({ shown: ids.filter(id => !!rowItem(id)).length, city: !!CITIES.stockholm, writes: window.__pdel.length + window.__del.length, slip: document.getElementById('planSlip').textContent, pending: !!pendingRemoval }), sto.locs);
+  ok('P3 "Remove the places too": the city and its places leave the screen at once, but NOTHING is written yet (held while the slip shows)', p3.shown === 0 && !p3.city && p3.writes === 0 && /^Stockholm and its places removed\.Undo$/i.test(p3.slip) && p3.pending, p3);
+  await ev(async () => { await doFetchLocations(); await doFetchNeighborhoodShapes(); }); await W(300);
+  ok('P4 a poll meanwhile can\'t bring them back', await ev(ids => ids.every(id => !rowItem(id)), sto.locs));
+  await ev(() => document.querySelector('#planSlip button').click()); await W(500);
+  ok('P5 Undo: everything back (the city, its places), and nothing was ever written', await ev(ids => ids.every(id => (rowItem(id) || {}).city === 'stockholm') && !!CITIES.stockholm && !pendingRemoval && window.__pdel.length + window.__del.length === 0, sto.locs));
+  // held, then the slip ends: the deletes are written (places, then the city); no resurrection
+  await menuOpen(); await ev(() => rmShowPicker('stockholm')); await W(300);
+  await ev(() => document.querySelector('#titleMenu .rm-dest.is-too').click()); await W(300);
+  await ev(() => hidePlanSlip()); await W(1200);
+  const p6 = await ev(ids => ({ pdel: window.__pdel.map(d => [d[0], d[1].length]), del: window.__del.map(d => d[1]), shown: ids.filter(id => !!rowItem(id)).length, server: window.__ROWS.filter(r => r.city === 'stockholm').length, pending: !!pendingRemoval, city: !!CITIES.stockholm }), sto.locs);
+  ok('P6 the slip ends: the held delete is written -- its places, its shapes, then the city row; a refetch brings nothing back', JSON.stringify(p6.pdel) === JSON.stringify([['locations', 21], ['neighborhood_shapes', 2]]) && p6.del.includes('stockholm') && p6.shown === 0 && p6.server === 0 && !p6.pending && !p6.city, p6);
+  await ev(async () => { await fetchCities(); }); await W(300);
+  await menuOpen();
+  ok('P7 a removed seed city does not come back from the static bootstrap (the live table is the truth)', await ev(() => !CITIES.stockholm && !document.querySelector('#titleMenu .menu-city[data-city="stockholm"]') && !!document.querySelector('#titleMenu .menu-city[data-city="malmo"]')));
+  // a second remove while one is held commits the first; leaving the app commits a held one
+  await menuOpen(); await ev(() => rmShowPicker('malmo')); await W(300);
+  await ev(() => { window.__pdel = []; window.__del = []; document.querySelector('#titleMenu .rm-dest.is-too').click(); }); await W(300);
+  const held1 = await ev(() => window.__pdel.length);
+  await menuOpen(); await ev(() => rmShowPicker('philadelphia')); await W(300);
+  const pph = await ev(() => document.querySelector('#titleMenu .rm-pick').textContent);
+  await ev(() => document.querySelector('#titleMenu .rm-pick .rm-dest:not(.is-keep)').click()); await W(1200);
+  const p8 = await ev(() => ({ pdel: window.__pdel.map(d => d[0]), del: window.__del.map(d => d[1]), held: pendingRemoval && pendingRemoval.id }));
+  ok('P8 an empty city\'s picker: "Remove Philadelphia? Nothing is filed here."; a second remove while one is held commits the first (Malmö\'s places deleted, then its row); Philadelphia\'s is now the held one', held1 === 0 && /^Remove Philadelphia\? Nothing is filed here\./.test(pph) && p8.pdel.includes('locations') && p8.del.includes('malmo') && !p8.del.includes('philadelphia') && p8.held === 'philadelphia', { held1, pph, p8 });
+  await menuOpen(); await ev(() => rmShowPicker('reykjavik')); await W(300);
+  await ev(() => { window.__pdel = []; window.__del = []; document.querySelector('#titleMenu .rm-dest.is-too').click(); }); await W(300);
+  await ev(() => { Object.defineProperty(document, 'visibilityState', { configurable: true, get: () => 'hidden' }); document.dispatchEvent(new Event('visibilitychange')); }); await W(1200);
+  const p9 = await ev(() => ({ pdel: window.__pdel.map(d => d[0]), del: window.__del.map(d => d[1]), slip: document.getElementById('planSlip').hidden }));
+  await ev(() => { delete document.visibilityState; });
+  ok('P9 the app is backgrounded (visibilitychange hidden): a held removal is committed at once (and its Undo goes)', p9.pdel.includes('locations') && p9.del.includes('reykjavik') && p9.slip, p9);
+  ok('P10 no page errors', o.errors.length === 0, o.errors);
+  await page.context().close();
+
+  // W. trackpad: continuous wheel streams with no quiet gap (the owner's Mac log: 550 events in 10.8s)
+  o = await L.open(b, { file, w: 800, h: 900, touch: false }); page = o.page;
+  await ev(() => { hiddenCities.clear(); persistHiddenCities(); setActiveCity(ALL_CITIES, { frame: false }); }); await W(400);
+  await page.click('#titleBtn'); await W(300);
+  const wrow = id => ev(id => { const r = document.querySelector(`#titleMenu .menu-city[data-city="${id}"]`); const b = r.getBoundingClientRect(); return { x: b.left + b.width * 0.6, y: b.top + b.height / 2, open: r.dataset.open === '1', w: parseFloat(r.querySelector('.rm-clip').style.width || '0') }; }, id);
+  const SWIPE = [3, 8, 15, 22, 26, 24, 20, 16, 13, 10, 8, 6, 5, 4, 3, 2, 2, 1, 1, 1];   // one swipe: a push, then momentum decaying
+  const stream = async (deltas, sign = 1, axis = 'x') => { for (const d of deltas) { await page.mouse.wheel(axis === 'x' ? sign * d : 0, axis === 'y' ? sign * d : 0); await W(18); } };
+  let wa = await wrow('copenhagen'); await page.mouse.move(wa.x, wa.y);
+  await stream(SWIPE);   // fingers left: deltaX > 0
+  const w1 = await wrow('copenhagen');
+  ok('W1 a two-finger swipe left on a row opens it (snaps at the open width); its momentum tail doesn\'t stretch the board', w1.open && Math.abs(w1.w - 132) < 0.5, w1);
+  await stream(SWIPE, -1);   // straight into a swipe back, no gap: the stream turns around
+  await W(250);
+  ok('W2 with no quiet gap, a swipe back (the stream turns around) is heard at once: it closes', !(await wrow('copenhagen')).open);
+  // one swipe that drifts onto the next row belongs to the row it started on
+  wa = await wrow('copenhagen'); const wb = await wrow('malmo');
+  for (let i = 0; i < SWIPE.length; i++) { await page.mouse.move(wa.x, i < 6 ? wa.y : wb.y); await page.mouse.wheel(SWIPE[i], 0); await W(18); }
+  await W(250);
+  const w3 = [await wrow('copenhagen'), await wrow('malmo')];
+  ok('W3 a swipe that drifts onto another row belongs to the row it started on', w3[0].open && !w3[1].open, w3);
+  // the momentum tail runs straight into a new push over Malmö (it speeds up again after slowing): a new swipe
+  await stream([26, 20, 14, 9, 6, 4, 3]);   // same row's tail, decaying (swallowed: already open)
+  await page.mouse.move(wb.x, wb.y);
+  await stream([6, 14, 22, 28, 24, 18, 12, 8, 5, 3, 2, 1]);
+  await W(250);
+  const w4 = [await wrow('copenhagen'), await wrow('malmo')];
+  ok('W4 no gap between swipes: a new push (the stream speeds up after slowing) over Malmö is a new swipe -- it opens Malmö and closes Copenhagen', !w4[0].open && w4[1].open && Math.abs(w4[1].w - 132) < 0.5, w4);
+  await stream([3, 6, 9, 8, 6, 4, 2, 1], 1, 'y'); await W(250);
+  ok('W5 a vertical wheel leaves the board alone (the menu scrolls)', (await wrow('malmo')).open);
+  await stream(SWIPE, -1); await W(250);
+  await page.mouse.move((await wrow('stockholm')).x, (await wrow('stockholm')).y);
+  await stream([4, 8, 8, 6, 4, 2]); await W(300);   // 32px
+  ok('W6 32px of wheel stays shut (under 40%)', !(await wrow('stockholm')).open && !(await wrow('malmo')).open);
+  // a wheel over the row's band that the browser hands to the menu (an edge) still counts
+  const wl = await wrow('reykjavik');
+  await ev(([x, y]) => { const m = document.getElementById('titleMenu'); [3, 8, 15, 22, 26, 24, 20, 16, 13, 10, 8, 6].forEach((d, i) => setTimeout(() => m.dispatchEvent(new WheelEvent('wheel', { deltaX: d, deltaY: 0, clientX: x, clientY: y, bubbles: true, cancelable: true })), i * 18)); }, [wl.x, wl.y]);
+  await W(700);
+  ok('W7 a wheel over a row\'s band aimed at something else (the menu) counts for that row', (await wrow('reykjavik')).open);
+  // the long, gap-free run: four swipes on alternating rows, ~20ms apart, never quiet
+  const order = [['la', 1], ['la', -1], ['copenhagen', 1], ['copenhagen', -1]];
+  const seen = [];
+  await stream(SWIPE, -1);   // close Reykjavík first, then straight on
+  for (const [id, s] of order) { const p = await wrow(id); await page.mouse.move(p.x, p.y); await stream(SWIPE, s); seen.push([id, (await wrow(id)).open]); }
+  ok('W8 a continuous stream (no quiet gap anywhere): each swipe is told apart by its turn-around or its new push -- LA opens, closes; Copenhagen opens, closes', JSON.stringify(seen) === JSON.stringify([['la', true], ['la', false], ['copenhagen', true], ['copenhagen', false]]), seen);
+  ok('W9 no page errors', o.errors.length === 0, o.errors);
+  await page.context().close();
+
+  // S. signed out; reduced motion; 375x667
+  o = await L.open(b, { file, w: 375, h: 667, reduced: true }); page = o.page;
+  await ev(() => { currentUser = null; }); await P.tap(page, '#titleBtn'); await W(300);
+  const s1 = await ev(() => document.querySelector('#titleMenu .menu-city[data-city="reykjavik"] .rm-board').textContent);
+  await ev(() => document.querySelector('#titleMenu .menu-city[data-city="reykjavik"] .rm-board').click()); await W(400);
+  ok('S1 signed out: the board reads SIGN IN; tapping it asks you to sign in (no picker, nothing written)', s1 === 'Sign in' && await ev(() => document.getElementById('authModal').classList.contains('show') && !document.querySelector('#titleMenu .rm-pick')), s1);
+  await ev(() => { document.getElementById('authModal').classList.remove('show'); currentUser = { email: 'adamtrabold@gmail.com' }; closeTitleMenu(false); }); await W(300);
+  await P.tap(page, '#titleBtn'); await W(300);
+  const s2 = await ev(() => { const r = document.querySelector('#titleMenu .menu-city[data-city="reykjavik"]'); rmSetOpen(r, true); return getComputedStyle(r.querySelector('.rm-clip')).transitionDuration; });
+  ok('S2 reduced motion: the board appears and leaves without sliding', s2 === '0s', s2);
+  await ev(() => rmShowPicker('reykjavik')); await W(400);
+  const s3 = await ev(() => { const m = document.getElementById('titleMenu').getBoundingClientRect(), p = document.querySelector('#titleMenu .rm-pick').getBoundingClientRect(), f = document.activeElement.getBoundingClientRect();
+    return { m: [m.top, m.bottom], inView: m.top >= 0 && m.bottom <= innerHeight && m.right <= innerWidth, focusIn: f.top >= m.top - 0.5 && f.bottom <= m.bottom + 0.5, pickTop: p.top }; });
+  ok('S3 375x667: the picker opens inside the menu, scrolled into view, its nearest city focused and on screen', s3.inView && s3.focusIn, s3);
+  await page.context().close();
   await b.close();
   finish();
 })();

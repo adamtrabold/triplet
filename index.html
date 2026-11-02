@@ -7895,7 +7895,7 @@
       }, { passive: false });
       // touch: the row follows the finger once the swipe is clearly sideways (|dx| > 2|dy| after 10px)
       menu.addEventListener('touchstart', e => {
-        const r = e.target.closest('.menu-city'); if (!r || e.target.closest('.rm-board')) return;
+        const r = e.target.closest('.menu-city'); if (!r) return;   // on the open board too: a drag closes it, a tap opens the picker
         const st = rmSt(r);
         rmCloseAll(r);
         st.x0 = e.touches[0].clientX; st.y0 = e.touches[0].clientY; st.base = r.dataset.open === '1' ? -RM_OPEN : 0; st.locked = null; st.trail = [];
