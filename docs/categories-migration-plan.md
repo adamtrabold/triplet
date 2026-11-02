@@ -3,7 +3,7 @@
 Source of truth: `design/icon-system/categories.md` (branch `claude/elegant-galileo-1c5ntm`, "locked 2026-10-16").
 Owner: "i didnt realize that the system hadnt been updated for our new categories. have an agent do that -- they'll need to edit the existing entries. let's not put them in the app just yet" (= categories go in, NEW ICONS do not).
 
-Status: plan only. Nothing written to the DB, nothing pushed. Waiting on the design calls at the end and a go.
+Status: superseded by the build (2026-10-30). The design calls (categories-design-calls.md) changed the key to `neighborhood` (US), not `neighbourhood` as below; the SQL is `supabase/migrations/20261030000000_categories_locked_list.sql`.
 
 ## 1. Live DB check (2026-10-30, read-only `execute_sql`)
 

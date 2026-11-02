@@ -6,6 +6,13 @@ owner can verify on a real device (the sandbox can't reach Supabase, tiles,
 or OSM). Remove an item once the owner confirms it; add new ones when a
 feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
 
+- **Categories: the locked list (landed 2026-10-30):** the filter chips read Restaurant, Café, Bar,
+  Venue, Museum, Landmark, Attraction, Park, Nature, Shopping, Hotel, Neighborhood, Street (no Area,
+  Other or District); Venue/Museum/Landmark/Park pins show a plain dot in their colour; e.g. Vasa
+  Museum is a Museum, Harpa a Landmark, Griffith Park a Park, Nalen a Venue; Grandi now carries
+  Old Harbour's notes and visited, Bondegatan both Bondegatan notes; the 9 places still waiting for
+  their shape (Gamla Stan, Christiania, ...) show as Neighborhood/Street pins; add a museum and a
+  park through + : TYPE picks Museum / Park by itself; the TYPE menu lists the 13 in that order.
 - **Add tag hangs from the close disc (add-tag-close, landed 2026-10-23):** tap +: the blank tag hangs from the pale-orange disc on its string; type a name with the keyboard up: the disc sits between the zoom control and the account badge, clear of both; pick a place: the disc stays (no type badge), the place under it; tap the disc: the tag cancels, the map goes back, and + brings your draft back; a District shows the same disc; there is no x on the tag; on a notch iPhone, check the docked disc still clears the zoom control and the account badge (sandbox-measured only, on Chromium). VoiceOver: "Cancel" is still offered.
 - **The pin is the close (tag-close-fix, landed 2026-10-21):** open a place's tag: its pin becomes a pale-orange disc with an orange x (no star, no icon, no stop number), the string meeting its bottom edge; tap it: the tag closes (try a near-miss just beside the pin too); open a district's tag: its dot does the same; there is no x on the tag itself; the disc stays visible on pale and water tiles; the city line sits a touch closer to the name. VoiceOver: the tag still offers a "Close" button.
 - **The list title, city sections, show/hide, the tab (add-tag-jam phase 1, landed 2026-10-17):**

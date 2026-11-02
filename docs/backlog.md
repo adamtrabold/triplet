@@ -336,6 +336,20 @@ pick/redirect before building anything.
 
 ## Known minor bugs / follow-ups
 
+- **Categories follow-ups (2026-10-30, after the locked-list migration):**
+  (1) the owner fetches 9 shapes in the browser (Neighborhood: Freetown Christiania, Nyboder,
+  Gamla Stan, Fashion District; Street: Hornstull Strand, Klapparstígur, Ravnsborggade, Sankt
+  Eriksgatan, Værnedamsvej) -- each is an interim Neighborhood/Street pin now; when its shape
+  lands, move the pin's notes/star/visited onto it and delete the pin (Gamla Stan is starred +
+  visited); (2) streets over ~1.5km clipped to a stretch + the add form's trim step (lane 2;
+  Laugavegur, Bondegatan, Grandagarður); (3) the new icons for venue/museum/landmark/park
+  (icon system); (4) copy call: the add tag's search results still call a suburb/quarter
+  "District" (`RESULT_PLACE_WORDS`) -- not a category label, left as is; (5) drop
+  `backup.locations_20261030` / `backup.neighborhood_shapes_20261030` once the migration is
+  settled; (6) four categories share the dot glyph, so for them colour alone carries identity
+  until the icons ship (the glyph comment's "identity is carried by shape" rule is suspended
+  for those four).
+
 - **plans harness: long-name slip check fails on main** (builder, 2026-10-15,
   seen while testing the suggestions-over-x tweak). `node
   design/gesture-harness/plans.js index.html` is 31/32 on origin/main
@@ -343,7 +357,10 @@ pick/redirect before building anything.
   as stop 4 truncates the name only" gets `{"text":"Added Kaffi Vínyl as
   stop 4","nameCut":false}`, i.e. the name no longer truncates at that
   width. Either the fixture/width drifted or the slip's layout changed;
-  not investigated.
+  not investigated. **Cause found (categories build, 2026-10-30):** a poll race in the
+  test, not the slip -- the 10s poll (`POLL_ACTIVE_MS`) refetches the stub and undoes the
+  test's in-memory rename of rey07 before the tap; with the poll disabled the suite is 40/40.
+  Fix in the test (rename in the stub's data, or stop the poll), not the app.
 
 - **Esc handlers that don't mark the keypress spent** (reviewer, + badge
   build round 1, 2026-10-15). The sort menu's document-level Esc
