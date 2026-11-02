@@ -163,7 +163,9 @@ const KINDS = {
     const gapOf = (m, w) => { const ph = Math.PI / (2 * m), rho = (Ri + w / 2) / (1 + Math.sin(ph)); return 2 * (Ri - rho); };
     // count first, as a row: the part width, then thinner a grid step at a time to the size's thinnest (never under 1px: the 2/3
     // at 12 is a row's or a comb's, parts side by side), then one fewer
-    const wMin = Math.max(t.min, 3 * t.grid), widths = []; for (let w = t.part; w >= wMin - 1e-9; w -= t.grid) widths.push(w); if (widths[widths.length - 1] > wMin + 1e-9) widths.push(wMin);
+    // OPENINGS BETWEEN RADIATING PARTS (11-02): spokes are a ring's fine parts, so they thin to the whole pixel (1px at every size)
+    // before the count drops: the openings, not the spokes, carry the wheel's read
+    const wMin = 3 * t.grid, widths = []; for (let w = t.part; w >= wMin - 1e-9; w -= t.grid) widths.push(w); if (widths[widths.length - 1] > wMin + 1e-9) widths.push(wMin);
     let n = 0, sw = t.part; out: for (let m = r.n; m >= 2; m--) for (const w of widths) if (gapOf(m, w) >= t.counter - 1e-9) { n = m; sw = w; break out; }
     for (let i = 0; i < n; i++) { const a = ((r.turn || 0) + i) * Math.PI / n, dx = Math.sin(a) * L, dy = -Math.cos(a) * L;
       prims.push({ ...E.B([c - dx, cy - dy], [c + dx, cy + dy], sw), root: 'POST', role: 'spoke' }); }
@@ -180,11 +182,14 @@ const KINDS = {
     // (Parts that run on): the grid moves them together, and the joints are corners the rack cuts
     const foot = r.from != null && P.axis, h = t.lean / 2, ahead = P.axis ? Math.sign(P.axis[0][0] - P.axis[1][0]) || 1 : 1;
     const leans = Array.isArray(r.lean) ? r.lean : [r.lean, r.lean];
-    const parts = foot ? P.prims.slice() : [E.C(ox, oy, t.stroke / 2)];
+    // OPENINGS BETWEEN RADIATING PARTS (11-02): posts from a ring's centre never cross the ring's openings (that is the spokes'
+    // room): they start in the rim's band, and the hub is only where the spokes cross (no pin)
+    const inRing = !foot && P.r && P.r.kind === 'ring', l0 = inRing ? P.radius : 0;
+    const parts = foot ? P.prims.slice() : inRing ? [] : [E.C(ox, oy, t.stroke / 2)];
     let x0 = ox, x1 = ox;
     for (const sg of [-1, 1]) { const a = leans[sg === ahead ? 0 : 1] * Math.PI / 180, dx = sg * Math.sin(a), dy = Math.cos(a), nx = dy * h, ny = -dx * h;
-      const ey = yb - h * Math.sin(a), l = (ey - oy) / dy, ex = ox + dx * l;
-      parts.push(E.P([ox - nx, oy - ny], [ox + nx, oy + ny], [ex + nx, ey + ny], [ex - nx, ey - ny]));
+      const ey = yb - h * Math.sin(a), l = (ey - oy) / dy, ex = ox + dx * l, sx = ox + dx * l0, sy = oy + dy * l0;
+      parts.push(E.P([sx - nx, sy - ny], [sx + nx, sy + ny], [ex + nx, ey + ny], [ex - nx, ey - ny]));
       x0 = Math.min(x0, ex - Math.abs(nx)); x1 = Math.max(x1, ex + Math.abs(nx)); }
     const prims = [E.D(E.build(parts).d, { root: 'POST', also: foot ? null : 'CIRCLE', role: 'splay' })];
     if (foot) P.prims = [];
@@ -215,9 +220,15 @@ const KINDS = {
     const P = C.prev, x0 = P.box.x0 * u, x1 = P.box.x1 * u, top = at.topF, H = C.H * u, ry = r.tie * (H - top), rx = (x1 - x0) / 2 - t.cut / 2 - t.part, prims = [];
     // A PART THAT MUST READ CLEARS A MINIMUM SIZE (11-02): the tie (where the drape is gathered into its fall) reads by standing past
     // the fall, so it clears the protrusion minimum: the swag's edge ends that far in from the fall's inner face, and the tie's
-    // underside runs level back to the fall (a corner the rack cuts)
+    // underside runs level back to the fall. The swag's edge arrives at the tie at the chamfer's 45 degrees, so the tie is a corner
+    // the rack cuts (never a level run out of the curve, which would step in curvature): its ellipse, from the middle as before,
+    // is the one whose edge falls at 45 degrees where it stands the minimum past the fall, at the tie's height
     const tieP = t.protrude;
-    for (const sg of [-1, 1]) { const xo = sg < 0 ? x0 + t.part : x1 - t.part, xc = xo - sg * tieP, A = ELL_ARC(xc, top, rx - tieP, ry, sg < 0 ? 0 : Math.PI, Math.PI / 2), q = v => `${f5(v[0])} ${f5(v[1])}`;
+    let a = rx - tieP, th = Math.PI / 4;
+    for (let i = 0; i < 40; i++) { let lo = 0.01, hi = Math.PI / 2 - 0.01; for (let j = 0; j < 50; j++) { const m = (lo + hi) / 2; if (Math.sin(m) * Math.tan(m) < ry / a) lo = m; else hi = m; } th = (lo + hi) / 2; a = (rx - tieP) / (1 - Math.cos(th)); }
+    const b = ry / Math.sin(th);
+    for (const sg of [-1, 1]) { const xo = sg < 0 ? x0 + t.part : x1 - t.part, xc = xo - sg * (rx - a), a0 = sg < 0 ? 0 : Math.PI, aE = sg < 0 ? th : Math.PI - th, q = v => `${f5(v[0])} ${f5(v[1])}`;
+      const A = ELL_ARC(xc, top, a, b, a0, aE);
       prims.push({ ...E.D(`M${f5(xo)} ${f5(top)}H${f5(xo - sg * rx)}C${q(A[1])} ${q(A[2])} ${q(A[3])}H${f5(xo)}Z`), root: 'ELLIPSE', role: 'drape' });
       prims.push(E.R(sg < 0 ? x0 : x1 - t.part, top, t.part, H - top, { root: 'POST', role: 'fall' })); }
     return { prims, box: { x0: x0 / u, x1: x1 / u, top: top / u, bot: H / u }, reads: { id: r.id, part: 'tie', past: tieP } };

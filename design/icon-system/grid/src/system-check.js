@@ -81,8 +81,17 @@ function checkOne(size, id, B) {
   for (const sp of M.spokes || []) add('Spokes count as a row', sp.n === 0 || sp.gap >= sp.min - 0.02, `${sp.n} of ${sp.declared} declared${sp.n ? `, gaps ${sp.gap}px (minimum ${sp.min})` : `: none clears the minimum, the ring stays open (${sp.gap}px across)`}`);
   // A PART THAT MUST READ: it stands at least the protrusion minimum past the part it gathers into
   for (const rp of M.reads || []) add('A part that must read', rp.past >= rp.min - 0.02, `the ${rp.part} stands ${rp.past}px past its fall (minimum ${+rp.min.toFixed(2)})`);
-  // OPENINGS BETWEEN RADIATING PARTS: their corners take the smallest cutter
-  if (M.openings) add('Openings between radiating parts', M.openings.cutter === 1 / 8, `corners round the openings cut with the ${M.openings.cutter}px cutter`);
+  // OPENINGS BETWEEN RADIATING PARTS: as built, each opening between the spokes holds a circle the counter minimum across
+  if ((M.spokes || []).some(sp => sp.n > 0)) {
+    const cp = new paper.CompoundPath(d); cp.fillRule = 'evenodd';
+    const kids = cp.children.slice().sort((a, b) => Math.abs(b.area) - Math.abs(a.area)), ins = [];
+    for (const ch of kids.slice(1)) { const b = ch.bounds; if (b.width * k > 4 || b.height * k > 4) continue; let best = 0;
+      for (let x = b.x; x <= b.x + b.width; x += 0.02 / k) for (let y = b.y; y <= b.y + b.height; y += 0.02 / k) { const p = new paper.Point(x, y);
+        if (!ch.contains(p) || cp.contains(p)) continue; const r = p.getDistance(ch.getNearestPoint(p)); if (r > best) best = r; }
+      ins.push(+(2 * best * k).toFixed(3)); }
+    cp.remove();
+    add('Openings between radiating parts', ins.length > 0 && Math.min(...ins) >= Z.counter - 0.02, `${ins.length} openings as built hold ${ins.join(', ')}px (minimum ${+Z.counter.toFixed(2)})`);
+  }
   // WHAT CARRIES THE READ: a plain part keeps the master's proportion to what it holds (within the drift)
   for (const rd of M.read || []) if (rd.master != null) add('What carries the read', rd.now <= rd.master * (1 + 1 / 8) + 0.005, `plain part to what it holds ${rd.ratio}${rd.need ? `, drifted past the 18's ${rd.master}: it gave back ${rd.took}px, now ${rd.now}` : ` (the 18's ${rd.master}): proportions kept`}`);
   // COMB DEPTH: what is left under the slots is one line
