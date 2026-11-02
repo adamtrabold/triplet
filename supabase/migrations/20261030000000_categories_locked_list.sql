@@ -19,7 +19,7 @@ alter table public.neighborhood_shapes add constraint neighborhood_shapes_type_c
   check (type = any (array['neighborhood'::text, 'street'::text]));
 
 -- 2. Duplicate pins: notes, star and visited move onto the matching shape, then the pin goes.
-create temp table dup_pins (pin_id uuid primary key, shape_id bigint not null, ord int not null) on commit drop;
+create temp table dup_pins (pin_id uuid primary key, shape_id bigint not null, ord int not null);
 insert into dup_pins values
   ('ef342a15-ab2d-4c38-9350-61f34774ac85', 12, 1),  -- Skogskyrkogården
   ('f230c1fb-7934-49fa-a2bf-e329c38b8a90', 10, 1),  -- Djurgården
@@ -179,3 +179,5 @@ begin
     raise exception 'categories migration: shape tally %', got;
   end if;
 end $$;
+
+drop table dup_pins;
