@@ -63,7 +63,7 @@ function holesIn(H, x0, y0, w, h, t) {
   }
   return out;
 }
-const holeMeta = (r, prims, t) => ({ id: r.id, n: prims.length - 1, shape: r.hole.shape || 'circle' });
+const holeMeta = r => ({ id: r.id, n: r.hole.n ? r.hole.n[0] * r.hole.n[1] : 1, shape: r.hole.shape || 'circle' });
 
 // ---------------------------------------------------------------------------------------------------------------------------
 // THE KINDS. Each returns { prims, box: {x0, x1, top, bot}, ... } in the drawing's frame (positions in units x u, thicknesses in
@@ -165,8 +165,10 @@ const KINDS = {
     const w = at.w * u, h = (r.deep ?? 1) * w; let x0 = at.cx * u - w / 2;
     if (r.at && r.of) { const ow = C.wOf(r.of) * u, oc = at.cx * u, inset = C.endPost(r.of, r.at) ? t.part + t.cut : 0;
       x0 = r.at === 'left' ? oc - ow / 2 + inset : oc + ow / 2 - inset - w; }
-    const prims = [E.R(x0, at.topF, w, h, { root: 'BLOCK' })];
-    if (r.hole) prims.push(...holesIn(r.hole, x0, at.topF, w, h, t));
+    let prims = [E.R(x0, at.topF, w, h, { root: 'BLOCK' })];
+    // the mass and its holes are one root (as a knot's band and its counters are): drawn whole, the grid moves it whole, so a round
+    // hole is never re-landed point by point
+    if (r.hole) prims = [E.D(E.build([...prims, ...holesIn(r.hole, x0, at.topF, w, h, t)]).d, { root: 'BLOCK', also: 'CIRCLE' })];
     return { prims, box: { x0: x0 / u, x1: (x0 + w) / u, top: at.topF / u, bot: (at.topF + h) / u }, asym: !!r.at, holes: r.hole ? holeMeta(r, prims, t) : null };
   },
   // a ring: a circle of the stroke round a round counter, w across its outside
@@ -349,7 +351,8 @@ function layout(decl, s, Z, S, room, gdx = null, sub = null) {   // sub: a colum
   const byId = {}; const walk = L => L.forEach(r => r.side ? r.side.forEach(walk) : (byId[r.id] = r)); walk(decl.spine);
   // not mirrored: a root off the middle (a loop on a wall, a group beside another, an end post, a lean), and blocks turned off the
   // grid (its corners fall on the axis, where the mirror's seam would cut a round in two); a turned root is drawn whole, centred
-  const asymRoot = r => r.side || (r.kind === 'loop' && r.at !== 'top') || r.at === 'left' || r.at === 'right' || r.lean != null || (r.kind === 'blocks' && !!r.turn);
+  const asymRoot = r => r.side || (r.kind === 'loop' && r.at !== 'top') || r.at === 'left' || r.at === 'right' || r.lean != null || (r.kind === 'blocks' && !!r.turn) || (r.kind === 'block' && r.hole && (r.hole.shape || 'circle') === 'circle');
+  // (a round hole on the axis is drawn whole, never mirrored, as a turned part is: the mirror's seam would cut its round in two)
   const symmetric0 = !decl.spine.some(asymRoot);
   // LANDED BEFORE IT IS DRAWN: in a symmetric icon (its centre on a whole px) a straight root's width lands by the snap priority
   // (its ends to a whole px within 1/4px, else the nearest iPhone pixel), and an overhang lands on the grid, so a bevel or a join
