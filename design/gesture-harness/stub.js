@@ -28,7 +28,7 @@
     ['Sandholt bakery', 'cafe', false, false],
     ['Sky Lagoon', 'nature', false, false],
     ['Sundhöllin', 'nature', false, false],
-    ['Tjörnin pond', 'area', false, false],
+    ['Tjörnin pond', 'park', false, false],
     ['Valdís ice cream', 'cafe', false, false],
     ['Whales of Iceland', 'attraction', false, false],
     ['Þrír Frakkar', 'bar', false, false],
@@ -46,7 +46,7 @@
     });
     // Shapes star and visit like pins (2026-10-02): the district is plain (star / visit cases),
     // the street starred + visited (unstar / un-visit cases).
-    shapes.push({ id: sid++, city, type: 'district', label: 'Fixture District', color: null, note: null, min_zoom: 15, visited: false, starred: false,
+    shapes.push({ id: sid++, city, type: 'neighborhood', label: 'Fixture District', color: null, note: null, min_zoom: 15, visited: false, starred: false,
       geometry: [[la + 0.010, ln - 0.012], [la + 0.014, ln - 0.012], [la + 0.014, ln - 0.004], [la + 0.010, ln - 0.004]] });
     shapes.push({ id: sid++, city, type: 'street', label: 'Fixture Street', color: null, note: null, min_zoom: null, visited: true, starred: true,
       geometry: [[la - 0.012, ln + 0.004], [la - 0.0125, ln + 0.012]] });

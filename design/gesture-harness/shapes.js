@@ -30,7 +30,7 @@ const { rec, finish } = recorder('shapes');
     const fresh = async () => {
       const o = await openProto(b, { reduced });
       await o.page.evaluate(() => { const fs = focusShape; focusShape = function (id) { __nav.push(['shape:' + id, performance.now()]); return fs.apply(this, arguments); }; });
-      o.D = await o.page.evaluate(() => neighborhoodShapes.find(n => n.city === activeCity && n.type === 'district').id);
+      o.D = await o.page.evaluate(() => neighborhoodShapes.find(n => n.city === activeCity && n.type === 'neighborhood').id);
       o.S = await o.page.evaluate(() => neighborhoodShapes.find(n => n.city === activeCity && n.type === 'street').id);
       return o;
     };

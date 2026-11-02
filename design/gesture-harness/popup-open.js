@@ -50,7 +50,7 @@ const { rec, finish } = recorder('popup-open');
       r('E a map touch during the flight cancels the pending popup', t !== nm, { popup: t }); }
     else { await home(); await W(150); const id = ids[5]; await tapRow(`.location-card[data-id="${id}"]`); await W(60); const s = await pinState(id);   // setView() fires moveend synchronously: same path, no pending intent
       r('E (reduced) no flight: the popup is open within 60ms of the tap', pinOk(s), s); }
-    for (const type of ['district', 'street']) { await home(); await W(150);
+    for (const type of ['neighborhood', 'street']) { await home(); await W(150);
       const sid = await page.evaluate(t => neighborhoodShapes.find(n => n.type === t && n.city === activeCity).id, type);
       await tapRow(`.location-card[data-shape-id="${sid}"]`); await W(1800);
       const s = await page.evaluate(id => { const nb = neighborhoodShapes.find(n => n.id === id); const lay = neighborhoodLayersById.get(id); const t = document.querySelector('.leaflet-popup .popup-title');

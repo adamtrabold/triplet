@@ -64,7 +64,7 @@ async function geo(page, id) {
     r('F another row visited: the open tag does not animate', ov && s.open && s.name === f0.name && s.ins === f0.ins && s.outs === f0.outs, { f0, s, ov });
     // E (a district, through the same state path a row swipe uses)
     await page.evaluate(() => map.closePopup()); await W(300);
-    const e0 = await page.evaluate(async () => { const nb = neighborhoodShapes.find(n => n.type === 'district' && !n.visited); map.setView(shapeAnchor(nb), 16, { animate: false }); syncNeighborhoodLayers(); neighborhoodLayersById.get(nb.id).openPopup();
+    const e0 = await page.evaluate(async () => { const nb = neighborhoodShapes.find(n => n.type === 'neighborhood' && !n.visited); map.setView(shapeAnchor(nb), 16, { animate: false }); syncNeighborhoodLayers(); neighborhoodLayersById.get(nb.id).openPopup();
       await new Promise(r => setTimeout(r, 900)); return { key: shapeKey(nb.id), ins: __ins }; });
     await page.evaluate(k => toggleLocationFlag(k, 'visited'), e0.key); await W(150); s = await tag();
     r('E a district visited from the list path: its tag stamps once', s.open && s.stamp && (reduced ? s.ins === e0.ins : s.ins === e0.ins + 1), { e0, s });

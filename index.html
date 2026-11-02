@@ -148,7 +148,7 @@
 
        NO COLOR CARRIES TEXT except --ink, --ink-2, --navy, --paper and
        --paper-warm. Category inks are glyph/fill/rule only -- see the
-       CATEGORY_COLORS comment in the script for why (11 inks cannot all
+       CATEGORY_COLORS comment in the script for why (13 inks cannot all
        clear 4.5:1 and still hold a value ladder).
        ===================================================================== */
     :root {
@@ -925,7 +925,7 @@
 
     /* Chips carry INK text on paper, never white-on-category-color (which was
        1.80:1 on the old palette). Only the RULE changes between states, so
-       contrast is constant and all 11 stay AA regardless of their ink.
+       contrast is constant and all 13 stay AA regardless of their ink.
        No italics, no opacity-as-state, no !important. */
     .filter-btn {
       display: inline-flex;
@@ -1509,7 +1509,7 @@
       stroke-linejoin: round;
     }
 
-    /* Category labels are ALWAYS --ink-2, never the category ink: 11 inks
+    /* Category labels are ALWAYS --ink-2, never the category ink: 13 inks
        cannot all clear 4.5:1 as 10px text and still hold a value ladder.
        The glyph carries the ink; the word stays quiet. */
     .location-card .row-meta {
@@ -2669,10 +2669,15 @@
     <symbol id="g-attraction" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2l3 6v11H9V8l3-6z"/><path fill="currentColor" d="M7 20h10v2H7z"/></symbol>
     <symbol id="g-nature" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2l4 6h-2.5l3 5H14l3.5 6h-11L10 13H7.5l3-5H8l4-6z"/><path fill="currentColor" d="M11 18h2v4h-2z"/></symbol>
     <symbol id="g-shopping" viewBox="0 0 24 24"><path fill="currentColor" d="M12 1a4 4 0 0 0-4 4v2h2V5a2 2 0 0 1 4 0v2h2V5a4 4 0 0 0-4-4z"/><path fill="currentColor" d="M4 7h16l-1.5 15h-13L4 7z"/></symbol>
-    <symbol id="g-area" viewBox="0 0 24 24"><path fill="currentColor" d="M3 4h18v2H3zM3 18h18v2H3zM3 4h2v16H3zM19 4h2v16h-2z"/><path fill="currentColor" d="M8.5 18l6-12h2l-6 12h-2zM13.5 18l5-10v4l-3 6h-2z"/></symbol>
     <symbol id="g-hotel" viewBox="0 0 24 24"><path fill="currentColor" d="M2 6h3v7h9a5 5 0 0 1 5 5v3h-3v-2H5v2H2V6z"/><circle fill="currentColor" cx="8.5" cy="9.5" r="2.5"/></symbol>
-    <symbol id="g-other" viewBox="0 0 24 24"><circle fill="currentColor" cx="12" cy="12" r="5"/></symbol>
-    <symbol id="g-district" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="6 4" d="M4 5h16v14H4z"/></symbol>
+    <!-- venue / museum / landmark / park: the plain dot in the category's own ink until their
+         icons ship (design/icon-system/categories-design-calls.md 3). g-dot = an unknown key. -->
+    <symbol id="g-venue" viewBox="0 0 24 24"><circle fill="currentColor" cx="12" cy="12" r="5"/></symbol>
+    <symbol id="g-museum" viewBox="0 0 24 24"><circle fill="currentColor" cx="12" cy="12" r="5"/></symbol>
+    <symbol id="g-landmark" viewBox="0 0 24 24"><circle fill="currentColor" cx="12" cy="12" r="5"/></symbol>
+    <symbol id="g-park" viewBox="0 0 24 24"><circle fill="currentColor" cx="12" cy="12" r="5"/></symbol>
+    <symbol id="g-dot" viewBox="0 0 24 24"><circle fill="currentColor" cx="12" cy="12" r="5"/></symbol>
+    <symbol id="g-neighborhood" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="6 4" d="M4 5h16v14H4z"/></symbol>
     <symbol id="g-street" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 8" d="M3 18C7 6 17 18 21 6"/></symbol>
     <!-- Priority star -- the Baedeker star: guidebooks marked the sights
          "particularly worth seeing" with a star printed before the name.
@@ -2950,55 +2955,54 @@
     //
     // These are GLYPH / FILL / RULE colours only. They are never text --
     // every category LABEL renders in --ink-2. That is not a stylistic
-    // preference, it is forced: requiring all 11 to clear 4.5:1 on --paper
+    // preference, it is forced: requiring all 13 to clear 4.5:1 on --paper
     // caps luminance at 0.147, which collapses the value ladder that stops
     // the palette reading as one mush. (The old palette failed exactly that
     // way: bar/area were ~1 degree apart in hue at near-identical value.)
     //
-    // Separation rule -- every PAIR satisfies at least one of:
-    //   (a) >= 1.4:1 in (L+0.05)                              40 pairs
-    //   (b) >= 60deg in hue, where both have S >= 0.15        13 pairs
-    //   (c) >= 0.25 in HSL saturation, where one is near-neutral  2 pairs
-    // ...and every ink is >= 3:1 against --paper so a glyph, chip dot or
-    // marker rim reads as a non-text UI component (WCAG 1.4.11).
-    // Verified: 0 failures of 55.
-    //
-    // A flat >= 1.4:1 floor for all 11 is IMPOSSIBLE, not merely awkward:
-    // pairwise 1.4 across n colours needs a 1.4^(n-1) span, the widest span
-    // available on this paper is 17.70:1, so n <= 9 -- and with the 3:1
-    // floor the span is 5.90:1, so n <= 6.
-    //
-    // 2026-10-07: restaurant (-> wine #7A2436) and attraction (-> moss
-    // #547326) were re-inked when the star became the city's orange; they
-    // were checked by CIEDE2000 against every ink and accent instead
-    // (design/popup-hierarchy/round7/star-colour/: no category pair closer
-    // than before; nearest new pair restaurant/street 15.3). The pair counts
-    // and margins in this block predate that and were not re-run.
-    //
-    // Tightest margins -- do not nudge these without re-running the checks:
-    //   nature/area     hue 61.4deg   (+1.4)
-    //   area/other      value 1.403   (+0.003; ΔS 0.281 is a second channel)
-    //   area/cafe       value 1.405   (+0.005; 176deg hue is a second channel)
-    //   other/bar       ΔS 0.303      (+0.053) -- `other` cannot be greyer
-    //   cafe/restaurant value 1.440
+    // Separation rule (since the 2026-10-07 re-inks; re-checked 2026-10-30 for the
+    // categories migration): every ink is >= 3:1 against --paper so a glyph,
+    // chip dot or marker rim reads as a non-text UI component (WCAG 1.4.11),
+    // and every PAIR is >= ~13 apart in CIEDE2000 (closest pair cafe/street
+    // 13.2; the four 2026-10-30 inks are each >= 14.8 from every other ink and
+    // >= 34.8 from --star / --star-deep). The older 55-pair value/hue ladder no
+    // longer describes the palette (it already failed restaurant/cafe and
+    // restaurant/street) and is retired.
+    // Source: design/icon-system/categories-design-calls.md (branch
+    // claude/elegant-galileo-1c5ntm).
     //
     // The star (--figure, keyline --figure-deep) is the orange family now;
     // no category sits in it (restaurant ΔE >= 32, attraction >= 35 from the
     // star; orange-figure.json -- its #EE7434 row is the brand orange).
     // =========================================================================
+    // Key order = the locked list's order (design/icon-system/categories.md), shapes last:
+    // the chips, the category sort (categoryRank()) and the add tag's TYPE menu all read it.
     const CATEGORY_COLORS = {
-      restaurant: '#7A2436',   // wine (2026-10-07; was burnt orange #AC5019 -- orange is the star now) 8.30:1
-      cafe:       '#6E4C22',   // Zion olive-brown     6.51:1  H  33.2  S .528
-      bar:        '#3D5A7A',   // McKinley blue        6.02:1  H 211.5  S .333
-      attraction: '#547326',   // moss, park-poster foliage (2026-10-07; was gold #A68018, too close to the star) 4.59:1
-      nature:     '#1E3A2B',   // Yellowstone spruce  10.44:1  H 147.9  S .318
-      shopping:   '#8A7AA8',   // Bryce lavender       3.26:1  H 260.9  S .209
-      area:       '#2B3F52',   // Zion slate           9.15:1  H 209.2  S .312
-      hotel:      '#2E2433',   // Bryce deep plum     12.50:1  H 280.0  S .172
-      other:      '#4F5450',   // near-neutral         6.52:1  (S .031)
-      district:   '#328177',   // Yellowstone teal     3.90:1  H 172.4  S .441
-      street:     '#5E2C17'    // Zion deep rust       9.58:1  H  17.7  S .607
+      restaurant:   '#7A2436',   // wine (2026-10-07; was burnt orange #AC5019 -- orange is the star now) 8.30:1
+      cafe:         '#6E4C22',   // Zion olive-brown          6.51:1  H  33.2  S .528
+      bar:          '#3D5A7A',   // McKinley blue             6.02:1  H 211.5  S .333
+      venue:        '#AF4B82',   // Bryce sunset rose         4.26:1  (2026-10-30)
+      museum:       '#523875',   // Grand Canyon dusk violet  8.12:1  (2026-10-30)
+      landmark:     '#4889A8',   // Crater Lake blue          3.27:1  (2026-10-30)
+      attraction:   '#547326',   // moss, park-poster foliage (2026-10-07; was gold #A68018, too close to the star) 4.59:1
+      park:         '#3F925B',   // Yosemite meadow green     3.23:1  (2026-10-30)
+      nature:       '#1E3A2B',   // Yellowstone spruce       10.44:1  H 147.9  S .318
+      shopping:     '#8A7AA8',   // Bryce lavender            3.26:1  H 260.9  S .209
+      hotel:        '#2E2433',   // Bryce deep plum          12.50:1  H 280.0  S .172
+      neighborhood: '#328177',   // Yellowstone teal          3.90:1  H 172.4  S .441  (was `district`)
+      street:       '#5E2C17'    // Zion deep rust            9.58:1  H  17.7  S .607
     };
+    // The one label map: chips, row meta, the tag's TYPE stamp and the add tag's TYPE menu.
+    const CATEGORY_LABELS = {
+      restaurant: 'Restaurant', cafe: 'Café', bar: 'Bar', venue: 'Venue', museum: 'Museum',
+      landmark: 'Landmark', attraction: 'Attraction', park: 'Park', nature: 'Nature',
+      shopping: 'Shopping', hotel: 'Hotel', neighborhood: 'Neighborhood', street: 'Street'
+    };
+    // An unknown key isn't a category: the label grey (= --ink-2; markers need a literal) + the dot.
+    const CATEGORY_FALLBACK_INK = '#5A564C';
+    const isCategory = c => Object.prototype.hasOwnProperty.call(CATEGORY_COLORS, c);
+    const categoryLabel = c => CATEGORY_LABELS[c] || String(c || '');
+    const categoryGlyphId = c => isCategory(c) ? c : 'dot';
 
     // (The per-city accent -- CITY_PALETTES / applyCityPalette() -- was
     // removed 2026-10-07: "cities shouldn't have their own color". The
@@ -5158,7 +5162,7 @@
     const CLUSTER_BADGE_PX = 24;
 
     function categoryInk(category) {
-      return CATEGORY_COLORS[category] || CATEGORY_COLORS.other;
+      return CATEGORY_COLORS[category] || CATEGORY_FALLBACK_INK;
     }
 
     // Plain static link, no JS platform detection -- an Apple Maps
@@ -5180,7 +5184,7 @@
 
     // Bare glyph, no shell -- chips, popups.
     function glyphHtml(category, size) {
-      return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-${escapeAttr(category)}"/></svg>`;
+      return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-${escapeAttr(categoryGlyphId(category))}"/></svg>`;
     }
 
     // Stamped-seal badge: paper field, category-ink rim, category-ink glyph.
@@ -5219,7 +5223,7 @@
         const field = size - rim * 2;
         const g = Math.min(field - 2, Math.max(18, field - 4));
         const o = (size - g) / 2;
-        glyph = `<svg class="badge-glyph" x="${o}" y="${o}" width="${g}" height="${g}" viewBox="0 0 24 24" style="color:${mark}"><use href="#g-${escapeAttr(category)}"/></svg>`;
+        glyph = `<svg class="badge-glyph" x="${o}" y="${o}" width="${g}" height="${g}" viewBox="0 0 24 24" style="color:${mark}"><use href="#g-${escapeAttr(categoryGlyphId(category))}"/></svg>`;
       }
       return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true">${shell}${glyph}</svg>`;
     }
@@ -5799,7 +5803,7 @@
         // wrapping as one piece), the city it is measured from printed on the routing line above.
         + (addr || dist ? `<div class="tag-addr">${addr ? escapeHtml(addr) : ''}${dist ? `${addr ? '<span class="tag-dist-sep" aria-hidden="true"> · </span>' : ''}<span class="tag-dist" id="${distId}">${escapeHtml(dist)}</span>` : ''}</div>` : '')
         + (loc.notes ? `<div class="tag-notes">${escapeHtml(loc.notes)}</div>` : '')
-        + `<div class="tag-fields"><span class="tag-f"><span class="tag-lab">Type</span><span class="tag-val tag-stamp popup-cat" style="--tilt:${typeTilt(loc.id)}deg;${texVars(loc.id, 'type', 170, .1)}">${escapeHtml(loc.category)}</span></span>`
+        + `<div class="tag-fields"><span class="tag-f"><span class="tag-lab">Type</span><span class="tag-val tag-stamp popup-cat" style="--tilt:${typeTilt(loc.id)}deg;${texVars(loc.id, 'type', 170, .1)}">${escapeHtml(categoryLabel(loc.category))}</span></span>`
         + (stop ? `<span class="tag-f"><span class="tag-lab">Plan</span><span class="tag-val tag-plan">Stop <span class="tag-stamp" style="--tilt:${typeTilt(loc.id, 1)}deg;${texVars(loc.id, 'n', 170, .1)}">${stop.n}</span> of <span class="tag-stamp" style="--tilt:${typeTilt(loc.id, 2)}deg;${texVars(loc.id, 'm', 170, .1)}">${stop.m}</span></span></span>` : '') + '</div></div>'
         + '<div class="tag-stub">'
         + `<span class="tag-slot dir"><a class="tag-seg popup-directions" href="${directionsUrl(loc)}" target="_blank" rel="noopener" aria-describedby="${dirHint}"><svg viewBox="1.5 1.5 21 21" aria-hidden="true"><use href="#g-compass"/></svg>Directions</a><span class="sr-only" id="${dirHint}">Opens in Maps</span></span>`
@@ -9554,7 +9558,7 @@
         ${planLead(stop, loc.category, sh ? 'diamond' : markerKind(loc), ink, loc.name)}
         <div class="row-main">${loc.starred ? '<svg class="row-star" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-star"/></svg>' : ''}
           <h3>${escapeHtml(loc.name)}</h3>
-          <div class="row-meta">${dist ? `<span class="row-dist">${escapeHtml(dist)}</span> &middot; ` : ''}${escapeHtml(loc.category)}${city ? ' &middot; ' + escapeHtml(city) : ''}<span class="sr-only">${loc.starred ? ', starred' : ''}${loc.visited ? ', visited' : ', not visited yet'}</span></div>
+          <div class="row-meta">${dist ? `<span class="row-dist">${escapeHtml(dist)}</span> &middot; ` : ''}${escapeHtml(categoryLabel(loc.category))}${city ? ' &middot; ' + escapeHtml(city) : ''}<span class="sr-only">${loc.starred ? ', starred' : ''}${loc.visited ? ', visited' : ', not visited yet'}</span></div>
         </div>
         <div class="location-actions">
           ${stamp}${rowActionHtml(stop, loc.name)}
@@ -9606,12 +9610,12 @@
     // -colour (which measured 1.80:1 on the old palette). The ink arrives as
     // --chip-ink so the `.inactive` rule can override it without !important,
     // and ONLY the bottom rule changes between states -- contrast is constant,
-    // so all 11 stay AA whatever their ink.
+    // so all 13 stay AA whatever their ink.
     function createFilters() {
       const container = document.getElementById('filters');
       container.innerHTML = Object.keys(CATEGORY_COLORS).map(cat => `
         <button class="filter-btn" id="filter-${cat}" style="--chip-ink: ${CATEGORY_COLORS[cat]}">
-          <span class="chip-glyph">${glyphHtml(cat, 12)}</span>${cat}
+          <span class="chip-glyph">${glyphHtml(cat, 12)}</span>${escapeHtml(categoryLabel(cat))}
         </button>
       `).join('');
 
@@ -9668,7 +9672,7 @@
     // Nothing is saved before ADD. Cancel (x, Esc) puts back the map view, the list and the tag that
     // was open; the draft is kept in memory for the next +, and cleared only by a successful ADD.
     // =========================================================================
-    const ADD_TYPES = ['restaurant', 'cafe', 'bar', 'attraction', 'nature', 'shopping', 'area', 'hotel', 'other', 'district', 'street'];
+    const ADD_TYPES = Object.keys(CATEGORY_COLORS);   // the locked list, in its order (shapes last)
     const ADD_TYPE_DEFAULT = 'restaurant';   // today's form default, kept: TYPE before a pick (or a pick with no match)
     const ADD_PICK_ZOOM = 16, ADD_PICK_ZOOM_SHAPE = 14;   // a pick shows the place at least this close
     const ADD_PIN_ABOVE = TAG_HANG + 16;     // the pin's top above the tag's top (the string + the 32px pin's radius)
@@ -9683,21 +9687,24 @@
     const addPicked = () => !!addDraft.pick;
 
     // ---- the TYPE detected from the pick (jam Turn 11; first match wins) ----
+    // Rows per design/icon-system/categories-design-calls.md 6 (2026-10-30). Airports, stations,
+    // terminals and place=locality have no row on purpose: null = TYPE stays as it was.
     const OSM_TYPE_TABLE = [
       ['hotel', { tourism: ['hotel', 'hostel', 'guest_house', 'motel', 'apartment', 'chalet', 'alpine_hut', 'camp_site'] }],
       ['restaurant', { amenity: ['restaurant', 'fast_food', 'food_court'] }],
       ['cafe', { amenity: ['cafe', 'ice_cream'], shop: ['bakery', 'pastry', 'coffee'] }],
-      ['bar', { amenity: ['bar', 'pub', 'biergarten', 'nightclub'], craft: ['brewery', 'distillery'] }],
-      ['nature', { natural: '*', water: '*', leisure: ['park', 'nature_reserve', 'garden', 'beach'], boundary: ['national_park', 'protected_area'], waterway: ['waterfall'], tourism: ['viewpoint'] }],
-      // + the director's rows (blank-tag how-it-works): pools, sports centres, water parks
-      ['attraction', { tourism: ['attraction', 'museum', 'gallery', 'artwork', 'zoo', 'aquarium', 'theme_park'], historic: '*',
-        amenity: ['theatre', 'arts_centre', 'cinema', 'place_of_worship', 'public_bath', 'spa'],
-        // + bathing as a visit (builder, after the phase 2 check): resorts, beach resorts, spas, saunas
-        leisure: ['stadium', 'swimming_pool', 'sports_centre', 'water_park', 'resort', 'beach_resort', 'spa', 'sauna'] }],
+      ['venue', { amenity: ['theatre', 'arts_centre', 'cinema', 'nightclub', 'music_venue', 'events_venue', 'concert_hall'], leisure: ['stadium'] }],
+      ['bar', { amenity: ['bar', 'pub', 'biergarten'], craft: ['brewery', 'distillery'] }],
+      ['museum', { tourism: ['museum', 'gallery'], shop: ['art'] }],
+      ['attraction', { tourism: ['attraction', 'zoo', 'aquarium', 'theme_park'], historic: ['castle'],
+        amenity: ['public_bath', 'spa'],
+        leisure: ['swimming_pool', 'sports_centre', 'water_park', 'resort', 'beach_resort', 'spa', 'sauna'] }],
+      ['landmark', { tourism: ['artwork'], historic: '*', amenity: ['place_of_worship', 'townhall', 'fountain'],
+        man_made: ['lighthouse', 'tower'], place: ['square', 'plaza'] }],
+      ['park', { leisure: ['park', 'garden', 'playground', 'dog_park'], landuse: ['cemetery'], amenity: ['grave_yard'] }],
+      ['nature', { natural: '*', water: '*', leisure: ['nature_reserve', 'beach'], boundary: ['national_park', 'protected_area'], waterway: ['waterfall'], tourism: ['viewpoint'] }],
       ['shopping', { shop: '*', amenity: ['marketplace'] }],
-      ['area', { place: ['square', 'locality', 'plaza'] }],
-      ['district', { place: ['suburb', 'quarter', 'neighbourhood'] }],   // decided: "Neighborhood should be district"
-      ['other', { aeroway: ['aerodrome'], railway: ['station'], amenity: ['ferry_terminal', 'bus_station'] }]
+      ['neighborhood', { place: ['suburb', 'quarter', 'neighbourhood'] }]
     ];
     // highway=* is a street, except the point features a road carries (a bus stop is not a street)
     const OSM_HIGHWAY_POINTS = new Set(['bus_stop', 'crossing', 'traffic_signals', 'stop', 'give_way', 'street_lamp', 'turning_circle', 'turning_loop', 'motorway_junction', 'elevator', 'milestone', 'speed_camera', 'mini_roundabout', 'passing_place', 'platform']);
@@ -9708,7 +9715,7 @@
         const v = rules[key];
         if (v === '*' || (Array.isArray(v) && v.includes(value))) return type;
       }
-      if (key === 'boundary' && value === 'administrative' && OSM_SUBCITY_ADMIN.has(addresstype)) return 'district';
+      if (key === 'boundary' && value === 'administrative' && OSM_SUBCITY_ADMIN.has(addresstype)) return 'neighborhood';
       if (key === 'highway' && value && !OSM_HIGHWAY_POINTS.has(value)) return 'street';
       return null;   // no match: TYPE stays as it was -- never asks, never blocks
     }
@@ -9880,7 +9887,7 @@
     function addTypeBadge(type, size) {
       return badgeHtml(type, 'circle', size, { ink: categoryInk(type), fill: 'var(--paper)', mark: categoryInk(type) });
     }
-    const addTypeName = t => t === 'district' ? 'District' : t === 'street' ? 'Street' : t[0].toUpperCase() + t.slice(1);
+    const addTypeName = categoryLabel;
     function renderAddTag() {
       const form = document.getElementById('addForm'), d = addDraft, shape = isShapeCategory(d.type);
       form.classList.toggle('is-picked', addPicked());
@@ -9925,7 +9932,7 @@
         p.outline = null;   // in flight / none
         nominatimLookupPolygon(p.osmType, p.osmId).then(o => { if (addDraft.pick === p) { p.outline = o; syncAddOutline(); } });
       }
-      const o = want && p.outline, fits = o && ((type === 'district' && o.kind === 'polygon') || (type === 'street' && o.kind === 'line'));
+      const o = want && p.outline, fits = o && ((type === 'neighborhood' && o.kind === 'polygon') || (type === 'street' && o.kind === 'line'));
       const key = fits ? `${p.osmType}${p.osmId}:${type}` : null;
       if (addOutlineLayer && addOutlineLayer.__key === key) return;
       if (addOutlineLayer) { addOutlineLayer.remove(); addOutlineLayer = null; }
@@ -10178,9 +10185,9 @@
         osmKey: pair.key, osmValue: pair.value, osmType: r.osm_type || '', osmId: r.osm_id || null, where: resultTown(r) };
       const nameEl = document.getElementById('nameInput');
       nameEl.value = name; autoGrow(nameEl);
-      // TYPE from the pick; an address hit, or a pair the table doesn't know, is Other (a TYPE set
-      // by hand in this add stays).
-      if (!addDraft.typeHand) addDraft.type = (!isAddressHit(r, addResultsQuery) && osmToType(pair.key, pair.value, r.addresstype)) || 'other';
+      // TYPE from the pick; an address hit, or a pair the table doesn't know, leaves TYPE as it was
+      // (Other is gone, 2026-10-30; the person sets it). A TYPE set by hand in this add stays.
+      if (!addDraft.typeHand) addDraft.type = (!isAddressHit(r, addResultsQuery) && osmToType(pair.key, pair.value, r.addresstype)) || addDraft.type;
       if (!addDraft.cityHand) {
         addDraft.city = guessCity(lat, lng, details);
         // no town to go on: the line waits (blank) for the point's reverse-geocoded town, else the
@@ -10273,7 +10280,7 @@
         : lineCity ? cityConfig(lineCity) : currentSearchCityConfig();
       let geometry = null, segmentLengths = null;
       const looked = p ? (p.outline || await nominatimLookupPolygon(p.osmType, p.osmId)) : null;   // fetched at the pick when it could be
-      if (looked && ((type === 'district' && looked.kind === 'polygon') || (type === 'street' && looked.kind === 'line'))) {
+      if (looked && ((type === 'neighborhood' && looked.kind === 'polygon') || (type === 'street' && looked.kind === 'line'))) {
         geometry = looked.points; segmentLengths = looked.segmentLengths || null;
       } else if (type === 'street') {
         const f = await overpassWay(name, cfg); if (f) { geometry = f.points; segmentLengths = f.segmentLengths; }
@@ -10566,11 +10573,11 @@
       }
     });
 
-    // A category IS the mode: 'district'/'street' mean "fetch an OSM shape,"
+    // A category IS the mode: 'neighborhood'/'street' mean "fetch an OSM shape,"
     // every other category means "a normal pin." The add tag's TYPE drives
     // both what the tag shows AND which table ADD writes (submitAddTag()).
     function isShapeCategory(category) {
-      return category === 'district' || category === 'street';
+      return category === 'neighborhood' || category === 'street';
     }
 
     // minZoom: without it a user can zoom out to world level and pan into a
