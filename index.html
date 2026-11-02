@@ -729,6 +729,28 @@
     .sp-board:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
     .sp-lab { position: relative; z-index: 1; display: flex; align-items: baseline; }
     .sp-lab .tally { font-size: 11px; }   /* the type floor (.8em of 13 = 10.4); as the section headers' tally */
+    /* A FADED sign (city-crud v7; owner: "the faded signposts do read as hidden. But I think you
+       should be able to tap them"): with a city picked, the OTHER cities' boards -- an opaque paper
+       face, a dashed --ink-2 rule, a grey label, no navy shadow. A tap picks that city. */
+    .sp-board.is-faded { color: var(--ink-2); }
+    .sp-board.is-faded .sp-shadow { display: none; }
+    .sp-board.is-faded .sp-line { stroke: var(--ink-2); stroke-dasharray: 4 3; }
+    /* THE TURN (city-crud v10-v12): while the city's row in the title menu is swiped open, its board
+       turns over (480ms, a deliberate turn with a hair of overshoot) to SEE YOU SOON? -- a navy board
+       as wide as its words need. Both faces sit on the board; only the turn shows the back. */
+    .sp-board .sp-face { position: absolute; top: 0; bottom: 0; display: flex; align-items: center; box-sizing: border-box; padding: inherit;
+      backface-visibility: hidden; -webkit-backface-visibility: hidden; transition: transform 480ms cubic-bezier(.45,.05,.25,1.12); }
+    .sp-board .sp-front { left: 0; right: 0; isolation: isolate; }
+    .sp-board.is-e .sp-back { left: 0; justify-content: center; }
+    .sp-board.is-w .sp-back { right: 0; justify-content: center; }
+    .sp-board .sp-back { transform: rotateX(180deg); color: var(--paper); }
+    .sp-board .sp-back .sp-shape { z-index: 0; }
+    .sp-back-fill { fill: var(--navy); }
+    .sp-back .sp-word { position: relative; z-index: 1; }
+    .sp-board.is-turned .sp-front { transform: rotateX(-180deg); }
+    .sp-board.is-turned .sp-back { transform: rotateX(0deg); }
+    .sp-board:has(.sp-face) { perspective: 300px; }
+    @media (prefers-reduced-motion: reduce) { .sp-board .sp-face { transition: none; } }
     /* OSM land beige, not leaflet.css's #ddd: iOS Safari tints its status
        bar from the top fixed layer, so this makes the strip read as map
        (and tiles loading in show beige, not grey). */
@@ -1662,6 +1684,38 @@
     .menu-gap { flex: 1 1 auto; }
     .menu-row.is-hidden .menu-lab, .menu-row.is-hidden .menu-ico { color: var(--ink-2); }   /* 6.17:1, the closed eye carries the state */
 
+    /* REMOVE A CITY (city-crud v10-v12; the approved prototype design/city-crud/proto/swipe-flap.html):
+       swipe a city's row LEFT in the title menu and the city's REMOVE board -- the signpost's own
+       arrow shape, navy, its point leading -- slides in over the row's end from the right edge. The
+       name never moves. Open = 132px; past it the board gives at most 12px. */
+    .menu-city { position: relative; flex: none; overflow: hidden; touch-action: pan-y; -webkit-user-select: none; user-select: none; }
+    .rm-clip { position: absolute; top: 4px; bottom: 5px; right: 0; width: 0; z-index: 2; overflow: hidden; filter: drop-shadow(-2px 1px 2px rgba(26, 26, 24, .12)); pointer-events: none; }
+    .menu-city[data-open="1"] .rm-clip, .menu-city[data-dragging="1"] .rm-clip { pointer-events: auto; }
+    .rm-board { all: unset; box-sizing: border-box; position: absolute; top: 0; bottom: 0; left: 0; width: max(132px, 100%); display: flex; align-items: center; justify-content: center; padding-left: var(--s3);
+      background: var(--navy); color: var(--paper); clip-path: polygon(12px 0, 100% 0, 100% 100%, 12px 100%, 0 50%); cursor: pointer;
+      font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 12px; line-height: 14px; letter-spacing: .12em; }
+    .rm-board:focus-visible { box-shadow: inset 0 0 0 2px var(--paper); }
+    /* the snap (owner: "the swipe should snap some"): open lands in 240ms with a small overshoot;
+       close is quick and plain (160ms) */
+    .menu-city.settle.to-open .rm-clip { transition: width 240ms cubic-bezier(.25,1.45,.45,1); }
+    .menu-city.settle.to-shut .rm-clip { transition: width 160ms cubic-bezier(.4,0,.2,1); }
+    @media (prefers-reduced-motion: reduce) { .menu-city.settle .rm-clip { transition: none; } }
+    /* the one-step picker (v12): the question is the picker -- tap where its places go and it's done */
+    .rm-pick { flex: none; background: var(--paper); border-bottom: 1px solid var(--hair); padding-top: var(--s2); }
+    .rm-q { margin: 0; padding: 0 var(--s3) var(--s2); font-family: var(--font-ui); font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink); }
+    .rm-dest { all: unset; box-sizing: border-box; position: relative; width: 100%; display: flex; align-items: center; gap: var(--s2); height: 44px; padding: 0 var(--s3); border-top: 1px solid var(--hair); cursor: pointer;
+      font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 13px; line-height: 16px; letter-spacing: .05em; color: var(--navy); -webkit-tap-highlight-color: transparent; }
+    .rm-dest:active, .rm-dest:focus-visible { background: var(--paper-pressed); outline: none; }
+    .rm-dest:focus-visible { box-shadow: inset 0 0 0 2px var(--navy); }
+    .rm-dest .menu-ico { width: 16px; height: 16px; }
+    .rm-dest .rm-lab { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .rm-dest .rm-km { margin-left: auto; flex: none; font-stretch: 100%; text-transform: none; letter-spacing: 0; font-weight: 600; font-size: 11px; color: var(--ink-2); }
+    .rm-dest.is-too { color: var(--ink-2); font-weight: 600; padding-left: calc(var(--s3) + 16px + var(--s2)); }
+    .rm-dest.is-keep { justify-content: center; border-top: 1px solid var(--navy); }
+    /* New city (v4): the title menu's row becomes the Find a city line in place */
+    #titleMenu .menu-find { flex: none; }
+    #titleMenu .menu-find-res { flex: none; }
+
     /* ---- CITY SECTION HEADER (SectionSeparate S1 "air above, light rule";
        SectionHeaders; GoToSections). A keyed non-row node in the list: never
        a gesture target. The name (a Go to button) rests on a 2px --hair rule
@@ -1684,6 +1738,9 @@
     .sec-name .h-name { overflow: hidden; text-overflow: ellipsis; min-width: 0; }
     .sec-name .tally { font-size: 11px; }
     .sec-name:active { opacity: 0.6; }
+    .sec-name.is-static { cursor: default; }   /* All places' header names: a heading, not a control (city-crud v6) */
+    .sec-name.is-static:active { opacity: 1; }
+    .sec-name.is-static::before { content: none; }
     .sec-eye {
       position: relative; width: var(--col-glyph); height: 32px; display: flex; align-items: center; justify-content: center;
       margin: 0; padding: 0; background: transparent; border: none; cursor: pointer; -webkit-tap-highlight-color: transparent;
@@ -3686,6 +3743,19 @@
     // still runs; its rows are simply not applied. The last write to
     // settle refetches once, which reconciles everything.
     let flagWritesInFlight = 0;
+    // A city removed WITH its places (city-crud v12, "Remove the N places too") is held: it leaves
+    // the screen at once, but nothing is written until its Undo slip ends (Undo writes nothing). While
+    // held -- and while its delete is in flight -- reads drop its rows, so a poll can't bring them back.
+    // { id, cfg, locs, shapes, stops, wasPicked, wasHidden, writing }
+    let pendingRemoval = null;
+    function withoutHeldRemoval(rows, kind) {
+      const p = pendingRemoval;
+      if (!p) return rows;
+      if (kind === 'loc') { const ids = new Set(p.locs.map(l => l.id)); return rows.filter(r => !ids.has(r.id)); }
+      if (kind === 'shape') { const ids = new Set(p.shapes.map(n => Number(n.id))); return rows.filter(r => !ids.has(Number(r.id))); }
+      if (kind === 'stop') { const ids = new Set(p.stops.map(s => s.id)); return rows.filter(r => !ids.has(r.id)); }
+      return rows;
+    }
 
     // Explicit column list: created_at is ordered by server-side but never
     // rendered, so it is deliberately not selected. PostgREST allows ordering
@@ -3705,7 +3775,7 @@
 
         if (error) throw error;
         if (flagWritesInFlight > 0) return;   // see flagWritesInFlight
-        const rows = data || [];
+        const rows = withoutHeldRemoval(data || [], 'loc');   // a removed city's held places never come back by poll
         const digest = payloadDigest(rows);
         locations = rows;
         // No-op render: an unchanged payload must not touch the DOM or the map.
@@ -3746,7 +3816,7 @@
           .select('id,city,type,label,color,note,min_zoom,geometry,visited,starred');
         if (error) throw error;
         if (flagWritesInFlight > 0) return;   // see flagWritesInFlight
-        const rows = data || [];
+        const rows = withoutHeldRemoval(data || [], 'shape');
         const digest = JSON.stringify(rows);
         neighborhoodShapes = rows;
         if (digest !== lastShapesDigest) {
@@ -3849,10 +3919,27 @@
         return false;
       }
     }
-    function revealCity(cityId) {   // true when it showed the city
-      if (!hiddenCities.has(cityId)) return false;
-      hiddenCities.delete(cityId); persistHiddenCities(); updateUI();
-      return true;
+    // A place filed where the list can't show it is revealed, or it would vanish with its tag: a
+    // hidden city is shown again; in Places with another city picked, the list switches to its
+    // city (city-crud v5: "the shipped reveal rule, now a switch"; the map stays where it is).
+    // Returns what it changed, for a rollback ({ hid, from }), or false.
+    function revealCity(cityId, render = true) {
+      let from = null;
+      if (!isAllCities() && !inPlanView() && citySelection !== cityId && CITIES[cityId]) {
+        from = citySelection; citySelection = cityId; activeCity = cityId; persistCitySelection(cityId);
+      }
+      const hid = isAllCities() && hiddenCities.has(cityId);   // the eye's scope is All places (in a picked city it hides nothing)
+      if (hid) { hiddenCities.delete(cityId); persistHiddenCities(); }
+      if (!hid && from == null) return false;
+      if (render) { updateUI(); syncAddTagCity(); }
+      return { hid, from };
+    }
+    // Undoes a revealCity() (a failed write): back to the city it left, and hidden again.
+    function unrevealCity(cityId, r, render = true) {
+      if (!r) return;
+      if (r.from != null && citySelection === cityId && CITIES[r.from]) { citySelection = r.from; activeCity = r.from; persistCitySelection(r.from); }
+      if (r.hid && !hiddenCities.has(cityId)) { hiddenCities.add(cityId); persistHiddenCities(); }
+      if (render) { updateUI(); syncAddTagCity(); }
     }
 
     async function addNeighborhoodShape(shape) {
@@ -4426,6 +4513,10 @@
 
     // ---- hidden cities (per viewer) ----------------------------------------
     const cityShown = cityId => !hiddenCities.has(cityId);
+    // city-crud v5 (owner: "Why would Stockholm be shown if Malmö is selected" ... "yeah that's
+    // weird"): a city picked in the title menu is a FILTER again, for the list and the map. All
+    // places lists every shown city (the eye hides one there; it is the eye's only scope).
+    const cityListed = cityId => citySelection === ALL_CITIES ? cityShown(cityId) : cityId === citySelection;
     function readHiddenCities() {
       try {
         const v = JSON.parse(localStorage.getItem(HIDDEN_CITIES_KEY) || '[]');
@@ -4455,7 +4546,7 @@
     // what you can add; they never hide your plan). All plans (no plan open):
     // every plan's stops, so the map shows and frames them.
     function visibleLocations() {
-      const match = locations.filter(loc => filters.categories[loc.category] && cityShown(loc.city));
+      const match = locations.filter(loc => filters.categories[loc.category] && cityListed(loc.city));
       if (!inPlanView()) return match;
       if (!activePlan()) { const ids = allPlanStopIds('location_id'); return locations.filter(l => ids.has(l.id)); }
       const stops = planMarks().rows.filter(r => r.loc).map(r => r.loc);
@@ -4488,10 +4579,10 @@
       }
     }
 
-    // GO TO: the ONLY writer of citySelection ("the last go-to": the list title and the boot
-    // frame) and activeCity. Going to a city never filters (add-tag-jam phase 1): the map frames
-    // it and the list -- whole -- scrolls to its section header. Going to a hidden city shows it
-    // again. NOTE: there is deliberately NO no-op early-return when the selection is unchanged.
+    // GO TO: the ONLY writer of citySelection (the list title and the boot frame) and activeCity.
+    // Picking a city FILTERS the list and the map to it (city-crud v5; phase 1's "go to never
+    // filters" is undone); the map frames it and the list starts at its top. Picking a hidden city
+    // shows it again. NOTE: there is deliberately NO no-op early-return when the selection is unchanged.
     // Re-picking the current city MUST re-frame the map -- that is the recovery path for a user
     // who panned into the ocean.
     function setActiveCity(selection, opts = {}) {
@@ -4514,7 +4605,7 @@
       }
 
       if (opts.persist !== false) persistCitySelection(selection);
-      pendingSectionScroll = opts.scroll === false ? null : selection;
+      pendingSectionScroll = opts.scroll === false ? null : ALL_CITIES;   // a filtered list starts at its top
       updateUI();                 // reaches syncMarkers() and the list; scrolls to the section
       syncAddTagCity();
       if (inPlanView() && opts.frame !== false && framePlan) frameActivePlan();
@@ -4840,14 +4931,19 @@
     function mergeCityIntoRuntime(cfg) {
       CITIES[cfg.id] = {
         label: cfg.label, center: cfg.center, zoom: cfg.zoom,
-        geocodeSuffix: cfg.geocodeSuffix, countrycodes: cfg.countrycodes, viewbox: cfg.viewbox
+        geocodeSuffix: cfg.geocodeSuffix, countrycodes: cfg.countrycodes, viewbox: cfg.viewbox, auto: !!cfg.auto
       };
       syncAddTagCity();
       refreshTitleMenu();
     }
 
-    async function addCity(cfg) {
+    // auto: a city the GUESS made on its own (the NEW stamp, no hand pick): cleanupOrphanCities()
+    // removes it once it's empty, as today. Any city a person chose -- New city, Find a city, "+
+    // {town}" in a city menu -- is kept: auto_added = false (city-crud v4: "it's yours until you
+    // remove it").
+    async function addCity(cfg, auto = true) {
       if (!await requireAuth()) return false;
+      cfg = { ...cfg, auto };
       try {
         const { error } = await supabaseClient.from('cities').insert([{
           id: cfg.id,
@@ -4858,7 +4954,7 @@
           geocode_suffix: cfg.geocodeSuffix,
           countrycodes: cfg.countrycodes,
           viewbox: cfg.viewbox,
-          auto_added: true,
+          auto_added: auto,
           created_by: currentUser ? currentUser.email : null
         }]);
         if (error) throw error;
@@ -4880,14 +4976,19 @@
       try {
         const { data, error } = await supabaseClient
           .from('cities')
-          .select('id,label,center_lat,center_lng,zoom,geocode_suffix,countrycodes,viewbox');
+          .select('id,label,center_lat,center_lng,zoom,geocode_suffix,countrycodes,viewbox,auto_added');
         if (error) throw error;
-        (data || []).forEach(row => {
+        (data || []).filter(row => !(pendingRemoval && pendingRemoval.id === row.id)).forEach(row => {
           CITIES[row.id] = {
             label: row.label, center: [row.center_lat, row.center_lng], zoom: row.zoom,
-            geocodeSuffix: row.geocode_suffix, countrycodes: row.countrycodes, viewbox: row.viewbox
+            geocodeSuffix: row.geocode_suffix, countrycodes: row.countrycodes, viewbox: row.viewbox, auto: !!row.auto_added
           };
         });
+        // The live table is the truth once it answers (city-crud: a removed seed city must not come
+        // back from the static bootstrap): a seed it no longer holds goes. An empty answer changes
+        // nothing (the seed stays the offline-safe fallback).
+        if (data && data.length) SEED_CITY_IDS.forEach(id => { if (CITIES[id] && !data.some(r => r.id === id) && !cityHasPlaces(id)) delete CITIES[id]; });
+        if (citySelection !== ALL_CITIES && !CITIES[citySelection]) setActiveCity(ALL_CITIES, { reveal: false, frame: false });
         syncAddTagCity();
         refreshTitleMenu();
         refreshTags();   // the Hanging Tags' routing lines and distance notes read CITIES
@@ -4912,8 +5013,9 @@
         ...locations.map(loc => loc.city),
         ...neighborhoodShapes.map(shape => shape.city)
       ]);
+      // only a city the guess made (auto); a city a person chose stays until removed by hand
       const orphanIds = Object.keys(CITIES).filter(id =>
-        !SEED_CITY_IDS.has(id) && !referenced.has(id));
+        !SEED_CITY_IDS.has(id) && !referenced.has(id) && CITIES[id].auto !== false);
       if (orphanIds.length === 0) return;
 
       try {
@@ -6538,7 +6640,9 @@
     // hide them all: "Nothing matches these filters."; a city with no places at all: "Nothing
     // here yet." (Places, and below the divider in Plans.)
     function emptyMatchText() {
-      const exist = locations.some(l => cityShown(l.city)) || neighborhoodShapes.some(n => cityShown(n.city));
+      // a picked city with nothing filed yet (one you just made: city-crud v4's note)
+      if (!isAllCities() && !inPlanView() && !cityHasPlaces(citySelection)) return 'Nothing here yet. Tap + to add a place; it’s yours until you remove it.';
+      const exist = locations.some(l => cityListed(l.city)) || neighborhoodShapes.some(n => cityListed(n.city));
       return exist ? 'Nothing matches these filters.' : 'Nothing here yet.';
     }
     function emptyText(planMode) {
@@ -6650,7 +6754,9 @@
         others.shapes.forEach(n => { if (!shapesBy.has(n.city)) shapesBy.set(n.city, []); shapesBy.get(n.city).push(n); });
         let firstAdd = true;
         sectionCityIds().forEach(id => {
-          const ps = pinsBy.get(id) || [], ss = shapesBy.get(id) || [], hidden = hiddenCities.has(id);
+          // a picked city: its section alone, no eye (the eye's scope is All places; city-crud v5)
+          const ps = pinsBy.get(id) || [], ss = shapesBy.get(id) || [], hidden = isAllCities() && hiddenCities.has(id);
+          if (!isAllCities() && id !== citySelection) return;
           if (!ps.length && !ss.length && !(hidden && (CITIES[id] || cityHasPlaces(id)))) return;
           // A hidden section's tally: what it would add if shown (its chip-matching places, not stops) -- never 0.
           const n = hidden ? addableTally(id, pm) : ps.length + ss.length;
@@ -6666,7 +6772,7 @@
         if (r.leg != null) { const e = headEntry(legHeads, r.leg); renderLegHead(e, r.leg, legs[r.leg], !want.length); want.push(e.el); return; }
         if (r.rule) { want.push(planRule); return; }
         if (r.foot) { renderPlanFoot(); want.push(planFoot); return; }
-        if (r.add != null) { const e = headEntry(addHeads, r.add); renderCityHead(e, r.add, r.n, r.hidden, r.first, 'addgo'); seenAdd.add(r.add); want.push(e.el); return; }
+        if (r.add != null) { const e = headEntry(addHeads, r.add); renderCityHead(e, r.add, r.n, r.hidden, r.first, 'addgo', !isAllCities()); seenAdd.add(r.add); want.push(e.el); return; }
         if (r.note) { want.push(planOthersNote); return; }
         if (r.loc) {
           const loc = r.loc;
@@ -6758,7 +6864,7 @@
       if (!first && digest === plansDigest) return;   // no-op poll: never touch the DOM or the map
       plansDigest = digest;
       plans = planRows.map(p => ({ id: p.id, name: p.name, created_at: p.created_at }));
-      planStops = stopRows.map(s => ({ id: s.id, plan_id: s.plan_id, location_id: s.location_id ?? null,
+      planStops = withoutHeldRemoval(stopRows, 'stop').map(s => ({ id: s.id, plan_id: s.plan_id, location_id: s.location_id ?? null,
         shape_id: s.shape_id == null ? null : Number(s.shape_id), position: Number(s.position) }));
       if (activePlanId && !activePlan()) {   // deleted (here or on the other phone)
         activePlanId = null;   // Plans falls back to All plans
@@ -6913,6 +7019,9 @@
     planSlip.id = 'planSlip'; planSlip.hidden = true; planSlip.setAttribute('role', 'status'); planSlip.setAttribute('aria-live', 'polite');
     planSlip.innerHTML = '<span class="slip-text"></span><button type="button">Undo</button>';
     let planSlipUndo = null, planSlipTimer = 0;
+    // onEnd: runs once when the slip goes WITHOUT its Undo (timed out, replaced by another slip, or
+    // hidden) -- a removed city's held delete commits there (city-crud v12).
+    let planSlipEnd = null;
     function placePlanSlip() {
       // The slip is news about the plan's edge, so it sits ON the rule: it covers the rule's
       // caption line ("ADD FROM ..."), exactly its box. If the rule is scrolled out of the
@@ -6947,10 +7056,11 @@
     // The 6s pause while the slip is hovered, focused or pressed; leaving restarts a full 6s.
     const armPlanSlipTimer = () => { clearTimeout(planSlipTimer); if (!planSlip.hidden && !planSlipHeld) planSlipTimer = setTimeout(hidePlanSlip, PLAN_SLIP_MS); };
     const holdPlanSlip = on => { planSlipHeld = Math.max(0, planSlipHeld + (on ? 1 : -1)); if (planSlipHeld) clearTimeout(planSlipTimer); else armPlanSlipTimer(); };
-    function showPlanSlip(text, undo, kind = null, removed = []) {
+    function showPlanSlip(text, undo, kind = null, removed = [], onEnd = null) {
+      { const end = planSlipEnd; planSlipEnd = null; if (end) end(); }   // the slip it replaces ends here
       if (!planSlip.parentNode) {
         document.body.appendChild(planSlip);
-        planSlip.querySelector('button').addEventListener('click', async () => { const u = planSlipUndo; hidePlanSlip(); if (u) await u(); });
+        planSlip.querySelector('button').addEventListener('click', async () => { const u = planSlipUndo; planSlipEnd = null; hidePlanSlip(); if (u) await u(); });
         planSlip.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') holdPlanSlip(true); });
         planSlip.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') holdPlanSlip(false); });
         planSlip.addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse') { holdPlanSlip(true); const up = () => { holdPlanSlip(false); removeEventListener('pointerup', up); removeEventListener('pointercancel', up); }; addEventListener('pointerup', up); addEventListener('pointercancel', up); } });
@@ -6963,11 +7073,14 @@
       if (pre) tx.append(Object.assign(document.createElement('span'), { className: 'slip-fix', textContent: pre }));
       tx.append(Object.assign(document.createElement('span'), { className: 'slip-name', textContent: name }));
       if (post) tx.append(Object.assign(document.createElement('span'), { className: 'slip-fix', textContent: post }));
-      planSlipUndo = undo; planSlipKind = kind; planSlipRemoved = removed;
+      planSlipUndo = undo; planSlipKind = kind; planSlipRemoved = removed; planSlipEnd = onEnd;
       planSlip.hidden = false; placePlanSlip(); requestAnimationFrame(() => placePlanSlip());   // again once the list has re-rendered
       armPlanSlipTimer();
     }
-    function hidePlanSlip() { clearTimeout(planSlipTimer); planSlip.hidden = true; planSlipUndo = null; planSlipKind = null; planSlipRemoved = []; }
+    function hidePlanSlip() {
+      clearTimeout(planSlipTimer); planSlip.hidden = true; planSlipUndo = null; planSlipKind = null; planSlipRemoved = [];
+      const end = planSlipEnd; planSlipEnd = null; if (end) end();
+    }
     async function restoreStop(s) {   // Undo of a remove: the same row, back at its old position
       return planWrite('restore the stop',
         () => { if (!planStops.some(t => t.id === s.id)) planStops = planStops.concat([s]); },
@@ -7331,16 +7444,16 @@
         neighborhoodShapes.filter(n => filters.categories[n.type] && cityShown(n.city)).length;
     }
     const cityHasPlaces = id => locations.some(l => l.city === id) || neighborhoodShapes.some(n => n.city === id);
-    // The menu's cities: every city with a place (whatever the chips), and every hidden one.
-    const menuCityIds = () => sectionCityIds().filter(id => cityHasPlaces(id) || (hiddenCities.has(id) && CITIES[id]));
+    // The menu's cities: every one of your cities (an empty one you made too: city-crud v4, "it's
+    // yours until you remove it"), and any city only the data knows.
+    const menuCityIds = () => sectionCityIds().filter(id => CITIES[id] || cityHasPlaces(id));
     function titleState() {
       if (inPlanView()) {
         const p = activePlan();
         return p ? { name: p.name, n: stopCount(p.id) } : { name: 'All plans', n: plans.length };
       }
-      // A city with no places at all (zero places, or a stale go-to), or a hidden one (UX ruling: the
-      // title never names what the list doesn't show), titles "All places" + the shown count.
-      if (citySelection !== ALL_CITIES && CITIES[citySelection] && cityShown(citySelection) && (!placesLoaded || cityHasPlaces(citySelection))) {
+      // A picked city names the list (it is the filter, city-crud v5), empty or not.
+      if (citySelection !== ALL_CITIES && CITIES[citySelection]) {
         return { name: CITIES[citySelection].label, n: cityTally(citySelection) };
       }
       return { name: 'All places', n: shownTally() };
@@ -7386,11 +7499,18 @@
       if (places) {
         const here = !inPlanView();
         html += menuRowHtml(`role="menuitemradio" aria-checked="${here && citySelection === ALL_CITIES}" data-go="${ALL_CITIES}"`, MENU_SVG.spacer, 'All places', shownTally(), cur(here && citySelection === ALL_CITIES));
+        // each city row can be swiped open to its REMOVE board (city-crud v10-v12); a screen reader
+        // gets the action as its own "Remove {city}" item right after the row
+        const off = !currentUser;
         menuCityIds().forEach(id => {
-          const hid = hiddenCities.has(id), on = here && citySelection === id;
-          html += menuRowHtml(`role="menuitemradio" aria-checked="${on}" data-go="${escapeAttr(id)}"${hid ? ` aria-label="${escapeAttr(cityLabel(id))}, ${cityTally(id)}, hidden"` : ''}`, MENU_SVG.ring, cityLabel(id), cityTally(id),
-            hid ? eyeSvg(true, '--paper-raised', 'menu-end') : cur(on), hid ? ' is-hidden' : '');
+          const hid = hiddenCities.has(id), on = here && citySelection === id, lab = cityLabel(id);
+          html += `<div class="menu-city" role="none" data-city="${escapeAttr(id)}">`
+            + menuRowHtml(`role="menuitemradio" aria-checked="${on}" data-go="${escapeAttr(id)}"${hid ? ` aria-label="${escapeAttr(lab)}, ${cityTally(id)}, hidden"` : ''}`, MENU_SVG.ring, lab, cityTally(id),
+              hid ? eyeSvg(true, '--paper-raised', 'menu-end') : cur(on), hid ? ' is-hidden' : '')
+            + `<span class="rm-clip" aria-hidden="true"><button type="button" class="rm-board" tabindex="-1" data-remove="${escapeAttr(id)}">${off ? 'Sign in' : 'Remove'}</button></span>`
+            + `<button type="button" class="sr-only rm-sr" role="menuitem" tabindex="-1" data-remove="${escapeAttr(id)}">Remove ${escapeHtml(lab)}${off ? ', sign in to use' : ''}</button></div>`;
         });
+        html += menuRowHtml('role="menuitem" data-act="newcity"', MENU_SVG.plus, 'New city', null, MENU_SVG.none);
         html += menuRowHtml('role="menuitem" data-kind="plans" aria-haspopup="menu"', MENU_SVG.route, 'Plans', plansAvailable === true ? plans.length : null, MENU_SVG.chev);
       } else {
         const here = inPlanView();
@@ -7466,6 +7586,7 @@
     function closeTitleMenu(refocus = true) {
       const menu = document.getElementById('titleMenu');
       if (menu.hidden) return;
+      rmReset();   // an open REMOVE board, its picker and the turned sign go with the menu
       menu.hidden = true; menu.classList.remove('opening'); menuLock = null;
       document.getElementById('menuScrim').hidden = true;
       document.body.classList.remove('menu-open');
@@ -7475,8 +7596,362 @@
     }
     // A poll tick or a write re-renders the open menu in place (same side, same focus).
     function refreshTitleMenu() {
-      if (!titleMenuOpen()) return;
+      if (!titleMenuOpen() || rmBusy()) return;   // never under a swipe, an open board, the picker or a search
       if (renderTitleMenu()) placeTitleMenu();
+    }
+
+
+    // ---- NEW CITY and REMOVE A CITY in the title menu (city-crud v4, v10-v12) ---------------------
+    // New city (v4; owner: "there should Be the ability to create a city without a stop"): the Places
+    // side's "+ New city" row turns, in place, into the Find a city line (findCities(): real
+    // settlements, nearest the map's centre). A pick makes the city (kept: auto_added false) and goes
+    // to it -- an empty, filtered list; a pick that is one of your cities just goes to it.
+    function openNewCityLine() {
+      const menu = document.getElementById('titleMenu'), row = menu.querySelector('.menu-row[data-act="newcity"]');
+      if (!row) return;
+      row.outerHTML = `<div class="menu-find" role="presentation">${FIND_PLUS_ICO}<input type="search" class="menu-find-in" placeholder="Find a city…" aria-label="Find a city" enterkeyhint="search" autocomplete="off" autocorrect="off" spellcheck="false"></div>`
+        + '<div class="menu-find-res" role="group" aria-label="Cities found"></div>';
+      const c = map.getCenter();
+      wireFindCity(menu, [c.lat, c.lng], async f => {
+        const id = existingCityFor(f);
+        closeTitleMenu(false);
+        if (id) { goToCity(id); return; }
+        if (!await requireAuth()) return;
+        const cfg = cityConfigFromFound(f);
+        if (await addCity(cfg, false)) goToCity(cfg.id);
+      }, () => {});
+      const input = menu.querySelector('.menu-find-in');
+      input.focus({ preventScroll: true });
+      input.closest('.menu-find').scrollIntoView({ block: 'nearest' });
+    }
+
+    // REMOVE (v10-v12; owner: "there should be a remove city but it shouldn't be a front and center
+    // control"; "the swipe should follow standard convention"; "the swipe should snap some"; "the
+    // confirm should just have the new city select right there"; "This needs to work on desktop
+    // somehow"). The gesture logic is the approved prototype's (design/city-crud/proto/swipe-flap.html),
+    // ported, not re-derived. It lives on the title menu's city rows only: never the list's row
+    // gestures (CLAUDE.md "Animation separation" / "Row gestures").
+    const RM_OPEN = 132;          // the board's open width
+    const RM_FLICK_V = 0.25;      // px/ms: a flick decides on its own, from any position
+    const RM_VEL_WINDOW = 80;     // ms of movement the release velocity is measured over
+    const RM_OPEN_AT = 0.4;       // otherwise 40% of the travel from where the drag began decides
+    const RM_MAX_GIVE = 12, RM_GIVE_K = 40;   // past the open width: give = 12 x (1 - e^(-over/40)), board max 144
+    let rmPick = null;            // the city whose picker is open
+    const rmState = new WeakMap();
+    const rmSt = r => { let s = rmState.get(r); if (!s) { s = { wx: 0, wt: null, wbase: 0, wlock: null, wlockDir: 0, lastGid: 0, x0: null, y0: null, base: 0, locked: null, trail: [], swipedAt: 0 }; rmState.set(r, s); } return s; };
+    const rmRows = () => [...document.querySelectorAll('#titleMenu .menu-city')];
+    const rmRowOf = id => document.querySelector(`#titleMenu .menu-city[data-city="${CSS.escape(id)}"]`);
+    // the menu is not re-rendered under a swipe, an open board, the picker or a search
+    const rmBusy = () => rmPick != null || rmRows().some(r => r.dataset.open === '1' || r.dataset.dragging === '1') || !!document.querySelector('#titleMenu .menu-find-in');
+    const rmVibrate = ms => { if (navigator.vibrate) { try { navigator.vibrate(ms); } catch (_) {} } };   // iOS: silent by platform limit (CLAUDE.md "iOS haptics")
+    const rmReduced = () => prefersReducedMotion();
+
+    // the board follows the finger; past the open width it gives a little and stops
+    function rmSetDrag(r, x, dragging) {
+      if (x > 0) x = 0;
+      // the detent: a tick the moment the drag reaches the open width
+      if (dragging) { const past = x <= -RM_OPEN; if (past && r.dataset.atDetent !== '1') rmVibrate(6); r.dataset.atDetent = past ? '1' : ''; }
+      if (x < -RM_OPEN) x = -RM_OPEN - RM_MAX_GIVE * (1 - Math.exp((x + RM_OPEN) / RM_GIVE_K));
+      r.dataset.dx = x;
+      r.dataset.dragging = dragging ? '1' : '';
+      r.querySelector('.rm-clip').style.width = `${-x}px`;
+      setSignTurned(r.dataset.city, x < -RM_OPEN * RM_OPEN_AT);   // the signpost turns where the reveal would open
+    }
+    function rmSetOpen(r, open) {
+      if (open) rmCloseAll(r);
+      r.classList.remove('to-open', 'to-shut');
+      if (!rmReduced()) r.classList.add('settle', open ? 'to-open' : 'to-shut'); else r.classList.remove('settle');
+      rmSetDrag(r, open ? -RM_OPEN : 0, false);
+      const was = r.dataset.open === '1';
+      r.dataset.open = open ? '1' : '';
+      if (!open && rmPick === r.dataset.city) rmClosePicker();
+      if (open && !was) setTimeout(() => rmVibrate(10), rmReduced() ? 0 : 170);   // the landing tick; none on a close
+    }
+    function rmCloseAll(except) { rmRows().forEach(o => { if (o !== except && (o.dataset.open === '1' || parseFloat(o.dataset.dx || 0) < 0)) rmSetOpen(o, false); }); }
+    function rmReset() { rmPick = null; setSignTurned(null, false); rmTurned = null; document.querySelectorAll('#map .sp-board.is-turned').forEach(b => b.classList.remove('is-turned')); }
+
+    // ---- the one-step picker: "Remove X. Move its N places to:", the other cities nearest first, then
+    // "Remove the N places too", then "Keep X". One tap on a destination commits (with a 6s Undo).
+    const RM_ARROW = '<svg class="menu-ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5L12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    const rmPlacesIn = id => locations.filter(l => l.city === id).length + neighborhoodShapes.filter(n => n.city === id).length;
+    function rmStopsIn(id) {
+      const locs = new Set(locations.filter(l => l.city === id).map(l => l.id)), shapes = new Set(neighborhoodShapes.filter(n => n.city === id).map(n => Number(n.id)));
+      return planStops.filter(s => (s.location_id != null && locs.has(s.location_id)) || (s.shape_id != null && shapes.has(Number(s.shape_id)))).length;
+    }
+    function rmPickerHtml(id) {
+      const lab = escapeHtml(cityLabel(id)), n = rmPlacesIn(id), c = CITIES[id] && CITIES[id].center;
+      let h = `<div class="rm-pick" role="group" aria-label="Remove ${escapeAttr(cityLabel(id))}" data-pick="${escapeAttr(id)}">`;
+      if (!n) {
+        h += `<p class="rm-q">Remove ${lab}? Nothing is filed here.</p>`
+          + `<button type="button" class="rm-dest" data-rm-city="${escapeAttr(id)}" data-rm-to="">${RM_ARROW}<span class="rm-lab">Remove ${lab}</span></button>`;
+      } else {
+        const others = Object.keys(CITIES).filter(o => o !== id && Array.isArray(CITIES[o].center))
+          .map(o => [o, c ? haversineKm(c, CITIES[o].center) : Infinity]).sort((a, b) => a[1] - b[1]);
+        const stops = rmStopsIn(id);
+        h += `<p class="rm-q">Remove ${lab}. Move its ${n} ${n === 1 ? 'place' : 'places'} to:</p>`
+          + others.map(([o, km]) => `<button type="button" class="rm-dest" data-rm-city="${escapeAttr(id)}" data-rm-to="${escapeAttr(o)}" aria-label="Move ${n === 1 ? 'it' : 'them'} to ${escapeAttr(cityLabel(o))}${isFinite(km) ? `, about ${roundKm(km)} km` : ''}, and remove ${escapeAttr(cityLabel(id))}">`
+            + `${RM_ARROW}<span class="rm-lab">${escapeHtml(cityLabel(o))}</span>${isFinite(km) ? `<span class="rm-km">≈ ${roundKm(km).toLocaleString('en')} km</span>` : ''}</button>`).join('')
+          + `<button type="button" class="rm-dest is-too" data-rm-city="${escapeAttr(id)}" data-rm-to="">${n === 1 ? 'Remove the place too' : `Remove the ${n} places too`}${stops ? ` (and ${stops} plan ${stops === 1 ? 'stop' : 'stops'})` : ''}</button>`;
+      }
+      return h + `<button type="button" class="rm-dest is-keep" data-rm-keep="${escapeAttr(id)}">Keep ${lab}</button></div>`;
+    }
+    async function rmShowPicker(id, focusFirst = true) {
+      if (!await requireAuth()) return;   // signed out: the sign-in sheet, nothing else
+      const r = rmRowOf(id); if (!r) return;
+      if (r.dataset.open !== '1') rmSetOpen(r, true);
+      rmClosePicker();
+      rmPick = id;
+      r.insertAdjacentHTML('afterend', rmPickerHtml(id));
+      const pick = r.nextElementSibling;
+      pick.scrollIntoView({ block: 'nearest' });
+      if (focusFirst) { const f = pick.querySelector('.rm-dest'); if (f) f.focus({ preventScroll: true }); }
+    }
+    function rmClosePicker() {
+      document.querySelectorAll('#titleMenu .rm-pick').forEach(p => p.remove());
+      rmPick = null;
+    }
+
+    // ---- the commit -------------------------------------------------------------------------------
+    // Move: the places are filed under the destination and the city row is deleted, at once (nothing
+    // is destroyed); Undo puts the city back and moves those places home. Remove the places too: HELD
+    // (pendingRemoval) -- gone from the screen at once, written only when the slip ends; Undo writes
+    // nothing. A second remove commits a held one first; so does leaving the app (visibilitychange
+    // hidden / pagehide: the deletes are sent at once, best effort -- if the page dies first, the data
+    // survives, the safe direction).
+    async function rmCommit(id, to) {
+      if (!await requireAuth()) return;
+      if (!CITIES[id] || (to && !CITIES[to])) return;
+      await commitHeldRemoval();
+      const cfg = { id, ...CITIES[id] }, lab = cityLabel(id), wasPicked = citySelection === id, wasHidden = hiddenCities.has(id), wasActive = activeCity === id;
+      const locs = locations.filter(l => l.city === id), shapes = neighborhoodShapes.filter(n => n.city === id);
+      closeTitleMenu(false);
+      noteInteraction();
+      const leave = () => {
+        delete CITIES[id];
+        if (wasHidden) { hiddenCities.delete(id); persistHiddenCities(); }
+        if (wasActive) activeCity = to || Object.keys(CITIES)[0] || DEFAULT_CITY;
+        if (wasPicked) { citySelection = ALL_CITIES; persistCitySelection(ALL_CITIES); }   // after removing: All places (v5)
+      };
+      const back = () => {
+        CITIES[id] = { ...cfg }; delete CITIES[id].id;
+        if (wasHidden) { hiddenCities.add(id); persistHiddenCities(); }
+        if (wasActive) activeCity = id;
+        if (wasPicked) { citySelection = id; persistCitySelection(id); }
+      };
+      if (to) {
+        const locIds = new Set(locs.map(l => l.id)), shapeIds = new Set(shapes.map(n => Number(n.id)));
+        leave();
+        locations = locations.map(l => locIds.has(l.id) ? { ...l, city: to } : l);
+        neighborhoodShapes = neighborhoodShapes.map(n => shapeIds.has(Number(n.id)) ? { ...n, city: to } : n);
+        updateUI(); syncAddTagCity();
+        flagWritesInFlight++;
+        let ok = true;
+        try {
+          if (locIds.size) { const { error } = await supabaseClient.from('locations').update({ city: to }).eq('city', id); if (error) throw error; }
+          if (shapeIds.size) { const { error } = await supabaseClient.from('neighborhood_shapes').update({ city: to }).eq('city', id); if (error) throw error; }
+          const { error } = await supabaseClient.from('cities').delete().eq('id', id); if (error) throw error;
+          hideError('mutation');
+        } catch (err) {
+          ok = false;
+          back();
+          locations = locations.map(l => locIds.has(l.id) && l.city === to ? { ...l, city: id } : l);
+          neighborhoodShapes = neighborhoodShapes.map(n => shapeIds.has(Number(n.id)) && n.city === to ? { ...n, city: id } : n);
+          updateUI(); syncAddTagCity();
+          showWriteError(err, 'places');
+        } finally { flagWritesInFlight--; }
+        if (flagWritesInFlight === 0) await Promise.all([refetchLocations(), refetchNeighborhoodShapes()]);
+        if (ok) showPlanSlip(['', lab, ` removed. Its places are in ${cityLabel(to)}.`], () => rmUndoMove(cfg, to, [...locIds], [...shapeIds], { wasPicked, wasHidden, wasActive }), 'city-remove');
+        return ok;
+      }
+      // remove the places too: held until the slip ends
+      const locIds = new Set(locs.map(l => l.id)), shapeIds = new Set(shapes.map(n => Number(n.id)));
+      const stops = planStops.filter(s => (s.location_id != null && locIds.has(s.location_id)) || (s.shape_id != null && shapeIds.has(Number(s.shape_id))));
+      pendingRemoval = { id, cfg, locs, shapes, stops, wasPicked, wasHidden, wasActive, writing: false };
+      leave();
+      locations = locations.filter(l => !locIds.has(l.id));
+      neighborhoodShapes = neighborhoodShapes.filter(n => !shapeIds.has(Number(n.id)));
+      planStops = planStops.filter(s => !stops.includes(s));   // the DB cascades the same way, at the commit
+      if (map && map._popup) { const k = openTagKey(); if (k != null && !rowItem(k)) map.closePopup(); }
+      updateUI(); syncAddTagCity();
+      showPlanSlip(['', lab, locs.length + shapes.length ? ' and its places removed.' : ' removed.'], () => rmUndoHeld(), 'city-remove', [], () => { commitHeldRemoval(); });
+      return true;
+    }
+    // Undo of a held removal: nothing was written; everything comes back as it was.
+    function rmUndoHeld() {
+      const p = pendingRemoval;
+      if (!p || p.writing) return;
+      pendingRemoval = null;
+      CITIES[p.id] = { ...p.cfg }; delete CITIES[p.id].id;
+      if (p.wasHidden) { hiddenCities.add(p.id); persistHiddenCities(); }
+      if (p.wasActive) activeCity = p.id;
+      if (p.wasPicked) { citySelection = p.id; persistCitySelection(p.id); }
+      locations = locations.concat(p.locs.filter(l => !locations.some(x => x.id === l.id)));
+      neighborhoodShapes = neighborhoodShapes.concat(p.shapes.filter(n => !neighborhoodShapes.some(x => x.id === n.id)));
+      planStops = planStops.concat(p.stops.filter(s => !planStops.some(x => x.id === s.id)));
+      updateUI(); syncAddTagCity();
+    }
+    // The held delete, written now: its places (their plan stops cascade), then the city row.
+    async function commitHeldRemoval() {
+      const p = pendingRemoval;
+      if (!p || p.writing) return;
+      p.writing = true;
+      if (planSlipKind === 'city-remove' && !planSlip.hidden) { planSlipEnd = null; hidePlanSlip(); }   // committed: no Undo left
+      flagWritesInFlight++;
+      let ok = true;
+      try {
+        if (p.locs.length) { const { error } = await supabaseClient.from('locations').delete().in('id', p.locs.map(l => l.id)); if (error) throw error; }
+        if (p.shapes.length) { const { error } = await supabaseClient.from('neighborhood_shapes').delete().in('id', p.shapes.map(n => n.id)); if (error) throw error; }
+        const { error } = await supabaseClient.from('cities').delete().eq('id', p.id); if (error) throw error;
+        hideError('mutation');
+      } catch (err) {
+        ok = false;
+        p.writing = false;
+        rmUndoHeld();   // nothing (or only part) was deleted: show it all again; the refetch reconciles
+        showWriteError(err, 'places');
+      } finally { flagWritesInFlight--; }
+      if (pendingRemoval === p) pendingRemoval = null;
+      if (flagWritesInFlight === 0) await Promise.all([refetchLocations(), refetchNeighborhoodShapes(), typeof refetchPlans === 'function' ? refetchPlans() : null]);
+      return ok;
+    }
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') commitHeldRemoval(); });
+    addEventListener('pagehide', () => { commitHeldRemoval(); });
+    // Undo of a move: the city row back first (the places' city refers to it), then its places home.
+    async function rmUndoMove(cfg, to, locIds, shapeIds, was) {
+      if (!await requireAuth()) return;
+      const id = cfg.id;
+      CITIES[id] = { ...cfg }; delete CITIES[id].id;
+      if (was.wasHidden) { hiddenCities.add(id); persistHiddenCities(); }
+      if (was.wasActive) activeCity = id;
+      if (was.wasPicked) { citySelection = id; persistCitySelection(id); }
+      const L = new Set(locIds), S = new Set(shapeIds);
+      locations = locations.map(l => L.has(l.id) && l.city === to ? { ...l, city: id } : l);
+      neighborhoodShapes = neighborhoodShapes.map(n => S.has(Number(n.id)) && n.city === to ? { ...n, city: id } : n);
+      updateUI(); syncAddTagCity();
+      flagWritesInFlight++;
+      try {
+        const { error } = await supabaseClient.from('cities').insert([{ id, label: cfg.label, center_lat: cfg.center[0], center_lng: cfg.center[1], zoom: cfg.zoom,
+          geocode_suffix: cfg.geocodeSuffix || cfg.label, countrycodes: cfg.countrycodes || '', viewbox: cfg.viewbox, auto_added: !!cfg.auto, created_by: currentUser ? currentUser.email : null }]);
+        if (error) throw error;
+        if (locIds.length) { const { error: e1 } = await supabaseClient.from('locations').update({ city: id }).in('id', locIds); if (e1) throw e1; }
+        if (shapeIds.length) { const { error: e2 } = await supabaseClient.from('neighborhood_shapes').update({ city: id }).in('id', shapeIds); if (e2) throw e2; }
+        hideError('mutation');
+      } catch (err) {
+        showWriteError(err, 'places');
+      } finally { flagWritesInFlight--; }
+      if (flagWritesInFlight === 0) await Promise.all([refetchLocations(), refetchNeighborhoodShapes(), fetchCities()]);
+    }
+
+    // ---- input: touch, trackpad (wheel), right-click, Shift+Delete --------------------------------
+    // One trackpad swipe belongs to the row it started on. On a Mac one swipe's momentum runs straight
+    // into the next (owner's log: 550 wheel events in 10.8s, never quiet), so a NEW swipe starts when
+    // the stream turns around, or speeds up again after it has been slowing (momentum only slows);
+    // 80ms of quiet also ends one. The axis is decided once per swipe from its first few px.
+    let rmG = null, rmGid = 0, rmWheelQuiet = 0;
+    function rmWheelGesture(e) {
+      const a = Math.abs(e.deltaX) >= Math.abs(e.deltaY) ? e.deltaX : e.deltaY, abs = Math.abs(a), sg = Math.sign(a);
+      let fresh = !rmG;
+      if (rmG && sg && rmG.sign && sg !== rmG.sign) fresh = true;                              // turned around
+      if (rmG && rmG.decayed && abs >= rmG.trough + 6 && abs > rmG.trough * 1.8) fresh = true;   // sped up again after slowing
+      if (fresh) rmG = { id: ++rmGid, owner: null, axis: null, sx: 0, sy: 0, lastAbs: 0, sign: 0, falling: 0, decayed: false, trough: Infinity };
+      rmG.falling = abs < rmG.lastAbs ? rmG.falling + 1 : abs > rmG.lastAbs ? 0 : rmG.falling;
+      if (rmG.falling >= 3) rmG.decayed = true;
+      if (rmG.decayed) rmG.trough = Math.min(rmG.trough, abs);
+      rmG.lastAbs = abs; if (sg) rmG.sign = sg;
+      clearTimeout(rmWheelQuiet); rmWheelQuiet = setTimeout(() => { rmG = null; }, 80);
+      return rmG;
+    }
+    // Trackpad two-finger swipe (wheel deltaX; natural scrolling: fingers left = deltaX > 0): the board
+    // tracks it; reaching an edge snaps at once (then the same-direction momentum tail is swallowed);
+    // otherwise ~120ms after the last event it settles by the 40% rule.
+    function rmOnWheel(r, e) {
+      const g = rmWheelGesture(e), st = rmSt(r);
+      if (!g.axis) { g.sx += Math.abs(e.deltaX); g.sy += Math.abs(e.deltaY); if (g.sx + g.sy >= 4) g.axis = g.sx > g.sy ? 'x' : 'y'; }
+      if (g.axis !== 'x') return;   // undecided or vertical: the menu scrolls
+      e.preventDefault();
+      if (g.owner && g.owner !== r) return;
+      g.owner = r;
+      if (g.id !== st.lastGid) { st.lastGid = g.id; if (st.wlock) { clearTimeout(st.wlock); st.wlock = null; } }   // a new swipe is always heard
+      if (st.wlock && Math.sign(e.deltaX) === st.wlockDir) { clearTimeout(st.wlock); st.wlock = setTimeout(() => { st.wlock = null; }, 80); return; }
+      if (st.wlock) { clearTimeout(st.wlock); st.wlock = null; }
+      if (st.wt == null) { rmCloseAll(r); st.wbase = r.dataset.open === '1' ? -RM_OPEN : 0; st.wx = 0; r.classList.remove('settle', 'to-open', 'to-shut'); }
+      // the accumulator is clamped too, so momentum can't bank distance (pulling back answers at once)
+      st.wx = Math.max(-RM_OPEN - 120 - st.wbase, Math.min(-st.wbase, st.wx - e.deltaX)); rmSetDrag(r, st.wbase + st.wx, true);
+      const at = st.wbase + st.wx, snap = at <= -RM_OPEN ? true : (st.wbase !== 0 && at >= 0) ? false : null;
+      if (snap !== null) { clearTimeout(st.wt); st.wt = null; rmSetOpen(r, snap); st.wlockDir = Math.sign(e.deltaX); st.wlock = setTimeout(() => { st.wlock = null; }, 80); return; }
+      clearTimeout(st.wt);
+      st.wt = setTimeout(() => { const cur = parseFloat(r.dataset.dx || 0); rmSetOpen(r, st.wbase === 0 ? cur < -RM_OPEN * RM_OPEN_AT : cur < -RM_OPEN * (1 - RM_OPEN_AT)); st.wt = null; }, 120);
+    }
+    // a wheel swipe anywhere over a row's band counts, edges included (the browser may target the
+    // menu, a border or the page): it goes to the row under the pointer
+    function rmRowUnder(x, y) {
+      return rmRows().find(o => { const b = o.getBoundingClientRect(); return x >= b.left && x <= b.right && y >= b.top - 1 && y <= b.bottom + 1; }) || null;
+    }
+    function initCityRemove() {
+      const menu = document.getElementById('titleMenu');
+      document.addEventListener('wheel', e => {
+        if (!titleMenuOpen() || menuKind !== 'places') return;
+        const r = (e.target.closest && e.target.closest('#titleMenu .menu-city')) || rmRowUnder(e.clientX, e.clientY);
+        if (r) rmOnWheel(r, e);
+      }, { passive: false });
+      // touch: the row follows the finger once the swipe is clearly sideways (|dx| > 2|dy| after 10px)
+      menu.addEventListener('touchstart', e => {
+        const r = e.target.closest('.menu-city'); if (!r || e.target.closest('.rm-board')) return;
+        const st = rmSt(r);
+        rmCloseAll(r);
+        st.x0 = e.touches[0].clientX; st.y0 = e.touches[0].clientY; st.base = r.dataset.open === '1' ? -RM_OPEN : 0; st.locked = null; st.trail = [];
+        r.classList.remove('settle', 'to-open', 'to-shut');
+      }, { passive: true });
+      menu.addEventListener('touchmove', e => {
+        const r = e.target.closest('.menu-city'); if (!r) return;
+        const st = rmSt(r); if (st.x0 == null) return;
+        const dx = e.touches[0].clientX - st.x0, dy = e.touches[0].clientY - st.y0;
+        if (!st.locked && Math.hypot(dx, dy) > 10) st.locked = Math.abs(dx) > 2 * Math.abs(dy) ? 'x' : 'y';   // the menu still scrolls
+        if (st.locked === 'x') { if (e.cancelable) e.preventDefault(); rmSetDrag(r, st.base + dx, true); }
+        const now = performance.now(); st.trail.push([now, e.touches[0].clientX]); while (st.trail.length > 2 && now - st.trail[0][0] > RM_VEL_WINDOW) st.trail.shift();
+      }, { passive: false });
+      const end = e => {
+        const r = e.target.closest && e.target.closest('.menu-city'); if (!r) return;
+        const st = rmSt(r);
+        if (st.locked === 'x') {
+          const cur = parseFloat(r.dataset.dx || 0), t = st.trail;
+          const v = t.length > 1 ? (t[t.length - 1][1] - t[0][1]) / Math.max(1, t[t.length - 1][0] - t[0][0]) : 0;   // px/ms, negative = leftward
+          // a flick decides on its own; otherwise 40% of the way, measured from where the drag began
+          rmSetOpen(r, Math.abs(v) >= RM_FLICK_V ? v < 0 : st.base === 0 ? cur < -RM_OPEN * RM_OPEN_AT : cur < -RM_OPEN * (1 - RM_OPEN_AT));
+          st.swipedAt = performance.now();
+        }
+        st.x0 = null; st.locked = null;
+      };
+      menu.addEventListener('touchend', end);
+      menu.addEventListener('touchcancel', end);
+      // right-click / control-click: the same reveal (the Mac's "more actions")
+      menu.addEventListener('contextmenu', e => {
+        const r = e.target.closest('.menu-city'); if (!r) return;
+        e.preventDefault(); rmSetOpen(r, true);
+      });
+      // Shift+Delete on a focused row: straight to the picker, focus on the nearest city
+      menu.addEventListener('keydown', e => {
+        if (!e.shiftKey || (e.key !== 'Delete' && e.key !== 'Backspace')) return;
+        const r = e.target.closest && e.target.closest('.menu-city'); if (!r) return;
+        e.preventDefault(); e.stopPropagation();
+        rmSetOpen(r, true); rmShowPicker(r.dataset.city);
+      }, true);
+    }
+    // The menu's clicks that belong to remove: returns true when handled.
+    function rmHandleMenuClick(e) {
+      const board = e.target.closest('.rm-board, .rm-sr');
+      if (board) { e.preventDefault(); rmShowPicker(board.dataset.remove); return true; }
+      const keep = e.target.closest('[data-rm-keep]');
+      if (keep) { const r = rmRowOf(keep.dataset.rmKeep); rmClosePicker(); if (r) { rmSetOpen(r, false); r.querySelector('.menu-row').focus({ preventScroll: true }); } return true; }
+      const dest = e.target.closest('[data-rm-city]');
+      if (dest) { rmCommit(dest.dataset.rmCity, dest.dataset.rmTo || null); return true; }
+      const r = e.target.closest('.menu-city');
+      if (r) {
+        const st = rmSt(r);
+        if (performance.now() - st.swipedAt < 400) return true;   // the tap that ended a swipe
+        if (r.dataset.open === '1') { rmSetOpen(r, false); return true; }   // a tap on an open row closes its board
+        if (rmRows().some(o => o.dataset.open === '1')) { rmCloseAll(); return true; }   // tapping another row closes the open one
+      }
+      return false;
     }
 
     // ---- the list's section headers (keyed non-row nodes; never a gesture target) ----
@@ -7488,16 +7963,22 @@
       if (!e) { const el = document.createElement('div'); el.className = 'sec-head'; e = { el, sig: null }; store.set(key, e); }
       return e;
     }
-    function renderCityHead(e, id, n, hidden, first, goAttr = 'go') {
-      const sig = [cityLabel(id), n, hidden, first, goAttr].join('|');
+    // All places' headers (goAttr 'go'): the name is a plain heading, not a go-to (owner: "I don't
+    // think tapping a list header inside of the all places list should really do anything"); the
+    // eye is its only action. A plan's add-from headers ('addgo') keep their go-to.
+    function renderCityHead(e, id, n, hidden, first, goAttr = 'go', noEye = false) {
+      const sig = [cityLabel(id), n, hidden, first, goAttr, noEye].join('|');
       e.el.classList.toggle('is-first', first);
       e.el.classList.toggle('is-hidden', hidden);
       e.el.dataset.city = id;
       if (sig === e.sig) return;
       e.sig = sig;
       const label = cityLabel(id);
-      e.el.innerHTML = `<h3 class="sec-title"><button type="button" class="sec-name" data-${goAttr}="${escapeAttr(id)}" aria-label="Go to ${escapeAttr(label)}, ${n}${hidden ? ', hidden' : ''}"><span class="h-name">${escapeHtml(label)}</span><span class="tally">${n}</span></button></h3>` +
-        `<button type="button" class="sec-eye" data-eye="${escapeAttr(id)}" aria-label="${hidden ? 'Show' : 'Hide'} ${escapeAttr(label)}">${eyeSvg(hidden, '--paper')}</button>`;
+      const name = `<span class="h-name">${escapeHtml(label)}</span><span class="tally">${n}</span>`;
+      e.el.innerHTML = `<h3 class="sec-title">${goAttr === 'go'
+          ? `<span class="sec-name is-static">${name}${hidden ? '<span class="sr-only">, hidden</span>' : ''}</span>`
+          : `<button type="button" class="sec-name" data-${goAttr}="${escapeAttr(id)}" aria-label="Go to ${escapeAttr(label)}, ${n}${hidden ? ', hidden' : ''}">${name}</button>`}</h3>` +
+        (noEye ? '' : `<button type="button" class="sec-eye" data-eye="${escapeAttr(id)}" aria-label="${hidden ? 'Show' : 'Hide'} ${escapeAttr(label)}">${eyeSvg(hidden, '--paper')}</button>`);
     }
     function renderLegHead(e, i, leg, first) {
       const label = cityLabel(leg.city), n = leg.rows.length, sig = [label, n, first].join('|');
@@ -7518,12 +7999,17 @@
       visible.forEach(l => { if (!pinsBy.has(l.city)) pinsBy.set(l.city, []); pinsBy.get(l.city).push(l); });
       visibleShapes.forEach(n => { if (!shapesBy.has(n.city)) shapesBy.set(n.city, []); shapesBy.get(n.city).push(n); });
       const want = [], seenLoc = new Set(), seenShape = new Set(), seenHead = new Set();
+      // A picked city has no header (owner: "there should be no list header for that city. It's
+      // just repetitive"): its rows start the list, the title names it.
+      const heads = isAllCities();
       sectionCityIds().forEach(id => {
-        const pins = pinsBy.get(id) || [], shapes = shapesBy.get(id) || [], hidden = hiddenCities.has(id);
+        const pins = pinsBy.get(id) || [], shapes = shapesBy.get(id) || [], hidden = heads && hiddenCities.has(id);
         if (!pins.length && !shapes.length && !(hidden && (CITIES[id] || cityHasPlaces(id)))) return;
-        const head = headEntry(cityHeads, id);
-        renderCityHead(head, id, cityTally(id), hidden, !want.length);
-        seenHead.add(id); want.push(head.el);
+        if (heads) {
+          const head = headEntry(cityHeads, id);
+          renderCityHead(head, id, cityTally(id), hidden, !want.length);
+          seenHead.add(id); want.push(head.el);
+        }
         pins.forEach((loc, i) => {
           seenLoc.add(loc.id);
           let entry = cardsById.get(loc.id);
@@ -7642,8 +8128,6 @@
       // The list's own controls: section headers, the plans list and its forms. Rows keep their
       // own handlers (createCard); these nodes are never rows, so never a gesture target.
       list.addEventListener('click', async e => {
-        const go = e.target.closest('.sec-name[data-go]');
-        if (go) { goToCity(go.dataset.go); return; }
         const eye = e.target.closest('.sec-eye[data-eye]');
         if (eye) { setCityHidden(eye.dataset.eye, !hiddenCities.has(eye.dataset.eye)); return; }
         const ag = e.target.closest('.sec-name[data-addgo]');
@@ -7680,11 +8164,20 @@
       // The title and its menu.
       const btn = document.getElementById('titleBtn'), menu = document.getElementById('titleMenu'), scrim = document.getElementById('menuScrim');
       btn.addEventListener('click', () => { if (titleMenuOpen()) closeTitleMenu(); else openTitleMenu(); });
-      scrim.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); closeTitleMenu(); });
+      scrim.addEventListener('click', e => {
+        e.preventDefault(); e.stopPropagation();
+        // the turned signpost (its row swiped open) sits under the scrim: a tap on it opens the picker
+        const turned = rmTurned && document.elementsFromPoint(e.clientX, e.clientY).find(el => el.closest && el.closest('.sp-board.is-turned'));
+        if (turned) { rmShowPicker(turned.closest('.sp-board').dataset.cityBadge); return; }
+        closeTitleMenu();
+      });
       menu.addEventListener('click', e => {
+        if (rmHandleMenuClick(e)) return;
         const r = e.target.closest('.menu-row'); if (!r) return;
         const d = r.dataset;
+        if (d.act === 'newcity') { requireAuth().then(ok => { if (ok) openNewCityLine(); }); return; }   // the row becomes the Find a city line; the menu stays open
         if (d.kind) {   // the quiet last row: the other kind, in place, the menu stays open
+          rmReset(); rmClosePicker();
           menuKind = d.kind; renderTitleMenu(); placeTitleMenu();
           const first = menu.querySelector('.menu-row'); if (first) first.focus({ preventScroll: true });
           return;
@@ -7696,7 +8189,7 @@
         else if (d.act === 'new') openNewPlan();
       });
       menu.addEventListener('keydown', e => {
-        const opts = [...menu.querySelectorAll('.menu-row')], i = opts.indexOf(document.activeElement);
+        const opts = [...menu.querySelectorAll('.menu-row, .rm-dest')], i = opts.indexOf(document.activeElement);   // the picker's rows too
         const go = j => { e.preventDefault(); opts[(j + opts.length) % opts.length].focus(); };
         if (e.key === 'ArrowDown') go(i + 1);
         else if (e.key === 'ArrowUp') go(i - 1);
@@ -7705,6 +8198,7 @@
         else if (e.key === 'Escape' || e.key === 'Tab') { e.preventDefault(); closeTitleMenu(); }
       });
       document.addEventListener('keydown', e => { if (e.key === 'Escape' && titleMenuOpen()) closeTitleMenu(); });
+      initCityRemove();
       window.addEventListener('resize', () => { if (titleMenuOpen()) { menuLock = null; placeTitleMenu(); } });
     }
 
@@ -7739,7 +8233,7 @@
         // No rows: the empty line -- unless every city with places is hidden, when the list holds
         // only their greyed headers.
         const rows = syncPlacesList(visible, visibleShapes);
-        listed = rows || (cityHeads.size && !locations.some(l => cityShown(l.city)) && !neighborhoodShapes.some(n => cityShown(n.city)));
+        listed = rows || (isAllCities() && cityHeads.size && !locations.some(l => cityShown(l.city)) && !neighborhoodShapes.some(n => cityShown(n.city)));
       }
       syncNeighborhoodLayers();
       syncPlanShapeMarkers();
@@ -7862,7 +8356,7 @@
     function visibleNeighborhoodShapes() {
       const match = neighborhoodShapes.filter(nb => {
         if (!filters.categories[nb.type]) return false;   // same category filter chips as pins
-        return cityShown(nb.city);                        // and the same hidden cities
+        return cityListed(nb.city);                       // and the same picked / hidden cities
       });
       if (!inPlanView()) return match;
       if (!activePlan()) { const ids = allPlanStopIds('shape_id'); return neighborhoodShapes.filter(n => ids.has(n.id)); }
@@ -8060,8 +8554,14 @@
     function mapVisibleLocations() {
       const badged = badgeCityIds();
       const all = badged.size ? visibleLocations().filter(l => !badged.has(l.city)) : visibleLocations();
+      // With a city picked, zoomed out to signposts, the OTHER cities stand too, faded (city-crud v6/v7;
+      // owner: "If you've picked a city and you've zoomed the map out, yes, it should show the other
+      // city's signposts. But maybe they should look hidden in some way?"; then "you should be able to
+      // tap them"): every other city with a place matching the chips. A tap picks it (goToCity()).
+      const fadeOthers = !!map && !inPlanView() && !isAllCities() && map.getZoom() < CITY_BADGE_MAX_ZOOM;
+      const faded = id => fadeOthers && id !== citySelection && !badged.has(id) && CITIES[id] && Array.isArray(CITIES[id].center) && cityTally(id) > 0;
       // In section order (the menu's), so the badges' DOM / tab order is stable.
-      const badges = sectionCityIds().filter(id => badged.has(id)).map(id => ({ id, label: cityLabel(id), count: cityTally(id), center: CITIES[id].center }));
+      const badges = sectionCityIds().filter(id => badged.has(id) || faded(id)).map(id => ({ id, label: cityLabel(id), count: cityTally(id), center: CITIES[id].center, faded: !badged.has(id) }));
       if (!map || map.getZoom() >= SOLO_MIN_ZOOM) { clusteredShapeIds = new Set(); return { solo: all, clusters: [], badges }; }
       // Plans: a district/street stop joins the grid at its centroid like a pin ('shape:<id>');
       // clustered, its own mark hides (syncPlanShapeMarkers()). Places: nothing is added.
@@ -8223,11 +8723,26 @@
         shadow: `M${w} ${o}H${t + o}L${tx + o} ${h / 2 + o}L${t} ${h}L${t + o} ${h + o}H${w}Z`,   // starts at the face's lower corner
       };
     }
+    // A board has two faces (city-crud v12): the front (the city and its tally) and, turned over while
+    // its city's row in the title menu is swiped open, SEE YOU SOON? on navy (the back is as wide as
+    // its words need, never narrower than the front). b.faded: a city other than the picked one.
+    const SIGN_BACK_WORDS = 'See you soon?';
     function boardHtml(b, side, row) {
-      const w = boardW(b), h = BOARD_H(), d = boardPath(w, h, sNum(3), side);
-      return `<button type="button" class="sp-board is-${side}" style="width:${w}px;grid-row:${row}" data-city-badge="${escapeAttr(b.id)}" aria-label="Go to ${escapeAttr(b.label)}, ${b.count}">`
-        + `<svg class="sp-shape" width="${w + SHADOW}" height="${h + SHADOW}" viewBox="0 0 ${w + SHADOW} ${h + SHADOW}" aria-hidden="true"><path class="sp-shadow" d="${d.shadow}"/><path class="sp-fill" d="${d.fill}"/><path class="sp-line" d="${d.stroke}"/></svg>`
-        + `<span class="sp-lab">${escapeHtml(b.label)}<span class="tally">${b.count}</span></span></button>`;
+      const w = boardW(b), h = BOARD_H(), t = sNum(3), d = boardPath(w, h, t, side);
+      const wb = Math.max(w, boardW({ label: SIGN_BACK_WORDS, count: '' })), db = boardPath(wb, h, t, side);
+      const cls = `sp-board is-${side}${b.faded ? ' is-faded' : ''}${b.id === rmTurned ? ' is-turned' : ''}`;
+      return `<button type="button" class="${cls}" style="width:${w}px;grid-row:${row}" data-city-badge="${escapeAttr(b.id)}" aria-label="Go to ${escapeAttr(b.label)}, ${b.count}">`
+        + `<span class="sp-face sp-front"><svg class="sp-shape" width="${w + SHADOW}" height="${h + SHADOW}" viewBox="0 0 ${w + SHADOW} ${h + SHADOW}" aria-hidden="true"><path class="sp-shadow" d="${d.shadow}"/><path class="sp-fill" d="${d.fill}"/><path class="sp-line" d="${d.stroke}"/></svg>`
+        + `<span class="sp-lab">${escapeHtml(b.label)}<span class="tally">${b.count}</span></span></span>`
+        + `<span class="sp-face sp-back" style="width:${wb}px" aria-hidden="true"><svg class="sp-shape" width="${wb}" height="${h}" viewBox="0 0 ${wb} ${h}"><path class="sp-back-fill" d="${db.fill}"/></svg><span class="sp-word">${escapeHtml(SIGN_BACK_WORDS)}</span></span></button>`;
+    }
+    // The board of the city whose title-menu row is swiped open turns over (null: none).
+    let rmTurned = null;
+    function setSignTurned(id, on) {
+      const next = on ? id : (rmTurned === id ? null : rmTurned);
+      if (next === rmTurned) return;
+      rmTurned = next;
+      document.querySelectorAll('#map .sp-board[data-city-badge]').forEach(b => b.classList.toggle('is-turned', b.dataset.cityBadge === rmTurned));
     }
     function cityBadgeIcon(gp) {
       const sides = signSides(gp), r = signRect(gp);
@@ -8249,7 +8764,7 @@
         const key = gp.members.map(m => m.id).join('+');
         seen.add(key);
         const ll = map.containerPointToLatLng(L.point(gp.foot.x, gp.foot.y));
-        const sig = signSides(gp).join('') + ':' + gp.members.map(m => m.label + '|' + m.count).join(',');
+        const sig = signSides(gp).join('') + ':' + gp.members.map(m => m.label + '|' + m.count + (m.faded ? '|f' : '')).join(',');
         const had = cityBadgeMarkers.get(key);
         if (had) { had.marker.setLatLng(ll); if (had.sig !== sig) { had.marker.setIcon(cityBadgeIcon(gp)); had.sig = sig; } return; }
         const marker = L.marker(ll, { icon: cityBadgeIcon(gp), keyboard: false, zIndexOffset: Z_CITY_BADGE, bubblingMouseEvents: false }).addTo(map);
@@ -8260,6 +8775,8 @@
         cityBadgeMarkers.set(key, { marker, sig });
       });
       cityBadgeMarkers.forEach((e, k) => { if (!seen.has(k)) { map.removeLayer(e.marker); cityBadgeMarkers.delete(k); } });
+      // a re-drawn board keeps its turn (the row is still open)
+      document.querySelectorAll('#map .sp-board[data-city-badge]').forEach(b => { const on = b.dataset.cityBadge === rmTurned; if (b.classList.contains('is-turned') !== on) b.classList.toggle('is-turned', on); });
     }
 
     // Cluster badge: paper count on a solid field, deliberately not a
@@ -10453,7 +10970,7 @@
         // a found city (Find a city) brings its own config; its id is checked again now
         const cfg = n.cfg ? { ...n.cfg, id: CITIES[n.cfg.id] ? freshCityId(n.cfg.label, n.cfg.countrycodes) : n.cfg.id } : await deriveNewCityConfig(n.details, n.lat, n.lng);
         if (!cfg) return null;
-        return (await addCity(cfg)) ? cfg.id : null;
+        return (await addCity(cfg, !addDraft.cityHand)) ? cfg.id : null;   // a hand pick ("+ town", Find a city) is kept
       }
       return null;
     }
@@ -11083,8 +11600,9 @@
       const prev = item.city;
       if (prev === cityId) return true;
       const shape = isShapeKey(key);
-      const revealed = hiddenCities.has(cityId) && !placeListedAnyCity(key) && revealCity(cityId);
+      const revealed = !placeListedAnyCity(key) && revealCity(cityId, false);   // one render with the move (the pin and its tag never drop out between)
       applyPlaceCity(key, cityId);
+      if (revealed) syncAddTagCity();
       flagWritesInFlight++;
       let ok = true;
       try {
@@ -11098,8 +11616,9 @@
         ok = false;
         const now = rowItem(key);
         if (now && now.city === cityId) {
+          unrevealCity(cityId, revealed, false);
           applyPlaceCity(key, prev);
-          if (revealed && !hiddenCities.has(cityId)) { hiddenCities.add(cityId); persistHiddenCities(); updateUI(); }
+          if (revealed) syncAddTagCity();
         }
         showWriteError(err, 'places');
       } finally {
@@ -11123,7 +11642,7 @@
     async function movePlaceToNewCity(key, town) {
       if (!await requireAuth()) return false;
       const cfg = await deriveNewCityConfig(town.details, town.lat, town.lng);
-      if (!cfg || !await addCity(cfg)) return false;
+      if (!cfg || !await addCity(cfg, false)) return false;   // chosen by hand: kept
       return setPlaceCity(key, cfg.id);
     }
     // "Find a city" on the Hanging Tag (city-crud v2): one of your cities just files the place
@@ -11134,7 +11653,7 @@
       const id = existingCityFor(f), item = rowItem(key);
       if (id) return item && item.city === id ? true : setPlaceCity(key, id);
       const cfg = cityConfigFromFound(f);
-      if (!await addCity(cfg)) return false;
+      if (!await addCity(cfg, false)) return false;   // chosen by hand: kept
       return setPlaceCity(key, cfg.id);
     }
 

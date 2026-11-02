@@ -105,10 +105,12 @@ const sh = require('./lib-p3.js');
   const d1 = await ev(() => { const el = document.querySelector('.location-card[data-id="rey15"]'); let n = el; while (n && !n.classList.contains('sec-head')) n = n.previousElementSibling;
     const pin = markersById.get('rey15').marker.getLatLng();
     return { upd: window.__upd, server: window.__ROWS.find(r => r.id === 'rey15').city, sec: n && n.querySelector('.sec-name').textContent, meta: el.querySelector('.row-meta').textContent, pin: [pin.lat, pin.lng], open: openTagKey(), sel: highlightedId,
-      dist: (document.querySelector('.leaflet-popup .tag-dist') || {}).textContent, hidden: [...hiddenCities] };
+      dist: (document.querySelector('.leaflet-popup .tag-dist') || {}).textContent, hidden: [...hiddenCities], picked: citySelection, heads: document.querySelectorAll('#locationsList .sec-head').length };
   });
   ok('D2 the write: locations.update({ city }) .eq(id) -- one row, nothing else', JSON.stringify(d1.upd) === JSON.stringify([['locations', { city: 'copenhagen' }, ['id', 'rey15']]]) && d1.server === 'copenhagen', d1.upd);
-  ok('D3 the row moved to the Copenhagen section (and its meta says so); the hidden city was shown', /^Copenhagen/.test(d1.sec) && /Copenhagen/.test(d1.meta) && !d1.hidden.includes('copenhagen'), d1);
+  // city-crud v5: a picked city filters, so the move into another city switches the list to it
+  // (the shipped reveal rule, now a switch); a picked city has no header
+  ok('D3 Reykjavík picked: the list switches to Copenhagen, the row in it (its meta says so), no header', d1.picked === 'copenhagen' && d1.heads === 0 && /Copenhagen/.test(d1.meta), d1);
   ok('D4 the pin did not move; the tag stays open and selected; the note recomputed', d1.pin[0] === pin0.lat && d1.pin[1] === pin0.lng && d1.open === 'rey15' && d1.sel === 'rey15' && /km from Copenhagen$/.test(d1.dist), d1);
   ok('D5 the selected row is in the list\'s view', await ev(() => { const l = document.getElementById('locationsList').getBoundingClientRect(), r = document.querySelector('.location-card[data-id="rey15"]').getBoundingClientRect(); return r.top >= l.top - 1 && r.bottom <= l.bottom + 1; }));
 
@@ -120,9 +122,9 @@ const sh = require('./lib-p3.js');
   await W(600);
   const e1 = await ev(() => { const el = document.querySelector('.location-card[data-id="rey15"]'); let n = el; while (n && !n.classList.contains('sec-head')) n = n.previousElementSibling;
     return { city: locations.find(l => l.id === 'rey15').city, server: window.__ROWS.find(r => r.id === 'rey15').city, line: document.querySelector('.leaflet-popup .route-city-name').textContent, sec: n && n.querySelector('.sec-name').textContent,
-      err: document.getElementById('error').classList.contains('show') ? document.getElementById('errorText').textContent : '' };
+      err: document.getElementById('error').classList.contains('show') ? document.getElementById('errorText').textContent : '', picked: citySelection, row: !!(el && el.isConnected), open: openTagKey() };
   });
-  ok('E1 optimistic first (Reykjavík), then rolled back to Copenhagen: the place, its tag and its row', e0 === 'reykjavik' && e1.city === 'copenhagen' && e1.server === 'copenhagen' && e1.line === 'Copenhagen' && /^Copenhagen/.test(e1.sec), { e0, e1 });
+  ok('E1 optimistic first (Reykjavík), then rolled back to Copenhagen: the place, its tag, its row and the picked city', e0 === 'reykjavik' && e1.city === 'copenhagen' && e1.server === 'copenhagen' && e1.line === 'Copenhagen' && e1.picked === 'copenhagen' && e1.row && e1.open === 'rey15', { e0, e1 });
   ok('E2 the write error is shown', /couldn|save|stub failure|try again/i.test(e1.err), e1.err);
   // per write: a failing first write never undoes a second, later one
   await ev(() => { window.__slowFail = 'locations'; setPlaceCity('rey15', 'malmo'); });
@@ -143,7 +145,10 @@ const sh = require('./lib-p3.js');
   ok('F1 "+ Reykjanesbær": the city is made first (cities insert), then the place is filed there', JSON.stringify(f1.ins) === JSON.stringify([['cities', 'reykjanesbaer', 'Reykjanesbær']]) && f1.upd.length === 1 && f1.upd[0][1].city === 'reykjanesbaer' && f1.city === 'reykjanesbaer' && f1.inCities && f1.line === 'Reykjanesbær', f1);
   await P.tap(page, '.leaflet-popup .tag-city');
   await ev(() => { window.__del = []; document.querySelector('#tagCityMenu [data-city="reykjavik"]').click(); }); await W(900);
-  ok('F2 moved out of it again: the auto-added city left empty is removed (cleanupOrphanCities())', await ev(() => !CITIES.reykjanesbaer && window.__del.some(d => d[0] === 'cities')), await ev(() => window.__del));
+  // city-crud v4: a city a person chose ("+ town", New city, Find a city) is kept (auto_added false);
+  // only the guess's own cities are cleaned up when emptied
+  ok('F2 moved out of it again: a city chosen by hand ("+ town", auto_added false) is KEPT, empty (city-crud v4)', await ev(() => !!CITIES.reykjanesbaer && CITIES.reykjanesbaer.auto === false && !window.__del.some(d => d[0] === 'cities')), await ev(() => window.__del));
+  await ev(() => { delete CITIES.reykjanesbaer; updateUI(); });   // as if removed: "+ Reykjanesbær" is offered again
   await P.tap(page, '.leaflet-popup .tag-city');
   await ev(() => { window.__ins = []; window.__upd = []; window.__failNext = 'cities'; document.querySelector('#tagCityMenu [data-newcity]').click(); }); await W(1200);
   ok('F3 addCity() fails: nothing moves, no city write', await ev(() => window.__upd.length === 0 && locations.find(l => l.id === 'rey15').city === 'reykjavik' && !CITIES.reykjanesbaer));
@@ -169,7 +174,8 @@ const sh = require('./lib-p3.js');
   await ev(() => { hideTagSlip(); map.closePopup(); currentUser = window.__savedUser; refreshTags(); }); await W(400);
 
   // S. the check's fixes (p3-cd-ux S1a / S1b): reveal only when the place would vanish; a failed
-  // move hides again the city it showed
+  // move hides again the city it showed. The eye's scope is All places (city-crud v5).
+  await ev(() => { map.closePopup(); setActiveCity(ALL_CITIES, { frame: false }); }); await W(300);
   await ev(() => setCityHidden('copenhagen', true)); await W(200);
   await sh.openTag(page, 'rey16');
   await P.tap(page, '.leaflet-popup .tag-city');
@@ -193,6 +199,17 @@ const sh = require('./lib-p3.js');
   ok('S1b a stop of the open plan moved into a hidden city: the city stays hidden, the stop stays listed, its tag open', s3.hidden && s3.city === 'stockholm' && s3.row && s3.open === 'rey05' && s3.upd === 1, s3);
   await ev(async () => { await setPlaceCity('rey05', 'reykjavik'); map.closePopup(); setListView('places', { frame: false }); }); await W(500);
   ok('S1b\' outside a plan the same move still shows the city (the place would vanish)', await ev(async () => { const r = await setPlaceCity('rey05', 'stockholm'); const shown = !hiddenCities.has('stockholm'); await setPlaceCity('rey05', 'reykjavik'); return r && shown; }));
+  // city-crud v5: a failed move out of a picked city switches the list there while pending, then back
+  await ev(() => { map.closePopup(); setActiveCity('reykjavik', { frame: false }); }); await W(400);
+  await sh.openTag(page, 'rey16');
+  await P.tap(page, '.leaflet-popup .tag-city');
+  await ev(() => { window.__slowFail = 'locations'; document.querySelector('#tagCityMenu [data-city="malmo"]').click(); });
+  await W(150);
+  const s4 = await ev(() => ({ picked: citySelection, city: locations.find(l => l.id === 'rey16').city, open: openTagKey() }));
+  await W(700);
+  const s5 = await ev(() => ({ picked: citySelection, stored: localStorage.getItem('triplet.citySelection'), city: locations.find(l => l.id === 'rey16').city, open: openTagKey() }));
+  ok('S1c a failed move out of the picked city: the list switches to Malmö while pending, back to Reykjavík on rollback; the tag stays open', s4.picked === 'malmo' && s4.city === 'malmo' && s4.open === 'rey16' && s5.picked === 'reykjavik' && s5.stored === 'reykjavik' && s5.city === 'reykjavik' && s5.open === 'rey16', { s4, s5 });
+  await ev(() => map.closePopup()); await W(300);
 
   // T. townOf(): a US-style admin prefix stripped (p3 check, item 8)
   const tw = await ev(() => ({ tivoli: townOf({ village: 'Village of Tivoli', town: 'Town of Red Hook', county: 'Dutchess County' }), city: townOf({ city: 'City of Westminster' }),

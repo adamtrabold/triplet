@@ -54,7 +54,7 @@ const PA = [39.95, -75.40];   // the map over south-east Pennsylvania: no city o
   await ev(() => { window.__ins = []; document.getElementById('submitBtn').click(); }); await W(2200);
   const c7 = await ev(() => window.__ins);
   const city7 = (c7.find(x => x[0] === 'cities') || [0, [{}]])[1][0], loc7 = (c7.find(x => x[0] === 'locations') || [0, [{}]])[1][0];
-  ok('C7 ADD made Philadelphia from the result\'s own name, centre and box (auto-added, as today), then the place in it', JSON.stringify(c7.map(x => x[0])) === '["cities","locations"]' && city7.id === 'philadelphia' && city7.label === 'Philadelphia' && Math.abs(city7.center_lat - 39.9527237) < 1e-6 && city7.viewbox === '-75.280266,39.867005,-74.9558314,40.1379593' && city7.countrycodes === 'us' && city7.geocode_suffix === 'Philadelphia, United States' && city7.auto_added === true && loc7.city === 'philadelphia', c7);
+  ok('C7 ADD made Philadelphia from the result\'s own name, centre and box (chosen by hand: kept, auto_added false), then the place in it', JSON.stringify(c7.map(x => x[0])) === '["cities","locations"]' && city7.id === 'philadelphia' && city7.label === 'Philadelphia' && Math.abs(city7.center_lat - 39.9527237) < 1e-6 && city7.viewbox === '-75.280266,39.867005,-74.9558314,40.1379593' && city7.countrycodes === 'us' && city7.geocode_suffix === 'Philadelphia, United States' && city7.auto_added === false && loc7.city === 'philadelphia', c7);
   ok('C8 no second lookup for the city (every Philadelphia search was Find a city\'s)', o.requests.filter(u => u.includes('/search') && u.includes('q=Philadelphia')).every(u => u.includes('featureType=city')));
   const c9 = await ev(() => { const t = document.querySelector('.leaflet-popup .tag'); return t && { city: t.querySelector('.tag-city').textContent, dist: (t.querySelector('.tag-dist') || {}).textContent }; });
   ok('C9 its tag: PHILADELPHIA, "≈ 45 km from Philadelphia" on the address line', c9 && c9.city === 'Philadelphia' && c9.dist === '≈ 45 km from Philadelphia', c9);
@@ -144,7 +144,7 @@ const PA = [39.95, -75.40];   // the map over south-east Pennsylvania: no city o
   const f2 = await ev(id => ({ ins: window.__ins.length, upd: window.__upd.map(u => u[1].city), city: (locations.find(l => l.id === id) || {}).city, lewes: !!CITIES.lewes, del: window.__del.length }), rentalId);
   ok('E5 keyboard: ↓ from the search line reaches the first result; Enter picks it', f1 === 'Philadelphia', f1);
   ok('E6 a hit that is one of your cities just moves the place there (no new city)', f2.ins === 0 && JSON.stringify(f2.upd) === '["philadelphia"]' && f2.city === 'philadelphia', f2);
-  ok('E7 the auto city it left empty (Lewes) is cleaned up, as today', !f2.lewes && f2.del >= 1, f2);
+  ok('E7 the city it left empty (Lewes, found by hand) is KEPT (city-crud v4: auto_added false)', f2.lewes && f2.del === 0, f2);
   await reset();
 
   // G. signed out: the city menus (and so Find a city) are out of reach; the slip says why

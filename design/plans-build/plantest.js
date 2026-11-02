@@ -92,7 +92,9 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
         rows: r.map(e => e.textContent.trim()), checked: r.filter(e => e.getAttribute('aria-checked') === 'true').map(e => e.dataset.go), hidden: r.filter(e => e.classList.contains('is-hidden')).map(e => e.dataset.go),
         h: r.map(e => e.getBoundingClientRect().height), tgt: r.map(e => { const a = getComputedStyle(e, '::before'); return e.getBoundingClientRect().height - parseFloat(a.top) - parseFloat(a.bottom); }), last: r[r.length - 1].dataset.kind }; });
     ok('P5 the title is a menu button; tapping it opens the menu (closing the panel) straight onto the Places side', tb.tag === 'BUTTON' && tb.pop === 'menu' && tb.exp === 'false' && m.exp === 'true' && m.role === 'menu' && !m.panel, { tb, m });
-    ok('P6 Places side: All places + tally, each city with a place + tally (the current one checked, a hidden one greyed with the closed eye), then the quiet row "Plans 5 ›"; ≥248px wide', /^All places\d+$/.test(m.rows[0]) && /^Copenhagen\d+$/.test(m.rows[1]) && /^Malmö\d+$/.test(m.rows[2])
+    // city-crud v4: every one of your cities (an empty one too), then "+ New city", then the quiet row
+    ok('P6 Places side: All places + tally, each of your cities + tally (the current one checked, a hidden one greyed with the closed eye), "New city", then the quiet row "Plans 5 ›"; ≥248px wide', /^All places\d+$/.test(m.rows[0])
+      && m.rows.slice(1, -2).join('|') === 'LA0|Reykjavík0|' + m.rows[3] + '|' + m.rows[4] + '|Stockholm0' && /^Copenhagen\d+$/.test(m.rows[3]) && /^Malmö\d+$/.test(m.rows[4]) && m.rows[m.rows.length - 2] === 'New city'
       && m.checked.join() === 'copenhagen' && m.hidden.join() === 'malmo' && m.rows[m.rows.length - 1] === 'Plans5' && m.last === 'plans' && m.w >= 248, m);
     ok('P6b menu rows: 40px (its 1px rule inside), ≥44px targets', m.h.every(h => h === 40) && m.tgt.every(h => h >= 44), m.h);
     await tap(page, '#titleMenu [data-kind="plans"]'); await W(200);
@@ -176,7 +178,7 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     const placesStamp = await page.evaluate(() => { document.body.classList.remove('plan-view'); const c = getComputedStyle(document.querySelector('.location-card[data-id="jae"] .row-stamp:not(.vs-copy)')).color; document.body.classList.add('plan-view'); return c; });
     ok('V16 a visited stop keeps its number and wears the Places stamp at its normal ink (no NEXT, nothing plan-specific)', (await nums(page)) === '1,2,3,4,5,6' && vis.stamp === placesStamp && !(await page.evaluate(() => /\bNEXT\b/i.test(document.body.innerText))), [vis, placesStamp]);
     // filters apply below the rule only
-    await page.evaluate(() => { document.getElementById('filter-cafe').click(); setCityHidden('malmo', false); setCityHidden('copenhagen', true); }); await W(400);
+    await page.evaluate(() => { setActiveCity(ALL_CITIES, { frame: false }); document.getElementById('filter-cafe').click(); setCityHidden('malmo', false); setCityHidden('copenhagen', true); }); await W(400);   // the eye's scope: All places (city-crud v5)
     const fk = await keys(page);
     ok('V17 Copenhagen hidden, Malmö shown, Cafe off: every stop still shows (a stop is never hidden); below the rule only Malmö non-cafés', fk.slice(0, 7).join() === NOR + ',|' && fk.slice(7).length > 0 && (await page.evaluate(ks => ks.every(k => { const l = locations.find(x => x.id === k.slice(1)); return l && l.city === 'malmo' && l.category !== 'cafe'; }), fk.slice(7))), fk);
     ok('V18 the caption names the filters', /^Add places · \d+ categories\d+$/.test(await page.evaluate(() => document.querySelector('.plan-rule').textContent)), await page.evaluate(() => document.querySelector('.plan-rule').textContent));
@@ -349,8 +351,8 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     await off(); await W(300);
     const a = await txt();
     await page.evaluate(() => { Object.keys(CATEGORY_COLORS).forEach(c => document.getElementById('filter-' + c).click()); }); await W(300);
-    // every city with places hidden: only their greyed headers, no empty line (add-tag-jam: "Every city hidden")
-    await page.evaluate(() => setCityHidden('copenhagen', true)); await W(300);
+    // every city with places hidden: only their greyed headers, no empty line (add-tag-jam: "Every city hidden") -- in All places, the eye's scope
+    await page.evaluate(() => { setActiveCity(ALL_CITIES, { frame: false }); setCityHidden('copenhagen', true); }); await W(300);
     const hid = await page.evaluate(() => ({ rows: document.querySelectorAll('#locationsList .location-card').length, heads: [...document.querySelectorAll('#locationsList .sec-head')].map(h => h.classList.contains('is-hidden')), empty: getComputedStyle(document.getElementById('locationsEmpty')).display }));
     await page.evaluate(() => setCityHidden('copenhagen', false)); await W(300);
     // no places at all: "Nothing here yet."
@@ -666,6 +668,8 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
         eye: e.querySelector('.sec-eye').getAttribute('aria-label'), id: e.dataset.id || null, n: 0, other: 0 });
       else { const s = a[a.length - 1], it = rowItem(e.dataset.id || 'shape:' + e.dataset.shapeId); s.n++; if (it && it.city !== s.city) s.other++; }
       return a; }, []));
+    // city-crud v5: a picked city filters (no sections); the sections and their eyes live in All places
+    await goCity(page, '__all__');
     const s1 = await sec();
     ok('H1 Places: one section per city in the menu\'s order; Copenhagen first (compact 44px) with its rows; Malmö hidden: its 60px header greyed, "Show Malmö", no rows; a header is never a row', s1.length === 2 && s1[0].city === 'copenhagen' && s1[0].first && s1[0].h === 44 && s1[0].n > 20 && !s1[0].other && s1[0].eye === 'Hide Copenhagen'
       && s1[1].city === 'malmo' && s1[1].hidden && s1[1].h === 60 && s1[1].n === 0 && s1[1].eye === 'Show Malmö' && s1.every(x => !x.id), s1);
@@ -675,7 +679,7 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     await tap(page, '.sec-head[data-city="malmo"] .sec-eye'); await W(300);
     const s2 = await sec(), st2 = await page.evaluate(() => localStorage.getItem('triplet.hiddenCities'));
     ok('H2 the eye shows Malmö: its rows unfold under its header, "Hide Malmö"; stored per viewer', s2[1].city === 'malmo' && !s2[1].hidden && s2[1].n === (await page.evaluate(() => locations.filter(l => l.city === 'malmo').length + neighborhoodShapes.filter(n => n.city === 'malmo').length)) && s2[1].n > 0 && !s2[1].other && s2[1].eye === 'Hide Malmö' && st2 === '[]', { s2, st2 });
-    ok('H2b the title (a go-to label) did not change', (await h2(page)) === 'Copenhagen');
+    ok('H2b the title did not change (All places)', (await h2(page)) === 'All places');
     await tap(page, '.sec-head[data-city="copenhagen"] .sec-eye'); await W(300);
     const pins = await page.evaluate(() => [...markersById.values()].filter(e => e.loc.city === 'copenhagen').length);
     ok('H3 hiding Copenhagen: its header stays first, greyed, its rows folded away, its pins off the map; the list did not jump', (await sec())[0].hidden && (await sec())[0].n === 0 && pins === 0 && (await page.evaluate(() => document.getElementById('locationsList').scrollTop)) === scroll0, pins);
@@ -683,14 +687,17 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     const s4 = await sec();
     ok('H4 a reload keeps it (localStorage triplet.hiddenCities)', s4[0].city === 'copenhagen' && s4[0].hidden && !s4[1].hidden, s4);
     await goCity(page, 'copenhagen');
-    const s5 = await sec();
-    ok('H5 going to a hidden city shows it again (the menu)', !s5[0].hidden && s5[0].n > 20, s5);
+    const s5 = await page.evaluate(() => ({ hidden: hiddenCities.has('copenhagen'), heads: document.querySelectorAll('#locationsList .sec-head').length, cities: [...new Set([...document.querySelectorAll('#locationsList .location-card')].map(e => { const it = rowItem(e.dataset.id || 'shape:' + e.dataset.shapeId); return it && it.city; }))] }));
+    ok('H5 picking a hidden city shows it again (the menu); the list holds only its places, no header (city-crud v5/v7)', !s5.hidden && s5.heads === 0 && s5.cities.join() === 'copenhagen', s5);
     await goCity(page, 'malmo');
-    const g = await page.evaluate(() => { const l = document.getElementById('locationsList'), h = document.querySelector('.sec-head[data-city="malmo"]'); return { top: Math.round(h.getBoundingClientRect().top - l.getBoundingClientRect().top), scroll: l.scrollTop, c: map.getCenter(), rows: document.querySelectorAll('#locationsList .location-card').length, cs: citySelection }; });
-    ok('H6 go to Malmö: the title is "Malmö" + its tally, the WHOLE list scrolled to its header, landing compact (its 16px of air scrolled past: 44px showing), the map on Malmö; nothing hidden', (await h2(page)) === 'Malmö' && (await tally(page)) === String(await page.evaluate(() => cityTally('malmo'))) && g.top === -16 && g.scroll > 0 && Math.abs(g.c.lat - 55.605) < 0.02 && g.rows > 23 && g.cs === 'malmo', g);
+    const g = await page.evaluate(() => { const l = document.getElementById('locationsList'); return { heads: document.querySelectorAll('#locationsList .sec-head').length, scroll: l.scrollTop, c: map.getCenter(), rows: document.querySelectorAll('#locationsList .location-card').length, cs: citySelection,
+      malmo: [...document.querySelectorAll('#locationsList .location-card')].every(e => { const it = rowItem(e.dataset.id || 'shape:' + e.dataset.shapeId); return it && it.city === 'malmo'; }), pins: [...markersById.values()].every(m => m.loc.city === 'malmo') }; });
+    ok('H6 pick Malmö: the title is "Malmö" + its tally; the list and the map hold Malmö only, no header, from the top; the map on Malmö', (await h2(page)) === 'Malmö' && (await tally(page)) === String(await page.evaluate(() => cityTally('malmo'))) && g.heads === 0 && g.scroll === 0 && Math.abs(g.c.lat - 55.605) < 0.02 && g.rows === await page.evaluate(() => cityTally('malmo')) && g.malmo && g.pins && g.cs === 'malmo', g);
+    await goCity(page, '__all__');
     await page.evaluate(() => { const l = document.getElementById('locationsList'); l.scrollTop = 0; }); await W(100);
+    const c7 = await page.evaluate(() => map.getCenter());
     await tap(page, '.sec-head[data-city="copenhagen"] .sec-name'); await W(1400);
-    ok('H7 a section\'s name goes to that city (title, map)', (await h2(page)) === 'Copenhagen' && (await page.evaluate(() => Math.abs(map.getCenter().lat - 55.6761) < 0.02)));
+    ok('H7 All places: a section\'s name does nothing (owner: "I don\'t think tapping a list header inside of the all places list should really do anything"); the eye is its only action', (await h2(page)) === 'All places' && (await page.evaluate(c => { const n = map.getCenter(); return Math.abs(n.lat - c.lat) < 1e-6 && Math.abs(n.lng - c.lng) < 1e-6 && !document.querySelector('.sec-head button.sec-name'); }, c7)));
     await openMenu(page); await tap(page, '#titleMenu [data-go="__all__"]'); await W(1400);
     ok('H8 All cities titles "All places" + every shown place', (await h2(page)) === 'All places' && (await tally(page)) === String(await page.evaluate(() => shownTally())));
     // the poll tick: re-renders without moving the scroll or closing the open menu
@@ -725,7 +732,7 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     await page.evaluate(() => { hiddenCities.delete('malmo'); updateUI(); }); await W(200);
     const th2 = [await h2(page), await tally(page), String(await page.evaluate(() => shownTally()))];
     await page.evaluate(() => { hiddenCities.clear(); hiddenCities.add('malmo'); persistHiddenCities(); updateUI(); }); await W(200);
-    ok('H12c the gone-to city hidden: the title falls back to "All places" + the shown count (0 with every city hidden)', th[0] === 'All places' && th[1] === '0' && th2[0] === 'All places' && th2[1] === th2[2] && th2[2] !== '0' && (await h2(page)) === 'Copenhagen', { th, th2 });
+    ok('H12c a picked city titles the list whatever the eye says (the eye\'s scope is All places, city-crud v5)', th[0] === 'Copenhagen' && th[1] === String(await page.evaluate(() => cityTally('copenhagen'))) && th2[0] === 'Copenhagen' && (await h2(page)) === 'Copenhagen', { th, th2 });
     ok('H11 no errors', !errors.length, errors);
     await ctx.close(); }
   // a plan whose city recurs: one leg header per run
@@ -734,7 +741,8 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     const { ctx, page, errors } = await open(b, { ...base, plans: P2, stops: S2 });
     await pick(page, 'p-loop');
     const L = await page.evaluate(() => [...document.querySelectorAll('#locationsList > *')].filter(e => e.matches('.sec-head, .location-card.is-stop, .plan-rule')).map(e => e.matches('.sec-head') ? `[${e.textContent.trim()}${e.classList.contains('is-first') ? '*' : ''}${e.querySelector('.sec-eye') ? 'eye' : ''}]` : e.matches('.plan-rule') ? '|' : e.dataset.id));
-    ok('H12 a plan open: its stops in leg sections broken where the city changes; a recurring city gets its own header each time; no eye; the first is compact; after the break, the addable places in city sections (eyes, the first compact; hidden Malmö shows what it would add)', L.join(',') === '[Copenhagen1*],mir,[Malmö1],lil,[Copenhagen1],tiv,|,[Copenhagen' + L[7].slice(11).replace(/\*eye\]$/, '') + '*eye],[Malmö3eye]' && /^\[Copenhagen\d+\*eye\]$/.test(L[7]), L);
+    // city-crud v5: with Copenhagen picked, the add-from sections follow it (its section alone, no eye)
+    ok('H12 a plan open: its stops in leg sections broken where the city changes; a recurring city gets its own header each time; no eye; the first is compact; after the break, the picked city\'s addable places (Copenhagen alone, no eye)', L.join(',') === '[Copenhagen1*],mir,[Malmö1],lil,[Copenhagen1],tiv,|,' + L[7] && L.length === 8 && /^\[Copenhagen\d+\*\]$/.test(L[7]), L);
     ok('H13 no errors', !errors.length, errors);
     await ctx.close(); }
 
@@ -759,6 +767,8 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     await closeMenu(page); await tap(page, '#collapseTab'); await W(500);
     ok('K4 lowered, the menu opens in the same place as raised', k4.box === k1.box, { k1: k1.box, k4: k4.box });
     // the add-from block: city sections, the shared eye, tap-name stays in the plan, a hidden city's tally
+    // -- in All places (city-crud v5: with a city picked, the add-from sections follow it)
+    await page.evaluate(() => setActiveCity(ALL_CITIES, { frame: false })); await W(300);
     await pick(page, 'p-nor');
     const af = () => page.evaluate(() => { const list = [...document.getElementById('locationsList').children], rule = document.querySelector('.plan-rule'), ri = list.indexOf(rule);
       return list.slice(ri + 1).filter(e => e.matches('.sec-head')).map(e => ({ city: e.dataset.city, hidden: e.classList.contains('is-hidden'), first: e.classList.contains('is-first'), h: Math.round(e.getBoundingClientRect().height),
