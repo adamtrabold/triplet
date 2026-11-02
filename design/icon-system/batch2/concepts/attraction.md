@@ -26,6 +26,8 @@ Job (`../jobs.md`): **going in to do things**, usually with a ticket: rides, cas
 
 **How it passes the jobs:** "ride" at a glance. F6 (12): the spokes rule drops a count rather than fill in; the 12 is the test that killed it before (a blob).
 
+**First build (18, seen by me):** builds now (13 min under a heavy machine load, where it hung for over 30 before). Reads as a wheel on a stand; the spokes keep their openings at 18.
+
 **Risks:** a gear, a steering wheel, a compass (with 4 upright spokes the + inside a circle is close to a crosshair). The legs are what say "a ride"; 1/4 past is the longest yet.
 
 **System finding:** the 4-spoke build "hanging" in turn 2 was not a loop; it was the corner fairing's last-resort deep search run again on every one of the fit's rebuilds. The engine now solves each half of a round once per process (output-neutral). See `../jam.md` turn 4.

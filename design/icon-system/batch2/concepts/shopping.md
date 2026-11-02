@@ -18,6 +18,8 @@ Job (`../jobs.md`, `../../shopping/jobs.md`): browsing and carrying something ho
 
 **System finding:** it didn't hang; it was slow (see `attraction.md`, B). It now builds.
 
+**First build (18, seen by me):** builds now (12 min under load); reads as a bag, a little taller than the control.
+
 **Risks:** a narrower handle on a taller body moves toward the fuel can.
 
 ## Which, and why (systems)

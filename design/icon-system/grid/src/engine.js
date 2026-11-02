@@ -796,6 +796,7 @@ function hillRound(cin, cout, c, roomIn, roomOut, J) {
   const piecesRaw = pieces;
   pieces = (p, a, k0, k1, L, rev, deep = false) => {
     const key = [p.x, p.y, a, k0, k1, L, rev ? 1 : 0, deep ? 1 : 0, J.hillTol, J.hillSlopeTol, J.maxPieces, J.hillTol2].join(',');
+    if (process.env.PIECES_MEMO === '0') return piecesRaw(p, a, k0, k1, L, rev, deep);
     if (!PIECES.has(key)) { const r = piecesRaw(p, a, k0, k1, L, rev, deep); PIECES.set(key, r ? r.map(P => P.map(pt => pt.clone())) : null); }
     const v = PIECES.get(key); return v ? v.map(P => P.map(pt => pt.clone())) : null;
   };

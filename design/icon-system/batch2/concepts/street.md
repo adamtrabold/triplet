@@ -24,6 +24,8 @@ The owner's "walker is the best here" (10-15). **Declaration:** head: a disc 1/4
 
 **How it passes the jobs:** "a line of the same thing, going away" is a street; it pairs with A of Neighbourhood (both side by side, both elevation: three houses inside a place, three lamps along a line).
 
+**First build (18, seen by me):** the lanterns merge into the posts, so it reads as three capped columns, a bar chart. The lantern wants a cut above its post (or a hole: the lit pane), so each lamp keeps its head.
+
 **Risks:** noise (three hoods, three lanterns, three posts at 18); a bar chart; a fence. At 12 the smallest lamp's lantern may close (counter rule) and read as a post.
 
 ## Which, and why (systems)

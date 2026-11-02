@@ -12,6 +12,8 @@ Job (`../jobs.md`): **looking** at something notable, mostly from outside, for a
 
 **How it passes the jobs:** F1 (old-town glance): the only icon in the set whose read is **tallness**, so it separates from Museum (wide, columns) and the conifer (tiered) by proportion alone. F6 (12): two solids and a point survive at 12. F8 (reversed): no counters to lose.
 
+**First build (18, seen by me):** with a half-width shaft and the steep tip it reads as a **pencil** standing on a bar. The tip wants to be shorter (an obelisk's pyramidion is low) and the shaft to taper or step.
+
 **Risks:** a pushpin (the thin `lm-obelisk` read as one; the needle's half-width shaft is what holds it off); a pencil. The director's open question: does Landmark want a **slender class** (a box taller and narrower than tall), general for any tall subject? Not built; the tall class is used.
 
 ## B. The camera (`lm-camera`)
