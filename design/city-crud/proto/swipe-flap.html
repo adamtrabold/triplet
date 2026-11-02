@@ -1,5 +1,7 @@
 <!doctype html>
-<!-- City CRUD v10 throwaway motion prototype (never the product). Swipe a city row LEFT: the row slides
+<!-- v12: the sign turns slowly (480ms) and says SEE YOU SOON?; the confirm is one step (tap where the
+     places go); desktop: trackpad two-finger swipe, right-click, Shift+Delete.
+     City CRUD v10 throwaway motion prototype (never the product). Swipe a city row LEFT: the row slides
      with your finger and the city's REMOVE board slides in from the right edge, its signpost point
      leading (standard trailing swipe-to-reveal). Past half the board's width it settles open; tap the
      board for the confirm; swipe right or tap elsewhere to close. The signpost above turns that city's
@@ -17,7 +19,7 @@
   .post .boards { position:relative; left:2px; display:flex; flex-direction:column; gap:10px; padding:0 0 18px; }
   .post::after { content:''; position:absolute; left:-3px; bottom:-4px; width:8px; height:8px; border-radius:50%; background:var(--navy); }
   .sign { position:relative; height:30px; width:150px; perspective:300px; }
-  .sign .s { position:absolute; inset:0; display:flex; align-items:center; padding:0 22px 0 10px; backface-visibility:hidden; transition:transform 140ms cubic-bezier(.3,1.35,.5,1);   /* v11: was 260ms (owner: "sign flip is a bit slow") */
+  .sign .s { position:absolute; inset:0; display:flex; align-items:center; padding:0 22px 0 10px; backface-visibility:hidden; transition:transform 480ms cubic-bezier(.45,.05,.25,1.12);   /* v12: a deliberate turn, slower than v10's 260 (owner: "Sign flip is too fast I said slow it down") */
     font-stretch:75%; text-transform:uppercase; font-weight:700; font-size:12px; letter-spacing:.08em; color:var(--navy);
     clip-path:polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%); background:var(--navy); }
   .sign .s span { position:absolute; inset:1.5px 1.5px 1.5px 0; clip-path:inherit; background:var(--paper-raised); }
@@ -44,38 +46,70 @@
   .row.settle.to-open .front, .row.settle.to-open .clip { transition:transform 240ms cubic-bezier(.25,1.45,.45,1), width 240ms cubic-bezier(.25,1.45,.45,1); }
   .row.settle.to-shut .front, .row.settle.to-shut .clip { transition:transform 160ms cubic-bezier(.4,0,.2,1), width 160ms cubic-bezier(.4,0,.2,1); }
   @media (prefers-reduced-motion: reduce) { .row.settle .front, .row.settle .clip, .sign .s { transition:none; } }
-  .confirm { padding:10px 12px 12px; border-bottom:1px solid var(--hair); font-size:14px; line-height:20px; color:var(--ink); }
+  .confirm { padding:10px 0 0; border-bottom:1px solid var(--hair); font-size:14px; line-height:20px; color:var(--ink); background:var(--paper); }
+  .confirm .q { padding:0 12px 6px; font-weight:600; }
+  .dest { all:unset; box-sizing:border-box; width:100%; display:flex; align-items:center; gap:8px; height:44px; padding:0 12px; border-top:1px solid var(--hair); cursor:pointer;
+    font-stretch:75%; text-transform:uppercase; font-weight:700; font-size:13px; letter-spacing:.05em; color:var(--navy); }
+  .dest:hover, .dest:focus-visible { background:var(--paper-pressed); }
+  .dest small { margin-left:auto; font-size:11px; color:var(--ink-2); font-weight:600; text-transform:none; letter-spacing:0; font-stretch:100%; }
+  .dest .arrow { width:16px; height:16px; flex:none; }
+  .dest.too { color:var(--ink-2); font-weight:600; }
+  .dest.keep { justify-content:center; color:var(--navy); border-top:1px solid var(--navy); }
+  .slip { position:fixed; left:16px; right:16px; bottom:16px; display:flex; align-items:center; gap:12px; padding:12px 16px; background:var(--navy); color:var(--paper); font-size:14px; }
+  .slip[hidden] { display:none; }
+  .slip button { margin-left:auto; color:var(--paper); }
+  .row:focus-visible { outline:2px solid var(--navy); outline-offset:-2px; }
   .confirm[hidden] { display:none; }
   .acts { display:flex; justify-content:flex-end; gap:8px; margin-top:10px; }
   .btn { font-family:inherit; font-stretch:75%; text-transform:uppercase; font-weight:700; font-size:12px; letter-spacing:.1em; padding:9px 12px; border-radius:3px; color:var(--navy); background:none; border:none; }
   .btn.go { box-shadow:inset 0 0 0 1px var(--hair); color:var(--ink-2); }
 </style></head>
 <body><div class="wrap">
-  <div><p class="note">Swipe a city row to the left. Its REMOVE board slides in from the right; the signpost turns too. Tap the board, or the turned sign, for the confirm; swipe right or tap another row to close.</p>
-    <p class="note" style="margin-top:-4px">Sign says: <button class="btn" data-word="0" style="padding:4px 8px;box-shadow:inset 0 0 0 1px var(--navy)">Cancelled</button> <button class="btn" data-word="1" style="padding:4px 8px">Change of plans</button> <button class="btn" data-word="2" style="padding:4px 8px">See you soon?</button></p>
+  <div><p class="note">Phone: swipe a city row left. Mac: two-finger swipe left on the trackpad, or right-click the row (keyboard: Shift+Delete). The REMOVE board slides in and the signpost turns. Tap the board, or the turned sign, then tap where its places go.</p>
     <div class="post"><div class="boards" id="boards"></div></div></div>
   <div class="menu" id="menu"><div class="cap">Places</div></div>
 </div>
+<div class="slip" id="slip" role="status" hidden><span></span><button class="btn">Undo</button></div>
 <script>
   const OPEN = 132, cities = [['Reykjavík', 23], ['Stockholm', 23], ['Copenhagen', 23], ['Malmö', 23], ['LA', 23]];
   const menu = document.getElementById('menu'), boards = document.getElementById('boards');
   const signs = {};
+  const C = { 'Reykjavík': [64.15, -21.94], 'Stockholm': [59.33, 18.07], 'Copenhagen': [55.68, 12.57], 'Malmö': [55.60, 13.00], 'LA': [34.05, -118.24] };
   cities.forEach(([n, c]) => {
     const s = document.createElement('div'); s.className = 'sign' + (n === 'Malmö' ? '' : ' dim');
-    s.innerHTML = `<div class="s front"><span></span><b>${n} <small style="font-size:10px">${c}</small></b></div><div class="s back"><b class="word">Cancelled</b></div>`;
+    s.innerHTML = `<div class="s front"><span></span><b>${n} <small style="font-size:10px">${c}</small></b></div><div class="s back"><b class="word">See you soon?</b></div>`;
     // tapping the turned sign opens the same confirm (only while it's turned, i.e. while its row is open)
-    s.addEventListener('click', () => { if (s.classList.contains('flipped')) { const row = [...menu.querySelectorAll('.row')].find(x => x.dataset.name === n); row.nextElementSibling.hidden = false; } });
+    s.addEventListener('click', () => { if (s.classList.contains('flipped')) { const row = [...menu.querySelectorAll('.row')].find(x => x.dataset.name === n); showConfirm(row); } });
     s.style.cursor = 'pointer';
     boards.appendChild(s); signs[n] = s;
     const r = document.createElement('div'); r.className = 'row'; r.dataset.name = n;
-    r.setAttribute('role', 'button'); r.setAttribute('aria-label', `${n}, ${c}. Actions available: remove ${n}`);
+    r.setAttribute('role', 'button'); r.tabIndex = 0; r.setAttribute('aria-label', `${n}, ${c}. Actions available: remove ${n}`);
     r.innerHTML = `<div class="clip"><button class="board" aria-label="Remove ${n}">Remove</button></div><div class="front">◉ ${n} <small>${c}</small></div>`;
     menu.appendChild(r);
     const cf = document.createElement('div'); cf.className = 'confirm'; cf.hidden = true;
-    cf.innerHTML = `Remove ${n} from your cities? Its ${c} places move to a city you pick, or are removed too.<div class="acts"><button class="btn" data-x>Keep ${n}</button><button class="btn go">Remove</button></div>`;
+    // ONE STEP: the question is the picker. Tapping where its places go removes the city (with an undo).
+    const others = cities.filter(([m]) => m !== n).map(([m]) => [m, km(n, m)]).sort((a, b) => a[1] - b[1]);
+    const ARROW = '<svg class="arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5L12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    cf.innerHTML = `<div class="q">Remove ${n}. Move its ${c} places to:</div>`
+      + others.map(([m, d]) => `<button class="dest" data-to="${m}">${ARROW}${m}<small>≈ ${d.toLocaleString('en')} km</small></button>`).join('')
+      + `<button class="dest too" data-to="">Remove the ${c} places too</button><button class="dest keep" data-x>Keep ${n}</button>`;
     menu.appendChild(cf);
     cf.querySelector('[data-x]').onclick = () => setOpen(r, false);
-    r.querySelector('.board').onclick = e => { e.stopPropagation(); cf.hidden = false; };
+    cf.querySelectorAll('[data-to]').forEach(b => b.onclick = () => commit(r, b.dataset.to));
+    r.querySelector('.board').onclick = e => { e.stopPropagation(); showConfirm(r); };
+    // DESKTOP: right-click opens the same reveal (Mac's context click); Shift+Delete goes straight to the picker
+    r.addEventListener('contextmenu', e => { e.preventDefault(); setOpen(r, true); });
+    r.addEventListener('keydown', e => { if (e.shiftKey && (e.key === 'Delete' || e.key === 'Backspace')) { e.preventDefault(); setOpen(r, true); showConfirm(r); } });
+    // trackpad two-finger horizontal swipe (wheel deltaX): the board tracks it; ~120ms after the last
+    // event it settles by the same 40% rule. Natural scrolling: fingers left = deltaX > 0.
+    let wx = 0, wt = null, wbase = 0;
+    r.addEventListener('wheel', e => {
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;   // vertical: the menu scrolls
+      e.preventDefault();
+      if (wt == null) { wbase = r.dataset.open === '1' ? -OPEN : 0; wx = 0; r.classList.remove('settle', 'to-open', 'to-shut'); }
+      wx -= e.deltaX; setDrag(r, wbase + wx, true);
+      clearTimeout(wt); wt = setTimeout(() => { const cur = parseFloat(r.dataset.dx || 0); setOpen(r, wbase === 0 ? cur < -OPEN * OPEN_AT : cur < -OPEN * (1 - OPEN_AT)); wt = null; }, 120);
+    }, { passive: false });
     r.querySelector('.front').onclick = () => { if (r.dataset.open === '1') setOpen(r, false); else closeAll(); };
     let x0 = null, y0 = null, base = 0, locked = null, trail = [];
     r.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; base = r.dataset.open === '1' ? -OPEN : 0; locked = null; trail = []; r.classList.remove('settle', 'to-open', 'to-shut'); }, { passive: true });
@@ -121,12 +155,19 @@
     // the landing tick: when the board lands open (at the settle's end), never on a close
     if (open && !was && navigator.vibrate) setTimeout(() => navigator.vibrate(10), 170);
   }
-  // the top-3 toggle: the sign's words
-  const WORDS = ['Cancelled', 'Change of plans', 'See you soon?'];
-  document.querySelectorAll('[data-word]').forEach(b => b.onclick = () => {
-    document.querySelectorAll('[data-word]').forEach(o => o.style.boxShadow = 'none');
-    b.style.boxShadow = 'inset 0 0 0 1px var(--navy)';
-    document.querySelectorAll('.sign .word').forEach(w => w.textContent = WORDS[+b.dataset.word]);
-  });
+  function showConfirm(r) { r.nextElementSibling.hidden = false; const f = r.nextElementSibling.querySelector('.dest'); if (f) f.focus({ preventScroll: true }); }
+  function km(a, b) { const [la1, lo1] = C[a], [la2, lo2] = C[b], R = 6371, t = x => x * Math.PI / 180;
+    const h = Math.sin(t(la2 - la1) / 2) ** 2 + Math.cos(t(la1)) * Math.cos(t(la2)) * Math.sin(t(lo2 - lo1) / 2) ** 2; const d = 2 * R * Math.asin(Math.sqrt(h)); return d < 10 ? Math.round(d) : Math.round(d / 5) * 5; }
+  // the commit: the row and its sign leave; a slip offers Undo for 6s
+  let undo = null;
+  function commit(r, to) {
+    const n = r.dataset.name, cf = r.nextElementSibling;
+    r.hidden = true; cf.hidden = true; signs[n].hidden = true;
+    const slip = document.getElementById('slip');
+    slip.querySelector('span').textContent = to ? `${n} removed. Its places are in ${to}.` : `${n} and its places removed.`;
+    slip.hidden = false; clearTimeout(undo);
+    slip.querySelector('button').onclick = () => { r.hidden = false; signs[n].hidden = false; setOpen(r, false); slip.hidden = true; };
+    undo = setTimeout(() => { slip.hidden = true; }, 6000);
+  }
   function closeAll(except) { menu.querySelectorAll('.row').forEach(o => { if (o !== except && o.dataset.open === '1') setOpen(o, false); }); }
 </script></body></html>
