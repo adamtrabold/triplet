@@ -1,5 +1,23 @@
 # Systems designer notes: icon system
 
+## THE SYSTEM, one shot round 3: three general rules from director turn 222 (2026-11-02, not published)
+
+Scope cut mid-round by the owner (subjects go back through the concept loop): general rules only, no declaration changes (no
+arms on the walker), no canvas publish, no blind read.
+- **Openings between radiating parts** (new): each opening between spokes holds a circle the counter minimum across *as built*,
+  measured on the finished outline in `system-check` (was only an analytic gap). Found: v294's 18 openings were 0.95-1.0px as
+  built, because the legs from the ring's centre (4/3) ran over the lower spokes (5/4). Fix: inside the ring, to the middle of the
+  rim's band, a post from its centre is no wider than the spokes. 18 now 0.996-1.006px. Tried and dropped: 1px spokes (1.17px
+  openings, clearly better, but fails the owner's "never under 1 1/4 at 18"; a question for him), the rack's 1/8 at opening
+  corners (no measurable effect), legs starting in the rim band with no pin (a KNEE at 24).
+- **A part that must read** (new): the drape's tie stands the protrusion minimum past its fall; the swag's edge arrives at 45
+  degrees (a corner, not a level run out of the ellipse, which JUMPed), the underside level back to the fall. Checked per size.
+- **Parts of a figure** (new): a figure's leaning posts (a body and the limbs that run on from it) are one iPhone pixel wider
+  (5/3 at 18). Measured first: they already were the post width (4/3); the lightness is the unlanded diagonal. A stand's legs keep
+  the part width (5/3 legs on the wheel crowded the openings and WOBBLEd the crotch).
+- Approved icons rebuilt as variants, byte-identical (18 hotel, shopping, cafe; 24 park; 12 bar, nature).
+- Scratch: `scratchpad/o3/` (inc.js as-built openings, wid.js widths, fc.js faults, lanes.sh, ver.sh).
+
 ## Batch 2: the eight not yet approved (2026-11-02, jam turn 1 in `batch2/jam.md`)
 
 **Where things stand.** One loop for all eight (orchestrator's call): Landmark, Attraction, Venue, Hotel, Shopping, Park (pins), Neighbourhood, Street (shapes). Brief: `briefs/batch2-loop.md`. I took jam turn 1: `batch2/jobs.md` (written before reading anyone's ideas) and directions per category in `batch2/jam.md`. Words only; no drawings, no canvas yet.
