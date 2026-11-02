@@ -74,6 +74,9 @@
   const OPEN = 132, cities = [['Reykjavík', 23], ['Stockholm', 23], ['Copenhagen', 23], ['Malmö', 23], ['LA', 23]];
   const menu = document.getElementById('menu'), boards = document.getElementById('boards');
   const signs = {};
+  // one trackpad swipe belongs to the row it started on, until the wheel goes quiet (moving the pointer mid-swipe never swipes another row)
+  let wheelOwner = null, wheelQuiet = null;
+  function touchWheel() { clearTimeout(wheelQuiet); wheelQuiet = setTimeout(() => { wheelOwner = null; }, 160); }
   const C = { 'Reykjavík': [64.15, -21.94], 'Stockholm': [59.33, 18.07], 'Copenhagen': [55.68, 12.57], 'Malmö': [55.60, 13.00], 'LA': [34.05, -118.24] };
   cities.forEach(([n, c]) => {
     const s = document.createElement('div'); s.className = 'sign' + (n === 'Malmö' ? '' : ' dim');
@@ -106,6 +109,8 @@
     r.addEventListener('wheel', e => {
       if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;   // vertical: the menu scrolls
       e.preventDefault();
+      if (wheelOwner && wheelOwner !== r) { touchWheel(); return; }
+      wheelOwner = r; touchWheel();
       // after a snap, swallow the trackpad's momentum tail until it goes quiet (it would otherwise hold the board at the edge)
       if (wlock) { clearTimeout(wlock); wlock = setTimeout(() => { wlock = null; }, 160); return; }
       if (wt == null) { wbase = r.dataset.open === '1' ? -OPEN : 0; wx = 0; r.classList.remove('settle', 'to-open', 'to-shut'); }
