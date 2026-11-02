@@ -75,9 +75,11 @@
   const menu = document.getElementById('menu'), boards = document.getElementById('boards');
   const signs = {};
   // one trackpad swipe belongs to the row it started on, until the wheel goes quiet (moving the pointer mid-swipe never swipes another row)
-  let wheelOwner = null, wheelQuiet = null;
+  // The axis is decided once per swipe from its first few px (a Magic Mouse swipe is noisy: single events can
+  // read more vertical than horizontal), then every event of that swipe follows it.
   // 80ms of quiet ends a swipe (momentum events arrive every ~16ms; a new swipe, which stops momentum, leaves a gap)
-  function touchWheel() { clearTimeout(wheelQuiet); wheelQuiet = setTimeout(() => { wheelOwner = null; }, 80); }
+  let G = null, wheelQuiet = null;
+  function wheelGesture() { if (!G) G = { owner: null, axis: null, sx: 0, sy: 0 }; clearTimeout(wheelQuiet); wheelQuiet = setTimeout(() => { G = null; }, 80); return G; }
   const C = { 'Reykjavík': [64.15, -21.94], 'Stockholm': [59.33, 18.07], 'Copenhagen': [55.68, 12.57], 'Malmö': [55.60, 13.00], 'LA': [34.05, -118.24] };
   cities.forEach(([n, c]) => {
     const s = document.createElement('div'); s.className = 'sign' + (n === 'Malmö' ? '' : ' dim');
@@ -108,10 +110,12 @@
     // event it settles by the same 40% rule. Natural scrolling: fingers left = deltaX > 0.
     let wx = 0, wt = null, wbase = 0, wlock = null, wlockDir = 0;
     r.addEventListener('wheel', e => {
-      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;   // vertical: the menu scrolls
+      const g = wheelGesture();
+      if (!g.axis) { g.sx += Math.abs(e.deltaX); g.sy += Math.abs(e.deltaY); if (g.sx + g.sy >= 4) g.axis = g.sx > g.sy ? 'x' : 'y'; }
+      if (g.axis !== 'x') return;   // undecided or vertical: the menu scrolls
       e.preventDefault();
-      if (wheelOwner && wheelOwner !== r) { touchWheel(); return; }
-      wheelOwner = r; touchWheel();
+      if (g.owner && g.owner !== r) return;
+      g.owner = r;
       // after a snap, swallow the trackpad's momentum tail until it goes quiet (it would otherwise hold the board at the edge)
       // ...but only the tail going the same way: a swipe back answers at once
       if (wlock && Math.sign(e.deltaX) === wlockDir) { clearTimeout(wlock); wlock = setTimeout(() => { wlock = null; }, 80); return; }
@@ -158,7 +162,6 @@
     if (x < -OPEN) x = -OPEN - MAX_GIVE * (1 - Math.exp((x + OPEN) / GIVE_K));
     r.dataset.dx = x;
     // the row's name never moves (so you always see which city); only the board slides in over its end
-    r.querySelector('.front').style.transform = `translateX(${Math.max(x, -16) * 0.5}px)`;
     r.querySelector('.clip').style.width = `${-x}px`;
     signs[r.dataset.name].classList.toggle('flipped', x < -OPEN * OPEN_AT);   // the signpost turns where the reveal would open
   }
