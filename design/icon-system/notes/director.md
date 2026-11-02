@@ -1010,3 +1010,24 @@ He approved the system at v292 and asked for the rest, one shot.
 **System now sound:** the gate blocks publishing, and the departures are gone.
 
 **Left:** two subjects (Nordic loop = the command key; city blocks abstract), which are questions for him. Three system fixes: walker weight, Ferris hub/spokes, curtain tie.
+
+## Batch 2 concept loop (2026-11-02): jam turn 3, no score yet
+
+**Family calls:**
+- Venue owns drapes;
+- Park owns slab-on-legs (the bed loses its legs);
+- the shapes are elevation (every icon drawn as seen standing there; no plan views);
+- "one cue, one icon" is general (one person, paper to one icon).
+
+**Rules:**
+- general: hole in a mass, side by side, splay from either end;
+- build only if needed: a row standing on a face;
+- the drape layout is an engine bug, not a rule.
+
+**Pushes:**
+- Attraction: bunting, turret flag;
+- Neighbourhood: kvarter, roofs as the badge, lit windows;
+- Street: receding lamps;
+- Landmark: slender needle, camera, medallion.
+
+**Watch:** the blind read in ink and in grey.
