@@ -1,5 +1,31 @@
 # Systems designer notes: icon system
 
+## Batch 2: the eight not yet approved (2026-11-02, jam turn 1 in `batch2/jam.md`)
+
+**Where things stand.** One loop for all eight (orchestrator's call): Landmark, Attraction, Venue, Hotel, Shopping, Park (pins), Neighbourhood, Street (shapes). Brief: `briefs/batch2-loop.md`. I took jam turn 1: `batch2/jobs.md` (written before reading anyone's ideas) and directions per category in `batch2/jam.md`. Words only; no drawings, no canvas yet.
+
+**Jobs, the load-bearing facts** (from `index.html`):
+- Pins: 18 in the 24 ring on the map (unvisited only) and rows; 24 in 32 when selected; 12 bare on chips. Four inks are unset (Venue, Museum, Landmark, Park): every pin must read by shape before colour.
+- Shapes are **never on the map** (outline + anchor dot; plan stops are numbered diamonds). They appear only in rows (18 in the 24 diamond) and bare at 12 on chips (no diamond). Job: "area or stretch, and which", beside a name.
+- Frequency: Shopping 49, Landmark 23, Attraction 15, Venue 11, Park 9, Hotel 0 today (~1 per city: the "getting home" pin, inferred, should be the easiest single pin to spot).
+- Each category is an act: look / go in and do / watch a show / sleep / browse and carry home / hang out outside / wander inside / walk along.
+
+**Family findings I proposed** (for the director; none decided):
+1. One cue, one icon: a cue that carries a read belongs to one icon (building front = Museum, tree = Nature). Live clashes: bench vs bed (slab on legs), curtain vs bedroom window, Ferris wheel vs settings wheel.
+2. Candidate rule: pins in elevation, shapes in plan (as the map draws them).
+3. At most one person in the set.
+4. Paper (ticket, receipt, tag) goes to one icon.
+
+**The draw** (secrets-seeded RNG; the table is in the jam). **Strongest per category:** Landmark L1 coin-op viewer; Attraction A1 turnstile (A3 wheel control); Venue V1 curtain at the stage lip; Hotel H1 bed reduced; Shopping S1 market basket (bag control); Park P1 swing; Neighbourhood N2 blocks + Street St1 corridor as a plan pair (the elevation pair N1 roofline + St3 walker is the alternative, carrying his "walker is the best here").
+
+**Decisions so far:** none; the director steers after the visual designer's turn.
+
+**Director objections:** none yet this batch. Carry from one-shot 2 (`grid/scores.md`): Nordic loop = ⌘ (subject); city blocks = waffle (subject); walker light, no arms; curtain's tie too small; Ferris wheel spokes blob at 12; bed and bag 9.
+
+**Open questions:** are the unset inks set before the blind read (I suggest proposed ink + one grey)? Does a turnstile read outside metro riders? Who keeps slab-on-legs, bed or bench (I'd say bed)?
+
+**Next:** visual designer's jam turn; then director steer; then concepts (2-3 per category) drawn through `grid/src/system*.js` as declarations, any new part a general rule; I write each concept's "how it works" and check every 9+ concept against `batch2/jobs.md` (flows F1-F8) before the owner sees it.
+
 ## THE SYSTEM, one shot round 2: the director's eight fixes (2026-10-30, jam turn 221, canvas v294)
 
 - **1 Round loops:** "Loops off a short straight" deleted. New rule "A loop off a short straight": the loop stays round; where its
