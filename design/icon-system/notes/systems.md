@@ -18,6 +18,20 @@ arms on the walker), no canvas publish, no blind read.
 - Approved icons rebuilt as variants, byte-identical (18 hotel, shopping, cafe; 24 park; 12 bar, nature).
 - Scratch: `scratchpad/o3/` (inc.js as-built openings, wid.js widths, fc.js faults, lanes.sh, ver.sh).
 
+## Batch 2, turn 4: rules built, concepts written (2026-11-02)
+
+**Director's calls (turn 3):** Venue owns drapes; Park owns slab-on-legs (bed loses legs); every icon in elevation (plan pair dropped: it doesn't separate at 18); "one cue, one icon" is general. Rules to build: hole in a mass, side by side, splay from either end; engine bug: drape layout; hangs: 4-spoke wheel, carrier.
+
+**What I built** (all general; in SETTINGS and THE-SYSTEM.md): hole in a mass (block `hole: {shape, w, at}` or `{n:[c,r], wall}`; mass+holes prebuilt as one root; round holes not mirrored and moved whole in `system-land.js` mapD); side by side for any kind (`sideBy()` in layout; `widths`, `w`, `apart:'comb'`; layout takes `sub {cx, W}`; returns `box`); splay `from:'ends'` (`splayEnds`); "to the bottom" = `ctx.floor` (H less the fixed slab/cap roots declared below); gable `face:'down'`; row `w` share; engine `pieces` memoised (`PIECES` map, exact key, output-neutral).
+
+**How to build concepts:** `batch2/concepts/decl.js` (`TOOLS=<scratchpad>/tools node decl.js 18 <ids>`); scratch scripts in the session scratchpad `b2/` (build.sh for the system set, cbuild.sh for concepts, look.js renders badges to PNG). Machine is shared and loaded: an 18 build takes 1-10 min, more under load.
+
+**Gate status:** pre-existing FAIL on the one-shot attraction openings (also fails on HEAD); rebuilding it. Approved byte-identity: 12 proven; 18/24 rebuild running.
+
+**Findings on first builds:** camera good; roofs good; kvarter base reads separate; bunting = valance (Venue's cue); swing = stool; stage = frame with ties; windows = die (killed).
+
+**Open:** slender class for the needle (director's question, not built); medallion needs "a hole may be any root" (not built); turret needs a pennant placement (not built). Next: the visual draws finished; I check every 9+ concept against `batch2/jobs.md` (F1-F8) before the owner.
+
 ## Batch 2: the eight not yet approved (2026-11-02, jam turn 1 in `batch2/jam.md`)
 
 **Where things stand.** One loop for all eight (orchestrator's call): Landmark, Attraction, Venue, Hotel, Shopping, Park (pins), Neighbourhood, Street (shapes). Brief: `briefs/batch2-loop.md`. I took jam turn 1: `batch2/jobs.md` (written before reading anyone's ideas) and directions per category in `batch2/jam.md`. Words only; no drawings, no canvas yet.

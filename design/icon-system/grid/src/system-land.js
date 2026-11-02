@@ -86,7 +86,10 @@ function landPrims(prims, sym, opts) {
   const [mx, my] = L.maps, ax = mx.forC(-1), ay = my.forC(-1);
   const mapD = d => {
     const it = new paper.CompoundPath(d), kids = it.children && it.children.length ? it.children : [it];
-    for (const k of kids) for (const sg of k.segments) {
+    // a round counter inside a root (a contour of curves only: a round hole in a mass) moves whole with the map at its centre,
+    // never point by point, so it stays round (11-02)
+    for (const k of kids) if (kids.length > 1 && k.curves.every(cv => !cv.isStraight())) { const c = k.bounds.center; k.translate(new paper.Point(ax.map(c.x) - c.x, ay.map(c.y) - c.y)); k._whole = true; }
+    for (const k of kids) if (!k._whole) for (const sg of k.segments) {
       const p = sg.point, np = new paper.Point(ax.map(p.x), ay.map(p.y));
       const hm = h => new paper.Point(h.x * ax.slope(p.x, Math.sign(h.x)), h.y * ay.slope(p.y, Math.sign(h.y)));
       sg.handleIn = hm(sg.handleIn); sg.handleOut = hm(sg.handleOut); sg.point = np;

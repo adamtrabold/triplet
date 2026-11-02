@@ -559,6 +559,7 @@ function arcEase(edge, arc, arcOut, dQ, J) {
 // (dI, dO), each half's length, the crest kM and the tangent at M, so both halves meet M and their edges exactly. Each half
 // is then written as the FEWEST cubics that follow it (one where one does, within J.hillTol of the hill, else two, three).
 // Returns { dI, dO, sol: [cubics...] } or null (the caller keeps the g7aq round).
+const PIECES = new Map();
 function hillRound(cin, cout, c, roomIn, roomOut, J) {
   const sg = Math.sign(c.turn), rho = J.hillRamp ?? 1, isTip = c.ease && J.tipKeep && (c.tipW != null ? c.tipW > 0 : c.angle < (J.tipAngle ?? 75)), pw = isTip ? (J.tipPow ?? 1) : 1, w = u => u >= rho ? 1 : ((1 - Math.cos(Math.PI * u / rho)) / 2) ** pw, ang = v => Math.atan2(v.y, v.x);
   const wrap = a => { while (a > Math.PI) a -= 2 * Math.PI; while (a < -Math.PI) a += 2 * Math.PI; return a; };
@@ -685,7 +686,7 @@ function hillRound(cin, cout, c, roomIn, roomOut, J) {
   // a half written as cubics: ONE where one follows the hill (its place within J.hillTol, and it leaves its ends bending at
   // the hill's own rate), else TWO, their meeting point, tangent and curvature there solved so all three ends bend at the
   // hill's rate (no knee where the pieces meet); three or four even pieces only if two can't
-  const pieces = (p, a, k0, k1, L, rev, deep = false) => {
+  let pieces = (p, a, k0, k1, L, rev, deep = false) => {
     const NS = 240, S = run(p, a, k0, k1, L, NS, true, rev), tol = J.hillTol ?? 0.004;
     const stol = Math.max(0.7, (J.hillSlopeTol ?? 0.12) * Math.max(Math.abs(k0), Math.abs(k1)) ** 2);   // relative to the round: a tight round may change faster
     const sl = q => { const a_ = Math.max(0, q - 1), b_ = Math.min(NS, q + 1); return (S[b_].k - S[a_].k) / ((b_ - a_) * L / NS); };
@@ -789,6 +790,15 @@ function hillRound(cin, cout, c, roomIn, roomOut, J) {
   // from (on the coupe's band, the left corner's half failed where its mirror, the right one, was found). If one way finds nothing,
   // the half is walked from its other end (heading turned round, bends negated) and the pieces are turned back
   const flipPs = Ps => Ps.slice().reverse().map(P => [P[3], P[2], P[1], P[0]]);
+  // A HALF'S PIECES ARE A PURE FUNCTION OF ITS HILL (11-02): the same hill (its start, heading, bends, length, direction and the
+  // join's tolerances) always gives the same pieces, so they are solved once per process and reused: the fit and the apex search
+  // rebuild the same drawing many times, and the deep search (the last resort) is the slow part. Output-neutral by construction.
+  const piecesRaw = pieces;
+  pieces = (p, a, k0, k1, L, rev, deep = false) => {
+    const key = [p.x, p.y, a, k0, k1, L, rev ? 1 : 0, deep ? 1 : 0, J.hillTol, J.hillSlopeTol, J.maxPieces, J.hillTol2].join(',');
+    if (!PIECES.has(key)) { const r = piecesRaw(p, a, k0, k1, L, rev, deep); PIECES.set(key, r ? r.map(P => P.map(pt => pt.clone())) : null); }
+    const v = PIECES.get(key); return v ? v.map(P => P.map(pt => pt.clone())) : null;
+  };
   const piecesEither = (p, a, k0, k1, L, rev, q, aq) => { const f = pieces(p, a, k0, k1, L, rev); if (f) return f; const b = pieces(q, aq + Math.PI, -k1, -k0, L, !rev); if (process.env.FAIRDBG && b) console.error('   pieces found the other way round'); if (b) return flipPs(b);
     if (J.maxPieces !== 2) return null; const f2 = pieces(p, a, k0, k1, L, rev, true); if (f2) return f2; const b2 = pieces(q, aq + Math.PI, -k1, -k0, L, !rev, true); return b2 ? flipPs(b2) : null; };
   const h1 = piecesEither(A.p, A.a, A.k, kM, L1, false, M, aM), h2 = piecesEither(M, aM, kM, Bq.k, L2, true, Bq.p, Bq.a); if (!h1 || !h2) { if (process.env.FAIRDBG) console.error("   why: no fit", !!h1, !!h2); return null; }

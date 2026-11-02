@@ -46,6 +46,26 @@ function rack(law, k) {
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------
+// A HOLE IN A MASS (11-02): a hole is its own root shape (a circle, or a block), cut through the mass it sits in, and it makes the
+// solid round it right: one hole is a share (w) of the mass's smaller side, centred (or at a share across and down: at); a grid of
+// holes (n: [across, down]) leaves walls of one width round and between them (wall: a share of the line, default a line), so the
+// solid left is one even lattice and each hole's size follows from its walls. A hole is a counter: a corner round it is a cut (the
+// rack's smallest cutter), and at 12 one under the counter minimum closes, as every counter does.
+function holesIn(H, x0, y0, w, h, t) {
+  const out = [], sh = H.shape || 'circle';
+  const one = (cx, cy, hw, hh) => out.push(E.cut(sh === 'circle' ? { ...E.C(cx, cy, Math.min(hw, hh) / 2), root: 'CIRCLE', role: 'counter' } : { ...E.R(cx - hw / 2, cy - hh / 2, hw, hh), root: 'BLOCK', role: 'counter' }));
+  if (H.n) {
+    const [c, rws] = H.n, wall = (H.wall ?? 1) * t.stroke, hw = (w - (c + 1) * wall) / c, hh = (h - (rws + 1) * wall) / rws;
+    for (let i = 0; i < c; i++) for (let j = 0; j < rws; j++) one(x0 + wall + hw / 2 + i * (hw + wall), y0 + wall + hh / 2 + j * (hh + wall), hw, hh);
+  } else {
+    const d = H.w * Math.min(w, h), [ax, ay] = H.at || [1 / 2, 1 / 2];
+    one(x0 + ax * w, y0 + ay * h, H.shape === 'block' && H.wide ? H.wide * w : d, d);
+  }
+  return out;
+}
+const holeMeta = r => ({ id: r.id, n: r.hole.n ? r.hole.n[0] * r.hole.n[1] : 1, shape: r.hole.shape || 'circle' });
+
+// ---------------------------------------------------------------------------------------------------------------------------
 // THE KINDS. Each returns { prims, box: {x0, x1, top, bot}, ... } in the drawing's frame (positions in units x u, thicknesses in
 // frame units). t: the size's thicknesses in frame units (stroke, part, cut, band, min, counter, protrude, grid).
 const KINDS = {
@@ -113,7 +133,10 @@ const KINDS = {
   gable(r, at, t, u) {
     const x0 = at.cx - at.w / 2, x1 = at.cx + at.w / 2, ge = (r.ends || 0) * t.stroke, hr = (x1 - x0) / 2 * u;
     const gb = T3(at.topF + ge + r.pitch * hr), ap = f(gb - ge - r.pitch * hr);
-    const pts = ge ? [[x0 * u, gb], [x0 * u, gb - ge], [at.cx * u, ap], [x1 * u, gb - ge], [x1 * u, gb]] : [[x0 * u, gb], [at.cx * u, ap], [x1 * u, gb]];
+    let pts = ge ? [[x0 * u, gb], [x0 * u, gb - ge], [at.cx * u, ap], [x1 * u, gb - ge], [x1 * u, gb]] : [[x0 * u, gb], [at.cx * u, ap], [x1 * u, gb]];
+    // face 'down' (11-02): the same gable hung point down from the face above it (a pennant, a valance), as a cap faces up or down;
+    // its flat side on the lattice where the root above leaves it
+    if (r.face === 'down') { const top = at.topF, bot = top + (gb - ap); pts = pts.map(([x, y]) => [x, top + (gb - y)]); return { prims: [{ ...E.P(...pts.reverse()), root: 'GABLE' }], box: { x0, x1, top: top / u, bot: bot / u }, frame: true, point: true }; }
     return { prims: [{ ...E.P(...pts), root: 'GABLE' }], box: { x0, x1, top: ap / u, bot: gb / u }, frame: true, point: true };
   },
   // gables stacked into tiers: shown heights and half widths in the declared rhythm, the bottom one the width given; each lower tier's
@@ -142,7 +165,11 @@ const KINDS = {
     const w = at.w * u, h = (r.deep ?? 1) * w; let x0 = at.cx * u - w / 2;
     if (r.at && r.of) { const ow = C.wOf(r.of) * u, oc = at.cx * u, inset = C.endPost(r.of, r.at) ? t.part + t.cut : 0;
       x0 = r.at === 'left' ? oc - ow / 2 + inset : oc + ow / 2 - inset - w; }
-    return { prims: [E.R(x0, at.topF, w, h, { root: 'BLOCK' })], box: { x0: x0 / u, x1: (x0 + w) / u, top: at.topF / u, bot: (at.topF + h) / u }, asym: !!r.at };
+    let prims = [E.R(x0, at.topF, w, h, { root: 'BLOCK' })];
+    // the mass and its holes are one root (as a knot's band and its counters are): drawn whole, the grid moves it whole, so a round
+    // hole is never re-landed point by point
+    if (r.hole) prims = [E.D(E.build([...prims, ...holesIn(r.hole, x0, at.topF, w, h, t)]).d, { root: 'BLOCK', also: 'CIRCLE' })];
+    return { prims, box: { x0: x0 / u, x1: (x0 + w) / u, top: at.topF / u, bot: (at.topF + h) / u }, asym: !!r.at, holes: r.hole ? holeMeta(r, prims, t) : null };
   },
   // a ring: a circle of the stroke round a round counter, w across its outside
   ring(r, at, t, u) {
@@ -174,8 +201,9 @@ const KINDS = {
   // from leans its top), down to the box's bottom (to), `past` of that root's height below it, or `reach` of the box's height
   // below the point. Each ends as a post ends, square to itself, its lower corner on the line it stands on (Posts end square)
   splay(r, at, t, u, C) {
+    if (r.from === 'ends') return KINDS.splayEnds(r, at, t, u, C);
     const P = C.placed[r.of], [ox, oy] = r.from != null && P.axis ? [P.axis[0][0] + (P.axis[1][0] - P.axis[0][0]) * r.from, P.axis[0][1] + (P.axis[1][1] - P.axis[0][1]) * r.from] : P.centre;
-    const yb = r.to === 'bottom' ? C.H * u : r.past != null ? P.box.bot * u + r.past * (P.box.bot - P.box.top) * u : oy + r.reach * C.H * u;
+    const yb = r.to === 'bottom' ? C.floor * u : r.past != null ? P.box.bot * u + r.past * (P.box.bot - P.box.top) * u : oy + r.reach * C.H * u;
     // from a centre the posts meet in a pin (Posts from one point); from a post's foot they run on from that post as one root
     // (Parts that run on): the grid moves them together, and the joints are corners the rack cuts
     const foot = r.from != null && P.axis, h = (foot ? t.lean : t.part) / 2, ahead = P.axis ? Math.sign(P.axis[0][0] - P.axis[1][0]) || 1 : 1;
@@ -194,6 +222,25 @@ const KINDS = {
     const prims = [E.D(E.build(parts).d, { root: 'POST', also: foot ? null : 'CIRCLE', role: 'splay' })];
     if (foot) P.prims = [];
     return { prims, box: { x0: x0 / u, x1: x1 / u, top: oy / u, bot: yb / u }, noStack: true };
+  },
+  // A SPLAY FROM EITHER END (11-02): the splay's posts run from the two ends of the root they name (a slab, a block) instead of one
+  // point, each leaning out from the middle by lean degrees (lean < 0: in), down to the bottom (to) or reach of the box's height
+  // below that root. Each starts inside the root (its outer side meeting the root's end on the root's underside: posts into a face,
+  // so the join is a fillet) and ends as a post ends, square to itself, its lower corner on the line it stands on (Posts end square).
+  // The posts hold a solid part, so they keep the part width; the pair is one root (the grid moves it whole) and mirrors.
+  splayEnds(r, at, t, u, C) {
+    const P = C.placed[r.of], h = t.part / 2, a = Math.abs(r.lean) * Math.PI / 180, out = Math.sign(r.lean) || 1;
+    const yT = P.box.top * u, yB = P.box.bot * u, ym = (yT + yB) / 2, yb = r.to === 'bottom' ? C.floor * u : yB + r.reach * C.H * u;
+    const parts = []; let x0 = 1e9, x1 = -1e9;
+    for (const sg of [-1, 1]) {
+      const xe = (sg < 0 ? P.box.x0 : P.box.x1) * u, s = sg * out, dx = s * Math.sin(a), dy = Math.cos(a), nx = dy * h, ny = -dx * h;
+      // the axis where it leaves the root's underside: its outer side on the root's end there
+      const axB = xe - sg * h / dy, ox = axB - dx / dy * (yB - ym), oy = ym;
+      const ey = yb - h * Math.sin(a), l = (ey - oy) / dy, ex = ox + dx * l;
+      parts.push(E.P([ox - nx, oy - ny], [ox + nx, oy + ny], [ex + nx, ey + ny], [ex - nx, ey - ny]));
+      x0 = Math.min(x0, ex - Math.abs(nx), xe); x1 = Math.max(x1, ex + Math.abs(nx), xe);
+    }
+    return { prims: [E.D(E.build(parts).d, { root: 'POST', role: 'splay' })], box: { x0: x0 / u, x1: x1 / u, top: ym / u, bot: yb / u }, noStack: true };
   },
   // a knot: a square, `square` of the span (its width less a line) between its lines' centres; each side runs on past its corners
   // and turns, as one band of the stroke, into a loop round the corner (a three-quarter ring tangent to both sides)
@@ -217,7 +264,7 @@ const KINDS = {
   // as a post to the bottom: its edge a quarter ellipse centred on the fall's inner face at the top, `tie` of the height left below
   // it, so the edge meets the fall square (a corner the rack cuts), never running level into it
   drape(r, at, t, u, C) {
-    const P = C.prev, x0 = P.box.x0 * u, x1 = P.box.x1 * u, top = at.topF, H = C.H * u, ry = r.tie * (H - top), rx = (x1 - x0) / 2 - t.cut / 2 - t.part, prims = [];
+    const P = C.prev, x0 = P.box.x0 * u, x1 = P.box.x1 * u, top = at.topF, H = C.floor * u, ry = r.tie * (H - top), rx = (x1 - x0) / 2 - t.cut / 2 - t.part, prims = [];
     // A PART THAT MUST READ CLEARS A MINIMUM SIZE (11-02): the tie (where the drape is gathered into its fall) reads by standing past
     // the fall, so it clears the protrusion minimum: the swag's edge ends that far in from the fall's inner face, and the tie's
     // underside runs level back to the fall. The swag's edge arrives at the tie at the chamfer's 45 degrees, so the tie is a corner
@@ -291,7 +338,7 @@ function chamfered({ x0, x1, yT, yB, top = null, bot = null }) {
 // THE LAYOUT. decl.spine: the roots top to bottom; a group of columns side by side is { side: [spine, spine], join: 'cut' }.
 // s: the drawing's size (the class's box is KEY units at s = 12); Z: the size; S: the general rules (row, comb); room: the width the
 // box allows (frame units). Returns the prims and what each rule decided (meta, for the checks and the board).
-function layout(decl, s, Z, S, room, gdx = null) {
+function layout(decl, s, Z, S, room, gdx = null, sub = null) {   // sub: a column of a group side by side ({ cx, W }: its centre, its width)
   const u = s / 12, k = Z.k, t = { stroke: Z.stroke / k, part: Z.part / k, cut: Z.gap / k, band: Z.band / k, min: Z.min / k, counter: Z.counter / k, protrude: Z.protrude / k, grid: (1 / 3) / k, detail: Z.detail !== false };
   // PARTS OF A FIGURE (11-02): a figure is drawn only in leaning posts (a body, the limbs that run on from it), and a post off upright
   // never lands its edges on the grid, so it reads lighter than the set's landed posts; a figure's posts are one iPhone pixel wider,
@@ -306,26 +353,33 @@ function layout(decl, s, Z, S, room, gdx = null) {
   const byId = {}; const walk = L => L.forEach(r => r.side ? r.side.forEach(walk) : (byId[r.id] = r)); walk(decl.spine);
   // not mirrored: a root off the middle (a loop on a wall, a group beside another, an end post, a lean), and blocks turned off the
   // grid (its corners fall on the axis, where the mirror's seam would cut a round in two); a turned root is drawn whole, centred
-  const asymRoot = r => r.side || (r.kind === 'loop' && r.at !== 'top') || r.at === 'left' || r.at === 'right' || r.lean != null || (r.kind === 'blocks' && !!r.turn);
+  const asymRoot = r => r.side || (r.kind === 'loop' && r.at !== 'top') || r.at === 'left' || r.at === 'right' || r.lean != null || (r.kind === 'blocks' && !!r.turn) || (r.kind === 'block' && r.hole && (r.hole.shape || 'circle') === 'circle');
+  // (a round hole on the axis is drawn whole, never mirrored, as a turned part is: the mirror's seam would cut its round in two)
   const symmetric0 = !decl.spine.some(asymRoot);
   // LANDED BEFORE IT IS DRAWN: in a symmetric icon (its centre on a whole px) a straight root's width lands by the snap priority
   // (its ends to a whole px within 1/4px, else the nearest iPhone pixel), and an overhang lands on the grid, so a bevel or a join
   // drawn on them is drawn whole and the landing never stretches it
   const landHalf = hF => { const p = hF * k, w = Math.round(p); return (Math.abs(p - w) <= 0.25 + 1e-9 ? w : Math.round(p * 3) / 3) / k; };
   const landGrid = vF => { const q = vF * k * 3, fl = Math.floor(q + 1e-9); return (q - fl > 0.5 + 1e-9 || (Math.abs(q - fl - 0.5) < 1e-9 && TIE_UP) ? fl + 1 : fl) / 3 / k; };
-  const wOf = id => { const r = byId[id], w = (r.of ? wOf(r.of) : key[0]) * (r.w ?? 1); return LANDING.on && symmetric0 && (r.kind === 'slab' || r.kind === 'gable') ? 2 * landHalf(w / 2 * u) / u : w; };
+  const BASE = sub ? sub.cx : 6, wOf = id => { const r = byId[id], w = (r.of ? wOf(r.of) : sub ? sub.W : key[0]) * (r.w ?? 1); return LANDING.on && symmetric0 && (r.kind === 'slab' || r.kind === 'gable') ? 2 * landHalf(w / 2 * u) / u : w; };
   const OVER = LANDING.on && symmetric0 ? landGrid(PROP.joins.over * t.stroke) : PROP.joins.over * t.stroke;
   // a row's height is a share of the span as drawn (its root's proportion); landing moves edges only
   const rawSpan = slab => { const was = LANDING.on; LANDING.on = false; const w = wOf(slab.r.id) * u; LANDING.on = was; return w - 2 * PROP.joins.over * t.stroke; };
   const placed = {}, out = [];   // out: every placed root in spine order (R: { r, prims, box (units), ... })
   let prev = null, yTop = null, yBot = null;
-  const ctx = { placed, H, get prev() { return prev; }, get top() { return yTop; }, get bot() { return yBot; }, wOf: id => wOf(id),
+  // TO THE BOTTOM means to the bottom of the room the roots below it leave (11-02): a root that runs to the bottom (a post, a drape's
+  // fall, a splay) stops above the fixed roots declared under it (a slab or a cap: its lines, and the cut it rests on), so adding a
+  // root under it never changes its own proportions or the icon's height; only a relation does
+  let iNow = 0;
+  const reserve = i => { let s_ = 0; for (const q of decl.spine.slice(i + 1)) { if (q.side || !['slab', 'cap'].includes(q.kind)) break; s_ += t.stroke * (q.lines || 1) + (q.join === 'cut' ? t.cut : 0); } return s_; };
+  const ctx = { placed, H, get floor() { return H - reserve(iNow) / u; }, get prev() { return prev; }, get top() { return yTop; }, get bot() { return yBot; }, wOf: id => wOf(id),
     endPost: (of, side) => decl.spine.some(q => q.kind === 'post' && q.of === of && q.at === side) };
   const below = (r, prevR) => !prevR ? 0 : r.join === 'cut' ? Math.ceil((prevR.box.bot * u + t.cut) * 3 - 1e-6) / 3 : prevR.box.bot * u;
   for (let i = 0; i < decl.spine.length; i++) {
-    const r = decl.spine[i], next = decl.spine[i + 1];
+    const r = decl.spine[i], next = decl.spine[i + 1]; iNow = i;
+    if (r.side && sideAny(r)) { const G = sideBy(r, below(r, prev)); out.push(G); prev = G; yTop = yTop == null ? G.box.top : Math.min(yTop, G.box.top); yBot = yBot == null ? G.box.bot : Math.max(yBot, G.box.bot); continue; }
     if (r.side) { const G = columns(r, prev ? prev.box.bot : 0); out.push(G); prev = G; continue; }
-    const topF = below(r, prev), cx = 6 + (gdx != null && inGroup(i) ? gdx / u : 0);
+    const topF = below(r, prev), cx = BASE + (gdx != null && inGroup(i) ? gdx / u : 0);
     let R;
     if (r.kind === 'post' && r.at) R = KINDS.endPost(r, {}, t, u, ctx);
     else if (r.kind === 'post' && r.lean != null) R = KINDS.lean(r, {}, t, u, ctx);
@@ -335,7 +389,7 @@ function layout(decl, s, Z, S, room, gdx = null) {
       // declaration says (a share of a root's depth, or a stroke under the root above), or to the box's bottom
       // (a post showing a share of its root, or a stroke, is never longer than what it holds: What carries the read leaves it)
       const show = r.show === 'stroke' ? t.stroke : r.show != null ? r.show * placed[r.showOf].depth * u : null;
-      const end = show == null ? H * u : topF + show, botF = next ? end + t.stroke / 2 : end;
+      const end = show == null ? ctx.floor * u : topF + show, botF = next ? end + t.stroke / 2 : end;
       R = KINDS.post(r, { cx, topF: topF - (prev ? t.stroke : 0), botF }, t, u); R.box.bot = end / u;
     } else if (r.kind === 'tiers') R = KINDS.tiers(r, { cx, w: wOf(r.id), top: 0, bot: H - (next && next.show === 'stroke' ? t.stroke / u : 0) }, t, u);
     else if (r.kind === 'loop') R = KINDS.loop(r, {}, t, u, placed[r.of]);
@@ -357,13 +411,32 @@ function layout(decl, s, Z, S, room, gdx = null) {
   // a ROW of posts under a held slab: the row rule across the slab's width less its overhang (a third of a line each side, the
   // chamfer's); the posts stand h of the row's span tall, to the lattice
   function rowUnder(r, topF, slab, next) {
-    const over = OVER, slabW = (slab.box.x1 - slab.box.x0) * u, span = slabW - 2 * over;
-    const Rw = S.row({ span, w: t.part, wMin: t.min, n: r.n, min: t.counter, grid: t.grid, exact: true });
-    const pl = T3(topF + r.h * rawSpan(slab)), xa = 6 * u - Rw.span / 2, gp = Rw.n > 1 ? (Rw.span - Rw.n * Rw.w) / (Rw.n - 1) : 0, posts = [];
+    // w (11-02): a row may span a share of its root (posts hung from a bar: the room between them is the row's span); else the root's
+    // span less the chamfer's overhang each side
+    const over = OVER, slabW = (slab.box.x1 - slab.box.x0) * u, span = r.w != null ? r.w * slabW : slabW - 2 * over;
+    const Rw = S.row({ span, w: t.part, wMin: t.min, n: r.n, min: t.counter, grid: t.grid, exact: r.w == null });
+    const pl = T3(topF + r.h * rawSpan(slab)), xa = BASE * u - Rw.span / 2, gp = Rw.n > 1 ? (Rw.span - Rw.n * Rw.w) / (Rw.n - 1) : 0, posts = [];
     for (let j = 0; j < Rw.n; j++) posts.push(E.R(xa + j * (Rw.w + gp), topF - 0.01, Rw.w, pl - topF + 0.02, { root: 'POST', role: 'row', group: r.id }));
     const ov = (slabW - Rw.span) / 2;
     meta.rows.push({ id: r.id, declared: r.n, n: Rw.n, w: +(Rw.w * k).toFixed(3), gap: +(gp * k).toFixed(3), onGrid: Rw.grid, span: +(Rw.span * k).toFixed(3), rootSpan: +(span * k).toFixed(3), over: +(ov * k).toFixed(3), thinned: Rw.w < t.part - 1e-9, closed: !!(next && next.join === 'held'), hPx: +((pl - topF) * k).toFixed(3) });
     return { prims: posts, box: { x0: xa / u, x1: (xa + Rw.span) / u, top: topF / u, bot: pl / u }, row: { xa, w: Rw.w, span: Rw.span, over: ov } };
+  }
+  // ROOTS SIDE BY SIDE (11-02), for any kind: a group { side: [spine, spine, ...], widths: [shares], join } lays each column out as a
+  // spine of its own, in its share of the width (the box's, less a cut between each), a cut apart, and stands them on one line (their
+  // bottoms level, so a root resting under the group rests on all of them). A column's roots take their widths from their column, as a
+  // spine's take them from the box. (A group of a comb, a head, a blade and posts is the columns rule below.)
+  function sideAny(g) { return g.side.some(sp => sp.some(q => !['comb', 'head', 'blade', 'post'].includes(q.kind))); }
+  function sideBy(g, topF) {
+    // w: the group's share of the width it stands in; apart 'comb': the spaces between the columns as wide as the columns (equal
+    // columns and spaces, the comb's one width), else a cut
+    const n = g.side.length, Wb = (sub ? sub.W : key[0]) * (g.w ?? 1), ws = g.widths || g.side.map(() => 1), sw = ws.reduce((a, b) => a + b, 0);
+    const cutU = g.apart === 'comb' ? Wb / (2 * n - 1) : t.cut / u, room_ = Wb - (n - 1) * cutU, cols = []; let x = BASE - Wb / 2;
+    for (let ci = 0; ci < n; ci++) { const W = room_ * ws[ci] / sw; cols.push(layout({ ...decl, spine: g.side[ci] }, s, Z, S, room, null, { cx: x + W / 2, W })); x += W + cutU; }
+    const hOf = L => L.box.bot - L.box.top, Hm = Math.max(...cols.map(hOf)), prims = [];
+    cols.forEach(L => { const dy = topF + (Hm - hOf(L)) * u - L.box.top * u; prims.push(...E.xform(L.prims, 1, 0, 0, 0, dy));
+      for (const k_ of Object.keys(L.meta)) if (Array.isArray(L.meta[k_])) meta[k_] = (meta[k_] || []).concat(L.meta[k_]); });
+    meta.side = (meta.side || []).concat({ id: g.id || 'side', n, widths: ws });
+    return { r: g, prims, box: { x0: BASE - Wb / 2, x1: BASE + Wb / 2, top: topF / u, bot: topF / u + Hm }, asym: true };
   }
   // COLUMNS side by side, a cut between, tops at the top and bottoms at the box's bottom. Their widths are fixed widths (a comb's
   // tines and slots, posts, a blade's handle and protrusion), so they don't scale with the size: the comb takes the room the box
@@ -442,10 +515,10 @@ function layout(decl, s, Z, S, room, gdx = null) {
   const iBase = out.findIndex((R, i) => i > 0 && R.r.join === 'cut' && out.slice(0, i).some(q => q.r.kind === 'loop'));
   if (iBase > 0 && gdx == null) {
     const grp = out.slice(0, iBase).flatMap(R => R.prims), m = measure(E.build(grp).d);
-    return layout(decl, s, Z, S, room, s / 2 - m.cx);
+    return layout(decl, s, Z, S, room, s / 2 - m.cx, sub);
   }
   const symmetric = !out.some(R => asymRoot(R.r) || R.asym);
-  return { prims, meta, symmetric };
+  return { prims, meta, symmetric, box: { top: yTop, bot: yBot } };
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------
