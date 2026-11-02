@@ -74,12 +74,25 @@
   const OPEN = 132, cities = [['Reykjavík', 23], ['Stockholm', 23], ['Copenhagen', 23], ['Malmö', 23], ['LA', 23]];
   const menu = document.getElementById('menu'), boards = document.getElementById('boards');
   const signs = {};
-  // one trackpad swipe belongs to the row it started on, until the wheel goes quiet (moving the pointer mid-swipe never swipes another row)
-  // The axis is decided once per swipe from its first few px (a Magic Mouse swipe is noisy: single events can
-  // read more vertical than horizontal), then every event of that swipe follows it.
-  // 80ms of quiet ends a swipe (momentum events arrive every ~16ms; a new swipe, which stops momentum, leaves a gap)
-  let G = null, wheelQuiet = null;
-  function wheelGesture() { if (!G) G = { owner: null, axis: null, sx: 0, sy: 0 }; clearTimeout(wheelQuiet); wheelQuiet = setTimeout(() => { G = null; }, 80); return G; }
+  // One swipe belongs to the row it started on (drifting onto another row mid-swipe never swipes it).
+  // Telling swipes apart: on a Mac the momentum of one swipe runs straight into the next, so there is often
+  // no pause at all (owner's log: 550 events in 10.8s, never quiet). A new swipe starts when the stream turns
+  // around, or speeds up again after it has been slowing down (momentum only ever slows). 80ms of quiet also ends one.
+  // The axis is decided once per swipe from its first few px.
+  let G = null, gid = 0, wheelQuiet = null;
+  function wheelGesture(e) {
+    const a = Math.abs(e.deltaX) >= Math.abs(e.deltaY) ? e.deltaX : e.deltaY, abs = Math.abs(a), sg = Math.sign(a);
+    let fresh = !G;
+    if (G && sg && G.sign && sg !== G.sign) fresh = true;                       // turned around
+    if (G && G.decayed && abs >= G.trough + 6 && abs > G.trough * 1.8) fresh = true;   // sped up again after slowing
+    if (fresh) G = { id: ++gid, owner: null, axis: null, sx: 0, sy: 0, lastAbs: 0, sign: 0, falling: 0, decayed: false, trough: Infinity };
+    G.falling = abs < G.lastAbs ? G.falling + 1 : abs > G.lastAbs ? 0 : G.falling;
+    if (G.falling >= 3) G.decayed = true;
+    if (G.decayed) G.trough = Math.min(G.trough, abs);
+    G.lastAbs = abs; if (sg) G.sign = sg;
+    clearTimeout(wheelQuiet); wheelQuiet = setTimeout(() => { G = null; }, 80);
+    return G;
+  }
   const C = { 'Reykjavík': [64.15, -21.94], 'Stockholm': [59.33, 18.07], 'Copenhagen': [55.68, 12.57], 'Malmö': [55.60, 13.00], 'LA': [34.05, -118.24] };
   cities.forEach(([n, c]) => {
     const s = document.createElement('div'); s.className = 'sign' + (n === 'Malmö' ? '' : ' dim');
@@ -108,14 +121,15 @@
     r.addEventListener('keydown', e => { if (e.shiftKey && (e.key === 'Delete' || e.key === 'Backspace')) { e.preventDefault(); setOpen(r, true); showConfirm(r); } });
     // trackpad two-finger horizontal swipe (wheel deltaX): the board tracks it; ~120ms after the last
     // event it settles by the same 40% rule. Natural scrolling: fingers left = deltaX > 0.
-    let wx = 0, wt = null, wbase = 0, wlock = null, wlockDir = 0;
+    let wx = 0, wt = null, wbase = 0, wlock = null, wlockDir = 0, lastGid = 0;
     r.addEventListener('wheel', e => {
-      const g = wheelGesture();
+      const g = wheelGesture(e);
       if (!g.axis) { g.sx += Math.abs(e.deltaX); g.sy += Math.abs(e.deltaY); if (g.sx + g.sy >= 4) g.axis = g.sx > g.sy ? 'x' : 'y'; }
       if (g.axis !== 'x') return;   // undecided or vertical: the menu scrolls
       e.preventDefault();
       if (g.owner && g.owner !== r) return;
       g.owner = r;
+      if (g.id !== lastGid) { lastGid = g.id; if (wlock) { clearTimeout(wlock); wlock = null; } }   // a new swipe is always heard
       // after a snap, swallow the trackpad's momentum tail until it goes quiet (it would otherwise hold the board at the edge)
       // ...but only the tail going the same way: a swipe back answers at once
       if (wlock && Math.sign(e.deltaX) === wlockDir) { clearTimeout(wlock); wlock = setTimeout(() => { wlock = null; }, 80); return; }
@@ -211,13 +225,13 @@
     document.addEventListener('wheel', e => {
       if (box.contains(e.target)) return;
       const now = performance.now();
-      if (!cur) cur = { t0: now, n: 0, dx: 0, dy: 0, mx: 0, my: 0, mode: e.deltaMode, on: new Set(), before: openRows() };
-      cur.n++; cur.dx += e.deltaX; cur.dy += e.deltaY; cur.mx = Math.max(cur.mx, Math.abs(e.deltaX)); cur.my = Math.max(cur.my, Math.abs(e.deltaY)); cur.on.add(rowOf(e.target)); cur.t = now;
+      if (!cur) cur = { t0: now, n: 0, dx: 0, dy: 0, mx: 0, my: 0, mode: e.deltaMode, on: new Set(), g: new Set(), before: openRows() };
+      cur.n++; cur.dx += e.deltaX; cur.dy += e.deltaY; cur.mx = Math.max(cur.mx, Math.abs(e.deltaX)); cur.my = Math.max(cur.my, Math.abs(e.deltaY)); cur.on.add(rowOf(e.target)); cur.t = now; const cc = cur; setTimeout(() => cc.g.add(gid), 0);
       clearTimeout(endT); endT = setTimeout(finish, 400);
     }, { capture: true, passive: true });
     function finish() {
       const c = cur; cur = null; if (!c) return;
-      rows.push(`#${rows.length + 1} ${Math.round(c.t - c.t0)}ms n${c.n} dx${Math.round(c.dx)} dy${Math.round(c.dy)} max${Math.round(c.mx)}/${Math.round(c.my)} m${c.mode} on:${[...c.on].join('+')} open:${c.before}->${openRows()}`);
+      rows.push(`#${rows.length + 1} ${Math.round(c.t - c.t0)}ms n${c.n} dx${Math.round(c.dx)} dy${Math.round(c.dy)} max${Math.round(c.mx)}/${Math.round(c.my)} m${c.mode} swipes:${c.g.size} on:${[...c.on].join('+')} open:${c.before}->${openRows()}`);
       out.textContent = rows.slice(-18).join('\n');
     }
     box.querySelector('[data-c]').onclick = () => { ta.value = rows.join('\n'); ta.select(); let ok = false; try { ok = document.execCommand('copy'); } catch (_) {} if (!ok && navigator.clipboard) navigator.clipboard.writeText(ta.value).then(() => ok = true, () => {}); box.querySelector('[data-c]').textContent = ok ? 'Copied' : 'Copy (select below)'; if (!ok) { ta.style.cssText = 'width:100%;height:120px;font:inherit'; } };
