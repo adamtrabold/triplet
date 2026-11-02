@@ -79,6 +79,10 @@ function checkOne(size, id, B) {
     add('Snap priority', Math.max(...tops) - Math.min(...tops) < 1 / 6 && Math.max(...bots) - Math.min(...bots) < 1 / 6, `drawn level, landed level (within half an iPhone pixel): tops ${tops.join(', ')}; bottoms ${bots.join(', ')}`); }
   // SPOKES COUNT AS A ROW: the count the rule kept clears the counter minimum between every two
   for (const sp of M.spokes || []) add('Spokes count as a row', sp.n === 0 || sp.gap >= sp.min - 0.02, `${sp.n} of ${sp.declared} declared${sp.n ? `, gaps ${sp.gap}px (minimum ${sp.min})` : `: none clears the minimum, the ring stays open (${sp.gap}px across)`}`);
+  // A PART THAT MUST READ: it stands at least the protrusion minimum past the part it gathers into
+  for (const rp of M.reads || []) add('A part that must read', rp.past >= rp.min - 0.02, `the ${rp.part} stands ${rp.past}px past its fall (minimum ${+rp.min.toFixed(2)})`);
+  // OPENINGS BETWEEN RADIATING PARTS: their corners take the smallest cutter
+  if (M.openings) add('Openings between radiating parts', M.openings.cutter === 1 / 8, `corners round the openings cut with the ${M.openings.cutter}px cutter`);
   // WHAT CARRIES THE READ: a plain part keeps the master's proportion to what it holds (within the drift)
   for (const rd of M.read || []) if (rd.master != null) add('What carries the read', rd.now <= rd.master * (1 + 1 / 8) + 0.005, `plain part to what it holds ${rd.ratio}${rd.need ? `, drifted past the 18's ${rd.master}: it gave back ${rd.took}px, now ${rd.now}` : ` (the 18's ${rd.master}): proportions kept`}`);
   // COMB DEPTH: what is left under the slots is one line

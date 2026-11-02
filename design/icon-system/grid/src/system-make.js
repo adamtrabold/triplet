@@ -167,7 +167,7 @@ const KINDS = {
     let n = 0, sw = t.part; out: for (let m = r.n; m >= 2; m--) for (const w of widths) if (gapOf(m, w) >= t.counter - 1e-9) { n = m; sw = w; break out; }
     for (let i = 0; i < n; i++) { const a = ((r.turn || 0) + i) * Math.PI / n, dx = Math.sin(a) * L, dy = -Math.cos(a) * L;
       prims.push({ ...E.B([c - dx, cy - dy], [c + dx, cy + dy], sw), root: 'POST', role: 'spoke' }); }
-    return { prims, box: { ...P.box }, noStack: true, spokes: { id: r.id, declared: r.n, n, gap: n ? gapOf(n, sw) : 2 * Ri, w: +(sw).toFixed(4) } };
+    return { prims, box: { ...P.box }, noStack: true, spokes: { id: r.id, of: r.of, declared: r.n, n, gap: n ? gapOf(n, sw) : 2 * Ri, w: +(sw).toFixed(4) } };
   },
   // a splay: two posts from one point of the root they name (its centre; or a share of the way down a post), each leaning off
   // upright by its own lean (lean: one for both, mirrored; or [ahead, behind], a stride, ahead being the way the root they run
@@ -178,7 +178,7 @@ const KINDS = {
     const yb = r.to === 'bottom' ? C.H * u : r.past != null ? P.box.bot * u + r.past * (P.box.bot - P.box.top) * u : oy + r.reach * C.H * u;
     // from a centre the posts meet in a pin (Posts from one point); from a post's foot they run on from that post as one root
     // (Parts that run on): the grid moves them together, and the joints are corners the rack cuts
-    const foot = r.from != null && P.axis, h = t.part / 2, ahead = P.axis ? Math.sign(P.axis[0][0] - P.axis[1][0]) || 1 : 1;
+    const foot = r.from != null && P.axis, h = t.lean / 2, ahead = P.axis ? Math.sign(P.axis[0][0] - P.axis[1][0]) || 1 : 1;
     const leans = Array.isArray(r.lean) ? r.lean : [r.lean, r.lean];
     const parts = foot ? P.prims.slice() : [E.C(ox, oy, t.stroke / 2)];
     let x0 = ox, x1 = ox;
@@ -213,10 +213,14 @@ const KINDS = {
   // it, so the edge meets the fall square (a corner the rack cuts), never running level into it
   drape(r, at, t, u, C) {
     const P = C.prev, x0 = P.box.x0 * u, x1 = P.box.x1 * u, top = at.topF, H = C.H * u, ry = r.tie * (H - top), rx = (x1 - x0) / 2 - t.cut / 2 - t.part, prims = [];
-    for (const sg of [-1, 1]) { const xo = sg < 0 ? x0 + t.part : x1 - t.part, A = ELL_ARC(xo, top, rx, ry, sg < 0 ? 0 : Math.PI, Math.PI / 2), q = v => `${f5(v[0])} ${f5(v[1])}`;
-      prims.push({ ...E.D(`M${f5(xo)} ${f5(top)}H${f5(xo - sg * rx)}C${q(A[1])} ${q(A[2])} ${q(A[3])}Z`), root: 'ELLIPSE', role: 'drape' });
+    // A PART THAT MUST READ CLEARS A MINIMUM SIZE (11-02): the tie (where the drape is gathered into its fall) reads by standing past
+    // the fall, so it clears the protrusion minimum: the swag's edge ends that far in from the fall's inner face, and the tie's
+    // underside runs level back to the fall (a corner the rack cuts)
+    const tieP = t.protrude;
+    for (const sg of [-1, 1]) { const xo = sg < 0 ? x0 + t.part : x1 - t.part, xc = xo - sg * tieP, A = ELL_ARC(xc, top, rx - tieP, ry, sg < 0 ? 0 : Math.PI, Math.PI / 2), q = v => `${f5(v[0])} ${f5(v[1])}`;
+      prims.push({ ...E.D(`M${f5(xo)} ${f5(top)}H${f5(xo - sg * rx)}C${q(A[1])} ${q(A[2])} ${q(A[3])}H${f5(xo)}Z`), root: 'ELLIPSE', role: 'drape' });
       prims.push(E.R(sg < 0 ? x0 : x1 - t.part, top, t.part, H - top, { root: 'POST', role: 'fall' })); }
-    return { prims, box: { x0: x0 / u, x1: x1 / u, top: top / u, bot: H / u } };
+    return { prims, box: { x0: x0 / u, x1: x1 / u, top: top / u, bot: H / u }, reads: { id: r.id, part: 'tie', past: tieP } };
   },
   // blocks (a plan): a square w across cut into blocks by streets a cut wide, turned `turn` degrees about its centre. cols and
   // rows: a count of equal blocks, or their widths as shares (blocks of a plan are not all one size); open: blocks left out (a
@@ -251,7 +255,7 @@ const KINDS = {
   lean(r, at, t, u, C) {
     const P = C.prev, [hx, hy] = P.centre, a = r.lean * Math.PI / 180, dx = -Math.sin(a), dy = Math.cos(a), g = P.radius + t.cut, len = r.show * C.H * u;
     const p0 = [hx + dx * g, hy + dy * g], p1 = [p0[0] + dx * len, p0[1] + dy * len];
-    return { prims: [{ ...E.B(p0, p1, t.part), root: 'POST' }], box: { x0: Math.min(p0[0], p1[0]) / u, x1: Math.max(p0[0], p1[0]) / u, top: p0[1] / u, bot: p1[1] / u }, axis: [p0, p1], asym: true };
+    return { prims: [{ ...E.B(p0, p1, t.lean), root: 'POST' }], box: { x0: Math.min(p0[0], p1[0]) / u, x1: Math.max(p0[0], p1[0]) / u, top: p0[1] / u, bot: p1[1] / u }, axis: [p0, p1], asym: true };
   },
 };
 
@@ -278,6 +282,10 @@ function chamfered({ x0, x1, yT, yB, top = null, bot = null }) {
 // box allows (frame units). Returns the prims and what each rule decided (meta, for the checks and the board).
 function layout(decl, s, Z, S, room, gdx = null) {
   const u = s / 12, k = Z.k, t = { stroke: Z.stroke / k, part: Z.part / k, cut: Z.gap / k, band: Z.band / k, min: Z.min / k, counter: Z.counter / k, protrude: Z.protrude / k, grid: (1 / 3) / k, detail: Z.detail !== false };
+  // LEANING POSTS READ AT THE POST'S WEIGHT (11-02): a post off upright (a figure's body and limbs, a stand's legs) never lands its
+  // edges on the grid, so it reads lighter than an upright post of the same width; it is one iPhone pixel wider, so the parts of a
+  // figure read at the post width beside the set. (Spokes take their width from their own row rule.)
+  t.lean = t.part + t.grid;
   const cls = decl.cls.toUpperCase(), key = KEY[cls], tall = cls === 'TALL', H = key[1];
   const meta = { rows: [], combs: [], protrusions: [], bands: [], chamfers: [], loops: [] };
   // WIDTHS first: each a share of the root it names (of), else of the box's width
@@ -324,6 +332,7 @@ function layout(decl, s, Z, S, room, gdx = null) {
       const w = wOf(r.id); R = { held: true, topF, prims: [], box: { x0: cx - w / 2, x1: cx + w / 2, top: topF / u, bot: (topF + t.stroke) / u } };
     } else R = KINDS[r.kind](r, { cx, w: wOf(r.id), top: topF / u, topF }, t, u);
     R.r = r; R.depth = R.depth ?? (R.box.bot - R.box.top); placed[r.id] = R; out.push(R);
+    if (R.reads) (meta.reads = meta.reads || []).push({ ...R.reads, past: +(R.reads.past * k).toFixed(3), min: Z.protrude });
     if (R.spokes) (meta.spokes = meta.spokes || []).push({ ...R.spokes, gap: +(R.spokes.gap * k).toFixed(3), w: +(R.spokes.w * k).toFixed(3), min: Z.counter });
     // what lands with what: a root's own counters (a band) and a loop with its counter move with the root they are cut in or sit on
     if (R.prims[0]) R.prims[0] = { ...R.prims[0], rid: r.id };
@@ -490,8 +499,18 @@ function make(decl, Z, S, opts = {}) {
   const sym = symmetric ? ox + tx + s / 2 : undefined;
   let prims = E.xform(prims0, 1, 0, 0, ox + tx, ty);
   // LAND the roots on the iPhone grid before any corner is rounded; a row or a comb lands as one (below)
+  const ringAt = (meta.spokes || []).filter(sp => sp.n > 0).map(sp => prims.findIndex(p => p.rid === sp.of)).filter(i => i >= 0);
   if (opts.land) prims = asOne(prims, opts.land(prims, sym), Z);
-  const AB = apexBuild(prims, { ...bopts, sym }, Z.k, Z.stroke), d = AB.d; if (AB.apex) meta.apex = AB.apex;
+  // OPENINGS BETWEEN RADIATING PARTS (11-02): the openings between spokes in a ring are counters with no length to run, so the rounds
+  // must not fill them: every corner round such an opening is a cut and takes the rack's smallest cutter (as every cut does), and
+  // the counter minimum is what the opening holds as built
+  let olaw = bopts.law;
+  if (ringAt.length) { const paper = require(path.join(process.env.TOOLS, 'node_modules/paper/dist/paper-core.js'));
+    const rings = ringAt.map(i => { const it = new paper.CompoundPath(E.parts([prims[i]])[0].d), b = it.bounds; it.remove(); return { cx: b.x + b.width / 2, cy: b.y + b.height / 2, ri: b.width / 2 - Z.stroke / Z.k }; });
+    const base = bopts.law;
+    olaw = c => c.hole && rings.some(g => Math.hypot(c.pt[0] - g.cx, c.pt[1] - g.cy) < g.ri - 1e-3) ? RACK[0] : base(c);
+    meta.openings = { cutter: RACK[0] }; }
+  const AB = apexBuild(prims, { ...bopts, law: olaw, sym }, Z.k, Z.stroke), d = AB.d; if (AB.apex) meta.apex = AB.apex;
   return { d, s, sym: sym ?? null, meta: { ...meta, cls, s: +s.toFixed(4), fitBy: diamond ? 'the diamond' : gW && gH ? 'both sides' : gW ? 'width' : 'height' }, prims };
 }
 
