@@ -14,6 +14,8 @@ Job (`../jobs.md`): **going in to do things**, usually with a ticket: rides, cas
 
 **Risks:** a party or birthday icon. The poles are what make it a fairground gate, not a party; they may be the part to cut if it's heavy.
 
+**First build (18, seen by me):** the pennants fuse into the line and read as a **valance or a curtain's pelmet between two posts**, which is Venue's cue (one cue, one icon). It needs the pennants to read as separate flags: hung a cut below the line (a cut apart, each held by its corner), or fewer and longer. A finding for the visual turn, not a kill.
+
 ## B. The wheel, standing (`at-wheel4`; control `attraction`)
 
 **What it is:** the Ferris wheel, kept as the control (7-8 on execution in the one-shots), with 4 spokes and longer legs so it stands on the ground.

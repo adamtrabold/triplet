@@ -12,6 +12,8 @@ Job (`../jobs.md`): never on the map; in list rows (18 in the 24 diamond) and ba
 
 **How it passes the jobs:** F5: three roofs side by side is "several buildings", which a single house (home) and Museum's single gable are not. F6 (12, no diamond): three points on one base survive bare.
 
+**First build (18, seen by me):** three houses read, but they are small against a full-width base a cut below them, which reads as a separate bar: the base wants to be the houses' own width or to go.
+
 **Risks:** a skyline (city), which is close enough; a bar chart if the roofs are lost at 12.
 
 ## B. The roofs are the badge (`nb-roofs`)
@@ -21,6 +23,8 @@ Job (`../jobs.md`): never on the map; in list rows (18 in the 24 diamond) and ba
 **Declaration:** two columns side by side, each a house: a gable of pitch 1 over a block a third as deep as it is wide. Diamond class.
 
 **How it differs:** only two roofs, both at the badge's pitch, so the ink sits parallel to the diamond's sides. It only works in the diamond; at 12 bare it is two roofs, which must still read (F6).
+
+**First build (18, seen by me):** the clearest of the three: two houses at once, wide in the diamond.
 
 **Risks:** a home icon (two houses may read as one with a chimney); the diamond fit (by reach) may leave it small, since its feet are wide.
 
@@ -33,6 +37,8 @@ Job (`../jobs.md`): never on the map; in list rows (18 in the 24 diamond) and ba
 **Roots and rules:** slab, block; **a hole in a mass** (new, 11-02). At 12 the holes are about 1.5px and stay open.
 
 **How it differs:** a texture, not a building; the director's "draw it to measure".
+
+**First build (18, seen by me):** four small holes in a block under a slab: a die or a calculator. Killed by me, as expected; it measured the rule (walls a line wide leave holes under 1px apart at 18).
 
 **Risks:** an office, a calendar, a grid view (the same waffle that sank the city blocks, now in elevation). Expect to kill; it measures how far the hole rule goes.
 

@@ -24,6 +24,8 @@ Job (`../jobs.md`): "what if im with my kid and i just want to see what parks i 
 
 **How it passes the jobs:** F3: a frame standing wide with something hung in the middle reads "playground" at a glance; at 12 the ropes thin by the row rule before the seat goes.
 
+**First build (18, seen by me):** it reads as a stool or a small table: the seat is too big and the ropes as heavy as the legs. The ropes want the thinnest part (they are a row: the row rule may thin them), the seat narrower, the legs splayed further.
+
 **Risks:** narrows Park to playgrounds (a cemetery park isn't one); a gallows if the seat is lost at 12; a goal or a table if the legs splay too little.
 
 ## Which, and why (systems)

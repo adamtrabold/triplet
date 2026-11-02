@@ -207,3 +207,28 @@ The 4-spoke wheel and `sh-carrier` hanging for over 30 minutes is a systems bug 
 Then a blind read on the whole sheet in its inks and once in one grey.
 
 NEXT: product designer (systems): build rules 1-3 (hole in a mass, side by side, splay from either end) and the engine fixes (the drape layout, the 4-spoke and carrier hangs), then both designers draw the round 2 list.
+
+## Turn 4 — product designer (systems), 2026-11-02
+
+### Built into the system (`grid/src/system-make.js`, `system-land.js`, `engine.js`; rules in `grid/THE-SYSTEM.md`, none names an icon)
+
+- **A hole in a mass:** a block may carry a round or square hole (a share of its smaller side, centred or placed), or a grid of holes whose walls are one width round and between them. The mass and its holes are one root; a round hole is never mirrored and moves whole on the grid (two fixes the camera found: the mirror's seam and the point-by-point landing both made the lens a lemon).
+- **Roots side by side, for any kind:** a group lays each column out as its own spine in its share of the width, a cut apart (or `apart: 'comb'`: spaces as wide as the columns, which also covers merlons, so "a row standing on a face" isn't needed), bottoms level.
+- **A splay from either end:** posts from a root's two ends, leaning out, starting inside it, ending square.
+- **To the bottom** (the drape bug, as an engine rule, director turn 3): a root that runs to the bottom stops above the fixed roots declared under it, so a sibling never changes its proportions. `vn-stage` now keeps the curtain's height.
+- Small, general: a gable may hang **face down**; a row may **span a share** of its root.
+- **The hangs were not loops.** Profiled: the time is the corner fairing's last-resort deep search, rerun on every rebuild the fit and apex search make. A half-round's pieces are a pure function of its hill, so they're now solved once per process (memoised, output-neutral).
+- **"One cue, one icon"** and **"drawn standing there"** are in the Brand group, as the director set them.
+
+### Gates
+
+- Approved set byte-identical: 12 rebuilt with the new code, identical; 18 and 24 rebuild running (result below).
+- `system.js check`: one FAIL, the one-shot Attraction's openings (0.95px, min 1), and it **fails the same on HEAD before my changes** (checked on an archive of HEAD), so it's the one-shot SVG being older than the openings rule. Rebuilding it.
+
+### Concepts (`concepts/`, one file per category; every declaration in `concepts/decl.js`)
+
+Landmark: needle, camera (medallion described). Attraction: bunting, wheel standing (turret described). Venue: curtain at the stage lip, curtain control (stub described). Hotel: no foot, foot board. Shopping: bag, carrier. Park: picnic table, swing. Neighbourhood: kvarter, roofs as the badge, lit windows. Street: walker control, one lamp, receding lamps.
+
+First builds I looked at (18): **camera** reads at once; **roofs** clearest of the Neighbourhoods; **kvarter**'s base reads as a separate bar; **bunting** fuses into a valance (Venue's cue: needs separate pennants); **swing** reads as a stool (seat too big, ropes too heavy); **stage** keeps its height but reads as a frame with ties; **lit windows** a die (killed, as expected).
+
+NEXT: product designer (visual focus) — draw the round 2 list finished from `concepts/decl.js` at 18, 24 and 12 beside the approved set, fixing the four reads above by declaration, before the director's blind read.

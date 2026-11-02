@@ -12,6 +12,8 @@ Job (`../jobs.md`): **watching a show**, only when one's on; found in the evenin
 
 **How it passes the jobs:** F1/F4: a frame of slab top and bottom with an opening between, the drapes' gathered curve the only curve; nothing like a glass. F8: one central opening, large.
 
+**First build (18, seen by me):** the fix holds (the icon keeps the one-shot's height; no door). At 18 the drapes are short against the frame, so it reads as a frame with two ties more than a stage. The stage may want to be narrower than the rail, or the tie lower.
+
 **Risks:** a window with a sill (the stage must read as a floor: it's the full width, the same as the rail, which may make it a frame); a gate.
 
 ## B. The curtain (control, `venue`)

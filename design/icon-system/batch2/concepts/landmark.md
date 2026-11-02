@@ -24,6 +24,8 @@ Job (`../jobs.md`): **looking** at something notable, mostly from outside, for a
 
 **How it passes the jobs:** names the act (looking, taking the picture) for a church, a mural and a square alike. F8: the lens is the one counter, large, so it reads reversed.
 
+**First build (18, seen by me):** reads as a camera at once; the lens is round and centred (after two engine fixes, see `../jam.md` turn 4).
+
 **Risks:** a camera means "take a photo" / "add a photo" in every app; in Triplet it would sit on a pin, never on a button, but a fresh reader may still read "photo spot". The blind read decides.
 
 ## C. The medallion (wild card, not built)
