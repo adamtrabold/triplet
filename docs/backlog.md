@@ -10,6 +10,16 @@ surface. `CLAUDE.md` carries a one-line summary of the priority items.
 Concept work already produced — the next crew should get the owner to
 pick/redirect before building anything.
 
+- **Archive: bring deleted places back** (owner, 2026-11-02: asked "should we
+  have an archive people can bring places back from?", then "yes" to adding it
+  here). Not started; lane 2 (needs design) + DB. Why: every delete is permanent
+  today -- a row's × and city CRUD's "Remove the N places too" destroy the place,
+  its star, visited stamp, notes and plan stops (`plan_stops` cascades); the only
+  net is city CRUD's 6s Undo. Likely shape (a design call, not decided): a soft
+  delete (deleted places marked, not removed, plan stops kept or restorable)
+  plus somewhere to browse and restore them. Once it exists, "Remove the places
+  too" archives instead of deleting.
+
 - **Search engine trial: Photon vs today's Nominatim (automated)** (owner,
   2026-10-17, verbatim: "Add it to the backlog but I want the test
   automated not manual"). Not started.
