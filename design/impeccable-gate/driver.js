@@ -34,14 +34,51 @@
         var a = document.querySelector('#titleMenu [data-go="__all__"]'); if (a) a.click();
       },
       function () { return document.querySelectorAll('#map .sp-board').length >= 5 && document.getElementById('titleMenu').hidden; }],
+    // city-crud v2/v2b (operator-approved additions): the states the gate never rendered before
+    // the title menu's New city row turned into the Find a city line, typed in
+    findcity: ['#titleBtn', function () {
+        document.getElementById('titleBtn').click();
+        var n = document.querySelector('#titleMenu [data-act="newcity"]'); if (n) n.click();
+        setTimeout(function () { var i = document.querySelector('#titleMenu .menu-find-in'); if (i) { i.value = 'Philadelphia'; i.dispatchEvent(new Event('input', { bubbles: true })); } }, 300);
+      },
+      function () { var i = document.querySelector('#titleMenu .menu-find-in'); return !!i && i.value === 'Philadelphia'; }],
+    // the add tag's ADDRESS line being written on
+    address: ['#addrInput', function () {
+        document.getElementById('floatingAddBtn').click();
+        setTimeout(function () { var i = document.getElementById('addrInput'); i.focus(); i.value = '1007 N Orange St'; i.dispatchEvent(new Event('input', { bubbles: true })); }, 300);
+      },
+      function () { var r = document.getElementById('addAddrRow'); return !!r && r.classList.contains('is-writing') && document.getElementById('addrInput').value !== ''; }],
+    // + with a plan open: the add tag's PLAN line
+    planline: ['#addPlanRow', function () {
+        document.getElementById('titleBtn').click();
+        var q = document.querySelector('#titleMenu [data-kind="plans"]'); if (q) q.click();
+        var p = document.querySelector('#titleMenu [data-plan]'); if (p) p.click();
+        setTimeout(function () { document.getElementById('floatingAddBtn').click(); }, 600);
+      },
+      function () { var r = document.getElementById('addPlanRow'); return !!r && !r.hidden && !document.getElementById('addForm').hidden; }],
+    // a city picked, zoomed out: its signpost and the other cities' faded boards
+    faded: ['#titleBtn', function () { map.setView([58, -2], 3, { animate: false }); },
+      function () { return !!document.querySelector('#map .sp-board.is-faded'); }],
+    // the title menu with a city's REMOVE board swiped open (the signpost turned when shown)
+    removeboard: ['#titleBtn', function () {
+        document.getElementById('titleBtn').click();
+        setTimeout(function () { var r = document.querySelector('#titleMenu .menu-city[data-city="reykjavik"]'); if (r) rmSetOpen(r, true); }, 300);
+      },
+      function () { var r = document.querySelector('#titleMenu .menu-city[data-city="reykjavik"]'); return !!r && r.dataset.open === '1'; }],
+    // ... and its one-step picker
+    picker: ['#titleBtn', function () {
+        document.getElementById('titleBtn').click();
+        setTimeout(function () { rmShowPicker('reykjavik'); }, 300);
+      },
+      function () { return !!document.querySelector('#titleMenu .rm-pick'); }],
   };
   try {
     localStorage.clear();
     localStorage.setItem('triplet.citySelection', 'reykjavik');
     // cities stopped being a list filter (add-tag-jam phase 1): hide the other fixture cities so the
     // list is Reykjavik's section, as the city chip made it before (the gesture harness does the same)
-    localStorage.setItem('triplet.hiddenCities', JSON.stringify(S === 'signposts' ? [] : ['la', 'copenhagen', 'malmo', 'stockholm']));
-    if (S === 'plans') localStorage.setItem('gh.plans', '1'); // the plans fixture in stub.js (plans builds)
+    localStorage.setItem('triplet.hiddenCities', JSON.stringify(S === 'signposts' || S === 'faded' ? [] : ['la', 'copenhagen', 'malmo', 'stockholm']));
+    if (S === 'plans' || S === 'planline') localStorage.setItem('gh.plans', '1'); // the plans fixture in stub.js (plans builds)
   } catch (e) {}
   var done = false;
   function report(fail) {

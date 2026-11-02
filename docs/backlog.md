@@ -48,10 +48,15 @@ pick/redirect before building anything.
   should just Be a saved plan"; "Delete is good but not rename — cities should Be the names of real
   citirs"). DRAFT status: BUILT on `claude/city-place-creation-workflow-vcblfw` (name / address
   lines, Find a city, the PLAN line; `docs/shipped.md` "City CRUD v2", draft), awaiting the
-  combined CD + UX check, then land. **Delete city: ON HOLD** (owner, after approval: "Idk about
-  delete city though — brainstorm better options"); not built. Open for the check:
-  `design/city-crud/notes/builder.md` "Deviations". Designer's open questions (unanswered; the
-  defaults are built): roadtrip stops under their real town; PLAN line only with a plan open.
+  combined CD + UX check, then land. **v2b BUILT too** (2026-11-02, after the owner approved the
+  v12 prototype: "amazing so much better!!! perfect now imo"): a picked city filters (list + map, no
+  header), faded signposts, New city (kept cities, auto_added false), Remove city (swipe / trackpad /
+  right-click / Shift+Delete, SEE YOU SOON?, the one-step picker, move with Undo, remove-too held
+  until the slip ends); `docs/shipped.md` "City CRUD v2b" (draft). Open for the check:
+  `design/city-crud/notes/builder.md` "Gaps / calls for the check" (v2b) and "Deviations" (v2);
+  Impeccable's 3 new identities need a fix or the owner's waiver. Designer's open questions
+  (unanswered; the defaults are built): roadtrip stops under their real town; PLAN line only with a
+  plan open.
 - **Tag close: the pin is the close** -- LANDED 2026-10-21 (owner: "the x to close tag is in a very weird space" ... "pin is making the most sense to me" ... "yeah 6"; on the built sheet: "Yes"). With it, the tag's city line sits --s1 to the name (owner: "chunked slightly tighter"). Spec: `docs/shipped.md` "The pin is the close". Open: the owner's iPhone pass (`docs/iphone-checks.md`).
 - **Playground = the signed-out app** -- LANDED 2026-10-13 as `?play`, then
   made the signed-out experience (owner: "play shouldn't live at its own url
@@ -361,10 +366,22 @@ pick/redirect before building anything.
   little contradictory. Repro: `design/city-crud/build/stills/raw/B7-stop-failed.png`
   (`window.__failNext = 'plan_stops'` in cctest's lib). A UX call: silence the banner for this
   path, or word one of them differently.
-- **The Impeccable gate never renders the city-crud states** (builder, 2026-10-23): its runtime
-  states (list, popup, sort, add, plans, signposts) don't open a city menu with Find a city, the
-  PLAN line or ADDRESS being written, so new findings there can't be caught. Adding states is a
-  baseline change (owner/operator approval).
+- **Impeccable: 3 new identities from the city-crud states** (builder, 2026-11-02). The gate now
+  renders findcity, address, planline, faded, removeboard and picker (operator-approved). It finds:
+  bounce-easing on the signpost's turn (`cubic-bezier(.45,.05,.25,1.12)`, the owner-approved v12
+  value: waive or change); flat-type-hierarchy in the picker (its 14px question); undersized-ui-text
+  for the title menu rows' 10.4px tally (shipped since phase 1, never scanned open before). Not
+  baselined (`--update` needs approval). Repro: `design/impeccable-gate/run.sh index.html`.
+- **The remove slip truncates on the list header** (builder, 2026-11-02): "Stockholm removed. Its
+  places are in Copenhagen." doesn't fit the header band at 390/375
+  (`design/city-crud/build/stills/v2b/raw/B9-moved-undo.png`, `S9-moved-undo.png`). Copy or a
+  wider slip: a designer call.
+- **The remove picker scrolls inside the title menu's locked box** (builder, 2026-11-02): at 390
+  "Remove the N places too" / "Keep X" need a scroll; at 375x667 more (`raw/B8-picker.png`,
+  `raw/S8-picker.png`). The prototype's menu grew; phase 1 locked the box. A designer / UX call.
+- **A 4-city signpost rarely fits at 375x667 with the list raised** (builder, 2026-11-02, the
+  shipped phase-4 rule): the map's clear area is 202px tall and the joined post 180px, so its foot
+  has a 22px band; most views show no signpost (faded or not). Pre-existing; noticed in the stills.
 - **plans harness: long-name slip check fails on main** (builder, 2026-10-15,
   seen while testing the suggestions-over-x tweak). `node
   design/gesture-harness/plans.js index.html` is 31/32 on origin/main

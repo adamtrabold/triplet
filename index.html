@@ -1715,6 +1715,10 @@
     /* New city (v4): the title menu's row becomes the Find a city line in place */
     #titleMenu .menu-find { flex: none; }
     #titleMenu .menu-find-res { flex: none; }
+    /* the title menu's box is locked (it never moves); a result's where-line wraps rather than lose
+       its distance at the end */
+    #titleMenu .menu-res.add-res { height: auto; min-height: 48px; }
+    #titleMenu .menu-res .add-res-where { white-space: normal; }
 
     /* ---- CITY SECTION HEADER (SectionSeparate S1 "air above, light rule";
        SectionHeaders; GoToSections). A keyed non-row node in the list: never
@@ -7760,7 +7764,7 @@
           showWriteError(err, 'places');
         } finally { flagWritesInFlight--; }
         if (flagWritesInFlight === 0) await Promise.all([refetchLocations(), refetchNeighborhoodShapes()]);
-        if (ok) showPlanSlip(['', lab, ` removed. Its places are in ${cityLabel(to)}.`], () => rmUndoMove(cfg, to, [...locIds], [...shapeIds], { wasPicked, wasHidden, wasActive }), 'city-remove');
+        if (ok) showPlanSlip(`${lab} removed. Its places are in ${cityLabel(to)}.`, () => rmUndoMove(cfg, to, [...locIds], [...shapeIds], { wasPicked, wasHidden, wasActive }), 'city-remove');
         return ok;
       }
       // remove the places too: held until the slip ends
@@ -7773,7 +7777,7 @@
       planStops = planStops.filter(s => !stops.includes(s));   // the DB cascades the same way, at the commit
       if (map && map._popup) { const k = openTagKey(); if (k != null && !rowItem(k)) map.closePopup(); }
       updateUI(); syncAddTagCity();
-      showPlanSlip(['', lab, locs.length + shapes.length ? ' and its places removed.' : ' removed.'], () => rmUndoHeld(), 'city-remove', [], () => { commitHeldRemoval(); });
+      showPlanSlip(`${lab}${locs.length + shapes.length ? ' and its places removed.' : ' removed.'}`, () => rmUndoHeld(), 'city-remove', [], () => { commitHeldRemoval(); });
       return true;
     }
     // Undo of a held removal: nothing was written; everything comes back as it was.

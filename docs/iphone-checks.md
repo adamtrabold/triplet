@@ -6,6 +6,20 @@ owner can verify on a real device (the sandbox can't reach Supabase, tiles,
 or OSM). Remove an item once the owner confirms it; add new ones when a
 feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
 
+- **City CRUD v2b (DRAFT: not landed yet; check once it lands):** (1) pick a city in the title menu:
+  the list and the map hold only that city, no header, from the top; zoom far out: its signpost
+  as before, the others faded (dashed, grey); tap a faded one: that city; All places: sections and
+  eyes, and tapping a section's name does nothing; (2) title menu → "+ New city": type a real city,
+  pick it: you land in it, 0 places, the note; it stays after a reload; (3) swipe a city row left:
+  the navy REMOVE board slides in from the right with your finger, snaps open (a little bounce, a
+  tick on Android only), past ~40% its signpost (zoomed out) turns to SEE YOU SOON? slowly; a quick
+  flick opens/closes from anywhere; tap the board or the turned sign: the picker; tap the nearest
+  city: done, the slip says where the places went, Undo puts it all back; (4) "Remove the places
+  too", then Undo within 6s: nothing lost; let it run out: gone, and still gone after a reload;
+  switch apps during the 6s: it's committed; (5) Mac: two-finger swipe left on a row (also one swipe
+  straight after another, no pause), right-click a row, Shift+Delete on a focused row; (6) VoiceOver:
+  each city row is followed by "Remove {city}"; (7) remove one of the five original cities: it never
+  comes back after a reload.
 - **City CRUD v2 (DRAFT: not landed yet; check once it lands):** (1) tap +, then tap ADDRESS: the
   keyboard comes up with no zoom; type a street address: the results open under ADDRESS, its
   caption stays above what you type, the rule goes navy; pick one: ADDRESS shows it, NAME takes its

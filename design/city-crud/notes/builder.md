@@ -1,17 +1,104 @@
-# City CRUD v2: builder's notes
+# City CRUD v2 + v2b: builder's notes
 
-Branch: `claude/city-place-creation-workflow-vcblfw` (built on the designer's v2 commit d82f850).
-Spec: `concepts/v2-lean.md` + `concepts/0-shared-name-and-address.md`; jobs v2 in `jobs.md`;
-approved stills `stills/v2/1..3` (4 is on hold, below). The prototype layer (`proto/`) was read as
-reference only; nothing of it ships.
+Branch: `claude/city-place-creation-workflow-vcblfw`. v2 (name/address, Find a city, the PLAN line)
+built on the designer's d82f850; **v2b (below, READ FIRST)** built on aceb356 after the owner approved
+the rest of the design ("amazing so much better!!! perfect now imo" on the v12 prototype). The
+prototype layer (`proto/`) is reference only; nothing of it ships -- except `proto/swipe-flap.html`'s
+gesture logic, ported into `index.html` as the spec required.
 
-## HOLD: Delete city (owner reopened it)
+## v2b (2026-11-02): a picked city filters, faded signposts, New city, Remove city
 
-Owner, after approval: "Idk about delete city though — brainstorm better options". Not built: no
-"Delete city…" foot, no confirm, no move/delete-places choice, no tombstone, no migration. Nothing
-was started on it, so there is nothing to drop. `cleanupOrphanCities()` and the static `CITIES`
-seed are unchanged (they only matter once a hand delete exists: a deleted seed city would come
-back from the bootstrap; that is the next builder's question if Delete returns).
+Specs: `concepts/v5-a-city-means-that-city.md` (minus its "Remove Malmö…" foot), `v7-the-hold-reveals.md`
+("Also in this round" only), `v4-new-and-remove.md` (New city only), `v10-swipe-reveal.md`,
+`v11-sign-words.md` (the sign's words), `v12-one-step-and-desktop.md`; behaviour reference
+`proto/swipe-flap.html`. Earlier "HOLD: Delete city" is resolved by this round (Remove city).
+
+### Built
+1. **A picked city filters** (`cityListed()`): `visibleLocations()` / `visibleNeighborhoodShapes()` use
+   it, so the list AND the map hold the picked city only; All places = every shown city (the eye's
+   only scope). `setActiveCity()` scrolls a pick to the top (no section scroll). `titleState()` names a
+   picked city even when empty or hidden. `menuCityIds()` lists every one of your cities (an empty
+   one you made too). A plan's add-from sections follow the picked city (its section alone, no eye).
+   - **No header for a picked city** (`syncPlacesList()`); All places' header names are plain
+     headings (`.sec-name.is-static`, no go-to, the eye is the only action).
+   - **The reveal rule is now a switch** (`revealCity()` / `unrevealCity()`): a place filed in another
+     city (ADD, the city menu on a tag) switches the picked city to it (the map stays); a failed
+     write switches back. One render with the move, so the pin and its tag never drop out.
+   - Empty picked city: the empty line reads "Nothing here yet. Tap + to add a place; it's yours until
+     you remove it." (v4's note, in the shipped empty-state voice).
+2. **Faded signposts** (`mapVisibleLocations()`: `faded` badges; CSS `.sp-board.is-faded`): with a
+   city picked, zoomed out, every other city with a chip-matching place stands faded -- dashed
+   `--ink-2` rule, grey label, no navy shadow, the opaque paper face; a tap is `goToCity()`.
+3. **New city** (`openNewCityLine()`): "+ New city" before Plans on the title menu's Places side;
+   signed in, it turns in place into the Find a city line (`wireFindCity()`, near the map's centre);
+   a pick = `addCity(cfg, false)` + `goToCity()`; one of your cities = just `goToCity()`.
+4. **Kept cities**: `addCity(cfg, auto)` writes `auto_added = auto`; every hand pick passes false
+   (New city, Find a city on both tags, "+ town" on both tags); only the guess's own NEW city is
+   auto. `CITIES[id].auto` is kept locally (`fetchCities()` selects `auto_added`);
+   `cleanupOrphanCities()` only removes `auto !== false`.
+5. **Seeds**: the live `cities` table is the truth once it answers (`fetchCities()`: a seed id it
+   doesn't hold, with no places, is dropped from `CITIES`; an empty answer changes nothing). The
+   seeds are rows in that table already (20260920 migration), so **no migration is needed**.
+6. **Remove city** (the module "NEW CITY and REMOVE A CITY in the title menu", ported from the
+   prototype): each city row is `.menu-city` = the shipped `.menu-row` + `.rm-clip/.rm-board` + a
+   visually hidden `.rm-sr` "Remove {city}" menuitem (VoiceOver). Constants `RM_OPEN 132`,
+   `RM_FLICK_V .25`, `RM_VEL_WINDOW 80`, `RM_OPEN_AT .4`, `RM_MAX_GIVE 12` / `RM_GIVE_K 40`; snap
+   240ms `cubic-bezier(.25,1.45,.45,1)` open / 160ms `cubic-bezier(.4,0,.2,1)` close; detent tick
+   6ms, landing tick 10ms at 170ms (`navigator.vibrate`; iOS silent by platform). Touch: axis lock
+   after 10px (|dx| > 2|dy|), flick or 40% rule. Trackpad: `rmWheelGesture()` (a new swipe = the
+   stream turns around, or speeds up after decaying; 80ms quiet), axis once per swipe, owner row,
+   clamped accumulator, edge snap + same-direction momentum lock, 120ms settle; a document wheel
+   listener forwards a wheel over a row's band (`rmRowUnder()`). Right-click/control-click opens;
+   Shift+Delete/Backspace opens + the picker, focus on the nearest city. Signed out: the board reads
+   SIGN IN and `requireAuth()` (the sign-in sheet). Reduced motion: no transitions (board, sign).
+   - **The sign** (`boardHtml()` now two faces; `setSignTurned()`, `rmTurned`): turns at the 40% line
+     to SEE YOU SOON? on navy (480ms `cubic-bezier(.45,.05,.25,1.12)`), as wide as its words; a tap on
+     a turned sign (through `#menuScrim`, via `elementsFromPoint`) opens the picker.
+   - **The picker** (`rmPickerHtml()`): "Remove X. Move its N places to:", other cities nearest
+     first ("≈ n km", `roundKm()`), "Remove the N places too (and K plan stops)", "Keep X". An empty
+     city: "Remove X? Nothing is filed here." + "Remove X" + "Keep X".
+   - **Move** (`rmCommit(id, to)`): optimistic; `locations.update({city}).eq('city', id)`, the same on
+     shapes, then `cities.delete().eq('id', id)`; failure rolls back. Slip (the plans slip,
+     `showPlanSlip()`): "X removed. Its places are in Y." Undo (`rmUndoMove()`): re-insert the city row
+     (its config, its auto flag), then move those place ids back (`.in('id', ids)`).
+   - **Remove too = held** (operator ruling (a)): `pendingRemoval`; gone from the screen at once,
+     nothing written; `withoutHeldRemoval()` filters the places/shapes/plan-stop reads so a poll can't
+     resurrect them; Undo (`rmUndoHeld()`) writes nothing. The slip's end (`planSlipEnd`, new
+     `onEnd` hook on `showPlanSlip()`/`hidePlanSlip()`) runs `commitHeldRemoval()`: delete places by
+     id (their plan stops cascade), shapes by id, then the city row; failure shows it all again. A
+     second remove (or any other slip) commits the held one first. **Leaving the app**:
+     `visibilitychange` (hidden) and `pagehide` commit at once -- the deletes are SENT immediately
+     (best effort); if the page dies before they land, the data survives (the safe direction). Chosen
+     over "leave it undone" because a backgrounded phone often never returns to the page.
+   - After removing the picked city: All places (v5).
+   - The menu never re-renders under a swipe, an open board, the picker or a search (`rmBusy()`).
+
+### Gaps / calls for the check
+1. **The picker scrolls inside the title menu's locked box** (phase 1 locks its height to the raised
+   sheet's top); at 390 "Remove the 23 places too" / "Keep" need a scroll, at 375x667 more so. The
+   prototype's menu grew. Not changed (the box is a shipped design rule).
+2. **The undo slip truncates** on the list header at 390 and 375 ("Stockholm removed. Its places
+   a…"); I made the whole sentence truncate at its end so the city reads first (it was the city that
+   truncated). Copy unchanged.
+3. **Find a city's results in the title menu** wrap their where-line (the menu's locked width cut
+   "≈ n km away"); the add tag / tag city menus are unchanged.
+4. **Empty-city picker** copy is v4's ("Remove X? Nothing is filed here.") with v12's one-step rows.
+5. **Seed cities with no places** now appear in the menu with 0 (every one of your cities is listed).
+6. **Signed out** gets the sign-in SHEET (`requireAuth()`), as New plan does; the tag-only "sign-in
+   slip" isn't available in the menu.
+7. **Faded boards ignore the eye** (the eye's scope is All places).
+8. At 375x667 with the list raised, the map's clear area (202px) fits a 4-board post only in a narrow
+   band of views (shipped phase 4 rule; the stills pick such a view).
+9. **Impeccable** (new states rendered, approved): 3 new identities, NOT baselined -- bounce-easing on
+   the approved sign turn (needs a waiver); flat-type-hierarchy in the picker (its 14px question,
+   as approved); undersized-ui-text "23" (the shipped title-menu tally at 10.4px, newly scanned).
+
+### Tests (v2b)
+cctest 97 (V filter/faded, N New city, R touch snap cases + sign + scrim tap + picker + right-click +
+Shift+Delete + VoiceOver, P move/Undo/held/poll/commit/seed/second-remove/background, W trackpad
+streams with no quiet gap, S signed out/reduced motion/375). citytest D3/E1/F2/S1a/S1c and plantest
+P6/H1-H12/V17/K5/EM1-2 rewritten to the new rules (the old ones encoded "go-to never filters").
+Stills: `build/stills-v2b.js` -> `build/stills/v2b/`.
 
 ## What's built (all in `index.html`)
 
