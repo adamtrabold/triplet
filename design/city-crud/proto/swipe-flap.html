@@ -212,29 +212,4 @@
     r.dispatchEvent(new WheelEvent('wheel', { deltaX: e.deltaX, deltaY: e.deltaY, deltaMode: e.deltaMode, clientX: e.clientX, clientY: e.clientY, cancelable: true }));
   }, { passive: false });
   function closeAll(except) { menu.querySelectorAll('.row').forEach(o => { if (o !== except && o.dataset.open === '1') setOpen(o, false); }); }
-  // DEBUG readout (temporary): one line per swipe, so a screenshot is enough. Wheel inside the box is ignored.
-  (() => {
-    const box = document.createElement('div');
-    box.style.cssText = 'position:fixed;top:8px;right:8px;width:360px;max-width:calc(100vw - 16px);box-sizing:border-box;background:#fff;border:1px solid #12293F;font:11px/15px ui-monospace,Menlo,monospace;color:#12293F;padding:6px;z-index:99;white-space:pre-wrap';
-    box.innerHTML = '<div style="display:flex;gap:6px;margin-bottom:4px"><button data-c>Copy</button><button data-x>Clear</button></div><div data-o></div><textarea data-t style="position:absolute;left:-9999px"></textarea>';
-    document.body.appendChild(box);
-    const out = box.querySelector('[data-o]'), ta = box.querySelector('[data-t]');
-    const rows = []; let cur = null, endT = null;
-    const rowOf = el => { const r = el.closest && el.closest('.row'); return r ? r.dataset.name : (el === document.body || el === document.documentElement ? 'page' : (el.className || el.tagName)); };
-    const openRows = () => [...document.querySelectorAll('.row')].filter(r => r.dataset.open === '1').map(r => r.dataset.name).join(',') || '-';
-    document.addEventListener('wheel', e => {
-      if (box.contains(e.target)) return;
-      const now = performance.now();
-      if (!cur) cur = { t0: now, n: 0, dx: 0, dy: 0, mx: 0, my: 0, mode: e.deltaMode, on: new Set(), g: new Set(), before: openRows() };
-      cur.n++; cur.dx += e.deltaX; cur.dy += e.deltaY; cur.mx = Math.max(cur.mx, Math.abs(e.deltaX)); cur.my = Math.max(cur.my, Math.abs(e.deltaY)); cur.on.add(rowOf(e.target)); cur.t = now; const cc = cur; setTimeout(() => cc.g.add(gid), 0);
-      clearTimeout(endT); endT = setTimeout(finish, 400);
-    }, { capture: true, passive: true });
-    function finish() {
-      const c = cur; cur = null; if (!c) return;
-      rows.push(`#${rows.length + 1} ${Math.round(c.t - c.t0)}ms n${c.n} dx${Math.round(c.dx)} dy${Math.round(c.dy)} max${Math.round(c.mx)}/${Math.round(c.my)} m${c.mode} swipes:${c.g.size} on:${[...c.on].join('+')} open:${c.before}->${openRows()}`);
-      out.textContent = rows.slice(-18).join('\n');
-    }
-    box.querySelector('[data-c]').onclick = () => { ta.value = rows.join('\n'); ta.select(); let ok = false; try { ok = document.execCommand('copy'); } catch (_) {} if (!ok && navigator.clipboard) navigator.clipboard.writeText(ta.value).then(() => ok = true, () => {}); box.querySelector('[data-c]').textContent = ok ? 'Copied' : 'Copy (select below)'; if (!ok) { ta.style.cssText = 'width:100%;height:120px;font:inherit'; } };
-    box.querySelector('[data-x]').onclick = () => { rows.length = 0; out.textContent = ''; };
-  })();
 </script></body></html>
