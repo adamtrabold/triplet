@@ -163,9 +163,7 @@ const KINDS = {
     const gapOf = (m, w) => { const ph = Math.PI / (2 * m), rho = (Ri + w / 2) / (1 + Math.sin(ph)); return 2 * (Ri - rho); };
     // count first, as a row: the part width, then thinner a grid step at a time to the size's thinnest (never under 1px: the 2/3
     // at 12 is a row's or a comb's, parts side by side), then one fewer
-    // OPENINGS BETWEEN RADIATING PARTS (11-02): spokes are a ring's fine parts, so they thin to the whole pixel (1px at every size)
-    // before the count drops: the openings, not the spokes, carry the wheel's read
-    const wMin = 3 * t.grid, widths = []; for (let w = t.part; w >= wMin - 1e-9; w -= t.grid) widths.push(w); if (widths[widths.length - 1] > wMin + 1e-9) widths.push(wMin);
+    const wMin = Math.max(t.min, 3 * t.grid), widths = []; for (let w = t.part; w >= wMin - 1e-9; w -= t.grid) widths.push(w); if (widths[widths.length - 1] > wMin + 1e-9) widths.push(wMin);
     let n = 0, sw = t.part; out: for (let m = r.n; m >= 2; m--) for (const w of widths) if (gapOf(m, w) >= t.counter - 1e-9) { n = m; sw = w; break out; }
     for (let i = 0; i < n; i++) { const a = ((r.turn || 0) + i) * Math.PI / n, dx = Math.sin(a) * L, dy = -Math.cos(a) * L;
       prims.push({ ...E.B([c - dx, cy - dy], [c + dx, cy + dy], sw), root: 'POST', role: 'spoke' }); }
@@ -180,7 +178,7 @@ const KINDS = {
     const yb = r.to === 'bottom' ? C.H * u : r.past != null ? P.box.bot * u + r.past * (P.box.bot - P.box.top) * u : oy + r.reach * C.H * u;
     // from a centre the posts meet in a pin (Posts from one point); from a post's foot they run on from that post as one root
     // (Parts that run on): the grid moves them together, and the joints are corners the rack cuts
-    const foot = r.from != null && P.axis, h = t.lean / 2, ahead = P.axis ? Math.sign(P.axis[0][0] - P.axis[1][0]) || 1 : 1;
+    const foot = r.from != null && P.axis, h = (foot ? t.lean : t.part) / 2, ahead = P.axis ? Math.sign(P.axis[0][0] - P.axis[1][0]) || 1 : 1;
     const leans = Array.isArray(r.lean) ? r.lean : [r.lean, r.lean];
     // OPENINGS BETWEEN RADIATING PARTS (11-02): posts from a ring's centre never cross the ring's openings (that is the spokes'
     // room): they start in the rim's band, and the hub is only where the spokes cross (no pin)
@@ -293,9 +291,10 @@ function chamfered({ x0, x1, yT, yB, top = null, bot = null }) {
 // box allows (frame units). Returns the prims and what each rule decided (meta, for the checks and the board).
 function layout(decl, s, Z, S, room, gdx = null) {
   const u = s / 12, k = Z.k, t = { stroke: Z.stroke / k, part: Z.part / k, cut: Z.gap / k, band: Z.band / k, min: Z.min / k, counter: Z.counter / k, protrude: Z.protrude / k, grid: (1 / 3) / k, detail: Z.detail !== false };
-  // LEANING POSTS READ AT THE POST'S WEIGHT (11-02): a post off upright (a figure's body and limbs, a stand's legs) never lands its
-  // edges on the grid, so it reads lighter than an upright post of the same width; it is one iPhone pixel wider, so the parts of a
-  // figure read at the post width beside the set. (Spokes take their width from their own row rule.)
+  // PARTS OF A FIGURE (11-02): a figure is drawn only in leaning posts (a body, the limbs that run on from it), and a post off upright
+  // never lands its edges on the grid, so it reads lighter than the set's landed posts; a figure's posts are one iPhone pixel wider,
+  // so they read at the post width beside the set. (Posts that hold a solid part, a stand's legs, keep the part width; spokes take
+  // theirs from their own rule.)
   t.lean = t.part + t.grid;
   const cls = decl.cls.toUpperCase(), key = KEY[cls], tall = cls === 'TALL', H = key[1];
   const meta = { rows: [], combs: [], protrusions: [], bands: [], chamfers: [], loops: [] };
@@ -519,7 +518,7 @@ function make(decl, Z, S, opts = {}) {
   if (ringAt.length) { const paper = require(path.join(process.env.TOOLS, 'node_modules/paper/dist/paper-core.js'));
     const rings = ringAt.map(i => { const it = new paper.CompoundPath(E.parts([prims[i]])[0].d), b = it.bounds; it.remove(); return { cx: b.x + b.width / 2, cy: b.y + b.height / 2, ri: b.width / 2 - Z.stroke / Z.k }; });
     const base = bopts.law;
-    olaw = c => c.hole && rings.some(g => Math.hypot(c.pt[0] - g.cx, c.pt[1] - g.cy) < g.ri - 1e-3) ? RACK[0] : base(c);
+    olaw = c => process.env.OPEN_CUT !== '0' && c.hole && rings.some(g => Math.hypot(c.pt[0] - g.cx, c.pt[1] - g.cy) < g.ri - 1e-3) ? RACK[0] : base(c);
     meta.openings = { cutter: RACK[0] }; }
   const AB = apexBuild(prims, { ...bopts, law: olaw, sym }, Z.k, Z.stroke), d = AB.d; if (AB.apex) meta.apex = AB.apex;
   return { d, s, sym: sym ?? null, meta: { ...meta, cls, s: +s.toFixed(4), fitBy: diamond ? 'the diamond' : gW && gH ? 'both sides' : gW ? 'width' : 'height' }, prims };
