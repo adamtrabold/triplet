@@ -108,3 +108,36 @@ Landmark **L1 coin-op viewer** · Attraction **A1 turnstile** (A3 wheel as contr
 - Is the turnstile known outside metro riders? Only a blind read answers it.
 
 NEXT: product designer (visual focus) — to add its own directions per category and push, merge or kill these on how they'd look at 18 and 24, before the director steers which go to drawing.
+
+## Turn 2: product designer (visual), 2026-11-02
+
+Sheet: `sketches/contact-1.png` (every glyph built by the system from a declaration in `sketches/sketch.js`; true size beside 4x, in the set inks, beside the approved set). Turn 1 said four inks weren't set. They are set (`../categories-design-calls.md`): Venue #AF4B82, Museum #523875, Landmark #4889A8, Park #3F925B, Neighborhood #328177. Shape still has to come before colour, but the sheet uses the real inks.
+
+The draw (`secrets.choice`, run): Landmark *Just carry on* / hotel room numbers / the moment just after · Attraction *Work at a different speed* / luggage stickers · Venue *Give way to your worst impulse* / lighthouse lenses / a sound made visible · Hotel *Destructive action; incorporate* / two of it · Shopping *Unacceptable colour* / the thing left behind · Park *Be extravagant* / road-sign pictograms · Neighborhood *Overtly resist change* / the tool used to make it · Street *Water* / matchbook covers / a number.
+
+### Kills (on how they look at 18)
+- **L1 coin-op viewer**: drawn. At true size it's a table or a mushroom. **L2 empty plinth**: a podium. **L3 crop corners**: a screenshot or scan icon, four specks. **L4 figure for scale**: breaks "one person" (finding 3); the needle keeps the scale without the figure.
+- **A1 turnstile**: can't be read side-on at 18; from above it's a car badge. **A2 cropped gondola**: a lantern or a padlock. **A4 swing ride**: an umbrella.
+- **V2 marquee bulbs**: dots ("dots add an insane amount of visual noise"). **V3 mic**: voice input. **vn-spot** (mine, the light cone on a stage): drawn, and it's the eject key.
+- **H2 door hanger**: a hung card is the Hanging Tag. **H3 key**: login. **H4 night window**: a calendar.
+- **S1 market basket**: it *is* the checkout basket. **S3 parcel**: a delivery. **sh-tote** (mine): drawn, reads as a padlock (a tall loop on a block). The bag's handle must stay low.
+- **P4 lawn / pk-lawn** (mine, sun over a mound): drawn, it's the account/person bust.
+- **N3 boundary, N4 walk round**: a blob, and refresh. **St2 street plate**: the phase-4 map signpost. **St4 lamps in a row**: merged into one lamp.
+
+### Strongest per category (my read of the sheet)
+- **Landmark: lm-needle**, an obelisk on a plinth (*just carry on*: the plain road-sign monument, no building front, so it stays off Museum). The thin `lm-obelisk` is too slight at 18 and reads as a pushpin; the needle has the mass. An owner-backed alternative: **a camera** ("camera says 'sight'", 10-15, and Landmark is now the sight category). It needs the hole rule (below), so it isn't drawn yet.
+- **Attraction: at-bigtop**, a tent roof over flaps tied open (*the moment just after*: you've gone in). Whimsy from the subject, and no ring and spokes, so no gear. At 18 it reads as a pavilion or pagoda more than a circus, and the drapes are Venue's cue (finding 1), so if this goes forward Venue moves off the curtain. Control: the wheel. `at-wheel4` never finished building (hung after more than 30 minutes; the spokes or splay layout at n:4, lean:24 is a finding for systems).
+- **Venue: the curtain stays the control.** My stage-lip push (`vn-stage`) failed in the system: with a third root the drape lays out tall and narrow (a door). That's a layout finding, not a subject verdict. Honest strongest: the one-shot curtain, plus V4 the stub *if* paper goes to Venue.
+- **Hotel: ht-nofoot**, the bed with its foot taken away (*destructive action*). At 18 it's still plainly a bed, it's lighter, and with no legs it gives up the slab-on-legs cue to Park. `ht-board` (a foot board, no legs) is the close second.
+- **Shopping: the bag control**, unchanged. Nothing new beat it. `sh-carrier` also hung in the build.
+- **Park: pk-picnic**, a picnic table seen end on (road-sign pictograms: the US park sign *is* the picnic table). A narrow top over wider seats on two rows of legs. Beside the bench it's a different silhouette, and it's the owner's "with my kid" stop. With the bed off its legs, Park owns the legs.
+- **Neighborhood / Street: none pass yet.** `nb-square` (blocks round an open square) is speckle at 18. `nb-four` is a tile or the Windows logo. `st-corridor` can't be told from the blocks at true size: **the plan pair (turn 1 option b) doesn't separate at 18.** `st-lamp` (one street lamp: hood, lantern, post) is the strongest new Street. It's elevation, so it argues for option (a): Neighborhood as the roofline (N1, which needs rule 2), Street as the lamp (or the walker control).
+
+### General rules these directions need (none names an icon)
+1. **A hole in a mass**: a block may carry a round counter, a share of its depth, centred (the camera, a door hanger, a marquee). The Holes rule exists in words, but no kind supports it.
+2. **Roots side by side** for any kind, not only comb, blade and post columns (the roofline's three gables, a double bed's two pillows).
+3. **An A-frame**: posts splayed from a slab's two ends (the swing, a picnic table side-on, an easel).
+4. **A row standing on a face** (posts up from the slab below, nothing above: crenellations, a castle).
+5. **A slab under drapes** must not change the drape's layout (the vn-stage failure).
+
+NEXT: design director: steer the family calls (who owns slab-on-legs: Park now; who owns drapes: Venue or Attraction; elevation or plan for the shapes, which the sheet says is elevation) before systems adds rules 1-3 and we draw round 2.
