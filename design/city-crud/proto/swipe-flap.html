@@ -111,9 +111,7 @@
     let wx = 0, wt = null, wbase = 0, wlock = null, wlockDir = 0;
     r.addEventListener('wheel', e => {
       const g = wheelGesture();
-      // the swipe's first px are banked while its direction is decided, then applied (a short swipe isn't shortened)
-      let d = e.deltaX;
-      if (!g.axis) { g.sx += Math.abs(e.deltaX); g.sy += Math.abs(e.deltaY); g.dx = (g.dx || 0) + e.deltaX; if (g.sx + g.sy >= 10) { g.axis = g.sx >= g.sy * 0.7 ? 'x' : 'y'; d = g.dx; } }   // leans sideways: a swipe that starts a little downward still counts
+      if (!g.axis) { g.sx += Math.abs(e.deltaX); g.sy += Math.abs(e.deltaY); if (g.sx + g.sy >= 4) g.axis = g.sx > g.sy ? 'x' : 'y'; }
       if (g.axis !== 'x') return;   // undecided or vertical: the menu scrolls
       e.preventDefault();
       if (g.owner && g.owner !== r) return;
@@ -124,11 +122,11 @@
       if (wlock) { clearTimeout(wlock); wlock = null; }
       if (wt == null) { closeAll(r); wbase = r.dataset.open === '1' ? -OPEN : 0; wx = 0; r.classList.remove('settle', 'to-open', 'to-shut'); }
       // the accumulator is clamped too, so trackpad momentum can't bank distance (pulling back answers at once)
-      wx = Math.max(-OPEN - 120 - wbase, Math.min(-wbase, wx - d * WHEEL_GAIN)); setDrag(r, wbase + wx, true);
+      wx = Math.max(-OPEN - 120 - wbase, Math.min(-wbase, wx - e.deltaX)); setDrag(r, wbase + wx, true);
       // reaching an edge snaps at once: open at the open width (or past it), shut at zero
       const at = wbase + wx, snap = at <= -OPEN ? true : (wbase !== 0 && at >= 0) ? false : null;
       if (snap !== null) { clearTimeout(wt); wt = null; setOpen(r, snap); wlockDir = Math.sign(e.deltaX); wlock = setTimeout(() => { wlock = null; }, 80); return; }
-      clearTimeout(wt); wt = setTimeout(() => { const cur = parseFloat(r.dataset.dx || 0); setOpen(r, wbase === 0 ? cur < -OPEN * WHEEL_OPEN_AT : cur < -OPEN * (1 - WHEEL_OPEN_AT)); wt = null; }, 120);
+      clearTimeout(wt); wt = setTimeout(() => { const cur = parseFloat(r.dataset.dx || 0); setOpen(r, wbase === 0 ? cur < -OPEN * OPEN_AT : cur < -OPEN * (1 - OPEN_AT)); wt = null; }, 120);
     }, { passive: false });
     r.querySelector('.front').onclick = () => { if (r.dataset.open === '1') setOpen(r, false); else closeAll(); };
     let x0 = null, y0 = null, base = 0, locked = null, trail = [];
@@ -157,8 +155,6 @@
   // v12 fix (owner: "that stretch in the places list is insane"): past the open width the board gives
   // a little and stops, an exponential ease toward MAX_GIVE (12px), never more. Board max 144px.
   const FLICK_V = 0.25, VEL_WINDOW = 80, OPEN_AT = 0.4, MAX_GIVE = 12, GIVE_K = 40;
-  // trackpad / Magic Mouse: the board moves 1.6x the swipe, and 20% of the way decides (a short swipe opens)
-  const WHEEL_GAIN = 1.6, WHEEL_OPEN_AT = 0.2;
   function setDrag(r, x, dragging) {
     if (x > 0) x = 0;
     // the detent: past the open width the board resists hard, and a tick marks the moment you reach it
@@ -202,4 +198,25 @@
     r.dispatchEvent(new WheelEvent('wheel', { deltaX: e.deltaX, deltaY: e.deltaY, deltaMode: e.deltaMode, clientX: e.clientX, clientY: e.clientY, cancelable: true }));
   }, { passive: false });
   function closeAll(except) { menu.querySelectorAll('.row').forEach(o => { if (o !== except && o.dataset.open === '1') setOpen(o, false); }); }
+  // DEBUG readout (temporary): what the trackpad / mouse actually sends, to tune the swipe from real data.
+  (() => {
+    const box = document.createElement('div');
+    box.style.cssText = 'position:fixed;top:8px;right:8px;width:300px;max-height:45vh;overflow:auto;background:#fff;border:1px solid #12293F;font:11px/14px ui-monospace,Menlo,monospace;color:#12293F;padding:6px;z-index:99;white-space:pre';
+    const head = document.createElement('div'); head.style.cssText = 'display:flex;gap:6px;margin-bottom:4px';
+    const copy = document.createElement('button'); copy.textContent = 'Copy log';
+    const clear = document.createElement('button'); clear.textContent = 'Clear';
+    head.append(copy, clear); const out = document.createElement('div'); box.append(head, out); document.body.appendChild(box);
+    const lines = []; let t0 = null, last = 0;
+    const name = el => { const r = el.closest && el.closest('.row'); return r ? r.dataset.name : (el.className || el.tagName); };
+    const openRows = () => [...document.querySelectorAll('.row')].filter(r => r.dataset.open === '1').map(r => r.dataset.name).join(',') || '-';
+    document.addEventListener('wheel', e => {
+      const now = performance.now(); if (now - last > 400) { t0 = now; lines.push('--- new swipe ---'); } last = now;
+      lines.push(`${String(Math.round(now - t0)).padStart(4)}ms dx${e.deltaX.toFixed(1).padStart(7)} dy${e.deltaY.toFixed(1).padStart(7)} m${e.deltaMode} ${name(e.target)}`);
+      setTimeout(() => { lines.push(`       open: ${openRows()}`); render(); }, 0);
+    }, { capture: true, passive: true });
+    ['touchstart', 'touchend', 'contextmenu'].forEach(t => document.addEventListener(t, e => { lines.push(`${t} on ${name(e.target)}`); setTimeout(() => { lines.push(`       open: ${openRows()}`); render(); }, 300); }, { capture: true, passive: true }));
+    function render() { while (lines.length > 300) lines.shift(); out.textContent = lines.slice(-60).join('\n'); out.parentNode.scrollTop = 1e6; }
+    copy.onclick = () => { const txt = lines.join('\n'); (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(() => { copy.textContent = 'Copied'; setTimeout(() => copy.textContent = 'Copy log', 1200); }, () => { out.textContent = txt; }); };
+    clear.onclick = () => { lines.length = 0; render(); };
+  })();
 </script></body></html>
