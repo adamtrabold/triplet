@@ -222,8 +222,9 @@ NEXT: product designer (systems): build rules 1-3 (hole in a mass, side by side,
 
 ### Gates
 
-- Approved set byte-identical: 12 rebuilt with the new code, identical; 18 and 24 rebuild running (result below).
-- `system.js check`: one FAIL, the one-shot Attraction's openings (0.95px, min 1), and it **fails the same on HEAD before my changes** (checked on an archive of HEAD), so it's the one-shot SVG being older than the openings rule. Rebuilding it.
+- **Approved set byte-identical** under the new code: 18 and 24 rebuilt with the final code, 12 with all but the hole-only fixes (which touch no approved root): every SVG identical.
+- **`system.js check`: SYSTEM CHECKS PASSED, 259/259**, on the branch after merging the other designer's three rules (64bba60d, 0f3b47c6), which fixed the one-shot Attraction's openings that failed on HEAD before.
+- The hangs: `at-wheel4` and `sh-carrier` now build in 12-13 minutes on a machine at load 11 (each hung past 30 before).
 
 ### Concepts (`concepts/`, one file per category; every declaration in `concepts/decl.js`)
 

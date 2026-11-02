@@ -26,7 +26,7 @@ arms on the walker), no canvas publish, no blind read.
 
 **How to build concepts:** `batch2/concepts/decl.js` (`TOOLS=<scratchpad>/tools node decl.js 18 <ids>`); scratch scripts in the session scratchpad `b2/` (build.sh for the system set, cbuild.sh for concepts, look.js renders badges to PNG). Machine is shared and loaded: an 18 build takes 1-10 min, more under load.
 
-**Gate status:** pre-existing FAIL on the one-shot attraction openings (also fails on HEAD); rebuilding it. Approved byte-identity: 12 proven; 18/24 rebuild running.
+**Gate status:** merged the other designer's rules (0f3b47c6); gate 259/259 passes; approved SVGs byte-identical at 18/24/12. Memo can be switched off with `PIECES_MEMO=0` for a neutrality check.
 
 **Findings on first builds:** camera good; roofs good; kvarter base reads separate; bunting = valance (Venue's cue); swing = stool; stage = frame with ties; windows = die (killed).
 
