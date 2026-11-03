@@ -1861,3 +1861,9 @@ The verdict stands within our own set:
 - Curtain 6: the rod and stage read as a frame. Drop the stage, keep the rod.
 - Then a quick read on the curtain and bed, then to him.
 - Jam turn 14.
+
+## Batch 2: blind read 6 (de82e881), 2026-11-03: D is 9 for seven, the curtain becomes a question
+
+- Bed reads high.
+- The curtain with the rod only reads low ("gate? window blinds?"). The gate read has come up in every round, so it is the subject at 18, not the system.
+- D goes to him now with three questions: the bag, the wheel, and the curtain ("Venue: the curtain reads as a gate or window blinds at app size: keep it or try another subject?").
