@@ -61,7 +61,7 @@ const WORDS = {
     // (a cap face up: the coupe's foot; a post flaring into what it stands on: the coupe's stem; a gable on upright ends: the museum's)
     finder: { lip: 'top' }, body: { nub: [{ shape: 'block', on: 'top', at: 5 / 6, w: 1 }] },
     legs: { taper: 3 / 2 }, base: { base: { id: 'base', kind: 'slab', w: 1 / 2, across: 'legs', at: 1, lip: true } },
-    rail: { lip: true }, stage: { stage: { id: 'stage', kind: 'slab', w: 1, join: 'cut' } },
+    rail: { lip: true },   // turn 14: the stage floor dropped (rod + floor read as a frame, a TV)
     mattress: { lip: true, crown: { face: 'top', rise: 1 / 2 } }, foot: { foot: { id: 'foot', kind: 'post', of: 'mattress', at: 'right', h: 1 / 6, join: 'into' } },
     bag: { band: true },
     top: { lines: 3 / 2, lip: true },
