@@ -372,16 +372,9 @@ pick/redirect before building anything.
   value: waive or change); flat-type-hierarchy in the picker (its 14px question); undersized-ui-text
   for the title menu rows' 10.4px tally (shipped since phase 1, never scanned open before). Not
   baselined (`--update` needs approval). Repro: `design/impeccable-gate/run.sh index.html`.
-- **The remove slip truncates on the list header** (builder, 2026-11-02): "Stockholm removed. Its
-  places are in Copenhagen." doesn't fit the header band at 390/375
-  (`design/city-crud/build/stills/v2b/raw/B9-moved-undo.png`, `S9-moved-undo.png`). Copy or a
-  wider slip: a designer call.
-- **The remove picker scrolls inside the title menu's locked box** (builder, 2026-11-02): at 390
-  "Remove the N places too" / "Keep X" need a scroll; at 375x667 more (`raw/B8-picker.png`,
-  `raw/S8-picker.png`). The prototype's menu grew; phase 1 locked the box. A designer / UX call.
 - **A 4-city signpost rarely fits at 375x667 with the list raised** (builder, 2026-11-02, the
   shipped phase-4 rule): the map's clear area is 202px tall and the joined post 180px, so its foot
-  has a 22px band; most views show no signpost (faded or not). Pre-existing; noticed in the stills.
+  has a 22px band; most views show no signpost (faded or not). Pre-existing; noticed in the stills. Related: a post that overshoots by more than the 1px slack (2.5px at one 390 view after a Stockholm -> Copenhagen move) still hides by this rule.
 - **plans harness: long-name slip check fails on main** (builder, 2026-10-15,
   seen while testing the suggestions-over-x tweak). `node
   design/gesture-harness/plans.js index.html` is 31/32 on origin/main

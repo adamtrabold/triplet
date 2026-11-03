@@ -6,6 +6,40 @@ the rest of the design ("amazing so much better!!! perfect now imo" on the v12 p
 prototype layer (`proto/`) is reference only; nothing of it ships -- except `proto/swipe-flap.html`'s
 gesture logic, ported into `index.html` as the spec required.
 
+## v2c (2026-11-03): the CD + UX check's fix batch (builder half + the designer's v13)
+
+Builder half (the coordinator's list):
+1. **J8 (UX ruling):** an open plan's add-from list crosses cities -- every shown city, the picked
+   city's section first, each with All places' eye (`cityListed()` is All-places-like in Plans;
+   `syncPlanCards()` orders the picked city first). The eye's scope: All places and a plan's add-from.
+2. **Signed out:** the map sign never turns while the board reads SIGN IN (`rmSetDrag()` checks
+   `currentUser`).
+3. **Signposts fit within a pixel** (`SIGN_FIT_SLACK` = 1 in `fitsAt()`; phase 4 bug: the
+   Copenhagen+Malmö post at x1 382.5 against 382 vanished after a move). A post that is truly over
+   (e.g. 2.5px at one 390 view after a Stockholm -> Copenhagen move) still hides, by the phase 4 rule.
+4. **Find a city:** "≈\u00a045\u00a0km away" (no-break spaces; never a lone ≈ on a wrap).
+5. **Focus:** a keyboard commit (Enter/Space on a destination, `e.detail === 0`) focuses the slip's
+   Undo (which also pauses its 6s, as the shipped slip does for focus); a mouse click on the board
+   lands on the picker's first choice.
+6. **N1:** when every result is beyond `FIND_CITY_FAR_KM` (300) from the place, Find a city ranks by
+   OSM importance (Philadelphia, PA first), else nearest first.
+
+Designer's v13 (`concepts/v13-post-build-fixes.md`):
+1. **The picker takes over the box** (`#titleMenu.is-picking`, `placeRmPicker()`): the held row
+   (44px, board open) and the question pinned on top, `.rm-dests` the only scroller (the
+   `--scroll-shadow` inset at the edge with more beyond: `rmShadows()`), `.rm-foot` pinned
+   (Remove-too / Keep). Width max(menu, min(100vw - 32, 340)). Phone: bottom fixed, grows up to
+   `--top-row-bottom` + 8 (82px). Rail: down from the menu's top, at most to 16px above the foot.
+   Keep, Esc or a tap outside (`rmExitPicker()`) bring the menu's rows and box back (it stays open).
+2. **Two-line Undo slip** for city removes (`showPlanSlip({ l1, pre, name })`, `#planSlip.two-line`,
+   always on the header band): l1 "X removed" (grey 11px, the only part that may cut), l2 "Its
+   places → Y" (no-break spaces round the arrow) / "and its N places" (navy 13px, never cut). An
+   EMPTY city's remove has no line 2 (v13 doesn't cover it; flagged).
+3. **Empty-city copy:** "Nothing here yet · tap + to add a place".
+
+Waiting on the owner (the coordinator asked; not changed): S1 (a move from a place's tag switches
+the picked city to the destination) and the 3 Impeccable waivers.
+
 ## v2b (2026-11-02): a picked city filters, faded signposts, New city, Remove city
 
 Specs: `concepts/v5-a-city-means-that-city.md` (minus its "Remove Malmö…" foot), `v7-the-hold-reveals.md`
