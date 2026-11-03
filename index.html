@@ -1700,7 +1700,7 @@
     .rm-board:focus-visible { box-shadow: inset 0 0 0 2px var(--paper); }
     /* the snap (owner: "the swipe should snap some"): open lands in 240ms with a small overshoot;
        close is quick and plain (160ms) */
-    .menu-city.settle.to-open .rm-clip { transition: width 240ms cubic-bezier(.25,1,.45,1); }   /* no overshoot past the open width (the owner's bounce ruling, applied to every new easing) */
+    .menu-city.settle.to-open .rm-clip { transition: width 240ms cubic-bezier(.25,1.45,.45,1); }   /* the owner-approved snap (v10: "the swipe should snap some"): ~5px past the open width and back; the bounce ruling covered only the sign's turn */
     .menu-city.settle.to-shut .rm-clip { transition: width 160ms cubic-bezier(.4,0,.2,1); }
     @media (prefers-reduced-motion: reduce) { .menu-city.settle .rm-clip { transition: none; } }
     /* the one-step picker (v12): the question is the picker -- tap where its places go and it's done */
@@ -7787,7 +7787,9 @@
         if (!await requireAuth()) return;
         const cfg = cityConfigFromFound(f);
         if (await addCity(cfg, false)) rmCommit(id, cfg.id, false, cfg.id);
-      }, () => { const has = !!found.innerHTML; found.hidden = !has; mine.hidden = has; pick.classList.remove('is-finding'); rmShadows(); });
+      }, () => { const has = !!found.innerHTML; found.hidden = !has; mine.hidden = has; pick.classList.remove('is-finding');
+        // the box re-fits what it holds (keeping the edge it grows from) -- not on "Searching…", so it doesn't collapse and re-grow per keystroke
+        if (/^Searching/.test(found.textContent)) rmShadows(); else placeRmPicker(); });
     }
     // The picker's box (v13): width max(the menu's, min(100vw - 32, 340)), left edge unchanged. Phone:
     // its bottom stays where the menu's was and it grows UP to fit, never above the top controls + 8
@@ -7802,7 +7804,9 @@
       if (!pick || !held || !menuLock) return;
       menu.style.width = `${Math.max(menuLock.width, Math.min(innerWidth - 32, 340))}px`;
       const dests = pick.querySelector('.rm-dests:not([hidden])'), line = pick.querySelector('.rm-new');
-      const content = held.offsetHeight + pick.querySelector('.rm-q').offsetHeight + (line ? line.offsetHeight : 0) + (dests ? dests.scrollHeight : 0) + pick.querySelector('.rm-foot').offsetHeight + 2;   // + the box's 1px edges
+      // the list's own rows (its scrollHeight never drops below a box it was stretched to fill, so the box could only grow)
+      const rows = dests ? [...dests.children].reduce((t, c) => t + c.offsetHeight, 0) : 0;
+      const content = held.offsetHeight + pick.querySelector('.rm-q').offsetHeight + (line ? line.offsetHeight : 0) + rows + pick.querySelector('.rm-foot').offsetHeight + 2;   // + the box's 1px edges
       let top, h;
       if (railQuery.matches) { top = menuLock.top; h = Math.min(content, innerHeight - top - 16); }
       else { const bottom = menuLock.top + menuLock.height; top = Math.max(topRowBottom() + 8, bottom - content); h = bottom - top; }
@@ -10516,7 +10520,10 @@
       const out = [];
       const found = (data || []).map(r => foundCity(r, near)).filter(Boolean);
       const allFar = found.length && found.every(f => f.km == null || f.km > FIND_CITY_FAR_KM);
-      found.sort((a, b) => allFar ? b.importance - a.importance : (a.km == null || b.km == null) ? 0 : a.km - b.km)
+      // a result whose OWN name matches what you typed ranks first (Amman is found for "Philadelphia"
+      // by a historical alt name: it comes after every Philadelphia; city-crud v2d check)
+      const q = cityKey(query), named = f => cityKey(f.name).startsWith(q) ? 0 : 1;
+      found.sort((a, b) => (named(a) - named(b)) || (allFar ? b.importance - a.importance : (a.km == null || b.km == null) ? 0 : a.km - b.km))
         .forEach(f => { if (!out.some(o => o.cc === f.cc && cityKey(o.name) === cityKey(f.name) && haversineKm([o.lat, o.lng], [f.lat, f.lng]) < 15)) out.push(f); });
       return out.slice(0, FIND_CITY_MAX);
     }

@@ -23,7 +23,8 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   "+ A new city…" (no zoom on tap), tap a result: the city is made and the places move, the slip says
   "Its places → Y", Undo brings X back and removes the made city; "Remove places too" sits apart
   (bin, band, then Cancel); on a small phone the new-city line and the whole foot stay on screen;
-  (9) the sign turns with no bounce; (10) a plan open with a city picked: "add places" lists every
+  (9) the sign turns with no bounce, while the board still snaps open with a small overshoot; typing a new
+  city in the picker, the box shrinks to its results; (10) a plan open with a city picked: "add places" lists every
   city, the picked one first.
 - **City CRUD, part 1 (check once it lands on main):** (1) tap +, then tap ADDRESS: the
   keyboard comes up with no zoom; type a street address: the results open under ADDRESS, its

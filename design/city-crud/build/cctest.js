@@ -304,6 +304,8 @@ const PA = [39.95, -75.40];   // the map over south-east Pennsylvania: no city o
   const sign = await ev(() => { const bd = document.querySelector('#map .sp-board[data-city-badge="copenhagen"]'), back = bd && bd.querySelector('.sp-back'), cs = back && getComputedStyle(back);
     return bd && { turned: bd.classList.contains('is-turned'), word: back.textContent, dur: cs.transitionDuration, ease: cs.transitionTimingFunction, wide: back.getBoundingClientRect().width >= bd.getBoundingClientRect().width - 0.5 }; });
   ok('R8 the city\'s signpost turns over while its row is open: SEE YOU SOON? on navy, a 480ms turn with no overshoot (cubic-bezier(.45,.05,.25,1); the owner\'s bounce ruling); it turned mid-drag past 40%', turnedMid && sign && sign.turned && sign.word === 'See you soon?' && sign.dur === '0.48s' && sign.ease === 'cubic-bezier(0.45, 0.05, 0.25, 1)' && sign.wide, sign);
+  const snap = await ev(() => { const r = document.querySelector('#titleMenu .menu-city[data-city="copenhagen"]'); rmSetOpen(r, false); rmSetOpen(r, true); const c = getComputedStyle(r.querySelector('.rm-clip')); return { cls: r.className, dur: c.transitionDuration, ease: c.transitionTimingFunction }; });
+  ok('R8b the board\'s open snap keeps the owner-approved overshoot (240ms cubic-bezier(.25,1.45,.45,1); the bounce ruling covered only the sign\'s turn)', snap.dur === '0.24s' && snap.ease === 'cubic-bezier(0.25, 1.45, 0.45, 1)', snap);
   // the turned sign is tappable through the menu's scrim: it opens the picker
   const sp = await ev(() => { const b = document.querySelector('#map .sp-board[data-city-badge="copenhagen"] .sp-back').getBoundingClientRect(); return { x: b.left + b.width / 2, y: b.top + b.height / 2 }; });
   await page.touchscreen.tap(sp.x, sp.y); await W(400);
@@ -401,7 +403,8 @@ const PA = [39.95, -75.40];   // the map over south-east Pennsylvania: no city o
   await tapIn('#titleMenu [data-act="newcity"]'); await L.findCity(page, 'titleMenu', 'Philadelphia');
   const x5 = await ev(() => [...document.querySelectorAll('#titleMenu .menu-res')].map(r => [r.querySelector('.add-res-name').textContent, r.querySelector('.add-res-where').textContent]));
   ok('X5 "≈ n km" is held together (no-break spaces): a wrapped line never leaves a lone ≈', x5.length && x5.every(([, w]) => /≈ [\d,]+ km away$/.test(w)), x5);
-  ok('X6 every result far from the place (all > 300 km): ranked by OSM importance -- Philadelphia, Pennsylvania first, not the nearest village', /Pennsylvania/.test(x5[0][1]) && /^Amman$/.test(x5[1][0]), x5.map(r => r[0] + ' / ' + r[1]));
+  ok('X6 every result far from the place (all > 300 km): ranked by OSM importance -- Philadelphia, Pennsylvania first, not the nearest village', /Pennsylvania/.test(x5[0][1]) && /Mississippi/.test(x5[1][1]), x5.map(r => r[0] + ' / ' + r[1]));
+  ok('X6b a result whose own name matches what you typed ranks above one found by an alt name: every Philadelphia before Amman', x5[x5.length - 1][0] === 'Amman' && x5.slice(0, -1).every(([n]) => n === 'Philadelphia'), x5.map(r => r[0] + ' / ' + r[1]));
   await ev(() => closeTitleMenu(false)); await W(200);
   await page.context().close();
   // focus: a keyboard commit lands on the slip's Undo; a mouse click on the board, on the picker's first choice
@@ -490,12 +493,16 @@ const PA = [39.95, -75.40];   // the map over south-east Pennsylvania: no city o
         return { q: [cs(q).fontSize, cs(q).textTransform, cs(q).color], capF, lab: cs(lab).fontSize, too: cs(too).fontSize, keep: cs(keep).fontSize, km: [km.classList.contains('tally'), cs(km).fontSize] }; });
       ok('Y11 the picker uses the menu\'s own type only: the question in the caption style (10px caps, --ink-2), rows / "Remove places too" / "Cancel" in the row label (13px), distances in the tally (11px floor)', ty.q[0] === ty.capF && ty.q[0] === '10px' && ty.q[1] === 'uppercase' && ty.q[2] === 'rgb(90, 86, 76)' && ty.lab === '13px' && ty.too === '13px' && ty.keep === '13px' && ty.km[0] && ty.km[1] === '11px', ty);
       // typing swaps the middle for real-city results; clearing brings your cities back
+      const y0 = await ev(() => { const r = document.getElementById('titleMenu').getBoundingClientRect(); return { top: r.top, bottom: r.bottom }; });
       await ev(() => { const i = document.querySelector('#titleMenu .rm-new input'); i.focus(); }); await W(100);
       await L.findCity(page, 'titleMenu', 'Philadelphia');
       const y4 = await ev(() => { const p = document.querySelector('#titleMenu .rm-pick'); return { mine: p.querySelector('.rm-mine').hidden, found: p.querySelector('.rm-found').hidden, first: (p.querySelector('.rm-found .menu-res') || {}).textContent }; });
+      const fit = await ev(() => { const m = document.getElementById('titleMenu'), r = m.getBoundingClientRect(), p = m.querySelector('.rm-pick'), foot = p.querySelector('.rm-foot').getBoundingClientRect(), f = p.querySelector('.rm-found'), last = [...f.children].pop().getBoundingClientRect();
+        return { gap: foot.top - last.bottom, footBottom: r.bottom - foot.bottom, bottom: r.bottom, scroll: f.scrollHeight > f.clientHeight + 1 }; });
+      ok('Y4b typing a new city: the box shrinks to fit the results (the foot right under them, no empty paper), keeping its bottom edge', fit.gap >= -0.5 && fit.gap <= 1.5 && fit.footBottom <= 1.5 && !fit.scroll && Math.abs(fit.bottom - y0.bottom) < 1, { fit, y0 });
       ok('Y4 typing in the line swaps your cities for real-city results (Philadelphia, Pennsylvania first)', y4.mine && !y4.found && /^PhiladelphiaCity · Pennsylvania/.test(y4.first || ''), y4);
       await ev(() => { const i = document.querySelector('#titleMenu .rm-new input'); i.value = ''; i.dispatchEvent(new Event('input', { bubbles: true })); }); await W(300);
-      ok('Y5 clearing the line brings your cities back', await ev(() => { const p = document.querySelector('#titleMenu .rm-pick'); return !p.querySelector('.rm-mine').hidden && p.querySelector('.rm-found').hidden; }));
+      ok('Y5 clearing the line brings your cities back (and the box back to its size)', await ev(y0 => { const p = document.querySelector('#titleMenu .rm-pick'), r = document.getElementById('titleMenu').getBoundingClientRect(); return !p.querySelector('.rm-mine').hidden && p.querySelector('.rm-found').hidden && Math.abs(r.top - y0.top) < 1 && Math.abs(r.bottom - y0.bottom) < 1; }, y0));
       // one step: tap a result -> the city is made, the places move there, the old city goes; Undo undoes all of it
       await L.findCity(page, 'titleMenu', 'Philadelphia');
       const cph = await ev(() => locations.filter(l => l.city === 'copenhagen').map(l => l.id));

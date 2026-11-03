@@ -23,6 +23,12 @@ gesture logic, ported into `index.html` as the spec required.
   no-zoom floor, as the built Find a city line; its placeholder is in the row label's voice);
   `.menu-lab .tally, .rm-dest .tally { font-size: 11px }` (the type floor, as the other tallies).
 - Gate: `IMPECCABLE GATE PASSED` (static 1/1, runtime 47/47, 0 new) -- flat-type-hierarchy no longer fires.
+- **Then (same day):** the coordinator reverted the over-broad easing change: the board's open snap is
+  back to the owner-approved `cubic-bezier(.25,1.45,.45,1)` (the ruling covered only the sign's turn).
+  Impeccable now flags it: `bounce-easing | cubic-bezier(.25, 1.45, .45, 1)` [removeboard picker] --
+  PENDING the owner, not worked around. Also: the picker's box re-fits while typing a new city
+  (`wireRmNewCity()` -> `placeRmPicker()`, not on "Searching…"); Find a city ranks own-name matches
+  first (`findCities()`), so Amman (an alt name of "Philadelphia") comes last.
 - Noticed: after Undo of a remove, the city comes back at the END of the menu's order (CITIES insertion
   order); a re-fetch would sort it as the table returns it. Logged.
 
