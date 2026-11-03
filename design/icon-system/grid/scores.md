@@ -1837,3 +1837,13 @@ The verdict stands within our own set:
 - **Fixes:** 4 more system fixes (shape size in the diamond, a slab's seats past its top, the wheel hub, a vessel tapers).
 - **The bag:** one more system shot, then a question to him if fresh eyes still read a padlock.
 - **Jam turn 9.**
+
+## Batch 2, blind read 5 (concept round 3), 2026-11-03: stuck on two subjects
+
+- **At 9:** camera, bed, curtain, kvarter, walker.
+- **Picnic table 8:** the top to the stroke weight.
+- **Bag 8:** reads as a bag first now; the padlock is a second guess.
+- **Wheel 6:** worse (crosshair).
+- **Blocking:** subjects whose 18px silhouette matches a UI glyph.
+- **Two questions for him:** bag; wheel.
+- **Jam turn 11.**

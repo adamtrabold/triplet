@@ -394,3 +394,32 @@ My own read (seen, not blind): the kvarter and walker now fill the diamond as th
 Approved set rebuilt at 18, 24 and 12 with the final code (star and + at 18, their one size): every SVG byte-identical. `system.js check`: SYSTEM CHECKS PASSED, 259/259.
 
 NEXT: orchestrator — run the fresh reader on `blind5/`, then the director scores it.
+
+## Turn 11: design director, blind read 5 scored (concept round 3), 2026-11-03
+
+I checked the read's images by eye, enlarged from the 3x renders (scratchpad `dir283/b5.png`).
+
+| Concept | Read | Score | Note |
+|---|---|---|---|
+| Landmark: camera | photo spot (high) | **9** | Third high read. |
+| Hotel: bed, no foot | bed, hotel; "very skinny, close to an L" | **9** | Read right for three rounds. The skinny note is the mattress slab, a weight check for the build phase, not the idea. |
+| Venue: curtain | stage, theatre (med-low) | **9** | Right every round; confidence varies. |
+| Neighbourhood: kvarter | houses → neighbourhood | **9** | Larger in the diamond now, three distinct. |
+| Street: walker | walking person, a crosswalk sign | **9** | Walking along is the job. The road-sign echo is the app's diamond, on brand ("signs and tags"). |
+| Park: picnic table | picnic table (med); "A" or "pi" | 8 | The top is a thin slab. A solid reads at the stroke's weight (an existing rule), so the top gets its full weight. One more build, no new rule. |
+| Shopping: bag | a shopping bag first (med); "a bit like a padlock or trash can" | 8 | Better: for the first time the first read is a bag. What's left is the subject at 18. |
+| Attraction: wheel, 4 spokes | "ship's wheel? Ferris wheel? crosshair?" (low); a locate button | 6 | Worse. Four spokes made it a crosshair. Six spokes made it a ship's wheel. |
+
+**Stuck? Yes, on two subjects, not on the system.**
+- The wheel has gone 8 → 8 → 6 across three rounds of system fixes.
+- The bag has carried a padlock read for five rounds, though it now reads as a bag first.
+
+**What keeps blocking:** both subjects share their 18px silhouette with a UI glyph (ring and spokes = gear, crosshair, locate, helm; block and arch = padlock, bin). Rules sharpen a silhouette; they can't change what it resembles. The other six all reached 9 by rules, so the system isn't the block.
+
+**Questions for him, as worded:**
+1. "At app size, fresh eyes now read the bag as a shopping bag first, with a padlock or a bin as a second guess. Keep the bag, or try another Shopping subject?"
+2. "At app size the Ferris wheel reads as a ship's wheel, a crosshair or the locate button, however we build it. Keep the Ferris wheel for Attraction, try another subject (we'd bring two or three), or name one?"
+
+**What goes to him:** the six 9s (camera, bed, curtain, kvarter, walker, and the picnic table once its top gets its weight), with the two questions. All eight go together, as the brief says, with Shopping and Attraction shown as they stand and the questions beside them.
+
+NEXT: product designer (systems): the picnic table's top at the stroke's weight. Then the orchestrator: the board to me for a check, then to him with the two questions.

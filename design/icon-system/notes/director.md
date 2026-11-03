@@ -1047,3 +1047,11 @@ He approved the system at v292 and asked for the rest, one shot.
 **Scores:** bed, curtain, camera 9; five at 8; the second Landmark and Street killed.
 
 **The bag:** padlock four times. Its body is a block, not a vessel; fix 5 makes it a vessel. If it still reads as a padlock, it goes to him as a question.
+
+## Batch 2 round 3 (2026-11-03): stuck on subjects
+
+**Scores:** five 9s; picnic 8 (weight); bag 8 (subject residue); wheel 6 (subject).
+
+**Pattern:** rules fix silhouettes, not resemblances. When a subject shares its silhouette with a UI glyph for 3+ rounds, ask him.
+
+**Questions sent:** bag, wheel.
