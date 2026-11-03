@@ -470,3 +470,32 @@ NEXT: design director — check the board, then the orchestrator takes it to the
 6. A blind read only after that.
 
 NEXT: product designer (visual): the combined approach (C + B construction tells + A set curves) on the eight, judged by eye beside the approved set, then back to me.
+
+## Turn 14: design director, personality D (a38fc2f0), 2026-11-03
+
+**Rendered myself:** the approved row, v295, C and D, at 18 in the ring or diamond, at 3x and 2x (scratchpad `dir283/rd-*`).
+
+**By eye, on character and read beside the approved set:**
+
+| Icon | Score | Note |
+|---|---|---|
+| Camera | 8 | The viewfinder hump adds made-ness. |
+| Wheel on its base | 8 | A ride now, not a helm. |
+| Bed | 8 | The mattress runs past its foot post: the classic bed, and no bathtub. |
+| Bag | 8 | The folded top is the tell. |
+| Picnic table | 8 | A table now, not a car. |
+| Kvarter | 8 | The doors make houses, not tiles, though they are tiny at 18. |
+| Walker | 8 | The feet give the stride. |
+| Curtain | 6 | Rod plus stage floor is a frame, a window or a TV. |
+
+**The set** is now visibly closer to the approved icons' made-ness: every icon carries the lip and one construction tell. It is still plainer than the coupe and the tree, which is right for "plain".
+
+**Curtain call:** keep the rod and drop the stage floor. The rod and drapes read as stage curtains in every blind read; the stage lip read as a frame each time it was tried.
+
+**Score: 8. A 9 after the curtain fix.**
+
+**Then to the owner:** D beside v295 at 18 in the app's cells (so he sees what changed), and 6x for each.
+
+**Blind read:** no full one is needed, because the reads held and D only adds detail. Run one quick fresh read on the curtain and the bed (the two whose silhouettes changed) before it goes.
+
+NEXT: product designer (visual): curtain without the stage floor, then the quick read on curtain and bed, then the orchestrator to him.
