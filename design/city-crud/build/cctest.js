@@ -269,7 +269,7 @@ const PA = [39.95, -75.40];   // the map over south-east Pennsylvania: no city o
   await ev(() => { window.__ins = []; window.__del = []; document.querySelector('#titleMenu .menu-res').click(); }); await W(1500);
   const n3 = await ev(() => ({ ins: window.__ins.map(x => [x[0], x[1][0].id, x[1][0].auto_added]), picked: citySelection, title: document.querySelector('#titleBtn .h-name').textContent, n: document.querySelector('#titleBtn .tally').textContent,
     heads: document.querySelectorAll('#locationsList .sec-head').length, empty: getComputedStyle(document.getElementById('locationsEmpty')).display, txt: document.getElementById('locationsEmpty').textContent.trim(), menu: document.getElementById('titleMenu').hidden, c: map.getCenter() }));
-  ok('N3 a pick makes the city (kept: auto_added false) and lands in it: "Philadelphia 0", no header, the empty note, the map on it', JSON.stringify(n3.ins) === '[["cities","philadelphia",false]]' && n3.picked === 'philadelphia' && n3.title === 'Philadelphia' && n3.n === '0' && n3.heads === 0 && n3.empty === 'block' && n3.txt === 'Nothing here yet. Tap + to add a place; it’s yours until you remove it.' && n3.menu && Math.abs(n3.c.lat - 39.95) < 0.1, n3);
+  ok('N3 a pick makes the city (kept: auto_added false) and lands in it: "Philadelphia 0", no header, the empty note, the map on it', JSON.stringify(n3.ins) === '[["cities","philadelphia",false]]' && n3.picked === 'philadelphia' && n3.title === 'Philadelphia' && n3.n === '0' && n3.heads === 0 && n3.empty === 'block' && n3.txt === 'Nothing here yet · tap + to add a place' && n3.menu && Math.abs(n3.c.lat - 39.95) < 0.1, n3);
   await ev(() => cleanupOrphanCities()); await W(300);
   ok('N4 an empty city you made is kept by the cleanup (it\'s yours until you remove it); it\'s in the menu with 0', await ev(() => !!CITIES.philadelphia && !window.__del.length) && await (async () => { await menuOpen(); return ev(() => !!document.querySelector('#titleMenu .menu-city[data-city="philadelphia"]')); })());
   await tapIn('#titleMenu [data-act="newcity"]'); await L.findCity(page, 'titleMenu', 'Reykjavik');
@@ -331,7 +331,7 @@ const PA = [39.95, -75.40];   // the map over south-east Pennsylvania: no city o
   await ev(() => document.querySelector('#titleMenu .rm-dest[data-rm-to="malmo"]').click()); await W(1200);
   const p1 = await ev(ids => ({ upd: window.__upd.map(u => [u[0], u[1].city, u[2]]), del: window.__del, gone: !CITIES.copenhagen, menu: document.getElementById('titleMenu').hidden, slip: !document.getElementById('planSlip').hidden && document.getElementById('planSlip').textContent,
     moved: ids.every(k => (rowItem(k) || {}).city === 'malmo'), server: window.__ROWS.filter(r => r.city === 'copenhagen').length }), cph);
-  ok('P1 one tap on Malmö: its places are filed under Malmö (one update per table, by city) and Copenhagen is removed; the menu closes; the slip: "Copenhagen removed. Its places are in Malmö." with Undo', JSON.stringify(p1.upd) === JSON.stringify([['locations', 'malmo', ['city', 'copenhagen']], ['neighborhood_shapes', 'malmo', ['city', 'copenhagen']]]) && p1.del.some(d => d[1] === 'copenhagen') && p1.gone && p1.menu && /^Copenhagen removed\. Its places are in Malmö\.Undo$/i.test(p1.slip) && p1.moved && p1.server === 0, p1);
+  ok('P1 one tap on Malmö: its places are filed under Malmö (one update per table, by city) and Copenhagen is removed; the menu closes; the two-line slip: "Copenhagen removed" / "Its places → Malmö" with Undo', JSON.stringify(p1.upd) === JSON.stringify([['locations', 'malmo', ['city', 'copenhagen']], ['neighborhood_shapes', 'malmo', ['city', 'copenhagen']]]) && p1.del.some(d => d[1] === 'copenhagen') && p1.gone && p1.menu && /^Copenhagen removedIts places\u00a0→\u00a0MalmöUndo$/.test(p1.slip) && p1.moved && p1.server === 0, p1);
   await ev(() => { window.__upd = []; window.__ins = []; document.querySelector('#planSlip button').click(); }); await W(1200);
   const p2 = await ev(ids => ({ ins: window.__ins.map(x => [x[0], x[1][0].id, x[1][0].auto_added]), upd: window.__upd.map(u => [u[0], u[1].city, u[2][0], u[2][1].length]), back: !!CITIES.copenhagen, home: ids.every(k => (rowItem(k) || {}).city === 'copenhagen') }), cph);
   ok('P2 Undo: the city row back first, then its places moved home (by id); everything as it was', p2.ins.length === 1 && p2.ins[0][1] === 'copenhagen' && p2.upd.length === 2 && p2.upd.every(u => u[1] === 'copenhagen' && u[2] === 'id') && p2.back && p2.home, p2);
@@ -340,7 +340,7 @@ const PA = [39.95, -75.40];   // the map over south-east Pennsylvania: no city o
   const sto = await ev(() => ({ locs: locations.filter(l => l.city === 'stockholm').map(l => l.id), stops: rmStopsIn('stockholm') }));
   await ev(() => { window.__pdel = []; window.__del = []; document.querySelector('#titleMenu .rm-dest.is-too').click(); }); await W(500);
   const p3 = await ev(ids => ({ shown: ids.filter(id => !!rowItem(id)).length, city: !!CITIES.stockholm, writes: window.__pdel.length + window.__del.length, slip: document.getElementById('planSlip').textContent, pending: !!pendingRemoval }), sto.locs);
-  ok('P3 "Remove the places too": the city and its places leave the screen at once, but NOTHING is written yet (held while the slip shows)', p3.shown === 0 && !p3.city && p3.writes === 0 && /^Stockholm and its places removed\.Undo$/i.test(p3.slip) && p3.pending, p3);
+  ok('P3 "Remove the places too": the city and its places leave the screen at once, but NOTHING is written yet (held while the slip shows)', p3.shown === 0 && !p3.city && p3.writes === 0 && /^Stockholm removedand its 23 placesUndo$/.test(p3.slip) && p3.pending, p3);
   await ev(async () => { await doFetchLocations(); await doFetchNeighborhoodShapes(); }); await W(300);
   ok('P4 a poll meanwhile can\'t bring them back', await ev(ids => ids.every(id => !rowItem(id)), sto.locs));
   await ev(() => document.querySelector('#planSlip button').click()); await W(500);
@@ -417,6 +417,54 @@ const PA = [39.95, -75.40];   // the map over south-east Pennsylvania: no city o
   const x8 = await ev(() => ({ slip: !document.getElementById('planSlip').hidden, focus: document.activeElement === document.querySelector('#planSlip button'), tag: document.activeElement && document.activeElement.tagName }));
   ok('X8 a keyboard commit (Enter on a destination): focus goes to the slip\'s Undo, not <body>', x8.slip && x8.focus, x8);
   ok('X9 no page errors', o.errors.length === 0, o.errors);
+  await page.context().close();
+
+
+  // T. v13: the picker takes over the menu box; the two-line slip
+  const EXTRA = [['philadelphia', 'Philadelphia', 39.95, -75.16], ['wilmington', 'Wilmington', 39.75, -75.55], ['lewes', 'Lewes', 38.77, -75.14], ['baltimore', 'Baltimore', 39.29, -76.61],
+    ['annapolis', 'Annapolis', 38.98, -76.49], ['capemay', 'Cape May', 38.94, -74.91], ['newyork', 'New York', 40.71, -74.01], ['princeton', 'Princeton', 40.35, -74.66]];
+  const pickBox = () => ev(() => { const m = document.getElementById('titleMenu'), r = m.getBoundingClientRect(), d = m.querySelector('.rm-dests'), f = m.querySelector('.rm-foot').getBoundingClientRect(), q = m.querySelector('.rm-q').getBoundingClientRect(), held = m.querySelector('.menu-city.is-held').getBoundingClientRect();
+    return { top: r.top, bottom: r.bottom, h: r.height, w: r.width, left: r.left, scroll: d.scrollHeight > d.clientHeight + 1, more: [d.classList.contains('more-above'), d.classList.contains('more-below')], foot: [f.top >= r.top && f.bottom <= r.bottom + 0.5, f.bottom <= innerHeight],
+      head: held.top - r.top <= 1.5 && q.top >= held.bottom - 1, visible: [...m.children].filter(c => c.offsetParent !== null).map(c => c.className.split(' ')[0]), rows: m.querySelectorAll('.rm-dests .rm-dest').length }; });
+  for (const [w, h] of [[390, 844], [375, 667]]) {
+    o = await L.open(b, { file, w, h, storage: { 'triplet.hiddenCities': '[]' } }); page = o.page;
+    await ev(E => { E.forEach(([id, label, la, ln]) => { CITIES[id] = { label, center: [la, ln], zoom: 12, viewbox: `${ln - .1},${la - .1},${ln + .1},${la + .1}` }; }); setActiveCity(ALL_CITIES, { frame: false }); }, EXTRA); await W(400);
+    await P.tap(page, '#titleBtn'); await W(300);
+    const before = await ev(() => { const r = document.getElementById('titleMenu').getBoundingClientRect(); return { top: r.top, bottom: r.bottom, w: r.width, left: r.left }; });
+    await ev(() => rmShowPicker('stockholm')); await W(400);
+    const t = await pickBox();
+    if (w === 390) {
+      ok('T1 390x844: the picker takes over the box -- only the held row (its board open) and the picker show; All places, the other cities, New city and Plans are hidden', JSON.stringify(t.visible) === '["menu-city","rm-pick"]' && t.head && await ev(() => document.querySelector('#titleMenu .menu-city.is-held').dataset.open === '1'), t);
+      ok('T2 390x844, 12 destinations: the box grows UP from the menu\'s bottom to fit them all (no scroll), its width max(menu, min(100vw - 32, 340)), its left edge unchanged; Remove-too and Keep in the pinned foot', Math.abs(t.bottom - before.bottom) < 1 && t.top < before.top && t.top >= 82 - 0.5 && !t.scroll && t.rows === 12 && Math.abs(t.w - Math.max(before.w, Math.min(390 - 32, 340))) < 1 && Math.abs(t.left - before.left) < 0.5 && t.foot.every(Boolean) && !t.more[1], { before, t });
+    } else {
+      const t0 = t;
+      await ev(() => { const d = document.querySelector('#titleMenu .rm-dests'); d.scrollTop = 60; d.dispatchEvent(new Event('scroll')); }); await W(200);
+      const t1 = await pickBox();
+      ok('T3 375x667: the box stops 8px under the top controls (82px), the destinations scroll with the scroll shadow (below; above once scrolled), Remove-too and Keep pinned and on screen', Math.abs(t0.top - 82) < 0.6 && Math.abs(t0.bottom - before.bottom) < 1 && t0.scroll && t0.more[1] && !t0.more[0] && t1.more[0] && t0.foot.every(Boolean) && t1.foot.every(Boolean) && t0.head, { before, t0, t1 });
+      await page.keyboard.press('Escape'); await W(400);
+      const e1 = await ev(() => ({ open: !document.getElementById('titleMenu').hidden, picking: document.getElementById('titleMenu').classList.contains('is-picking'), rows: [...document.querySelectorAll('#titleMenu .menu-row')].filter(r => r.offsetParent !== null).length, board: document.querySelector('#titleMenu .menu-city[data-city="stockholm"]').dataset.open, h: document.getElementById('titleMenu').getBoundingClientRect().top }));
+      ok('T4 Esc leaves the picker: the menu\'s rows and its box come back (the menu stays open), the board shut', e1.open && !e1.picking && e1.rows >= 8 && e1.board !== '1' && Math.abs(e1.h - before.top) < 1, e1);
+      await ev(() => rmShowPicker('stockholm')); await W(300);
+      await page.touchscreen.tap(360, 30); await W(400);
+      ok('T5 a tap outside the picker brings the menu back too (it stays open)', await ev(() => !document.getElementById('titleMenu').hidden && !document.getElementById('titleMenu').classList.contains('is-picking')));
+      // the slip at 375 with a long name: line 1 may cut, line 2 never
+      await ev(() => { CITIES.stockholm.label = 'East Marlborough Township'; menuSig = null; renderTitleMenu(); }); await W(200);
+      await ev(() => rmShowPicker('stockholm')); await W(300);
+      await ev(() => document.querySelector('#titleMenu .rm-dest[data-rm-to="philadelphia"]').click()); await W(1500);
+      const sl = await ev(() => { const s = document.getElementById('planSlip'), l1 = s.querySelector('.slip-l1'), l2 = s.querySelector('.slip-l2'), hd = document.getElementById('locationsHeader').getBoundingClientRect(), r = s.getBoundingClientRect();
+        return { two: s.classList.contains('two-line'), l1: l1.textContent, l2: l2.textContent, l2cut: l2.scrollWidth > l2.clientWidth + 0.5 || l2.getBoundingClientRect().right > s.querySelector('button').getBoundingClientRect().left + 0.5, h: r.height, hh: hd.height, top: Math.abs(r.top - hd.top) < 0.5,
+          c1: getComputedStyle(l1).color, c2: getComputedStyle(l2).color, f1: getComputedStyle(l1).fontSize, f2: getComputedStyle(l2).fontSize }; });
+      ok('T6 375: the two-line Undo slip on the list header (its height): "East Marlborough Township removed" (grey 11px) / "Its places → Philadelphia" (navy 13px, never cut, no-break spaces round the arrow)', sl.two && sl.l1 === 'East Marlborough Township removed' && sl.l2 === 'Its places → Philadelphia' && !sl.l2cut && sl.top && Math.abs(sl.h - sl.hh) < 0.5 && sl.c1 === 'rgb(90, 86, 76)' && sl.c2 === 'rgb(18, 41, 63)' && sl.f1 === '11px' && sl.f2 === '13px', sl);
+    }
+    await page.context().close();
+  }
+  o = await L.open(b, { file, w: 1280, h: 800, touch: false, storage: { 'triplet.hiddenCities': '[]' } }); page = o.page;
+  await ev(E => { E.forEach(([id, label, la, ln]) => { CITIES[id] = { label, center: [la, ln], zoom: 12, viewbox: `${ln - .1},${la - .1},${ln + .1},${la + .1}` }; }); setActiveCity(ALL_CITIES, { frame: false }); }, EXTRA); await W(400);
+  await page.click('#titleBtn'); await W(300);
+  const dtop = await ev(() => document.getElementById('titleMenu').getBoundingClientRect().top);
+  await ev(() => rmShowPicker('stockholm')); await W(400);
+  const t7 = await pickBox();
+  ok('T7 desktop (the rail, 1280x800): the picker opens DOWN from the menu\'s top, as tall as its content (all 12 fit), within 16px of the window\'s foot', Math.abs(t7.top - dtop) < 0.5 && !t7.scroll && t7.bottom <= 800 - 16 + 0.5 && t7.rows === 12 && t7.foot.every(Boolean), { dtop, t7 });
   await page.context().close();
 
   // W. trackpad: continuous wheel streams with no quiet gap (the owner's Mac log: 550 events in 10.8s)

@@ -1701,8 +1701,25 @@
     .menu-city.settle.to-shut .rm-clip { transition: width 160ms cubic-bezier(.4,0,.2,1); }
     @media (prefers-reduced-motion: reduce) { .menu-city.settle .rm-clip { transition: none; } }
     /* the one-step picker (v12): the question is the picker -- tap where its places go and it's done */
-    .rm-pick { flex: none; background: var(--paper); border-bottom: 1px solid var(--hair); padding-top: var(--s2); }
-    .rm-q { margin: 0; padding: 0 var(--s3) var(--s2); font-family: var(--font-ui); font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink); }
+    /* v13 (the post-build check): the picker TAKES OVER the menu box. Head pinned (the held row, its
+       board open, and the question), the destinations the only part that scrolls (the app's scroll
+       shadow at an edge with more beyond), foot pinned (Remove-too, Keep) -- never a scroll away. The
+       box is placed by placeRmPicker(). */
+    #titleMenu.is-picking { overflow: hidden; }
+    #titleMenu.is-picking > :not(.is-held):not(.rm-pick) { display: none; }
+    #titleMenu.is-picking .menu-city.is-held { border-bottom: 1px solid var(--hair); }
+    #titleMenu.is-picking .menu-city.is-held .menu-row { height: 44px; border-bottom: none; }
+    .rm-pick { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; background: var(--paper); }
+    .rm-q { flex: none; margin: 0; padding: 10px var(--s3) var(--s2); border-bottom: 1px solid var(--navy); font-family: var(--font-ui); font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink); }
+    .rm-dests { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; background: var(--paper); }
+    .rm-dests.more-below { box-shadow: inset 0 -10px 10px -10px var(--scroll-shadow); }
+    .rm-dests.more-above { box-shadow: inset 0 10px 10px -10px var(--scroll-shadow); }
+    .rm-dests.more-above.more-below { box-shadow: inset 0 10px 10px -10px var(--scroll-shadow), inset 0 -10px 10px -10px var(--scroll-shadow); }
+    .rm-dests .rm-dest { border-top: none; border-bottom: 1px solid var(--hair); }
+    .rm-dests .rm-dest:last-child { border-bottom: none; }
+    .rm-foot { flex: none; border-top: 1px solid var(--navy); background: var(--paper-raised); }
+    .rm-foot .rm-dest { border-top: none; }
+    .rm-foot .rm-dest + .rm-dest { border-top: 1px solid var(--hair); }
     .rm-dest { all: unset; box-sizing: border-box; position: relative; width: 100%; display: flex; align-items: center; gap: var(--s2); height: 44px; padding: 0 var(--s3); border-top: 1px solid var(--hair); cursor: pointer;
       font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 13px; line-height: 16px; letter-spacing: .05em; color: var(--navy); -webkit-tap-highlight-color: transparent; }
     .rm-dest:active, .rm-dest:focus-visible { background: var(--paper-pressed); outline: none; }
@@ -1711,7 +1728,7 @@
     .rm-dest .rm-lab { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .rm-dest .rm-km { margin-left: auto; flex: none; font-stretch: 100%; text-transform: none; letter-spacing: 0; font-weight: 600; font-size: 11px; color: var(--ink-2); }
     .rm-dest.is-too { color: var(--ink-2); font-weight: 600; padding-left: calc(var(--s3) + 16px + var(--s2)); }
-    .rm-dest.is-keep { justify-content: center; border-top: 1px solid var(--navy); }
+    .rm-dest.is-keep { justify-content: center; }
     /* New city (v4): the title menu's row becomes the Find a city line in place */
     #titleMenu .menu-find { flex: none; }
     #titleMenu .menu-find-res { flex: none; }
@@ -1924,6 +1941,13 @@
     #planSlip button::before { content: ''; position: absolute; left: 0; right: 0; top: -6px; bottom: -6px; }
     #planSlip.on-header button::before { top: 0; bottom: 0; }
     #planSlip button:focus-visible { box-shadow: inset 0 0 0 2px var(--navy); }
+    /* THE TWO-LINE SLIP (city-crud v13, city removes only): on the list header at its own height.
+       Line 1, what went: grey small caps -- the only part that may cut. Line 2, where its places went:
+       navy caps, never cut (the destination a flex: none piece). */
+    #planSlip.two-line .slip-text { flex-direction: column; justify-content: center; gap: 2px; white-space: nowrap; }
+    #planSlip .slip-l1 { min-width: 0; overflow: hidden; text-overflow: ellipsis; font-size: 11px; line-height: 14px; font-weight: 600; letter-spacing: .1em; color: var(--ink-2); }
+    #planSlip .slip-l2 { display: flex; font-size: 13px; line-height: 16px; font-weight: 700; letter-spacing: .06em; color: var(--navy); }
+    #planSlip .slip-l2 > span { flex: none; }
 
     /* Map: a stop is its Places pin plus a square grey numbered tag. The pin's
        12px margin is pass-through (never covers a neighbour's tag or tap). */
@@ -6647,7 +6671,7 @@
     // here yet." (Places, and below the divider in Plans.)
     function emptyMatchText() {
       // a picked city with nothing filed yet (one you just made: city-crud v4's note)
-      if (!isAllCities() && !inPlanView() && !cityHasPlaces(citySelection)) return 'Nothing here yet. Tap + to add a place; it’s yours until you remove it.';
+      if (!isAllCities() && !inPlanView() && !cityHasPlaces(citySelection)) return 'Nothing here yet · tap + to add a place';   // v13
       const exist = locations.some(l => cityListed(l.city)) || neighborhoodShapes.some(n => cityListed(n.city));
       return exist ? 'Nothing matches these filters.' : 'Nothing here yet.';
     }
@@ -7040,7 +7064,7 @@
       const visTop = Math.max(lr.top, hdr.bottom), visBot = Math.min(lr.bottom, innerHeight);
       const rule = list.querySelector('.plan-rule'), rr = rule && rule.getBoundingClientRect();
       planSlip.style.right = 'auto'; planSlip.style.bottom = 'auto';
-      if (rr && rr.height && rr.top >= visTop - 1 && rr.bottom <= visBot + 1) {
+      if (rr && rr.height && rr.top >= visTop - 1 && rr.bottom <= visBot + 1 && !planSlip.classList.contains('two-line')) {   // two lines: always the header band
         planSlip.classList.add('on-rule'); planSlip.classList.remove('on-header', 'wide');
         Object.assign(planSlip.style, { left: `${rr.left}px`, width: `${rr.width}px`, top: `${rr.top}px`, height: `${rr.height}px` });
       } else {
@@ -7073,12 +7097,25 @@
         planSlip.addEventListener('focusin', () => holdPlanSlip(true));
         planSlip.addEventListener('focusout', () => holdPlanSlip(false));
       }
-      // text: a string, or [before, name, after] -- only the name may truncate ("Added Café Lo… as stop 4")
-      const [pre, name, post] = Array.isArray(text) ? text : ['', text, ''];
+      // text: a string, or [before, name, after] -- only the name may truncate ("Added Café Lo… as stop 4");
+      // or { l1, pre, name }: the two-line slip (city removes, v13)
       const tx = planSlip.querySelector('.slip-text'); tx.replaceChildren();
-      if (pre) tx.append(Object.assign(document.createElement('span'), { className: 'slip-fix', textContent: pre }));
-      tx.append(Object.assign(document.createElement('span'), { className: 'slip-name', textContent: name }));
-      if (post) tx.append(Object.assign(document.createElement('span'), { className: 'slip-fix', textContent: post }));
+      const two = !!text && typeof text === 'object' && !Array.isArray(text);
+      planSlip.classList.toggle('two-line', two);
+      if (two) {
+        tx.append(Object.assign(document.createElement('span'), { className: 'slip-l1', textContent: text.l1 }));
+        if (text.name) {
+          const l2 = Object.assign(document.createElement('span'), { className: 'slip-l2' });
+          if (text.pre) l2.append(Object.assign(document.createElement('span'), { textContent: text.pre }));
+          l2.append(Object.assign(document.createElement('span'), { className: 'slip-dest', textContent: text.name }));
+          tx.append(l2);
+        }
+      } else {
+        const [pre, name, post] = Array.isArray(text) ? text : ['', text, ''];
+        if (pre) tx.append(Object.assign(document.createElement('span'), { className: 'slip-fix', textContent: pre }));
+        tx.append(Object.assign(document.createElement('span'), { className: 'slip-name', textContent: name }));
+        if (post) tx.append(Object.assign(document.createElement('span'), { className: 'slip-fix', textContent: post }));
+      }
       planSlipUndo = undo; planSlipKind = kind; planSlipRemoved = removed; planSlipEnd = onEnd;
       planSlip.hidden = false; placePlanSlip(); requestAnimationFrame(() => placePlanSlip());   // again once the list has re-rendered
       armPlanSlipTimer();
@@ -7675,7 +7712,10 @@
       if (open && !was) setTimeout(() => rmVibrate(10), rmReduced() ? 0 : 170);   // the landing tick; none on a close
     }
     function rmCloseAll(except) { rmRows().forEach(o => { if (o !== except && (o.dataset.open === '1' || parseFloat(o.dataset.dx || 0) < 0)) rmSetOpen(o, false); }); }
-    function rmReset() { rmPick = null; setSignTurned(null, false); rmTurned = null; document.querySelectorAll('#map .sp-board.is-turned').forEach(b => b.classList.remove('is-turned')); }
+    function rmReset() {
+      rmPick = null; setSignTurned(null, false); rmTurned = null; document.querySelectorAll('#map .sp-board.is-turned').forEach(b => b.classList.remove('is-turned'));
+      const menu = document.getElementById('titleMenu'); menu.classList.remove('is-picking'); menu.querySelectorAll('.rm-pick').forEach(p => p.remove());
+    }
 
     // ---- the one-step picker: "Remove X. Move its N places to:", the other cities nearest first, then
     // "Remove the N places too", then "Keep X". One tap on a destination commits (with a 6s Undo).
@@ -7689,18 +7729,45 @@
       const lab = escapeHtml(cityLabel(id)), n = rmPlacesIn(id), c = CITIES[id] && CITIES[id].center;
       let h = `<div class="rm-pick" role="group" aria-label="Remove ${escapeAttr(cityLabel(id))}" data-pick="${escapeAttr(id)}">`;
       if (!n) {
-        h += `<p class="rm-q">Remove ${lab}? Nothing is filed here.</p>`
+        h += `<p class="rm-q">Remove ${lab}? Nothing is filed here.</p><div class="rm-dests"></div><div class="rm-foot">`
           + `<button type="button" class="rm-dest" data-rm-city="${escapeAttr(id)}" data-rm-to="">${RM_ARROW}<span class="rm-lab">Remove ${lab}</span></button>`;
       } else {
         const others = Object.keys(CITIES).filter(o => o !== id && Array.isArray(CITIES[o].center))
           .map(o => [o, c ? haversineKm(c, CITIES[o].center) : Infinity]).sort((a, b) => a[1] - b[1]);
         const stops = rmStopsIn(id);
-        h += `<p class="rm-q">Remove ${lab}. Move its ${n} ${n === 1 ? 'place' : 'places'} to:</p>`
+        h += `<p class="rm-q">Remove ${lab}. Move its ${n} ${n === 1 ? 'place' : 'places'} to:</p><div class="rm-dests">`
           + others.map(([o, km]) => `<button type="button" class="rm-dest" data-rm-city="${escapeAttr(id)}" data-rm-to="${escapeAttr(o)}" aria-label="Move ${n === 1 ? 'it' : 'them'} to ${escapeAttr(cityLabel(o))}${isFinite(km) ? `, about ${roundKm(km)} km` : ''}, and remove ${escapeAttr(cityLabel(id))}">`
             + `${RM_ARROW}<span class="rm-lab">${escapeHtml(cityLabel(o))}</span>${isFinite(km) ? `<span class="rm-km">≈ ${roundKm(km).toLocaleString('en')} km</span>` : ''}</button>`).join('')
+          + '</div><div class="rm-foot">'
           + `<button type="button" class="rm-dest is-too" data-rm-city="${escapeAttr(id)}" data-rm-to="">${n === 1 ? 'Remove the place too' : `Remove the ${n} places too`}${stops ? ` (and ${stops} plan ${stops === 1 ? 'stop' : 'stops'})` : ''}</button>`;
       }
-      return h + `<button type="button" class="rm-dest is-keep" data-rm-keep="${escapeAttr(id)}">Keep ${lab}</button></div>`;
+      return h + `<button type="button" class="rm-dest is-keep" data-rm-keep="${escapeAttr(id)}">Keep ${lab}</button></div></div>`;
+    }
+    // The picker's box (v13): width max(the menu's, min(100vw - 32, 340)), left edge unchanged. Phone:
+    // its bottom stays where the menu's was and it grows UP to fit, never above the top controls + 8
+    // (--top-row-bottom + 8); past that the destinations scroll. Desktop (the rail): it opens down from
+    // the menu's top, as tall as its content, at most to 16px above the window's foot.
+    function topRowBottom() {
+      const p = document.createElement('div'); p.style.cssText = 'position:fixed;visibility:hidden;height:var(--top-row-bottom)';
+      document.body.appendChild(p); const h = p.offsetHeight; p.remove(); return h;
+    }
+    function placeRmPicker() {
+      const menu = document.getElementById('titleMenu'), pick = menu.querySelector('.rm-pick'), held = menu.querySelector('.menu-city.is-held');
+      if (!pick || !held || !menuLock) return;
+      menu.style.width = `${Math.max(menuLock.width, Math.min(innerWidth - 32, 340))}px`;
+      const dests = pick.querySelector('.rm-dests');
+      const content = held.offsetHeight + pick.querySelector('.rm-q').offsetHeight + dests.scrollHeight + pick.querySelector('.rm-foot').offsetHeight + 2;   // + the box's 1px edges
+      let top, h;
+      if (railQuery.matches) { top = menuLock.top; h = Math.min(content, innerHeight - top - 16); }
+      else { const bottom = menuLock.top + menuLock.height; top = Math.max(topRowBottom() + 8, bottom - content); h = bottom - top; }
+      menu.style.top = `${top}px`; menu.style.height = `${h}px`; menu.style.maxHeight = '';
+      rmShadows();
+    }
+    // the app's scroll shadow at an edge with more beyond it
+    function rmShadows() {
+      const d = document.querySelector('#titleMenu .rm-dests'); if (!d) return;
+      d.classList.toggle('more-above', d.scrollTop > 0.5);
+      d.classList.toggle('more-below', d.scrollTop + d.clientHeight < d.scrollHeight - 0.5);
     }
     async function rmShowPicker(id, focusFirst = true) {
       if (!await requireAuth()) return;   // signed out: the sign-in sheet, nothing else
@@ -7708,15 +7775,36 @@
       if (r.dataset.open !== '1') rmSetOpen(r, true);
       rmClosePicker();
       rmPick = id;
+      const menu = document.getElementById('titleMenu');
+      menu.appendChild(r);   // the held row heads the box; the menu re-renders in order when the picker goes
       r.insertAdjacentHTML('afterend', rmPickerHtml(id));
+      r.classList.add('is-held'); menu.classList.add('is-picking'); menu.scrollTop = 0;
       const pick = r.nextElementSibling;
-      pick.scrollIntoView({ block: 'nearest' });
+      pick.querySelector('.rm-dests').addEventListener('scroll', rmShadows, { passive: true });
+      placeRmPicker();
       if (focusFirst) { const f = pick.querySelector('.rm-dest'); if (f) f.focus({ preventScroll: true }); }
     }
+    // The picker goes (Keep, Esc, a tap outside, a commit): the menu's own rows and box come back.
     function rmClosePicker() {
-      document.querySelectorAll('#titleMenu .rm-pick').forEach(p => p.remove());
+      const menu = document.getElementById('titleMenu'), was = menu.classList.contains('is-picking');
+      menu.querySelectorAll('.rm-pick').forEach(p => p.remove());
+      menu.querySelectorAll('.menu-city.is-held').forEach(r => r.classList.remove('is-held'));
+      menu.classList.remove('is-picking');
       rmPick = null;
+      if (was && titleMenuOpen()) {
+        // back in its place, in order, its board still open (closed by the caller where it should be)
+        const open = [...menu.querySelectorAll('.menu-city')].filter(r => r.dataset.open === '1').map(r => r.dataset.city);
+        menuSig = null; renderTitleMenu(); placeTitleMenu();
+        open.forEach(c => { const r = rmRowOf(c); if (r) { r.dataset.open = '1'; r.querySelector('.rm-clip').style.width = `${RM_OPEN}px`; r.dataset.dx = -RM_OPEN; } });
+      }
     }
+    // Esc or a tap outside while picking: back to the menu, the board shut, focus on the row.
+    function rmExitPicker(refocus) {
+      const id = rmPick; rmClosePicker();
+      const r = id && rmRowOf(id);
+      if (r) { rmSetOpen(r, false); if (refocus) r.querySelector('.menu-row').focus({ preventScroll: true }); }
+    }
+    addEventListener('resize', () => { if (rmPick) placeRmPicker(); });
 
     // ---- the commit -------------------------------------------------------------------------------
     // Move: the places are filed under the destination and the city row is deleted, at once (nothing
@@ -7769,7 +7857,8 @@
           showWriteError(err, 'places');
         } finally { flagWritesInFlight--; }
         if (flagWritesInFlight === 0) await Promise.all([refetchLocations(), refetchNeighborhoodShapes()]);
-        if (ok) { showPlanSlip(`${lab} removed. Its places are in ${cityLabel(to)}.`, () => rmUndoMove(cfg, to, [...locIds], [...shapeIds], { wasPicked, wasHidden, wasActive }), 'city-remove'); rmFocusUndo(viaKey); }
+        // "Its places → Copenhagen" (no-break spaces: the arrow stays with the city)
+        if (ok) { showPlanSlip({ l1: `${lab} removed`, pre: `${locIds.size + shapeIds.size === 1 ? 'Its place' : 'Its places'} `, name: `→ ${cityLabel(to)}` }, () => rmUndoMove(cfg, to, [...locIds], [...shapeIds], { wasPicked, wasHidden, wasActive }), 'city-remove'); rmFocusUndo(viaKey); }
         return ok;
       }
       // remove the places too: held until the slip ends
@@ -7782,7 +7871,8 @@
       planStops = planStops.filter(s => !stops.includes(s));   // the DB cascades the same way, at the commit
       if (map && map._popup) { const k = openTagKey(); if (k != null && !rowItem(k)) map.closePopup(); }
       updateUI(); syncAddTagCity();
-      showPlanSlip(`${lab}${locs.length + shapes.length ? ' and its places removed.' : ' removed.'}`, () => rmUndoHeld(), 'city-remove', [], () => { commitHeldRemoval(); });
+      const nAll = locs.length + shapes.length;
+      showPlanSlip({ l1: `${lab} removed`, name: nAll ? (nAll === 1 ? 'and its place' : `and its ${nAll} places`) : '' }, () => rmUndoHeld(), 'city-remove', [], () => { commitHeldRemoval(); });
       rmFocusUndo(viaKey);
       return true;
     }
@@ -7951,7 +8041,7 @@
       const board = e.target.closest('.rm-board, .rm-sr');
       if (board) { e.preventDefault(); rmShowPicker(board.dataset.remove); return true; }
       const keep = e.target.closest('[data-rm-keep]');
-      if (keep) { const r = rmRowOf(keep.dataset.rmKeep); rmClosePicker(); if (r) { rmSetOpen(r, false); r.querySelector('.menu-row').focus({ preventScroll: true }); } return true; }
+      if (keep) { rmExitPicker(true); return true; }
       const dest = e.target.closest('[data-rm-city]');
       if (dest) { rmCommit(dest.dataset.rmCity, dest.dataset.rmTo || null, e.detail === 0); return true; }   // detail 0: Enter / Space
       const r = e.target.closest('.menu-city');
@@ -8179,6 +8269,7 @@
         // the turned signpost (its row swiped open) sits under the scrim: a tap on it opens the picker
         const turned = rmTurned && document.elementsFromPoint(e.clientX, e.clientY).find(el => el.closest && el.closest('.sp-board.is-turned'));
         if (turned) { rmShowPicker(turned.closest('.sp-board').dataset.cityBadge); return; }
+        if (rmPick) { rmExitPicker(false); return; }   // a tap outside the picker brings the menu back (v13)
         closeTitleMenu();
       });
       menu.addEventListener('click', e => {
@@ -8199,15 +8290,16 @@
         else if (d.act === 'new') openNewPlan();
       });
       menu.addEventListener('keydown', e => {
-        const opts = [...menu.querySelectorAll('.menu-row, .rm-dest')], i = opts.indexOf(document.activeElement);   // the picker's rows too
+        const opts = [...menu.querySelectorAll('.menu-row, .rm-dest')].filter(o => o.offsetParent !== null), i = opts.indexOf(document.activeElement);   // the picker's rows too; never a hidden row
         const go = j => { e.preventDefault(); opts[(j + opts.length) % opts.length].focus(); };
         if (e.key === 'ArrowDown') go(i + 1);
         else if (e.key === 'ArrowUp') go(i - 1);
         else if (e.key === 'Home') go(0);
         else if (e.key === 'End') go(opts.length - 1);
+        else if (e.key === 'Escape' && rmPick) { e.preventDefault(); e.stopPropagation(); rmExitPicker(true); }   // Esc leaves the picker first (v13)
         else if (e.key === 'Escape' || e.key === 'Tab') { e.preventDefault(); closeTitleMenu(); }
       });
-      document.addEventListener('keydown', e => { if (e.key === 'Escape' && titleMenuOpen()) closeTitleMenu(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape' && titleMenuOpen()) { if (rmPick) { rmExitPicker(true); return; } closeTitleMenu(); } });
       initCityRemove();
       window.addEventListener('resize', () => { if (titleMenuOpen()) { menuLock = null; placeTitleMenu(); } });
     }
