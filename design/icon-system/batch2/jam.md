@@ -309,3 +309,31 @@ The read: 18 label-free images, one ink, 3x, approved pins mixed in. All the dis
 **To the owner now:** none. The brief sends all eight together, only 9s. The bed and the curtain hold at 9 and wait for the rest.
 
 NEXT: product designer (systems): rules 1-6. Then visual: redraw bag, picnic table, wheel, walker, kvarter and camera, and replace the Street and Landmark seconds. Then blind read 4.
+
+## Turn 8 — product designer (systems), 2026-11-03
+
+### The six fixes, built (general; in `grid/THE-SYSTEM.md`, none names an icon)
+
+1. **A handle is wider than it is tall:** a loop on a top face stands no taller than 2/5 of its span above the face (a half ellipse); every handle on a face inherits it. The bag is lower-handled with no declaration change.
+2. **Legs stand splayed:** posts that stand a part on the ground splay (from either end of what they hold, or its centre), never straight verticals; and, general, **a slab may lie across the posts above it** at a share of their height. The picnic table is now its real end view: an A under the top, the seat across it (`pk-picnic2`).
+3. **Parts of a figure** include arms from a share down the body, at the figure's post width; the walker declares arms (`st-walker`).
+4. **Nothing passes the rim:** spokes end at the rim's inner edge; legs that hold a ring are drawn from its band out, never through its openings or hub (the ship's wheel's handles were the legs running on through the rim).
+5. **A repeated cue reads as its count:** columns of the same roots side by side differ in height from each neighbour by at least the protrusion minimum at every size; the taller grows.
+6. **A hole stays a share of its mass:** the solid round one hole is never thinner than a line and a half (never a ring in a ring); the camera's lens is smaller.
+
+### New concepts, replacing the lamp and the needle (they differ in kind)
+
+- **Street: the terrace (`st-terrace`):** a long low facade under a cornice, its three doors counted (holes): the street's own houses, seen from across it, against the walker's act. Risks: a bus, a card.
+- **Landmark: the fountain (`lm-fountain`):** two tiered bowls on stems over a wide basin: the square's centre, an object of the place, against the camera's act. A first build with a jet disc read as an "i" (info); two tiers replaced it. Risks: a cake stand, a candle holder.
+
+### Blind read 4 kit
+
+Scratchpad `blind4/` (15 PNGs, icon-01..15) and `blind4-key.md`: the 10 current concepts (bed with no foot, curtain, kvarter, picnic table splayed, bag, standing wheel, camera, walker with arms, terrace, fountain) and 5 approved distractors (café, bar, museum, restaurant, nature). Made as blind3 was: 18 in its 24 badge (diamond for shapes), one navy ink, 3x, shuffled with `crypto.randomInt`.
+
+My own read of the strip (seen, not blind): the picnic table now reads at once; the wheel stands with nothing past its rim; the walker's arms are short (it may still be an "i" with a shrug); the fountain is the weakest new one.
+
+### Gates
+
+Approved byte-identity and `system.js check`: see the commit that closes this turn.
+
+NEXT: orchestrator — run the fresh reader on `blind4/`, then the director scores it.

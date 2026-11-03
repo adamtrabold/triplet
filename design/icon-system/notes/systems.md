@@ -1,5 +1,17 @@
 # Systems designer notes: icon system
 
+## Batch 2, turn 8: the six fixes, two new concepts, blind kit 4 (2026-11-03)
+
+**Director turn 7:** 9s: bed with no foot, curtain. 8s reachable: kvarter, picnic table, bag, standing wheel, camera. 7: walker. Killed: foot board, roofs, one-shot wheel. Lamp and needle (5) replaced.
+
+**Built:** HANDLE_TALL 2/5 (loop on a face); slab `across: <root>, at: share` (a slab across splayed posts); splay legs held by a ring start at the rim band (`r.through` keeps the old build); spokes end at Ri + a third of the line (`toRim: false` keeps the old); repeated columns in `sideBy` differ by the protrusion minimum (meta.counted); HOLE_WALL 3/2 lines round a single hole. All in SETTINGS / THE-SYSTEM.md.
+
+**New concepts:** `st-terrace` (Street), `lm-fountain` (Landmark); `pk-picnic2` (splayed legs), `st-walker` (arms). Declarations in `batch2/concepts/decl.js`.
+
+**Kit:** scratchpad `blind4/` + `blind4-key.md`, 15 images (10 concepts, 5 approved distractors), generator `b2/kit.js` with list `b2/kit4.json`.
+
+**Open:** the walker's arms read short (reach 1/3 from 1/6 down; a later tweak by declaration); the fountain is weak (cake stand). 24 and 12 of the new concepts aren't built yet (the kit is 18 only).
+
 ## THE SYSTEM, one shot round 3: three general rules from director turn 222 (2026-11-02, not published)
 
 Scope cut mid-round by the owner (subjects go back through the concept loop): general rules only, no declaration changes (no
