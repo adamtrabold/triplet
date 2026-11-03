@@ -181,7 +181,8 @@ const KINDS = {
   // root it names (of), beside an end post there a cut apart
   block(r, at, t, u, C) {
     // C, THE LIP: a block under a root that declares a lip (a roof) spans its width less the protrusion minimum each side
-    const lipped = C && C.prev && C.prev.r && C.prev.r.lip === true, w = at.w * u - (lipped ? 2 * t.protrude : 0), h = (r.deep ?? 1) * at.w * u; let x0 = at.cx * u - w / 2;
+    // (a lip stands only over a part at least LIP_MIN lines across: over a narrower one it reads as an arrowhead)
+    const lipped = C && C.prev && C.prev.r && C.prev.r.lip === true && at.w * u >= PD.LIP_MIN * t.stroke, w = at.w * u - (lipped ? 2 * t.protrude : 0), h = (r.deep ?? 1) * at.w * u; let x0 = at.cx * u - w / 2;
     if (r.at && r.of) { const ow = C.wOf(r.of) * u, oc = at.cx * u, inset = C.endPost(r.of, r.at) ? t.part + t.cut : 0;
       x0 = r.at === 'left' ? oc - ow / 2 + inset : oc + ow / 2 - inset - w; }
     let prims = [r.crown ? PD.crowned(x0, at.topF, w, h, r.crown, t.stroke, { root: 'BLOCK' }) : E.R(x0, at.topF, w, h, { root: 'BLOCK' })];

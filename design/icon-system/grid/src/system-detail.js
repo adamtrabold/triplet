@@ -102,4 +102,5 @@ function details(out, t, u, meta) {
     if (add.length) { R.prims.push(...add.map(q => ({ ...q, withRoot: r.id }))); (meta.tells = meta.tells || []).push({ id: r.id, n: add.length }); }
   }
 }
-module.exports = { crowned, bowed, bellied, vesselBand, details };
+const LIP_MIN = 4;   // C: a lip stands only over a part at least 4 lines across (11-03: over the houses' 3-5px walls, eaves made arrowheads)
+module.exports = { LIP_MIN, crowned, bowed, bellied, vesselBand, details };

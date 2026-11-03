@@ -46,12 +46,12 @@ const WORDS = {
     finder: { crown: { face: 'top', rise: 1 / 2 } }, body: { crown: { face: 'ends', rise: 1 } },
     legs: { taper: 3 / 2 }, drapes: { flare: 3 / 2 },
     mattress: { crown: { face: 'top', rise: 1 / 2 } }, pillow: { crown: { face: 'ends', rise: 1 / 2 } },
-    bag: { belly: 1 / 3 }, tlegs: { taper: 3 / 2 }, roof: { bow: -1 / 5 },
+    bag: { belly: 1 / 3 }, tlegs: { taper: 3 / 2 }, roof: { ends: 1 / 2 },
     arms: { taper: 3 / 4 }, wlegs: { taper: 3 / 4 } },
   B: {   // THE TELL: the one detail drawn from memory
-    body: { nub: [{ shape: 'block', on: 'top', at: 5 / 6, w: 1 }] }, rim: { cabins: { n: 6, d: 1, turn: 1 / 2 } },
+    body: { nub: [{ shape: 'block', on: 'top', at: 5 / 6, w: 1 }] }, rim: { cabins: { n: 6, d: 4 / 3, turn: 1 / 2 } },
     stage: { stage: { id: 'stage', kind: 'slab', w: 1, join: 'cut' } }, head: { nub: [{ shape: 'disc', on: 'top' }] },
-    bag: { band: true }, top: { seams: 2 }, wall: { door: [1 / 3, 1 / 2] },
+    bag: { band: true }, wall: { door: [1 / 3, 1 / 2] },
     whead: { nub: [{ shape: 'brim', at: 1 / 3 }] } },
   C: {   // THE LIP: one part runs past what it meets
     finder: { lip: 'top' }, base: { base: { id: 'base', kind: 'slab', w: 1 / 2, across: 'legs', at: 1, lip: true } },
