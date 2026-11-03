@@ -1055,3 +1055,13 @@ He approved the system at v292 and asked for the rest, one shot.
 **Pattern:** rules fix silhouettes, not resemblances. When a subject shares its silhouette with a UI glyph for 3+ rounds, ask him.
 
 **Questions sent:** bag, wheel.
+
+## Batch 2: the fifth rejected 9 (v295, 2026-11-03)
+
+**His words:** "more personality ... very rigid and simplistic, no subtle details".
+
+**My miss:** I scored blind reads (does it read as X), not character beside the approved set.
+
+**New calibration:** a 9 needs the read AND the made-ness of the coupe and tree, judged by eye at 18.
+
+**Forward:** C (the lip, the approved set's shared move) + construction tells + the set's curves.
