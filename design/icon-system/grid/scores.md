@@ -1854,3 +1854,10 @@ The verdict stands within our own set:
 - **Scores:** A contour 7, B tell 6 (hat and bed knob cheeky), C lip 8.
 - **None is a 9.** Forward: C + B's construction tells + A only as the set's curves.
 - **Jam turn 13.**
+
+## Batch 2: personality D (a38fc2f0), 2026-11-03: 8, a 9 after the curtain fix
+
+- Camera, wheel, bed, bag, picnic table, kvarter, walker: each 8, character up beside the approved set.
+- Curtain 6: the rod and stage read as a frame. Drop the stage, keep the rod.
+- Then a quick read on the curtain and bed, then to him.
+- Jam turn 14.
