@@ -17,6 +17,7 @@ const E = require('./engine.js'), P7 = require('./picks7.js');
 const { PROP, capOver } = require('./proportions.js');
 const { measure } = require('./optics.js');
 const { fromTable, scaled } = require('./laws7.js');
+const PD = require('./system-detail.js');   // personality vocabulary (batch 2, 11-03): read only where a root declares it
 const f = v => +v.toFixed(3), f5 = v => +v.toFixed(5), T3 = v => Math.round(v * 3) / 3, K = 0.5523;
 const { ELL_ARC, CAP, APEX } = P7;
 // the class boxes; DIAMOND (10-30): a shape's badge is a diamond, so its class box is a diamond of the coin's area (diagonals
@@ -82,7 +83,7 @@ const KINDS = {
     // that much as wide, so it stands; without base, its foot is the vessel's ellipse. A block under a handle is a padlock's body
     if (r.base != null) {
       const bot = top + (r.deep ?? 1) * w, bx = rx * r.base;
-      const prim = { ...E.P([(cx - rx) * u, top * u], [(cx + rx) * u, top * u], [(cx + bx) * u, bot * u], [(cx - bx) * u, bot * u]), root: 'VESSEL' };
+      const prim = r.belly ? PD.bellied(cx * u, rx * u, bx * u, top * u, bot * u, r.belly * t.stroke, { root: 'VESSEL' }) : { ...E.P([(cx - rx) * u, top * u], [(cx + rx) * u, top * u], [(cx + bx) * u, bot * u], [(cx - bx) * u, bot * u]), root: 'VESSEL' };
       return { prims: [prim], box: { x0: cx - rx, x1: cx + rx, top, bot }, depth: bot - top, walls: true, taper: { id: r.id, base: r.base } };
     }
     if (r.deep != null) {
@@ -143,7 +144,8 @@ const KINDS = {
   },
   slab(r, at, t, u) {
     const x0 = at.cx - at.w / 2, x1 = at.cx + at.w / 2, h = t.stroke * (r.lines || 1);   // lines: its thickness, a count of the line
-    return { prims: [E.R(x0 * u, at.topF, (x1 - x0) * u, h, { root: 'SLAB' })], box: { x0, x1, top: at.topF / u, bot: (at.topF + h) / u }, slab: true, frame: true };
+    const prim = r.crown ? PD.crowned(x0 * u, at.topF, (x1 - x0) * u, h, r.crown, t.stroke, { root: 'SLAB' }) : E.R(x0 * u, at.topF, (x1 - x0) * u, h, { root: 'SLAB' });
+    return { prims: [prim], box: { x0, x1, top: at.topF / u, bot: (at.topF + h) / u }, slab: true, frame: true };
   },
   // a gable: a triangle on a flat base, its ends upright (ends: a share of the stroke), rising pitch of its half run to the apex
   gable(r, at, t, u) {
@@ -153,7 +155,7 @@ const KINDS = {
     // face 'down' (11-02): the same gable hung point down from the face above it (a pennant, a valance), as a cap faces up or down;
     // its flat side on the lattice where the root above leaves it
     if (r.face === 'down') { const top = at.topF, bot = top + (gb - ap); pts = pts.map(([x, y]) => [x, top + (gb - y)]); return { prims: [{ ...E.P(...pts.reverse()), root: 'GABLE' }], box: { x0, x1, top: top / u, bot: bot / u }, frame: true, point: true }; }
-    return { prims: [{ ...E.P(...pts), root: 'GABLE' }], box: { x0, x1, top: ap / u, bot: gb / u }, frame: true, point: true };
+    return { prims: [r.bow ? PD.bowed(pts, r.bow * t.stroke, { root: 'GABLE' }) : { ...E.P(...pts), root: 'GABLE' }], box: { x0, x1, top: ap / u, bot: gb / u }, frame: true, point: true };
   },
   // gables stacked into tiers: shown heights and half widths in the declared rhythm, the bottom one the width given; each lower tier's
   // apex set so the notch under the tier above is notch of that tier's half width. A tier hangs (it overhangs what is under it), so its
@@ -178,10 +180,11 @@ const KINDS = {
   // a block: a mass, w of its parent wide and deep of its own width deep, its corners a mass's; at the left or right end of the
   // root it names (of), beside an end post there a cut apart
   block(r, at, t, u, C) {
-    const w = at.w * u, h = (r.deep ?? 1) * w; let x0 = at.cx * u - w / 2;
+    // C, THE LIP: a block under a root that declares a lip (a roof) spans its width less the protrusion minimum each side
+    const lipped = C && C.prev && C.prev.r && C.prev.r.lip === true, w = at.w * u - (lipped ? 2 * t.protrude : 0), h = (r.deep ?? 1) * at.w * u; let x0 = at.cx * u - w / 2;
     if (r.at && r.of) { const ow = C.wOf(r.of) * u, oc = at.cx * u, inset = C.endPost(r.of, r.at) ? t.part + t.cut : 0;
       x0 = r.at === 'left' ? oc - ow / 2 + inset : oc + ow / 2 - inset - w; }
-    let prims = [E.R(x0, at.topF, w, h, { root: 'BLOCK' })];
+    let prims = [r.crown ? PD.crowned(x0, at.topF, w, h, r.crown, t.stroke, { root: 'BLOCK' }) : E.R(x0, at.topF, w, h, { root: 'BLOCK' })];
     // the mass and its holes are one root (as a knot's band and its counters are): drawn whole, the grid moves it whole, so a round
     // hole is never re-landed point by point
     if (r.hole) prims = [E.D(E.build([...prims, ...holesIn(r.hole, x0, at.topF, w, h, t)]).d, { root: 'BLOCK', also: 'CIRCLE' })];
@@ -240,12 +243,16 @@ const KINDS = {
     const rimOnly = inRing && !r.through;
     const parts = foot ? P.prims.slice() : rimOnly ? [] : [E.C(ox, oy, t.stroke / 2)];
     let x0 = ox, x1 = ox;
-    for (const sg of [-1, 1]) { const a = leans[sg === ahead ? 0 : 1] * Math.PI / 180, dx = sg * Math.sin(a), dy = Math.cos(a), nx = dy * h, ny = -dx * h;
-      const ey = yb - h * Math.sin(a), l = (ey - oy) / dy, ex = ox + dx * l, sx = ox + dx * l0, sy = oy + dy * l0;
-      if (rimOnly) parts.push(E.P([sx - nx, sy - ny], [sx + nx, sy + ny], [ex + nx, ey + ny], [ex - nx, ey - ny]));
-      else if (hIn < h - 1e-9) { const mx = dy * hIn, my = -dx * hIn; parts.push(E.P([ox - mx, oy - my], [ox + mx, oy + my], [sx + mx, sy + my], [sx - mx, sy - my])); parts.push(E.P([sx - nx, sy - ny], [sx + nx, sy + ny], [ex + nx, ey + ny], [ex - nx, ey - ny])); }
-      else parts.push(E.P([ox - nx, oy - ny], [ox + nx, oy + ny], [ex + nx, ey + ny], [ex - nx, ey - ny]));
-      x0 = Math.min(x0, ex - Math.abs(nx)); x1 = Math.max(x1, ex + Math.abs(nx)); }
+    // A, TAPER: a splay's posts are `taper` of their width at their free end (over 1: they flare to the ground)
+    const tp = r.taper ?? 1;
+    for (const sg of [-1, 1]) { const a = leans[sg === ahead ? 0 : 1] * Math.PI / 180, dx = sg * Math.sin(a), dy = Math.cos(a), nx = dy * h, ny = -dx * h, enx = nx * tp, eny = ny * tp;
+      const ey = yb - h * tp * Math.sin(a), l = (ey - oy) / dy, ex = ox + dx * l, sx = ox + dx * l0, sy = oy + dy * l0;
+      if (rimOnly) parts.push(E.P([sx - nx, sy - ny], [sx + nx, sy + ny], [ex + enx, ey + eny], [ex - enx, ey - eny]));
+      else if (hIn < h - 1e-9) { const mx = dy * hIn, my = -dx * hIn; parts.push(E.P([ox - mx, oy - my], [ox + mx, oy + my], [sx + mx, sy + my], [sx - mx, sy - my])); parts.push(E.P([sx - nx, sy - ny], [sx + nx, sy + ny], [ex + enx, ey + eny], [ex - enx, ey - eny])); }
+      else parts.push(E.P([ox - nx, oy - ny], [ox + nx, oy + ny], [ex + enx, ey + eny], [ex - enx, ey - eny]));
+      // C, THE LIP on a figure's legs: each foot runs past its leg in the stride (ahead) by the protrusion minimum, level on the line it stands on
+      if (r.lip === true) { const hw = Math.abs(enx), fh = Math.min(2 * h * tp, t.stroke), fa = ahead > 0 ? ex - hw : ex - hw - t.protrude; parts.push(E.R(fa, yb - fh, 2 * hw + t.protrude, fh)); }
+      x0 = Math.min(x0, ex - Math.abs(enx) - (r.lip === true ? t.protrude : 0)); x1 = Math.max(x1, ex + Math.abs(enx) + (r.lip === true ? t.protrude : 0)); }
     const prims = [E.D(E.build(parts).d, { root: 'POST', also: foot ? null : 'CIRCLE', role: 'splay' })];
     if (foot) P.prims = [];
     return { prims, box: { x0: x0 / u, x1: x1 / u, top: oy / u, bot: yb / u }, noStack: true };
@@ -256,16 +263,16 @@ const KINDS = {
   // so the join is a fillet) and ends as a post ends, square to itself, its lower corner on the line it stands on (Posts end square).
   // The posts hold a solid part, so they keep the part width; the pair is one root (the grid moves it whole) and mirrors.
   splayEnds(r, at, t, u, C) {
-    const P = C.placed[r.of], h = t.part / 2, a = Math.abs(r.lean) * Math.PI / 180, out = Math.sign(r.lean) || 1;
+    const P = C.placed[r.of], h = t.part / 2, a = Math.abs(r.lean) * Math.PI / 180, out = Math.sign(r.lean) || 1, tp = r.taper ?? 1, inset = P.r && P.r.lip === true ? t.protrude : 0;
     const yT = P.box.top * u, yB = P.box.bot * u, ym = (yT + yB) / 2, yb = r.to === 'bottom' ? C.floor * u : yB + r.reach * C.H * u;
     const parts = []; let x0 = 1e9, x1 = -1e9;
     for (const sg of [-1, 1]) {
-      const xe = (sg < 0 ? P.box.x0 : P.box.x1) * u, s = sg * out, dx = s * Math.sin(a), dy = Math.cos(a), nx = dy * h, ny = -dx * h;
+      const xe = (sg < 0 ? P.box.x0 : P.box.x1) * u - sg * inset, s = sg * out, dx = s * Math.sin(a), dy = Math.cos(a), nx = dy * h, ny = -dx * h, enx = nx * tp, eny = ny * tp;
       // the axis where it leaves the root's underside: its outer side on the root's end there
       const axB = xe - sg * h / dy, ox = axB - dx / dy * (yB - ym), oy = ym;
-      const ey = yb - h * Math.sin(a), l = (ey - oy) / dy, ex = ox + dx * l;
-      parts.push(E.P([ox - nx, oy - ny], [ox + nx, oy + ny], [ex + nx, ey + ny], [ex - nx, ey - ny]));
-      x0 = Math.min(x0, ex - Math.abs(nx), xe); x1 = Math.max(x1, ex + Math.abs(nx), xe);
+      const ey = yb - h * tp * Math.sin(a), l = (ey - oy) / dy, ex = ox + dx * l;
+      parts.push(E.P([ox - nx, oy - ny], [ox + nx, oy + ny], [ex + enx, ey + eny], [ex - enx, ey - eny]));
+      x0 = Math.min(x0, ex - Math.abs(enx), xe); x1 = Math.max(x1, ex + Math.abs(enx), xe);
     }
     return { prims: [E.D(E.build(parts).d, { root: 'POST', role: 'splay' })], box: { x0: x0 / u, x1: x1 / u, top: ym / u, bot: yb / u }, noStack: true };
   },
@@ -291,7 +298,7 @@ const KINDS = {
   // as a post to the bottom: its edge a quarter ellipse centred on the fall's inner face at the top, `tie` of the height left below
   // it, so the edge meets the fall square (a corner the rack cuts), never running level into it
   drape(r, at, t, u, C) {
-    const P = C.prev, x0 = P.box.x0 * u, x1 = P.box.x1 * u, top = at.topF, H = C.floor * u, ry = r.tie * (H - top), rx = (x1 - x0) / 2 - t.cut / 2 - t.part, prims = [];
+    const P = C.prev, lip = P.r && P.r.lip === true ? t.protrude : 0, x0 = P.box.x0 * u + lip, x1 = P.box.x1 * u - lip, top = at.topF, H = C.floor * u, ry = r.tie * (H - top), rx = (x1 - x0) / 2 - t.cut / 2 - t.part, prims = [];
     // A PART THAT MUST READ CLEARS A MINIMUM SIZE (11-02): the tie (where the drape is gathered into its fall) reads by standing past
     // the fall, so it clears the protrusion minimum: the swag's edge ends that far in from the fall's inner face, and the tie's
     // underside runs level back to the fall. The swag's edge arrives at the tie at the chamfer's 45 degrees, so the tie is a corner
@@ -304,7 +311,9 @@ const KINDS = {
     for (const sg of [-1, 1]) { const xo = sg < 0 ? x0 + t.part : x1 - t.part, xc = xo - sg * (rx - a), a0 = sg < 0 ? 0 : Math.PI, aE = sg < 0 ? th : Math.PI - th, q = v => `${f5(v[0])} ${f5(v[1])}`;
       const A = ELL_ARC(xc, top, a, b, a0, aE);
       prims.push({ ...E.D(`M${f5(xo)} ${f5(top)}H${f5(xo - sg * rx)}C${q(A[1])} ${q(A[2])} ${q(A[3])}H${f5(xo)}Z`), root: 'ELLIPSE', role: 'drape' });
-      prims.push(E.R(sg < 0 ? x0 : x1 - t.part, top, t.part, H - top, { root: 'POST', role: 'fall' })); }
+      // A, FLARE: the fall is `flare` of its width where it meets the floor, its inner side leaning in
+      if (r.flare) { const xa = sg < 0 ? x0 : x1, xi = xa - sg * t.part, xf = xa - sg * t.part * r.flare; prims.push({ ...E.P([xa, top], [xi, top], [xf, H], [xa, H]), root: 'POST', role: 'fall' }); }
+      else prims.push(E.R(sg < 0 ? x0 : x1 - t.part, top, t.part, H - top, { root: 'POST', role: 'fall' })); }
     return { prims, box: { x0: x0 / u, x1: x1 / u, top: top / u, bot: H / u }, reads: { id: r.id, part: 'tie', past: tieP } };
   },
   // blocks (a plan): a square w across cut into blocks by streets a cut wide, turned `turn` degrees about its centre. cols and
@@ -424,7 +433,7 @@ function layout(decl, s, Z, S, room, gdx = null, sub = null) {   // sub: a colum
       // WHAT A SLAB CARRIES CLEARS IT (11-03): a slab across splayed posts runs past where they stand (their feet) and past the slab
       // they hang from by at least the protrusion minimum each side, widening when its share would fall short, so it reads as carried
       // on the posts (a seat), never as the bar of an "A" or a stool's rung
-      const Q = placed[r.across], Up = Q.r && Q.r.of ? placed[Q.r.of] : null, need = Math.max(cx - Q.box.x0, Q.box.x1 - cx, Up ? Math.max(cx - Up.box.x0, Up.box.x1 - cx) : 0) + t.protrude / u;
+      const Q = placed[r.across], Up = Q.r && Q.r.of && r.lip !== true ? placed[Q.r.of] : null, need = Math.max(cx - Q.box.x0, Q.box.x1 - cx, Up ? Math.max(cx - Up.box.x0, Up.box.x1 - cx) : 0) + t.protrude / u;
       const w0 = wOf(r.id), w = Math.max(w0, 2 * need), yA = T3(Q.box.top * u + (r.at ?? 1 / 2) * (Q.box.bot - Q.box.top) * u);
       meta.protrusions.push({ id: r.id, past: +((w / 2 - (need - t.protrude / u)) * u * k).toFixed(3), min: Z.protrude, widened: w > w0 + 1e-9 });
       R = { prims: [E.R((cx - w / 2) * u, yA, w * u, t.stroke * (r.lines || 1), { root: 'SLAB' })], box: { x0: cx - w / 2, x1: cx + w / 2, top: yA / u, bot: (yA + t.stroke * (r.lines || 1)) / u }, noStack: true };
@@ -559,6 +568,7 @@ function layout(decl, s, Z, S, room, gdx = null, sub = null) {   // sub: a colum
     R.prims = [chamfered({ x0, x1, yT: R.topF, yB: by, top: face(dn), bot: face(up) })];   // the row above holds the top face, the row below the bottom
     meta.chamfers.push({ id: R.r.id, over: +(rowR.row.over * k).toFixed(3), size: +(Math.min(rowR.row.over, OVER) * k).toFixed(3) });
   });
+  if (out.some(R => R.r && (R.r.nub || R.r.seams || R.r.door || R.r.cabins || R.r.lip === 'top' || R.r.band && R.taper))) PD.details(out, t, u, meta);
   let prims = out.flatMap(R => R.prims);
   // an asymmetric group (it carries a loop) resting on a base: its ink centre over the base's centre
   const iBase = out.findIndex((R, i) => i > 0 && R.r.join === 'cut' && out.slice(0, i).some(q => q.r.kind === 'loop'));

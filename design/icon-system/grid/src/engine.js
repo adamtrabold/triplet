@@ -845,7 +845,7 @@ function xform(prims, k, ox, oy, tx, ty) {
     if (q.t === 'R') Object.assign(s, { x: X(q.x), y: Y(q.y), w: q.w * k, h: q.h * k });
     if (q.t === 'C' || q.t === 'S') Object.assign(s, { cx: X(q.cx), cy: Y(q.cy), r: q.r * k });
     if (q.t === 'P') s.pts = q.pts.map(p => [X(p[0]), Y(p[1])]);
-    if (q.t === 'D') { if (q.m) throw new Error('D: one xform only'); s.m = [k, ox, oy, tx, ty]; }
+    if (q.t === 'D') { if (q.m) { const [k1, ox1, oy1, tx1, ty1] = q.m; s.m = [k1 * k, ox1, oy1, tx + (tx1 - ox) * k, ty + (ty1 - oy) * k]; } else s.m = [k, ox, oy, tx, ty]; }   // a second xform composes with the first (11-03: a drawn root in a group side by side)
     if (q.t === 'B') Object.assign(s, { a: [X(q.a[0]), Y(q.a[1])], b: [X(q.b[0]), Y(q.b[1])], w: q.pen ? q.w : q.w * k });
     if (q.t === 'O' || q.t === 'A') Object.assign(s, { cx: X(q.cx), cy: Y(q.cy), r: q.r * k, w: q.pen ? q.w : q.w * k });
     return s;
