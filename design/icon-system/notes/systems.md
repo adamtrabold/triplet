@@ -1,5 +1,17 @@
 # Systems designer notes: icon system
 
+## Batch 2, turn 10: the director's four fixes, blind kit 5 (2026-11-03)
+
+**Director turn 9:** 9s: bed, curtain, camera. 8s: kvarter, walker, picnic table, wheel, bag. Fountain and terrace killed.
+
+**Built (all general, in SETTINGS / THE-SYSTEM.md):** `diamondReach()` in system-make (the badge's inner half diagonal from `S.RING` less a stroke, square to the edge; replaces `KEY.DIAMOND/2*FK` in the diamond fit); a slab `across` widens to clear the posts' feet and the slab above by the protrusion (meta.protrusions, `widened`); the spoke count also needs hub (`w/sin(pi/2m)`) <= opening unless m = 2 (meta.spokes.hub; new check in system-check, only where `hub` is recorded, so the old one-shot attraction json is untouched); vessel `base` (flat base, straight tapering walls, root VESSEL).
+
+**Concepts:** `sh-bag3` is the bag (vessel deep 11/10, base 7/8); `sh-bag`, `sh-bag2`, `sh-bag-cup` kept in decl.js as tried and dropped. at-wheel4, pk-picnic2, nb-kvarter, st-walker rebuilt at 18 with no declaration change.
+
+**Kit:** scratchpad `blind5/` + `blind5-key.md` (13 images), generator `b3/kit.js`, list `b3/kit5.json`; build scripts `b3/cbuild.sh`, approved check `b3/appr.sh`.
+
+**Open:** the wheel's plus may read as a crosshair (turn 1/2 makes it an X: a declaration call for the visual designer); 24 and 12 of the concepts are not built (the kit is 18 only); the walker is now a touch taller than the tree; judge by eye.
+
 ## Batch 2, turn 8: the six fixes, two new concepts, blind kit 4 (2026-11-03)
 
 **Director turn 7:** 9s: bed with no foot, curtain. 8s reachable: kvarter, picnic table, bag, standing wheel, camera. 7: walker. Killed: foot board, roofs, one-shot wheel. Lamp and needle (5) replaced.

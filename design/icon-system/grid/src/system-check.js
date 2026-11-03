@@ -79,6 +79,8 @@ function checkOne(size, id, B) {
     add('Snap priority', Math.max(...tops) - Math.min(...tops) < 1 / 6 && Math.max(...bots) - Math.min(...bots) < 1 / 6, `drawn level, landed level (within half an iPhone pixel): tops ${tops.join(', ')}; bottoms ${bots.join(', ')}`); }
   // SPOKES COUNT AS A ROW: the count the rule kept clears the counter minimum between every two
   for (const sp of M.spokes || []) add('Spokes count as a row', sp.n === 0 || sp.gap >= sp.min - 0.02, `${sp.n} of ${sp.declared} declared${sp.n ? `, gaps ${sp.gap}px (minimum ${sp.min})` : `: none clears the minimum, the ring stays open (${sp.gap}px across)`}`);
+  // A WHEEL'S HUB IS ITS SMALLEST PART (11-03): more than two crossed posts only where their hub is no wider than an opening
+  for (const sp of M.spokes || []) if (sp.hub != null) add('A wheel\'s hub is its smallest part', sp.n <= 2 || sp.hub <= sp.gap + 0.02, `${sp.n} posts crossed, hub ${sp.hub}px, openings ${sp.gap}px`);
   // A PART THAT MUST READ: it stands at least the protrusion minimum past the part it gathers into
   for (const rp of M.reads || []) add('A part that must read', rp.past >= rp.min - 0.02, `the ${rp.part} stands ${rp.past}px past its fall (minimum ${+rp.min.toFixed(2)})`);
   // OPENINGS BETWEEN RADIATING PARTS: as built, each opening between the spokes holds a circle the counter minimum across

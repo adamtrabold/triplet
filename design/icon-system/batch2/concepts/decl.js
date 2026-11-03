@@ -68,7 +68,10 @@ const C = {
   'sh-bag2': S('Shopping: the bag, a vessel on a flat base, a gentler taper', 'tall', [
     { id: 'body', kind: 'vessel', w: 1, deep: 1, base: 7 / 8 },
     { id: 'handle', kind: 'loop', of: 'body', at: 'top', span: 3 / 5, rise: 0, into: 1 / 4 }]),
-  'sh-bag-cup':S('Shopping: the bag, the cup\'s own vessel', 'tall', [
+  'sh-bag3': S('Shopping: the bag, a vessel on a flat base, taller than wide, a gentle taper', 'tall', [
+    { id: 'body', kind: 'vessel', w: 1, deep: 11 / 10, base: 7 / 8 },
+    { id: 'handle', kind: 'loop', of: 'body', at: 'top', span: 3 / 5, rise: 0, into: 1 / 4 }]),
+  'sh-bag-cup': S('Shopping: the bag, the cup\'s own vessel', 'tall', [
     { id: 'body', kind: 'vessel', w: 1, deep: 6 / 5 },
     { id: 'handle', kind: 'loop', of: 'body', at: 'top', span: 3 / 5, rise: 0, into: 1 / 4 }]),
   // ---- Park

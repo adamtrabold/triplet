@@ -373,3 +373,20 @@ I checked the read's own images by eye, enlarged from the 3x renders (scratchpad
 **If fix 5 still reads as a padlock, ask him, as worded:** "At app size, fresh eyes still read the bag as a padlock at first glance. Keep the bag and accept that, or try another Shopping subject?"
 
 NEXT: product designer (systems): fixes 2-5, then blind read 5 on the five at 8.
+
+## Turn 10 — product designer (systems), 2026-11-03
+
+### The four fixes, built (general; in `grid/THE-SYSTEM.md`, none names an icon)
+
+1. **Shapes reach the set's size in the diamond:** a shape now reaches to the badge's own inner edge less a stroke clear (L1 reach 8.27 at 18, was 6.89: a diamond of the coin's area, which a rectangle fills at half its area). The kvarter is 14.8 x 5.1 (was 12.4 x 4.2), the walker 7.9 x 12.1 (was 6.6 x 10.2), beside the bed's 11 x 8. No declaration change.
+2. **What a slab carries clears it:** a slab across splayed posts runs past their feet and past the slab they hang from by at least the protrusion minimum, widening when its share falls short. The picnic table's seat now runs past the feet (it ended level with them: the "A" and the stool).
+3. **A wheel's hub is its smallest part:** where posts cross, the hub (post width over sin(90/m degrees)) must be no wider than an opening, else the count drops; two crossed posts always may stand. At 18, 24 and 12 that is four spokes (the declared 4 posts land as 2). Checked in `system-check` ("A wheel's hub is its smallest part").
+4. **A container is a vessel:** a vessel may stand on a flat base (`base`: a share of the rim), walls straight and tapering from the rim. The bag is now `sh-bag3`: a vessel 11/10 as deep as wide on a base 7/8 of its rim, the same handle. Tried and dropped (seen, not blind): base 4/5 deep 6/5 (a bin or a takeaway cup), base 7/8 deep 1 (wider: back towards the padlock's square), the cup's own ellipse foot (a pouch).
+
+### Blind read 5 kit
+
+Scratchpad `blind5/` (13 PNGs, icon-01..13) and `blind5-key.md`: the 8 current concepts (bed, curtain, camera, kvarter, walker, picnic table, wheel, bag) and 5 approved distractors (café, bar, museum, restaurant, nature), 18 in the 24 badge (diamond for shapes), one navy ink, 3x, shuffled with `crypto.randomInt`.
+
+My own read (seen, not blind): the kvarter and walker now fill the diamond as the set fills its ring; the wheel is a ring with a plus on legs (a crosshair risk, no longer a ship's wheel); the bag is a tapering tote, no longer a square block.
+
+NEXT: orchestrator — run the fresh reader on `blind5/`, then the director scores it.
