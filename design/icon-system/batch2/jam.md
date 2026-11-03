@@ -431,3 +431,42 @@ NEXT: product designer (systems): the picnic table's top at the stroke's weight.
 - **Canvas v295:** one board, "Batch 2 concepts", on the Grid concepts page (x 6664, beside Rules; nothing else changed): the eight at app size and 6x, the bag and the Ferris wheel marked "question for you" with the director's questions as worded, the eight beside the approved seven, and a mixed row of pins. Stills: scratchpad `batch2-1.png`, `batch2-2.png`.
 
 NEXT: design director — check the board, then the orchestrator takes it to the owner with the two questions.
+
+## Turn 13: design director, the three personality approaches, 2026-11-03
+
+**Recorded:** he turned down the batch at my 9s (canvas v295): "i think we need to iterate on ways of drawing them that give more personality -- they look very rigid and simplistic, no subtle details." That is the fifth director 9 he has turned down. The pattern is the same as before: I scored the read (does it say hotel?), and he judges the character (does it look like ours, made with care?). From now on a 9 needs both.
+
+**Rendered myself:** the approved row, v295, then A, B and C, at 18 in the ring or diamond, at 3x and 2x (scratchpad `dir283/rp-*`).
+
+**The finding first:** at 18 all three change very little against v295. At true size, the differences are a few device pixels. His "rigid and simplistic" is about the whole silhouette, and sub-pixel moves won't answer it alone.
+
+**A · Contour (crown, belly, flare, taper):** 7.
+- Right in kind: the approved set has exactly this subtlety (the saucer's curve, the cup's belly, the coupe's bowl), so A is the set's own language.
+- But applied everywhere it softens the batch into blobs (the bag's belly edges toward a can), against "made by a tool".
+- Keep it only where an approved part has the same curve: a resting face (cap curve) and a vessel's wall.
+
+**B · The tell:** 6 as an approach, mixed by icon.
+- Good where the tell is how the object is built: the camera's viewfinder hump and shutter (8), the bag's folded top (8), the curtain's stage floor (8).
+- Cheeky where it is ornament: the walker's hat, and the bed's knob, which reads as a head on a pillow (a person in bed). Both break "no cheeky signatures" and one cue, one icon (one person).
+
+**C · The lip (one part runs past what it meets):** 8.
+- The best idea. It is the move all five approved icons share (saucer past cup, coupe foot, museum beam and plinth, tree tiers, the knife's edge), so it is "made by a tool" and plain, and it makes the batch one family with the approved set.
+- By icon: the wheel on a base reads as a ride, not a helm (8); the walker's feet (8); the picnic top past the legs (8); the bed's headboard lip (7, edging toward a bathtub); the curtain's rail lip (7, the drapes read as columns).
+- Houses can't carry one, which is fine: the count is their read.
+
+**Combine: yes. C as the base, plus B where the tell is construction, plus A only as the set's existing curves.** One general rule each:
+1. **The lip** (C): every icon has one part that runs past what it meets.
+2. **The tell** (B): an icon may carry one detail that is how the object is made or used (a shutter, a fold, a stage floor). It is never an accessory, a face or a second figure.
+3. **The curve** (A): a resting face takes a cap curve and a vessel's wall takes a belly, as in the approved set; nothing else is softened.
+
+**None is a 9.** The combination could be, but he has to see the character, not just a correct read.
+
+**Fixes:**
+1. Build the combined approach on all eight, through the system.
+2. Drop the hat and the bed knob.
+3. The bed's lip and the curtain's rail: by eye, so they don't read as a bathtub or columns.
+4. The picnic table as weighted in v295 reads as a car or a hat at 18 (its top is too heavy). Rebalance it under the lip rule.
+5. **Show it at 18 beside the approved set and judge it the way he does:** does each new icon have as much made-ness as the coupe and the tree? Not "does it read".
+6. A blind read only after that.
+
+NEXT: product designer (visual): the combined approach (C + B construction tells + A set curves) on the eight, judged by eye beside the approved set, then back to me.

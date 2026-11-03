@@ -1847,3 +1847,10 @@ The verdict stands within our own set:
 - **Blocking:** subjects whose 18px silhouette matches a UI glyph.
 - **Two questions for him:** bag; wheel.
 - **Jam turn 11.**
+
+## Batch 2: personality approaches (35feaf38), 2026-11-03
+
+- **Owner turned down v295 (my 9s):** "i think we need to iterate on ways of drawing them that give more personality -- they look very rigid and simplistic, no subtle details."
+- **Scores:** A contour 7, B tell 6 (hat and bed knob cheeky), C lip 8.
+- **None is a 9.** Forward: C + B's construction tells + A only as the set's curves.
+- **Jam turn 13.**
