@@ -3932,7 +3932,7 @@
       if (!isAllCities() && !inPlanView() && citySelection !== cityId && CITIES[cityId]) {
         from = citySelection; citySelection = cityId; activeCity = cityId; persistCitySelection(cityId);
       }
-      const hid = isAllCities() && hiddenCities.has(cityId);   // the eye's scope is All places (in a picked city it hides nothing)
+      const hid = (isAllCities() || inPlanView()) && hiddenCities.has(cityId);   // the eye's scope: All places and a plan's add-from list (in a picked city it hides nothing)
       if (hid) { hiddenCities.delete(cityId); persistHiddenCities(); }
       if (!hid && from == null) return false;
       if (render) { updateUI(); syncAddTagCity(); }
@@ -4520,7 +4520,9 @@
     // city-crud v5 (owner: "Why would Stockholm be shown if Malmö is selected" ... "yeah that's
     // weird"): a city picked in the title menu is a FILTER again, for the list and the map. All
     // places lists every shown city (the eye hides one there; it is the eye's only scope).
-    const cityListed = cityId => citySelection === ALL_CITIES ? cityShown(cityId) : cityId === citySelection;
+    // An open plan's add-from list crosses cities (UX ruling on the v2b check, J8): in Plans every
+    // shown city is listed whatever city is picked (the picked city's section first; the eyes apply).
+    const cityListed = cityId => citySelection === ALL_CITIES || inPlanView() ? cityShown(cityId) : cityId === citySelection;
     function readHiddenCities() {
       try {
         const v = JSON.parse(localStorage.getItem(HIDDEN_CITIES_KEY) || '[]');
@@ -6757,10 +6759,10 @@
         others.locs.forEach(l => { if (!pinsBy.has(l.city)) pinsBy.set(l.city, []); pinsBy.get(l.city).push(l); });
         others.shapes.forEach(n => { if (!shapesBy.has(n.city)) shapesBy.set(n.city, []); shapesBy.get(n.city).push(n); });
         let firstAdd = true;
-        sectionCityIds().forEach(id => {
-          // a picked city: its section alone, no eye (the eye's scope is All places; city-crud v5)
-          const ps = pinsBy.get(id) || [], ss = shapesBy.get(id) || [], hidden = isAllCities() && hiddenCities.has(id);
-          if (!isAllCities() && id !== citySelection) return;
+        // every city, as All places lists them (the eyes apply), the picked city's section first (J8)
+        const addIds = sectionCityIds(), pickedFirst = !isAllCities() && addIds.includes(citySelection) ? [citySelection].concat(addIds.filter(i => i !== citySelection)) : addIds;
+        pickedFirst.forEach(id => {
+          const ps = pinsBy.get(id) || [], ss = shapesBy.get(id) || [], hidden = hiddenCities.has(id);
           if (!ps.length && !ss.length && !(hidden && (CITIES[id] || cityHasPlaces(id)))) return;
           // A hidden section's tally: what it would add if shown (its chip-matching places, not stops) -- never 0.
           const n = hidden ? addableTally(id, pm) : ps.length + ss.length;
@@ -6776,7 +6778,7 @@
         if (r.leg != null) { const e = headEntry(legHeads, r.leg); renderLegHead(e, r.leg, legs[r.leg], !want.length); want.push(e.el); return; }
         if (r.rule) { want.push(planRule); return; }
         if (r.foot) { renderPlanFoot(); want.push(planFoot); return; }
-        if (r.add != null) { const e = headEntry(addHeads, r.add); renderCityHead(e, r.add, r.n, r.hidden, r.first, 'addgo', !isAllCities()); seenAdd.add(r.add); want.push(e.el); return; }
+        if (r.add != null) { const e = headEntry(addHeads, r.add); renderCityHead(e, r.add, r.n, r.hidden, r.first, 'addgo'); seenAdd.add(r.add); want.push(e.el); return; }
         if (r.note) { want.push(planOthersNote); return; }
         if (r.loc) {
           const loc = r.loc;
@@ -7659,7 +7661,8 @@
       r.dataset.dx = x;
       r.dataset.dragging = dragging ? '1' : '';
       r.querySelector('.rm-clip').style.width = `${-x}px`;
-      setSignTurned(r.dataset.city, x < -RM_OPEN * RM_OPEN_AT);   // the signpost turns where the reveal would open
+      // the signpost turns where the reveal would open -- never while the board reads SIGN IN
+      setSignTurned(r.dataset.city, !!currentUser && x < -RM_OPEN * RM_OPEN_AT);
     }
     function rmSetOpen(r, open) {
       if (open) rmCloseAll(r);
@@ -7722,7 +7725,9 @@
     // nothing. A second remove commits a held one first; so does leaving the app (visibilitychange
     // hidden / pagehide: the deletes are sent at once, best effort -- if the page dies first, the data
     // survives, the safe direction).
-    async function rmCommit(id, to) {
+    // viaKey: committed from the keyboard -- focus goes to the slip's Undo (not <body>)
+    const rmFocusUndo = viaKey => { if (viaKey && !planSlip.hidden) planSlip.querySelector('button').focus({ preventScroll: true }); };
+    async function rmCommit(id, to, viaKey = false) {
       if (!await requireAuth()) return;
       if (!CITIES[id] || (to && !CITIES[to])) return;
       await commitHeldRemoval();
@@ -7764,7 +7769,7 @@
           showWriteError(err, 'places');
         } finally { flagWritesInFlight--; }
         if (flagWritesInFlight === 0) await Promise.all([refetchLocations(), refetchNeighborhoodShapes()]);
-        if (ok) showPlanSlip(`${lab} removed. Its places are in ${cityLabel(to)}.`, () => rmUndoMove(cfg, to, [...locIds], [...shapeIds], { wasPicked, wasHidden, wasActive }), 'city-remove');
+        if (ok) { showPlanSlip(`${lab} removed. Its places are in ${cityLabel(to)}.`, () => rmUndoMove(cfg, to, [...locIds], [...shapeIds], { wasPicked, wasHidden, wasActive }), 'city-remove'); rmFocusUndo(viaKey); }
         return ok;
       }
       // remove the places too: held until the slip ends
@@ -7778,6 +7783,7 @@
       if (map && map._popup) { const k = openTagKey(); if (k != null && !rowItem(k)) map.closePopup(); }
       updateUI(); syncAddTagCity();
       showPlanSlip(`${lab}${locs.length + shapes.length ? ' and its places removed.' : ' removed.'}`, () => rmUndoHeld(), 'city-remove', [], () => { commitHeldRemoval(); });
+      rmFocusUndo(viaKey);
       return true;
     }
     // Undo of a held removal: nothing was written; everything comes back as it was.
@@ -7947,7 +7953,7 @@
       const keep = e.target.closest('[data-rm-keep]');
       if (keep) { const r = rmRowOf(keep.dataset.rmKeep); rmClosePicker(); if (r) { rmSetOpen(r, false); r.querySelector('.menu-row').focus({ preventScroll: true }); } return true; }
       const dest = e.target.closest('[data-rm-city]');
-      if (dest) { rmCommit(dest.dataset.rmCity, dest.dataset.rmTo || null); return true; }
+      if (dest) { rmCommit(dest.dataset.rmCity, dest.dataset.rmTo || null, e.detail === 0); return true; }   // detail 0: Enter / Space
       const r = e.target.closest('.menu-city');
       if (r) {
         const st = rmSt(r);
@@ -8694,9 +8700,12 @@
       }
       return groups;
     }
+    // A sign that fits within a pixel shows (city-crud v2b check: the Copenhagen+Malmö post's edge at
+    // 382.5 against 382 hid the whole post after a move): sub-pixel layout never hides a sign.
+    const SIGN_FIT_SLACK = 1;
     function fitsAt(gp, safe) {
-      const q = rectOf(gp);
-      return q.x0 >= safe.left && q.x1 <= safe.right && q.y0 >= safe.top && q.y1 <= safe.bottom;
+      const q = rectOf(gp), e = SIGN_FIT_SLACK;
+      return q.x0 >= safe.left - e && q.x1 <= safe.right + e && q.y0 >= safe.top - e && q.y1 <= safe.bottom + e;
     }
     // Each sign stands on its spot: a lone one takes east, else west; one that doesn't fit is hidden.
     function placeSigns(groups, safe) {
@@ -10347,15 +10356,21 @@
       if (!name || !cc) return null;
       const km = near ? haversineKm(near, [lat, lng]) : null;
       const region = [a.state || a.province || a.region || a.county || '', a.country || ''].filter(Boolean).join(', ');
-      return { name, cc, country: a.country || cc.toUpperCase(), lat, lng, bbox: (r.boundingbox || []).map(Number), km,
-        where: [RESULT_PLACE_WORDS[kind] || 'City', region, km != null ? `≈ ${roundKm(km).toLocaleString('en')} km away` : ''].filter(Boolean).join(' · ') };
+      // "≈ 45 km" never breaks (no-break spaces): a wrapped line never leaves a lone ≈
+      return { name, cc, country: a.country || cc.toUpperCase(), lat, lng, bbox: (r.boundingbox || []).map(Number), km, importance: parseFloat(r.importance) || 0,
+        where: [RESULT_PLACE_WORDS[kind] || 'City', region, km != null ? `≈ ${roundKm(km).toLocaleString('en')} km away` : ''].filter(Boolean).join(' · ') };
     }
+    // Nearest the place first -- unless every result is far (beyond FIND_CITY_FAR_KM): then distance
+    // says nothing about which one you mean, and OSM's importance ranks them (Philadelphia, PA over a
+    // New York village; city-crud v2b check N1).
+    const FIND_CITY_FAR_KM = 300;
     async function findCities(query, near) {
       const cfg = near ? { viewbox: `${near[1] - 1},${near[0] - 1},${near[1] + 1},${near[0] + 1}` } : {};   // a SOFT hint only: worldwide
       const data = await nominatim(query, cfg, { limit: 10, addressdetails: true, featureType: 'city', timeout: 5000 });
       const out = [];
-      (data || []).map(r => foundCity(r, near)).filter(Boolean)
-        .sort((a, b) => (a.km == null || b.km == null) ? 0 : a.km - b.km)
+      const found = (data || []).map(r => foundCity(r, near)).filter(Boolean);
+      const allFar = found.length && found.every(f => f.km == null || f.km > FIND_CITY_FAR_KM);
+      found.sort((a, b) => allFar ? b.importance - a.importance : (a.km == null || b.km == null) ? 0 : a.km - b.km)
         .forEach(f => { if (!out.some(o => o.cc === f.cc && cityKey(o.name) === cityKey(f.name) && haversineKm([o.lat, o.lng], [f.lat, f.lng]) < 15)) out.push(f); });
       return out.slice(0, FIND_CITY_MAX);
     }

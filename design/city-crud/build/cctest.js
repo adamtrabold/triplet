@@ -44,7 +44,7 @@ const PA = [39.95, -75.40];   // the map over south-east Pennsylvania: no city o
   const cq = o.requests.filter(u => u.includes('featureType=city') && u.includes('q=Philadelphia')).map(u => new URL(u));
   ok('C3 Find a city searches settlements (featureType=city), worldwide, in English', cq.length === 1 && cq[0].searchParams.get('accept-language') === 'en' && !cq[0].searchParams.get('countrycodes') && !cq[0].searchParams.get('bounded'), cq.map(u => u.search));
   const c4 = await ev(() => [...document.querySelectorAll('#addCityMenu .menu-res')].map(r => [r.querySelector('.add-res-name').textContent, r.querySelector('.add-res-where').textContent]));
-  ok('C4 results: real cities only, nearest the place first: "Philadelphia / City · Pennsylvania, United States · ≈ 45 km away"; no "Village of", no county; at most 5', c4.length >= 2 && c4.length <= 5 && c4[0][0] === 'Philadelphia' && c4[0][1] === 'City · Pennsylvania, United States · ≈ 45 km away' && !c4.some(([n, w]) => /Village of|Town of|County/.test(n + w)) && c4.filter(([n, w]) => /New York/.test(w)).length === 1, c4);
+  ok('C4 results: real cities only, nearest the place first: "Philadelphia / City · Pennsylvania, United States · ≈ 45 km away"; no "Village of", no county; at most 5', c4.length >= 2 && c4.length <= 5 && c4[0][0] === 'Philadelphia' && c4[0][1] === 'City · Pennsylvania, United States · ≈\u00a045\u00a0km away' && !c4.some(([n, w]) => /Village of|Town of|County/.test(n + w)) && c4.filter(([n, w]) => /New York/.test(w)).length === 1, c4);
   const c5 = await ev(() => { const m = document.getElementById('addCityMenu').getBoundingClientRect(), i = document.querySelector('#addCityMenu .menu-find-in').getBoundingClientRect(), r = document.querySelector('#addCityMenu .menu-res').getBoundingClientRect();
     return { inView: m.top >= 0 && m.bottom <= innerHeight, findIn: i.top >= m.top - 0.5 && i.bottom <= m.bottom + 0.5, resIn: r.top >= m.top - 0.5 && r.bottom <= m.bottom + 0.5 }; });
   ok('C5 the menu stays on screen, the search line and its first result in view', c5.inView && c5.findIn && c5.resIn, c5);
@@ -128,7 +128,7 @@ const PA = [39.95, -75.40];   // the map over south-east Pennsylvania: no city o
   ok('E1 the place\'s city menu has the same "+ Find a city…" line', await ev(() => !document.getElementById('tagCityMenu').hidden && !!document.querySelector('#tagCityMenu .menu-foot .menu-find-in')));
   await L.findCity(page, 'tagCityMenu', 'Lewes');
   const e2 = await ev(() => [...document.querySelectorAll('#tagCityMenu .menu-res')].map(r => [r.querySelector('.add-res-name').textContent, r.querySelector('.add-res-where').textContent]));
-  ok('E2 nearest the place first: Lewes, Delaware ("Town · Delaware, United States · ≈ n km away")', e2[0] && e2[0][0] === 'Lewes' && /^Town · Delaware, United States · ≈ \d+ km away$/.test(e2[0][1]) && e2.length === 3, e2);
+  ok('E2 nearest the place first: Lewes, Delaware ("Town · Delaware, United States · ≈ n km away")', e2[0] && e2[0][0] === 'Lewes' && /^Town · Delaware, United States · ≈\u00a0\d+\u00a0km away$/.test(e2[0][1]) && e2.length === 3, e2);
   await ev(() => document.querySelector('#tagCityMenu .menu-res').click()); await W(1500);
   const e3 = await ev(id => ({ ins: window.__ins.map(x => [x[0], x[1][0].id]), upd: window.__upd, city: (locations.find(l => l.id === id) || {}).city, menu: document.getElementById('tagCityMenu').hidden,
     line: (document.querySelector('.leaflet-popup .tag-city') || {}).textContent }), rentalId);
@@ -370,6 +370,53 @@ const PA = [39.95, -75.40];   // the map over south-east Pennsylvania: no city o
   await ev(() => { delete document.visibilityState; });
   ok('P9 the app is backgrounded (visibilitychange hidden): a held removal is committed at once (and its Undo goes)', p9.pdel.includes('locations') && p9.del.includes('reykjavik') && p9.slip, p9);
   ok('P10 no page errors', o.errors.length === 0, o.errors);
+  await page.context().close();
+
+
+  // X. the combined CD + UX check's fixes (2026-11-03)
+  o = await L.open(b, { file, storage: { 'gh.plans': '1', 'triplet.reorderHint': '1', 'triplet.hiddenCities': '["la"]' } }); page = o.page;
+  // J8: an open plan's add-from list crosses cities -- every city, the picked one first, with the eyes
+  await ev(() => { setActiveCity('malmo', { frame: false }); }); await W(400);
+  await ev(() => choosePlan('gh-p')); await W(1200);
+  const x1 = await ev(() => { const list = [...document.getElementById('locationsList').children], ri = list.indexOf(document.querySelector('.plan-rule'));
+    return list.slice(ri + 1).filter(e => e.matches('.sec-head')).map(e => [e.dataset.city, !!e.querySelector('.sec-eye'), e.classList.contains('is-hidden')]); });
+  ok('X1 Malmö picked, a plan open: the add-from list shows every city (Malmö\'s section first), each with All places\' eye (LA hidden)', JSON.stringify(x1) === JSON.stringify([['malmo', true, false], ['la', true, true], ['reykjavik', true, false], ['copenhagen', true, false], ['stockholm', true, false]]), x1);
+  ok('X2 ... and its rows: places from other cities are offered too; the plan stays open', await ev(() => inPlanView() && activePlanId === 'gh-p' && [...document.querySelectorAll('#locationsList .location-card:not(.is-stop)')].some(e => (rowItem(e.dataset.id) || {}).city === 'copenhagen')));
+  await ev(() => { setListView('places', { frame: false }); setActiveCity(ALL_CITIES, { frame: false }); hiddenCities.clear(); persistHiddenCities(); updateUI(); const f = badgeFitView(); if (f) map.setView(f.center, f.zoom, { animate: false }); }); await W(800);
+  // signed out: the board reads SIGN IN and the sign never turns
+  await ev(() => { currentUser = null; }); await P.tap(page, '#titleBtn'); await W(300);
+  const x3 = await ev(() => { const r = document.querySelector('#titleMenu .menu-city[data-city="copenhagen"]'); rmSetDrag(r, -100, true); const mid = !!document.querySelector('#map .sp-board.is-turned'); rmSetOpen(r, true);
+    return { mid, open: !!document.querySelector('#map .sp-board.is-turned'), board: r.querySelector('.rm-board').textContent, signs: document.querySelectorAll('#map .sp-board').length }; });
+  ok('X3 signed out: the board reads SIGN IN and the map sign does NOT turn to SEE YOU SOON? (mid-drag or open)', x3.board === 'Sign in' && !x3.mid && !x3.open && x3.signs >= 3, x3);
+  await ev(() => { currentUser = { email: 'adamtrabold@gmail.com' }; closeTitleMenu(false); }); await W(300);
+  // a post that fits within a pixel shows
+  const x4 = await ev(() => { const safe = badgeSafeRect(), saved = rectOf;
+    rectOf = () => ({ x0: safe.left - 0.4, x1: safe.right + 0.5, y0: safe.top, y1: safe.bottom + 0.9 }); const within = fitsAt({}, safe);
+    rectOf = () => ({ x0: safe.left, x1: safe.right + 1.5, y0: safe.top, y1: safe.bottom }); const over = fitsAt({}, safe);
+    rectOf = saved; return { within, over }; });
+  ok('X4 a signpost that fits within a pixel shows (the Copenhagen+Malmö post at 382.5 against 382 vanished); 1.5px over still hides it', x4.within && !x4.over, x4);
+  // Find a city: "≈ 45 km" never breaks; far results rank by importance
+  await ev(ll => map.setView(ll, 9, { animate: false }), [64.15, -21.94]); await W(400);
+  await P.tap(page, '#titleBtn'); await W(300);
+  await tapIn('#titleMenu [data-act="newcity"]'); await L.findCity(page, 'titleMenu', 'Philadelphia');
+  const x5 = await ev(() => [...document.querySelectorAll('#titleMenu .menu-res')].map(r => [r.querySelector('.add-res-name').textContent, r.querySelector('.add-res-where').textContent]));
+  ok('X5 "≈ n km" is held together (no-break spaces): a wrapped line never leaves a lone ≈', x5.length && x5.every(([, w]) => /≈ [\d,]+ km away$/.test(w)), x5);
+  ok('X6 every result far from the place (all > 300 km): ranked by OSM importance -- Philadelphia, Pennsylvania first, not the nearest village', /Pennsylvania/.test(x5[0][1]) && /^Amman$/.test(x5[1][0]), x5.map(r => r[0] + ' / ' + r[1]));
+  await ev(() => closeTitleMenu(false)); await W(200);
+  await page.context().close();
+  // focus: a keyboard commit lands on the slip's Undo; a mouse click on the board, on the picker's first choice
+  o = await L.open(b, { file, w: 800, h: 900, touch: false, storage: { 'triplet.hiddenCities': '[]' } }); page = o.page;
+  await ev(() => setActiveCity(ALL_CITIES, { frame: false })); await W(400);
+  await page.click('#titleBtn'); await W(300);
+  await ev(() => rmSetOpen(document.querySelector('#titleMenu .menu-city[data-city="stockholm"]'), true)); await W(400);
+  const bd = await ev(() => { const r = document.querySelector('#titleMenu .menu-city[data-city="stockholm"] .rm-board').getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; });
+  await page.mouse.click(bd.x, bd.y); await W(500);
+  const x7 = await ev(() => ({ pick: !!document.querySelector('#titleMenu .rm-pick[data-pick="stockholm"]'), focus: document.activeElement && document.activeElement.classList.contains('rm-dest') && document.activeElement === document.querySelector('#titleMenu .rm-pick .rm-dest') }));
+  ok('X7 a mouse click on the REMOVE board opens the picker with focus on its first choice', x7.pick && x7.focus, x7);
+  await page.keyboard.press('Enter'); await W(1200);
+  const x8 = await ev(() => ({ slip: !document.getElementById('planSlip').hidden, focus: document.activeElement === document.querySelector('#planSlip button'), tag: document.activeElement && document.activeElement.tagName }));
+  ok('X8 a keyboard commit (Enter on a destination): focus goes to the slip\'s Undo, not <body>', x8.slip && x8.focus, x8);
+  ok('X9 no page errors', o.errors.length === 0, o.errors);
   await page.context().close();
 
   // W. trackpad: continuous wheel streams with no quiet gap (the owner's Mac log: 550 events in 10.8s)

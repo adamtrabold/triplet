@@ -178,7 +178,7 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     const placesStamp = await page.evaluate(() => { document.body.classList.remove('plan-view'); const c = getComputedStyle(document.querySelector('.location-card[data-id="jae"] .row-stamp:not(.vs-copy)')).color; document.body.classList.add('plan-view'); return c; });
     ok('V16 a visited stop keeps its number and wears the Places stamp at its normal ink (no NEXT, nothing plan-specific)', (await nums(page)) === '1,2,3,4,5,6' && vis.stamp === placesStamp && !(await page.evaluate(() => /\bNEXT\b/i.test(document.body.innerText))), [vis, placesStamp]);
     // filters apply below the rule only
-    await page.evaluate(() => { setActiveCity(ALL_CITIES, { frame: false }); document.getElementById('filter-cafe').click(); setCityHidden('malmo', false); setCityHidden('copenhagen', true); }); await W(400);   // the eye's scope: All places (city-crud v5)
+    await page.evaluate(() => { document.getElementById('filter-cafe').click(); setCityHidden('malmo', false); setCityHidden('copenhagen', true); }); await W(400);   // the add-from list crosses cities and its eyes apply (city-crud v2b check J8)
     const fk = await keys(page);
     ok('V17 Copenhagen hidden, Malmö shown, Cafe off: every stop still shows (a stop is never hidden); below the rule only Malmö non-cafés', fk.slice(0, 7).join() === NOR + ',|' && fk.slice(7).length > 0 && (await page.evaluate(ks => ks.every(k => { const l = locations.find(x => x.id === k.slice(1)); return l && l.city === 'malmo' && l.category !== 'cafe'; }), fk.slice(7))), fk);
     ok('V18 the caption names the filters', /^Add places · \d+ categories\d+$/.test(await page.evaluate(() => document.querySelector('.plan-rule').textContent)), await page.evaluate(() => document.querySelector('.plan-rule').textContent));
@@ -741,8 +741,8 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     const { ctx, page, errors } = await open(b, { ...base, plans: P2, stops: S2 });
     await pick(page, 'p-loop');
     const L = await page.evaluate(() => [...document.querySelectorAll('#locationsList > *')].filter(e => e.matches('.sec-head, .location-card.is-stop, .plan-rule')).map(e => e.matches('.sec-head') ? `[${e.textContent.trim()}${e.classList.contains('is-first') ? '*' : ''}${e.querySelector('.sec-eye') ? 'eye' : ''}]` : e.matches('.plan-rule') ? '|' : e.dataset.id));
-    // city-crud v5: with Copenhagen picked, the add-from sections follow it (its section alone, no eye)
-    ok('H12 a plan open: its stops in leg sections broken where the city changes; a recurring city gets its own header each time; no eye; the first is compact; after the break, the picked city\'s addable places (Copenhagen alone, no eye)', L.join(',') === '[Copenhagen1*],mir,[Malmö1],lil,[Copenhagen1],tiv,|,' + L[7] && L.length === 8 && /^\[Copenhagen\d+\*\]$/.test(L[7]), L);
+    // city-crud v2b check (J8): an open plan's add-from list crosses cities -- every city, the picked one (Copenhagen) first, the eyes
+    ok('H12 a plan open: its stops in leg sections broken where the city changes; a recurring city gets its own header each time; no eye; the first is compact; after the break, the addable places in city sections (the picked city first; eyes, the first compact; hidden Malmö shows what it would add)', L.join(',') === '[Copenhagen1*],mir,[Malmö1],lil,[Copenhagen1],tiv,|,[Copenhagen' + L[7].slice(11).replace(/\*eye\]$/, '') + '*eye],[Malmö3eye]' && /^\[Copenhagen\d+\*eye\]$/.test(L[7]), L);
     ok('H13 no errors', !errors.length, errors);
     await ctx.close(); }
 
@@ -767,8 +767,7 @@ const planCalls = page => page.evaluate(() => __calls.filter(c => (c.table === '
     await closeMenu(page); await tap(page, '#collapseTab'); await W(500);
     ok('K4 lowered, the menu opens in the same place as raised', k4.box === k1.box, { k1: k1.box, k4: k4.box });
     // the add-from block: city sections, the shared eye, tap-name stays in the plan, a hidden city's tally
-    // -- in All places (city-crud v5: with a city picked, the add-from sections follow it)
-    await page.evaluate(() => setActiveCity(ALL_CITIES, { frame: false })); await W(300);
+    // (with a city picked too: the add-from list crosses cities, city-crud v2b check J8)
     await pick(page, 'p-nor');
     const af = () => page.evaluate(() => { const list = [...document.getElementById('locationsList').children], rule = document.querySelector('.plan-rule'), ri = list.indexOf(rule);
       return list.slice(ri + 1).filter(e => e.matches('.sec-head')).map(e => ({ city: e.dataset.city, hidden: e.classList.contains('is-hidden'), first: e.classList.contains('is-first'), h: Math.round(e.getBoundingClientRect().height),
