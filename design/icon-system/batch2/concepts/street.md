@@ -31,3 +31,9 @@ The owner's "walker is the best here" (10-15). **Declaration:** head: a disc 1/4
 ## Which, and why (systems)
 
 B: the clearest single object for "street", and it keeps the person off the set. C if B reads as a lighthouse. A stays as the owner's control.
+
+
+## How it looks (visual, 2026-11-03; sheet `../sketches/contact-2.png`, rows `../sketches/rows-2.png`)
+- **A. Walker (control): survives** (the owner: "walker is the best here"). It holds the set's one person.
+- **B. One lamp: survives, my lead.** Hood, lantern and post stand upright in the diamond. In elevation it pairs with the roofs: houses for inside, the lamp you walk past for along. At 12 it's a mark on a stick. Its risk is a key or a lollipop; the blind read decides.
+- **C. Lamps receding: kill.** A bar chart or a tally at 18, as systems found. The diminishing repeat reads as data, not distance.

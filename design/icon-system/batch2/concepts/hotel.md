@@ -23,3 +23,8 @@ Job (`../jobs.md`): **getting home**: one Hotel among many pins, found first, by
 ## Which, and why (systems)
 
 A first (lighter, it is the 9 with one part taken away, as the draw asked), B as its rival if A reads as a lounger. Both are the bed: the owner said "bed is the best here", and nothing in the jam beat it on the getting-home job.
+
+
+## How it looks (visual, 2026-11-03; sheet `../sketches/contact-2.png`, rows `../sketches/rows-2.png`)
+- **A. No foot: survives.** At 18, 24 and 12 it's a bed: head post, pillow, mattress. With no legs, the slab-on-legs cue goes to Park, and against the picnic table the two are no longer siblings.
+- **B. Foot board: survives, the close second.** The foot board ends the bed squarely so it isn't an L-bracket, but at 12 it's almost the same as A. My pick is **A**: lighter, one part fewer, and the brand is plain.

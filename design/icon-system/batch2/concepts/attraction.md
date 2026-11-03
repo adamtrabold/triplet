@@ -43,3 +43,9 @@ Job (`../jobs.md`): **going in to do things**, usually with a ticket: rides, cas
 ## Which, and why (systems)
 
 A is the strongest new kind: the only downward points in the set, no gear, an occasion rather than an object. B is the control.
+
+
+## How it looks (visual, 2026-11-03; sheet `../sketches/contact-2.png`, rows `../sketches/rows-2.png`)
+- **A. Bunting: kill.** With poles it was a valance (Venue's cue). Without poles (declared `join: 'cut'`, no poles) it's a fringe: a bar with three specks at 18, and a dotted line at 12. It's a party at best. No declaration gets the pennants to read at 18 without turning them into a curtain.
+- **B. Wheel, standing (`at-wheel4`): survives.** With four spokes the openings are larger, so it's less of a gear than the one-shot's three crossed spokes, and the legs say "stands on the ground". Show it beside the control. At 12 the 4-spoke wheel is a dot, so the control's 12 may be the better small drawing (see the sheet).
+- **C. Turret flag:** not drawn; still unbuilt. With bunting dead, it's Attraction's only new kind left, so worth one build next round if the director wants an alternative to the wheel.

@@ -31,3 +31,8 @@ Job (`../jobs.md`): "what if im with my kid and i just want to see what parks i 
 ## Which, and why (systems)
 
 A is the plainer sign and the US-sign precedent; B is the owner's own job. Both go forward.
+
+
+## How it looks (visual, 2026-11-03; sheet `../sketches/contact-2.png`, rows `../sketches/rows-2.png`)
+- **A. Picnic table: survives, strong.** It reads at once at 18 and 24, and as a table at 12. A narrow top over wider seats is a silhouette no other icon has. Park owns slab-on-legs.
+- **B. Swing: kill.** I gave it a smaller seat and longer ropes (seat and ropes 1/4 of the bar, ropes 2/3 tall; declaration only), and it's still a stool or a bar stool. The system holds the seat under the ropes like a slab under posts, so seat and ropes fuse into one T. The swing would need its seat to hang free (a cut under the ropes), which would be a new relation for one concept. Not worth it beside the picnic table.

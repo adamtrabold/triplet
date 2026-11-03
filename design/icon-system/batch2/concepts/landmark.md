@@ -41,3 +41,9 @@ Job (`../jobs.md`): **looking** at something notable, mostly from outside, for a
 ## Which, and why (systems)
 
 A is the safer read and the plainest sign; B is owner-backed and names the act. Both go to the blind read.
+
+
+## How it looks (visual, 2026-11-03; sheet `../sketches/contact-2.png`, rows `../sketches/rows-2.png`)
+- **A. Needle: survives, reshaped.** At pitch 1.6 the tip was a pencil, so I set it to **3/4** (a low pyramidion) and made the shaft 6 lines (declaration only). Now it's an obelisk on a plinth at 18 and at 24, and still a mark at 12. It reads by tallness and by the plinth's weight, not by its tip. The remaining risk is a bottle or a lipstick at 12; the blind read decides.
+- **B. Camera: survives, my lead.** It reads at once at 18. The lens is the one big counter, so it holds reversed. It's the owner's own "camera says 'sight'". Beside the café cup it's the only wide mass with a round hole, so nothing else in the set shares its cue.
+- **C. Medallion: kill.** A coin in the ring badge is a ring in a ring, and payment is Shopping's ground. Not worth a new rule ("a hole may be any root").

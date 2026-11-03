@@ -27,3 +27,9 @@ An admit-one stub torn along a perforated edge. Paper goes to Venue only if the 
 ## Which, and why (systems)
 
 A. It keeps the owner-era subject and fixes its one systems fault (the window) with a root, not decoration.
+
+
+## How it looks (visual, 2026-11-03; sheet `../sketches/contact-2.png`, rows `../sketches/rows-2.png`)
+- **A. Curtain at the stage lip: kill.** The engine fix keeps the curtain's height, but a slab top and bottom closes it into a frame: a window or a box with ties at 18, and it disappears at 12. The stage lip adds no read the curtain lacked.
+- **B. Curtain (control): survives**, unchanged. It's the only Venue that reads as a show at 18, and it owns drapes (director, turn 3).
+- **C. Stub:** not drawn. Paper stays unowned unless the director wants it.

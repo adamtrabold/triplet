@@ -25,3 +25,8 @@ Job (`../jobs.md`, `../../shopping/jobs.md`): browsing and carrying something ho
 ## Which, and why (systems)
 
 A, with B to test whether a lighter bag reads as well. The owner's words ("bag is easier to understand at a glance"; "may be one step too common?") are both served only by the bag being ours by construction, which is execution, not subject.
+
+
+## How it looks (visual, 2026-11-03; sheet `../sketches/contact-2.png`, rows `../sketches/rows-2.png`)
+- **A. Bag (control): survives**, unchanged (9 in the one-shot; the owner: "easier to understand at a glance").
+- **B. Carrier: kill.** At 18 it's the bag a little taller: a difference in styling, not in kind, and the deeper body makes it heavier in the most-repeated pin (it must be the quietest). No new kind from either designer beat the bag.

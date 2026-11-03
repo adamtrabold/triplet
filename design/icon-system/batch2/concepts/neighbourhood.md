@@ -45,3 +45,9 @@ Job (`../jobs.md`): never on the map; in list rows (18 in the 24 diamond) and ba
 ## Which, and why (systems)
 
 A: it is the plainest "part of town", the count does the work, and it pairs with Street's lamps in elevation.
+
+
+## How it looks (visual, 2026-11-03; sheet `../sketches/contact-2.png`, rows `../sketches/rows-2.png`)
+- **A. Kvarter: survives as the second.** I dropped the separate base (it read as a bar). Three uneven houses now stand level, and they read as "houses" at 18. But they're small in the diamond, and at 12 they go to specks.
+- **B. Roofs as the badge: survives, my lead.** Two 45-degree roofs fill the diamond's top half, and at 18 and 24 it's the clearest shape icon: two houses, plainly "where people live". Two is the difference from a single home icon. Check at 12 on the sheet.
+- **C. Lit windows: kill** (a die, as systems said).
