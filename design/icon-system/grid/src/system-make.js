@@ -77,6 +77,14 @@ const KINDS = {
   // into the ellipse at its widest point; rimCut (share of the ellipse's height): the rim cuts the ellipse that far above its centre
   vessel(r, at, t, u) {
     const w = at.w, cx = at.cx, top = at.top, rx = w / 2, ry = PROP.ellipse.vessel * rx, X = v => f(v * u), Q = v => f5(v * u);
+    // A CONTAINER IS A VESSEL (11-03): a carried container (a cup, a glass, a bag) is a vessel, never a plain block: taller than
+    // it is wide and tapering from its rim. base (a share of the rim's width): its walls run straight from the rim to a flat base
+    // that much as wide, so it stands; without base, its foot is the vessel's ellipse. A block under a handle is a padlock's body
+    if (r.base != null) {
+      const bot = top + (r.deep ?? 1) * w, bx = rx * r.base;
+      const prim = { ...E.P([(cx - rx) * u, top * u], [(cx + rx) * u, top * u], [(cx + bx) * u, bot * u], [(cx - bx) * u, bot * u]), root: 'VESSEL' };
+      return { prims: [prim], box: { x0: cx - rx, x1: cx + rx, top, bot }, depth: bot - top, walls: true, taper: { id: r.id, base: r.base } };
+    }
     if (r.deep != null) {
       const l = cx - rx, rr = cx + rx, bot = top + r.deep * w, cy = bot - ry;
       const C_ = (a0, a1) => { const P = ELL_ARC(cx, cy, rx, ry, a0, a1); return `C${Q(P[1][0])} ${Q(P[1][1])} ${Q(P[2][0])} ${Q(P[2][1])} ${Q(P[3][0])} ${Q(P[3][1])}`; };
@@ -199,13 +207,17 @@ const KINDS = {
     // count first, as a row: the part width, then thinner a grid step at a time to the size's thinnest (never under 1px: the 2/3
     // at 12 is a row's or a comb's, parts side by side), then one fewer
     const wMin = Math.max(t.min, 3 * t.grid), widths = []; for (let w = t.part; w >= wMin - 1e-9; w -= t.grid) widths.push(w); if (widths[widths.length - 1] > wMin + 1e-9) widths.push(wMin);
-    let n = 0, sw = t.part; out: for (let m = r.n; m >= 2; m--) for (const w of widths) if (gapOf(m, w) >= t.counter - 1e-9) { n = m; sw = w; break out; }
+    // A WHEEL'S HUB IS ITS SMALLEST PART (11-03): where m posts cross they make a hub w / sin(90/m degrees) across; a count whose
+    // hub is wider than the openings round it reads as a ship's wheel (a heavy hub, many spokes), so the count drops until the hub is
+    // no wider than an opening (two posts, four spokes, always may stand: their hub is a crossing)
+    const hubOf = (m, w) => w / Math.sin(Math.PI / (2 * m));
+    let n = 0, sw = t.part; out: for (let m = r.n; m >= 2; m--) for (const w of widths) if (gapOf(m, w) >= t.counter - 1e-9 && (m === 2 || hubOf(m, w) <= gapOf(m, w) + 1e-9)) { n = m; sw = w; break out; }
     // SPOKES END AT THE RIM'S INNER EDGE (11-03): they run into the rim's band only as far as the join needs (a third of the line),
     // so nothing a spoke draws passes the rim
     const Ls = r.toRim === false ? L : Ri + t.stroke / 3;
     for (let i = 0; i < n; i++) { const a = ((r.turn || 0) + i) * Math.PI / n, dx = Math.sin(a) * Ls, dy = -Math.cos(a) * Ls;
       prims.push({ ...E.B([c - dx, cy - dy], [c + dx, cy + dy], sw), root: 'POST', role: 'spoke' }); }
-    return { prims, box: { ...P.box }, noStack: true, spokes: { id: r.id, of: r.of, declared: r.n, n, gap: n ? gapOf(n, sw) : 2 * Ri, w: +(sw).toFixed(4) } };
+    return { prims, box: { ...P.box }, noStack: true, spokes: { id: r.id, of: r.of, declared: r.n, n, gap: n ? gapOf(n, sw) : 2 * Ri, w: +(sw).toFixed(4), hub: n ? +hubOf(n, sw).toFixed(4) : 0 } };
   },
   // a splay: two posts from one point of the root they name (its centre; or a share of the way down a post), each leaning off
   // upright by its own lean (lean: one for both, mirrored; or [ahead, behind], a stride, ahead being the way the root they run
@@ -409,7 +421,12 @@ function layout(decl, s, Z, S, room, gdx = null, sub = null) {   // sub: a colum
     } else if (r.kind === 'slab' && r.across) {
       // A SLAB ACROSS THE POSTS ABOVE (11-03): a slab laid across the posts of the root it names at a share of their height (a bench's
       // seat across splayed legs), on the lattice; it doesn't stack (what follows goes on under the root above it)
-      const Q = placed[r.across], w = wOf(r.id), yA = T3(Q.box.top * u + (r.at ?? 1 / 2) * (Q.box.bot - Q.box.top) * u);
+      // WHAT A SLAB CARRIES CLEARS IT (11-03): a slab across splayed posts runs past where they stand (their feet) and past the slab
+      // they hang from by at least the protrusion minimum each side, widening when its share would fall short, so it reads as carried
+      // on the posts (a seat), never as the bar of an "A" or a stool's rung
+      const Q = placed[r.across], Up = Q.r && Q.r.of ? placed[Q.r.of] : null, need = Math.max(cx - Q.box.x0, Q.box.x1 - cx, Up ? Math.max(cx - Up.box.x0, Up.box.x1 - cx) : 0) + t.protrude / u;
+      const w0 = wOf(r.id), w = Math.max(w0, 2 * need), yA = T3(Q.box.top * u + (r.at ?? 1 / 2) * (Q.box.bot - Q.box.top) * u);
+      meta.protrusions.push({ id: r.id, past: +((w / 2 - (need - t.protrude / u)) * u * k).toFixed(3), min: Z.protrude, widened: w > w0 + 1e-9 });
       R = { prims: [E.R((cx - w / 2) * u, yA, w * u, t.stroke * (r.lines || 1), { root: 'SLAB' })], box: { x0: cx - w / 2, x1: cx + w / 2, top: yA / u, bot: (yA + t.stroke * (r.lines || 1)) / u }, noStack: true };
     } else if (r.kind === 'tiers') R = KINDS.tiers(r, { cx, w: wOf(r.id), top: 0, bot: H - (next && next.show === 'stroke' ? t.stroke / u : 0) }, t, u);
     else if (r.kind === 'loop') R = KINDS.loop(r, {}, t, u, placed[r.of]);
@@ -419,7 +436,7 @@ function layout(decl, s, Z, S, room, gdx = null, sub = null) {   // sub: a colum
     } else R = KINDS[r.kind](r, { cx, w: wOf(r.id), top: topF / u, topF }, t, u);
     R.r = r; R.depth = R.depth ?? (R.box.bot - R.box.top); placed[r.id] = R; out.push(R);
     if (R.reads) (meta.reads = meta.reads || []).push({ ...R.reads, past: +(R.reads.past * k).toFixed(3), min: Z.protrude });
-    if (R.spokes) (meta.spokes = meta.spokes || []).push({ ...R.spokes, gap: +(R.spokes.gap * k).toFixed(3), w: +(R.spokes.w * k).toFixed(3), min: Z.counter });
+    if (R.spokes) (meta.spokes = meta.spokes || []).push({ ...R.spokes, gap: +(R.spokes.gap * k).toFixed(3), w: +(R.spokes.w * k).toFixed(3), hub: +(R.spokes.hub * k).toFixed(3), min: Z.counter });
     // what lands with what: a root's own counters (a band) and a loop with its counter move with the root they are cut in or sit on
     if (R.prims[0]) R.prims[0] = { ...R.prims[0], rid: r.id };
     // a part drawn from a curved root (a loop on its wall, spokes or a splay from a ring's centre) moves with that root on the grid
@@ -571,6 +588,13 @@ function reachOf(d) {
   return { r: Math.max(p1 - p0, q1 - q0) / 2, cx: (pc + qc) / 2, cy: (pc - qc) / 2 };
 }
 
+// the reach a shape may take across its diamond badge (frame units, 24 across): the badge's inner half diagonal (its ring, S.RING px
+// for the size, centred half its width in from the badge's edge, as the app draws it; a bare size takes the 18's) less a stroke
+// clear, measured square to the edge
+function diamondReach(Z, S) {
+  const size = Math.round(18 * Z.k), rw = S.RING && S.RING[size] ? S.RING[size] / Z.k : 4 / 3, inner = 12 - rw / 2 - rw / 2 * Math.SQRT2;
+  return inner - Z.stroke / Z.k * Math.SQRT2;
+}
 function make(decl, Z, S, opts = {}) {
   const apex = decl.spine.some(r => r.kind === 'gable' || r.kind === 'tiers') ? APEX : 0;
   const law = rack(LAW, 1), bopts = { law, tightHoles: true, ease: EASE, join: JOIN10 }, fast = { ...bopts, join: { ...JOIN10, fair: false } };
@@ -596,7 +620,10 @@ function make(decl, Z, S, opts = {}) {
   const [kw, bh] = cut(cls);
   let s = 12;
   if (opts.s) { /* development: no fit */ } else if (diamond) {   // a diamond class box: the largest size whose ink reaches no further across the diamond than its half diagonal
-    const Lc = KEY.DIAMOND[0] / 2 * FK, reach = (s_, o) => reachOf(E.build(dr(s_), o).d).r;
+    // SHAPES REACH THE SET'S SIZE IN THE DIAMOND (11-03): a diamond of the coin's area left a shape about a fifth smaller than the
+    // set (a rectangle fills a diamond at half its area, a circle's box at two thirds), so a shape reaches to the badge's own inner
+    // edge less a stroke clear: the ring's line kept a line away, as the set's glyphs keep clear of their ring
+    const Lc = diamondReach(Z, S), reach = (s_, o) => reachOf(E.build(dr(s_), o).d).r;
     for (let i = 0; i < 6; i++) s *= Lc / reach(s, i < 4 ? fast : bopts);
     if (reach(s, bopts) > Lc + 1e-3) { let lo = s * 0.9, hi = s; for (let i = 0; i < 20; i++) { const m = (lo + hi) / 2; if (reach(m, bopts) <= Lc + 1e-3) lo = m; else hi = m; } s = lo; }
   } else { for (let i = 0; i < 6; i++) { const b = measure(E.build(dr(s), i < 4 ? fast : bopts).d).box; s *= fitK(b, cls); if (process.env.FITDBG) console.error("fit", i, s, b); } }

@@ -61,6 +61,16 @@ const C = {
   'sh-carrier': S('Shopping: the carrier, a deeper body', 'tall', [
     { id: 'body', kind: 'block', w: 1, deep: 6 / 5 },
     { id: 'handle', kind: 'loop', of: 'body', at: 'top', span: 3 / 5, rise: 0, into: 1 / 4 }]),
+  // 11-03 (director turn 9, fix 5): a container is a vessel, taller than wide and tapering, never a block under an arch (a padlock)
+  'sh-bag': S('Shopping: the bag, a vessel on a flat base', 'tall', [
+    { id: 'body', kind: 'vessel', w: 1, deep: 6 / 5, base: 4 / 5 },
+    { id: 'handle', kind: 'loop', of: 'body', at: 'top', span: 3 / 5, rise: 0, into: 1 / 4 }]),
+  'sh-bag2': S('Shopping: the bag, a vessel on a flat base, a gentler taper', 'tall', [
+    { id: 'body', kind: 'vessel', w: 1, deep: 1, base: 7 / 8 },
+    { id: 'handle', kind: 'loop', of: 'body', at: 'top', span: 3 / 5, rise: 0, into: 1 / 4 }]),
+  'sh-bag-cup':S('Shopping: the bag, the cup\'s own vessel', 'tall', [
+    { id: 'body', kind: 'vessel', w: 1, deep: 6 / 5 },
+    { id: 'handle', kind: 'loop', of: 'body', at: 'top', span: 3 / 5, rise: 0, into: 1 / 4 }]),
   // ---- Park
   'pk-picnic': S('Park: the picnic table, end on', 'wide', [
     { id: 'top', kind: 'slab', w: 3 / 5, of: 'seat' },
