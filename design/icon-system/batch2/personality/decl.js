@@ -24,12 +24,13 @@ const EIGHT = x => ({
   'ht-nofoot': S('Hotel: the bed', 'wide', [
     { id: 'pillow', kind: 'block', w: 1 / 3, of: 'mattress', at: 'left', deep: 1 / 2, ...x('pillow') },
     { id: 'mattress', kind: 'slab', w: 1, lines: 2, join: 'cut', ...x('mattress') },
+    ...(x('foot').foot ? [x('foot').foot] : []),
     { id: 'head', kind: 'post', of: 'mattress', at: 'left', rise: true, join: 'into', ...x('head') }]),
   'sh-bag3': S('Shopping: the bag', 'tall', [
     { id: 'body', kind: 'vessel', w: 1, deep: 11 / 10, base: 7 / 8, ...x('bag') },
     { id: 'handle', kind: 'loop', of: 'body', at: 'top', span: 3 / 5, rise: 0, into: 1 / 4 }]),
   'pk-picnic2': S('Park: the picnic table', 'wide', [
-    { id: 'top', kind: 'slab', w: 1 / 2, of: 'seat', lines: 2, ...x('top') },
+    { id: 'top', kind: 'slab', w: 1 / 2, of: 'seat', lines: 2, ...x('top') },   // D: lighter and narrower (read as a car or a hat)
     { id: 'legs', kind: 'splay', of: 'top', from: 'ends', lean: 20, to: 'bottom', ...x('tlegs') },
     { id: 'seat', kind: 'slab', w: 1, across: 'legs', at: 1 / 2 }]),
   'nb-kvarter': S('Neighborhood: the houses', 'diamond', [
@@ -56,6 +57,16 @@ const WORDS = {
   C: {   // THE LIP: one part runs past what it meets
     finder: { lip: 'top' }, base: { base: { id: 'base', kind: 'slab', w: 1 / 2, across: 'legs', at: 1, lip: true } },
     rail: { lip: true }, head: { lip: 'top' }, bag: { band: true }, top: { lip: true }, roof: { lip: true }, wlegs: { lip: true } },
+  D: {   // the director's turn 13: C as the base; B's construction details only; A's curves only of a kind the approved set has
+    // (a cap face up: the coupe's foot; a post flaring into what it stands on: the coupe's stem; a gable on upright ends: the museum's)
+    finder: { lip: 'top' }, body: { nub: [{ shape: 'block', on: 'top', at: 5 / 6, w: 1 }] },
+    legs: { taper: 3 / 2 }, base: { base: { id: 'base', kind: 'slab', w: 1 / 2, across: 'legs', at: 1, lip: true } },
+    rail: { lip: true }, stage: { stage: { id: 'stage', kind: 'slab', w: 1, join: 'cut' } },
+    mattress: { lip: true, crown: { face: 'top', rise: 1 / 2 } }, foot: { foot: { id: 'foot', kind: 'post', of: 'mattress', at: 'right', h: 1 / 6, join: 'into' } },
+    bag: { band: true },
+    top: { lines: 3 / 2, lip: true },
+    roof: { ends: 1 / 2 }, wall: { door: [1 / 3, 1 / 2] },
+    wlegs: { lip: true } },
 };
 const declsFor = A => EIGHT(id => WORDS[A][id] || {});
 module.exports = { EIGHT, WORDS, declsFor };

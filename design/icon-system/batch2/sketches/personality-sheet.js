@@ -29,6 +29,10 @@ h1{font-size:24px;margin:0 0 4px} .sub{color:#5A564C;margin:0 0 14px;max-width:1
 const appr18 = APPR.map(a => badge(rdf(path.join(SYS, `${a}.svg`)), a)).join('');
 let h = `<!doctype html><html><head><meta charset="utf-8"><style>${css}</style></head><body><h1>${title}</h1><div class="sub">${sub}</div>`;
 h += `<h2>At 18 in the 24 badge, true size: the eight · the approved five</h2><div class="strip">${EIGHT.map(([k, id]) => badge(mine(id), k)).join('')}<span class="gap"></span>${appr18}</div>`;
+// a row of pins, mixed, as on the map (the eight and the approved five interleaved)
+const MIXED = [...EIGHT.map(([k, id]) => [k, mine(id)]), ...APPR.map(a => [a, rdf(path.join(SYS, `${a}.svg`))])];
+const ORDER = [0, 8, 1, 9, 2, 10, 3, 11, 4, 12, 5, 6, 7];
+h += `<h2>A row of pins at 18, mixed with the approved set</h2><div class="strip">${[0, 5, 9].map(o => ORDER.map(i => MIXED[(i + o) % MIXED.length]).map(([k, d]) => badge(d, k)).join('')).join('')}</div>`;
 if (dir !== 'v295') h += `<h2>Before (canvas v295), same size</h2><div class="strip">${EIGHT.map(([k, id]) => badge(v295(id), k)).join('')}<span class="gap"></span>${appr18}</div>`;
 h += `<h2>The 18 at 6x, beside the approved five</h2><div class="big">${EIGHT.map(([k, id, n]) => `<div class="cell">${badge(mine(id), k, 6)}<span>${n}</span></div>`).join('')}</div>
 <div class="big" style="margin-top:10px">${APPR.map(a => `<div class="cell">${badge(rdf(path.join(SYS, `${a}.svg`)), a, 6)}<span>${a} (approved)</span></div>`).join('')}</div></body></html>`;

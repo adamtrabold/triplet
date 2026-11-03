@@ -164,3 +164,32 @@ A combination would be:
 1. Which approach, or which combination, should go to a blind read?
 2. The Ferris wheel and its read: does C's base settle the subject question the director raised, or do we still bring other subjects?
 3. At 24 and 12: only the 18s are built. A's crowns and B's tells need their 24s and 12s, and B's tells close at 12 by rule.
+
+## D: the director's turn 13
+
+The director scored A 7, B 6 and C 8, with none a 9: "at 18 all three change only a few device pixels". D takes C as the base, adds B's construction details only, and keeps A's curves only where the approved set has the same kind of curve. Its declarations are in `personality/decl.js`, under `D`.
+
+**C, the lip, as the base:**
+- the finder's cap, the wheel's base, the curtain rod, the table top past its legs, the walker's feet.
+- **The bed's lip is new.** The headboard cap read as a bathtub. Now the mattress runs past its foot post by the protrusion minimum, as the museum's beam runs past its columns.
+- **New general rule:** under a root that declares a lip, an end post stands the protrusion minimum in from its end. A post that rises past the root (the headboard) stays flush.
+
+**B, construction details only:** the shutter button, the bag's folded top, the stage floor, the doors. No hat and no knob.
+
+**A, only the set's own kinds of curve:**
+- the wheel's legs flare into the base (as the coupe's stem flares into its foot);
+- the mattress is a cap face up (the coupe's foot);
+- the gables stand on upright ends (the museum's).
+- **Dropped:** the camera's rounded ends, the bag's belly, the tapered limbs and the flared falls. Combined with the stage, the flared falls boxed the curtain into a frame.
+
+**Picnic top:** 1 1/2 lines thick, half the seat's width. At 2 lines it read as a car or a hat; at 2/5 wide and 1 1/2 lines it read as an anvil.
+
+**My read at 18, beside the set:** see `sketches/personality-D.png`, which includes a mixed row of pins.
+- **Bed:** it now stands on a leg under an overhang and reads as a bed at a glance.
+- **Wheel:** on its base, it reads as a ride.
+- **Picnic table:** lighter.
+- **Houses:** read as houses with doors.
+- **Camera, bag and walker:** hold.
+- **Weakest, the curtain:** the rod and the stage together make a frame (a window or a TV). One of them should go; that is the director's call.
+
+**Gates:** the approved set was rebuilt at 18 with the D code. Every SVG is unchanged, and the JSON differs only in build time. `system.js check`: SYSTEM CHECKS PASSED.

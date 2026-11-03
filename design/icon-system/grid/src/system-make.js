@@ -341,7 +341,8 @@ const KINDS = {
   // an end post: a post flush with one end of the root it names, into it; from that root's top (or, rise, a line over the icon's
   // top) down `h` of that root's width below it, else to the icon's bottom
   endPost(r, at, t, u, C) {
-    const P = C.placed[r.of], x0 = r.at === 'left' ? P.box.x0 * u : P.box.x1 * u - t.part, y0 = r.rise ? C.top * u - t.stroke : P.box.top * u;
+    // C, THE LIP: under a root that declares a lip, a post that stands it (not one rising past it) stands the protrusion minimum in from its end
+    const P = C.placed[r.of], ins = P.r && P.r.lip === true && !r.rise ? t.protrude : 0, x0 = r.at === 'left' ? P.box.x0 * u + ins : P.box.x1 * u - t.part - ins, y0 = r.rise ? C.top * u - t.stroke : P.box.top * u;
     const y1 = r.h != null ? P.box.bot * u + r.h * (P.box.x1 - P.box.x0) * u : C.bot * u;
     return { prims: [E.R(x0, y0, t.part, y1 - y0, { root: 'POST' })], box: { x0: x0 / u, x1: (x0 + t.part) / u, top: y0 / u, bot: y1 / u }, asym: true, noStack: true };
   },
