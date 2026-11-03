@@ -1031,3 +1031,13 @@ He approved the system at v292 and asked for the rest, one shot.
 - Landmark: slender needle, camera, medallion.
 
 **Watch:** the blind read in ink and in grey.
+
+## Batch 2 blind read 3 (2026-11-03)
+
+**Scores:** bed and curtain 9; five at 8; walker 7; lamp and needle replaced.
+
+**The bag padlock read is recurring:** it is now the handle rule (wider than tall). Splayed legs kill the gate, torii and ship-wheel reads.
+
+**Watch:**
+- the camera as a photos-app glyph;
+- the diamond reading as a road sign (the app badge: accepted).

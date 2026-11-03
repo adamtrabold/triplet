@@ -273,3 +273,39 @@ READY:
 - It is in the scratchpad `blind3/`, with the key in `blind3-key.md`.
 
 NEXT: orchestrator: run the fresh reader on `blind3/`, then send me the result to score.
+
+## Turn 7: design director, blind read 3 scored (concept phase), 2026-11-03
+
+The read: 18 label-free images, one ink, 3x, approved pins mixed in. All the distractors read instantly.
+
+| Concept | Read | Score | Path |
+|---|---|---|---|
+| Hotel: bed, no foot | hotel | **9** | Holds. |
+| Venue: curtain | a stage with curtains → theatre ("or a gate") | **9** | The stage beat wins; a show is the job. Holds. |
+| Hotel: foot board | hotel, "a duplicate of 05" | 7 | Kill: no difference worth a concept. |
+| Neighbourhood: kvarter | three tiny houses → neighbourhood | 8 | The lead now. Can reach 9. |
+| Neighbourhood: roofs | two roofs, "hard to tell from 08" | 7 | Kill: it merges with the kvarter. |
+| Park: picnic table | park ("or a torii / gate") | 8 | Can reach 9. |
+| Shopping: bag | shop ("could be a padlock") | 8 | Can reach 9. The padlock is the third time across rounds, so it is a system finding. |
+| Attraction: standing wheel | Ferris wheel ("or a ship's wheel") | 8 | Can reach 9. |
+| Attraction: one-shot wheel | the same as the standing wheel | 7 | Kill: it adds nothing. |
+| Landmark: camera | camera → viewpoint / photo spot | 8 | The read is the category's act (look). Can reach 9 if it stays clear of a photos-app read. |
+| Street: walker | person walking, "i with legs" → walking route | 7 | Walking along is the job. Can reach 9. |
+| Street: lamp | parking meter, bollard, maybe a bus stop | 5 | Replace. |
+| Landmark: needle | obelisk, chess pawn, USB stick | 5 | Replace. Camera stands alone unless a stronger second comes. |
+
+**The diamond reads as a road or warning sign.** That is the app's own badge and fits "plain: signs and tags", so it is not a fault. The glyph inside must not add a second sign read.
+
+**To 9, system-level, none naming an icon:**
+1. **Handles are wider than they are tall.** A shackle is the reverse. "A handle on a face" sets its rise under half its span, so the bag can't read as a padlock. Any future handle inherits it.
+2. **Splayed legs say "stands on the ground"** (splay from either end, rule 3). Both the picnic table's legs and the wheel's take the splay, never straight verticals. That kills the torii, the gate and the ship's wheel together, with one rule.
+3. **Same role, same width, for figures.** A figure's body and legs are posts at the post width, so the walker carries the set's weight and stops being an "i". Its declaration adds arms.
+4. **Spokes end at the rim's inner edge.** Nothing passes the rim, so a ship's wheel's handles can't form.
+5. **A repeated cue reads as its count.** The kvarter's three houses are distinct in height (the row rule's count), so at 12 it is still three, not a fringe.
+6. **The camera:** the lens counter (the hole rule) stays a share of the body, never a ring in a ring, so it reads as a camera, not a photos-app glyph.
+
+**Replace:** the Street second (a lamp reads as street furniture of any kind) and the Landmark second. New directions from the designers, differing in kind; the walker and the camera lead meanwhile.
+
+**To the owner now:** none. The brief sends all eight together, only 9s. The bed and the curtain hold at 9 and wait for the rest.
+
+NEXT: product designer (systems): rules 1-6. Then visual: redraw bag, picnic table, wheel, walker, kvarter and camera, and replace the Street and Landmark seconds. Then blind read 4.

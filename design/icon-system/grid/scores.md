@@ -1819,3 +1819,12 @@ The verdict stands within our own set:
 - **Fixes:** 3 system fixes.
 - **Questions for him:** 2 (Landmark, Neighbourhood subjects).
 - **Jam turn 222.**
+
+## Batch 2, blind read 3 (concept phase), 2026-11-03
+
+- **At 9:** bed with no foot; curtain.
+- **At 8:** kvarter, picnic table, bag (padlock again), standing wheel, camera.
+- **At 7:** walker. Killed: foot board, roofs, one-shot wheel.
+- **Replace:** lamp (5), needle (5).
+- **Fixes:** 6 system-level, in batch2/jam.md turn 7.
+- **To the owner:** none yet (all eight go together).
