@@ -30,3 +30,7 @@ A, with B to test whether a lighter bag reads as well. The owner's words ("bag i
 ## How it looks (visual, 2026-11-03; sheet `../sketches/contact-2.png`, rows `../sketches/rows-2.png`)
 - **A. Bag (control): survives**, unchanged (9 in the one-shot; the owner: "easier to understand at a glance").
 - **B. Carrier: kill.** At 18 it's the bag a little taller: a difference in styling, not in kind, and the deeper body makes it heavier in the most-repeated pin (it must be the quietest). No new kind from either designer beat the bag.
+
+## Round 3 (systems, 2026-11-03, after blind read 3: bag 8, "could be a padlock", the third time)
+
+**Rule 1, "a handle is wider than it is tall":** a loop on a top face stands no taller than 2/5 of its span above the face (a half ellipse, not a half circle; a shackle is taller than wide). The bag's declaration doesn't change; every handle on a face inherits it.

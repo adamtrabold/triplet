@@ -26,10 +26,12 @@ const C = {
   // ---- Attraction
   // 11-03: the Landmark second, replacing the needle: the fountain at the middle of the square
   'lm-fountain': S('Landmark: the fountain', 'square', [
-    { id: 'jet', kind: 'disc', w: 1 / 5 },
-    { id: 'bowl', kind: 'cap', w: 1 / 2, face: 'down', join: 'cut' },
-    { id: 'stem', kind: 'post', join: 'into' },
-    { id: 'basin', kind: 'cap', w: 1, face: 'down' }]),
+    // 11-03: a jet disc over one bowl read as an "i" (info): two tiers instead, no disc
+    { id: 'bowl1', kind: 'cap', w: 1 / 3, face: 'down' },
+    { id: 'stem1', kind: 'post', join: 'into', show: 2, showOf: 'bowl1' },
+    { id: 'bowl2', kind: 'cap', w: 2 / 3, face: 'down', join: 'into' },
+    { id: 'stem2', kind: 'post', join: 'into', show: 2, showOf: 'bowl1' },
+    { id: 'basin', kind: 'cap', w: 1, face: 'down', join: 'into' }]),
   'at-bunting': S('Attraction: bunting between two poles', 'square', [
     { id: 'line', kind: 'slab', w: 1 },
     { side: [[{ id: 'flag1', kind: 'gable', face: 'down', pitch: 2.4, ends: 0 }], [{ id: 'flag2', kind: 'gable', face: 'down', pitch: 2.4, ends: 0 }], [{ id: 'flag3', kind: 'gable', face: 'down', pitch: 2.4, ends: 0 }]], widths: [3, 4, 3], w: 3 / 4, join: 'cut' }]),   // visual 11-02: no poles (they made a frame: a valance), pennants a cut under the line
@@ -89,7 +91,7 @@ const C = {
   'st-walker': S('Street: the walker, with arms', 'diamond', [
     { id: 'head', kind: 'disc', w: 1 / 4 },
     { id: 'body', kind: 'post', lean: 6, show: 1 / 4, join: 'cut' },
-    { id: 'arms', kind: 'splay', of: 'body', from: 1 / 6, lean: [40, 34], reach: 1 / 5 },
+    { id: 'arms', kind: 'splay', of: 'body', from: 1 / 6, lean: [40, 34], reach: 1 / 3 },
     { id: 'legs', kind: 'splay', of: 'body', from: 1, lean: [26, 38], to: 'bottom' }], { shape: true }),
   // 11-03: the Street second, replacing the lamp: a terrace seen from across the street, its doors counted
   'st-terrace': S('Street: the terrace, a row of doors', 'diamond', [

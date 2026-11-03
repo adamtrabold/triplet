@@ -47,3 +47,13 @@ A is the safer read and the plainest sign; B is owner-backed and names the act. 
 - **A. Needle: survives, reshaped.** At pitch 1.6 the tip was a pencil, so I set it to **3/4** (a low pyramidion) and made the shaft 6 lines (declaration only). Now it's an obelisk on a plinth at 18 and at 24, and still a mark at 12. It reads by tallness and by the plinth's weight, not by its tip. The remaining risk is a bottle or a lipstick at 12; the blind read decides.
 - **B. Camera: survives, my lead.** It reads at once at 18. The lens is the one big counter, so it holds reversed. It's the owner's own "camera says 'sight'". Beside the café cup it's the only wide mass with a round hole, so nothing else in the set shares its cue.
 - **C. Medallion: kill.** A coin in the ring badge is a ring in a ring, and payment is Shopping's ground. Not worth a new rule ("a hole may be any root").
+
+## Round 3 (systems, 2026-11-03, after blind read 3: camera 8, needle 5 replaced)
+
+**Camera, to 9 (rule 6, "a hole stays a share of its mass"):** the solid round one hole is never thinner than a line and a half, so the body reads as a mass with a lens in it, never a band round a counter (the photos-app ring in a ring). The declaration doesn't change; the rule caps the lens.
+
+**D. The fountain (`lm-fountain`), replacing the needle.** It differs in kind: an object of the place (the square's centre), where the camera is the act of looking. Squares are Landmarks now (Lilla Torg, Nytorget), and the owner liked "the fountain direction" for the old Area (10-15).
+- **Declaration:** jet: a disc 1/5 of the box; bowl: a cap 1/2 of the box, curve underneath, resting on the jet a cut apart; stem: a post into it, to the bottom of the room the basin leaves; basin: a cap the box's full width, curve underneath. Square class.
+- **Rules:** disc, cap, post, cap; the cut; fillet into a face; "to the bottom" (the stem stops above the basin).
+- **Jobs:** F1: a tiered silhouette, wide at the foot, nothing like Museum's front or the conifer. F6: three solids survive at 12.
+- **Risks:** a cake stand; the coupe turned over (Bar: a bowl on a stem on a foot; here the big part is the foot, the small one on top); a table lamp.

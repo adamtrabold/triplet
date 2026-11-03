@@ -37,3 +37,13 @@ B: the clearest single object for "street", and it keeps the person off the set.
 - **A. Walker (control): survives** (the owner: "walker is the best here"). It holds the set's one person.
 - **B. One lamp: survives, my lead.** Hood, lantern and post stand upright in the diamond. In elevation it pairs with the roofs: houses for inside, the lamp you walk past for along. At 12 it's a mark on a stick. Its risk is a key or a lollipop; the blind read decides.
 - **C. Lamps receding: kill.** A bar chart or a tally at 18, as systems found. The diminishing repeat reads as data, not distance.
+
+## Round 3 (systems, 2026-11-03, after blind read 3: walker 7, lamp 5 replaced)
+
+**Walker, to 9 (`st-walker`; rule 3, figures at the post width, arms added).** Every part of the figure is a leaning post at the figure's width (one iPhone pixel over the post, so it reads at the set's weight); the declaration adds arms: two posts from 1/6 down the body, in stride, 40 degrees ahead and 34 behind, 1/5 of the height long. Arms turn the "i with legs" into a person walking.
+
+**D. The terrace (`st-terrace`), replacing the lamp.** It differs in kind: the street's own houses, seen from across it, where the walker is the act. "Along" is a long, low facade with its doors counted; "inside" (the kvarter) is separate houses with roofs (one cue, one icon: the kvarter owns roofs, the terrace owns doors).
+- **Declaration:** cornice: a slab the box's full width; facade: a block the box's full width, half as deep as it is wide, resting on the cornice a cut apart, with a row of 3 square holes, walls of a line round and between them. Diamond class.
+- **Rules:** slab, block; a hole in a mass (grid).
+- **Jobs:** F5: a wide, low mass beside the kvarter's three peaks: the pair told apart by roofs vs none. F6: three holes at 12 are about a pixel; if they close it is a bar (the risk).
+- **Risks:** a train carriage or a bus (windows in a row); the lit windows' die (killed) in a longer form.

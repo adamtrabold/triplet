@@ -36,3 +36,9 @@ A is the plainer sign and the US-sign precedent; B is the owner's own job. Both 
 ## How it looks (visual, 2026-11-03; sheet `../sketches/contact-2.png`, rows `../sketches/rows-2.png`)
 - **A. Picnic table: survives, strong.** It reads at once at 18 and 24, and as a table at 12. A narrow top over wider seats is a silhouette no other icon has. Park owns slab-on-legs.
 - **B. Swing: kill.** I gave it a smaller seat and longer ropes (seat and ropes 1/4 of the bar, ropes 2/3 tall; declaration only), and it's still a stool or a bar stool. The system holds the seat under the ropes like a slab under posts, so seat and ropes fuse into one T. The swing would need its seat to hang free (a cut under the ropes), which would be a new relation for one concept. Not worth it beside the picnic table.
+
+## Round 3 (systems, 2026-11-03, after blind read 3: picnic table 8, "or a torii / gate")
+
+**The picnic table, legs splayed (`pk-picnic2`; rule 2, "legs stand splayed").** Posts that stand a part on the ground splay, never straight verticals: the gate and torii reads come from upright posts under slabs. The legs are a splay from the top's two ends, 20 degrees out, to the bottom; the seat is **a slab across the legs at half their height** (new, general: a slab may lie across the posts above it at a share of their height).
+- **Declaration:** top: a slab 1/2 of the seat's width; legs: two posts from the top's two ends, 20 degrees out, to the bottom; seat: a slab the box's full width, across the legs at 1/2 their height. Wide class.
+- It is the real end view of a picnic table (an A under the top, the bench crossing it), and the US park sign.

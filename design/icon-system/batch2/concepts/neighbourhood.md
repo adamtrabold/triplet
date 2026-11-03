@@ -51,3 +51,7 @@ A: it is the plainest "part of town", the count does the work, and it pairs with
 - **A. Kvarter: survives as the second.** I dropped the separate base (it read as a bar). Three uneven houses now stand level, and they read as "houses" at 18. But they're small in the diamond, and at 12 they go to specks.
 - **B. Roofs as the badge: survives, my lead.** Two 45-degree roofs fill the diamond's top half, and at 18 and 24 it's the clearest shape icon: two houses, plainly "where people live". Two is the difference from a single home icon. Check at 12 on the sheet.
 - **C. Lit windows: kill** (a die, as systems said).
+
+## Round 3 (systems, 2026-11-03, after blind read 3: kvarter 8, the lead; roofs killed)
+
+**Rule 5, "a repeated cue reads as its count":** columns of the same roots side by side differ in height, each from its neighbour, by at least the protrusion minimum at every size; the taller of a pair grows that far, so three peaks stay three at 12. Declaration unchanged.
