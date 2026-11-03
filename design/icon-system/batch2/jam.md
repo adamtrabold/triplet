@@ -389,4 +389,8 @@ Scratchpad `blind5/` (13 PNGs, icon-01..13) and `blind5-key.md`: the 8 current c
 
 My own read (seen, not blind): the kvarter and walker now fill the diamond as the set fills its ring; the wheel is a ring with a plus on legs (a crosshair risk, no longer a ship's wheel); the bag is a tapering tote, no longer a square block.
 
+### Gates
+
+Approved set rebuilt at 18, 24 and 12 with the final code (star and + at 18, their one size): every SVG byte-identical. `system.js check`: SYSTEM CHECKS PASSED, 259/259.
+
 NEXT: orchestrator — run the fresh reader on `blind5/`, then the director scores it.
