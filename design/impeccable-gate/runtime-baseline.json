@@ -12,6 +12,11 @@
   },
   "findings": [
     {
+      "id": "bounce-easing | cubic-bezier(.25, 1.45, .45, 1)",
+      "states": "removeboard picker",
+      "reason": "Owner-approved snap (2026-11-03: 'i want the snap on the remove flag in the list'): the title menu's REMOVE board opens in 240ms with a ~5px overshoot (city-crud v10: \"the swipe should snap some\"); the sign's turn has no bounce."
+    },
+    {
       "id": "cream-palette | cream/beige page background rgb(242, 235, 221)",
       "states": "list popup sort add plans",
       "reason": "Brand: --paper #F2EBDD is the vintage-label paper ground (design/inspo/project/); same as the static baseline."

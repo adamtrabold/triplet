@@ -1722,7 +1722,10 @@
     .rm-dests.more-above.more-below { box-shadow: inset 0 10px 10px -10px var(--scroll-shadow), inset 0 -10px 10px -10px var(--scroll-shadow); }
     .rm-dests .rm-dest { border-top: none; border-bottom: 1px solid var(--hair); }
     .rm-dests .rm-dest:last-child { border-bottom: none; }
-    .rm-foot { flex: none; border-top: 1px solid var(--navy); background: var(--paper-raised); }
+    /* the foot is set off as the city menu's "New city" foot is: ONE --hair rule above it (the row
+       before it drops its own, as .before-foot) -- owner: "ultimately it's just another choice in the
+       list, but should be slightly separated from the rest of the list" */
+    .rm-foot { flex: none; border-top: 1px solid var(--hair); background: var(--paper); }
     .rm-foot .rm-dest { border-top: none; }
     .rm-foot .rm-dest + .rm-dest { border-top: 1px solid var(--hair); }
     .rm-dest { all: unset; box-sizing: border-box; position: relative; width: 100%; display: flex; align-items: center; gap: var(--s2); height: 44px; padding: 0 var(--s3); border-top: 1px solid var(--hair); cursor: pointer;
@@ -1732,26 +1735,22 @@
     .rm-dest .menu-ico { width: 16px; height: 16px; }
     .rm-dest .rm-lab { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .rm-dest .rm-km { margin-left: auto; }   /* the distance: the tally's own style */
-    .rm-dest.is-too { color: var(--ink-2); font-weight: 600; padding-left: calc(var(--s3) + 16px + var(--s2)); }
     .rm-dest.is-keep { justify-content: center; }
     /* v14: the pinned new-city line under the question (a --hair rule above it, the head's navy rule
        below); its results swap in for your cities in the built result voice; the foot -- the
-       destructive row (bin, ink, on --paper), an 8px band (--paper-pressed, hair above, navy below),
-       Cancel on --paper-raised. No new colour: the bin, the words and the separation carry it. */
+       remove-too row (an ordinary choice: the destinations' own row, its icon the bin), then Cancel on
+       --paper-raised. */
     .rm-pick .rm-q { border-bottom-color: var(--hair); }
     .rm-pick .rm-new { flex: none; background: var(--paper-raised); border-bottom: 1px solid var(--navy); }
     .rm-pick .menu-res.add-res { height: auto; min-height: 52px; padding-left: 40px; border-bottom: 1px solid var(--hair); }
     .rm-pick .menu-res .add-res-where { white-space: normal; }
     .rm-pick .rm-dests[hidden] { display: none; }
-    .rm-foot .rm-dest.is-too { gap: 10px; padding-left: var(--s3); color: var(--ink); font-weight: 700; background: var(--paper); }
-    .rm-foot .rm-dest.is-too .menu-lab { color: var(--ink); }
+
     .rm-dest .menu-lab { flex: 0 1 auto; }
     /* "+ A new city…": its prompt in the row label's voice; the typed entry stays 16px (the iOS
        no-zoom floor, the built Find a city line's own) */
     .rm-new .menu-find-in::placeholder { font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 13px; letter-spacing: .05em; color: var(--ink-2); }
-    .rm-foot .rm-bin { width: 18px; height: 18px; flex: none; display: block; color: var(--ink); }
-    .rm-band { display: block; height: 8px; background: var(--paper-pressed); border-top: 1px solid var(--hair); border-bottom: 1px solid var(--navy); }
-    .rm-foot .rm-dest.is-keep { background: var(--paper-raised); border-top: none; }
+    .rm-foot .rm-dest.is-keep { background: var(--paper-raised); }
     /* New city (v4): the title menu's row becomes the Find a city line in place */
     #titleMenu .menu-find { flex: none; }
     #titleMenu .menu-find-res { flex: none; }
@@ -7753,11 +7752,9 @@
       // v14 (owner: "it should say "Should we move Stockholm's places t a new city?" // "Remove places
       // too" // "Cancel""): the question; the pinned "+ A new city…" line (the built Find a city search);
       // your cities to move them to; the foot -- the destructive row (a bin), a band, then Cancel.
+      // (An empty city never gets here: its remove is immediate -- rmShowPicker.)
       let h = `<div class="rm-pick" role="group" aria-label="Remove ${escapeAttr(cityLabel(id))}" data-pick="${escapeAttr(id)}">`;
-      if (!n) {
-        h += `<p class="rm-q menu-cap">Remove ${lab}? Nothing is filed here.</p><div class="rm-dests" hidden></div><div class="rm-foot">`
-          + `<button type="button" class="rm-dest is-too" data-rm-city="${escapeAttr(id)}" data-rm-to="">${RM_BIN}<span class="menu-lab rm-lab">Remove ${lab}</span></button>`;
-      } else {
+      {
         const others = Object.keys(CITIES).filter(o => o !== id && Array.isArray(CITIES[o].center))
           .map(o => [o, c ? haversineKm(c, CITIES[o].center) : Infinity]).sort((a, b) => a[1] - b[1]);
         const stops = rmStopsIn(id);
@@ -7766,12 +7763,13 @@
           + '<div class="rm-dests menu-find-res rm-found" role="group" aria-label="Cities found" hidden></div><div class="rm-dests rm-mine">'
           + others.map(([o, km]) => `<button type="button" class="rm-dest" data-rm-city="${escapeAttr(id)}" data-rm-to="${escapeAttr(o)}" aria-label="Move ${n === 1 ? 'it' : 'them'} to ${escapeAttr(cityLabel(o))}${isFinite(km) ? `, about ${roundKm(km)} km` : ''}, and remove ${escapeAttr(cityLabel(id))}">`
             + `${RM_ARROW}<span class="menu-lab rm-lab">${escapeHtml(cityLabel(o))}</span>${isFinite(km) ? `<span class="rm-km tally">≈ ${roundKm(km).toLocaleString('en')} km</span>` : ''}</button>`).join('')
-          + '</div><div class="rm-foot">'
+          + '</div><div class="rm-foot">'   // the one rule above it (the city menu's "New city" foot, .before-foot)
           + `<button type="button" class="rm-dest is-too" data-rm-city="${escapeAttr(id)}" data-rm-to="" aria-label="Remove ${escapeAttr(cityLabel(id))} and its ${n} ${n === 1 ? 'place' : 'places'}${stops ? `, and ${stops} plan ${stops === 1 ? 'stop' : 'stops'}` : ''}">${RM_BIN}<span class="menu-lab rm-lab">Remove places too</span></button>`;
       }
-      return h + `<span class="rm-band" aria-hidden="true"></span><button type="button" class="rm-dest is-keep" data-rm-keep="${escapeAttr(id)}"><span class="menu-lab">Cancel</span></button></div></div>`;
+      return h + `<button type="button" class="rm-dest is-keep" data-rm-keep="${escapeAttr(id)}"><span class="menu-lab">Cancel</span></button></div></div>`;
     }
-    const RM_BIN = '<svg class="rm-bin" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M10 7V5h4v2M7 7l1 13h8l1-13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>';
+    // the bin, a .menu-ico as the destinations' arrow (16px, its 1.6px line)
+    const RM_BIN = '<svg class="menu-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M10 7V5h4v2M7 7l1 13h8l1-13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/></svg>';
     // "+ A new city…" (v14): the built Find a city search, near the city being removed; its results
     // swap in for your cities (clearing the line brings them back). A result that's one of your cities
     // is that city's row; a new one is made (kept), the places move there, the old city goes -- one step,
@@ -7820,9 +7818,12 @@
         d.classList.toggle('more-below', !d.hidden && d.scrollTop + d.clientHeight < d.scrollHeight - 0.5);
       });
     }
-    async function rmShowPicker(id, focusFirst = true) {
+    async function rmShowPicker(id, focusFirst = true, viaKey = false) {
       if (!await requireAuth()) return;   // signed out: the sign-in sheet, nothing else
       const r = rmRowOf(id); if (!r) return;
+      // an empty city (owner: "if there are no cities in the place, tapping the first remove button
+      // should just remove it"): removed at once, no picker -- the slip "{City} removed", with Undo
+      if (!rmPlacesIn(id)) { rmCommit(id, null, viaKey); return; }
       if (r.dataset.open !== '1') rmSetOpen(r, true);
       rmClosePicker();
       rmPick = id;
@@ -8091,13 +8092,13 @@
         if (!e.shiftKey || (e.key !== 'Delete' && e.key !== 'Backspace')) return;
         const r = e.target.closest && e.target.closest('.menu-city'); if (!r) return;
         e.preventDefault(); e.stopPropagation();
-        rmSetOpen(r, true); rmShowPicker(r.dataset.city);
+        rmSetOpen(r, true); rmShowPicker(r.dataset.city, true, true);
       }, true);
     }
     // The menu's clicks that belong to remove: returns true when handled.
     function rmHandleMenuClick(e) {
       const board = e.target.closest('.rm-board, .rm-sr');
-      if (board) { e.preventDefault(); rmShowPicker(board.dataset.remove); return true; }
+      if (board) { e.preventDefault(); rmShowPicker(board.dataset.remove, true, e.detail === 0); return true; }
       const keep = e.target.closest('[data-rm-keep]');
       if (keep) { rmExitPicker(true); return true; }
       const dest = e.target.closest('[data-rm-city]');

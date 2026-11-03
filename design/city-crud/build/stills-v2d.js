@@ -62,11 +62,14 @@ async function frames(b, key) {
     await shot(page, `${pre}3-moved-to-new-city`);
     await ev(() => document.querySelector('#planSlip button').click()); await W(1500);
   } else await ev(() => closeTitleMenu(false));
-  // 4. an empty city's remove (Lewes: nothing filed there)
+  // 4. an empty city's remove (Lewes: nothing filed there): its board open, then one tap -- removed at
+  // once, no picker; the slip "Lewes removed" with Undo
   await openMenu(page, desk);
-  await ev(() => rmShowPicker('lewes')); await W(700);
+  await ev(() => { const r = document.querySelector('#titleMenu .menu-city[data-city="lewes"]'), m = document.getElementById('titleMenu'); m.scrollTop += r.getBoundingClientRect().top - m.getBoundingClientRect().top - 120; rmSetOpen(r, true); }); await W(700);
+  await shot(page, `${pre}4-empty-board`);
+  await ev(() => document.querySelector('#titleMenu .menu-city[data-city="lewes"] .rm-board').click()); await W(1200);
   await shot(page, `${pre}4-empty-city`);
-  await ev(() => closeTitleMenu(false)); await W(300);
+  await ev(() => document.querySelector('#planSlip button').click()); await W(1200);
   // 5. 375: the title menu's 11px tally with a long city name
   if (key === 'small') {
     await ev(() => { CITIES.stockholm.label = 'East Marlborough Township'; menuSig = null; }); await openMenu(page, desk);
@@ -79,7 +82,7 @@ async function frames(b, key) {
 
 const SHEETS = [
   ['1-picker', '1 · The picker: a new city, the owner\'s copy, the menu\'s own type (build)', [
-    ['B1-picker', '390 × 844', '"Should we move Stockholm’s places to a new city?" (the menu caption), "+ A new city…", your cities, then "Remove places too" (bin), the band, "Cancel".'],
+    ['B1-picker', '390 × 844', '"Should we move Stockholm’s places to a new city?" (the menu caption), "+ A new city…", your cities; one rule; "Remove places too" (a row like the cities, a bin for its icon); "Cancel".'],
     ['S1-picker', '375 × 667', 'The new-city line and the whole foot stay on screen; your cities scroll.'],
     ['D1-picker', 'Desktop 1280 × 800', 'Opens down from the menu\'s top.'],
   ]],
@@ -91,10 +94,11 @@ const SHEETS = [
     ['D2-new-city', 'Desktop', 'Typing.'],
   ]],
   ['3-empty-and-tally', '3 · An empty city; the menu\'s tally (build)', [
-    ['B4-empty-city', 'An empty city', '"Remove Lewes? Nothing is filed here.": the destructive row and Cancel only, no new-city line.'],
-    ['S4-empty-city', 'At 375', 'The same.'],
+    ['B4-empty-board', 'An empty city', 'Lewes (nothing filed there), its REMOVE board open.'],
+    ['B4-empty-city', 'One tap', 'Removed at once, no picker: "Lewes removed", with Undo.'],
+    ['S4-empty-city', 'At 375', 'The slip.'],
     ['S5-long-name-tally', 'The tally at 11px', 'The title menu\'s tally at the type floor (as the signposts\' and headers\'); "East Marlborough Township 23" still fits at 375.'],
-    ['D4-empty-city', 'Desktop', 'The same.'],
+    ['D4-empty-city', 'Desktop', 'The slip, on the rail.'],
   ]],
 ];
 async function sheets(b) {

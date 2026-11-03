@@ -29,6 +29,19 @@ gesture logic, ported into `index.html` as the spec required.
   PENDING the owner, not worked around. Also: the picker's box re-fits while typing a new city
   (`wireRmNewCity()` -> `placeRmPicker()`, not on "Searching…"); Find a city ranks own-name matches
   first (`findCities()`), so Amman (an alt name of "Philadelphia") comes last.
+- **The owner on the v2d stills:** an empty city is removed at once (`rmShowPicker()` -> `rmCommit(id,
+  null, viaKey)`; the held path; slip "{City} removed", no line 2); the empty-city picker variant is
+  gone. "Remove places too" = the destinations' own row (bin as a 16px `.menu-ico`, stroke 2.4/24 =
+  the arrow's 1.6px), one `--hair` rule above the foot (the last city's rule already drops: the
+  `.before-foot` pattern); the band, the navy rule, `.rm-bin` and the is-too overrides are gone. The
+  snap's `bounce-easing` added to `runtime-baseline.json` by hand after `--update` (its output also
+  rewrote the informational state lists; reverted so only that entry changed). cctest 132 (P8, Y3,
+  Y9-Y9e rewritten/new; T7 now allows the desktop box to fit short of the foot -- the shorter foot
+  lets all 12 cities fit).
+- Flag for the designer/owner: at 390 the one hair rule above "Remove places too" is the same rule
+  as between the cities, so with no scroll shadow the row reads as one more city row, barely set
+  apart. The city menu's "New city" foot is set apart by its caption too, which needs copy (a
+  design call); not added.
 - Noticed: after Undo of a remove, the city comes back at the END of the menu's order (CITIES insertion
   order); a re-fetch would sort it as the table returns it. Logged.
 

@@ -46,7 +46,7 @@ pick/redirect before building anything.
   address should be separate. Cures [Cities] should have crud principles."; then the roadtrip as a
   plan, real cities only, New city and Remove city) -- BUILT on
   `claude/city-place-creation-workflow-vcblfw` (`docs/shipped.md` "City CRUD, part 1" and "part 2"),
-  the combined CD + UX check done and fixed (2026-11-03), Impeccable has 1 finding PENDING the owner (`bounce-easing` on the board's approved open snap); lands on
+  the combined CD + UX check done and fixed (2026-11-03), the owner's v2d notes built (empty city removed at once; "Remove places too" an ordinary row; the snap kept and baselined), `IMPECCABLE GATE PASSED`; lands on
   main after the owner sees the v2d stills (`design/city-crud/build/stills/v2d/`). Then: the
   owner's iPhone pass (`docs/iphone-checks.md`). Designer's open questions (unanswered; the defaults
   are built): roadtrip stops under their real town; the PLAN line only with a plan open.

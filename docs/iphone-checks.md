@@ -21,9 +21,11 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   each city row is followed by "Remove {city}"; (7) remove one of the five original cities: it never
   comes back after a reload; (8) the picker: "Should we move X’s places to a new city?", type a city in
   "+ A new city…" (no zoom on tap), tap a result: the city is made and the places move, the slip says
-  "Its places → Y", Undo brings X back and removes the made city; "Remove places too" sits apart
-  (bin, band, then Cancel); on a small phone the new-city line and the whole foot stay on screen;
-  (9) the sign turns with no bounce, while the board still snaps open with a small overshoot; typing a new
+  "Its places → Y", Undo brings X back and removes the made city; "Remove places too" reads as one
+  more choice (a row like the cities, a bin for its icon) set slightly apart by one rule, then Cancel;
+  an empty city (0 places): one tap on REMOVE removes it at once (no picker), the slip "X removed", Undo
+  brings it back; on a small phone the new-city line and the whole foot stay on screen;
+  (9) the sign turns with no bounce, while the board snaps open with a small overshoot (the owner's "snap"); typing a new
   city in the picker, the box shrinks to its results; (10) a plan open with a city picked: "add places" lists every
   city, the picked one first.
 - **City CRUD, part 1 (check once it lands on main):** (1) tap +, then tap ADDRESS: the
