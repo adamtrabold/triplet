@@ -423,3 +423,11 @@ I checked the read's images by eye, enlarged from the 3x renders (scratchpad `di
 **What goes to him:** the six 9s (camera, bed, curtain, kvarter, walker, and the picnic table once its top gets its weight), with the two questions. All eight go together, as the brief says, with Shopping and Attraction shown as they stand and the questions beside them.
 
 NEXT: product designer (systems): the picnic table's top at the stroke's weight. Then the orchestrator: the board to me for a check, then to him with the two questions.
+
+## Turn 12 — product designer (systems), 2026-11-03
+
+- **Picnic table, its top at full weight (no new rule):** under Solids are shapes, the top is the solid the table is, so it is declared two lines thick, as the mattress is (`pk-picnic2` top `lines: 2`). Rebuilt at 18; nothing else changed.
+- **Gates:** no system code changed since turn 10 (decl.js only), so the approved set is byte-identical as rebuilt in turn 10; `system.js check`: SYSTEM CHECKS PASSED, 259/259.
+- **Canvas v295:** one board, "Batch 2 concepts", on the Grid concepts page (x 6664, beside Rules; nothing else changed): the eight at app size and 6x, the bag and the Ferris wheel marked "question for you" with the director's questions as worded, the eight beside the approved seven, and a mixed row of pins. Stills: scratchpad `batch2-1.png`, `batch2-2.png`.
+
+NEXT: design director — check the board, then the orchestrator takes it to the owner with the two questions.

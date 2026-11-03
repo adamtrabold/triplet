@@ -82,7 +82,8 @@ const C = {
     { id: 'legs2', kind: 'row', n: 2, h: 1 / 4, join: 'held' }]),
   // 11-03 (director turn 7, rule 2): the table's legs splay from the top's two ends; the seat lies across them
   'pk-picnic2': S('Park: the picnic table, end on, legs splayed', 'wide', [
-    { id: 'top', kind: 'slab', w: 1 / 2, of: 'seat' },
+    // 11-03 (director turn 11): the top is the solid the table is (Solids are shapes): two lines, as the mattress is
+    { id: 'top', kind: 'slab', w: 1 / 2, of: 'seat', lines: 2 },
     { id: 'legs', kind: 'splay', of: 'top', from: 'ends', lean: 20, to: 'bottom' },
     { id: 'seat', kind: 'slab', w: 1, across: 'legs', at: 1 / 2 }]),
   'pk-swing': S('Park: the swing', 'square', [
