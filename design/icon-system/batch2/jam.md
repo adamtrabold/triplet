@@ -337,3 +337,39 @@ My own read of the strip (seen, not blind): the picnic table now reads at once; 
 Approved set rebuilt at 18, 24 and 12 with the final code: every SVG byte-identical. `system.js check`: SYSTEM CHECKS PASSED, 259/259.
 
 NEXT: orchestrator — run the fresh reader on `blind4/`, then the director scores it.
+
+## Turn 9: design director, blind read 4 scored (concept phase), 2026-11-03
+
+I checked the read's own images by eye, enlarged from the 3x renders (scratchpad `dir283/b4.png`).
+
+| Concept | Read | Score | Path |
+|---|---|---|---|
+| Hotel: bed | hotel | **9** | Holds. |
+| Venue: curtain | stage curtains → theatre ("or a gate, a window") | **9** | Holds. The stage read wins. |
+| Landmark: camera | photo spot (high) | **9** | The read is the category's act. It stands alone; no second is needed. |
+| Neighbourhood: kvarter | three little houses → neighbourhood | 8 | The houses are small in the diamond. Fix 2. |
+| Street: walker | walking person in a road sign → trail / crosswalk | 8 | Walking along is the job, and the read is right. It now carries the set's weight; the arms help. Fix 2 for its size too. |
+| Park: picnic table | picnic table, "also an A or a stool" | 8 | Fix 3. |
+| Attraction: wheel | Ferris wheel or ship's wheel | 8 | Fix 4. |
+| Shopping: bag | shop, "padlock at first" | 8 | See below. |
+| Landmark: fountain | a bobbin, a kanji | 3 | Kill. |
+| Street: terrace | a credit card, an ATM | 3 | Kill. Street keeps the walker alone. |
+
+**"Too alike":**
+- The walker and the kvarter are alike only because both sit in a diamond, which is the app's badge.
+- The fountain and the picnic table fold into fix 3, and the fountain is killed.
+
+**The bag, four rounds a padlock: is it the system or the subject?** Still partly the system, for one more round. By eye, the body is nearly square and straight-sided, under a round arch. That is exactly a padlock's proportion. Fix 1 (handles wider than tall) made the arch lower but did nothing to the body. He asked for "more execution guidance than conceptual change", so the bag gets one more system shot (fix 5). If the next fresh read still says padlock first, it is the subject at 18, and it goes to him as a question (worded below).
+
+**To 9, system-level:**
+1. *(done; keep)* Handles wider than tall.
+2. **Shapes reach the set's optical size in the diamond.** The kvarter and the walker are small inside it. Fit by reach, as the circle class is, judged by eye beside the bed.
+3. **What a slab carries clears it.** Where a slab rests on splayed legs with something below it (a seat), the lower parts stand a visible protrusion past the upper (the protrusion rule). So a picnic table's seats run past its top on both sides, and it can't read as an "A", a stool or a bar on legs.
+4. **A wheel's hub is its smallest part.** The openings between the spokes take the counter rule, the hub is under the spoke count's weight, and there are at most four spokes at 18. A ship's wheel reads by its heavy hub and many spokes; a Ferris wheel reads by its open rim on legs.
+5. **A vessel (any carried container) is taller than wide and tapers.** The bag's body, like the cup's and the coupe's, is a vessel root, never a plain block. A padlock's body is a block. This is general: every container in the set is a vessel.
+
+**To the owner:** none yet. The bed, curtain and camera hold at 9; all eight go together.
+
+**If fix 5 still reads as a padlock, ask him, as worded:** "At app size, fresh eyes still read the bag as a padlock at first glance. Keep the bag and accept that, or try another Shopping subject?"
+
+NEXT: product designer (systems): fixes 2-5, then blind read 5 on the five at 8.

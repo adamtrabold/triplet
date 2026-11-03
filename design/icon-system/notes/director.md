@@ -1041,3 +1041,9 @@ He approved the system at v292 and asked for the rest, one shot.
 **Watch:**
 - the camera as a photos-app glyph;
 - the diamond reading as a road sign (the app badge: accepted).
+
+## Batch 2 blind read 4 (2026-11-03)
+
+**Scores:** bed, curtain, camera 9; five at 8; the second Landmark and Street killed.
+
+**The bag:** padlock four times. Its body is a block, not a vessel; fix 5 makes it a vessel. If it still reads as a padlock, it goes to him as a question.

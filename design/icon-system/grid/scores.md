@@ -1828,3 +1828,12 @@ The verdict stands within our own set:
 - **Replace:** lamp (5), needle (5).
 - **Fixes:** 6 system-level, in batch2/jam.md turn 7.
 - **To the owner:** none yet (all eight go together).
+
+## Batch 2, blind read 4 (concept phase), 2026-11-03
+
+- **At 9:** bed, curtain, camera.
+- **At 8:** kvarter, walker, picnic table, wheel, bag.
+- **Killed:** fountain (3), terrace (3).
+- **Fixes:** 4 more system fixes (shape size in the diamond, a slab's seats past its top, the wheel hub, a vessel tapers).
+- **The bag:** one more system shot, then a question to him if fresh eyes still read a padlock.
+- **Jam turn 9.**
