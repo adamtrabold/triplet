@@ -1,13 +1,13 @@
 {
   "cats": [
-    ["landmark", "Landmark", [["lm-needle", "the needle"], ["lm-camera", "the camera"]]],
-    ["attraction", "Attraction", [["at-bunting", "bunting"], ["at-wheel4", "the wheel, standing"], ["attraction", "control: one-shot wheel"]]],
-    ["venue", "Venue", [["vn-stage", "curtain at the stage lip"], ["venue", "control: the curtain"]]],
+    ["landmark", "Landmark", [["lm-camera", "the camera"], ["lm-needle", "the needle (tip 3/4)"]]],
+    ["attraction", "Attraction", [["at-wheel4", "the wheel, standing"], ["attraction", "control: one-shot wheel"], ["at-bunting", "bunting (no poles)", 1]]],
+    ["venue", "Venue", [["venue", "control: the curtain"], ["vn-stage", "curtain at the stage lip", 1]]],
     ["hotel", "Hotel", [["ht-nofoot", "bed, no foot"], ["ht-board", "bed, foot board"]]],
-    ["shopping", "Shopping", [["shopping", "control: the bag"], ["sh-carrier", "the carrier"]]],
-    ["park", "Park", [["pk-picnic", "picnic table"], ["pk-swing", "the swing"]]],
-    ["neighbourhood", "Neighborhood", [["nb-kvarter", "the kvarter"], ["nb-roofs", "roofs as the badge"], ["nb-windows", "lit windows", 1]]],
-    ["street", "Street", [["street", "control: the walker"], ["st-lamp", "one lamp"], ["st-lamps", "lamps receding"]]]
+    ["shopping", "Shopping", [["shopping", "control: the bag"], ["sh-carrier", "the carrier", 1]]],
+    ["park", "Park", [["pk-picnic", "picnic table"], ["pk-swing", "the swing (small seat)", 1]]],
+    ["neighbourhood", "Neighborhood", [["nb-roofs", "roofs as the badge"], ["nb-kvarter", "the kvarter (no base)"], ["nb-windows", "lit windows", 1]]],
+    ["street", "Street", [["st-lamp", "one lamp"], ["street", "control: the walker"], ["st-lamps", "lamps receding", 1]]]
   ],
   "pick": [["landmark", "lm-camera"], ["attraction", "at-wheel4"], ["venue", "venue"], ["hotel", "ht-nofoot"], ["shopping", "shopping"], ["park", "pk-picnic"], ["neighbourhood", "nb-roofs"], ["street", "st-lamp"]],
   "mixOrder": [0, 8, 1, 9, 4, 2, 10, 5, 3, 11, 6, 12, 7]

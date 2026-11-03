@@ -18,3 +18,9 @@
 
 ## Next
 Director steers the family calls. Systems adds rules 1-3 (jam.md turn 2). Round 2: needle vs camera, big top vs wheel, picnic side-on (A-frame), roofline + lamp pair, bed variants at 24 and 12.
+
+## Round 2 (2026-11-03, jam turn 5)
+- Survivors and kills: `batch2/jam.md` turn 5; per-concept looks in `batch2/concepts/*.md` ("How it looks").
+- Sheets: `batch2/sketches/contact-2.png`, `contact-2-grey.png`, `rows-2.png` (from `sheet2.js` + `rows2.json`). Builds: `bash batch2/sketches/chain.sh <ids> [sizes]` (18 first; 24 and 12 read the 18).
+- Watch at 12: the 4-spoke wheel, the needle (could read as a bottle) and the kvarter go to specks. The roofs, camera, bed, picnic table and lamp hold.
+- Open: turret flag (Attraction's only untried kind); does the camera read as "photo spot" (blind read)?

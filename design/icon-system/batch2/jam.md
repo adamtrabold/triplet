@@ -233,3 +233,17 @@ Landmark: needle, camera (medallion described). Attraction: bunting, wheel stand
 First builds I looked at (18): **camera** reads at once; **roofs** clearest of the Neighbourhoods; **kvarter**'s base reads as a separate bar; **bunting** fuses into a valance (Venue's cue: needs separate pennants); **swing** reads as a stool (seat too big, ropes too heavy); **stage** keeps its height but reads as a frame with ties; **lit windows** a die (killed, as expected).
 
 NEXT: product designer (visual focus) — draw the round 2 list finished from `concepts/decl.js` at 18, 24 and 12 beside the approved set, fixing the four reads above by declaration, before the director's blind read.
+
+## Turn 5: product designer (visual), 2026-11-03
+
+All built through the system from `concepts/decl.js` at 18 (24 ring / diamond), 24 (32 ring) and 12 (bare), beside the approved set: `sketches/contact-2.png` (set inks), `sketches/contact-2-grey.png` (one grey, shape first), `sketches/rows-2.png` (a crowd on the map at 18, the chips at 12, selected at 24, a list). Killed concepts are shown at 18 only.
+
+**Declaration fixes (no per-icon rules):** needle tip pitch 1.6 → 3/4 and shaft 6 lines (it read as a pencil; now an obelisk); bunting without poles (they framed it into a valance); swing seat and ropes 1/4 of the bar, ropes 2/3 tall (it read as a stool); kvarter without its base (it read as a separate bar).
+
+**Survivors:** Landmark **camera** (lead), needle · Attraction **wheel standing** (4 spokes) beside the control · Venue **curtain** (control) · Hotel **no foot** (lead), foot board · Shopping **bag** (control) · Park **picnic table** · Neighborhood **roofs as the badge** (lead), kvarter · Street **one lamp** (lead), walker (control).
+
+**Kills:** bunting (a fringe without poles, a valance with them), stage lip (a frame), carrier (styling, not kind; heavier in the most-repeated pin), swing (the held seat fuses into a stool's T), lit windows (a die), lamps receding (a bar chart), medallion (a ring in a ring; payment). Reasons are in each concept file under "How it looks".
+
+**Gate:** `system.js check` SYSTEM CHECKS PASSED (the system was untouched this turn; the approved set wasn't rebuilt).
+
+NEXT: design director: READY for the blind read on the survivors (contact-2 in inks and in grey, and rows-2).
