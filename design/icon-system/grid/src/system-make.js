@@ -23,6 +23,7 @@ const { ELL_ARC, CAP, APEX } = P7;
 // sqrt(2 x 36 pi)); a drawing in it is fitted by how far its ink reaches across the diamond (|x| + |y| about its centre)
 const KEY = { ...P7.KEY, DIAMOND: [Math.sqrt(72 * Math.PI), Math.sqrt(72 * Math.PI)] };
 const CAP_P = { root: 'ellipse', ry: 1, over: capOver(PROP.cap.end) };   // the cap rule: a slab cut by one ellipse its full height
+const HANDLE_TALL = 2 / 5;   // a handle on a face stands no taller than this share of its span (11-03; under a half: wider than tall)
 const E15 = 8 * Math.PI / 180;   // an ellipse running on from a straight wall: its first 8 degrees its own cubic (the engine eases it in)
 const FAIR_K = 0.33;
 const LANDING = { on: false };   // widths land on the final drawing only (the fit sizes the drawing as drawn)
@@ -51,6 +52,7 @@ function rack(law, k) {
 // holes (n: [across, down]) leaves walls of one width round and between them (wall: a share of the line, default a line), so the
 // solid left is one even lattice and each hole's size follows from its walls. A hole is a counter: a corner round it is a cut (the
 // rack's smallest cutter), and at 12 one under the counter minimum closes, as every counter does.
+const HOLE_WALL = 3 / 2;
 function holesIn(H, x0, y0, w, h, t) {
   const out = [], sh = H.shape || 'circle';
   const one = (cx, cy, hw, hh) => out.push(E.cut(sh === 'circle' ? { ...E.C(cx, cy, Math.min(hw, hh) / 2), root: 'CIRCLE', role: 'counter' } : { ...E.R(cx - hw / 2, cy - hh / 2, hw, hh), root: 'BLOCK', role: 'counter' }));
@@ -58,7 +60,9 @@ function holesIn(H, x0, y0, w, h, t) {
     const [c, rws] = H.n, wall = (H.wall ?? 1) * t.stroke, hw = (w - (c + 1) * wall) / c, hh = (h - (rws + 1) * wall) / rws;
     for (let i = 0; i < c; i++) for (let j = 0; j < rws; j++) one(x0 + wall + hw / 2 + i * (hw + wall), y0 + wall + hh / 2 + j * (hh + wall), hw, hh);
   } else {
-    const d = H.w * Math.min(w, h), [ax, ay] = H.at || [1 / 2, 1 / 2];
+    // A HOLE STAYS A SHARE OF ITS MASS (11-03): the solid round one hole is never thinner than HOLE_WALL lines, so the mass reads as a
+    // mass with a counter in it, never as a band round a counter (a ring in a ring)
+    const d = Math.min(H.w * Math.min(w, h), Math.min(w, h) - 2 * HOLE_WALL * t.stroke), [ax, ay] = H.at || [1 / 2, 1 / 2];
     one(x0 + ax * w, y0 + ay * h, H.shape === 'block' && H.wide ? H.wide * w : d, d);
   }
   return out;
@@ -103,12 +107,16 @@ const KINDS = {
       // shows through it (into): past a band of the line, its legs go on as slots of its own width, into of the face's depth, ending round
       // rise: its back may stand on legs (a share of the line); with none its half circle stands on the face
       const W = t.stroke, b = P.box, c = (b.x0 + b.x1) / 2 * u, yF = b.top * u, yT = yF - (r.rise ?? 0) * W, Ro = r.span * (b.x1 - b.x0) * u / 2, Ri = Ro - W, n = v => f5(v);
-      const arc = (R_, a, z) => `C${n(c + a * R_)} ${n(yT - R_ * K)} ${n(c + a * R_ * K)} ${n(yT - R_)} ${n(c)} ${n(yT - R_)}C${n(c + z * R_ * K)} ${n(yT - R_)} ${n(c + z * R_)} ${n(yT - R_ * K)} ${n(c + z * R_)} ${n(yT)}`;
-      const prims = [E.D(`M${n(c - Ro)} ${n(yF + 0.3)}V${n(yT)}${arc(Ro, -1, 1)}V${n(yF + 0.3)}H${n(c + Ri)}V${n(yT)}${arc(Ri, 1, -1)}V${n(yF + 0.3)}Z`, { root: 'LOOP' })];
+      // A HANDLE IS WIDER THAN IT IS TALL (11-03): a shackle is the reverse, so a loop on a top face stands under HANDLE_TALL of its
+      // span above the face (its legs included): its back a half ellipse, as wide as the half circle was, its counter that ellipse moved
+      // in by the line, never shallower than the counter minimum
+      const RyO = Math.min(Ro, Math.max(W + t.counter, HANDLE_TALL * 2 * Ro - (yF - yT))), RyI = RyO - W;
+      const arc = (R_, Ry, a, z) => `C${n(c + a * R_)} ${n(yT - Ry * K)} ${n(c + a * R_ * K)} ${n(yT - Ry)} ${n(c)} ${n(yT - Ry)}C${n(c + z * R_ * K)} ${n(yT - Ry)} ${n(c + z * R_)} ${n(yT - Ry * K)} ${n(c + z * R_)} ${n(yT)}`;
+      const prims = [E.D(`M${n(c - Ro)} ${n(yF + 0.3)}V${n(yT)}${arc(Ro, RyO, -1, 1)}V${n(yF + 0.3)}H${n(c + Ri)}V${n(yT)}${arc(Ri, RyI, 1, -1)}V${n(yF + 0.3)}Z`, { root: 'LOOP' })];
       // DETAIL AT 12: a slot that only shows a part running on behind a face closes where the size closes detail; the face reads whole
       if (r.into && t.detail) for (const sg of [-1, 1]) { const xs = c + sg * (Ro - W / 2), y0 = yT + W, y1 = y0 + r.into * P.depth * u, h = W / 2;
         prims.push(E.cut(E.D(`M${n(xs - h)} ${n(y0)}H${n(xs + h)}V${n(y1 - h)}C${n(xs + h)} ${n(y1 - h + h * K)} ${n(xs + h * K)} ${n(y1)} ${n(xs)} ${n(y1)}C${n(xs - h * K)} ${n(y1)} ${n(xs - h)} ${n(y1 - h + h * K)} ${n(xs - h)} ${n(y1 - h)}Z`, { root: 'SLOT', role: 'counter' }))); }
-      return { prims, box: { x0: (c - Ro) / u, x1: (c + Ro) / u, top: (yT - Ro) / u, bot: b.top } };
+      return { prims, box: { x0: (c - Ro) / u, x1: (c + Ro) / u, top: (yT - RyO) / u, bot: b.top }, handle: { span: 2 * Ro, tall: yF - yT + RyO } };
     }
     const X = v => f(v * u), W = t.stroke / u, top = P.box.top, side = r.at === 'left' ? -1 : 1, wall = side > 0 ? P.box.x1 : P.box.x0;
     const eb = top + r.h * P.depth, R_ = (eb - top) / 2, eR = wall + side * (PROP.line.slot * W + R_), ex = eR - side * R_, inW = wall - side * W / 2;
@@ -192,7 +200,10 @@ const KINDS = {
     // at 12 is a row's or a comb's, parts side by side), then one fewer
     const wMin = Math.max(t.min, 3 * t.grid), widths = []; for (let w = t.part; w >= wMin - 1e-9; w -= t.grid) widths.push(w); if (widths[widths.length - 1] > wMin + 1e-9) widths.push(wMin);
     let n = 0, sw = t.part; out: for (let m = r.n; m >= 2; m--) for (const w of widths) if (gapOf(m, w) >= t.counter - 1e-9) { n = m; sw = w; break out; }
-    for (let i = 0; i < n; i++) { const a = ((r.turn || 0) + i) * Math.PI / n, dx = Math.sin(a) * L, dy = -Math.cos(a) * L;
+    // SPOKES END AT THE RIM'S INNER EDGE (11-03): they run into the rim's band only as far as the join needs (a third of the line),
+    // so nothing a spoke draws passes the rim
+    const Ls = r.toRim === false ? L : Ri + t.stroke / 3;
+    for (let i = 0; i < n; i++) { const a = ((r.turn || 0) + i) * Math.PI / n, dx = Math.sin(a) * Ls, dy = -Math.cos(a) * Ls;
       prims.push({ ...E.B([c - dx, cy - dy], [c + dx, cy + dy], sw), root: 'POST', role: 'spoke' }); }
     return { prims, box: { ...P.box }, noStack: true, spokes: { id: r.id, of: r.of, declared: r.n, n, gap: n ? gapOf(n, sw) : 2 * Ri, w: +(sw).toFixed(4) } };
   },
@@ -212,11 +223,15 @@ const KINDS = {
     // middle of its rim's band) they are no wider than the spokes there, so the openings are the spokes' alone
     const inRing = !foot && P.r && P.r.kind === 'ring', l0 = inRing ? P.radius : 0;
     const SP = inRing ? Object.values(C.placed).find(q => q.spokes && q.spokes.of === r.of && q.spokes.n > 0) : null, hIn = SP ? Math.min(h, SP.spokes.w / 2) : h;
-    const parts = foot ? P.prims.slice() : [E.C(ox, oy, t.stroke / 2)];
+    // NOTHING PASSES THE RIM (11-03): legs that hold a ring are drawn from its rim's band out, never through its openings or its hub
+    // (the spokes are the only parts inside it), so a wheel on legs can't gather handles; r.through keeps the 11-02 build
+    const rimOnly = inRing && !r.through;
+    const parts = foot ? P.prims.slice() : rimOnly ? [] : [E.C(ox, oy, t.stroke / 2)];
     let x0 = ox, x1 = ox;
     for (const sg of [-1, 1]) { const a = leans[sg === ahead ? 0 : 1] * Math.PI / 180, dx = sg * Math.sin(a), dy = Math.cos(a), nx = dy * h, ny = -dx * h;
       const ey = yb - h * Math.sin(a), l = (ey - oy) / dy, ex = ox + dx * l, sx = ox + dx * l0, sy = oy + dy * l0;
-      if (hIn < h - 1e-9) { const mx = dy * hIn, my = -dx * hIn; parts.push(E.P([ox - mx, oy - my], [ox + mx, oy + my], [sx + mx, sy + my], [sx - mx, sy - my])); parts.push(E.P([sx - nx, sy - ny], [sx + nx, sy + ny], [ex + nx, ey + ny], [ex - nx, ey - ny])); }
+      if (rimOnly) parts.push(E.P([sx - nx, sy - ny], [sx + nx, sy + ny], [ex + nx, ey + ny], [ex - nx, ey - ny]));
+      else if (hIn < h - 1e-9) { const mx = dy * hIn, my = -dx * hIn; parts.push(E.P([ox - mx, oy - my], [ox + mx, oy + my], [sx + mx, sy + my], [sx - mx, sy - my])); parts.push(E.P([sx - nx, sy - ny], [sx + nx, sy + ny], [ex + nx, ey + ny], [ex - nx, ey - ny])); }
       else parts.push(E.P([ox - nx, oy - ny], [ox + nx, oy + ny], [ex + nx, ey + ny], [ex - nx, ey - ny]));
       x0 = Math.min(x0, ex - Math.abs(nx)); x1 = Math.max(x1, ex + Math.abs(nx)); }
     const prims = [E.D(E.build(parts).d, { root: 'POST', also: foot ? null : 'CIRCLE', role: 'splay' })];
@@ -391,6 +406,11 @@ function layout(decl, s, Z, S, room, gdx = null, sub = null) {   // sub: a colum
       const show = r.show === 'stroke' ? t.stroke : r.show != null ? r.show * placed[r.showOf].depth * u : null;
       const end = show == null ? ctx.floor * u : topF + show, botF = next ? end + t.stroke / 2 : end;
       R = KINDS.post(r, { cx, topF: topF - (prev ? t.stroke : 0), botF }, t, u); R.box.bot = end / u;
+    } else if (r.kind === 'slab' && r.across) {
+      // A SLAB ACROSS THE POSTS ABOVE (11-03): a slab laid across the posts of the root it names at a share of their height (a bench's
+      // seat across splayed legs), on the lattice; it doesn't stack (what follows goes on under the root above it)
+      const Q = placed[r.across], w = wOf(r.id), yA = T3(Q.box.top * u + (r.at ?? 1 / 2) * (Q.box.bot - Q.box.top) * u);
+      R = { prims: [E.R((cx - w / 2) * u, yA, w * u, t.stroke * (r.lines || 1), { root: 'SLAB' })], box: { x0: cx - w / 2, x1: cx + w / 2, top: yA / u, bot: (yA + t.stroke * (r.lines || 1)) / u }, noStack: true };
     } else if (r.kind === 'tiers') R = KINDS.tiers(r, { cx, w: wOf(r.id), top: 0, bot: H - (next && next.show === 'stroke' ? t.stroke / u : 0) }, t, u);
     else if (r.kind === 'loop') R = KINDS.loop(r, {}, t, u, placed[r.of]);
     else if (r.kind === 'row') R = rowUnder(r, topF, prev, next);
@@ -432,6 +452,18 @@ function layout(decl, s, Z, S, room, gdx = null, sub = null) {   // sub: a colum
     const n = g.side.length, Wb = (sub ? sub.W : key[0]) * (g.w ?? 1), ws = g.widths || g.side.map(() => 1), sw = ws.reduce((a, b) => a + b, 0);
     const cutU = g.apart === 'comb' ? Wb / (2 * n - 1) : t.cut / u, room_ = Wb - (n - 1) * cutU, cols = []; let x = BASE - Wb / 2;
     for (let ci = 0; ci < n; ci++) { const W = room_ * ws[ci] / sw; cols.push(layout({ ...decl, spine: g.side[ci] }, s, Z, S, room, null, { cx: x + W / 2, W })); x += W + cutU; }
+    // A REPEATED CUE READS AS ITS COUNT (11-03): columns of the same roots side by side (houses in a row) stand at heights that differ,
+    // each from its neighbour, by at least the protrusion minimum at every size, so the count still reads where they are small: the
+    // taller of a pair (the later, when level) grows that far, its lowest block taking the height
+    const sig = sp => sp.map(q => q.kind).join(','), repeated = n > 1 && g.side.every(sp => sig(sp) === sig(g.side[0]));
+    if (repeated) for (let pass = 0; pass < 3; pass++) for (let ci = 1; ci < n; ci++) {
+      const A = cols[ci - 1], B = cols[ci], hA = (A.box.bot - A.box.top) * u, hB = (B.box.bot - B.box.top) * u, dh = Math.abs(hA - hB);
+      if (dh >= t.protrude - 1e-6) continue;
+      const T = hA > hB + 1e-9 ? A : B, grow = t.protrude - dh, rs = T.prims.filter(q => q.t === 'R');
+      if (!rs.length) continue;
+      const low = rs.reduce((m, q) => q.y + q.h > m.y + m.h ? q : m); low.h += grow; T.box.bot += grow / u;
+      meta.counted = (meta.counted || []).concat({ col: cols.indexOf(T), grew: +(grow * Z.k).toFixed(3) });
+    }
     const hOf = L => L.box.bot - L.box.top, Hm = Math.max(...cols.map(hOf)), prims = [];
     cols.forEach(L => { const dy = topF + (Hm - hOf(L)) * u - L.box.top * u; prims.push(...E.xform(L.prims, 1, 0, 0, 0, dy));
       for (const k_ of Object.keys(L.meta)) if (Array.isArray(L.meta[k_])) meta[k_] = (meta[k_] || []).concat(L.meta[k_]); });

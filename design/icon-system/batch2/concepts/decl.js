@@ -24,6 +24,12 @@ const C = {
     { id: 'finder', kind: 'block', w: 1 / 3, of: 'body', deep: 1 / 3 },
     { id: 'body', kind: 'block', w: 1, deep: 2 / 3, hole: { shape: 'circle', w: 3 / 5, at: [1 / 2, 11 / 20] } }]),
   // ---- Attraction
+  // 11-03: the Landmark second, replacing the needle: the fountain at the middle of the square
+  'lm-fountain': S('Landmark: the fountain', 'square', [
+    { id: 'jet', kind: 'disc', w: 1 / 5 },
+    { id: 'bowl', kind: 'cap', w: 1 / 2, face: 'down', join: 'cut' },
+    { id: 'stem', kind: 'post', join: 'into' },
+    { id: 'basin', kind: 'cap', w: 1, face: 'down' }]),
   'at-bunting': S('Attraction: bunting between two poles', 'square', [
     { id: 'line', kind: 'slab', w: 1 },
     { side: [[{ id: 'flag1', kind: 'gable', face: 'down', pitch: 2.4, ends: 0 }], [{ id: 'flag2', kind: 'gable', face: 'down', pitch: 2.4, ends: 0 }], [{ id: 'flag3', kind: 'gable', face: 'down', pitch: 2.4, ends: 0 }]], widths: [3, 4, 3], w: 3 / 4, join: 'cut' }]),   // visual 11-02: no poles (they made a frame: a valance), pennants a cut under the line
@@ -59,6 +65,11 @@ const C = {
     { id: 'legs1', kind: 'row', n: 2, h: 1 / 3, join: 'held' },
     { id: 'seat', kind: 'slab', w: 1, join: 'held' },
     { id: 'legs2', kind: 'row', n: 2, h: 1 / 4, join: 'held' }]),
+  // 11-03 (director turn 7, rule 2): the table's legs splay from the top's two ends; the seat lies across them
+  'pk-picnic2': S('Park: the picnic table, end on, legs splayed', 'wide', [
+    { id: 'top', kind: 'slab', w: 1 / 2, of: 'seat' },
+    { id: 'legs', kind: 'splay', of: 'top', from: 'ends', lean: 20, to: 'bottom' },
+    { id: 'seat', kind: 'slab', w: 1, across: 'legs', at: 1 / 2 }]),
   'pk-swing': S('Park: the swing', 'square', [
     { id: 'bar', kind: 'slab', w: 1 },
     { id: 'frame', kind: 'splay', of: 'bar', from: 'ends', lean: 12, to: 'bottom' },
@@ -74,6 +85,16 @@ const C = {
     { id: 'facade', kind: 'block', w: 1, deep: 1, join: 'cut', hole: { shape: 'block', n: [2, 2] } }], { shape: true }),
   // ---- Street (shapes, in the diamond)
   'street': D.street,
+  // 11-03 (rule 3): the walker with arms, every part of the figure at the figure's post width
+  'st-walker': S('Street: the walker, with arms', 'diamond', [
+    { id: 'head', kind: 'disc', w: 1 / 4 },
+    { id: 'body', kind: 'post', lean: 6, show: 1 / 4, join: 'cut' },
+    { id: 'arms', kind: 'splay', of: 'body', from: 1 / 6, lean: [40, 34], reach: 1 / 5 },
+    { id: 'legs', kind: 'splay', of: 'body', from: 1, lean: [26, 38], to: 'bottom' }], { shape: true }),
+  // 11-03: the Street second, replacing the lamp: a terrace seen from across the street, its doors counted
+  'st-terrace': S('Street: the terrace, a row of doors', 'diamond', [
+    { id: 'cornice', kind: 'slab', w: 1 },
+    { id: 'facade', kind: 'block', w: 1, deep: 1 / 2, join: 'cut', hole: { shape: 'block', n: [3, 1] } }], { shape: true }),
   'st-lamp': S('Street: the street lamp', 'diamond', [
     { id: 'hood', kind: 'gable', of: 'lantern', w: 1, pitch: 1 / 2, ends: 1 / 2 },
     { id: 'lantern', kind: 'block', w: 1 / 3, deep: 1, join: 'cut' },
