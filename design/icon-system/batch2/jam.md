@@ -247,3 +247,29 @@ All built through the system from `concepts/decl.js` at 18 (24 ring / diamond), 
 **Gate:** `system.js check` SYSTEM CHECKS PASSED (the system was untouched this turn; the approved set wasn't rebuilt).
 
 NEXT: design director: READY for the blind read on the survivors (contact-2 in inks and in grey, and rows-2).
+
+## Turn 6: design director, 2026-11-03
+
+I read contact-2 (fbc5b0b6).
+
+**The kills stand:** bunting, stage lip, carrier, swing, lit windows, receding lamps, medallion. Each fails at 18 by eye, as the sheet shows. Bunting and lit windows were mine, and they are fair kills.
+
+**Watch in the read:** the needle (obelisk) is the weakest survivor. At 18 it can read as a pen or a pushpin. It goes to the blind read beside the camera, not on my eye alone. The two wheels are close kin; the read decides between them.
+
+READY:
+- Landmark: camera (lead), needle;
+- Attraction: standing 4-spoke wheel, one-shot wheel;
+- Venue: curtain;
+- Hotel: bed with no foot (lead), foot board;
+- Shopping: bag;
+- Park: picnic table;
+- Neighbourhood: roofs (lead), kvarter;
+- Street: lamp (lead), walker.
+
+**Blind-read kit:**
+- 18 label-free PNGs: the 13 READY concepts plus the 5 approved pins as distractors.
+- Each at 18 in its 24 badge (diamond for the shapes), one navy ink (shape first), rendered at 3x.
+- Shuffled with `crypto.randomInt`, named icon-01..18.
+- It is in the scratchpad `blind3/`, with the key in `blind3-key.md`.
+
+NEXT: orchestrator: run the fresh reader on `blind3/`, then send me the result to score.
