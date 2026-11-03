@@ -334,6 +334,6 @@ My own read of the strip (seen, not blind): the picnic table now reads at once; 
 
 ### Gates
 
-Approved byte-identity and `system.js check`: see the commit that closes this turn.
+Approved set rebuilt at 18, 24 and 12 with the final code: every SVG byte-identical. `system.js check`: SYSTEM CHECKS PASSED, 259/259.
 
 NEXT: orchestrator — run the fresh reader on `blind4/`, then the director scores it.
