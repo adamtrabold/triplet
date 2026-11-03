@@ -6,7 +6,7 @@ owner can verify on a real device (the sandbox can't reach Supabase, tiles,
 or OSM). Remove an item once the owner confirms it; add new ones when a
 feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
 
-- **City CRUD v2b (DRAFT: not landed yet; check once it lands):** (1) pick a city in the title menu:
+- **City CRUD, part 2 (check once it lands on main):** (1) pick a city in the title menu:
   the list and the map hold only that city, no header, from the top; zoom far out: its signpost
   as before, the others faded (dashed, grey); tap a faded one: that city; All places: sections and
   eyes, and tapping a section's name does nothing; (2) title menu → "+ New city": type a real city,
@@ -19,8 +19,13 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   switch apps during the 6s: it's committed; (5) Mac: two-finger swipe left on a row (also one swipe
   straight after another, no pause), right-click a row, Shift+Delete on a focused row; (6) VoiceOver:
   each city row is followed by "Remove {city}"; (7) remove one of the five original cities: it never
-  comes back after a reload.
-- **City CRUD v2 (DRAFT: not landed yet; check once it lands):** (1) tap +, then tap ADDRESS: the
+  comes back after a reload; (8) the picker: "Should we move X’s places to a new city?", type a city in
+  "+ A new city…" (no zoom on tap), tap a result: the city is made and the places move, the slip says
+  "Its places → Y", Undo brings X back and removes the made city; "Remove places too" sits apart
+  (bin, band, then Cancel); on a small phone the new-city line and the whole foot stay on screen;
+  (9) the sign turns with no bounce; (10) a plan open with a city picked: "add places" lists every
+  city, the picked one first.
+- **City CRUD, part 1 (check once it lands on main):** (1) tap +, then tap ADDRESS: the
   keyboard comes up with no zoom; type a street address: the results open under ADDRESS, its
   caption stays above what you type, the rule goes navy; pick one: ADDRESS shows it, NAME takes its
   name; write your own NAME ("Rental, night 2"): no search runs; ADD files it at that address;

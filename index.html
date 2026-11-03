@@ -739,7 +739,7 @@
        turns over (480ms, a deliberate turn with a hair of overshoot) to SEE YOU SOON? -- a navy board
        as wide as its words need. Both faces sit on the board; only the turn shows the back. */
     .sp-board .sp-face { position: absolute; top: 0; bottom: 0; display: flex; align-items: center; box-sizing: border-box; padding: inherit;
-      backface-visibility: hidden; -webkit-backface-visibility: hidden; transition: transform 480ms cubic-bezier(.45,.05,.25,1.12); }
+      backface-visibility: hidden; -webkit-backface-visibility: hidden; transition: transform 480ms cubic-bezier(.45,.05,.25,1); }   /* owner: "signpost flip timing is great... i didnt see the bounce. fix this one": no overshoot */
     .sp-board .sp-front { left: 0; right: 0; isolation: isolate; }
     .sp-board.is-e .sp-back { left: 0; justify-content: center; }
     .sp-board.is-w .sp-back { right: 0; justify-content: center; }
@@ -1682,6 +1682,9 @@
       font-size: 13px; line-height: 16px; letter-spacing: 0.05em; color: var(--navy);
     }
     .menu-gap { flex: 1 1 auto; }
+    /* a menu row's tally (and the picker's distances, in the tally's style) at the type floor, as the
+       signposts', section headers' and plan rule's (owner: "dont accept" 10.4px) */
+    .menu-lab .tally, .rm-dest .tally { font-size: 11px; }
     .menu-row.is-hidden .menu-lab, .menu-row.is-hidden .menu-ico { color: var(--ink-2); }   /* 6.17:1, the closed eye carries the state */
 
     /* REMOVE A CITY (city-crud v10-v12; the approved prototype design/city-crud/proto/swipe-flap.html):
@@ -1697,7 +1700,7 @@
     .rm-board:focus-visible { box-shadow: inset 0 0 0 2px var(--paper); }
     /* the snap (owner: "the swipe should snap some"): open lands in 240ms with a small overshoot;
        close is quick and plain (160ms) */
-    .menu-city.settle.to-open .rm-clip { transition: width 240ms cubic-bezier(.25,1.45,.45,1); }
+    .menu-city.settle.to-open .rm-clip { transition: width 240ms cubic-bezier(.25,1,.45,1); }   /* no overshoot past the open width (the owner's bounce ruling, applied to every new easing) */
     .menu-city.settle.to-shut .rm-clip { transition: width 160ms cubic-bezier(.4,0,.2,1); }
     @media (prefers-reduced-motion: reduce) { .menu-city.settle .rm-clip { transition: none; } }
     /* the one-step picker (v12): the question is the picker -- tap where its places go and it's done */
@@ -1710,7 +1713,9 @@
     #titleMenu.is-picking .menu-city.is-held { border-bottom: 1px solid var(--hair); }
     #titleMenu.is-picking .menu-city.is-held .menu-row { height: 44px; border-bottom: none; }
     .rm-pick { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; background: var(--paper); }
-    .rm-q { flex: none; margin: 0; padding: 10px var(--s3) var(--s2); border-bottom: 1px solid var(--navy); font-family: var(--font-ui); font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink); }
+    /* the question is the menu's caption (.menu-cap), as the city menu's "City" -- only allowed to wrap
+       (owner: "Remove list text sizes should be whatever the dropdown is dictating") */
+    .rm-q.menu-cap { flex: none; margin: 0; height: auto; min-height: 24px; padding: 6px var(--s3); white-space: normal; }
     .rm-dests { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; background: var(--paper); }
     .rm-dests.more-below { box-shadow: inset 0 -10px 10px -10px var(--scroll-shadow); }
     .rm-dests.more-above { box-shadow: inset 0 10px 10px -10px var(--scroll-shadow); }
@@ -1726,9 +1731,27 @@
     .rm-dest:focus-visible { box-shadow: inset 0 0 0 2px var(--navy); }
     .rm-dest .menu-ico { width: 16px; height: 16px; }
     .rm-dest .rm-lab { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .rm-dest .rm-km { margin-left: auto; flex: none; font-stretch: 100%; text-transform: none; letter-spacing: 0; font-weight: 600; font-size: 11px; color: var(--ink-2); }
+    .rm-dest .rm-km { margin-left: auto; }   /* the distance: the tally's own style */
     .rm-dest.is-too { color: var(--ink-2); font-weight: 600; padding-left: calc(var(--s3) + 16px + var(--s2)); }
     .rm-dest.is-keep { justify-content: center; }
+    /* v14: the pinned new-city line under the question (a --hair rule above it, the head's navy rule
+       below); its results swap in for your cities in the built result voice; the foot -- the
+       destructive row (bin, ink, on --paper), an 8px band (--paper-pressed, hair above, navy below),
+       Cancel on --paper-raised. No new colour: the bin, the words and the separation carry it. */
+    .rm-pick .rm-q { border-bottom-color: var(--hair); }
+    .rm-pick .rm-new { flex: none; background: var(--paper-raised); border-bottom: 1px solid var(--navy); }
+    .rm-pick .menu-res.add-res { height: auto; min-height: 52px; padding-left: 40px; border-bottom: 1px solid var(--hair); }
+    .rm-pick .menu-res .add-res-where { white-space: normal; }
+    .rm-pick .rm-dests[hidden] { display: none; }
+    .rm-foot .rm-dest.is-too { gap: 10px; padding-left: var(--s3); color: var(--ink); font-weight: 700; background: var(--paper); }
+    .rm-foot .rm-dest.is-too .menu-lab { color: var(--ink); }
+    .rm-dest .menu-lab { flex: 0 1 auto; }
+    /* "+ A new city…": its prompt in the row label's voice; the typed entry stays 16px (the iOS
+       no-zoom floor, the built Find a city line's own) */
+    .rm-new .menu-find-in::placeholder { font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 13px; letter-spacing: .05em; color: var(--ink-2); }
+    .rm-foot .rm-bin { width: 18px; height: 18px; flex: none; display: block; color: var(--ink); }
+    .rm-band { display: block; height: 8px; background: var(--paper-pressed); border-top: 1px solid var(--hair); border-bottom: 1px solid var(--navy); }
+    .rm-foot .rm-dest.is-keep { background: var(--paper-raised); border-top: none; }
     /* New city (v4): the title menu's row becomes the Find a city line in place */
     #titleMenu .menu-find { flex: none; }
     #titleMenu .menu-find-res { flex: none; }
@@ -7727,21 +7750,44 @@
     }
     function rmPickerHtml(id) {
       const lab = escapeHtml(cityLabel(id)), n = rmPlacesIn(id), c = CITIES[id] && CITIES[id].center;
+      // v14 (owner: "it should say "Should we move Stockholm's places t a new city?" // "Remove places
+      // too" // "Cancel""): the question; the pinned "+ A new city…" line (the built Find a city search);
+      // your cities to move them to; the foot -- the destructive row (a bin), a band, then Cancel.
       let h = `<div class="rm-pick" role="group" aria-label="Remove ${escapeAttr(cityLabel(id))}" data-pick="${escapeAttr(id)}">`;
       if (!n) {
-        h += `<p class="rm-q">Remove ${lab}? Nothing is filed here.</p><div class="rm-dests"></div><div class="rm-foot">`
-          + `<button type="button" class="rm-dest" data-rm-city="${escapeAttr(id)}" data-rm-to="">${RM_ARROW}<span class="rm-lab">Remove ${lab}</span></button>`;
+        h += `<p class="rm-q menu-cap">Remove ${lab}? Nothing is filed here.</p><div class="rm-dests" hidden></div><div class="rm-foot">`
+          + `<button type="button" class="rm-dest is-too" data-rm-city="${escapeAttr(id)}" data-rm-to="">${RM_BIN}<span class="menu-lab rm-lab">Remove ${lab}</span></button>`;
       } else {
         const others = Object.keys(CITIES).filter(o => o !== id && Array.isArray(CITIES[o].center))
           .map(o => [o, c ? haversineKm(c, CITIES[o].center) : Infinity]).sort((a, b) => a[1] - b[1]);
         const stops = rmStopsIn(id);
-        h += `<p class="rm-q">Remove ${lab}. Move its ${n} ${n === 1 ? 'place' : 'places'} to:</p><div class="rm-dests">`
+        h += `<p class="rm-q menu-cap">Should we move ${lab}’s places to a new city?</p>`
+          + `<div class="menu-find rm-new" role="presentation">${FIND_PLUS_ICO}<input type="search" class="menu-find-in" placeholder="A new city…" aria-label="Move ${escapeAttr(cityLabel(id))}’s places to a new city: find a city" enterkeyhint="search" autocomplete="off" autocorrect="off" spellcheck="false"></div>`
+          + '<div class="rm-dests menu-find-res rm-found" role="group" aria-label="Cities found" hidden></div><div class="rm-dests rm-mine">'
           + others.map(([o, km]) => `<button type="button" class="rm-dest" data-rm-city="${escapeAttr(id)}" data-rm-to="${escapeAttr(o)}" aria-label="Move ${n === 1 ? 'it' : 'them'} to ${escapeAttr(cityLabel(o))}${isFinite(km) ? `, about ${roundKm(km)} km` : ''}, and remove ${escapeAttr(cityLabel(id))}">`
-            + `${RM_ARROW}<span class="rm-lab">${escapeHtml(cityLabel(o))}</span>${isFinite(km) ? `<span class="rm-km">≈ ${roundKm(km).toLocaleString('en')} km</span>` : ''}</button>`).join('')
+            + `${RM_ARROW}<span class="menu-lab rm-lab">${escapeHtml(cityLabel(o))}</span>${isFinite(km) ? `<span class="rm-km tally">≈ ${roundKm(km).toLocaleString('en')} km</span>` : ''}</button>`).join('')
           + '</div><div class="rm-foot">'
-          + `<button type="button" class="rm-dest is-too" data-rm-city="${escapeAttr(id)}" data-rm-to="">${n === 1 ? 'Remove the place too' : `Remove the ${n} places too`}${stops ? ` (and ${stops} plan ${stops === 1 ? 'stop' : 'stops'})` : ''}</button>`;
+          + `<button type="button" class="rm-dest is-too" data-rm-city="${escapeAttr(id)}" data-rm-to="" aria-label="Remove ${escapeAttr(cityLabel(id))} and its ${n} ${n === 1 ? 'place' : 'places'}${stops ? `, and ${stops} plan ${stops === 1 ? 'stop' : 'stops'}` : ''}">${RM_BIN}<span class="menu-lab rm-lab">Remove places too</span></button>`;
       }
-      return h + `<button type="button" class="rm-dest is-keep" data-rm-keep="${escapeAttr(id)}">Keep ${lab}</button></div></div>`;
+      return h + `<span class="rm-band" aria-hidden="true"></span><button type="button" class="rm-dest is-keep" data-rm-keep="${escapeAttr(id)}"><span class="menu-lab">Cancel</span></button></div></div>`;
+    }
+    const RM_BIN = '<svg class="rm-bin" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M10 7V5h4v2M7 7l1 13h8l1-13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>';
+    // "+ A new city…" (v14): the built Find a city search, near the city being removed; its results
+    // swap in for your cities (clearing the line brings them back). A result that's one of your cities
+    // is that city's row; a new one is made (kept), the places move there, the old city goes -- one step,
+    // with the Undo slip (Undo removes the made city too).
+    function wireRmNewCity(pick, id) {
+      const input = pick.querySelector('.rm-new .menu-find-in'); if (!input) return;
+      const found = pick.querySelector('.rm-found'), mine = pick.querySelector('.rm-mine');
+      const c = CITIES[id] && CITIES[id].center;
+      wireFindCity(pick, c || null, async f => {
+        const ex = existingCityFor(f);
+        if (ex === id) return;
+        if (ex) { rmCommit(id, ex); return; }
+        if (!await requireAuth()) return;
+        const cfg = cityConfigFromFound(f);
+        if (await addCity(cfg, false)) rmCommit(id, cfg.id, false, cfg.id);
+      }, () => { const has = !!found.innerHTML; found.hidden = !has; mine.hidden = has; pick.classList.remove('is-finding'); rmShadows(); });
     }
     // The picker's box (v13): width max(the menu's, min(100vw - 32, 340)), left edge unchanged. Phone:
     // its bottom stays where the menu's was and it grows UP to fit, never above the top controls + 8
@@ -7755,8 +7801,8 @@
       const menu = document.getElementById('titleMenu'), pick = menu.querySelector('.rm-pick'), held = menu.querySelector('.menu-city.is-held');
       if (!pick || !held || !menuLock) return;
       menu.style.width = `${Math.max(menuLock.width, Math.min(innerWidth - 32, 340))}px`;
-      const dests = pick.querySelector('.rm-dests');
-      const content = held.offsetHeight + pick.querySelector('.rm-q').offsetHeight + dests.scrollHeight + pick.querySelector('.rm-foot').offsetHeight + 2;   // + the box's 1px edges
+      const dests = pick.querySelector('.rm-dests:not([hidden])'), line = pick.querySelector('.rm-new');
+      const content = held.offsetHeight + pick.querySelector('.rm-q').offsetHeight + (line ? line.offsetHeight : 0) + (dests ? dests.scrollHeight : 0) + pick.querySelector('.rm-foot').offsetHeight + 2;   // + the box's 1px edges
       let top, h;
       if (railQuery.matches) { top = menuLock.top; h = Math.min(content, innerHeight - top - 16); }
       else { const bottom = menuLock.top + menuLock.height; top = Math.max(topRowBottom() + 8, bottom - content); h = bottom - top; }
@@ -7765,9 +7811,10 @@
     }
     // the app's scroll shadow at an edge with more beyond it
     function rmShadows() {
-      const d = document.querySelector('#titleMenu .rm-dests'); if (!d) return;
-      d.classList.toggle('more-above', d.scrollTop > 0.5);
-      d.classList.toggle('more-below', d.scrollTop + d.clientHeight < d.scrollHeight - 0.5);
+      document.querySelectorAll('#titleMenu .rm-dests').forEach(d => {
+        d.classList.toggle('more-above', !d.hidden && d.scrollTop > 0.5);
+        d.classList.toggle('more-below', !d.hidden && d.scrollTop + d.clientHeight < d.scrollHeight - 0.5);
+      });
     }
     async function rmShowPicker(id, focusFirst = true) {
       if (!await requireAuth()) return;   // signed out: the sign-in sheet, nothing else
@@ -7780,7 +7827,8 @@
       r.insertAdjacentHTML('afterend', rmPickerHtml(id));
       r.classList.add('is-held'); menu.classList.add('is-picking'); menu.scrollTop = 0;
       const pick = r.nextElementSibling;
-      pick.querySelector('.rm-dests').addEventListener('scroll', rmShadows, { passive: true });
+      pick.querySelectorAll('.rm-dests').forEach(d => d.addEventListener('scroll', rmShadows, { passive: true }));
+      wireRmNewCity(pick, id);
       placeRmPicker();
       if (focusFirst) { const f = pick.querySelector('.rm-dest'); if (f) f.focus({ preventScroll: true }); }
     }
@@ -7815,7 +7863,8 @@
     // survives, the safe direction).
     // viaKey: committed from the keyboard -- focus goes to the slip's Undo (not <body>)
     const rmFocusUndo = viaKey => { if (viaKey && !planSlip.hidden) planSlip.querySelector('button').focus({ preventScroll: true }); };
-    async function rmCommit(id, to, viaKey = false) {
+    // made: a city this commit's "+ A new city…" just made (Undo removes it again)
+    async function rmCommit(id, to, viaKey = false, made = null) {
       if (!await requireAuth()) return;
       if (!CITIES[id] || (to && !CITIES[to])) return;
       await commitHeldRemoval();
@@ -7858,7 +7907,7 @@
         } finally { flagWritesInFlight--; }
         if (flagWritesInFlight === 0) await Promise.all([refetchLocations(), refetchNeighborhoodShapes()]);
         // "Its places → Copenhagen" (no-break spaces: the arrow stays with the city)
-        if (ok) { showPlanSlip({ l1: `${lab} removed`, pre: `${locIds.size + shapeIds.size === 1 ? 'Its place' : 'Its places'} `, name: `→ ${cityLabel(to)}` }, () => rmUndoMove(cfg, to, [...locIds], [...shapeIds], { wasPicked, wasHidden, wasActive }), 'city-remove'); rmFocusUndo(viaKey); }
+        if (ok) { showPlanSlip({ l1: `${lab} removed`, pre: `${locIds.size + shapeIds.size === 1 ? 'Its place' : 'Its places'} `, name: `→ ${cityLabel(to)}` }, () => rmUndoMove(cfg, to, [...locIds], [...shapeIds], { wasPicked, wasHidden, wasActive }, made), 'city-remove'); rmFocusUndo(viaKey); }
         return ok;
       }
       // remove the places too: held until the slip ends
@@ -7916,7 +7965,7 @@
     document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') commitHeldRemoval(); });
     addEventListener('pagehide', () => { commitHeldRemoval(); });
     // Undo of a move: the city row back first (the places' city refers to it), then its places home.
-    async function rmUndoMove(cfg, to, locIds, shapeIds, was) {
+    async function rmUndoMove(cfg, to, locIds, shapeIds, was, made = null) {
       if (!await requireAuth()) return;
       const id = cfg.id;
       CITIES[id] = { ...cfg }; delete CITIES[id].id;
@@ -7934,6 +7983,11 @@
         if (error) throw error;
         if (locIds.length) { const { error: e1 } = await supabaseClient.from('locations').update({ city: id }).in('id', locIds); if (e1) throw e1; }
         if (shapeIds.length) { const { error: e2 } = await supabaseClient.from('neighborhood_shapes').update({ city: id }).in('id', shapeIds); if (e2) throw e2; }
+        // the city "+ A new city…" made for this move goes again (it's empty now)
+        if (made && CITIES[made] && !cityHasPlaces(made)) {
+          const { error: e3 } = await supabaseClient.from('cities').delete().eq('id', made); if (e3) throw e3;
+          delete CITIES[made]; updateUI(); syncAddTagCity();
+        }
         hideError('mutation');
       } catch (err) {
         showWriteError(err, 'places');
@@ -8290,7 +8344,7 @@
         else if (d.act === 'new') openNewPlan();
       });
       menu.addEventListener('keydown', e => {
-        const opts = [...menu.querySelectorAll('.menu-row, .rm-dest')].filter(o => o.offsetParent !== null), i = opts.indexOf(document.activeElement);   // the picker's rows too; never a hidden row
+        const opts = [...menu.querySelectorAll('.menu-row, .rm-dest, .menu-res')].filter(o => o.offsetParent !== null), i = opts.indexOf(document.activeElement);   // the picker's rows too; never a hidden row
         const go = j => { e.preventDefault(); opts[(j + opts.length) % opts.length].focus(); };
         if (e.key === 'ArrowDown') go(i + 1);
         else if (e.key === 'ArrowUp') go(i - 1);

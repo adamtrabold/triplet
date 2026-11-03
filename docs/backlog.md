@@ -42,21 +42,14 @@ pick/redirect before building anything.
     `nominatim.openstreetmap.org` both return HTTP 200, so the script can
     run here or in CI. Keep request volume polite: a handful of queries with
     delays between them.
-- **City CRUD v2** (owner, 2026-10-23: "There’s really no good way to add a new city" ... "Name
-  and address should be separate. Cures [Cities] should have crud principles."; v2: "move things to
-  different / new cities for the close use case but for the more complex roadtrip example that
-  should just Be a saved plan"; "Delete is good but not rename — cities should Be the names of real
-  citirs"). DRAFT status: BUILT on `claude/city-place-creation-workflow-vcblfw` (name / address
-  lines, Find a city, the PLAN line; `docs/shipped.md` "City CRUD v2", draft), awaiting the
-  combined CD + UX check, then land. **v2b BUILT too** (2026-11-02, after the owner approved the
-  v12 prototype: "amazing so much better!!! perfect now imo"): a picked city filters (list + map, no
-  header), faded signposts, New city (kept cities, auto_added false), Remove city (swipe / trackpad /
-  right-click / Shift+Delete, SEE YOU SOON?, the one-step picker, move with Undo, remove-too held
-  until the slip ends); `docs/shipped.md` "City CRUD v2b" (draft). Open for the check:
-  `design/city-crud/notes/builder.md` "Gaps / calls for the check" (v2b) and "Deviations" (v2);
-  Impeccable's 3 new identities need a fix or the owner's waiver. Designer's open questions
-  (unanswered; the defaults are built): roadtrip stops under their real town; PLAN line only with a
-  plan open.
+- **City CRUD** (owner, 2026-10-23: "There’s really no good way to add a new city" ... "Name and
+  address should be separate. Cures [Cities] should have crud principles."; then the roadtrip as a
+  plan, real cities only, New city and Remove city) -- BUILT on
+  `claude/city-place-creation-workflow-vcblfw` (`docs/shipped.md` "City CRUD, part 1" and "part 2"),
+  the combined CD + UX check done and fixed (2026-11-03), Impeccable PASSED with no waiver; lands on
+  main after the owner sees the v2d stills (`design/city-crud/build/stills/v2d/`). Then: the
+  owner's iPhone pass (`docs/iphone-checks.md`). Designer's open questions (unanswered; the defaults
+  are built): roadtrip stops under their real town; the PLAN line only with a plan open.
 - **Tag close: the pin is the close** -- LANDED 2026-10-21 (owner: "the x to close tag is in a very weird space" ... "pin is making the most sense to me" ... "yeah 6"; on the built sheet: "Yes"). With it, the tag's city line sits --s1 to the name (owner: "chunked slightly tighter"). Spec: `docs/shipped.md` "The pin is the close". Open: the owner's iPhone pass (`docs/iphone-checks.md`).
 - **Playground = the signed-out app** -- LANDED 2026-10-13 as `?play`, then
   made the signed-out experience (owner: "play shouldn't live at its own url
@@ -366,12 +359,10 @@ pick/redirect before building anything.
   little contradictory. Repro: `design/city-crud/build/stills/raw/B7-stop-failed.png`
   (`window.__failNext = 'plan_stops'` in cctest's lib). A UX call: silence the banner for this
   path, or word one of them differently.
-- **Impeccable: 3 new identities from the city-crud states** (builder, 2026-11-02). The gate now
-  renders findcity, address, planline, faded, removeboard and picker (operator-approved). It finds:
-  bounce-easing on the signpost's turn (`cubic-bezier(.45,.05,.25,1.12)`, the owner-approved v12
-  value: waive or change); flat-type-hierarchy in the picker (its 14px question); undersized-ui-text
-  for the title menu rows' 10.4px tally (shipped since phase 1, never scanned open before). Not
-  baselined (`--update` needs approval). Repro: `design/impeccable-gate/run.sh index.html`.
+- **Undo of a city remove puts it back at the end of the title menu** (builder, 2026-11-03): the
+  restored city is re-added to `CITIES` last (insertion order), so its row moves to the end of the menu
+  until the next full fetch. Repro: remove Copenhagen (move to Malmö), Undo, open the title menu. A
+  small fix: restore the key order from a snapshot of `Object.keys(CITIES)`.
 - **A 4-city signpost rarely fits at 375x667 with the list raised** (builder, 2026-11-02, the
   shipped phase-4 rule): the map's clear area is 202px tall and the joined post 180px, so its foot
   has a 22px band; most views show no signpost (faded or not). Pre-existing; noticed in the stills. Related: a post that overshoots by more than the 1px slack (2.5px at one 390 view after a Stockholm -> Copenhagen move) still hides by this rule.

@@ -6,6 +6,26 @@ the rest of the design ("amazing so much better!!! perfect now imo" on the v12 p
 prototype layer (`proto/`) is reference only; nothing of it ships -- except `proto/swipe-flap.html`'s
 gesture logic, ported into `index.html` as the spec required.
 
+## v2d (2026-11-03): v14 (the picker's new city) and the owner's rulings on the gate -- READ FIRST
+
+- **v14** (`concepts/v14-picker-new-city.md`, owner's copy verbatim): `rmPickerHtml()` -- the question
+  "Should we move {City}’s places to a new city?" (`.rm-q.menu-cap`), the pinned "+ A new city…" line
+  (`.rm-new`, `wireRmNewCity()` = `wireFindCity()` scoped to the picker, near the removed city; results in
+  `.rm-found` swap in for `.rm-mine`), your cities, the foot (`.is-too` with `RM_BIN` "Remove places
+  too", `.rm-band`, `.is-keep` "Cancel"). A new-city pick: `addCity(cfg, false)` then `rmCommit(id,
+  newId, false, newId)`; `rmUndoMove(..., made)` deletes the made city again. An empty city: "Remove
+  {City}? Nothing is filed here." + "Remove {City}" (bin) + Cancel, no line (the destructive row is named
+  "Remove {City}" there: "Remove places too" would name nothing).
+- **The owner's rulings** (none waived, no `--update`): no overshoot (`.sp-face` 480ms
+  `cubic-bezier(.45,.05,.25,1)`; `.menu-city.settle.to-open` `cubic-bezier(.25,1,.45,1)` -- the coordinator
+  extended the bounce ruling to every new easing, so v10's ~5px open overshoot is gone too); the picker
+  uses `.menu-cap` / `.menu-lab` / `.tally` only (the typed entry in "+ A new city…" stays 16px, the iOS
+  no-zoom floor, as the built Find a city line; its placeholder is in the row label's voice);
+  `.menu-lab .tally, .rm-dest .tally { font-size: 11px }` (the type floor, as the other tallies).
+- Gate: `IMPECCABLE GATE PASSED` (static 1/1, runtime 47/47, 0 new) -- flat-type-hierarchy no longer fires.
+- Noticed: after Undo of a remove, the city comes back at the END of the menu's order (CITIES insertion
+  order); a re-fetch would sort it as the table returns it. Logged.
+
 ## v2c (2026-11-03): the CD + UX check's fix batch (builder half + the designer's v13)
 
 Builder half (the coordinator's list):
