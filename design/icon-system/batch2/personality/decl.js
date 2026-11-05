@@ -1,7 +1,7 @@
 // Batch 2 personality approaches (2026-11-03): the eight on canvas v295, each declared three ways (A contour, B the tell, C the lip),
 // DECLARATIONS ONLY, built by the system's own maker (grid/src/system-make.js; the words in grid/src/system-detail.js). Spec:
 // batch2/personality.md. Builds to batch2/personality/svg/<A|B|C>/18/<id>.svg.
-//   TOOLS=<dir with node_modules/paper> node decl.js <A|B|C> [ids]
+//   TOOLS=<dir with node_modules/paper> node decl.js <A|B|C|D> [ids] [size: 18 (default), 24, 12; build the 18 first]
 'use strict';
 const fs = require('fs'), path = require('path');
 const G = path.join(__dirname, '../../grid/src'), SYS = require(path.join(G, 'system.js'));
@@ -71,16 +71,21 @@ const WORDS = {
 const declsFor = A => EIGHT(id => WORDS[A][id] || {});
 module.exports = { EIGHT, WORDS, declsFor };
 if (require.main === module) {
-  const A = process.argv[2], C = declsFor(A), ids = process.argv[3] ? process.argv[3].split(',') : Object.keys(C);
-  const Mk = require(path.join(G, 'system-make.js')), SL = require(path.join(G, 'system-land.js')), Z = SYS.SIZES[18];
+  // node decl.js <A|B|C|D> [ids] [size=18]: 24 and 12 read the 18's proportions (its meta.read), as concepts/decl.js and system.js do;
+  // 12 closes small counters (the size's own rule), so a detail under the counter minimum closes there
+  const A = process.argv[2], C = declsFor(A), size = +(process.argv[4] || 18), ids = process.argv[3] ? process.argv[3].split(',') : Object.keys(C);
+  const Mk = require(path.join(G, 'system-make.js')), SL = require(path.join(G, 'system-land.js')), Z = SYS.SIZES[size];
   for (const id of ids) {
     const decl = C[id], t0 = Date.now();
     try {
-      const R = Mk.make(decl, { ...Z, master: null, drift: 1 / 8 }, SYS, { v264: null, land: (prims, s_) => SL.landPrims(prims, s_, { size: Z.frame, std: { stroke: null, counter: 0 } }) });
-      const dir = path.join(__dirname, 'svg', A, '18'); fs.mkdirSync(dir, { recursive: true });
-      fs.writeFileSync(path.join(dir, `${id}.svg`), `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill-rule="evenodd" d="${R.d}"/></svg>\n`);
-      fs.writeFileSync(path.join(dir, `${id}.json`), JSON.stringify({ size: 18, meta: R.meta }));
-      console.log(A, id, ((Date.now() - t0) / 1000).toFixed(0) + 's', R.meta.cls);
-    } catch (e) { console.log(A, id, 'FAILED', String(e.stack).split('\n').slice(0, 4).join(' | ')); }
+      const mf = path.join(__dirname, 'svg', A, '18', `${id}.json`), master = size !== 18 && fs.existsSync(mf) ? JSON.parse(fs.readFileSync(mf, 'utf8')).meta.read || null : null;
+      const R = Mk.make(decl, { ...Z, master, drift: 1 / 8 }, SYS, { v264: null, land: (prims, s_) => SL.landPrims(prims, s_, { size: Z.frame, std: { stroke: null, counter: 0 } }) });
+      let d = R.d; if (Z.close) d = SL.closeSmall(d, Z.counter / Z.k).d;
+      const dir = path.join(__dirname, 'svg', A, String(size)); fs.mkdirSync(dir, { recursive: true });
+      const px = size === 18 ? 24 : Z.frame;
+      fs.writeFileSync(path.join(dir, `${id}.svg`), `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="${px}" height="${px}"><path fill-rule="evenodd" d="${d}"/></svg>\n`);
+      fs.writeFileSync(path.join(dir, `${id}.json`), JSON.stringify({ size, meta: R.meta }));
+      console.log(A, size, id, ((Date.now() - t0) / 1000).toFixed(0) + 's', R.meta.cls);
+    } catch (e) { console.log(A, size, id, 'FAILED', String(e.stack).split('\n').slice(0, 4).join(' | ')); }
   }
 }
