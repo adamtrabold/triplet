@@ -3,7 +3,7 @@
 Owner on the v2d build stills: "i think new city should be part of the list, and that the "city
 removed |undo" should be more of a top banner above the map"
 
-Stills: `stills/v15/1-new-city-in-the-list.png`, `2-top-banner.png`, `3-top-banner-desktop.png`. They
+Stills: `stills/v15/1-new-city-in-the-list.png`, `2-top-banner.png`, `3-top-banner-desktop.png`; the phone banner as revised: `stills/v15b/1-banner-pushes-controls.png`, `stills/v15b/2-banner-375.png`. They
 are mock edits over the built picker at f04ab1e (`stills/v15/stills.js`). No new sizes; every value
 below is an existing pattern.
 
@@ -26,6 +26,8 @@ below is an existing pattern.
   rule under "All places", the menu's own "slightly separated" break, and it matches the owner's
   "just another choice in the list, but slightly separated". Cancel stays below on
   `--paper-raised`.
+- **Copy (owner, v15b):** the destructive row reads **"Delete places"** (was "Remove places too"); its
+  aria-label stays the full sentence ("Remove Stockholm and delete its 23 places, and 2 plan stops").
 - **Fit:**
   - 390×844: 12 cities + New city show without a scroll.
   - 375×667: the cities scroll, New city waits at the end, and the foot never scrolls.
@@ -38,11 +40,32 @@ below is an existing pattern.
   printed offset, 52px tall (the list header's height). The two v13 lines are unchanged:
   - **Line 1:** 11/14 caps `--ink-2` weight 600 `.1em`; may truncate.
   - **Line 2:** 13/16 caps navy 700 `.06em`; never truncates. "Its places → Copenhagen" /
-    "and its 23 places" / none for an empty city, which shows line 1 alone, centred.
+    "and its 23 places deleted" / none for an empty city, which shows line 1 alone, centred.
   - **Undo:** the built slip's underlined caps-12 button behind a `--hair` divider.
-- **Phone:** `left: var(--gutter)`, `right: var(--gutter)`, `top: var(--top-row-bottom)`. It sits
-  under the zoom control and the account badge, never over them, over the map's top.
-- **Desktop (the rail layout):** over the map only, never over the list. `width: min(420px, map
+- **Phone (v15b, owner: "i'd like to see the toast above the controls on mobile (zoom / account) and
+  then for them to shift back when the toast goes away"):**
+  - **Position:** the banner takes the top: `top: calc(var(--s4) + var(--chrome-top-inset))` (where the
+    zoom control and account badge sit now), `left: var(--gutter)`, `right: var(--gutter)`.
+  - **The push:** while it shows, `body.banner-on` moves `.leaflet-top` (zoom), `#accountBtn`,
+    `#accountFocus` and the account menu down by **60px** (the banner's 52 + `--s2`), using
+    `transform: translateY(60px)`, not layout, so nothing reflows.
+  - **Timing:** the push matches the banner. In: 140ms `cubic-bezier(.2,.8,.3,1)`, the same curve as
+    the banner's `sortSlip` enter. Back up: 160ms ease-out, the same as its fade.
+  - **Reduced motion:** the controls jump; there's no transition.
+  - **What else could collide:**
+    - **`--top-row-bottom`** (74px) is the ceiling for menus, the add tag's dock and the filter panel.
+      It grows by 60px while the banner shows (`--top-row-bottom: calc(134px + safe-area)` under
+      `body.banner-on`), so a menu opened in those 6s still clears the moved controls.
+    - **An open Hanging Tag** hangs from its pin and doesn't move. It can't be open during a removal
+      anyway, because the removal starts in the title menu, which closes the tag.
+    - **The add tag** isn't open during a removal either. If + is tapped while the banner shows, the
+      banner leaves at once, the controls go back, then the add tag opens. The banner never sits over
+      the add tag.
+    - **The map signposts' clear area** (`badgeSafeRect()`) is measured below the controls, so it
+      follows the push. The signposts re-layout once when the push lands and once when it's undone.
+- **Desktop (the rail layout), unchanged and no push:** the map's controls sit at its corners, well
+  clear of a centred 420px banner, so nothing needs to move.
+- **Desktop position:** over the map only, never over the list. `width: min(420px, map
   width − 32px)`, centred on the map, `top: map top + 16px`.
 - **Enter:** the menus' own `sortSlip` (140ms, `cubic-bezier(.2,.8,.3,1)`, a few px down and in).
 - **Leave:** fade 160ms. Reduced motion: no slide, no fade.
