@@ -105,6 +105,12 @@ pick/redirect before building anything.
   approach to icons (`brand-approach/`); the owner's 2026-10-14 direction
   (place icons solid, outlined = not yet tapped by me, visited unchanged)
   and phase 2 (grid + SVG drawing after approval) are in its `owner.md`. Related prior owner quotes in
+  **2026-11-05:** the approved five (restaurant, café, bar, museum, nature) at 18/24/12, the star,
+  the + and the system's rings are built into `index.html` on `icons-live` (`docs/shipped.md` "The
+  approved icons in the app"). Still open: the other eight categories (batch 2, not approved), a
+  20 drawing for the add tag's TYPE menu, the map star, the Pencil Star / tag star animation, the
+  ×, and outline vs filled for a starred star (THE-SYSTEM.md "Outline or solid: open").
+  Related prior owner quotes in
   `docs/owner-taste.md`: Icons / marks ("Same icon drawing language
   everywhere": "Checkmark was only supposed to be lightly rounded like the
   rest of the icons" ; "we need to do an icon pass on the rest at some other
@@ -348,8 +354,8 @@ pick/redirect before building anything.
   Eriksgatan, Værnedamsvej) -- each is an interim Neighborhood/Street pin now; when its shape
   lands, move the pin's notes/star/visited onto it and delete the pin (Gamla Stan is starred +
   visited); (2) streets over ~1.5km clipped to a stretch + the add form's trim step (lane 2;
-  Laugavegur, Bondegatan, Grandagarður); (3) the new icons for venue/museum/landmark/park
-  (icon system); (4) copy call: the add tag's search results still call a suburb/quarter
+  Laugavegur, Bondegatan, Grandagarður); (3) the new icons for venue/landmark/park
+  (icon system; museum's is built, 2026-11-05); (4) copy call: the add tag's search results still call a suburb/quarter
   "District" (`RESULT_PLACE_WORDS`) -- not a category label, left as is; (5) drop
   `backup.locations_20261030` / `backup.neighborhood_shapes_20261030` once the migration is
   settled; (6) four categories share the dot glyph, so for them colour alone carries identity
