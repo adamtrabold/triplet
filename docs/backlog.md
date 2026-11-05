@@ -106,10 +106,10 @@ pick/redirect before building anything.
   (place icons solid, outlined = not yet tapped by me, visited unchanged)
   and phase 2 (grid + SVG drawing after approval) are in its `owner.md`. Related prior owner quotes in
   **2026-11-05:** the approved five (restaurant, café, bar, museum, nature) at 18/24/12, the star,
-  the + and the system's rings are built into `index.html` on `icons-live` (`docs/shipped.md` "The
+  the + and the system's rings are live (`docs/shipped.md` "The
   approved icons in the app"). Still open: the other eight categories (batch 2, not approved), a
-  20 drawing for the add tag's TYPE menu, the map star, the Pencil Star / tag star animation, the
-  ×, and outline vs filled for a starred star (THE-SYSTEM.md "Outline or solid: open").
+  20 drawing for the add tag's TYPE menu, the map star, the Pencil Star / tag star animation, and the
+  ×.
   Related prior owner quotes in
   `docs/owner-taste.md`: Icons / marks ("Same icon drawing language
   everywhere": "Checkmark was only supposed to be lightly rounded like the

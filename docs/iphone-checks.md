@@ -6,11 +6,11 @@ owner can verify on a real device (the sandbox can't reach Supabase, tiles,
 or OSM). Remove an item once the owner confirms it; add new ones when a
 feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
 
-- **The approved icons (2026-11-05, `icons-live`):** zoom in until pins show their icons: restaurant
+- **The approved icons (landed 2026-11-05):** zoom in until pins show their icons: restaurant
   (fork and knife), café (cup), bar (coupe), museum (columns) and nature (tree) are the new drawings,
   sharp, not blurry, and centred in a thinner ring; every other category keeps its old icon in the
   same thinner ring; open the filters: the same five on their chips at 12, sharp; a starred row and
-  a starred tag show the new orange outline star; the + button's new + sits centred; with the
+  a starred tag show the new star filled orange, an unstarred tag its outline; the + button's new + sits centred; with the
   filters panel tall enough to send the + to the top right, check the + there too (it keeps its own
   size in the smaller 50px button).
 - **Categories: the locked list (landed 2026-10-30):** the filter chips read Restaurant, Café, Bar,
