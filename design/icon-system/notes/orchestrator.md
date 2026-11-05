@@ -14,3 +14,6 @@ The Grid concepts page holds only "Start here" (≤6 lines: current, waiting on 
 
 ## Standing working rule (10-27)
 Decisions are system settings. They go straight into THE-SYSTEM.md decision points (setting + date) and onto "The system" board in the same round, never into a log of owner thoughts. owner.md is history only; stop appending to it.
+
+## Lesson (11-05)
+Once I have told the owner what is going in, do not quietly reverse it. If a doubt comes up after, ask him in one line before changing the plan.
