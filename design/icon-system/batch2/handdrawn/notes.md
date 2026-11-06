@@ -1,6 +1,27 @@
 # Batch 2, drawn by hand (18, the master)
 
-Product designer (visual), 2026-11-06. **Round 2**, after the director's score (5e3142d1, `../../grid/scores.md`: 7 as a batch; "a second hand, close to Material Symbols"). These are drawings, not system builds. The system is untouched (owner: "Don't change the system until I've approved an icon").
+Product designer (visual), 2026-11-06. **Round 3** (after the director's round-2 score, fc3fd8fc) is the section just below; round 2's notes follow it and still describe the drawing moves.
+
+## Round 3: the director's fixes on six (the wheel is paused for the owner)
+
+| Icon | Fix | What changed |
+|---|---|---|
+| Camera | 1 | The barrel ends eased to half their depth (1/3 px), so they read as a body's rounding, not a bulge. |
+| Curtain | 3 | The tie knob's underside runs back into the fall on a slope with 0.45 fillets: a gather, not a step. |
+| Bed | 4 | The pillow is flat (3 1/3 by 1 1/3), its corners at 1/2, resting a cut above the mattress as the cup rests on its saucer. It no longer reads as a head. |
+| Bag | 5 | The handle is low and wide: a rounded arch, span 5 2/3 on a 6px top face, 2 1/3 tall (0.41 of its span), band 1 1/6, its counter 3 1/3 wide. The body is wider at the base (taper 2/3 each side). Ink is still 50. |
+| Houses | 6 | Doors are 2/5 of the wall's height, so the walls stay walls. |
+| Walker | 7 | The back arm swings well back and is parted from the torso by a 1/2 cut, so both arms read. The hands end on 1/2 rounds (no kink). |
+
+Ink (px² at 18): camera 49, curtain 58, bed 40, bag 50, picnic table 48 (unchanged), houses 47, walker 31.
+
+The wheel is unchanged. The still for the owner's question is in the scratchpad (`wheel-q.png`): crossed and upright, at true size and 6x. `src/still.js` makes it.
+
+**Least happy: the bag.** At 3x it still edges toward a kettlebell. Under the 2/5 limit with a band near the part width, the counter can't open far enough. A notch for the side folds read as ears, and show-through slots read as eyes, so both were dropped.
+
+---
+
+**Round 2**, after the director's score (5e3142d1, `../../grid/scores.md`: 7 as a batch; "a second hand, close to Material Symbols"). These are drawings, not system builds. The system is untouched (owner: "Don't change the system until I've approved an icon").
 
 - **Files:** SVGs in `18/<icon>.svg`; the sheet is `sheet.png`.
 - **Source:** `src/icons.js` holds the drawings and `src/lib.js` a small paper.js kit. `src/run.js` writes the SVGs and the sheet; it needs `npm i paper@0.12.18`, with the path in `PAPER`. `src/ink.js` gives ink areas.

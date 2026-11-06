@@ -31,7 +31,7 @@ const camera = (o) => {
   g = U(g, disc(o.lx, o.ly, o.lr - o.gap));
   return d(mill(g, (p, cx) => cx ? 0.25 : (p.y < top + 0.1 ? 0.5 : 0.125)));
 };
-ICONS.landmark = camera({ end: 0.67, lx: 13.17, ly: 12.67, lr: 2.33, gap: 1.17, win: true });
+ICONS.landmark = camera({ end: 0.33, lx: 13.17, ly: 12.67, lr: 2.33, gap: 1.17, win: true });
 
 // Attraction: a Ferris wheel. Rim at the stroke, two posts crossed (four spokes) meeting in a pin,
 // legs from the rim's band flaring into a footing.
@@ -61,13 +61,13 @@ const curtain = (o) => {
   L.cubicCurveTo(Pt(wx + 0.1, tY + 1.2), Pt(o.foot - 0.1, bot - 1.4), Pt(o.foot, bot));
   L.lineTo([x0 - o.hem, bot]); L.cubicCurveTo(Pt(x0 - o.hem * 0.4, bot - 1.6), Pt(x0, tY + 0.6), Pt(x0, tY)); L.lineTo([x0, top]);
   let left = L;
-  if (o.knob) left = U(L, H.mill(block(x0 - (o.knobOut || 0), tY - o.kh / 2, wx + o.knob, tY + o.kh / 2), () => o.kr));
+  if (o.knob) left = U(L, poly([[x0, tY - o.kh / 2], [wx + o.knob, tY - o.kh / 2], [wx + o.knob, tY + 0.1], [wx + o.back[0], tY + o.back[1]], [x0, tY + o.back[1]]]));
   const right = left.clone({ insert: false }); right.scale(-1, 1, Pt(12, 12));
   const g = U(left, right, block(7, 7, 17, 8.33));
-  return d(mill(g, (p, cx) => cx ? 0.25 : 0.125));
+  return d(mill(g, (p, cx) => Math.abs(p.y - tY) < 2 && p.x > wx - 0.5 && p.x < 24 - wx + 0.5 && (p.x < 11 || p.x > 13) ? (cx ? 0.4 : 0.45) : (cx ? 0.25 : 0.125)));
 };
 const CU = { x0: 7.67, tieY: 13.33, waist: 9.33, foot: 10.33, hem: 0.33, knob: 1, knobOut: 0.33, kh: 1.33, kr: 0.5 };
-ICONS.venue = curtain({ ...CU, knobOut: 0, kh: 1.33, kr: 0.6, knob: 1 });
+ICONS.venue = curtain({ ...CU, knob: 1, kh: 1.33, back: [0.25, 1.67] });
 
 // Hotel: a bed. Headboard post with a domed top, a mattress with eased ends, the foot post filleted
 // under it, a soft pillow resting on the mattress.
@@ -75,9 +75,9 @@ ICONS.venue = curtain({ ...CU, knobOut: 0, kh: 1.33, kr: 0.6, knob: 1 });
   const head = U(block(6.67, 9, 8, 16.67), disc(7.33, 9, 0.67));
   const mattress = block(8, 12.33, 17.33, 14.67);
   const foot = block(16, 14.67, 17.33, 16.67);
-  const pillow = H.mill(block(9, 10.17, 12, 12.33 + 0.01), () => 0.9);
-  const g = U(head, mattress, foot, pillow);
-  ICONS.hotel = d(mill(g, (p, cx) => cx ? (p.x > 17 ? 0.67 : 0.25) : (p.y > 12 && p.y < 12.5 && p.x > 8.5 ? 0.25 : 0.5)));
+  const bed = (pt, pb) => d(mill(U(head, mattress, foot, block(9, pt, 12.33, pb)), (p, cx) => cx ? (p.x > 17 ? 0.67 : 0.25) : (p.y > 11 && p.y < 12.5 && p.x > 8.5 ? 0.125 : 0.5)));
+  // the pillow rests on the mattress a cut apart, as the cup on its saucer: a third as tall as it is wide
+  ICONS.hotel = d(mill(U(head, mattress, foot, block(9, 10.33, 12.33, 11.67)), (p, cx) => cx ? (p.x > 17 ? 0.67 : (p.x > 8.5 && p.y < 12 ? 0.5 : 0.25)) : 0.5));
 }
 
 // Shopping: a carrier bag. A narrow body, its base corners eased into a cap curve, a low handle at
@@ -99,7 +99,21 @@ const bag2 = (o) => {
   if (o.slot) g = S(g, H.mill(block(12 - o.slot / 2, top + o.slotY, 12 + o.slot / 2, top + o.slotY + 1), () => 0.5));
   return d(mill(g, (p, cx) => cx ? (p.y > bot - 1.5 ? 0 : 0.25) : 0.5));
 };
-ICONS.shopping = bag2({ bw: 7.33, top: 11.33, br: 1, taper: 0.33, hw: 2.5, hh: 2.67, t: 1.33 });
+// Round 3: a low, wide handle (a rounded arch, flat on top) whose feet stand well out on the top face,
+// the body clearly wider at its base; optionally the paper bag's side folds as notches at the top corners.
+const bag3 = (o) => {
+  const x0 = 12 - o.bw / 2, x1 = 12 + o.bw / 2, top = o.top, bot = 17.33;
+  let g = H.mill(poly([[x0 + o.taper, top], [x1 - o.taper, top], [x1, bot], [x0, bot]]), p => p.y > bot - 0.1 ? o.br : 0.01);
+  const hx0 = 12 - o.span / 2, hx1 = 12 + o.span / 2, ht = top - o.hh;
+  const outer = H.mill(block(hx0, ht, hx1, top + 0.5), p => p.y < top ? o.hr : 0);
+  const inner = H.mill(block(hx0 + o.t, ht + o.t, hx1 - o.t, top + 0.5), p => p.y < top ? Math.max(o.hr - o.t, 0.25) : 0);
+  g = U(g, S(outer, inner, block(-5, top, 30, 30)));
+  if (o.slots) for (const x of [hx0 + o.t / 2, hx1 - o.t / 2]) g = S(g, H.mill(block(x - o.t / 2 + 0.17, top + o.slots[0], x + o.t / 2 - 0.17, top + o.slots[1]), () => 0.49));
+  if (o.notch) for (const s of [-1, 1]) { const x = s < 0 ? x0 + o.taper : x1 - o.taper; g = S(g, poly([[x, top - 0.1], [x - s * o.notch, top - 0.1], [x, top + o.notch * 1.2]])); }
+  return d(mill(g, (p, cx) => cx ? (p.y > bot - 1.5 ? 0 : 0.25) : (p.y > top + 0.3 ? 0.125 : 0.5)));
+};
+const BG = { bw: 7.33, top: 11, br: 1, taper: 0.67, span: 5, hh: 2.33, t: 1.33, hr: 1.33 };
+ICONS.shopping = bag3({ ...BG, span: 5.67, hh: 2.33, t: 1.17, hr: 2 });
 
 // Park: a picnic table, end on. A full-weight top with a cap curve under it, legs splayed and filleted
 // into it, the seat across them running past both.
@@ -117,7 +131,7 @@ ICONS.park = table({ cap: 0, flare: 1.33 });
 const house = (x0, x1, eb, base, pitch, door) => {
   const ov = 1 / 3, ee = 0.33, hw = (x1 - x0) / 2 + ov, cx = (x0 + x1) / 2, apex = eb - ee - hw * pitch;
   let h = poly([[x0, base], [x0, eb + ov], [x0 - ov, eb], [x0 - ov, eb - ee], [cx, apex], [x1 + ov, eb - ee], [x1 + ov, eb], [x1, eb + ov], [x1, base]]);
-  if (door) h = S(h, block(cx - door / 2, base - 2, cx + door / 2, base + 1));
+  if (door) h = S(h, block(cx - door / 2, base - 0.4 * (base - eb), cx + door / 2, base + 1));
   return h;
 };
 const houses = (o) => {
@@ -147,16 +161,25 @@ const walker = (o) => {
   const head = disc(o.hx, o.hy, o.hr);
   const su = Pt(o.hip[0] - o.sh[0], o.hip[1] - o.sh[1]).normalize(o.tw / 2); // shoulders: a half round on the torso
   const torso = taper(o.sh[0] + su.x, o.sh[1] + su.y, o.hip[0], o.hip[1], o.tw, o.hw);
-  const parts = [head, torso, (() => { const u = Pt(o.hip[0] - o.sh[0], o.hip[1] - o.sh[1]).normalize(o.tw / 2); return disc(o.sh[0] + u.x, o.sh[1] + u.y, o.tw / 2); })()];
-  for (const l of o.limbs) parts.push(taper(l[0], l[1], l[2], l[3], l[4], l[5]));
-  return d(mill(U(...parts), (p, cx) => cx ? (p.y < o.sh[1] + 0.3 && p.y > o.hy + o.hr ? 0.9 : 0.25) : 0.25));
+  const shoulder = disc(o.sh[0] + su.x, o.sh[1] + su.y, o.tw / 2);
+  const parts = [head, torso, shoulder];
+  const limbs = o.limbs.map(l => taper(l[0], l[1], l[2], l[3], l[4], l[5]));
+  parts.push(limbs[0], limbs[2], limbs[3]);
+  let g = U(...parts);
+  if (o.backCut) { // the back arm swings behind the body: a cut parts it from the torso
+    const c = o.backCut, halo = U(taper(o.sh[0] + su.x, o.sh[1] + su.y, o.hip[0], o.hip[1], o.tw + 2 * c, o.hw + 2 * c), disc(o.sh[0] + su.x, o.sh[1] + su.y, o.tw / 2 + c));
+    g = U(g, S(limbs[1], halo));
+  } else g = U(g, limbs[1]);
+  const hands = o.limbs.slice(0, 2).map(l => Pt(l[2], l[3]));
+  return d(mill(g, (p, cx) => cx ? (hands.some(h => h.getDistance(p) < 1) ? 0.5 : (p.y < o.sh[1] + 0.3 && p.y > o.hy + o.hr ? 0.9 : 0.25)) : 0.25));
 };
 const W = { hx: 13.17, hy: 7.17, hr: 1.08, sh: [12.83, 9.17], hip: [12, 13.17], tw: 2, hw: 1.67,
   limbs: [
     [12.6, 10.17, 14.83, 13, 1.5, 1.5],     // front arm, from inside the shoulder
-    [12.6, 10.17, 10.5, 13, 1.5, 1.5],      // back arm
+    [12.6, 10.17, 9.17, 12.5, 1.5, 1.5],    // back arm, swung well back
     [12.05, 12.83, 14.33, 17, 1.67, 1.67],    // front leg
     [11.95, 12.83, 9.67, 16.83, 1.67, 1.67],  // back leg
   ] };
-ICONS.street = walker(W);
+ICONS.street = walker({ ...W, backCut: 0.5 });
+
 window.ICONS = ICONS;
