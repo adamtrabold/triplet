@@ -1906,3 +1906,34 @@ The verdict stands within our own set:
 10. Then one 3x/2x sheet of the eight beside the five, judged as one hand, before any blind read.
 
 **Did the work change since my last score (D)?** Yes, entirely: new drawings, not system builds. D's 8s don't carry over.
+
+## Batch 2: the hand-drawn eight, round 2 (698dd75d), 2026-11-06: one 9 (picnic table), batch 8
+
+**Rendered myself:** 18 in the ring or diamond at 3x and 2x, inked and mono, 6x, and 14x on the grid (`batch2/handdrawn/director/`, same scripts; round 1's stills are in 5e3142d1). Also looked at the designer's upright-wheel strip. Ink at 18: camera 47, wheel 61, curtain 57, bed 41, bag 50 (fill 0.80, still the densest), picnic table 48, houses 46, walker 30. The approved five run 34 to 66.
+
+**Did it change?** Yes, really: every icon now has a curve, flare or fillet from the five's own vocabulary, and the batch sits much closer to one hand. The stock-icon look is gone from the camera, the table and the houses. It's now near Material only in the bag.
+
+| Icon | Craft | Read | Score | Note |
+|---|---|---|---|---|
+| Camera | 8 | 8 | **8** | Now ours: a compact with barrel ends, a finder window and the lens to the right. The barrel ends are a big curve; at 3x it edges toward a radio or a soap bar. |
+| Wheel (crossed) | 6 | 5 | **5** | Clean build, wrong picture: an X in a ring on a stand reads as "no" or "cancel". It's also the heaviest. Upright, it reads as a crosshair. |
+| Curtain | 8 | 9 | **8** | The best read yet: drapes, a tie and a hem. At 14x the tie's underside is a hook, and at 3x it's a notch, not a gather. |
+| Bed | 8 | 8 | **8** | Eased mattress end, the foot filleted: good. The soft pillow on the mattress now reads as a head (a person in bed), the same objection as turn 13's knob. |
+| Bag | 6 | 6 | **6** | The handle at the part width, with a small oval counter on a near-square body: at 3x it's a padlock or a kettlebell. |
+| Picnic table | 9 | 9 | **9** | The top's weight, the 1/2 fillets and the seat running past: a table, not 开. It sits with the museum and the coupe. |
+| Houses | 8 | 8 | **8** | The chamfered eaves are the museum's language: lovely. The doors run half the wall, so each house stands on two legs (a gabled Π). |
+| Walker | 7 | 8 | **8** | Looser, and it reads as a crossing sign. The back arm merges into the torso's edge, so the swing is one arm, and there's a kink at the front hand. |
+
+**Likely owner objections:** (1) The wheel says "no" (X in a ring). (2) The bag is a padlock. (3) Someone's in the bed. (4) The houses are on legs. Smaller: the camera's puffy ends, the curtain's hook.
+
+**The wheel is now a subject question for him.** Six spokes can't be drawn at 18 (round 1). Four, crossed, reads as "no", and upright as a crosshair: both are UI meanings. That makes three rounds on this subject (my rule from batch 1: ask him after 3). The question: keep the Ferris wheel and pick crossed or upright (shown side by side at 3x and 6x), or reopen Attraction's subject. Don't draw a fourth wheel before he answers.
+
+**Fixes (under 9):**
+1. **Camera:** ease the barrel ends to about half the depth, so the ends read as a body's rounding, not a bulge; keep everything else.
+2. **Wheel:** none until he rules (above).
+3. **Curtain:** let the tie's underside run back into the fall on a curve (a gather), not a step; check it at 3x.
+4. **Bed:** the pillow lower and flatter (about a third as tall as it is wide), its corners at the 1/4, not near half its height, so it's a pillow, not a head.
+5. **Bag:** the subject stays (SYSTEM, 10-30). The handle's feet go out to about 3/4 of the top face, and it stands no taller than 2/5 of its span (the system's rule), so the counter opens wide. Widen the base so the taper shows, and bring the fill down from 0.80. Judge it at 3x against a padlock.
+6. **Houses:** doors about 2/5 of the wall's height, so the walls stay walls.
+7. **Walker:** a cut between the back arm and the torso so both arms read in swing; take the kink out of the front hand.
+8. **Then** the same sheet again, at 3x and 2x beside the five, before any blind read.

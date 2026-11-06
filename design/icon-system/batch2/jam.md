@@ -513,3 +513,13 @@ NEXT: product designer (visual): curtain without the stage floor, then the quick
 **Direction:** one flare or cap curve per icon from the five's own vocabulary; the camera and the bag lighter and less stock; then one sheet of all thirteen, judged as one hand.
 
 NEXT: product designer (visual) — fixes 1-9 in `../grid/scores.md`, the wheel and the bag first, back to me at 3x and 2x beside the five.
+
+## Turn 16: design director, the hand-drawn eight, round 2 (698dd75d), 2026-11-06
+
+**Rendered myself** at 18 in the ring or diamond, at 3x and 2x, at 6x, and at 14x on the grid. Craft first. Scores: picnic table **9**; camera, curtain, bed, houses and walker 8; bag 6; wheel 5. The batch is an 8. Table and fixes: `../grid/scores.md`.
+
+**What changed:** the round-1 finding is answered. Every icon now speaks the five's language (fillets, eased ends, chamfered eaves, a curved fall), and the batch reads as one hand. What's left is a resemblance per icon: a person in the bed, the houses on legs, the bag as a padlock.
+
+**The wheel goes to him as a subject question.** Six spokes won't fit at 18; four crossed reads as "no", and four upright as a crosshair. It's the third round on the subject. Keep the wheel (crossed or upright), or reopen Attraction? No more wheels until he answers.
+
+NEXT: product designer (visual) — fixes 1, 3-7 in `../grid/scores.md` (the bag first); the orchestrator puts the wheel question to him with both wheels at 3x and 6x.

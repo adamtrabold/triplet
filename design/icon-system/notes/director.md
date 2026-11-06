@@ -1079,3 +1079,13 @@ He approved the system at v292 and asked for the rest, one shot.
 **Ruled:** the wheel's ⅔ spokes are not an owner question; four spokes at 1⅓ (the system's own setting) first.
 
 **Next:** fixes 1-9 in `grid/scores.md`, then a sheet of thirteen judged as one hand.
+
+## Batch 2: hand-drawn round 2 (698dd75d, 2026-11-06)
+
+**Scores:** picnic table 9; camera, curtain, bed, houses, walker 8; bag 6; wheel 5. Batch 8. The work really changed: the family language is now in every icon.
+
+**Blocking now:** one resemblance per icon (a head on the bed's pillow, houses on legs, the bag as a padlock), not the hand.
+
+**Wheel:** a subject question for him (three rounds: six won't fit, crossed = "no", upright = crosshair).
+
+**Next:** fixes in `grid/scores.md`; the bag first.
