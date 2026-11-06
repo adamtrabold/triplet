@@ -42,14 +42,15 @@ pick/redirect before building anything.
     `nominatim.openstreetmap.org` both return HTTP 200, so the script can
     run here or in CI. Keep request volume polite: a handful of queries with
     delays between them.
-- **City CRUD** (owner, 2026-10-23: "There’s really no good way to add a new city" ... "Name and
-  address should be separate. Cures [Cities] should have crud principles."; then the roadtrip as a
-  plan, real cities only, New city and Remove city) -- BUILT on
-  `claude/city-place-creation-workflow-vcblfw` (`docs/shipped.md` "City CRUD, part 1" and "part 2"),
-  the combined CD + UX check done and fixed (2026-11-03), the owner's v2d notes built (empty city removed at once; the snap kept and baselined), then v15 / v15b (New city in the picker's list, "Delete places", the city-removed banner at the top with the controls riding under it, the top line aligned); lands on
-  main after the owner sees the v2e stills (`design/city-crud/build/stills/v2e/`). Then: the
-  owner's iPhone pass (`docs/iphone-checks.md`). Open for the owner (v15): should the plans' Undo slips move to the same top banner? (Not built; they stay on the list.) Designer's open questions (unanswered; the defaults
-  are built): roadtrip stops under their real town; the PLAN line only with a plan open.
+- **City CRUD** -- LANDED 2026-11-06 (owner, 2026-10-23: "There’s really no good way to add a new
+  city" ... "Name and address should be separate. Cures [Cities] should have crud principles."; on
+  the v2e stills: "All good finish this"). NAME/ADDRESS, Find a city, the PLAN line, a picked city
+  filters, faded signposts, New city, Remove city (swipe; the picker with New city in its list,
+  Delete places; an empty city goes at once), the city-removed banner at the top, the top line
+  aligned. Specs: `docs/shipped.md` "City CRUD, part 1" / "part 2". Open: the owner's iPhone pass
+  (`docs/iphone-checks.md`); the owner's question (v15): should the plans' Undo slips move to the
+  same top banner? (not built; they stay on the list); the designer's open questions (defaults
+  built): roadtrip stops under their real town; the PLAN line only with a plan open.
 - **Add tag: the close disc too** -- LANDED 2026-10-23 (owner: "I don't see this in the add places tag only in existing places"; "Disc on a string", "Disc always"; on the sheet: "Yes"). The add tag hangs from the same close disc in every state; spec `docs/shipped.md` "The add tag's close is the disc too". Open: the owner's iPhone pass (notch check for the docked disc).
 - **Tag close: the pin is the close** -- LANDED 2026-10-21 (owner: "the x to close tag is in a very weird space" ... "pin is making the most sense to me" ... "yeah 6"; on the built sheet: "Yes"). With it, the tag's city line sits --s1 to the name (owner: "chunked slightly tighter"). Spec: `docs/shipped.md` "The pin is the close". Open: the owner's iPhone pass (`docs/iphone-checks.md`).
 - **Playground = the signed-out app** -- LANDED 2026-10-13 as `?play`, then
@@ -360,6 +361,12 @@ pick/redirect before building anything.
 
 ## Known minor bugs / follow-ups
 
+- **sorttest crashes on main since the categories landing** (builder, seen 2026-11-06 while landing
+  City CRUD): `design/list-ordering/build/sorttest.js` fails S2/S3 x4/S7/P1/N1/N3 and then throws at
+  its line 165 (a null `querySelector`) after N4, on main ff13d34 alone. The suite likely needs the
+  new category keys / fixture; not fixed in the City CRUD landing.
+- **plantest on main: 8 more cases fail since the categories landing** (P3, V2, V14, U16, U17, H1b,
+  H2, K7; same note). Probably the fixture's re-keyed categories; not investigated.
 - **A failed plan stop shows two messages** (builder, city-crud v2, 2026-10-23). When ADD saves the
   place but its stop write fails, the add tag says "Saved, but not added to the plan — try again."
   while `planWrite()`'s shipped write banner says "Couldn't save. Try again." at the top. Reads a

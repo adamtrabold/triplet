@@ -116,8 +116,11 @@ operator makes none of these calls.
   code via `shapeRowItem()`, keyed `'shape:<id>'` (`rowItem()`/`rowKey()`).
 - `plans` / `plan_stops`: named, ordered stop lists (a stop is a pin OR a
   shape); read by `fetchPlans()`, fail soft when the tables are missing.
-- `cities`: runtime-extensible registry, merged into (never replacing) the
-  static `CITIES` bootstrap in `index.html`, the offline-safe seed.
+- `cities`: runtime-extensible registry, merged into the static `CITIES`
+  bootstrap in `index.html` (the offline-safe seed); once the table answers it
+  is the truth (a removed seed city never returns). A city made by hand (New
+  city, Find a city, a hand pick) is `auto_added = false` and kept; only the
+  guess's own NEW city is auto-cleaned when emptied.
 - RLS, identical on all of them: public `SELECT`; writes restricted to
   `auth.jwt() ->> 'email' IN ('adamtrabold@gmail.com', 'ericatrabold@gmail.com')`.
 - **Categories (2026-10-30, the locked list):** `CATEGORY_COLORS` key order = restaurant, cafe,
@@ -135,6 +138,18 @@ operator makes none of these calls.
   city, else the nearest). The search is worldwide (`currentSearchCityConfig()`
   = the map's view as a soft hint only). A NEW city is made by ADD
   (`addCity()` first, then the insert); there are no confirm dialogs.
+- **The add tag's NAME and ADDRESS are two lines** (city-crud): each searches
+  (NAME only before a pick); a written NAME survives an ADDRESS pick.
+- **City CRUD (2026-11-06):** picking a city in the title menu FILTERS the
+  list and map (`cityListed()`; Plans view behaves as All places); Find a city
+  (`findCities()`/`wireFindCity()`: own-name matches first, then nearest);
+  Remove city is a swipe / right-click / Shift+Delete / VoiceOver action on a
+  title-menu row (`rmShowPicker()`, `rmCommit()`; a "Delete places" remove is
+  held in `pendingRemoval` until its Undo lapses, a second remove, or
+  pagehide). Its Undo is the top banner `#cityBanner` (phone:
+  `body.banner-push` moves the top controls down and `--top-row-bottom` with
+  them); the zoom control's and account badge's tops share `--top-line`
+  (`--account-top`). Spec: `docs/shipped.md` "City CRUD, part 1" / "part 2".
 - **City guess (add-tag-jam phase 3):** a place's city
   is a filing, never a location: `guessCity()` = the nearest city whose
   stored `center` is within `CITY_REACH_KM` (70), else the real town as a
@@ -246,11 +261,12 @@ pins with the stamp back on rows; the playground as the signed-out app
 (2026-10-13); the sign-in badge (2026-10-14); the + as the orange Float badge,
 bottom-left (2026-10-15); add-form place suggestions fitted and over the ×
 (2026-10-15); add-tag-jam phase 1 -- the list title's menu (Places / Plans), city
-sections with show/hide, go-to never filters, the collapse tab (2026-10-17); add-tag-jam phase 2 --
+sections with show/hide, the collapse tab (2026-10-17); add-tag-jam phase 2 --
 the add tag (worldwide search, TYPE auto-detected, the city line + NEW stamp, visited at add;
 2026-10-18); add-tag-jam phase 3 -- city buckets (the guess by reach, a place's city changed on
 its tag, the distance note; 2026-10-19; Impeccable `kicker-above-heading` waived for the city
-line). Specs: `docs/shipped.md`.
+line); City CRUD -- NAME/ADDRESS, Find a city, the PLAN line, a picked city filters, New
+city and Remove city, the city-removed top banner (2026-11-06). Specs: `docs/shipped.md`.
 
 - **Short-address backfill (owner action):** 59 of 202 places lack a real
   town (58 have no `address_details`, 1 has details but no town; live
