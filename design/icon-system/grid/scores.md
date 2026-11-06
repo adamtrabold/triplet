@@ -1867,3 +1867,42 @@ The verdict stands within our own set:
 - Bed reads high.
 - The curtain with the rod only reads low ("gate? window blinds?"). The gate read has come up in every round, so it is the subject at 18, not the system.
 - D goes to him now with three questions: the bag, the wheel, and the curtain ("Venue: the curtain reads as a gate or window blinds at app size: keep it or try another subject?").
+
+## Batch 2: the eight drawn by hand at 18 (4d4c4311), 2026-11-06: 7 as a batch, nothing goes yet
+
+**Judged craft first** (would it sit beside the approved five as one family, equal in finish?), read second. Rendered myself: 18 in the 24 ring / diamond at 3x and 2x, inked and mono, 6x, and 14x on the 1px grid with the 7 and 17 lines (`batch2/handdrawn/director/`; scripts `r.js`, `big.js`). Ink area at 18 (px²) and fill of the box: approved 34-66 / 0.43-0.67; camera 62 / 0.75 and bag 60 / 0.78 (the two densest in the set), walker 30, picnic table 41.
+
+**Better than every earlier batch:** clean outlines, one milling pass, honest widths, no swoops. The camera, curtain and houses are the first batch-2 drawings that look finished at 3x.
+
+**What keeps it under 9 as a family:** the approved five are built from curves and flares (the cup's belly, the saucer's cap curve, the coupe's bowl and its stem flaring into the foot, the fork's head and handle flare, the tree's curved tiers, the museum's chamfers). The eight are straight blocks and posts with small corner rounds; only the curtain and the bag's handle carry a curve, and only the wheel has a fillet into a face. Beside the five they read as a second hand, close to Material Symbols (photo_camera, bed, shopping_bag, directions_walk, table_restaurant). That is the likely shape of his "drawn horribly": stock pictograms, not ours.
+
+| Icon | Craft | Read | Score | Note |
+|---|---|---|---|---|
+| Camera (Landmark) | 8 | 9 | **8** | Best finished; but it is the stock camera, and the heaviest mass in the set. |
+| Ferris wheel (Attraction) | 4 | 6 | **5** | The ⅔ spokes fill in at 2x; at 3x a mottled disc on an easel (a lemon slice, a ship's wheel). |
+| Curtain (Venue) | 8 | 8 | **8** | Has the set's curve. The tie is a kink, not a gather; rail plus straight outer edges still frame a window. |
+| Bed (Hotel) | 7 | 8 | **7** | Reads. The cover step is a 1px notch that looks like a fault, not "turned down"; the floating pillow is a crumb at 18; posts meet the mattress with no flare. |
+| Bag (Shopping) | 6 | 7 | **6** | A dead trapezoid slab, the densest icon in the set on the most-repeated pin (jobs: "never the heaviest"). The 1px handle breaks monoweight and stands taller than 2/5 of its span: a shackle. |
+| Picnic table (Park) | 7 | 7 | **7** | Clean, but at 3x it is 开 or a torii; thin and light beside the five. |
+| Houses (Neighbourhood) | 7 | 8 | **7** | Plain like a sign, good. 45° roofs are stubby beside the museum's gable; one house blank and one with a door reads as a tile plus a house. |
+| Walker (Street) | 5 | 7 | **6** | Stiff, as flagged. The one visible arm is bent at the elbow (carrying something); the torso has a bump where the hidden arm starts; the head is big against the shoulders. |
+
+**Likely owner objections:** (1) "These are Google's icons" (camera, bed, bag, walker). (2) The wheel is mush at app size. (3) The bag is a black block. (4) The walker is stiff and awkward. (5) They don't have the curves and flares of the cup and the coupe: not the same hand.
+
+**The wheel's ⅔ spokes are not a break for him to rule on as drawn.** It fails by eye at 2x and 3x, so "How it looks wins" doesn't save it, and it also goes against the system's own hub rule (at 18 a wheel has four spokes). The designer's arithmetic holds: six spokes at 1¼ in this rim close. So draw four spokes at 1⅓. Only if four reads as a crosshair or a helm does it go to him as a question, both versions side by side at 3x.
+
+**The walker's feet ⅓px below the floor:** not an issue; they end at 17.3, inside the set's range (tree trunk 17.67, knife 18). The stiffness is the issue.
+
+**Fixes:**
+1. **Family, all:** one curve or flare per icon from the five's own vocabulary: a fillet (the 1/2) where every post meets a face (bed posts, table legs, wheel legs, the walker's limbs into the torso), and a cap curve on a resting face where there is one (the bag's base, the table top's underside). Judge each at 6x beside the coupe and fork, not alone.
+2. **Camera:** make it ours, not the stock camera: change the subject (a rangefinder: viewfinder window top-left, lens right of centre, no prism hump), or keep the hump and lighten the mass (a bigger lens, its band no thicker than 1½ lines) to bring ink from 62 to about 55.
+3. **Wheel:** four spokes at 1⅓, the hub a pin, the rim at the stroke; small gondola nubs outside the rim if it needs the ride tell. Re-shoot at 2x and 3x first.
+4. **Curtain:** the tie as a gather that stands out (the system's "a part that must read": 1px past the fall), not a kink; the rail past the drapes by a protrusion so the outer edges stop framing a window.
+5. **Bed:** drop the cover step or make it read (a full cut, not a notch); the pillow on the mattress, not floating; 1/2 fillets where the posts meet the mattress.
+6. **Bag:** lighter: a narrower body with a cap-curve base or a fold; the handle at the stroke (1½) and no taller than 2/5 of its span. Ink under 50; it is the most-seen pin.
+7. **Picnic table:** the top at full weight (as in D) so it stops reading 开 or a torii; legs fillet into the top.
+8. **Houses:** roof pitch from the museum's gable family, not 45°; a door on both, or neither.
+9. **Walker:** both arms, straight, in opposing swing, reaching to the hips; no bump on the torso; head no wider than the shoulders. The reference is a crossing sign's figure, not a maps app's.
+10. Then one 3x/2x sheet of the eight beside the five, judged as one hand, before any blind read.
+
+**Did the work change since my last score (D)?** Yes, entirely: new drawings, not system builds. D's 8s don't carry over.

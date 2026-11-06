@@ -1065,3 +1065,17 @@ He approved the system at v292 and asked for the rest, one shot.
 **New calibration:** a 9 needs the read AND the made-ness of the coupe and tree, judged by eye at 18.
 
 **Forward:** C (the lip, the approved set's shared move) + construction tells + the set's curves.
+
+## Batch 2: the hand-drawn eight (4d4c4311, 2026-11-06)
+
+**His words on the last batch:** "Did they lose the inspiration or guidance on what a good icon is? These are drawn really horribly." The sixth rejected 9.
+
+**Calibration now:** craft first. A 9 = would it sit beside the five as one hand, equal in finish, at 3x and 2x; then the read.
+
+**Scores:** camera 8, curtain 8, bed 7, picnic 7, houses 7, bag 6, walker 6, wheel 5. Batch 7.
+
+**What keeps blocking a 9:** the five are curves and flares; every batch-2 round has been straight blocks with corner rounds, so the eight look stock (Material Symbols) beside them. Rounds keep fixing reads and silhouettes, not the hand. Watch for it on every return.
+
+**Ruled:** the wheel's ⅔ spokes are not an owner question; four spokes at 1⅓ (the system's own setting) first.
+
+**Next:** fixes 1-9 in `grid/scores.md`, then a sheet of thirteen judged as one hand.

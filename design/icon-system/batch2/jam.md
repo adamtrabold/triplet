@@ -499,3 +499,17 @@ NEXT: product designer (visual): the combined approach (C + B construction tells
 **Blind read:** no full one is needed, because the reads held and D only adds detail. Run one quick fresh read on the curtain and the bed (the two whose silhouettes changed) before it goes.
 
 NEXT: product designer (visual): curtain without the stage floor, then the quick read on curtain and bed, then the orchestrator to him.
+
+## Turn 15: design director, the eight drawn by hand (4d4c4311), 2026-11-06
+
+**Recorded:** he turned down the last batch: "Did they lose the inspiration or guidance on what a good icon is? These are drawn really horribly." That is the sixth time he has turned down this team's 9s. This time I judged craft first (would each sit beside the five as one family, equal in finish), then the read.
+
+**Rendered myself** at 18 in the ring or diamond, at 3x and 2x, at 6x, and at 14x on the grid (`handdrawn/director/`). Scores: camera 8, wheel 5, curtain 8, bed 7, bag 6, picnic table 7, houses 7, walker 6. The batch is a 7. Full table, objections and fixes: `../grid/scores.md`.
+
+**The finding:** cleaner than anything before, but drawn by a second hand. The five are curves and flares (the belly, the cap curve, the bowl, the stem's flare, the curved tiers); the eight are straight blocks with small rounds, close to Material Symbols. That is what he'll see.
+
+**Ruled:** the wheel's ⅔ spokes don't go to him; they fail by eye at 2x, and the system already says four spokes at 18. Draw four at 1⅓, and ask him only if four reads as a helm. The walker's feet are fine; its arms aren't.
+
+**Direction:** one flare or cap curve per icon from the five's own vocabulary; the camera and the bag lighter and less stock; then one sheet of all thirteen, judged as one hand.
+
+NEXT: product designer (visual) — fixes 1-9 in `../grid/scores.md`, the wheel and the bag first, back to me at 3x and 2x beside the five.
