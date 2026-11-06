@@ -107,13 +107,15 @@ const bag3 = (o) => {
   const hx0 = 12 - o.span / 2, hx1 = 12 + o.span / 2, ht = top - o.hh;
   const outer = H.mill(block(hx0, ht, hx1, top + 0.5), p => p.y < top ? o.hr : 0);
   const inner = H.mill(block(hx0 + o.t, ht + o.t, hx1 - o.t, top + 0.5), p => p.y < top ? Math.max(o.hr - o.t, 0.25) : 0);
-  g = U(g, S(outer, inner, block(-5, top, 30, 30)));
+  g = o.arch ? U(g, S(oval(12, top, o.span / 2, o.hh), oval(12, top, o.span / 2 - o.t, o.hh - o.t), block(-5, top, 30, 30))) : U(g, S(outer, inner, block(-5, top, 30, 30)));
   if (o.slots) for (const x of [hx0 + o.t / 2, hx1 - o.t / 2]) g = S(g, H.mill(block(x - o.t / 2 + 0.17, top + o.slots[0], x + o.t / 2 - 0.17, top + o.slots[1]), () => 0.49));
   if (o.notch) for (const s of [-1, 1]) { const x = s < 0 ? x0 + o.taper : x1 - o.taper; g = S(g, poly([[x, top - 0.1], [x - s * o.notch, top - 0.1], [x, top + o.notch * 1.2]])); }
   return d(mill(g, (p, cx) => cx ? (p.y > bot - 1.5 ? 0 : 0.25) : (p.y > top + 0.3 ? 0.125 : 0.5)));
 };
 const BG = { bw: 7.33, top: 11, br: 1, taper: 0.67, span: 5, hh: 2.33, t: 1.33, hr: 1.33 };
 ICONS.shopping = bag3({ ...BG, span: 5.67, hh: 2.33, t: 1.17, hr: 2 });
+// For the owner only (a drawing, not a system change): the arch about 3/4 as tall as its span.
+ICONS['shopping@tallarch'] = bag3({ ...BG, span: 5, hh: 3.67, t: 1.17, arch: true });
 
 // Park: a picnic table, end on. A full-weight top with a cap curve under it, legs splayed and filleted
 // into it, the seat across them running past both.
@@ -176,10 +178,10 @@ const walker = (o) => {
 const W = { hx: 13.17, hy: 7.17, hr: 1.08, sh: [12.83, 9.17], hip: [12, 13.17], tw: 2, hw: 1.67,
   limbs: [
     [12.6, 10.17, 14.83, 13, 1.5, 1.5],     // front arm, from inside the shoulder
-    [12.6, 10.17, 9.17, 12.5, 1.5, 1.5],    // back arm, swung well back
+    [12.6, 10.17, 9.9, 12.62, 1.5, 1.5],    // back arm: from the same point inside the shoulder, the front arm's length, swung back
     [12.05, 12.83, 14.33, 17, 1.67, 1.67],    // front leg
     [11.95, 12.83, 9.67, 16.83, 1.67, 1.67],  // back leg
   ] };
-ICONS.street = walker({ ...W, backCut: 0.5 });
+ICONS.street = walker(W);
 
 window.ICONS = ICONS;

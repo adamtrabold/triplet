@@ -2,6 +2,12 @@
 
 Product designer (visual), 2026-11-06. **Round 3** (after the director's round-2 score, fc3fd8fc) is the section just below; round 2's notes follow it and still describe the drawing moves.
 
+## Round 3b (after 312e4f90: camera, curtain, bed, houses and picnic table at 9)
+
+- **Walker:** the back arm now starts inside the shoulder at the front arm's point, at the same length (3.6), swung back. There's no cut.
+- **Bag:** one extra drawing, `shopping@tallarch` (in `src/icons.js`, not written to `18/`). Its arch is a half ellipse about 3/4 as tall as its span (span 5, height 3 2/3, band 1 1/6). It breaks the system's 2/5 cap and is a drawing only, for the owner to compare.
+- **Stills for the owner** (scratchpad, made by `src/b2stills.js`): `b2-nines.png` and `b2-bag.png`.
+
 ## Round 3: the director's fixes on six (the wheel is paused for the owner)
 
 | Icon | Fix | What changed |
