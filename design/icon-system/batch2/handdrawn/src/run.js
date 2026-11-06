@@ -40,7 +40,7 @@ h1{font-size:24px;margin:0 0 4px} .sub{color:#5A564C;margin:0 0 14px;max-width:1
   h += `<h2>A mixed row of pins, app size</h2><div class="strip">${[0, 5, 9].map(o => ORDER.map(i => MIX[(i + o) % MIX.length]).map(([k, d]) => badge(d, k)).join('')).join('')}</div>`;
   h += `<h2>Bare (no ring), app size, ink on paper</h2><div class="strip">${EIGHT.map(([k]) => badge(mine(k), k, 1, true)).join('')}<span class="gap"></span>${APPR.map(a => badge(A[a], a, 1, true)).join('')}</div>`;
   const V = Object.keys(D).filter(k => k.includes('@'));
-  if (V.length) h += `<h2>Variants, app size and 6x</h2><div class="strip vstrip">${V.map(k => badge(D[k], k.split('@')[0])).join('')}<span class="gap"></span>${ap()}</div><div class="big vbig">${V.map(k => `<div class="cell">${badge(D[k], k.split('@')[0], 5)}<span>${k}</span></div>`).join('')}</div>`;
+  if (V.length) h += `<h2>The open question: the wheel's four spokes upright (+) instead of crossed (X), app size and 6x</h2><div class="strip vstrip">${V.map(k => badge(D[k], k.split('@')[0])).join('')}<span class="gap"></span>${ap()}</div><div class="big vbig">${V.map(k => `<div class="cell">${badge(D[k], k.split('@')[0], 5)}<span>${k}</span></div>`).join('')}</div>`;
   h += `<h2>6x, the eight</h2><div class="big">${EIGHT.map(([k, n]) => `<div class="cell">${badge(mine(k), k, 6)}<span>${n}</span></div>`).join('')}</div>`;
   h += `<h2>6x, the approved five</h2><div class="big">${APPR.map(a => `<div class="cell">${badge(A[a], a, 6)}<span>${a}</span></div>`).join('')}</div></body></html>`;
   const tmp = out.replace(/\.png$/, '.html'); fs.writeFileSync(tmp, h);

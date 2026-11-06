@@ -50,7 +50,6 @@ const wheel = (o) => {
 const WH = { cy: 10.67, R: 4.17, pin: 0.5, spokes: [45, 135], leg: 28, flare: 2, ft: 1, fx0: 6.67, fx1: 17.33 };
 // The A-frame is the crossed spokes carried on past the rim to the ground: four spokes, one line each way.
 ICONS.attraction = wheel({ ...WH, spokes: [60, 120], leg: 30, flare: 1.33 });
-ICONS['attraction@flare'] = wheel({ ...WH, spokes: [60, 120], leg: 30, flare: 1.83 });
 ICONS['attraction@rimPlus'] = wheel({ ...WH, spokes: [0, 90], leg: 35, flare: 1.33 });
 
 // Venue: a stage curtain. The rail runs past the drapes; each drape curves from the middle to its tie,
@@ -69,7 +68,6 @@ const curtain = (o) => {
 };
 const CU = { x0: 7.67, tieY: 13.33, waist: 9.33, foot: 10.33, hem: 0.33, knob: 1, knobOut: 0.33, kh: 1.33, kr: 0.5 };
 ICONS.venue = curtain({ ...CU, knobOut: 0, kh: 1.33, kr: 0.6, knob: 1 });
-ICONS['venue@band'] = curtain(CU);
 
 // Hotel: a bed. Headboard post with a domed top, a mattress with eased ends, the foot post filleted
 // under it, a soft pillow resting on the mattress.
@@ -102,8 +100,6 @@ const bag2 = (o) => {
   return d(mill(g, (p, cx) => cx ? (p.y > bot - 1.5 ? 0 : 0.25) : 0.5));
 };
 ICONS.shopping = bag2({ bw: 7.33, top: 11.33, br: 1, taper: 0.33, hw: 2.5, hh: 2.67, t: 1.33 });
-ICONS['shopping@semi'] = bag2({ bw: 7.33, top: 11, br: 1, taper: 0.33, hw: 2.33, hh: 2.33, t: 1.33 });
-ICONS['shopping@thin'] = bag2({ bw: 7.33, top: 11, br: 1, taper: 0.33, hw: 2.33, hh: 2.67, t: 1 });
 
 // Park: a picnic table, end on. A full-weight top with a cap curve under it, legs splayed and filleted
 // into it, the seat across them running past both.
@@ -142,9 +138,8 @@ const housesB = (o) => {
   if (o.s) g.scale(o.s, Pt(12, g.bounds.center.y));
   return d(mill(g, (p, cx, turn) => cx ? 0.25 : 0.125));
 };
-const HO = { ebL: 12, ebR: 11, base: 15.67, pitch: 0.9, door: 1.33, s: 1.05 };
+const HO = { ebL: 12, ebR: 11, base: 15.67, pitch: 0.9, door: 1.33, s: 1.12 };
 ICONS.neighbourhood = houses(HO);
-ICONS['neighbourhood@pitch75'] = houses({ ...HO, pitch: 0.75 });
 
 // Street: a walker, as on a crossing sign. A tapered torso leaning into the step; both arms straight,
 // swinging opposite the legs, from one shoulder point inside the torso; head no wider than the shoulders.
@@ -158,8 +153,8 @@ const walker = (o) => {
 };
 const W = { hx: 13.17, hy: 7.17, hr: 1.08, sh: [12.83, 9.17], hip: [12, 13.17], tw: 2, hw: 1.67,
   limbs: [
-    [12.6, 10.17, 14.83, 13, 1.33, 1.33],     // front arm, from inside the shoulder
-    [12.6, 10.17, 10.5, 13, 1.33, 1.33],      // back arm
+    [12.6, 10.17, 14.83, 13, 1.5, 1.5],     // front arm, from inside the shoulder
+    [12.6, 10.17, 10.5, 13, 1.5, 1.5],      // back arm
     [12.05, 12.83, 14.33, 17, 1.67, 1.67],    // front leg
     [11.95, 12.83, 9.67, 16.83, 1.67, 1.67],  // back leg
   ] };
