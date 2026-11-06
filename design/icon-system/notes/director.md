@@ -1089,3 +1089,7 @@ He approved the system at v292 and asked for the rest, one shot.
 **Wheel:** a subject question for him (three rounds: six won't fit, crossed = "no", upright = crosshair).
 
 **Next:** fixes in `grid/scores.md`; the bag first.
+
+## Batch 2: hand-drawn round 3 (b2ad4031, 2026-11-06)
+
+**9s:** camera, curtain, bed, picnic table, houses. Walker 7 (floating back arm), bag 6 (kettlebell: blocked by the 2/5 handle limit, an owner question), wheel waiting on his subject ruling.

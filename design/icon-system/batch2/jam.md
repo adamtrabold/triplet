@@ -523,3 +523,11 @@ NEXT: product designer (visual) — fixes 1-9 in `../grid/scores.md`, the wheel 
 **The wheel goes to him as a subject question.** Six spokes won't fit at 18; four crossed reads as "no", and four upright as a crosshair. It's the third round on the subject. Keep the wheel (crossed or upright), or reopen Attraction? No more wheels until he answers.
 
 NEXT: product designer (visual) — fixes 1, 3-7 in `../grid/scores.md` (the bag first); the orchestrator puts the wheel question to him with both wheels at 3x and 6x.
+
+## Turn 17: design director, hand-drawn round 3 on six (b2ad4031), 2026-11-06
+
+**Rendered myself** at 18 in the ring or diamond, at 3x and 2x, at 6x, and at 14x on the grid, craft first. **9s: camera, curtain, bed, picnic table (holds), houses.** Walker 7: the back arm floats free of the shoulder and reads as something carried. Bag 6: a kettlebell. Wheel: waiting on him. Details: `../grid/scores.md`.
+
+**The bag is blocked by the system,** not the drawing: the 2/5 handle-height limit (11-03) leaves only a slot of a counter at the part width, and a slot over a tapered block is a kettlebell. Changing the limit is his call. The question: a taller arch (about 3/4 of its span), with the tapered body as what keeps it off a padlock. Show it beside round 3's bag.
+
+NEXT: product designer (visual) — the walker's back arm (fix 1), plus a taller-handle bag draft for the question; then the orchestrator takes the five 9s, the wheel question and the bag question to him together.

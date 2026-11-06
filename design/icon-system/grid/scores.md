@@ -1937,3 +1937,27 @@ The verdict stands within our own set:
 6. **Houses:** doors about 2/5 of the wall's height, so the walls stay walls.
 7. **Walker:** a cut between the back arm and the torso so both arms read in swing; take the kink out of the front hand.
 8. **Then** the same sheet again, at 3x and 2x beside the five, before any blind read.
+
+## Batch 2: hand-drawn round 3 on six (b2ad4031), 2026-11-06: five 9s; the bag is blocked by a system limit
+
+**Rendered myself:** 18 in the ring or diamond at 3x and 2x, inked and mono, 6x, and 14x on the grid (`batch2/handdrawn/director/`). Ink: camera 49, curtain 58, bed 40, bag 50 (fill 0.82), houses 47, walker 31. The wheel and the picnic table are unchanged.
+
+| Icon | Craft | Read | Score | Note |
+|---|---|---|---|---|
+| Camera | 9 | 9 | **9** | Ends eased to a body's rounding; finder window, lens right, shutter cap. Ours, and level with the cup. |
+| Curtain | 9 | 9 | **9** | The tie is now a gather that runs back into the fall. Drapes, tie, hem: subtle detail he asked for. |
+| Bed | 9 | 9 | **9** | A flat pillow resting a cut above the mattress (the cup-on-saucer move); no head. |
+| Picnic table | 9 | 9 | **9** | Unchanged; holds. |
+| Houses | 9 | 9 | **9** | The shorter doors keep the walls walls; the chamfered eaves are the museum's. |
+| Walker | 7 | 8 | **7** | The back arm is now cut off from the torso at the shoulder, so it floats. At 3x the figure is carrying something (a book, a phone). |
+| Bag | 6 | 5 | **6** | At 3x a kettlebell or a scale weight. |
+| Wheel | — | — | **5** | Waiting on his subject ruling (turn 16). |
+
+**The bag: yes, the system limit is what blocks it.** "A handle is wider than it is tall" (no taller than 2/5 of its span) was set 11-03 to keep the bag off a padlock. At the part width, a handle that low leaves a slot of a counter, and a slot over a tapered block is a kettlebell. Round 1's taller arch read more like a bag. Any change to the limit is his to approve. **The question for him:** let a bag's handle stand taller (an arch about as tall as 3/4 of its span, still at the part width, feet near the top corners), with the tapered body and its eased base kept as what separates it from a padlock. Show him round 3's bag beside a taller-handle draft at 3x and 6x. Until he rules, the bag can't reach 9.
+
+**Likely owner objections:** the bag as a kettlebell; the walker carrying something. The five 9s: none I expect.
+
+**Fixes:**
+1. **Walker:** the back arm starts inside the shoulder's half round as the front one does (a cut only along its length, never at its root), the same length as the front arm, and swung no higher than the front arm's angle. It must read as a swing, not a held object.
+2. **Bag:** a taller-handle draft for the owner's question (above); no further work inside the current limit.
+3. **Wheel:** waits for his subject ruling.
