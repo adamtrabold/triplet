@@ -30,7 +30,7 @@ const { rec, finish } = recorder('shapes');
     const fresh = async () => {
       const o = await openProto(b, { reduced });
       await o.page.evaluate(() => { const fs = focusShape; focusShape = function (id) { __nav.push(['shape:' + id, performance.now()]); return fs.apply(this, arguments); }; });
-      o.D = await o.page.evaluate(() => neighborhoodShapes.find(n => n.city === activeCity && n.type === 'district').id);
+      o.D = await o.page.evaluate(() => neighborhoodShapes.find(n => n.city === activeCity && n.type === 'neighborhood').id);
       o.S = await o.page.evaluate(() => neighborhoodShapes.find(n => n.city === activeCity && n.type === 'street').id);
       return o;
     };
@@ -135,7 +135,7 @@ const { rec, finish } = recorder('shapes');
         const sm = shapeStarMarkersById.get(sid);
         return { title: pop.querySelector('.popup-title').textContent, star: pop.querySelector('.popup-star').getAttribute('aria-pressed'), visited: pop.querySelector('.popup-visited').getAttribute('aria-pressed'),
           cat: pop.querySelector('.popup-cat').textContent.trim(), onLine, starMarker: !!(sm && map.hasLayer(sm)), starAt: sm ? sm.getLatLng().distanceTo([la, ln]) : null }; }, S);
-      r('street popup = the pin popup: title, star on, Visited on, Get Directions to a point on the street (the map star sits there), type line', !!p0 && p0.title === 'Fixture Street' && p0.star === 'true' && p0.visited === 'true' && p0.cat === 'street' && p0.onLine && p0.starMarker && p0.starAt < 0.5, p0);
+      r('street popup = the pin popup: title, star on, Visited on, Get Directions to a point on the street (the map star sits there), type line', !!p0 && p0.title === 'Fixture Street' && p0.star === 'true' && p0.visited === 'true' && p0.cat === 'Street' && p0.onLine && p0.starMarker && p0.starAt < 0.5, p0);
       await page.evaluate(sid => focusShape(sid), D); await W(reduced ? 500 : 1500);
       const ins = await page.evaluate(sid => { const a = document.querySelector('.leaflet-popup .popup-directions'); const [la, ln] = a.getAttribute('href').match(/daddr=([-\d.]+),([-\d.]+)/).slice(1).map(Number);
         const lay = neighborhoodLayersById.get(sid); return { inside: lay.getBounds().contains([la, ln]), title: document.querySelector('.leaflet-popup .popup-title').textContent, star: !!shapeStarMarkersById.get(sid) }; }, D);

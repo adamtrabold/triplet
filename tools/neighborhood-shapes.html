@@ -59,7 +59,7 @@
       <option value="stockholm">Stockholm</option>
     </select>
     <select id="adhocType" style="padding:0.4rem;">
-      <option value="district">District (polygon)</option>
+      <option value="neighborhood">Neighborhood (polygon)</option>
       <option value="street">Street (line)</option>
     </select>
   </div>
@@ -149,21 +149,21 @@ function resolveShapeCity(geometry, segmentLengths) {
 // From the plan doc's §11 checklist. queryName is what we search OSM for;
 // it's usually the same as label but can be tuned separately.
 const SHAPES = [
-  {id:'reykjavik-grandi', city:'reykjavik', type:'district', label:'Grandi (Old Harbour creative district)', queryName:'Grandi'},
+  {id:'reykjavik-grandi', city:'reykjavik', type:'neighborhood', label:'Grandi (Old Harbour creative district)', queryName:'Grandi'},
   {id:'reykjavik-laugavegur', city:'reykjavik', type:'street', label:'Laugavegur', queryName:'Laugavegur'},
   {id:'reykjavik-grandagardur', city:'reykjavik', type:'street', label:'Grandagarður (mural street)', queryName:'Grandagarður'},
   {id:'reykjavik-skolavordustigur', city:'reykjavik', type:'street', label:'Skólavörðustígur (Rainbow Street)', queryName:'Skólavörðustígur'},
   {id:'reykjavik-klapparstigur', city:'reykjavik', type:'street', label:'Klapparstígur', queryName:'Klapparstígur'},
-  {id:'copenhagen-nyhavn', city:'copenhagen', type:'district', label:'Nyhavn', queryName:'Nyhavn'},
+  {id:'copenhagen-nyhavn', city:'copenhagen', type:'neighborhood', label:'Nyhavn', queryName:'Nyhavn'},
   {id:'copenhagen-jaegersborggade', city:'copenhagen', type:'street', label:'Jægersborggade', queryName:'Jægersborggade'},
-  {id:'copenhagen-christiania', city:'copenhagen', type:'district', label:'Freetown Christiania', queryName:'Christiania'},
-  {id:'copenhagen-nyboder', city:'copenhagen', type:'district', label:'Nyboder', queryName:'Nyboder'},
-  {id:'malmo-mollevangstorget', city:'malmo', type:'district', label:"Möllevångstorget (Möllan)", queryName:'Möllevången'},
-  {id:'malmo-vastra-hamnen-bo01', city:'malmo', type:'district', label:'Västra Hamnen Bo01', queryName:'Västra Hamnen'},
-  {id:'stockholm-gamla-stan', city:'stockholm', type:'district', label:'Gamla Stan', queryName:'Gamla Stan'},
-  {id:'stockholm-djurgarden', city:'stockholm', type:'district', label:'Djurgården', queryName:'Djurgården'},
+  {id:'copenhagen-christiania', city:'copenhagen', type:'neighborhood', label:'Freetown Christiania', queryName:'Christiania'},
+  {id:'copenhagen-nyboder', city:'copenhagen', type:'neighborhood', label:'Nyboder', queryName:'Nyboder'},
+  {id:'malmo-mollevangstorget', city:'malmo', type:'neighborhood', label:"Möllevångstorget (Möllan)", queryName:'Möllevången'},
+  {id:'malmo-vastra-hamnen-bo01', city:'malmo', type:'neighborhood', label:'Västra Hamnen Bo01', queryName:'Västra Hamnen'},
+  {id:'stockholm-gamla-stan', city:'stockholm', type:'neighborhood', label:'Gamla Stan', queryName:'Gamla Stan'},
+  {id:'stockholm-djurgarden', city:'stockholm', type:'neighborhood', label:'Djurgården', queryName:'Djurgården'},
   {id:'stockholm-sofo-triangle', city:'stockholm', type:'street', label:'Bondegatan (SoFo triangle anchor street)', queryName:'Bondegatan'},
-  {id:'stockholm-skogskyrkogarden', city:'stockholm', type:'district', label:'Skogskyrkogården', queryName:'Skogskyrkogården'}
+  {id:'stockholm-skogskyrkogarden', city:'stockholm', type:'neighborhood', label:'Skogskyrkogården', queryName:'Skogskyrkogården'}
 ];
 
 document.getElementById('count').textContent = SHAPES.length + ' shapes to fetch automatically.';
@@ -462,7 +462,7 @@ function generateCode() {
   if (acceptedApprox.length) {
     out += `\n// LOCATIONS_APPROX -- these have no real OSM boundary/way and are approximate points instead\n`;
     out += `// (found via a Nominatim point-search or Overpass node fallback). Insert into the LOCATIONS\n`;
-    out += `// table, not neighborhood_shapes -- category is the shape's type ('district'/'street'), which\n`;
+    out += `// table, not neighborhood_shapes -- category is the shape's type ('neighborhood'/'street'), which\n`;
     out += `// are already valid pin categories sharing CATEGORY_COLORS with real point categories.\n`;
     out += `// Double-check the city field by hand for any entry flagged low-confidence/unresolved above.\n`;
     out += `const LOCATIONS_APPROX = [\n`;

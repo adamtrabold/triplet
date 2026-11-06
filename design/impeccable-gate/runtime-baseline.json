@@ -4,9 +4,9 @@
   "note": "Accepted runtime (URL-mode, 390x844, stub fixture) findings, as a set across UI states. Changes need owner/operator approval.",
   "states": {
     "list": 24,
-    "popup": 24,
+    "popup": 25,
     "sort": 24,
-    "add": 24,
+    "add": 1,
     "plans": 24,
     "signposts": 116
   },
@@ -18,7 +18,7 @@
     },
     {
       "id": "cream-palette | cream/beige page background rgb(242, 235, 221)",
-      "states": "list popup sort add plans",
+      "states": "list popup sort add plans signposts",
       "reason": "Brand: --paper #F2EBDD is the vintage-label paper ground (design/inspo/project/); same as the static baseline."
     },
     {
@@ -27,229 +27,229 @@
       "reason": "Waived 2026-10-19 (operator-approved, owner informed, no objection; CD would defend it, checks/p3-cd-ux.md): the Hanging Tag's routing line -- the place's city, the owner-approved design (add-tag-jam phase 3, \"R2, left-aligned\") and a working control that opens the city menu, not a decorative eyebrow."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"area · Copenhagen\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Attraction · Copenhagen\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"area · LA\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Attraction · LA\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"area · Malmö\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Attraction · Malmö\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"area · Reykjavík\" (below 11px floor)",
-      "states": "list popup sort add plans",
-      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
+      "id": "undersized-ui-text | 10px functional text \"Attraction · Reykjavík\" (below 11px floor)",
+      "states": "list popup sort plans signposts",
+      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md). Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"area · Stockholm\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Attraction · Stockholm\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"attraction · Copenhagen\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Bar · Copenhagen\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"attraction · LA\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Bar · LA\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"attraction · Malmö\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Bar · Malmö\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"attraction · Reykjavík\" (below 11px floor)",
-      "states": "list popup sort add plans",
-      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
+      "id": "undersized-ui-text | 10px functional text \"Bar · Reykjavík\" (below 11px floor)",
+      "states": "list popup sort plans signposts",
+      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md). Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"attraction · Stockholm\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Bar · Stockholm\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"bar · Copenhagen\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Café · Copenhagen\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"bar · LA\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Café · LA\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"bar · Malmö\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Café · Malmö\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"bar · Reykjavík\" (below 11px floor)",
-      "states": "list popup sort add plans",
-      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
+      "id": "undersized-ui-text | 10px functional text \"Café · Reykjavík\" (below 11px floor)",
+      "states": "list popup sort plans signposts",
+      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md). Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"bar · Stockholm\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Café · Stockholm\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"cafe · Copenhagen\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Nature · Copenhagen\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"cafe · LA\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Nature · LA\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"cafe · Malmö\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Nature · Malmö\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"cafe · Reykjavík\" (below 11px floor)",
-      "states": "list popup sort add plans",
-      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
+      "id": "undersized-ui-text | 10px functional text \"Nature · Reykjavík\" (below 11px floor)",
+      "states": "list popup sort plans signposts",
+      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md). Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"cafe · Stockholm\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Nature · Stockholm\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"district · Copenhagen\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Neighborhood · Copenhagen\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"district · LA\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Neighborhood · LA\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"district · Malmö\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Neighborhood · Malmö\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"district · Reykjavík\" (below 11px floor)",
-      "states": "list popup sort add plans",
-      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
+      "id": "undersized-ui-text | 10px functional text \"Neighborhood · Reykjavík\" (below 11px floor)",
+      "states": "list popup sort plans signposts",
+      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md). Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"district · Stockholm\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Neighborhood · Stockholm\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"nature · Copenhagen\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Park · Copenhagen\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"nature · LA\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Park · LA\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"nature · Malmö\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Park · Malmö\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"nature · Reykjavík\" (below 11px floor)",
-      "states": "list popup sort add plans",
-      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
+      "id": "undersized-ui-text | 10px functional text \"Park · Reykjavík\" (below 11px floor)",
+      "states": "list popup sort plans signposts",
+      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md). Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"nature · Stockholm\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Park · Stockholm\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"restaurant · Copenhagen\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Restaurant · Copenhagen\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"restaurant · LA\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Restaurant · LA\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"restaurant · Malmö\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Restaurant · Malmö\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"restaurant · Reykjavík\" (below 11px floor)",
-      "states": "list popup sort add plans",
-      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
+      "id": "undersized-ui-text | 10px functional text \"Restaurant · Reykjavík\" (below 11px floor)",
+      "states": "list popup sort plans signposts",
+      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md). Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"restaurant · Stockholm\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Restaurant · Stockholm\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"shopping · Copenhagen\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Shopping · Copenhagen\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"shopping · LA\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Shopping · LA\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"shopping · Malmö\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Shopping · Malmö\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"shopping · Reykjavík\" (below 11px floor)",
-      "states": "list popup sort add plans",
-      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
+      "id": "undersized-ui-text | 10px functional text \"Shopping · Reykjavík\" (below 11px floor)",
+      "states": "list popup sort plans signposts",
+      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md). Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"shopping · Stockholm\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Shopping · Stockholm\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"street · Copenhagen\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Street · Copenhagen\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"street · LA\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Street · LA\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"street · Malmö\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Street · Malmö\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"street · Reykjavík\" (below 11px floor)",
-      "states": "list popup sort add plans",
-      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md)."
+      "id": "undersized-ui-text | 10px functional text \"Street · Reykjavík\" (below 11px floor)",
+      "states": "list popup sort plans signposts",
+      "reason": "Pre-existing when the runtime layer was introduced (2026-10-01, origin/main 4eec7f3); not yet reviewed: CD/owner to accept with a reason or fix (docs/backlog.md). Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     },
     {
-      "id": "undersized-ui-text | 10px functional text \"street · Stockholm\" (below 11px floor)",
+      "id": "undersized-ui-text | 10px functional text \"Street · Stockholm\" (below 11px floor)",
       "states": "signposts",
-      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only."
+      "reason": "Operator-approved 2026-10-20 (add-tag-jam phase 4): the existing accepted 10px row-meta rule (the Reykjavík entries above), new only by city name -- the signposts state shows every fixture city's rows (its signs need every city shown); the other states show Reykjavík's only. Re-keyed 2026-10-30 (categories, operator-approved): the same finding, its row meta now reads the category label (CATEGORY_LABELS) and the fixture's area place is a Park."
     }
   ]
 }

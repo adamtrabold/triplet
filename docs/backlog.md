@@ -50,6 +50,7 @@ pick/redirect before building anything.
   main after the owner sees the v2e stills (`design/city-crud/build/stills/v2e/`). Then: the
   owner's iPhone pass (`docs/iphone-checks.md`). Open for the owner (v15): should the plans' Undo slips move to the same top banner? (Not built; they stay on the list.) Designer's open questions (unanswered; the defaults
   are built): roadtrip stops under their real town; the PLAN line only with a plan open.
+- **Add tag: the close disc too** -- LANDED 2026-10-23 (owner: "I don't see this in the add places tag only in existing places"; "Disc on a string", "Disc always"; on the sheet: "Yes"). The add tag hangs from the same close disc in every state; spec `docs/shipped.md` "The add tag's close is the disc too". Open: the owner's iPhone pass (notch check for the docked disc).
 - **Tag close: the pin is the close** -- LANDED 2026-10-21 (owner: "the x to close tag is in a very weird space" ... "pin is making the most sense to me" ... "yeah 6"; on the built sheet: "Yes"). With it, the tag's city line sits --s1 to the name (owner: "chunked slightly tighter"). Spec: `docs/shipped.md` "The pin is the close". Open: the owner's iPhone pass (`docs/iphone-checks.md`).
 - **Playground = the signed-out app** -- LANDED 2026-10-13 as `?play`, then
   made the signed-out experience (owner: "play shouldn't live at its own url
@@ -122,6 +123,12 @@ pick/redirect before building anything.
   approach to icons (`brand-approach/`); the owner's 2026-10-14 direction
   (place icons solid, outlined = not yet tapped by me, visited unchanged)
   and phase 2 (grid + SVG drawing after approval) are in its `owner.md`. Related prior owner quotes in
+  **2026-11-05:** the approved five (restaurant, café, bar, museum, nature) at 18/24/12, the star,
+  the + and the system's rings are live (`docs/shipped.md` "The
+  approved icons in the app"). Still open: the other eight categories (batch 2, not approved), a
+  20 drawing for the add tag's TYPE menu, the map star, the Pencil Star / tag star animation, and the
+  ×.
+  Related prior owner quotes in
   `docs/owner-taste.md`: Icons / marks ("Same icon drawing language
   everywhere": "Checkmark was only supposed to be lightly rounded like the
   rest of the icons" ; "we need to do an icon pass on the rest at some other
@@ -366,6 +373,26 @@ pick/redirect before building anything.
 - **A 4-city signpost rarely fits at 375x667 with the list raised** (builder, 2026-11-02, the
   shipped phase-4 rule): the map's clear area is 202px tall and the joined post 180px, so its foot
   has a 22px band; most views show no signpost (faded or not). Pre-existing; noticed in the stills. Related: a post that overshoots by more than the 1px slack (2.5px at one 390 view after a Stockholm -> Copenhagen move) still hides by this rule.
+- **Add tag: an auto-set TYPE carries over to a later pick with no tag match** (reviewer,
+  categories build, 2026-10-30). Since Other is gone, a pick the OSM table doesn't know (or an
+  address hit) leaves TYPE as it was. Repro: + , pick a street (TYPE auto-sets Street), then type
+  an address and pick it: TYPE stays Street. Owner/UX call (reset to the default? keep?), not
+  fixed here.
+
+- **Categories follow-ups (2026-10-30, after the locked-list migration):**
+  (1) the owner fetches 9 shapes in the browser (Neighborhood: Freetown Christiania, Nyboder,
+  Gamla Stan, Fashion District; Street: Hornstull Strand, Klapparstígur, Ravnsborggade, Sankt
+  Eriksgatan, Værnedamsvej) -- each is an interim Neighborhood/Street pin now; when its shape
+  lands, move the pin's notes/star/visited onto it and delete the pin (Gamla Stan is starred +
+  visited); (2) streets over ~1.5km clipped to a stretch + the add form's trim step (lane 2;
+  Laugavegur, Bondegatan, Grandagarður); (3) the new icons for venue/landmark/park
+  (icon system; museum's is built, 2026-11-05); (4) copy call: the add tag's search results still call a suburb/quarter
+  "District" (`RESULT_PLACE_WORDS`) -- not a category label, left as is; (5) drop
+  `backup.locations_20261030` / `backup.neighborhood_shapes_20261030` once the migration is
+  settled; (6) four categories share the dot glyph, so for them colour alone carries identity
+  until the icons ship (the glyph comment's "identity is carried by shape" rule is suspended
+  for those four).
+
 - **plans harness: long-name slip check fails on main** (builder, 2026-10-15,
   seen while testing the suggestions-over-x tweak). `node
   design/gesture-harness/plans.js index.html` is 31/32 on origin/main
@@ -373,7 +400,10 @@ pick/redirect before building anything.
   as stop 4 truncates the name only" gets `{"text":"Added Kaffi Vínyl as
   stop 4","nameCut":false}`, i.e. the name no longer truncates at that
   width. Either the fixture/width drifted or the slip's layout changed;
-  not investigated.
+  not investigated. **Cause found (categories build, 2026-10-30):** a poll race in the
+  test, not the slip -- the 10s poll (`POLL_ACTIVE_MS`) refetches the stub and undoes the
+  test's in-memory rename of rey07 before the tap; with the poll disabled the suite is 40/40.
+  Fix in the test (rename in the stub's data, or stop the poll), not the app.
 
 - **Esc handlers that don't mark the keypress spent** (reviewer, + badge
   build round 1, 2026-10-15). The sort menu's document-level Esc

@@ -69,7 +69,7 @@ type, Directions / Star / Visited. Its visual metaphor is a **Hanging Tag**
 (a luggage tag), which is why the code says `TagPopup` and
 `buildPopupHtml()`.
 
-How the representation is chosen: category `district` or `street` means an
+How the representation is chosen: category `neighborhood` (was `district` until 2026-10-30) or `street` means an
 area/line place (`isShapeCategory()`), fetched from OSM at add time. If OSM
 has no outline, the place is saved as a pin with that category and
 `" (approx.)"` on its label (`findApproximatePoint()`).

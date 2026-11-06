@@ -154,7 +154,7 @@ const sh = require('./lib-p3.js');
   ok('F3 addCity() fails: nothing moves, no city write', await ev(() => window.__upd.length === 0 && locations.find(l => l.id === 'rey15').city === 'reykjavik' && !CITIES.reykjanesbaer));
 
   // G. a district: the same line and menu; the write goes to neighborhood_shapes; no distance note
-  const sid = await ev(() => neighborhoodShapes.find(n => n.city === 'reykjavik' && n.type === 'district').id);
+  const sid = await ev(() => neighborhoodShapes.find(n => n.city === 'reykjavik' && n.type === 'neighborhood').id);
   await ev(id => { const en = shapeCardsById.get(id); en.el.click(); }, sid); await W(1800);
   const g1 = await ev(() => { const t = document.querySelector('.leaflet-popup .tag'); return { line: t && t.querySelector('.route-city-name').textContent, dist: !!(t && t.querySelector('.tag-dist')) }; });
   ok('G1 a district\'s tag: the routing line, no distance note', g1.line === 'Reykjavík' && !g1.dist, g1);

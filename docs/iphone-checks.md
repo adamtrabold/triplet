@@ -6,7 +6,7 @@ owner can verify on a real device (the sandbox can't reach Supabase, tiles,
 or OSM). Remove an item once the owner confirms it; add new ones when a
 feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
 
-- **City CRUD, part 2 (check once it lands on main):** (1) pick a city in the title menu:
+- **City CRUD, part 2 (landed 2026-11-06):** (1) pick a city in the title menu:
   the list and the map hold only that city, no header, from the top; zoom far out: its signpost
   as before, the others faded (dashed, grey); tap a faded one: that city; All places: sections and
   eyes, and tapping a section's name does nothing; (2) title menu → "+ New city": type a real city,
@@ -35,7 +35,7 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   the map, centred, and nothing moves; (9c) at rest the account badge's top edge and the zoom
   control's top edge are on one line (also in a home-screen launch); (10) a plan open with a city picked: "add places" lists every
   city, the picked one first.
-- **City CRUD, part 1 (check once it lands on main):** (1) tap +, then tap ADDRESS: the
+- **City CRUD, part 1 (landed 2026-11-06):** (1) tap +, then tap ADDRESS: the
   keyboard comes up with no zoom; type a street address: the results open under ADDRESS, its
   caption stays above what you type, the rule goes navy; pick one: ADDRESS shows it, NAME takes its
   name; write your own NAME ("Rental, night 2"): no search runs; ADD files it at that address;
@@ -46,6 +46,21 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   removed); pick one you already have: it just moves; with the keyboard up the search line and its
   results stay inside the box; (5) in Plans with a plan open, tap +: the PLAN line shows that plan
   and STOP n; ADD: the place is the plan's next stop; "Not in a plan" adds it without a stop.
+- **The approved icons (landed 2026-11-05):** zoom in until pins show their icons: restaurant
+  (fork and knife), café (cup), bar (coupe), museum (columns) and nature (tree) are the new drawings,
+  sharp, not blurry, and centred in a thinner ring; every other category keeps its old icon in the
+  same thinner ring; open the filters: the same five on their chips at 12, sharp; a starred row and
+  a starred tag show the new star filled orange, an unstarred tag its outline; the + button's new + sits centred; with the
+  filters panel tall enough to send the + to the top right, check the + there too (it keeps its own
+  size in the smaller 50px button).
+- **Categories: the locked list (landed 2026-10-30):** the filter chips read Restaurant, Café, Bar,
+  Venue, Museum, Landmark, Attraction, Park, Nature, Shopping, Hotel, Neighborhood, Street (no Area,
+  Other or District); Venue/Museum/Landmark/Park pins show a plain dot in their colour; e.g. Vasa
+  Museum is a Museum, Harpa a Landmark, Griffith Park a Park, Nalen a Venue; Grandi now carries
+  Old Harbour's notes and visited, Bondegatan both Bondegatan notes; the 9 places still waiting for
+  their shape (Gamla Stan, Christiania, ...) show as Neighborhood/Street pins; add a museum and a
+  park through + : TYPE picks Museum / Park by itself; the TYPE menu lists the 13 in that order.
+- **Add tag hangs from the close disc (add-tag-close, landed 2026-10-23):** tap +: the blank tag hangs from the pale-orange disc on its string; type a name with the keyboard up: the disc sits between the zoom control and the account badge, clear of both; pick a place: the disc stays (no type badge), the place under it; tap the disc: the tag cancels, the map goes back, and + brings your draft back; a District shows the same disc; there is no x on the tag; on a notch iPhone, check the docked disc still clears the zoom control and the account badge (sandbox-measured only, on Chromium). VoiceOver: "Cancel" is still offered.
 - **The pin is the close (tag-close-fix, landed 2026-10-21):** open a place's tag: its pin becomes a pale-orange disc with an orange x (no star, no icon, no stop number), the string meeting its bottom edge; tap it: the tag closes (try a near-miss just beside the pin too); open a district's tag: its dot does the same; there is no x on the tag itself; the disc stays visible on pale and water tiles; the city line sits a touch closer to the name. VoiceOver: the tag still offers a "Close" button.
 - **The list title, city sections, show/hide, the tab (add-tag-jam phase 1, landed 2026-10-17):**
   (1) tap the list title: the menu opens downward over the list header, cities first, with a

@@ -109,8 +109,8 @@ operator makes none of these calls.
 - `locations.address_details` (raw Nominatim `address` jsonb) / `short_address`
   ("street number · area", `deriveShortAddress()`, duplicated in
   `tools/short-address-backfill.html`): written at add time; shown on the tag via `tagAddress()`.
-- `neighborhood_shapes`: districts/streets — `city`, `type`
-  (`district`|`street`), `geometry` (array of `[lat,lng]`, not GeoJSON),
+- `neighborhood_shapes`: neighborhoods/streets — `city`, `type`
+  (`neighborhood`|`street`; was `district` until 2026-10-30), `geometry` (array of `[lat,lng]`, not GeoJSON),
   fetched live from OSM (Nominatim polygon / Overpass way) at add time;
   `visited`, `starred` like pins (2026-10-02). Shape rows/popups run the pin
   code via `shapeRowItem()`, keyed `'shape:<id>'` (`rowItem()`/`rowKey()`).
@@ -120,8 +120,13 @@ operator makes none of these calls.
   static `CITIES` bootstrap in `index.html`, the offline-safe seed.
 - RLS, identical on all of them: public `SELECT`; writes restricted to
   `auth.jwt() ->> 'email' IN ('adamtrabold@gmail.com', 'ericatrabold@gmail.com')`.
+- **Categories (2026-10-30, the locked list):** `CATEGORY_COLORS` key order = restaurant, cafe,
+  bar, venue, museum, landmark, attraction, park, nature, shopping, hotel, neighborhood, street
+  (chips, category sort, add TYPE menu); labels from `CATEGORY_LABELS` (`categoryLabel()`); an
+  unknown key gets `CATEGORY_FALLBACK_INK` + `#g-dot`. Venue/museum/landmark/park show the dot
+  glyph until the new icons ship. Spec: `docs/shipped.md` "Categories: the locked list".
 - The add tag routes on TYPE alone: `isShapeCategory()` (true for
-  `district`/`street`) picks the fields and the target table — no separate
+  `neighborhood`/`street`) picks the fields and the target table — no separate
   shape toggle. TYPE is auto-set from the pick's OSM pair (`osmToType()`,
   `OSM_TYPE_TABLE`) unless set by hand in this add (`addDraft.typeHand`).
 - **The add tag's city (add-tag-jam phase 2):**
@@ -192,6 +197,8 @@ operator makes none of these calls.
   close** (2026-10-21): while a tag is open its pin (or a shape's dot) shows a
   28px pale-orange disc with a deep-orange x, 44px target; the tag's `.tag-x`
   is keyboard/VoiceOver-only (owner override of "preserve the category icon").
+  The add tag hangs from the same disc (`#addPin`) in every state, blank to
+  picked, no type badge; a tap is `cancelAddForm()` (2026-10-23).
 - **Brand orange, star and selection colours** (2026-10-07): ONE accent, the
   **brand orange** `--brand-orange` #EE7434 / `--brand-orange-deep` #A8400C
   (read through `--figure`/`--figure-deep`/`--star`): account and + buttons,
