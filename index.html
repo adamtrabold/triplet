@@ -201,6 +201,18 @@
          .leaflet-top's safe-area inset -- the lowest of the top-row controls (the account badge's
          foot is 66 + --chrome-top-inset). The filters panel never grows past it (+ --s3). */
       --top-row-bottom: calc(74px + env(safe-area-inset-top, 0px));
+      /* THE TOP ROW's one top line (city-crud v15b; owner: "the badge top edge and the zoom top edge
+         should Be aligned"): the zoom control's top (Leaflet's 10px control margin). The account
+         badge is aligned by its INK, as the + badge is: the scallop's least y is 3.90 of its 50px box
+         (SCALLOP_PTS), so its box sits --account-ink-inset above the line. #accountBtn, #accountFocus
+         and #accountDropdown all read --account-top. */
+      --top-line: 10px;
+      --account-ink-inset: 3.9px;
+      --account-top: calc(var(--top-line) - var(--account-ink-inset) + var(--chrome-top-inset));
+      /* The city-removed banner (v15): the list header's height; on a phone the top controls ride
+         down under it by its height + --s4 (owner: "a little more at our standard multiple of space"). */
+      --banner-h: 52px;
+      --banner-push: calc(var(--banner-h) + var(--s4));
 
       /* ---- Paper & ink (fixed) ---------------------------------------- */
       --paper:        #F2EBDD;   /* oat ground                              */
@@ -385,8 +397,8 @@
     #accountBtn {
       position: fixed;
       /* --chrome-top-inset, not the raw env() -- only standalone has a
-         colored bar behind these to clear (see the var's definition). */
-      top: calc(var(--s4) + var(--chrome-top-inset));
+         colored bar behind these to clear (see the var's definition). Its ink on the top line. */
+      top: var(--account-top);
       background: var(--navy);
       border: none;
       color: var(--figure);
@@ -438,7 +450,7 @@
        app's double ring, .seg button:focus-visible) following the scallop at 1.16x. */
     #accountFocus {
       position: fixed;
-      top: calc(var(--s4) + var(--chrome-top-inset));
+      top: var(--account-top);
       right: var(--account-slot-right);
       width: 50px;
       height: 50px;
@@ -477,8 +489,8 @@
 
     #accountDropdown {
       position: fixed;
-      /* Hangs off #accountBtn -- same --chrome-top-inset reasoning. */
-      top: calc(74px + var(--chrome-top-inset));
+      /* Hangs off #accountBtn (its box + --s2) -- same --chrome-top-inset reasoning. */
+      top: calc(var(--account-top) + 50px + var(--s2));
       right: var(--account-slot-right);
       background: var(--paper);
       /* Box edges: a plain paper box takes the dividers' 1px --hair (owner,
@@ -655,6 +667,31 @@
     body.add-to-top #accountBtn,
     body.add-to-top #accountFocus,
     body.add-to-top #accountDropdown { transform: translateX(calc(-1 * (50px + var(--s2)))); }
+    /* THE BANNER'S PUSH (city-crud v15b; phone only, body.banner-push): while the city-removed banner
+       takes the top, the zoom control, the account badge (its focus ring and menu) -- and the + when
+       it sits up there -- ride down by --banner-push as a transform (nothing reflows), and the top
+       row's foot (the ceiling for menus, the add tag's dock and the filters panel) with them. In:
+       140ms on the banner's own curve (sortSlip's); back: 160ms ease-out, with its fade (setBannerPush()). */
+    body.banner-push { --top-row-bottom: calc(74px + var(--banner-push) + env(safe-area-inset-top, 0px)); }
+    body.banner-push .leaflet-top,
+    body.banner-push #accountBtn,
+    body.banner-push #accountFocus,
+    body.banner-push #accountDropdown { transform: translateY(var(--banner-push)); }
+    body.banner-push.add-to-top #accountBtn,
+    body.banner-push.add-to-top #accountFocus,
+    body.banner-push.add-to-top #accountDropdown { transform: translate(calc(-1 * (50px + var(--s2))), var(--banner-push)); }
+    body.banner-push.add-to-top #floatingAddBtn,
+    body.banner-push.add-to-top #addFocus { transform: translate(var(--add-dx, 0px), calc(var(--add-dy, 0px) + var(--banner-push))); }
+    body.banner-in .leaflet-top, body.banner-in.add-to-top #floatingAddBtn, body.banner-in.add-to-top #addFocus { transition: transform 140ms cubic-bezier(.2,.8,.3,1); }
+    body.banner-in #accountBtn, body.banner-in #accountFocus, body.banner-in #accountDropdown { transition-duration: .15s, .15s, 140ms; transition-timing-function: ease, ease, cubic-bezier(.2,.8,.3,1); }
+    body.banner-out .leaflet-top, body.banner-out.add-to-top #floatingAddBtn, body.banner-out.add-to-top #addFocus { transition: transform 160ms ease-out; }
+    body.banner-out #accountBtn, body.banner-out #accountFocus, body.banner-out #accountDropdown { transition-duration: .15s, .15s, 160ms; transition-timing-function: ease, ease, ease-out; }
+    @media (prefers-reduced-motion: reduce) {
+      body.banner-in .leaflet-top, body.banner-out .leaflet-top, body.banner-in.add-to-top #floatingAddBtn, body.banner-out.add-to-top #floatingAddBtn,
+      body.banner-in.add-to-top #addFocus, body.banner-out.add-to-top #addFocus { transition: none; }
+      body.banner-in #accountBtn, body.banner-in #accountFocus, body.banner-in #accountDropdown,
+      body.banner-out #accountBtn, body.banner-out #accountFocus, body.banner-out #accountDropdown { transition-duration: .15s, .15s, 0s; }
+    }
 
     #mainContent {
       /* Stays FIXED (Safari tints its tab status bar from the top fixed
@@ -1722,10 +1759,11 @@
     .rm-dests.more-above.more-below { box-shadow: inset 0 10px 10px -10px var(--scroll-shadow), inset 0 -10px 10px -10px var(--scroll-shadow); }
     .rm-dests .rm-dest { border-top: none; border-bottom: 1px solid var(--hair); }
     .rm-dests .rm-dest:last-child { border-bottom: none; }
-    /* the foot is set off as the city menu's "New city" foot is: ONE --hair rule above it (the row
-       before it drops its own, as .before-foot) -- owner: "ultimately it's just another choice in the
-       list, but should be slightly separated from the rest of the list" */
-    .rm-foot { flex: none; border-top: 1px solid var(--hair); background: var(--paper); }
+    /* the foot is set off by the title menu's doubled ledger rule (its break under "All places": the
+       row's --hair at 2px) -- owner: "ultimately it's just another choice in the list, but should be
+       slightly separated from the rest of the list" (v15) */
+    .rm-foot { flex: none; border-top: 2px solid var(--hair); background: var(--paper); }
+    .rm-mine { position: relative; }   /* the search line's offsetTop is the list's own (wireFindCity scrolls it to the top) */
     .rm-foot .rm-dest { border-top: none; }
     .rm-foot .rm-dest + .rm-dest { border-top: 1px solid var(--hair); }
     .rm-dest { all: unset; box-sizing: border-box; position: relative; width: 100%; display: flex; align-items: center; gap: var(--s2); height: 44px; padding: 0 var(--s3); border-top: 1px solid var(--hair); cursor: pointer;
@@ -1736,20 +1774,18 @@
     .rm-dest .rm-lab { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .rm-dest .rm-km { margin-left: auto; }   /* the distance: the tally's own style */
     .rm-dest.is-keep { justify-content: center; }
-    /* v14: the pinned new-city line under the question (a --hair rule above it, the head's navy rule
-       below); its results swap in for your cities in the built result voice; the foot -- the
-       remove-too row (an ordinary choice: the destinations' own row, its icon the bin), then Cancel on
+    /* v15: the head is the held row, the question and its navy rule (.menu-cap's own); "+ New city"
+       turns, in place at the list's end, into the built Find a city line (48px, 16px entry) with its
+       results (the built 52px result voice) under it, inside the scrolling list; the foot -- the
+       delete row (an ordinary choice: the destinations' own row, its icon the bin), then Cancel on
        --paper-raised. */
-    .rm-pick .rm-q { border-bottom-color: var(--hair); }
-    .rm-pick .rm-new { flex: none; background: var(--paper-raised); border-bottom: 1px solid var(--navy); }
+    .rm-pick .rm-new { flex: none; background: var(--paper-raised); border-bottom: 1px solid var(--hair); }
     .rm-pick .menu-res.add-res { height: auto; min-height: 52px; padding-left: 40px; border-bottom: 1px solid var(--hair); }
     .rm-pick .menu-res .add-res-where { white-space: normal; }
-    .rm-pick .rm-dests[hidden] { display: none; }
+    .rm-pick .rm-found:empty { display: none; }
 
     .rm-dest .menu-lab { flex: 0 1 auto; }
-    /* "+ A new city…": its prompt in the row label's voice; the typed entry stays 16px (the iOS
-       no-zoom floor, the built Find a city line's own) */
-    .rm-new .menu-find-in::placeholder { font-stretch: 75%; text-transform: uppercase; font-weight: 700; font-size: 13px; letter-spacing: .05em; color: var(--ink-2); }
+
     .rm-foot .rm-dest.is-keep { background: var(--paper-raised); }
     /* New city (v4): the title menu's row becomes the Find a city line in place */
     #titleMenu .menu-find { flex: none; }
@@ -1970,6 +2006,31 @@
     #planSlip .slip-l1 { min-width: 0; overflow: hidden; text-overflow: ellipsis; font-size: 11px; line-height: 14px; font-weight: 600; letter-spacing: .1em; color: var(--ink-2); }
     #planSlip .slip-l2 { display: flex; font-size: 13px; line-height: 16px; font-weight: 700; letter-spacing: .06em; color: var(--navy); }
     #planSlip .slip-l2 > span { flex: none; }
+    /* THE CITY-REMOVED BANNER (city-crud v15 / v15b; owner: "the "city removed |undo" should be more
+       of a top banner above the map"): the menu box's voice -- --paper-raised, the 1px navy edge and
+       its printed navy offset -- the list header's height (--banner-h). Line 1, what went (grey small
+       caps, the only part that may cut); line 2, where its places went (navy caps, never cut); an
+       empty city: line 1 alone. Undo behind a --hair divider. Phone: it takes the very top, on the top
+       line, in the gutters (the controls ride down under it: body.banner-push). Desktop (the rail):
+       over the map only, 420px (at most the map less 32), centred, 16px below its top
+       (placeCityBanner()); nothing moves. In: sortSlip (140ms); out: a 160ms fade. */
+    #cityBanner { position: fixed; z-index: 2600; top: calc(var(--top-line) + var(--chrome-top-inset)); left: var(--gutter); right: var(--gutter); height: var(--banner-h);
+      display: flex; align-items: stretch; box-sizing: border-box; background: var(--paper-raised); border: 1px solid var(--navy); box-shadow: 4px 4px 0 var(--navy); color: var(--navy);
+      font-family: var(--font-ui); font-stretch: 75%; text-transform: uppercase; --slip-from: -4px; }
+    #cityBanner[hidden] { display: none; }
+    #cityBanner .slip-text { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 2px; padding: 0 var(--s3); white-space: nowrap; overflow: hidden; }
+    #cityBanner .slip-l1 { min-width: 0; overflow: hidden; text-overflow: ellipsis; font-size: 11px; line-height: 14px; font-weight: 600; letter-spacing: .1em; color: var(--ink-2); }
+    #cityBanner .slip-l2 { display: flex; font-size: 13px; line-height: 16px; font-weight: 700; letter-spacing: .06em; color: var(--navy); }
+    #cityBanner .slip-l2 > span { flex: none; }
+    #cityBanner.tight .slip-l2 { letter-spacing: .02em; }   /* a long destination: tighter, never cut */
+    #cityBanner button { all: unset; box-sizing: border-box; flex: none; display: flex; align-items: center; justify-content: center; min-width: 44px; padding: 0 var(--s3); border-left: 1px solid var(--hair); cursor: pointer;
+      font-weight: 700; font-size: 12px; line-height: 14px; letter-spacing: .1em; color: var(--navy); text-decoration: underline; text-underline-offset: 3px; -webkit-tap-highlight-color: transparent; }
+    #cityBanner button:active { background: var(--paper-pressed); }
+    #cityBanner button:focus-visible { box-shadow: inset 0 0 0 2px var(--navy); }
+    @media (prefers-reduced-motion: no-preference) {
+      #cityBanner.entering { animation: sortSlip 140ms cubic-bezier(.2,.8,.3,1); }
+      #cityBanner.leaving { opacity: 0; transition: opacity 160ms ease-out; }
+    }
 
     /* Map: a stop is its Places pin plus a square grey numbered tag. The pin's
        12px margin is pass-through (never covers a neighbour's tag or tap). */
@@ -7142,6 +7203,74 @@
       planSlip.hidden = false; placePlanSlip(); requestAnimationFrame(() => placePlanSlip());   // again once the list has re-rendered
       armPlanSlipTimer();
     }
+    // THE CITY-REMOVED BANNER (city-crud v15 / v15b): only a city's remove (moved / its places deleted /
+    // an empty city) -- the plan slips stay on the list. 6s, held while hovered, touched or focused (the
+    // slip's rules; with VoiceOver on Undo it stays until focus leaves, then 6s); a second removal
+    // replaces it. onEnd: runs once when it goes WITHOUT its Undo -- a held delete commits there.
+    const CITY_BANNER_MS = 6000;
+    const cityBanner = document.createElement('div');
+    cityBanner.id = 'cityBanner'; cityBanner.hidden = true; cityBanner.setAttribute('role', 'status'); cityBanner.setAttribute('aria-live', 'polite');
+    cityBanner.innerHTML = '<span class="slip-text"></span><button type="button">Undo</button>';
+    let cbUndo = null, cbEnd = null, cbTimer = 0, cbHeld = 0, cbLeaveT = 0, cbPushT = 0;
+    const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const cityBannerUp = () => !cityBanner.hidden && !cityBanner.classList.contains('leaving');
+    const armCityBanner = () => { clearTimeout(cbTimer); if (cityBannerUp() && !cbHeld) cbTimer = setTimeout(hideCityBanner, CITY_BANNER_MS); };
+    const holdCityBanner = on => { cbHeld = Math.max(0, cbHeld + (on ? 1 : -1)); if (cbHeld) clearTimeout(cbTimer); else armCityBanner(); };
+    function placeCityBanner() {
+      if (cityBanner.hidden) return;
+      if (railQuery.matches && map) {
+        const mr = map.getContainer().getBoundingClientRect(), w = Math.min(420, mr.width - 32);
+        Object.assign(cityBanner.style, { left: `${mr.left + (mr.width - w) / 2}px`, right: 'auto', width: `${w}px`, top: `${mr.top + 16}px` });
+      } else Object.assign(cityBanner.style, { left: '', right: '', width: '', top: '' });
+    }
+    addEventListener('resize', () => { placeCityBanner(); if (cityBannerUp()) setBannerPush(true); });
+    // The phone's push: the top controls ride down under the banner (CSS, body.banner-push), in its 140ms
+    // curve, back in 160ms ease-out; the map's signposts re-lay out once it lands, and once it's undone.
+    function setBannerPush(on) {
+      const b = document.body, push = !!on && !railQuery.matches;
+      if (push === b.classList.contains('banner-push')) return;
+      clearTimeout(cbPushT);
+      b.classList.toggle('banner-in', push); b.classList.toggle('banner-out', !push);
+      b.classList.toggle('banner-push', push);
+      cbPushT = setTimeout(() => { b.classList.remove('banner-in', 'banner-out'); if (map) syncCityBadges(mapVisibleLocations().badges); }, (reducedMotion() ? 0 : push ? 140 : 160) + 20);
+    }
+    function showCityBanner(text, undo, onEnd = null) {
+      { const end = cbEnd; cbEnd = null; if (end) end(); }   // the banner it replaces ends here
+      if (!cityBanner.parentNode) {
+        document.body.appendChild(cityBanner);
+        cityBanner.querySelector('button').addEventListener('click', async () => { const u = cbUndo; cbEnd = null; hideCityBanner(); if (u) await u(); });
+        cityBanner.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') holdCityBanner(true); });
+        cityBanner.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') holdCityBanner(false); });
+        cityBanner.addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse') { holdCityBanner(true); const up = () => { holdCityBanner(false); removeEventListener('pointerup', up); removeEventListener('pointercancel', up); }; addEventListener('pointerup', up); addEventListener('pointercancel', up); } });
+        cityBanner.addEventListener('focusin', () => holdCityBanner(true));
+        cityBanner.addEventListener('focusout', () => holdCityBanner(false));
+      }
+      const tx = cityBanner.querySelector('.slip-text'); tx.replaceChildren();
+      tx.append(Object.assign(document.createElement('span'), { className: 'slip-l1', textContent: text.l1 }));
+      if (text.name) {
+        const l2 = Object.assign(document.createElement('span'), { className: 'slip-l2' });
+        if (text.pre) l2.append(Object.assign(document.createElement('span'), { textContent: text.pre }));
+        l2.append(Object.assign(document.createElement('span'), { className: 'slip-dest', textContent: text.name }));
+        tx.append(l2);
+      }
+      cbUndo = undo; cbEnd = onEnd;
+      clearTimeout(cbLeaveT); cityBanner.classList.remove('leaving', 'entering', 'tight');
+      cityBanner.hidden = false; placeCityBanner();
+      const l2 = tx.querySelector('.slip-l2');
+      if (l2 && l2.scrollWidth > tx.clientWidth - 24 + 0.5) cityBanner.classList.add('tight');
+      void cityBanner.offsetWidth; cityBanner.classList.add('entering');
+      setBannerPush(true);
+      armCityBanner();
+    }
+    function hideCityBanner() {
+      if (!cityBannerUp()) return;
+      clearTimeout(cbTimer); cbUndo = null; cbHeld = 0;
+      const end = cbEnd; cbEnd = null;
+      setBannerPush(false);
+      const done = () => { cityBanner.hidden = true; cityBanner.classList.remove('leaving', 'entering'); };
+      if (reducedMotion()) done(); else { cityBanner.classList.add('leaving'); clearTimeout(cbLeaveT); cbLeaveT = setTimeout(done, 160); }
+      if (end) end();
+    }
     function hidePlanSlip() {
       clearTimeout(planSlipTimer); planSlip.hidden = true; planSlipUndo = null; planSlipKind = null; planSlipRemoved = [];
       const end = planSlipEnd; planSlipEnd = null; if (end) end();
@@ -7750,8 +7879,10 @@
     function rmPickerHtml(id) {
       const lab = escapeHtml(cityLabel(id)), n = rmPlacesIn(id), c = CITIES[id] && CITIES[id].center;
       // v14 (owner: "it should say "Should we move Stockholm's places t a new city?" // "Remove places
-      // too" // "Cancel""): the question; the pinned "+ A new city…" line (the built Find a city search);
-      // your cities to move them to; the foot -- the destructive row (a bin), a band, then Cancel.
+      // too" // "Cancel""): the question; your cities to move them to; v15 (owner: "i think new city
+      // should be part of the list"): "+ New city" the list's last row (it turns into the Find a city
+      // line in place); the foot -- "Delete places" (owner, v15b) set off by the doubled ledger rule,
+      // then Cancel.
       // (An empty city never gets here: its remove is immediate -- rmShowPicker.)
       let h = `<div class="rm-pick" role="group" aria-label="Remove ${escapeAttr(cityLabel(id))}" data-pick="${escapeAttr(id)}">`;
       {
@@ -7759,35 +7890,56 @@
           .map(o => [o, c ? haversineKm(c, CITIES[o].center) : Infinity]).sort((a, b) => a[1] - b[1]);
         const stops = rmStopsIn(id);
         h += `<p class="rm-q menu-cap">Should we move ${lab}’s places to a new city?</p>`
-          + `<div class="menu-find rm-new" role="presentation">${FIND_PLUS_ICO}<input type="search" class="menu-find-in" placeholder="A new city…" aria-label="Move ${escapeAttr(cityLabel(id))}’s places to a new city: find a city" enterkeyhint="search" autocomplete="off" autocorrect="off" spellcheck="false"></div>`
-          + '<div class="rm-dests menu-find-res rm-found" role="group" aria-label="Cities found" hidden></div><div class="rm-dests rm-mine">'
+          + '<div class="rm-dests rm-mine">'
           + others.map(([o, km]) => `<button type="button" class="rm-dest" data-rm-city="${escapeAttr(id)}" data-rm-to="${escapeAttr(o)}" aria-label="Move ${n === 1 ? 'it' : 'them'} to ${escapeAttr(cityLabel(o))}${isFinite(km) ? `, about ${roundKm(km)} km` : ''}, and remove ${escapeAttr(cityLabel(id))}">`
             + `${RM_ARROW}<span class="menu-lab rm-lab">${escapeHtml(cityLabel(o))}</span>${isFinite(km) ? `<span class="rm-km tally">≈ ${roundKm(km).toLocaleString('en')} km</span>` : ''}</button>`).join('')
-          + '</div><div class="rm-foot">'   // the one rule above it (the city menu's "New city" foot, .before-foot)
-          + `<button type="button" class="rm-dest is-too" data-rm-city="${escapeAttr(id)}" data-rm-to="" aria-label="Remove ${escapeAttr(cityLabel(id))} and its ${n} ${n === 1 ? 'place' : 'places'}${stops ? `, and ${stops} plan ${stops === 1 ? 'stop' : 'stops'}` : ''}">${RM_BIN}<span class="menu-lab rm-lab">Remove places too</span></button>`;
+          + rmNewCityRowHtml(id)
+          + '</div><div class="rm-foot">'   // the doubled ledger rule above it (the title menu's own "slightly separated" break)
+          + `<button type="button" class="rm-dest is-too" data-rm-city="${escapeAttr(id)}" data-rm-to="" aria-label="Remove ${escapeAttr(cityLabel(id))} and delete its ${n} ${n === 1 ? 'place' : 'places'}${stops ? `, and ${stops} plan ${stops === 1 ? 'stop' : 'stops'}` : ''}">${RM_BIN}<span class="menu-lab rm-lab">Delete places</span></button>`;
       }
       return h + `<button type="button" class="rm-dest is-keep" data-rm-keep="${escapeAttr(id)}"><span class="menu-lab">Cancel</span></button></div></div>`;
     }
     // the bin, a .menu-ico as the destinations' arrow (16px, its 1.6px line)
     const RM_BIN = '<svg class="menu-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M10 7V5h4v2M7 7l1 13h8l1-13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/></svg>';
-    // "+ A new city…" (v14): the built Find a city search, near the city being removed; its results
-    // swap in for your cities (clearing the line brings them back). A result that's one of your cities
-    // is that city's row; a new one is made (kept), the places move there, the old city goes -- one step,
-    // with the Undo slip (Undo removes the made city too).
-    function wireRmNewCity(pick, id) {
-      const input = pick.querySelector('.rm-new .menu-find-in'); if (!input) return;
-      const found = pick.querySelector('.rm-found'), mine = pick.querySelector('.rm-mine');
+    // "+ New city" (v15): the list's last row, the destinations' own row with the + for its icon
+    const rmNewCityRowHtml = id => `<button type="button" class="rm-dest rm-newcity" data-rm-new="${escapeAttr(id)}" aria-label="Move ${escapeAttr(cityLabel(id))}’s places to a new city">${FIND_PLUS_ICO}<span class="menu-lab rm-lab">New city</span></button>`;
+    // A tap turns it, in place, into the built Find a city line (as the title menu's "+ New city"):
+    // near the city being removed; its results open right under it, inside the scrolling list, the
+    // list scrolled to keep the line and its first results in view. A result that's one of your
+    // cities is that city's row; a new one is made (kept), the places move there, the old city goes --
+    // one step, with the Undo banner (Undo removes the made city too). Clearing the line, or Esc,
+    // turns it back into the row.
+    function rmOpenNewCityLine(id) {
+      const pick = document.querySelector('#titleMenu .rm-pick'), row = pick && pick.querySelector('.rm-newcity');
+      if (!row) return;
+      const mine = pick.querySelector('.rm-mine');
+      row.outerHTML = `<div class="menu-find rm-new" role="presentation">${FIND_PLUS_ICO}<input type="search" class="menu-find-in" placeholder="Find a city…" aria-label="Move ${escapeAttr(cityLabel(id))}’s places to a new city: find a city" enterkeyhint="search" autocomplete="off" autocorrect="off" spellcheck="false"></div>`
+        + '<div class="menu-find-res rm-found" role="group" aria-label="Cities found"></div>';
+      const input = mine.querySelector('.rm-new .menu-find-in'), found = mine.querySelector('.rm-found');
+      const back = () => {   // the line becomes the row again, focused
+        ++findCitySeq;
+        const line = mine.querySelector('.rm-new'); if (!line) return;
+        found.remove(); line.outerHTML = rmNewCityRowHtml(id);
+        placeRmPicker();
+        const r = mine.querySelector('.rm-newcity'); if (r) { r.focus({ preventScroll: true }); r.scrollIntoView({ block: 'nearest' }); }
+      };
       const c = CITIES[id] && CITIES[id].center;
-      wireFindCity(pick, c || null, async f => {
+      wireFindCity(mine, c || null, async f => {
         const ex = existingCityFor(f);
         if (ex === id) return;
         if (ex) { rmCommit(id, ex); return; }
         if (!await requireAuth()) return;
         const cfg = cityConfigFromFound(f);
         if (await addCity(cfg, false)) rmCommit(id, cfg.id, false, cfg.id);
-      }, () => { const has = !!found.innerHTML; found.hidden = !has; mine.hidden = has; pick.classList.remove('is-finding');
+      }, () => {
         // the box re-fits what it holds (keeping the edge it grows from) -- not on "Searching…", so it doesn't collapse and re-grow per keystroke
-        if (/^Searching/.test(found.textContent)) rmShadows(); else placeRmPicker(); });
+        if (/^Searching/.test(found.textContent)) rmShadows(); else placeRmPicker();
+      });
+      input.addEventListener('input', () => { if (!input.value) back(); });
+      input.addEventListener('keydown', e => { if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); back(); } });
+      placeRmPicker();
+      input.focus({ preventScroll: true });
+      input.closest('.menu-find').scrollIntoView({ block: 'nearest' });
     }
     // The picker's box (v13): width max(the menu's, min(100vw - 32, 340)), left edge unchanged. Phone:
     // its bottom stays where the menu's was and it grows UP to fit, never above the top controls + 8
@@ -7801,10 +7953,10 @@
       const menu = document.getElementById('titleMenu'), pick = menu.querySelector('.rm-pick'), held = menu.querySelector('.menu-city.is-held');
       if (!pick || !held || !menuLock) return;
       menu.style.width = `${Math.max(menuLock.width, Math.min(innerWidth - 32, 340))}px`;
-      const dests = pick.querySelector('.rm-dests:not([hidden])'), line = pick.querySelector('.rm-new');
+      const dests = pick.querySelector('.rm-mine');
       // the list's own rows (its scrollHeight never drops below a box it was stretched to fill, so the box could only grow)
       const rows = dests ? [...dests.children].reduce((t, c) => t + c.offsetHeight, 0) : 0;
-      const content = held.offsetHeight + pick.querySelector('.rm-q').offsetHeight + (line ? line.offsetHeight : 0) + rows + pick.querySelector('.rm-foot').offsetHeight + 2;   // + the box's 1px edges
+      const content = held.offsetHeight + pick.querySelector('.rm-q').offsetHeight + rows + pick.querySelector('.rm-foot').offsetHeight + 2;   // + the box's 1px edges
       let top, h;
       if (railQuery.matches) { top = menuLock.top; h = Math.min(content, innerHeight - top - 16); }
       else { const bottom = menuLock.top + menuLock.height; top = Math.max(topRowBottom() + 8, bottom - content); h = bottom - top; }
@@ -7833,7 +7985,6 @@
       r.classList.add('is-held'); menu.classList.add('is-picking'); menu.scrollTop = 0;
       const pick = r.nextElementSibling;
       pick.querySelectorAll('.rm-dests').forEach(d => d.addEventListener('scroll', rmShadows, { passive: true }));
-      wireRmNewCity(pick, id);
       placeRmPicker();
       if (focusFirst) { const f = pick.querySelector('.rm-dest'); if (f) f.focus({ preventScroll: true }); }
     }
@@ -7867,7 +8018,7 @@
     // hidden / pagehide: the deletes are sent at once, best effort -- if the page dies first, the data
     // survives, the safe direction).
     // viaKey: committed from the keyboard -- focus goes to the slip's Undo (not <body>)
-    const rmFocusUndo = viaKey => { if (viaKey && !planSlip.hidden) planSlip.querySelector('button').focus({ preventScroll: true }); };
+    const rmFocusUndo = viaKey => { if (viaKey && cityBannerUp()) cityBanner.querySelector('button').focus({ preventScroll: true }); };
     // made: a city this commit's "+ A new city…" just made (Undo removes it again)
     async function rmCommit(id, to, viaKey = false, made = null) {
       if (!await requireAuth()) return;
@@ -7912,7 +8063,7 @@
         } finally { flagWritesInFlight--; }
         if (flagWritesInFlight === 0) await Promise.all([refetchLocations(), refetchNeighborhoodShapes()]);
         // "Its places → Copenhagen" (no-break spaces: the arrow stays with the city)
-        if (ok) { showPlanSlip({ l1: `${lab} removed`, pre: `${locIds.size + shapeIds.size === 1 ? 'Its place' : 'Its places'} `, name: `→ ${cityLabel(to)}` }, () => rmUndoMove(cfg, to, [...locIds], [...shapeIds], { wasPicked, wasHidden, wasActive }, made), 'city-remove'); rmFocusUndo(viaKey); }
+        if (ok) { showCityBanner({ l1: `${lab} removed`, pre: `${locIds.size + shapeIds.size === 1 ? 'Its place' : 'Its places'} `, name: `→ ${cityLabel(to)}` }, () => rmUndoMove(cfg, to, [...locIds], [...shapeIds], { wasPicked, wasHidden, wasActive }, made)); rmFocusUndo(viaKey); }
         return ok;
       }
       // remove the places too: held until the slip ends
@@ -7926,7 +8077,7 @@
       if (map && map._popup) { const k = openTagKey(); if (k != null && !rowItem(k)) map.closePopup(); }
       updateUI(); syncAddTagCity();
       const nAll = locs.length + shapes.length;
-      showPlanSlip({ l1: `${lab} removed`, name: nAll ? (nAll === 1 ? 'and its place' : `and its ${nAll} places`) : '' }, () => rmUndoHeld(), 'city-remove', [], () => { commitHeldRemoval(); });
+      showCityBanner({ l1: `${lab} removed`, name: nAll ? (nAll === 1 ? 'and its place deleted' : `and its ${nAll} places deleted`) : '' }, () => rmUndoHeld(), () => { commitHeldRemoval(); });
       rmFocusUndo(viaKey);
       return true;
     }
@@ -7949,7 +8100,7 @@
       const p = pendingRemoval;
       if (!p || p.writing) return;
       p.writing = true;
-      if (planSlipKind === 'city-remove' && !planSlip.hidden) { planSlipEnd = null; hidePlanSlip(); }   // committed: no Undo left
+      if (cbEnd && cityBannerUp()) { cbEnd = null; hideCityBanner(); }   // committed: no Undo left
       flagWritesInFlight++;
       let ok = true;
       try {
@@ -8101,6 +8252,9 @@
       if (board) { e.preventDefault(); rmShowPicker(board.dataset.remove, true, e.detail === 0); return true; }
       const keep = e.target.closest('[data-rm-keep]');
       if (keep) { rmExitPicker(true); return true; }
+      const nc = e.target.closest('[data-rm-new]');
+      if (nc) { rmOpenNewCityLine(nc.dataset.rmNew); return true; }
+      if (e.target.closest('.rm-new')) return true;   // the line itself (its entry)
       const dest = e.target.closest('[data-rm-city]');
       if (dest) { rmCommit(dest.dataset.rmCity, dest.dataset.rmTo || null, e.detail === 0); return true; }   // detail 0: Enter / Space
       const r = e.target.closest('.menu-city');
@@ -10955,6 +11109,9 @@
     document.getElementById('floatingAddBtn').onclick = async () => {
       if (addFormOpen()) { cancelAddForm(); return; }
       if (!await requireAuth()) return;   // a stale stored sign-in: the sign-in sheet, and nothing moves
+      // + while the city-removed banner shows: it leaves at once, the controls ride back, THEN the add
+      // tag opens -- the banner never sits over the add tag (v15b)
+      if (cityBannerUp()) { hideCityBanner(); if (!reducedMotion()) await new Promise(r => setTimeout(r, 180)); }
       noteInteraction();
       openAddForm();
     };
@@ -11438,7 +11595,7 @@
         const w = 50, ab = document.getElementById('accountBtn'), a = ab.getBoundingClientRect();
         const at = getComputedStyle(ab).transform, am = new DOMMatrix(at === 'none' ? undefined : at);
         const inset = parseFloat(getComputedStyle(root).getPropertyValue('--chrome-top-inset')) || 0;
-        const x = a.width ? a.left - am.m41 : innerWidth - 16 - 50, y = a.width ? a.top - am.m42 : 16 + inset;
+        const x = a.width ? a.left - am.m41 : innerWidth - 16 - 50, y = a.width ? a.top - am.m42 : 10 - 3.9 + inset;   // --account-top
         // The box's resting left and foot, exact: its rendered box minus its own (maybe mid-move) transform.
         const r = btn.getBoundingClientRect(), cs = getComputedStyle(btn).transform, m = new DOMMatrix(cs === 'none' ? undefined : cs);
         const left = r.left - m.m41, foot = r.bottom - m.m42;

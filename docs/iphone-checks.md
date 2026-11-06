@@ -19,14 +19,21 @@ feature ships. Specs for each feature: `docs/shipped.md` (latest entry wins).
   switch apps during the 6s: it's committed; (5) Mac: two-finger swipe left on a row (also one swipe
   straight after another, no pause), right-click a row, Shift+Delete on a focused row; (6) VoiceOver:
   each city row is followed by "Remove {city}"; (7) remove one of the five original cities: it never
-  comes back after a reload; (8) the picker: "Should we move X’s places to a new city?", type a city in
-  "+ A new city…" (no zoom on tap), tap a result: the city is made and the places move, the slip says
-  "Its places → Y", Undo brings X back and removes the made city; "Remove places too" reads as one
-  more choice (a row like the cities, a bin for its icon) set slightly apart by one rule, then Cancel;
-  an empty city (0 places): one tap on REMOVE removes it at once (no picker), the slip "X removed", Undo
-  brings it back; on a small phone the new-city line and the whole foot stay on screen;
-  (9) the sign turns with no bounce, while the board snaps open with a small overshoot (the owner's "snap"); typing a new
-  city in the picker, the box shrinks to its results; (10) a plan open with a city picked: "add places" lists every
+  comes back after a reload; (8) the picker: "Should we move X’s places to a new city?", your cities,
+  then "+ New city" as the list's last row; tap it: it turns into the Find a city line in place (no
+  zoom on tap), type a city, the results open under it inside the list; tap one: the city is made and
+  the places move, the banner says "Its places → Y", Undo brings X back and removes the made city;
+  clearing the line (or Esc on a keyboard) turns it back into the row; "Delete places" reads as one
+  more choice (a row like the cities, a bin for its icon) set slightly apart by the doubled rule, then
+  Cancel; an empty city (0 places): one tap on REMOVE removes it at once (no picker), the banner
+  "X removed", Undo brings it back; on a small phone the whole foot stays on screen and New city
+  waits at the list's end; (9) the sign turns with no bounce, while the board snaps open with a small
+  overshoot (the owner's "snap"); (9b) THE BANNER: after a remove it takes the very top and the zoom
+  control and the account badge slide down under it (with 16px between), then slide back when it
+  goes (6s; it stays while your finger is on it); in a home-screen launch it clears the status bar /
+  Dynamic Island; tap + while it shows: it goes first, then the add tag opens; on a Mac it sits over
+  the map, centred, and nothing moves; (9c) at rest the account badge's top edge and the zoom
+  control's top edge are on one line (also in a home-screen launch); (10) a plan open with a city picked: "add places" lists every
   city, the picked one first.
 - **City CRUD, part 1 (check once it lands on main):** (1) tap +, then tap ADDRESS: the
   keyboard comes up with no zoom; type a street address: the results open under ADDRESS, its

@@ -46,9 +46,9 @@ pick/redirect before building anything.
   address should be separate. Cures [Cities] should have crud principles."; then the roadtrip as a
   plan, real cities only, New city and Remove city) -- BUILT on
   `claude/city-place-creation-workflow-vcblfw` (`docs/shipped.md` "City CRUD, part 1" and "part 2"),
-  the combined CD + UX check done and fixed (2026-11-03), the owner's v2d notes built (empty city removed at once; "Remove places too" an ordinary row; the snap kept and baselined), `IMPECCABLE GATE PASSED`; lands on
-  main after the owner sees the v2d stills (`design/city-crud/build/stills/v2d/`). Then: the
-  owner's iPhone pass (`docs/iphone-checks.md`). Designer's open questions (unanswered; the defaults
+  the combined CD + UX check done and fixed (2026-11-03), the owner's v2d notes built (empty city removed at once; the snap kept and baselined), then v15 / v15b (New city in the picker's list, "Delete places", the city-removed banner at the top with the controls riding under it, the top line aligned); lands on
+  main after the owner sees the v2e stills (`design/city-crud/build/stills/v2e/`). Then: the
+  owner's iPhone pass (`docs/iphone-checks.md`). Open for the owner (v15): should the plans' Undo slips move to the same top banner? (Not built; they stay on the list.) Designer's open questions (unanswered; the defaults
   are built): roadtrip stops under their real town; the PLAN line only with a plan open.
 - **Tag close: the pin is the close** -- LANDED 2026-10-21 (owner: "the x to close tag is in a very weird space" ... "pin is making the most sense to me" ... "yeah 6"; on the built sheet: "Yes"). With it, the tag's city line sits --s1 to the name (owner: "chunked slightly tighter"). Spec: `docs/shipped.md` "The pin is the close". Open: the owner's iPhone pass (`docs/iphone-checks.md`).
 - **Playground = the signed-out app** -- LANDED 2026-10-13 as `?play`, then

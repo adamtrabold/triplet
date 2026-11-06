@@ -280,3 +280,20 @@ in `build/stills/raw/`.
 - Impeccable's runtime states don't include the new ones (the city menu with Find, the PLAN line,
   ADDRESS being written): the gate passed but never rendered them. Adding states to the gate is
   a baseline change (owner/operator approval).
+
+## v2e (2026-11-06): v15 / v15b + the owner's top-line tweak
+- Picker: the pinned `.rm-new` head line is gone; `rmNewCityRowHtml()` is the `.rm-mine` list's last
+  row; `rmOpenNewCityLine()` swaps it for `.menu-find.rm-new` + `.rm-found` in place and runs
+  `wireFindCity()` on `.rm-mine` (now `position: relative`, so the search line's offsetTop is the
+  list's own and the built "scroll the line to the top" works); clearing / Esc -> `back()` restores
+  the row (focused). `placeRmPicker()` now sums `.rm-mine`'s children only. "Delete places", the
+  2px --hair foot rule.
+- Banner: `#cityBanner` + `showCityBanner()` / `hideCityBanner()` / `setBannerPush()` beside the plan
+  slip (which is untouched). `commitHeldRemoval()` hides it when it holds the held delete (`cbEnd`).
+- Top line: `--top-line` 10px (the zoom control's Leaflet margin) is the line; the badge moved to
+  it (box top 6.09, ink 9.99) rather than the zoom moving down to the badge, so `--top-row-bottom`
+  (74, which the filters panel, menus and the add dock read) didn't move. Flag: that choice (badge up
+  9.9px vs zoom down) is the builder's; the before/after is in the stills for the owner.
+- Banner top = the top line, so push 68 = 52 + 16 leaves exactly --s4 between the banner and both
+  controls' visible tops (the spec's banner at --s4 + push 68 would have left 10).
+- Gate: Impeccable's runtime states don't render the banner (adding a state = a baseline change).

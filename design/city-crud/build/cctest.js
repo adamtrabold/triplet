@@ -311,7 +311,7 @@ const PA = [39.95, -75.40];   // the map over south-east Pennsylvania: no city o
   await page.touchscreen.tap(sp.x, sp.y); await W(400);
   ok('R9 tapping the turned sign opens the picker (the menu stays open)', await ev(() => !document.getElementById('titleMenu').hidden && !!document.querySelector('#titleMenu .rm-pick[data-pick="copenhagen"]')));
   const pk = await ev(() => { const p = document.querySelector('#titleMenu .rm-pick'); return { q: p.querySelector('.rm-q').textContent, rows: [...p.querySelectorAll('.rm-dest')].map(b => b.textContent.trim()), focus: document.activeElement && document.activeElement.textContent.trim() }; });
-  ok('R10 the one-step picker (v14 copy): "Should we move Copenhagen’s places to a new city?", the other cities nearest first with distances, then "Remove places too", then "Cancel"; focus on the nearest', pk.q === 'Should we move Copenhagen’s places to a new city?' && /^Malmö≈\s\d+\skm$/.test(pk.rows[0]) && /^Stockholm≈/.test(pk.rows[1]) && /^Reykjavík≈\s2,\d{3}\skm$/.test(pk.rows[2]) && pk.rows.some(t => /^Philadelphia≈/.test(t)) && pk.rows[pk.rows.length - 2] === 'Remove places too' && pk.rows[pk.rows.length - 1] === 'Cancel' && /^Malmö/.test(pk.focus), pk);
+  ok('R10 the one-step picker (v15): "Should we move Copenhagen’s places to a new city?", the other cities nearest first with distances, then "New city" (the list\'s last row), then "Delete places", then "Cancel"; focus on the nearest', pk.q === 'Should we move Copenhagen’s places to a new city?' && /^Malmö≈\s\d+\skm$/.test(pk.rows[0]) && /^Stockholm≈/.test(pk.rows[1]) && /^Reykjavík≈\s2,\d{3}\skm$/.test(pk.rows[2]) && pk.rows.some(t => /^Philadelphia≈/.test(t)) && pk.rows[pk.rows.length - 3] === 'New city' && pk.rows[pk.rows.length - 2] === 'Delete places' && pk.rows[pk.rows.length - 1] === 'Cancel' && /^Malmö/.test(pk.focus), pk);
   await ev(() => document.querySelector('#titleMenu [data-rm-keep]').click()); await W(400);
   ok('R11 Keep closes the picker and the board; the sign turns back', await ev(() => !document.querySelector('#titleMenu .rm-pick') && document.querySelector('#titleMenu .menu-city[data-city="copenhagen"]').dataset.open !== '1' && !document.querySelector('#map .sp-board.is-turned')));
   // right-click; Shift+Delete; the screen reader's action
@@ -331,26 +331,26 @@ const PA = [39.95, -75.40];   // the map over south-east Pennsylvania: no city o
   await ev(() => rmShowPicker('copenhagen')); await W(300);
   const cph = await ev(() => locations.filter(l => l.city === 'copenhagen').map(l => l.id).concat(neighborhoodShapes.filter(n => n.city === 'copenhagen').map(n => 'shape:' + n.id)));
   await ev(() => document.querySelector('#titleMenu .rm-dest[data-rm-to="malmo"]').click()); await W(1200);
-  const p1 = await ev(ids => ({ upd: window.__upd.map(u => [u[0], u[1].city, u[2]]), del: window.__del, gone: !CITIES.copenhagen, menu: document.getElementById('titleMenu').hidden, slip: !document.getElementById('planSlip').hidden && document.getElementById('planSlip').textContent,
+  const p1 = await ev(ids => ({ upd: window.__upd.map(u => [u[0], u[1].city, u[2]]), del: window.__del, gone: !CITIES.copenhagen, menu: document.getElementById('titleMenu').hidden, slip: !document.getElementById('cityBanner').hidden && document.getElementById('cityBanner').textContent,
     moved: ids.every(k => (rowItem(k) || {}).city === 'malmo'), server: window.__ROWS.filter(r => r.city === 'copenhagen').length }), cph);
   ok('P1 one tap on Malmö: its places are filed under Malmö (one update per table, by city) and Copenhagen is removed; the menu closes; the two-line slip: "Copenhagen removed" / "Its places → Malmö" with Undo', JSON.stringify(p1.upd) === JSON.stringify([['locations', 'malmo', ['city', 'copenhagen']], ['neighborhood_shapes', 'malmo', ['city', 'copenhagen']]]) && p1.del.some(d => d[1] === 'copenhagen') && p1.gone && p1.menu && /^Copenhagen removedIts places\u00a0→\u00a0MalmöUndo$/.test(p1.slip) && p1.moved && p1.server === 0, p1);
-  await ev(() => { window.__upd = []; window.__ins = []; document.querySelector('#planSlip button').click(); }); await W(1200);
+  await ev(() => { window.__upd = []; window.__ins = []; document.querySelector('#cityBanner button').click(); }); await W(1200);
   const p2 = await ev(ids => ({ ins: window.__ins.map(x => [x[0], x[1][0].id, x[1][0].auto_added]), upd: window.__upd.map(u => [u[0], u[1].city, u[2][0], u[2][1].length]), back: !!CITIES.copenhagen, home: ids.every(k => (rowItem(k) || {}).city === 'copenhagen') }), cph);
   ok('P2 Undo: the city row back first, then its places moved home (by id); everything as it was', p2.ins.length === 1 && p2.ins[0][1] === 'copenhagen' && p2.upd.length === 2 && p2.upd.every(u => u[1] === 'copenhagen' && u[2] === 'id') && p2.back && p2.home, p2);
   // remove the places too: held; Undo writes nothing; the poll can't bring them back
   await menuOpen(); await ev(() => rmShowPicker('stockholm')); await W(300);
   const sto = await ev(() => ({ locs: locations.filter(l => l.city === 'stockholm').map(l => l.id), stops: rmStopsIn('stockholm') }));
   await ev(() => { window.__pdel = []; window.__del = []; document.querySelector('#titleMenu .rm-dest.is-too').click(); }); await W(500);
-  const p3 = await ev(ids => ({ shown: ids.filter(id => !!rowItem(id)).length, city: !!CITIES.stockholm, writes: window.__pdel.length + window.__del.length, slip: document.getElementById('planSlip').textContent, pending: !!pendingRemoval }), sto.locs);
-  ok('P3 "Remove the places too": the city and its places leave the screen at once, but NOTHING is written yet (held while the slip shows)', p3.shown === 0 && !p3.city && p3.writes === 0 && /^Stockholm removedand its 23 placesUndo$/.test(p3.slip) && p3.pending, p3);
+  const p3 = await ev(ids => ({ shown: ids.filter(id => !!rowItem(id)).length, city: !!CITIES.stockholm, writes: window.__pdel.length + window.__del.length, slip: document.getElementById('cityBanner').textContent, pending: !!pendingRemoval }), sto.locs);
+  ok('P3 "Remove the places too": the city and its places leave the screen at once, but NOTHING is written yet (held while the slip shows)', p3.shown === 0 && !p3.city && p3.writes === 0 && /^Stockholm removedand its 23 places deletedUndo$/.test(p3.slip) && p3.pending, p3);
   await ev(async () => { await doFetchLocations(); await doFetchNeighborhoodShapes(); }); await W(300);
   ok('P4 a poll meanwhile can\'t bring them back', await ev(ids => ids.every(id => !rowItem(id)), sto.locs));
-  await ev(() => document.querySelector('#planSlip button').click()); await W(500);
+  await ev(() => document.querySelector('#cityBanner button').click()); await W(500);
   ok('P5 Undo: everything back (the city, its places), and nothing was ever written', await ev(ids => ids.every(id => (rowItem(id) || {}).city === 'stockholm') && !!CITIES.stockholm && !pendingRemoval && window.__pdel.length + window.__del.length === 0, sto.locs));
   // held, then the slip ends: the deletes are written (places, then the city); no resurrection
   await menuOpen(); await ev(() => rmShowPicker('stockholm')); await W(300);
   await ev(() => document.querySelector('#titleMenu .rm-dest.is-too').click()); await W(300);
-  await ev(() => hidePlanSlip()); await W(1200);
+  await ev(() => hideCityBanner()); await W(1200);
   const p6 = await ev(ids => ({ pdel: window.__pdel.map(d => [d[0], d[1].length]), del: window.__del.map(d => d[1]), shown: ids.filter(id => !!rowItem(id)).length, server: window.__ROWS.filter(r => r.city === 'stockholm').length, pending: !!pendingRemoval, city: !!CITIES.stockholm }), sto.locs);
   ok('P6 the slip ends: the held delete is written -- its places, its shapes, then the city row; a refetch brings nothing back', JSON.stringify(p6.pdel) === JSON.stringify([['locations', 21], ['neighborhood_shapes', 2]]) && p6.del.includes('stockholm') && p6.shown === 0 && p6.server === 0 && !p6.pending && !p6.city, p6);
   await ev(async () => { await fetchCities(); }); await W(300);
@@ -367,7 +367,7 @@ const PA = [39.95, -75.40];   // the map over south-east Pennsylvania: no city o
   await menuOpen(); await ev(() => rmShowPicker('reykjavik')); await W(300);
   await ev(() => { window.__pdel = []; window.__del = []; document.querySelector('#titleMenu .rm-dest.is-too').click(); }); await W(300);
   await ev(() => { Object.defineProperty(document, 'visibilityState', { configurable: true, get: () => 'hidden' }); document.dispatchEvent(new Event('visibilitychange')); }); await W(1200);
-  const p9 = await ev(() => ({ pdel: window.__pdel.map(d => d[0]), del: window.__del.map(d => d[1]), slip: document.getElementById('planSlip').hidden }));
+  const p9 = await ev(() => ({ pdel: window.__pdel.map(d => d[0]), del: window.__del.map(d => d[1]), slip: document.getElementById('cityBanner').hidden }));
   await ev(() => { delete document.visibilityState; });
   ok('P9 the app is backgrounded (visibilitychange hidden): a held removal is committed at once (and its Undo goes)', p9.pdel.includes('locations') && p9.del.includes('reykjavik') && p9.slip, p9);
   ok('P10 no page errors', o.errors.length === 0, o.errors);
@@ -416,7 +416,7 @@ const PA = [39.95, -75.40];   // the map over south-east Pennsylvania: no city o
   const x7 = await ev(() => ({ pick: !!document.querySelector('#titleMenu .rm-pick[data-pick="stockholm"]'), focus: document.activeElement && document.activeElement.classList.contains('rm-dest') && document.activeElement === document.querySelector('#titleMenu .rm-pick .rm-dest') }));
   ok('X7 a mouse click on the REMOVE board opens the picker with focus on its first choice', x7.pick && x7.focus, x7);
   await page.keyboard.press('Enter'); await W(1200);
-  const x8 = await ev(() => ({ slip: !document.getElementById('planSlip').hidden, focus: document.activeElement === document.querySelector('#planSlip button'), tag: document.activeElement && document.activeElement.tagName }));
+  const x8 = await ev(() => ({ slip: !document.getElementById('cityBanner').hidden, focus: document.activeElement === document.querySelector('#cityBanner button'), tag: document.activeElement && document.activeElement.tagName }));
   ok('X8 a keyboard commit (Enter on a destination): focus goes to the slip\'s Undo, not <body>', x8.slip && x8.focus, x8);
   ok('X9 no page errors', o.errors.length === 0, o.errors);
   await page.context().close();
@@ -427,7 +427,7 @@ const PA = [39.95, -75.40];   // the map over south-east Pennsylvania: no city o
     ['annapolis', 'Annapolis', 38.98, -76.49], ['capemay', 'Cape May', 38.94, -74.91], ['newyork', 'New York', 40.71, -74.01], ['princeton', 'Princeton', 40.35, -74.66]];
   const pickBox = () => ev(() => { const m = document.getElementById('titleMenu'), r = m.getBoundingClientRect(), d = m.querySelector('.rm-dests:not([hidden])'), f = m.querySelector('.rm-foot').getBoundingClientRect(), q = m.querySelector('.rm-q').getBoundingClientRect(), held = m.querySelector('.menu-city.is-held').getBoundingClientRect();
     return { top: r.top, bottom: r.bottom, h: r.height, w: r.width, left: r.left, scroll: d.scrollHeight > d.clientHeight + 1, more: [d.classList.contains('more-above'), d.classList.contains('more-below')], foot: [f.top >= r.top && f.bottom <= r.bottom + 0.5, f.bottom <= innerHeight],
-      head: held.top - r.top <= 1.5 && q.top >= held.bottom - 1, visible: [...m.children].filter(c => c.offsetParent !== null).map(c => c.className.split(' ')[0]), rows: m.querySelectorAll('.rm-dests .rm-dest').length }; });
+      head: held.top - r.top <= 1.5 && q.top >= held.bottom - 1, visible: [...m.children].filter(c => c.offsetParent !== null).map(c => c.className.split(' ')[0]), rows: m.querySelectorAll('.rm-dests .rm-dest[data-rm-to]').length, nc: !!m.querySelector('.rm-mine > .rm-newcity:last-child') }; });
   for (const [w, h] of [[390, 844], [375, 667]]) {
     o = await L.open(b, { file, w, h, storage: { 'triplet.hiddenCities': '[]' } }); page = o.page;
     await ev(E => { E.forEach(([id, label, la, ln]) => { CITIES[id] = { label, center: [la, ln], zoom: 12, viewbox: `${ln - .1},${la - .1},${ln + .1},${la + .1}` }; }); setActiveCity(ALL_CITIES, { frame: false }); }, EXTRA); await W(400);
@@ -437,7 +437,7 @@ const PA = [39.95, -75.40];   // the map over south-east Pennsylvania: no city o
     const t = await pickBox();
     if (w === 390) {
       ok('T1 390x844: the picker takes over the box -- only the held row (its board open) and the picker show; All places, the other cities, New city and Plans are hidden', JSON.stringify(t.visible) === '["menu-city","rm-pick"]' && t.head && await ev(() => document.querySelector('#titleMenu .menu-city.is-held').dataset.open === '1'), t);
-      ok('T2 390x844, 12 destinations: the box grows UP from the menu\'s bottom to fit them all (no scroll), its width max(menu, min(100vw - 32, 340)), its left edge unchanged; Remove-too and Keep in the pinned foot', Math.abs(t.bottom - before.bottom) < 1 && t.top < before.top && t.top >= 82 - 0.5 && !t.scroll && t.rows === 12 && Math.abs(t.w - Math.max(before.w, Math.min(390 - 32, 340))) < 1 && Math.abs(t.left - before.left) < 0.5 && t.foot.every(Boolean) && !t.more[1], { before, t });
+      ok('T2 390x844, 12 destinations and New city: the box grows UP from the menu\'s bottom to fit them all (no scroll), its width max(menu, min(100vw - 32, 340)), its left edge unchanged; Remove-too and Keep in the pinned foot', Math.abs(t.bottom - before.bottom) < 1 && t.top < before.top && t.top >= 82 - 0.5 && !t.scroll && t.rows === 12 && t.nc && Math.abs(t.w - Math.max(before.w, Math.min(390 - 32, 340))) < 1 && Math.abs(t.left - before.left) < 0.5 && t.foot.every(Boolean) && !t.more[1], { before, t });
     } else {
       const t0 = t;
       await ev(() => { const d = document.querySelector('#titleMenu .rm-dests:not([hidden])'); d.scrollTop = 60; d.dispatchEvent(new Event('scroll')); }); await W(200);
@@ -453,10 +453,10 @@ const PA = [39.95, -75.40];   // the map over south-east Pennsylvania: no city o
       await ev(() => { CITIES.stockholm.label = 'East Marlborough Township'; menuSig = null; renderTitleMenu(); }); await W(200);
       await ev(() => rmShowPicker('stockholm')); await W(300);
       await ev(() => document.querySelector('#titleMenu .rm-dest[data-rm-to="philadelphia"]').click()); await W(1500);
-      const sl = await ev(() => { const s = document.getElementById('planSlip'), l1 = s.querySelector('.slip-l1'), l2 = s.querySelector('.slip-l2'), hd = document.getElementById('locationsHeader').getBoundingClientRect(), r = s.getBoundingClientRect();
-        return { two: s.classList.contains('two-line'), l1: l1.textContent, l2: l2.textContent, l2cut: l2.scrollWidth > l2.clientWidth + 0.5 || l2.getBoundingClientRect().right > s.querySelector('button').getBoundingClientRect().left + 0.5, h: r.height, hh: hd.height, top: Math.abs(r.top - hd.top) < 0.5,
+      const sl = await ev(() => { const s = document.getElementById('cityBanner'), l1 = s.querySelector('.slip-l1'), l2 = s.querySelector('.slip-l2'), r = s.getBoundingClientRect();
+        return { two: true, l1: l1.textContent, l2: l2.textContent, l2cut: l2.scrollWidth > l2.clientWidth + 0.5 || l2.getBoundingClientRect().right > s.querySelector('button').getBoundingClientRect().left + 0.5, h: r.height, hh: 52, top: Math.abs(r.top - 10) < 0.5 && Math.abs(r.left - 16) < 0.5 && Math.abs(r.right - (innerWidth - 16)) < 0.5,
           c1: getComputedStyle(l1).color, c2: getComputedStyle(l2).color, f1: getComputedStyle(l1).fontSize, f2: getComputedStyle(l2).fontSize }; });
-      ok('T6 375: the two-line Undo slip on the list header (its height): "East Marlborough Township removed" (grey 11px) / "Its places → Philadelphia" (navy 13px, never cut, no-break spaces round the arrow)', sl.two && sl.l1 === 'East Marlborough Township removed' && sl.l2 === 'Its places → Philadelphia' && !sl.l2cut && sl.top && Math.abs(sl.h - sl.hh) < 0.5 && sl.c1 === 'rgb(90, 86, 76)' && sl.c2 === 'rgb(18, 41, 63)' && sl.f1 === '11px' && sl.f2 === '13px', sl);
+      ok('T6 375: the two-line Undo banner at the top (10px, in the 16px gutters, 52px): "East Marlborough Township removed" (grey 11px) / "Its places → Philadelphia" (navy 13px, never cut, no-break spaces round the arrow)', sl.two && sl.l1 === 'East Marlborough Township removed' && sl.l2 === 'Its places → Philadelphia' && !sl.l2cut && sl.top && Math.abs(sl.h - sl.hh) < 0.5 && sl.c1 === 'rgb(90, 86, 76)' && sl.c2 === 'rgb(18, 41, 63)' && sl.f1 === '11px' && sl.f2 === '13px', sl);
     }
     await page.context().close();
   }
@@ -466,7 +466,7 @@ const PA = [39.95, -75.40];   // the map over south-east Pennsylvania: no city o
   const dtop = await ev(() => document.getElementById('titleMenu').getBoundingClientRect().top);
   await ev(() => rmShowPicker('stockholm')); await W(400);
   const t7 = await pickBox();
-  ok('T7 desktop (the rail, 1280x800): the picker opens DOWN from the menu\'s top, fits what it holds and never runs past 16px above the window\'s foot (short of it, nothing scrolls); all 12 cities; the foot on screen', Math.abs(t7.top - dtop) < 0.5 && t7.bottom <= 800 - 16 + 0.5 && (t7.bottom > 800 - 16 - 0.5 || !t7.scroll) && t7.rows === 12 && t7.foot.every(Boolean), { dtop, t7 });
+  ok('T7 desktop (the rail, 1280x800): the picker opens DOWN from the menu\'s top, fits what it holds and never runs past 16px above the window\'s foot (short of it, nothing scrolls); all 12 cities; the foot on screen', Math.abs(t7.top - dtop) < 0.5 && t7.bottom <= 800 - 16 + 0.5 && (t7.bottom > 800 - 16 - 0.5 || !t7.scroll) && t7.rows === 12 && t7.nc && t7.foot.every(Boolean), { dtop, t7 });
   await page.context().close();
 
 
@@ -476,54 +476,63 @@ const PA = [39.95, -75.40];   // the map over south-east Pennsylvania: no city o
     await ev(() => setActiveCity(ALL_CITIES, { frame: false })); await W(400);
     await P.tap(page, '#titleBtn'); await W(300);
     await ev(() => rmShowPicker('copenhagen')); await W(400);
-    const y = await ev(() => { const p = document.querySelector('#titleMenu .rm-pick'), m = document.getElementById('titleMenu').getBoundingClientRect(), q = p.querySelector('.rm-q'), nl = p.querySelector('.rm-new'), inp = nl && nl.querySelector('input'),
-      too = p.querySelector('.rm-foot .is-too'), keep = p.querySelector('.rm-foot .is-keep'), mine = p.querySelector('.rm-mine'), dest = mine.querySelector('.rm-dest'), lastDest = [...mine.querySelectorAll('.rm-dest')].pop(), foot = p.querySelector('.rm-foot'), cs = e => getComputedStyle(e);
-      const ico = too.querySelector('svg.menu-ico'), dIco = dest.querySelector('svg.menu-ico'), tl = too.querySelector('.menu-lab'), dl = dest.querySelector('.menu-lab');
-      const same = ['height', 'paddingLeft', 'color', 'fontWeight', 'fontSize', 'letterSpacing', 'backgroundColor', 'columnGap'].every(k => cs(too)[k] === cs(dest)[k]);
+    const y0 = await ev(() => { const r = document.getElementById('titleMenu').getBoundingClientRect(); return { top: r.top, bottom: r.bottom }; });
+    const y = await ev(() => { const p = document.querySelector('#titleMenu .rm-pick'), m = document.getElementById('titleMenu').getBoundingClientRect(), q = p.querySelector('.rm-q'),
+      too = p.querySelector('.rm-foot .is-too'), keep = p.querySelector('.rm-foot .is-keep'), mine = p.querySelector('.rm-mine'), dest = mine.querySelector('.rm-dest[data-rm-to]'), nc = mine.querySelector('.rm-newcity'), foot = p.querySelector('.rm-foot'), cs = e => getComputedStyle(e);
+      const like = el => ['height', 'paddingLeft', 'color', 'fontWeight', 'fontSize', 'letterSpacing', 'backgroundColor', 'columnGap'].every(k => cs(el)[k] === cs(dest)[k])
+        && Math.abs(el.querySelector('svg.menu-ico').getBoundingClientRect().width - dest.querySelector('svg.menu-ico').getBoundingClientRect().width) < 0.5
+        && Math.abs(el.querySelector('svg.menu-ico').getBoundingClientRect().left - dest.querySelector('svg.menu-ico').getBoundingClientRect().left) < 0.5
+        && Math.abs(el.querySelector('.menu-lab').getBoundingClientRect().left - dest.querySelector('.menu-lab').getBoundingClientRect().left) < 0.5;
       const kids = [...p.children].map(c => c.className.split(' ').filter(x => /^rm-|^menu-find$/.test(x)).join('.'));
-      return { q: q.textContent, ph: inp && inp.placeholder, font: inp && getComputedStyle(inp).fontSize, order: kids, qRule: getComputedStyle(q).borderBottomColor, nlRule: getComputedStyle(nl).borderBottomColor,
-        too: too.textContent, same, ico: !!ico && Math.abs(ico.getBoundingClientRect().width - dIco.getBoundingClientRect().width) < 0.5 && Math.abs(ico.getBoundingClientRect().left - dIco.getBoundingClientRect().left) < 0.5,
-        labX: Math.abs(tl.getBoundingClientRect().left - dl.getBoundingClientRect().left) < 0.5, band: !!p.querySelector('.rm-band'),
-        footRule: [cs(foot).borderTopWidth, cs(foot).borderTopColor], lastRule: cs(lastDest).borderBottomStyle === 'none' || cs(lastDest).borderBottomWidth === '0px', keepRule: cs(keep).borderTopColor, keep: keep.textContent, keepBg: cs(keep).backgroundColor,
-        onScreen: [nl.getBoundingClientRect(), too.getBoundingClientRect(), keep.getBoundingClientRect()].every(r => r.top >= m.top - 0.5 && r.bottom <= m.bottom + 0.5 && r.bottom <= innerHeight), mineRows: mine.querySelectorAll('.rm-dest').length }; });
+      return { q: q.textContent, order: kids, qRule: cs(q).borderBottomColor, line: !!p.querySelector('.rm-new'), nc: nc && nc.textContent, ncLast: mine.lastElementChild === nc, ncLike: !!nc && like(nc), tooLike: like(too),
+        too: too.textContent, band: !!p.querySelector('.rm-band'), footRule: [cs(foot).borderTopWidth, cs(foot).borderTopStyle, cs(foot).borderTopColor], keepRule: cs(keep).borderTopColor, keep: keep.textContent, keepBg: cs(keep).backgroundColor,
+        onScreen: [too.getBoundingClientRect(), keep.getBoundingClientRect()].every(r => r.top >= m.top - 0.5 && r.bottom <= m.bottom + 0.5 && r.bottom <= innerHeight), mineRows: mine.querySelectorAll('.rm-dest[data-rm-to]').length }; });
     if (w === 390) {
-      ok('Y1 the owner\'s copy: "Should we move Copenhagen’s places to a new city?" / "Remove places too" / "Cancel"', y.q === 'Should we move Copenhagen’s places to a new city?' && y.too === 'Remove places too' && y.keep === 'Cancel', y);
-      ok('Y2 the "+ A new city…" line pinned under the question (16px entry; a hair rule above it, the navy rule below), then your cities', y.ph === 'A new city…' && y.font === '16px' && y.order.join('|') === 'rm-q|menu-find.rm-new|rm-dests.rm-found|rm-dests.rm-mine|rm-foot' && y.qRule === 'rgb(216, 206, 186)' && y.nlRule === 'rgb(18, 41, 63)' && y.mineRows === 4, y);
-      ok('Y3 "Remove places too" is an ordinary choice row, laid out exactly as the destinations (the bin a .menu-ico in the arrow\'s place, the label on the same line); set off by ONE --hair rule (the last city drops its own, as .before-foot) -- no band, no navy rule; then Cancel (--paper-raised) under a hair', y.same && y.ico && y.labX && !y.band && y.footRule[0] === '1px' && y.footRule[1] === 'rgb(216, 206, 186)' && y.lastRule && y.keepRule === 'rgb(216, 206, 186)' && y.keepBg === 'rgb(250, 245, 234)', y);
+      ok('Y1 the owner\'s copy: "Should we move Copenhagen’s places to a new city?" / "Delete places" (v15b) / "Cancel"', y.q === 'Should we move Copenhagen’s places to a new city?' && y.too === 'Delete places' && y.keep === 'Cancel', y);
+      ok('Y2 v15: the head is the held row and the question on its navy rule (no pinned search line); "New city" is the city list\'s LAST row, the destinations\' own row with the + in the arrow\'s place', y.order.join('|') === 'rm-q|rm-dests.rm-mine|rm-foot' && y.qRule === 'rgb(18, 41, 63)' && !y.line && y.nc === 'New city' && y.ncLast && y.ncLike && y.mineRows === 4, y);
+      ok('Y3 "Delete places" is an ordinary choice row (the destinations\' own, the bin its icon), set off by the title menu\'s doubled ledger rule (2px --hair) -- no band, no navy rule; then Cancel (--paper-raised) under a hair', y.tooLike && !y.band && y.footRule.join(' ') === '2px solid rgb(216, 206, 186)' && y.keepRule === 'rgb(216, 206, 186)' && y.keepBg === 'rgb(250, 245, 234)', y);
       const ty = await ev(() => { const p = document.querySelector('#titleMenu .rm-pick'), cs = e => getComputedStyle(e), q = p.querySelector('.rm-q'), lab = p.querySelector('.rm-mine .rm-dest .menu-lab'), km = p.querySelector('.rm-mine .rm-km'),
         too = p.querySelector('.is-too .menu-lab'), keep = p.querySelector('.is-keep .menu-lab'), cap = document.createElement('div'); cap.className = 'menu-cap'; document.body.appendChild(cap); const capF = cs(cap).fontSize; cap.remove();
         return { q: [cs(q).fontSize, cs(q).textTransform, cs(q).color], capF, lab: cs(lab).fontSize, too: cs(too).fontSize, keep: cs(keep).fontSize, km: [km.classList.contains('tally'), cs(km).fontSize] }; });
-      ok('Y11 the picker uses the menu\'s own type only: the question in the caption style (10px caps, --ink-2), rows / "Remove places too" / "Cancel" in the row label (13px), distances in the tally (11px floor)', ty.q[0] === ty.capF && ty.q[0] === '10px' && ty.q[1] === 'uppercase' && ty.q[2] === 'rgb(90, 86, 76)' && ty.lab === '13px' && ty.too === '13px' && ty.keep === '13px' && ty.km[0] && ty.km[1] === '11px', ty);
-      // typing swaps the middle for real-city results; clearing brings your cities back
-      const y0 = await ev(() => { const r = document.getElementById('titleMenu').getBoundingClientRect(); return { top: r.top, bottom: r.bottom }; });
-      await ev(() => { const i = document.querySelector('#titleMenu .rm-new input'); i.focus(); }); await W(100);
+      ok('Y11 the picker uses the menu\'s own type only: the question in the caption style (10px caps, --ink-2), rows / "Delete places" / "Cancel" in the row label (13px), distances in the tally (11px floor)', ty.q[0] === ty.capF && ty.q[0] === '10px' && ty.q[1] === 'uppercase' && ty.q[2] === 'rgb(90, 86, 76)' && ty.lab === '13px' && ty.too === '13px' && ty.keep === '13px' && ty.km[0] && ty.km[1] === '11px', ty);
+      // tap New city: the row turns into the Find a city line in place, focused
+      await ev(() => document.querySelector('#titleMenu .rm-newcity').click()); await W(300);
+      const y2b = await ev(() => { const mine = document.querySelector('#titleMenu .rm-mine'), line = mine.querySelector('.rm-new'), inp = line && line.querySelector('input');
+        return { inList: !!line && line.parentElement === mine, row: !!mine.querySelector('.rm-newcity'), focus: document.activeElement === inp, font: inp && getComputedStyle(inp).fontSize, h: line && line.getBoundingClientRect().height, ph: inp && inp.placeholder,
+          seen: !!line && line.getBoundingClientRect().bottom <= mine.getBoundingClientRect().bottom + 0.5 && line.getBoundingClientRect().top >= mine.getBoundingClientRect().top - 0.5 }; });
+      ok('Y2b tapping "New city" turns the row, in place, into the built Find a city line (48px, a 16px entry, focused, in view)', y2b.inList && !y2b.row && y2b.focus && y2b.font === '16px' && Math.abs(y2b.h - 48) < 1 && y2b.ph === 'Find a city…' && y2b.seen, y2b);
       await L.findCity(page, 'titleMenu', 'Philadelphia');
-      const y4 = await ev(() => { const p = document.querySelector('#titleMenu .rm-pick'); return { mine: p.querySelector('.rm-mine').hidden, found: p.querySelector('.rm-found').hidden, first: (p.querySelector('.rm-found .menu-res') || {}).textContent }; });
-      const fit = await ev(() => { const m = document.getElementById('titleMenu'), r = m.getBoundingClientRect(), p = m.querySelector('.rm-pick'), foot = p.querySelector('.rm-foot').getBoundingClientRect(), f = p.querySelector('.rm-found'), last = [...f.children].pop().getBoundingClientRect();
-        return { gap: foot.top - last.bottom, footBottom: r.bottom - foot.bottom, bottom: r.bottom, scroll: f.scrollHeight > f.clientHeight + 1 }; });
-      ok('Y4b typing a new city: the box shrinks to fit the results (the foot right under them, no empty paper), keeping its bottom edge', fit.gap >= -0.5 && fit.gap <= 1.5 && fit.footBottom <= 1.5 && !fit.scroll && Math.abs(fit.bottom - y0.bottom) < 1, { fit, y0 });
-      ok('Y4 typing in the line swaps your cities for real-city results (Philadelphia, Pennsylvania first)', y4.mine && !y4.found && /^PhiladelphiaCity · Pennsylvania/.test(y4.first || ''), y4);
+      const y4 = await ev(() => { const mine = document.querySelector('#titleMenu .rm-mine'), f = mine.querySelector('.rm-found'), line = mine.querySelector('.rm-new'), first = f.querySelector('.menu-res'), mr = mine.getBoundingClientRect(), fr = first.getBoundingClientRect(), lr = line.getBoundingClientRect();
+        return { under: f.previousElementSibling === line && f.parentElement === mine, first: first.textContent, cities: mine.querySelectorAll('.rm-dest[data-rm-to]').length, seen: lr.top >= mr.top - 0.5 && fr.bottom <= mr.bottom + 0.5 }; });
+      ok('Y4 typing in the line: real-city results (Philadelphia, Pennsylvania first) open right under it inside the scrolling list, the line and its first result in view', y4.under && /^PhiladelphiaCity · Pennsylvania/.test(y4.first) && y4.cities === 4 && y4.seen, y4);
+      const fit = await ev(() => { const m = document.getElementById('titleMenu'), r = m.getBoundingClientRect(), mine = m.querySelector('.rm-mine'); return { bottom: r.bottom, top: r.top, scroll: mine.scrollHeight > mine.clientHeight + 1, ceil: topRowBottom() + 8 }; });
+      ok('Y4b the box re-fits what it holds, keeping its bottom edge (it grows up; past the top controls the list scrolls)', Math.abs(fit.bottom - y0.bottom) < 1 && (fit.top < y0.top - 1) && (!fit.scroll || Math.abs(fit.top - fit.ceil) < 1), { fit, y0 });
       await ev(() => { const i = document.querySelector('#titleMenu .rm-new input'); i.value = ''; i.dispatchEvent(new Event('input', { bubbles: true })); }); await W(300);
-      ok('Y5 clearing the line brings your cities back (and the box back to its size)', await ev(y0 => { const p = document.querySelector('#titleMenu .rm-pick'), r = document.getElementById('titleMenu').getBoundingClientRect(); return !p.querySelector('.rm-mine').hidden && p.querySelector('.rm-found').hidden && Math.abs(r.top - y0.top) < 1 && Math.abs(r.bottom - y0.bottom) < 1; }, y0));
+      ok('Y5 clearing the line turns it back into the "New city" row (focused), the box back to its size', await ev(y0 => { const p = document.querySelector('#titleMenu .rm-pick'), r = document.getElementById('titleMenu').getBoundingClientRect(), nc = p.querySelector('.rm-newcity');
+        return !!nc && !p.querySelector('.rm-new') && !p.querySelector('.rm-found') && document.activeElement === nc && Math.abs(r.top - y0.top) < 1 && Math.abs(r.bottom - y0.bottom) < 1; }, y0));
+      await ev(() => document.querySelector('#titleMenu .rm-newcity').click()); await W(200);
+      await page.keyboard.press('Escape'); await W(300);
+      ok('Y5b Esc in the line turns it back into the row; the picker stays', await ev(() => !!document.querySelector('#titleMenu .rm-pick .rm-newcity') && !document.querySelector('#titleMenu .rm-new') && document.getElementById('titleMenu').classList.contains('is-picking')));
+      await ev(() => document.querySelector('#titleMenu .rm-newcity').click()); await W(200);
       // one step: tap a result -> the city is made, the places move there, the old city goes; Undo undoes all of it
       await L.findCity(page, 'titleMenu', 'Philadelphia');
       const cph = await ev(() => locations.filter(l => l.city === 'copenhagen').map(l => l.id));
       await ev(() => { window.__ins = []; window.__upd = []; window.__del = []; document.querySelector('#titleMenu .rm-found .menu-res').click(); }); await W(1800);
       const y6 = await ev(ids => ({ ins: window.__ins.map(x => [x[0], x[1][0].id, x[1][0].auto_added]), upd: window.__upd.map(u => [u[0], u[1].city, u[2]]), del: window.__del.map(d => d[1] || d[0]), gone: !CITIES.copenhagen, made: !!CITIES.philadelphia,
-        moved: ids.every(k => (rowItem(k) || {}).city === 'philadelphia'), slip: document.querySelector('#planSlip .slip-l2') && document.querySelector('#planSlip .slip-l2').textContent }), cph);
-      ok('Y6 tapping a result: one step -- Philadelphia is made (kept), Copenhagen\'s places move there, Copenhagen goes; the slip "Its places → Philadelphia"', JSON.stringify(y6.ins) === '[["cities","philadelphia",false]]' && y6.upd.length === 2 && y6.upd.every(u => u[1] === 'philadelphia') && y6.gone && y6.made && y6.moved && y6.slip === 'Its places → Philadelphia', y6);
-      await ev(() => { window.__del = []; document.querySelector('#planSlip button').click(); }); await W(1500);
+        moved: ids.every(k => (rowItem(k) || {}).city === 'philadelphia'), slip: document.querySelector('#cityBanner .slip-l2') && document.querySelector('#cityBanner .slip-l2').textContent }), cph);
+      ok('Y6 tapping a result: one step -- Philadelphia is made (kept), Copenhagen\'s places move there, Copenhagen goes; the banner "Its places → Philadelphia"', JSON.stringify(y6.ins) === '[["cities","philadelphia",false]]' && y6.upd.length === 2 && y6.upd.every(u => u[1] === 'philadelphia') && y6.gone && y6.made && y6.moved && y6.slip === 'Its places → Philadelphia', y6);
+      await ev(() => { window.__del = []; document.querySelector('#cityBanner button').click(); }); await W(1500);
       const y7 = await ev(ids => ({ back: !!CITIES.copenhagen, made: !!CITIES.philadelphia, home: ids.every(k => (rowItem(k) || {}).city === 'copenhagen'), del: window.__del.length }), cph);
       ok('Y7 Undo: Copenhagen back, its places home, and the city the line made (Philadelphia) removed again', y7.back && !y7.made && y7.home && y7.del >= 1, y7);
       // a result that is one of your cities is that city's row
       await P.tap(page, '#titleBtn'); await W(300); await ev(() => rmShowPicker('copenhagen')); await W(300);
-      await ev(() => { const i = document.querySelector('#titleMenu .rm-new input'); i.focus(); }); await L.findCity(page, 'titleMenu', 'Reykjavik');
+      await ev(() => document.querySelector('#titleMenu .rm-newcity').click()); await W(200); await L.findCity(page, 'titleMenu', 'Reykjavik');
       await ev(() => { window.__ins = []; window.__upd = []; document.querySelector('#titleMenu .rm-found .menu-res').click(); }); await W(1500);
-      ok('Y8 a result that is one of your cities (Reykjavík) moves the places there: no new city', await ev(() => !window.__ins.length && window.__upd.every(u => u[1].city === 'reykjavik') && !CITIES.copenhagen && document.querySelector('#planSlip .slip-l2').textContent === 'Its places → Reykjavík'));
-      await ev(() => document.querySelector('#planSlip button').click()); await W(1200);
+      ok('Y8 a result that is one of your cities (Reykjavík) moves the places there: no new city', await ev(() => !window.__ins.length && window.__upd.every(u => u[1].city === 'reykjavik') && !CITIES.copenhagen && document.querySelector('#cityBanner .slip-l2').textContent === 'Its places → Reykjavík'));
+      await ev(() => document.querySelector('#cityBanner button').click()); await W(1200);
       // the empty city (owner: "if there are no cities in the place, tapping the first remove button
       // should just remove it"): removed at once -- the board, Shift+Delete, VoiceOver's action
-      const slipNow = () => ev(() => { const s = document.getElementById('planSlip'); return { shown: !s.hidden, l1: (s.querySelector('.slip-l1') || {}).textContent, l2: !!s.querySelector('.slip-l2'), undo: (s.querySelector('button') || {}).textContent,
+      const slipNow = () => ev(() => { const s = document.getElementById('cityBanner'); return { shown: !s.hidden, l1: (s.querySelector('.slip-l1') || {}).textContent, l2: !!s.querySelector('.slip-l2'), undo: (s.querySelector('button') || {}).textContent,
         pick: !!document.querySelector('#titleMenu .rm-pick'), menu: document.getElementById('titleMenu').hidden, city: !!CITIES.emptyville, focusUndo: document.activeElement === s.querySelector('button') }; });
       const emptyMenu = async () => { await ev(() => { menuSig = null; }); await P.tap(page, '#titleBtn'); await W(300); };
       await ev(() => { CITIES.emptyville = { label: 'Emptyville', center: [60, 10], zoom: 12, viewbox: '9.9,59.9,10.1,60.1', auto: false }; window.__del = []; window.__ins = []; }); await emptyMenu();
@@ -531,26 +540,89 @@ const PA = [39.95, -75.40];   // the map over south-east Pennsylvania: no city o
       await ev(() => document.querySelector('#titleMenu .menu-city[data-city="emptyville"] .rm-board').click()); await W(400);
       const y9 = await slipNow();
       ok('Y9 an empty city: a tap on its REMOVE board removes it at once -- no picker; the menu closes; the slip "Emptyville removed" with no second line, and Undo', y9.shown && y9.l1 === 'Emptyville removed' && !y9.l2 && y9.undo === 'Undo' && !y9.pick && y9.menu && !y9.city, y9);
-      await ev(() => document.querySelector('#planSlip button').click()); await W(600);
+      await ev(() => document.querySelector('#cityBanner button').click()); await W(600);
       ok('Y9b Undo puts the empty city back (nothing was written)', await ev(() => !!CITIES.emptyville && !pendingRemoval && !window.__del.length));
       await emptyMenu();
       await ev(() => document.querySelector('#titleMenu .menu-city[data-city="emptyville"] .menu-row').focus()); await page.keyboard.press('Shift+Delete'); await W(400);
       const y9c = await slipNow();
       ok('Y9c Shift+Delete on an empty city: removed at once (no picker), focus on the slip\'s Undo', y9c.shown && y9c.l1 === 'Emptyville removed' && !y9c.pick && !y9c.city && y9c.focusUndo, y9c);
-      await ev(() => document.querySelector('#planSlip button').click()); await W(600);
+      await ev(() => document.querySelector('#cityBanner button').click()); await W(600);
       await emptyMenu();
       await ev(() => document.querySelector('#titleMenu .menu-city[data-city="emptyville"] .rm-sr').click()); await W(400);
       const y9d = await slipNow();
       ok('Y9d VoiceOver\'s "Remove Emptyville" action: removed at once (no picker)', y9d.shown && y9d.l1 === 'Emptyville removed' && !y9d.pick && !y9d.city, y9d);
-      await ev(() => document.querySelector('#planSlip button').click()); await W(600);
+      await ev(() => document.querySelector('#cityBanner button').click()); await W(600);
       await ev(() => { currentUser = null; }); await emptyMenu();
       const y9e = await ev(() => document.querySelector('#titleMenu .menu-city[data-city="emptyville"] .rm-board').textContent);
       await ev(() => document.querySelector('#titleMenu .menu-city[data-city="emptyville"] .rm-board').click()); await W(400);
       ok('Y9e signed out, an empty city\'s board still reads SIGN IN: a tap asks you to sign in and removes nothing', y9e === 'Sign in' && await ev(() => document.getElementById('authModal').classList.contains('show') && !!CITIES.emptyville && !pendingRemoval));
       await ev(() => { document.getElementById('authModal').classList.remove('show'); currentUser = { email: 'adamtrabold@gmail.com' }; });
     } else {
-      ok('Y10 375x667: the new-city line and the whole foot (Remove places too, Cancel) are on screen', y.onScreen, y);
+      ok('Y10 375x667: the whole foot (Delete places, Cancel) is on screen; "New city" waits at the list\'s end', y.onScreen && y.ncLast, y);
     }
+    await page.context().close();
+  }
+
+  // B. the city-removed banner (v15 / v15b) and the top row's one top line (owner: "I do think the badge
+  // top edge and the zoom top edge should Be aligned and there should be a little more at our standard
+  // multiple of space between the banner and those items")
+  {
+    const tops = () => ev(() => { const z = document.querySelector('.leaflet-control-zoom').getBoundingClientRect(), a = document.getElementById('accountBtn').getBoundingClientRect();
+      return { zoom: z.top, ink: a.top + a.height * 3.90 / 50, zl: z.left }; });
+    o = await L.open(b, { file, w: 390, h: 844, storage: { 'triplet.hiddenCities': '[]' } }); page = o.page;
+    await ev(() => setActiveCity(ALL_CITIES, { frame: false })); await W(400);
+    const t0 = await tops(), safe0 = await ev(() => badgeSafeRect().top), ceil0 = await ev(() => topRowBottom());
+    ok('B1 at rest, the zoom control\'s top and the account badge\'s visible top (its scallop\'s ink, not its box) are on one line', Math.abs(t0.zoom - t0.ink) < 0.5 && Math.abs(t0.zoom - 10) < 0.5, t0);
+    await ev(() => { rmCommit('copenhagen', 'malmo'); }); await W(60);
+    const mid = await ev(() => { const c = getComputedStyle(document.querySelector('.leaflet-top')), a = getComputedStyle(document.getElementById('accountBtn'));
+      return { cls: document.body.className, lt: [c.transitionDuration, c.transitionTimingFunction], at: [a.transitionDuration, a.transitionTimingFunction] }; });
+    await W(900);
+    const bn = await ev(() => { const s = document.getElementById('cityBanner'), r = s.getBoundingClientRect(), cs = getComputedStyle(s);
+      return { top: r.top, h: r.height, left: r.left, right: innerWidth - r.right, bg: cs.backgroundColor, border: [cs.borderTopWidth, cs.borderTopColor], shadow: cs.boxShadow, role: s.getAttribute('role'), live: s.getAttribute('aria-live'), bottom: r.bottom,
+        ad: (() => { const e = document.getElementById('accountDropdown'); e.style.display = 'flex'; e.style.transition = 'none'; const v = new DOMMatrix(getComputedStyle(e).transform).m42; e.style.display = ''; e.style.transition = ''; return v; })(),
+        af: (() => { const e = document.getElementById('accountFocus'); e.style.display = 'block'; e.style.transition = 'none'; const v = new DOMMatrix(getComputedStyle(e).transform).m42; e.style.display = ''; e.style.transition = ''; return v; })() }; });
+    ok('B2 phone: the banner takes the very top -- on the top line (10px), in the 16px gutters, 52px tall, the menu box\'s voice (--paper-raised, 1px navy edge, the 4px navy printed offset); role status, polite', Math.abs(bn.top - 10) < 0.5 && Math.abs(bn.h - 52) < 0.5 && Math.abs(bn.left - 16) < 0.5 && Math.abs(bn.right - 16) < 0.5 && bn.bg === 'rgb(250, 245, 234)' && bn.border[0] === '1px' && bn.border[1] === 'rgb(18, 41, 63)' && /rgb\(18, 41, 63\) 4px 4px 0px/.test(bn.shadow) && bn.role === 'status' && bn.live === 'polite', bn);
+    const t1 = await tops(), safe1 = await ev(() => badgeSafeRect().top), ceil1 = await ev(() => topRowBottom());
+    ok('B3 the push: the zoom control and the account badge (its focus ring and menu with it) ride down 68px (52 + --s4), their tops still on one line, 16px under the banner', Math.abs(t1.zoom - t0.zoom - 68) < 0.5 && Math.abs(t1.ink - t1.zoom) < 0.5 && Math.abs(t1.zoom - bn.bottom - 16) < 0.5 && bn.ad === 68 && bn.af === 68 && t1.zl === t0.zl, { t0, t1, bn });
+    ok('B3b in: 140ms on the banner\'s curve (cubic-bezier(.2,.8,.3,1)), a transform (no reflow)', /banner-in/.test(mid.cls) && mid.lt[0] === '0.14s' && mid.lt[1] === 'cubic-bezier(0.2, 0.8, 0.3, 1)' && /0\.14s/.test(mid.at[0]) && /cubic-bezier\(0\.2, 0\.8, 0\.3, 1\)/.test(mid.at[1]), mid);
+    ok('B3c the collisions: the top row\'s foot (the ceiling for menus, the add tag\'s dock, the filters panel) and the signposts\' clear area move down with it', Math.abs(ceil1 - ceil0 - 68) < 0.5 && Math.abs(safe1 - safe0 - 68) < 0.5, { ceil0, ceil1, safe0, safe1 });
+    // held while hovered; then 6s
+    await ev(() => document.getElementById('cityBanner').dispatchEvent(new PointerEvent('pointerenter', { pointerType: 'mouse' }))); await W(6600);
+    const held = await ev(() => !document.getElementById('cityBanner').hidden);
+    await ev(() => document.getElementById('cityBanner').dispatchEvent(new PointerEvent('pointerleave', { pointerType: 'mouse' }))); await W(5800);
+    const still = await ev(() => !document.getElementById('cityBanner').hidden);
+    await W(400);
+    const out = await ev(() => ({ leaving: document.getElementById('cityBanner').classList.contains('leaving'), hidden: document.getElementById('cityBanner').hidden, cls: document.body.className, lt: getComputedStyle(document.querySelector('.leaflet-top')).transitionTimingFunction }));
+    await W(600);
+    const t2 = await tops();
+    ok('B4 6s, held while hovered (a full 6s again after); then it fades (160ms) and the controls ride back (ease-out) to the line', held && still && (out.leaving || out.hidden) && Math.abs(t2.zoom - t0.zoom) < 0.5 && Math.abs(t2.ink - t0.ink) < 0.5 && await ev(() => document.getElementById('cityBanner').hidden && !/banner-/.test(document.body.className)), { held, still, out, t2 });
+    // + while the banner shows: it leaves at once, the controls go back, then the add tag opens
+    await ev(() => { rmCommit('stockholm', 'malmo'); }); await W(1000);
+    await ev(() => { const f = window.openAddForm; window.__atOpen = null; window.openAddForm = function () { const bn = document.getElementById('cityBanner'); window.__atOpen = { bannerGone: bn.hidden, push: document.body.classList.contains('banner-push'), moving: /banner-(in|out)/.test(document.body.className) }; return f.apply(this, arguments); }; });
+    const up0 = await ev(() => cityBannerUp());
+    await P.tap(page, '#floatingAddBtn'); await W(900);
+    const plus1 = await ev(() => ({ at: window.__atOpen, open: addFormOpen(), hidden: document.getElementById('cityBanner').hidden }));
+    ok('B5 + while the banner shows: the banner leaves at once, the controls ride back, THEN the add tag opens (never under the banner)', up0 && plus1.at && plus1.at.bannerGone && !plus1.at.push && plus1.open && plus1.hidden, plus1);
+    ok('B6 no page errors', o.errors.length === 0, o.errors);
+    await page.context().close();
+    // desktop: over the map only, 420 wide, centred, 16px below its top; nothing moves
+    o = await L.open(b, { file, w: 1280, h: 800, touch: false, storage: { 'triplet.hiddenCities': '[]' } }); page = o.page;
+    await ev(() => setActiveCity(ALL_CITIES, { frame: false })); await W(400);
+    const d0 = await tops();
+    ok('B7 desktop at rest: the zoom control\'s top and the account badge\'s ink on one line', Math.abs(d0.zoom - d0.ink) < 0.5, d0);
+    await ev(() => { rmCommit('copenhagen', 'malmo'); }); await W(900);
+    const dk = await ev(() => { const r = document.getElementById('cityBanner').getBoundingClientRect(), m = map.getContainer().getBoundingClientRect(); return { w: r.width, cx: r.left + r.width / 2 - (m.left + m.width / 2), top: r.top - m.top, overList: r.left < m.left, push: document.body.classList.contains('banner-push') }; });
+    const d1 = await tops();
+    ok('B8 desktop: the banner over the map only -- 420px, centred on it, 16px below its top; no push, the controls unmoved', Math.abs(dk.w - 420) < 0.5 && Math.abs(dk.cx) < 0.5 && Math.abs(dk.top - 16) < 0.5 && !dk.overList && !dk.push && Math.abs(d1.zoom - d0.zoom) < 0.5 && Math.abs(d1.ink - d0.ink) < 0.5, { dk, d0, d1 });
+    await page.context().close();
+    // reduced motion: the controls jump; no slide, no fade
+    o = await L.open(b, { file, w: 375, h: 667, reduced: true, storage: { 'triplet.hiddenCities': '[]' } }); page = o.page;
+    await ev(() => setActiveCity(ALL_CITIES, { frame: false })); await W(400);
+    await ev(() => { rmCommit('copenhagen', 'malmo'); }); await W(30);
+    const rm = await ev(() => ({ lt: getComputedStyle(document.querySelector('.leaflet-top')).transitionDuration, at: getComputedStyle(document.getElementById('accountBtn')).transitionDuration, anim: getComputedStyle(document.getElementById('cityBanner')).animationName }));
+    await ev(() => hideCityBanner());
+    const rh = await ev(() => document.getElementById('cityBanner').hidden);
+    ok('B9 reduced motion: the controls jump (no transition), the banner neither slides nor fades', rm.lt === '0s' && /, 0s$/.test(rm.at) && rm.anim === 'none' && rh, { rm, rh });
     await page.context().close();
   }
 
