@@ -2,6 +2,49 @@
 
 Product designer (visual), 2026-11-06. **Round 3** (after the director's round-2 score, fc3fd8fc) is the section just below; round 2's notes follow it and still describe the drawing moves.
 
+## Round 4: options after the owner's notes (2026-11-07)
+
+These are drawings only and the system is untouched. The options are variants in `src/r4.js` (keys `<icon>@r4-*`); nothing in `18/` changes until he picks. The still is `src/r4stills.js`, saved as scratchpad `b2-r4.png`; it shows the options at 18 in their badges beside the five, at 12 bare (the 18 drawing scaled; a drawn 12 follows his pick), and at 6x. Bed and picnic table are unchanged.
+
+**Draws** (a real random pick of an Oblique Strategy, a field to borrow from, and a number):
+
+| Icon | Strategy | Field |
+|---|---|---|
+| Camera | Look at the order in which you do things | road signs |
+| Curtain | Use fewer notes | circus posters |
+| Houses | Turn it upside down | stamps |
+| Bag | Discard an axiom | origami |
+| Wheel | Infinitesimal gradations | typography |
+| Walker | Use an old idea | typography |
+
+**The options:**
+
+- **Camera** (vintage, built round the lens first): A, a rangefinder with two knobs and two windows. B, a twin-lens box with a hood. C, a film SLR with a centred prism and two knobs.
+- **Curtain** (from circus posters): A, a swagged valance over tied drapes. B, pleats cut into the drapes, with the rail on round finials. C, swags and pleats together. A single swept drape (from "fewer notes") read as a boot, so I dropped it.
+- **Houses** (one house):
+  - A: the house left of centre, with a picket fence running off to its right.
+  - B: a big house with a chimney and an off-centre door; clearest at 12.
+  - C: a house behind a low fence across its front.
+  - A fence on both sides read as "H H", so I dropped it.
+- **Bag** (the og cues: a body wider at its top and a narrow U handle whose straight legs run into the bag): A, the og U. B, the 2026 concept's square handle. C, the U with small folds cut at the top corners.
+- **Walker:** A, square-cut (the 1972 Munich figures: an upright torso, arms at 45, legs at 30). B, flared limbs, thick at the joint and thin at hand and foot, with the front knee bent. C, a bigger head and a short, brisk stride.
+
+### What makes a Ferris wheel read at 18
+
+- **Necessary:**
+  - A big round rim.
+  - The A-frame legs to the ground, standing **behind** the wheel. Drawn through the rim, they read as Ⓐ.
+  - Something radial inside the rim that isn't a cross: fine spokes. Four crossed spokes read as "no", and upright as a crosshair.
+- **Nice to have:** cabins hung outside the rim (the strongest "ride" cue, but small); a hub; a footing.
+- **Not needed:** the exact cabin count, lights, cross-bracing, a platform or stairs.
+- **Options:**
+  - A: fine spokes only (6 at 2/3px).
+  - B: fine spokes plus six hung cabins.
+  - C: hung cabins only, with a hub.
+  - Both current wheels (crossed and upright) are on the sheet for comparison.
+  - Eight cabins sat on the rim read as a gear, so I dropped them.
+  - **A and B break the system's spoke floor on purpose** (2/3 px is under 1¼). They are shown because the owner asked what reads.
+
 ## Round 3b (after 312e4f90: camera, curtain, bed, houses and picnic table at 9)
 
 - **Walker:** the back arm now starts inside the shoulder at the front arm's point, at the same length (3.6), swung back. There's no cut.
