@@ -1961,3 +1961,35 @@ The verdict stands within our own set:
 1. **Walker:** the back arm starts inside the shoulder's half round as the front one does (a cut only along its length, never at its root), the same length as the front arm, and swung no higher than the front arm's angle. It must read as a swing, not a held object.
 2. **Bag:** a taller-handle draft for the owner's question (above); no further work inside the current limit.
 3. **Wheel:** waits for his subject ruling.
+
+## Batch 2: round 4 options (50b3f1fc), 2026-11-07: what goes in front of him
+
+**Rendered myself:** each option at 18 in its ring or diamond at 3x and 2x beside the five, bare at 12 (scaled 18s, so 12 is indicative only), and 6x mono (scratchpad `ddhd/r4/`, script `ddhd/r4.js`). Craft first, then his ask for each.
+
+| Icon | Option | Score | Note |
+|---|---|---|---|
+| Camera | **A rangefinder** | **9** | Vintage at a glance: two knobs, two windows, lens off-centre. Answers "not digital". |
+| | B twin-lens box | 7 | At 18 a speaker or a radio. |
+| | C film SLR | 8 | Clean, but the centred prism is the stock camera glyph again. |
+| Curtain | **A swagged valance** | **9** | The swags make it a theatre curtain, not a window; quiet at 18. |
+| | B pleats, finials | 7 | Rod and finials say a home window; the pleat cuts go to noise at 2x. |
+| | C swags and pleats | 7 | Too busy at 18. |
+| Houses | **B chimney** | **9** | Clearest at 18 and 12. Risk to name to him: one house with a chimney is close to the Home button. |
+| | **A fence to one side** | **8** | The best answer to his "picket fence", but the pickets fuzz at 2x and at 12. Fix: three pickets at the part width with cuts of 1 (fewer, taller), so it holds at 12. A 9 after that; then show both. |
+| | C fence in front | 6 | Chimney and fence together: lumpy at 18, mush at 12. |
+| Bag | **A the og U** | **9** | Tapered body, U legs running into the bag: a shopping bag, not a kettlebell or a purse. |
+| | B square handle | 7 | A paint bucket or a toolbox. |
+| | C U and folds | 7 | The folds read as ears, so it edges back toward a lock. |
+| Wheel | **B fine spokes, hung cabins** | **9 read, 8 craft** | The only one that says Ferris wheel at a glance; the spokes go grey at 2x. |
+| | C hung cabins only | 8 | Within the rules, but rim plus hub reads as an eye or a clock at 2x. |
+| | A fine spokes only | 7 | A ship's or spinning wheel on a stand. |
+| | crossed / upright | 5 | "No" and a crosshair (as before). |
+| Walker | **A square-cut** | **9** | The Munich-sign figure: upright, crisp, not kludgy. Plain like a sign. |
+| | B flared limbs | 8 | More personality, but the flared hands and feet blob at 2x. Fix: thin the flare to end at the part width. |
+| | C big head, short stride | 7 | Cartoonish; a cheeky signature. |
+
+**Put in front of him:** camera A, curtain A, houses B (plus A once its pickets are fixed), bag A, wheel B (with C beside it), walker A (plus B once fixed).
+
+**The wheel's spoke break is a question for him.** B's ⅔px spokes break the system's 1¼ minimum, and a system change is his call. Ask it plainly: "the wheel that reads best has hairline spokes, thinner than any other line in the set; OK to allow that for this one, or the cabins-only wheel (C) that keeps the rule?"
+
+**Before anything lands:** draw the real 12s for the picks. The houses' fence and the wheel's cabins are the parts at risk there.
